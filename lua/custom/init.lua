@@ -45,6 +45,15 @@ hooks.add("install_plugins", function(use)
       require("custom.plugin_confs.null-ls").setup()
     end,
   }
+
+  use {
+    "dsznajder/vscode-es7-javascript-react-snippets",
+    event = "InsertEnter",
+  }
+
+  use 'folke/todo-comments.nvim'
+
+  use 'dstein64/nvim-scrollview'
 end)
 
 -- alternatively, put this in a sub-folder like "lua/custom/plugins/mkdir"
