@@ -25,6 +25,12 @@ local hooks = require "core.hooks"
 --    map("n", "<leader>cc", "gg0vG$d", opt) -- example to delete the buffer
 --    .... many more mappings ....
 -- end)
+hooks.add("setup_mappings", function(map)
+   local opts = { noremap = true, silent = true }
+
+   -- for null-ls
+   map("n", "<space>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+end)
 
 -- To add new plugins, use the "install_plugin" hook,
 -- NOTE: we heavily suggest using Packer's lazy loading (with the 'event' field)
@@ -38,22 +44,29 @@ local hooks = require "core.hooks"
 --    }
 -- end)
 hooks.add("install_plugins", function(use)
-  use {
-    "jose-elias-alvarez/null-ls.nvim",
-    after = "nvim-lspconfig",
-    config = function()
-      require("custom.plugin_confs.null-ls").setup()
-    end,
-  }
+   use {
+      "tversteeg/registers.nvim",
+      config = function()
+         -- TODO: update bg here?
+      end,
+   }
 
-  use {
-    "dsznajder/vscode-es7-javascript-react-snippets",
-    event = "InsertEnter",
-  }
+   use {
+      "jose-elias-alvarez/null-ls.nvim",
+      after = "nvim-lspconfig",
+      config = function()
+         require("custom.plugin_confs.null-ls").setup()
+      end,
+   }
 
-  use 'folke/todo-comments.nvim'
+   use {
+      "dsznajder/vscode-es7-javascript-react-snippets",
+      event = "InsertEnter",
+   }
 
-  use 'dstein64/nvim-scrollview'
+   use "folke/todo-comments.nvim"
+
+   use "dstein64/nvim-scrollview"
 end)
 
 -- alternatively, put this in a sub-folder like "lua/custom/plugins/mkdir"
