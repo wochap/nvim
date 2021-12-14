@@ -64,9 +64,22 @@ hooks.add("install_plugins", function(use)
       event = "InsertEnter",
    }
 
-   use "folke/todo-comments.nvim"
+   use {
+      "folke/todo-comments.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+         require("custom.plugin_confs.todo-comments").setup {}
+      end
+   }
 
-   use "dstein64/nvim-scrollview"
+   use {
+      "sindrets/diffview.nvim",
+      requires = 'nvim-lua/plenary.nvim',
+   }
+
+   use 'ThePrimeagen/vim-be-good'
+
+   -- use "dstein64/nvim-scrollview"
 end)
 
 -- alternatively, put this in a sub-folder like "lua/custom/plugins/mkdir"
