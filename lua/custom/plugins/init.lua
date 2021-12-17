@@ -43,6 +43,9 @@ hooks.add("install_plugins", function(use)
    use {
       "sindrets/diffview.nvim",
       requires = 'nvim-lua/plenary.nvim',
+      config = function()
+         require("custom.plugins.confs.diffview").setup()
+      end
    }
 
    use 'ThePrimeagen/vim-be-good'

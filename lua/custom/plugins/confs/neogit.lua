@@ -10,6 +10,11 @@ M.setup = function(on_attach)
     integrations = {
       diffview = true,
     },
+    signs = {
+      section = { "", "" },
+      item = { "", "" },
+      hunk = { "", "" },
+    },
   }
 end
 
