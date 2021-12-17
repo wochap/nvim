@@ -22,10 +22,15 @@ M.mappings = {
 
 M.options = {
    relativenumber = true,
+   fillchars = {
+      eob = " ",
+      diff = "╱"
+   },
 }
 
 M.ui = {
-   theme = "onedark",
+   theme = "tokyonight",
+   hl_override = "custom.colors.highlights",
 }
 
 -- NvChad included plugin options & overrides
@@ -42,6 +47,10 @@ M.plugins = {
       lspconfig = {
          setup_lspconf = "custom.plugins.confs.lspconfig",
       },
+      statusline = {
+         shortline = false,
+         style = "block",
+      },
    },
    -- To change the Packer `config` of a plugin that comes with NvChad,
    -- add a table entry below matching the plugin github name
@@ -51,6 +60,7 @@ M.plugins = {
    --              use "custom.blankline" to call a file
    default_plugin_config_replace = {
       nvim_treesitter = "custom.plugins.confs.treesitter",
+      gitsigns = "custom.plugins.confs.gitsigns",
    },
 }
 

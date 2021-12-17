@@ -57,5 +57,7 @@ hooks.add("install_plugins", function(use)
 
    use 'ThePrimeagen/vim-be-good'
 
+   use 'folke/tokyonight.nvim'
+
    -- use "dstein64/nvim-scrollview"
 end)
