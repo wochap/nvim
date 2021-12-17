@@ -1,12 +1,12 @@
 local hooks = require "core.hooks"
 
 hooks.add("install_plugins", function(use)
-   use {
-      "tversteeg/registers.nvim",
-      config = function()
-         -- TODO: update bg here?
-      end,
-   }
+   -- use {
+   --    "tversteeg/registers.nvim",
+   --    config = function()
+   --       -- TODO: update bg here?
+   --    end,
+   -- }
 
    use {
       "jose-elias-alvarez/null-ls.nvim",
@@ -45,6 +45,13 @@ hooks.add("install_plugins", function(use)
       requires = 'nvim-lua/plenary.nvim',
       config = function()
          require("custom.plugins.confs.diffview").setup()
+      end
+   }
+
+   use {
+      "folke/which-key.nvim",
+      config = function()
+         require("custom.plugins.confs.which-key").setup()
       end
    }
 
