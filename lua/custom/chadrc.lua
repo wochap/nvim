@@ -40,7 +40,7 @@ M.plugins = {
          enable_git = 1,
       },
       lspconfig = {
-         setup_lspconf = "custom.plugins.lspconfig",
+         setup_lspconf = "custom.plugins.confs.lspconfig",
       },
    },
    -- To change the Packer `config` of a plugin that comes with NvChad,
