@@ -11,21 +11,30 @@ local M = {}
 -- To use this file, copy the structure of `core/default_config.lua`,
 -- examples of setting relative number & changing theme:
 
+M.mappings = {
+   window_nav = {
+      moveLeft = "<C-Left>",
+      moveRight = "<C-Right>",
+      moveUp = "<C-Up>",
+      moveDown = "<C-Down>",
+   },
+}
+
 M.options = {
    relativenumber = true,
 }
 
 M.ui = {
-  theme = "onedark"
+   theme = "onedark",
 }
 
 -- NvChad included plugin options & overrides
 M.plugins = {
    status = {
-      dashboard = true;
-      colorizer = true;
-      telescope_media = true;
-   };
+      dashboard = true,
+      colorizer = true,
+      telescope_media = true,
+   },
    options = {
       nvimtree = {
          enable_git = 1,
@@ -40,7 +49,9 @@ M.plugins = {
    -- this string will be called in a `require`
    --              use "(custom.configs).my_func()" to call a function
    --              use "custom.blankline" to call a file
-   default_plugin_config_replace = {},
+   default_plugin_config_replace = {
+      nvim_treesitter = "custom.plugins.confs.treesitter",
+   },
 }
 
 return M

@@ -3,7 +3,7 @@ local M = {}
 M.setup_lsp = function(attach, capabilities)
   local lspconfig = require "lspconfig"
   -- TODO: add clangd vimls pyls_ms jsonls?
-  local servers = { "html", "cssls", "emmet_ls", "jsonls", "svelte", "tailwindcss" }
+  local servers = { "html", "cssls", "emmet_ls", "jsonls", "svelte", "tailwindcss", "bashls" }
 
   -- html, css
   for _, lsp in ipairs(servers) do
@@ -25,6 +25,12 @@ M.setup_lsp = function(attach, capabilities)
       client.resolved_capabilities.document_formatting = false
       client.resolved_capabilities.document_range_formatting = false
     end,
+  }
+
+  -- lua
+  lspconfig.sumneko_lua.setup {
+    on_attach = attach,
+    capabilities = capabilities,
   }
 end
 

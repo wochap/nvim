@@ -68,9 +68,20 @@ hooks.add("install_plugins", function(use)
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
       config = function()
-         require("custom.plugin_confs.todo-comments").setup {}
+         require("custom.plugin_confs.todo-comments").setup()
       end
    }
+
+   use { 
+      'TimUntersberger/neogit', 
+      requires = { 
+        'nvim-lua/plenary.nvim',
+        'sindrets/diffview.nvim',
+      },
+      config = function()
+         require("custom.plugin_confs.neogit").setup()
+      end
+    }
 
    use {
       "sindrets/diffview.nvim",
