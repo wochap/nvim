@@ -25,15 +25,48 @@ local one_bg3 = colors.one_bg3
 local fg = require("core.utils").fg
 local fg_bg = require("core.utils").fg_bg
 local bg = require("core.utils").bg
+local function highlight(group, guifg, guibg, attr, guisp)
+  local parts = { group }
+  if guifg then
+     table.insert(parts, "guifg=#" .. guifg)
+  end
+  if guibg then
+     table.insert(parts, "guibg=#" .. guibg)
+  end
+  if attr then
+     table.insert(parts, "gui=" .. attr)
+  end
+  if guisp then
+     table.insert(parts, "guisp=#" .. guisp)
+  end
+
+  -- nvim.ex.highlight(parts)
+  vim.api.nvim_command("highlight " .. table.concat(parts, " "))
+end
 
 -- Registers
 bg("RegistersWindow", one_bg)
 
 -- Git signs
-fg_bg("DiffAdd", green, "NONE")
-fg_bg("DiffChange", yellow, "NONE")
-fg_bg("DiffChangeDelete", red, "NONE")
-fg_bg("DiffModified", red, "NONE")
-fg_bg("DiffDelete", red, "NONE")
+-- fg_bg("DiffAdd", green, "NONE")
+-- fg_bg("DiffChange", yellow, "NONE")
+-- fg_bg("DiffChangeDelete", red, "NONE")
+-- fg_bg("DiffModified", red, "NONE")
+-- fg_bg("DiffDelete", red, "NONE")
+
+-- Diff highlighting
+-- highlight("DiffAdd", theme.base0B, theme.base01, nil, nil)
+-- highlight("DiffChange", theme.base03, theme.base01, nil, nil)
+-- highlight("DiffDelete", theme.base08, theme.base01, nil, nil)
+-- highlight("DiffText", theme.base0D, theme.base01, nil, nil)
+-- highlight("DiffAdded", theme.base0B, theme.base00, nil, nil)
+-- highlight("DiffFile", theme.base08, theme.base00, nil, nil)
+-- highlight("DiffNewFile", theme.base0B, theme.base00, nil, nil)
+-- highlight("DiffLine", theme.base0D, theme.base00, nil, nil)
+-- highlight("DiffRemoved", theme.base08, theme.base00, nil, nil)
+
+vim.cmd("hi! link diffAdded DiffAdd")
+vim.cmd("hi! link diffChanged DiffChange")
+vim.cmd("hi! link diffRemoved DiffDelete")
 
 -- TODO: fix diff colors

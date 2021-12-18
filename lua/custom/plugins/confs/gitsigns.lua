@@ -13,10 +13,10 @@ gitsigns.setup {
         hl = 'DiffChange', text = '▍', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'
       },
       delete = {
-        hl = 'DiffDelete', text = '▍', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'
+        hl = 'DiffDelete', text = '', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'
       },
       changedelete = {
-        hl = 'DiffChangeDelete', text = '▍', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'
+        hl = 'DiffChangeDelete', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'
       },
       topdelete = {
         hl = 'DiffDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'

@@ -49,4 +49,5 @@ end)
 
 -- require "custom.plugins.mkdir"
 
+require "custom.globals"
 require "custom.plugins"

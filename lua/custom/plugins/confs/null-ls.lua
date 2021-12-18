@@ -14,7 +14,7 @@ local sources = {
   -- b.diagnostics.stylelint
   
   -- JS TS Vue
-  b.diagnostics.eslint_d,
+  -- b.diagnostics.eslint_d,
   
   -- Python
   b.diagnostics.pylint,

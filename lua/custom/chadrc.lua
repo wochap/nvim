@@ -38,7 +38,6 @@ M.plugins = {
    status = {
       dashboard = true,
       colorizer = true,
-      telescope_media = true,
    },
    options = {
       nvimtree = {

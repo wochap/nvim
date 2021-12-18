@@ -1,13 +1,6 @@
 local hooks = require "core.hooks"
 
 hooks.add("install_plugins", function(use)
-   -- use {
-   --    "tversteeg/registers.nvim",
-   --    config = function()
-   --       -- TODO: update bg here?
-   --    end,
-   -- }
-
    use {
       "jose-elias-alvarez/null-ls.nvim",
       after = "nvim-lspconfig",
@@ -30,10 +23,10 @@ hooks.add("install_plugins", function(use)
    }
 
    use { 
-      'TimUntersberger/neogit', 
+      "TimUntersberger/neogit", 
       requires = { 
-        'nvim-lua/plenary.nvim',
-        'sindrets/diffview.nvim',
+        "nvim-lua/plenary.nvim",
+        "sindrets/diffview.nvim",
       },
       config = function()
          require("custom.plugins.confs.neogit").setup()
@@ -42,7 +35,7 @@ hooks.add("install_plugins", function(use)
 
    use {
       "sindrets/diffview.nvim",
-      requires = 'nvim-lua/plenary.nvim',
+      requires = "nvim-lua/plenary.nvim",
       config = function()
          require("custom.plugins.confs.diffview").setup()
       end
@@ -55,9 +48,21 @@ hooks.add("install_plugins", function(use)
       end
    }
 
-   use 'ThePrimeagen/vim-be-good'
+   use {
+      "windwp/nvim-ts-autotag",
+      after = "nvim-treesitter",
+      config = function()
+         require("nvim-ts-autotag").setup()
+      end,
+   }
 
-   use 'folke/tokyonight.nvim'
+   use "ThePrimeagen/vim-be-good"
+
+   use "nathom/filetype.nvim"
+
+   -- use "folke/tokyonight.nvim"
 
    -- use "dstein64/nvim-scrollview"
+
+   -- use "tversteeg/registers.nvim"
 end)
