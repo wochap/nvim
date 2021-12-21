@@ -60,6 +60,8 @@ M.plugins = {
    default_plugin_config_replace = {
       nvim_treesitter = "custom.plugins.configs.treesitter",
       gitsigns = "custom.plugins.configs.gitsigns",
+      nvim_cmp = "custom.plugins.configs.cmp",
+      nvim_comment = "custom.plugins.configs.nvim-comment",
    },
 }
 

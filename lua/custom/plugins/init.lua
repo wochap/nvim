@@ -65,6 +65,8 @@ hooks.add("install_plugins", function(use)
 
    use "nathom/filetype.nvim"
 
+   use "JoosepAlviste/nvim-ts-context-commentstring"
+
    -- use "folke/tokyonight.nvim"
 
    -- use "dstein64/nvim-scrollview"
