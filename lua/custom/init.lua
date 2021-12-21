@@ -30,6 +30,13 @@ hooks.add("setup_mappings", function(map)
 
    -- for null-ls
    map("n", "<space>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+   -- Stay in indent mode
+   map("v", "<", "<gv", opts)
+   map("v", ">", ">gv", opts)
+   
+   -- Sort multiples lines with F9
+   map("v", "<F9>", ":'<,'>sort<CR>", opts)
 end)
 
 -- To add new plugins, use the "install_plugin" hook,
