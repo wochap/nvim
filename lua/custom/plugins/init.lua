@@ -5,7 +5,7 @@ hooks.add("install_plugins", function(use)
       "jose-elias-alvarez/null-ls.nvim",
       after = "nvim-lspconfig",
       config = function()
-         require("custom.plugins.confs.null-ls").setup()
+         require("custom.plugins.configs.null-ls").setup()
       end,
    }
 
@@ -18,7 +18,7 @@ hooks.add("install_plugins", function(use)
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
       config = function()
-         require("custom.plugins.confs.todo-comments").setup()
+         require("custom.plugins.configs.todo-comments").setup()
       end
    }
 
@@ -29,7 +29,7 @@ hooks.add("install_plugins", function(use)
         "sindrets/diffview.nvim",
       },
       config = function()
-         require("custom.plugins.confs.neogit").setup()
+         require("custom.plugins.configs.neogit").setup()
       end
     }
 
@@ -37,14 +37,14 @@ hooks.add("install_plugins", function(use)
       "sindrets/diffview.nvim",
       requires = "nvim-lua/plenary.nvim",
       config = function()
-         require("custom.plugins.confs.diffview").setup()
+         require("custom.plugins.configs.diffview").setup()
       end
    }
 
    use {
       "folke/which-key.nvim",
       config = function()
-         require("custom.plugins.confs.which-key").setup()
+         require("custom.plugins.configs.which-key").setup()
       end
    }
 
@@ -54,6 +54,11 @@ hooks.add("install_plugins", function(use)
       config = function()
          require("nvim-ts-autotag").setup()
       end,
+   }
+
+   use {
+      "hrsh7th/cmp-cmdline",
+      after = "cmp-buffer",
    }
 
    use "ThePrimeagen/vim-be-good"

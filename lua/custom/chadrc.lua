@@ -44,7 +44,7 @@ M.plugins = {
          enable_git = 1,
       },
       lspconfig = {
-         setup_lspconf = "custom.plugins.confs.lspconfig",
+         setup_lspconf = "custom.plugins.configs.lspconfig",
       },
       statusline = {
          shortline = false,
@@ -58,8 +58,8 @@ M.plugins = {
    --              use "(custom.configs).my_func()" to call a function
    --              use "custom.blankline" to call a file
    default_plugin_config_replace = {
-      nvim_treesitter = "custom.plugins.confs.treesitter",
-      gitsigns = "custom.plugins.confs.gitsigns",
+      nvim_treesitter = "custom.plugins.configs.treesitter",
+      gitsigns = "custom.plugins.configs.gitsigns",
    },
 }
 
