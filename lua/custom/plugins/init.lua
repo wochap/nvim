@@ -51,9 +51,6 @@ hooks.add("install_plugins", function(use)
    use {
       "windwp/nvim-ts-autotag",
       after = "nvim-treesitter",
-      config = function()
-         require("nvim-ts-autotag").setup()
-      end,
    }
 
    use {
@@ -65,7 +62,10 @@ hooks.add("install_plugins", function(use)
 
    use "nathom/filetype.nvim"
 
-   use "JoosepAlviste/nvim-ts-context-commentstring"
+   use {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      after = "nvim-treesitter",
+   }
 
    -- use "folke/tokyonight.nvim"
 

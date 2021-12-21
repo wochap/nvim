@@ -5,6 +5,9 @@ if not present then
 end
 
 ts_config.setup {
+   autotag = {
+      enable = true,
+   },
    context_commentstring = {
       enable = true,
       enable_autocmd = false,
