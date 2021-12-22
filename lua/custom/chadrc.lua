@@ -43,6 +43,9 @@ M.plugins = {
    options = {
       nvimtree = {
          enable_git = 1,
+         ui = {
+            hide_root_folder = false,
+         },
       },
       lspconfig = {
          setup_lspconf = "custom.plugins.configs.lspconfig",
