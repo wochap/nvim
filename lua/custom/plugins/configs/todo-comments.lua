@@ -7,7 +7,9 @@ end
 local M = {}
 
 M.setup = function(on_attach)
-  todo_comments.setup {}
+  todo_comments.setup {
+    signs = false,
+  }
 end
 
 return M
