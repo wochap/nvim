@@ -52,7 +52,7 @@ M.plugins = {
       },
       statusline = {
          shortline = false,
-         style = "block",
+         style = "default",
       },
    },
    -- To change the Packer `config` of a plugin that comes with NvChad,
