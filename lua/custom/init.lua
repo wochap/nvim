@@ -28,8 +28,12 @@ local hooks = require "core.hooks"
 hooks.add("setup_mappings", function(map)
    local opts = { noremap = true, silent = true }
 
-   -- for null-ls
-   map("n", "<space>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+   -- Git
+   map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opts)
+   map("n", "<leader>gg", "<cmd>Neogit<CR>", opts)
+
+   -- For null-ls
+   map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
    -- Stay in indent mode
    map("v", "<", "<gv", opts)

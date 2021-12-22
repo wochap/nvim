@@ -30,12 +30,13 @@ M.options = {
 
 M.ui = {
    theme = "tokyonight",
-   hl_override = "custom.colors.highlights",
+   hl_override = "custom.colors",
 }
 
 -- NvChad included plugin options & overrides
 M.plugins = {
    status = {
+      -- feline = false,
       dashboard = true,
       colorizer = true,
    },
