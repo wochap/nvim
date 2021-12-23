@@ -29,11 +29,9 @@ hooks.add("setup_mappings", function(map)
    local opts = { noremap = true, silent = true }
 
    -- Git
+   map("n", "<leader>gb", "<cmd>lua require'custom.utils.telescope'.branches()<CR>")
    map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opts)
    map("n", "<leader>gg", "<cmd>Neogit<CR>", opts)
-
-   -- For null-ls
-   map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
    -- Stay in indent mode
    map("v", "<", "<gv", opts)
