@@ -18,6 +18,10 @@ M.mappings = {
       moveUp = "<C-Up>",
       moveDown = "<C-Down>",
    },
+
+   terminal = {
+      new_horizontal = "<leader>hh",
+   },
 }
 
 M.options = {
