@@ -2,6 +2,21 @@ local hooks = require "core.hooks"
 
 hooks.add("install_plugins", function(use)
    use {
+      "mfussenegger/nvim-dap",
+      config = function()
+         require("custom.plugins.configs.nvim-dap").setup()
+      end,
+   }
+
+   use { 
+      "rcarriga/nvim-dap-ui", 
+      requires = "mfussenegger/nvim-dap",
+      config = function()
+         require("dapui").setup()
+      end,
+   }
+
+   use {
       "jose-elias-alvarez/null-ls.nvim",
       after = "nvim-lspconfig",
       config = function()
@@ -57,6 +72,8 @@ hooks.add("install_plugins", function(use)
       "hrsh7th/cmp-cmdline",
       after = "cmp-buffer",
    }
+
+   use "szw/vim-maximizer"
 
    use "ThePrimeagen/vim-be-good"
 
