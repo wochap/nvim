@@ -71,7 +71,8 @@ local syntax = {
    -- NeogitRemote = { fg = , bg = },
 
    -- Pmenu
-   CmpItemAbbr = { fg = colors.grey_fg },
+   CmpItemAbbrMatch = { fg = themeColors.base0C },
+   -- CmpItemAbbr = { fg = colors.grey_fg },
 
    -- Others
    EndOfBuffer = { fg = colors.grey },
