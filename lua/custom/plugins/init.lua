@@ -84,6 +84,8 @@ hooks.add("install_plugins", function(use)
       after = "nvim-treesitter",
    }
 
+   use "b0o/schemastore.nvim"
+
    -- use "folke/tokyonight.nvim"
 
    -- use "dstein64/nvim-scrollview"
