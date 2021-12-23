@@ -23,7 +23,7 @@ M.mappings = {
 M.options = {
    relativenumber = true,
    fillchars = {
-      eob = " ",
+      eob = "~",
       diff = "╱"
    },
 }
@@ -51,7 +51,7 @@ M.plugins = {
          setup_lspconf = "custom.plugins.configs.lspconfig",
       },
       statusline = {
-         shortline = false,
+         -- shortline = false,
          style = "default",
       },
    },

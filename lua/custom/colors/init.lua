@@ -69,6 +69,12 @@ local syntax = {
    -- NeogitHunkHeader = { fg = , bg = },
    -- NeogitHunkHeaderHighlight ={ fg = , bg = },
    -- NeogitRemote = { fg = , bg = },
+
+   -- Pmenu
+   CmpItemAbbr = { fg = colors.grey_fg },
+
+   -- Others
+   EndOfBuffer = { fg = colors.grey },
 }
 
 for group, colors in pairs(syntax) do
