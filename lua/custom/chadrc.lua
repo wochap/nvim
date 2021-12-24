@@ -21,6 +21,7 @@ M.mappings = {
 
    terminal = {
       new_horizontal = "<leader>hh",
+      new_window = "<leader>ww",
    },
 }
 
@@ -48,7 +49,12 @@ M.plugins = {
       nvimtree = {
          enable_git = 1,
          ui = {
+            allow_resize = true,
+            side = "left",
+            width = 30,
             hide_root_folder = false,
+            number = true,
+            relativenumber = true,
          },
       },
       lspconfig = {
