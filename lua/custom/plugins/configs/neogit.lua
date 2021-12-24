@@ -13,7 +13,7 @@ M.setup = function(on_attach)
     signs = {
       section = { "", "" },
       item = { "", "" },
-      hunk = { "", "" },
+      hunk = { "", "" },
     },
   }
 end

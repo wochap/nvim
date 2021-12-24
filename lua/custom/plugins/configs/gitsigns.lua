@@ -7,19 +7,19 @@ end
 gitsigns.setup {
    signs = {
       add = {
-        hl = 'DiffAdd'   , text = '▍', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'
+        hl = 'GitSignsAdd'   , text = '▍', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'
       },
       change = {
-        hl = 'DiffChange', text = '▍', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'
+        hl = 'GitSignsChange', text = '▍', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'
       },
       delete = {
-        hl = 'DiffDelete', text = '', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'
+        hl = 'GitSignsDelete', text = '', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'
       },
       changedelete = {
-        hl = 'DiffChangeDelete', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'
+        hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'
       },
       topdelete = {
-        hl = 'DiffDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'
+        hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'
       },
     },
 }

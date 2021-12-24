@@ -34,8 +34,27 @@ local syntax = {
    -- diffOldFile
    -- diffRemoved
 
+   -- DiffChangeDelete = { bg = "#ffffff" },
+   -- DiffModified = { bg = "#ffffff" },
+
+   -- DiffAdded = { bg = "#ffffff" },
+   -- DiffDelete = { bg = "#ffffff" },
+   -- DiffFile = { bg = "#ffffff" },
+   -- DiffLine = { bg = "#ffffff" },
+   -- DiffNewFile = { bg = "#ffffff" },
+   -- DiffRemoved = { bg = "#ffffff" },
+
+   -- Git signs
+   GitSignsAdd = { fg = "#9fcf6a" },
+   GitSignsChange = { fg = "#526c9f" },
+   GitSignsDelete = { fg = "#b3545b" },
+   
    -- Diffview
-   DiffviewDiffAddAsDelete = { fg = themeColors.base08, bg = themeColors.base01 },
+   DiffAdd = { bg = "#20303b" }, -- right diff add
+   DiffChange = { bg = "#232c4c" }, -- both diff change line
+   DiffText = { bg = "#33406b" }, -- both diff change text
+   DiffviewDiffAddAsDelete = { bg = "#4a262e" }, -- left diff delete
+   DiffviewDiffDelete = { fg = themeColors.base03 }, -- both diff delete sign
    DiffviewFilePanelCounter = { fg = colors.purple, bg = "NONE" },
    DiffviewFilePanelTitle = { fg = colors.blue, bg = "NONE" },
    -- DiffviewFilePanelFileName = { fg = , bg = },
@@ -62,12 +81,15 @@ local syntax = {
    -- DiffviewStatusBroken = { fg = , bg = },
 
    -- Neogit
-   NeogitDiffAddHighlight = { fg = themeColors.base0B, bg = themeColors.base01 },
-   NeogitDiffDeleteHighlight = { fg = themeColors.base08, bg = themeColors.base01 },
+   NeogitDiffAdd = { fg = themeColors.base0B },
+   NeogitDiffAddHighlight = { fg = themeColors.base0B, bg = colors.black },
+   NeogitDiffContext = { fg = themeColors.base05 },
+   NeogitDiffContextHighlight = { fg = themeColors.base05, bg = colors.darker_black },
+   NeogitDiffDelete = { fg = themeColors.base08 },
+   NeogitDiffDeleteHighlight = { fg = themeColors.base08, bg = colors.black },
+   NeogitHunkHeader = { fg = themeColors.base0A, bg = colors.black },
+   NeogitHunkHeaderHighlight ={ fg = themeColors.base0A, bg = colors.darker_black },
    -- NeogitBranch = { fg = , bg = },
-   -- NeogitDiffContextHighlight = { fg = , bg = },
-   -- NeogitHunkHeader = { fg = , bg = },
-   -- NeogitHunkHeaderHighlight ={ fg = , bg = },
    -- NeogitRemote = { fg = , bg = },
 
    -- Pmenu
