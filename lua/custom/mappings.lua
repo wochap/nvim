@@ -3,13 +3,32 @@ local hooks = require "core.hooks"
 hooks.add("setup_mappings", function(map)
    local opts = { noremap = true, silent = true }
 
+   -- ThePrimeagen - keeping centered
+   map("n", "n", "nzzzv", opts)
+   map("n", "N", "Nzzzv", opts)
+   map("n", "J", "mzJ`z", opts)
+   
+   -- ThePrimeagen - unto break points
+   map("i", ",", ",<c-g>u", opts)
+   map("i", ".", ".<c-g>u", opts)
+   map("i", "!", "!<c-g>u", opts)
+   map("i", "?", "?<c-g>u", opts)
+
+   -- Move current line / block with Alt-j/k ala vscode.
+   map("i", "<A-Down>", "<Esc>:m .+1<CR>==gi", opts)
+   map("i", "<A-Up>", "<Esc>:m .-2<CR>==gi", opts)
+   map("n", "<A-Down>", ":m .+1<CR>==", opts)
+   map("n", "<A-Up>", ":m .-2<CR>==", opts)
+   map("x", "<A-Down>", ":m '>+1<CR>gv-gv", opts)
+   map("x", "<A-Up>", ":m '<-2<CR>gv-gv", opts)
+
    -- Git
-   -- map("n", "<leader>gf", "<cmd>Telescope git_bcommits <CR>", opts)
    map("n", "<leader>gf", "<cmd>DiffviewFileHistory<CR>", opts)
    map("n", "<leader>gb", "<cmd>lua require'custom.utils.telescope'.branches()<CR>")
    map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opts)
    map("n", "<leader>gq", "<cmd>DiffviewClose<CR>", opts)
    map("n", "<leader>gg", "<cmd>Neogit<CR>", opts)
+   -- map("n", "<leader>gf", "<cmd>Telescope git_bcommits <CR>", opts)
 
    -- Stay in indent mode
    map("v", "<", "<gv", opts)
