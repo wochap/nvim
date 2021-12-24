@@ -4,9 +4,11 @@ hooks.add("setup_mappings", function(map)
    local opts = { noremap = true, silent = true }
 
    -- Git
-   map("n", "<leader>gf", "<cmd>Telescope git_bcommits <CR>", opts)
+   -- map("n", "<leader>gf", "<cmd>Telescope git_bcommits <CR>", opts)
+   map("n", "<leader>gf", "<cmd>DiffviewFileHistory<CR>", opts)
    map("n", "<leader>gb", "<cmd>lua require'custom.utils.telescope'.branches()<CR>")
    map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opts)
+   map("n", "<leader>gq", "<cmd>DiffviewClose<CR>", opts)
    map("n", "<leader>gg", "<cmd>Neogit<CR>", opts)
 
    -- Stay in indent mode

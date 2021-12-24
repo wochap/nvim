@@ -55,8 +55,8 @@ local syntax = {
    DiffText = { bg = "#33406b" }, -- both diff change text
    DiffviewDiffAddAsDelete = { bg = "#4a262e" }, -- left diff delete
    DiffviewDiffDelete = { fg = themeColors.base03 }, -- both diff delete sign
-   DiffviewFilePanelCounter = { fg = colors.purple, bg = "NONE" },
-   DiffviewFilePanelTitle = { fg = colors.blue, bg = "NONE" },
+   DiffviewFilePanelCounter = { fg = colors.blue, bg = "NONE" },
+   DiffviewFilePanelTitle = { fg = colors.red, bg = "NONE" },
    -- DiffviewFilePanelFileName = { fg = , bg = },
    -- DiffviewNormal = { fg = , bg = },
    -- DiffviewCursorLine = { fg = , bg = },
