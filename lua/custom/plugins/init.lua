@@ -97,7 +97,12 @@ hooks.add("install_plugins", function(use)
 
    use "b0o/schemastore.nvim"
 
-   use "blackCauldron7/surround.nvim"
+   use {
+      "blackCauldron7/surround.nvim",
+      config = function()
+         require"surround".setup {mappings_style = "surround"}
+      end
+   }
 
    -- use "dstein64/nvim-scrollview"
 end)
