@@ -13,8 +13,11 @@ local sources = {
   -- CSS
   -- b.diagnostics.stylelint
   
-  -- JS TS Vue
-  -- b.diagnostics.eslint_d,
+  -- JS
+  b.diagnostics.eslint_d.with {
+    -- "typescript", "typescriptreact", "vue"
+    filetypes = { "javascript", "javascriptreact" }
+  },
   
   -- Python
   b.diagnostics.pylint,
