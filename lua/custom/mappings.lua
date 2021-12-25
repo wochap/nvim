@@ -57,4 +57,8 @@ hooks.add("setup_mappings", function(map)
    -- map("n", "<leader>d?", "<cmd>lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>", opts)
    -- map("n", "<leader>dk", "<cmd>lua require"dap".up()<CR>", opts)
    -- map("n", "<leader>dj", "<cmd>lua require"dap".down()<CR>", opts)
+
+   -- LSP
+   map("n", "grh", "<cmd>lua vim.lsp.buf.document_highlight()<CR>")
+   map("n", "grc", "<cmd>lua vim.lsp.buf.clear_references()<CR>")
 end)

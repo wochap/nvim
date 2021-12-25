@@ -23,6 +23,12 @@ M.mappings = {
       new_horizontal = "<leader>hh",
       new_window = "<leader>ww",
    },
+
+   plugins = {
+      lspconfig = {
+         references = "gre",
+      }, 
+   },
 }
 
 M.options = {
@@ -34,7 +40,7 @@ M.options = {
 }
 
 M.ui = {
-   theme = "tokyonight",
+   theme = "onedark",
    hl_override = "custom.colors",
 }
 

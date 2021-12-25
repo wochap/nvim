@@ -96,6 +96,11 @@ local syntax = {
    CmpItemAbbrMatch = { fg = themeColors.base0C },
    -- CmpItemAbbr = { fg = colors.grey_fg },
 
+   -- LSP
+   LspReferenceRead = { bg = "#343a46" },
+   -- LspReferenceText = { bg = colors.red },
+   -- LspReferenceWrite = { bg = colors.yellow },
+
    -- Others
    EndOfBuffer = { fg = colors.grey },
 }

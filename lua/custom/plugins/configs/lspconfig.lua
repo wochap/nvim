@@ -1,19 +1,4 @@
 local M = {}
-local function lsp_highlight_document(client)
-  -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
-    vim.api.nvim_exec(
-      [[
-        augroup lsp_document_highlight
-          autocmd! * <buffer>
-          autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-          autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-      ]],
-      false
-    )
-  end
-end
 
 M.setup_lsp = function(attach, capabilities)
   local lspconfig = require "lspconfig"
@@ -22,12 +7,7 @@ M.setup_lsp = function(attach, capabilities)
 
   for _, lsp in ipairs(servers) do
     local opts = {
-      on_attach = function(client, bufnr)
-        -- Run nvchad's attach
-        attach(client, bufnr)
-
-        lsp_highlight_document(client)
-      end,
+      on_attach = attach,
       capabilities = capabilities,
       flags = {
         debounce_text_changes = 150,
@@ -39,13 +19,14 @@ M.setup_lsp = function(attach, capabilities)
       opts.on_attach = function(client, bufnr)
         -- Run nvchad's attach
         attach(client, bufnr)
-
-        lsp_highlight_document(client)
         
         -- disable tsserver's inbuilt formatting 
         -- since I use null-ls for formatting
         client.resolved_capabilities.document_formatting = false
         client.resolved_capabilities.document_range_formatting = false
+
+        -- enable document_highlight
+        client.resolved_capabilities.document_highlight = true
       end
     end
 
