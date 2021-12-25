@@ -73,6 +73,8 @@ hooks.add("install_plugins", function(use)
       after = "cmp-buffer",
    }
 
+   use "elkowar/yuck.vim"
+
    use "szw/vim-maximizer"
 
    use "ThePrimeagen/vim-be-good"
