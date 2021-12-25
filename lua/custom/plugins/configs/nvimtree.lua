@@ -46,12 +46,12 @@ g.nvim_tree_icons = {
    folder = {
       arrow_open = "",
       arrow_closed = "",
-      default = "",
-      empty = "",
-      empty_open = "",
-      open = "",
+      default = "",
+      empty = "",
+      empty_open = "",
+      open = "",
       symlink = "",
-      symlink_open = "",
+      symlink_open = "",
    },
 }
 

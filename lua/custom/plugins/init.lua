@@ -35,7 +35,7 @@ hooks.add("install_plugins", function(use)
       requires = "nvim-lua/plenary.nvim",
       config = function()
          require("custom.plugins.configs.todo-comments").setup()
-      end
+      end,
    }
 
    use { 
@@ -47,7 +47,7 @@ hooks.add("install_plugins", function(use)
       },
       config = function()
          require("custom.plugins.configs.neogit").setup()
-      end
+      end,
     }
 
    use {
@@ -56,14 +56,14 @@ hooks.add("install_plugins", function(use)
       requires = "nvim-lua/plenary.nvim",
       config = function()
          require("custom.plugins.configs.diffview").setup()
-      end
+      end,
    }
 
    use {
       "folke/which-key.nvim",
       config = function()
          require("custom.plugins.configs.which-key").setup()
-      end
+      end,
    }
 
    use {
@@ -77,7 +77,7 @@ hooks.add("install_plugins", function(use)
    }
 
    use {
-      "elkowar/yuck.vim"
+      "elkowar/yuck.vim",
       event = "BufRead",
    }
 
@@ -96,6 +96,8 @@ hooks.add("install_plugins", function(use)
    }
 
    use "b0o/schemastore.nvim"
+
+   use "blackCauldron7/surround.nvim"
 
    -- use "dstein64/nvim-scrollview"
 end)

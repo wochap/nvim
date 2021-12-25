@@ -32,11 +32,20 @@ M.setup_lsp = function(attach, capabilities)
 
     -- json
     if lsp == "jsonls" then
-      opts.settings = {
-        json = {
-          schemas = require("schemastore").json.schemas(),
-        },
-      }
+      local present, schemastore = pcall(require, "schemastore")
+
+      if present then
+        opts.settings = {
+          json = {
+            schemas = schemastore.json.schemas(),
+          },
+        }
+      end 
+    end
+
+    -- emmet
+    if lsp == "emmet_ls" then
+      opts.filetypes = { "html", "css", "scss" }
     end
 
     lspconfig[lsp].setup(opts)
