@@ -3,14 +3,15 @@ local hooks = require "core.hooks"
 hooks.add("install_plugins", function(use)
    use {
       "mfussenegger/nvim-dap",
+      opt = true,
       config = function()
          require("custom.plugins.configs.nvim-dap").setup()
       end,
    }
 
    use { 
-      "rcarriga/nvim-dap-ui", 
-      requires = "mfussenegger/nvim-dap",
+      "rcarriga/nvim-dap-ui",
+      after = "nvim-dap",
       config = function()
          require("dapui").setup()
       end,
@@ -38,7 +39,8 @@ hooks.add("install_plugins", function(use)
    }
 
    use { 
-      "TimUntersberger/neogit", 
+      "TimUntersberger/neogit",
+      opt = true,
       requires = { 
         "nvim-lua/plenary.nvim",
         "sindrets/diffview.nvim",
@@ -50,6 +52,7 @@ hooks.add("install_plugins", function(use)
 
    use {
       "sindrets/diffview.nvim",
+      opt = true,
       requires = "nvim-lua/plenary.nvim",
       config = function()
          require("custom.plugins.configs.diffview").setup()
@@ -73,11 +76,17 @@ hooks.add("install_plugins", function(use)
       after = "cmp-buffer",
    }
 
-   use "elkowar/yuck.vim"
+   use {
+      "elkowar/yuck.vim"
+      event = "BufRead",
+   }
 
    use "szw/vim-maximizer"
 
-   use "ThePrimeagen/vim-be-good"
+   use {
+      "ThePrimeagen/vim-be-good",
+      opt = true,
+   }
 
    use "nathom/filetype.nvim"
 
@@ -88,9 +97,5 @@ hooks.add("install_plugins", function(use)
 
    use "b0o/schemastore.nvim"
 
-   -- use "folke/tokyonight.nvim"
-
    -- use "dstein64/nvim-scrollview"
-
-   -- use "tversteeg/registers.nvim"
 end)
