@@ -7,6 +7,9 @@ hooks.add("install_plugins", function(use)
       config = function()
          require("custom.plugins.configs.nvim-dap").setup()
       end,
+      setup = function()
+         require("core.utils").packer_lazy_load "nvim-dap"
+      end,
    }
 
    use { 
@@ -48,6 +51,9 @@ hooks.add("install_plugins", function(use)
       config = function()
          require("custom.plugins.configs.neogit").setup()
       end,
+      setup = function()
+         require("core.utils").packer_lazy_load "neogit"
+      end,
     }
 
    use {
@@ -56,6 +62,9 @@ hooks.add("install_plugins", function(use)
       requires = "nvim-lua/plenary.nvim",
       config = function()
          require("custom.plugins.configs.diffview").setup()
+      end,
+      setup = function()
+         require("core.utils").packer_lazy_load "diffview.nvim"
       end,
    }
 
@@ -86,6 +95,9 @@ hooks.add("install_plugins", function(use)
    use {
       "ThePrimeagen/vim-be-good",
       opt = true,
+      setup = function()
+         require("core.utils").packer_lazy_load "vim-be-good"
+      end,
    }
 
    use "nathom/filetype.nvim"
