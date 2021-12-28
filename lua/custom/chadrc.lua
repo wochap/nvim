@@ -49,7 +49,8 @@ M.plugins = {
    status = {
       -- feline = false,
       dashboard = true,
-      colorizer = true,
+      colorizer = false,
+      better_escape = false,
    },
    options = {
       nvimtree = {
@@ -83,6 +84,7 @@ M.plugins = {
       nvim_comment = "custom.plugins.configs.nvim-comment",
       nvim_tree = "custom.plugins.configs.nvimtree",
       nvim_treesitter = "custom.plugins.configs.treesitter",
+      nvim_autopairs = "custom.plugins.configs.autopairs",
    },
 }
 

@@ -5,6 +5,9 @@ if not present then
 end
 
 ts_config.setup {
+   autopairs = { 
+      enable = true,
+   },
    autotag = {
       enable = true,
    },
