@@ -93,6 +93,13 @@ hooks.add("install_plugins", function(use)
    use "szw/vim-maximizer"
 
    use {
+      "rhysd/conflict-marker.vim",
+      setup = function()
+         require("custom.plugins.configs.others").conflict_marker()
+      end,
+   }
+
+   use {
       "ThePrimeagen/vim-be-good",
       opt = true,
       setup = function()
