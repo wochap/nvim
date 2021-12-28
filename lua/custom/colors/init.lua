@@ -38,20 +38,27 @@ local syntax = {
    -- DiffModified = { bg = "#ffffff" },
 
    -- DiffAdded = { bg = "#ffffff" },
-   -- DiffDelete = { bg = "#ffffff" },
    -- DiffFile = { bg = "#ffffff" },
    -- DiffLine = { bg = "#ffffff" },
    -- DiffNewFile = { bg = "#ffffff" },
    -- DiffRemoved = { bg = "#ffffff" },
-
+   
+   ConflictMarkerBegin = {bg = "#347a71", fg = "#abb2bf" },
+   ConflictMarkerOurs = {bg = "#2d4b4d"},
+   ConflictMarkerTheirs = {bg = "#2d445d"},
+   ConflictMarkerEnd = {bg = "#366b9e", fg = "#abb2bf" },
+   ConflictMarkerCommonAncestorsHunk = {bg = "#754a81"},
+   ConflictMarkerSeparator = {fg = themeColors.base0B},
+   
    -- Git signs
-   GitSignsAdd = { fg = "#9fcf6a" },
+   GitSignsAdd = { fg = "#109868" },
    GitSignsChange = { fg = "#526c9f" },
-   GitSignsDelete = { fg = "#b3545b" },
+   GitSignsDelete = { fg = "#9a353d" },
    
    -- Diffview
    DiffAdd = { bg = "#20303b" }, -- right diff add
    DiffChange = { bg = "#232c4c" }, -- both diff change line
+   DiffDelete = { bg = "#4a262e" }, -- right delete
    DiffText = { bg = "#33406b" }, -- both diff change text
    DiffviewDiffAddAsDelete = { bg = "#4a262e" }, -- left diff delete
    DiffviewDiffDelete = { fg = themeColors.base03 }, -- both diff delete sign
@@ -82,11 +89,11 @@ local syntax = {
 
    -- Neogit
    NeogitDiffAdd = { fg = themeColors.base0B },
-   NeogitDiffAddHighlight = { fg = themeColors.base0B, bg = colors.black },
+   NeogitDiffAddHighlight = { fg = "#abb2bf", bg = "#1a4b59" },
    NeogitDiffContext = { fg = themeColors.base05 },
    NeogitDiffContextHighlight = { fg = themeColors.base05, bg = colors.darker_black },
    NeogitDiffDelete = { fg = themeColors.base08 },
-   NeogitDiffDeleteHighlight = { fg = themeColors.base08, bg = colors.black },
+   NeogitDiffDeleteHighlight = { fg = "#abb2bf", bg = "#751c22" },
    NeogitHunkHeader = { fg = themeColors.base0A, bg = colors.black },
    NeogitHunkHeaderHighlight ={ fg = themeColors.base0A, bg = colors.darker_black },
    -- NeogitBranch = { fg = , bg = },
@@ -97,7 +104,7 @@ local syntax = {
    -- CmpItemAbbr = { fg = colors.grey_fg },
 
    -- LSP
-   LspReferenceRead = { bg = "#343a46" },
+   LspReferenceRead = { bg = "#343a46" }, -- highlight for refecences
    -- LspReferenceText = { bg = colors.red },
    -- LspReferenceWrite = { bg = colors.yellow },
 
