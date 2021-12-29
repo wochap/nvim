@@ -40,7 +40,7 @@ M.options = {
 }
 
 M.ui = {
-   theme = "onedark",
+   theme = "chadracula",
    hl_override = "custom.colors",
 }
 
