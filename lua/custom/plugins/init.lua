@@ -100,6 +100,13 @@ hooks.add("install_plugins", function(use)
    }
 
    use {
+      "mattn/emmet-vim",
+      setup = function()
+         require("custom.plugins.configs.others").emmet_vim()
+      end,
+   }
+
+   use {
       "ThePrimeagen/vim-be-good",
       opt = true,
       setup = function()

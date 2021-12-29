@@ -8,4 +8,8 @@ M.conflict_marker = function()
   g.conflict_marker_end = '^>>>>>>> .*$'
 end
 
+M.emmet_vim = function()
+  local g = vim.g
+end
+
 return M

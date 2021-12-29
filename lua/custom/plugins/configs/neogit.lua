@@ -38,6 +38,18 @@ M.setup = function(on_attach)
         folded = false
       },
     },
+    mappings = {
+      status = {
+        ["1"] = "",
+        ["2"] = "",
+        ["3"] = "",
+        ["4"] = "",
+        -- ["1"] = "Depth1",
+        -- ["2"] = "Depth2",
+        -- ["3"] = "Depth3",
+        -- ["4"] = "Depth4",
+      },
+    },
   }
 end
 
