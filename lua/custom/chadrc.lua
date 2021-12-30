@@ -28,14 +28,24 @@ M.mappings = {
       lspconfig = {
          references = "gre",
       }, 
+
+      bufferline = {
+         next_buffer = "<S-Right>",
+         prev_buffer = "<S-Left>",
+      },
    },
 }
 
 M.options = {
+   signcolumn = "yes:3",
    relativenumber = true,
    fillchars = {
       eob = "~",
       diff = "╱"
+   },
+   
+   nvChad = {
+      insert_nav = false, -- navigation in insertmode
    },
 }
 
