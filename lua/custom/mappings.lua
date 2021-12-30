@@ -1,7 +1,16 @@
+local utils = require "core.utils"
 local hooks = require "core.hooks"
+
+local config = utils.load_config()
+local map = utils.map
+
+local maps = config.mappings
+local plugin_maps = maps.plugins
 
 hooks.add("setup_mappings", function(map)
    local opts = { noremap = true, silent = true }
+
+   map("n", "<leader>fs", "<cmd>Telescope filetypes<CR>")
 
    -- ThePrimeagen - keeping centered
    map("n", "n", "nzzzv", opts)
@@ -9,10 +18,10 @@ hooks.add("setup_mappings", function(map)
    map("n", "J", "mzJ`z", opts)
    
    -- ThePrimeagen - unto break points
-   map("i", ",", ",<c-g>u", opts)
-   map("i", ".", ".<c-g>u", opts)
-   map("i", "!", "!<c-g>u", opts)
-   map("i", "?", "?<c-g>u", opts)
+   map("i", ",", ",<C-g>u", opts)
+   map("i", ".", ".<C-g>u", opts)
+   map("i", "!", "!<C-g>u", opts)
+   map("i", "?", "?<C-g>u", opts)
 
    -- Move current line / block with Alt-j/k ala vscode.
    map("i", "<A-Down>", "<Esc>:m .+1<CR>==gi", opts)
