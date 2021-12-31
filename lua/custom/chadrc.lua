@@ -95,6 +95,7 @@ M.plugins = {
       nvim_tree = "custom.plugins.configs.nvimtree",
       nvim_treesitter = "custom.plugins.configs.treesitter",
       nvim_autopairs = "custom.plugins.configs.autopairs",
+      bufferline = "custom.plugins.configs.bufferline",
    },
 }
 
