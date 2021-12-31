@@ -51,12 +51,15 @@ M.setup_lsp = function(attach, capabilities)
     lspconfig[lsp].setup(opts)
   end
 
-  -- vim.opt.signcolumn = "yes:2"
   vim.diagnostic.config {
-    virtual_text = {
-       spacing = 2, -- fix https://github.com/neovim/nvim-lspconfig/issues/195S
+    severity_sort = true,
+    signs = false,
+    virtual_text = false,
+    float = {
+      format =  function(diagnostic)
+        return string.format("%s (%s)", diagnostic.message, diagnostic.source)
+      end
     },
-    -- signs = false,
   }
 end
 

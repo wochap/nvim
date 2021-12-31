@@ -2,6 +2,18 @@ local colors = require("colors").get()
 local theme = require("core.utils").load_config().ui.theme
 local present, base16 = pcall(require, "base16")
 local themeColors = base16.themes(theme)
+local utils = require("custom.colors.utils")
+local stateColors = {
+   error = colors.red,
+   warning = colors.yellow,
+   info = colors.blue,
+   hint = colors.teal,
+}
+local gitColors = {
+   delete = colors.red,
+   add = colors.green,
+   change = colors.yellow,
+}
 
 -- Add # sign
 for name, color in pairs(themeColors) do
@@ -37,30 +49,30 @@ local syntax = {
    -- DiffChangeDelete = { bg = "#ffffff" },
    -- DiffModified = { bg = "#ffffff" },
 
-   -- DiffAdded = { bg = "#ffffff" },
-   -- DiffFile = { bg = "#ffffff" },
-   -- DiffLine = { bg = "#ffffff" },
-   -- DiffNewFile = { bg = "#ffffff" },
-   -- DiffRemoved = { bg = "#ffffff" },
+   -- DiffAdded = { fg = themeColors.base0B, bg = themeColors.base00 },
+   -- DiffFile = { fg = themeColors.base08, bg = themeColors.base00 },
+   -- DiffLine = { fg = themeColors.base0D, bg = themeColors.base00 },
+   -- DiffNewFile = { fg = themeColors.base0B, bg = themeColors.base00 },
+   -- DiffRemoved = { fg = themeColors.base08, bg = themeColors.base00 },
    
-   ConflictMarkerBegin = {bg = "#347a71", fg = "#abb2bf" },
-   ConflictMarkerOurs = {bg = "#2d4b4d"},
-   ConflictMarkerTheirs = {bg = "#2d445d"},
-   ConflictMarkerEnd = {bg = "#366b9e", fg = "#abb2bf" },
-   ConflictMarkerCommonAncestorsHunk = {bg = "#754a81"},
-   ConflictMarkerSeparator = {fg = themeColors.base0B},
+   -- ConflictMarkerBegin = {bg = "#347a71", fg = "#abb2bf" },
+   -- ConflictMarkerOurs = {bg = "#2d4b4d"},
+   -- ConflictMarkerTheirs = {bg = "#2d445d"},
+   -- ConflictMarkerEnd = {bg = "#366b9e", fg = "#abb2bf" },
+   -- ConflictMarkerCommonAncestorsHunk = {bg = "#754a81"},
+   -- ConflictMarkerSeparator = {fg = themeColors.base0B},
    
    -- Git signs
-   GitSignsAdd = { fg = "#109868" },
-   GitSignsChange = { fg = "#526c9f" },
-   GitSignsDelete = { fg = "#9a353d" },
+   GitSignsAdd = { fg = gitColors.add },
+   GitSignsChange = { fg = gitColors.change },
+   GitSignsDelete = { fg = gitColors.delete },
    
    -- Diffview
-   DiffAdd = { bg = "#20303b" }, -- right diff add
-   DiffChange = { bg = "#232c4c" }, -- both diff change line
-   DiffDelete = { bg = "#4a262e" }, -- right delete
-   DiffText = { bg = "#33406b" }, -- both diff change text
-   DiffviewDiffAddAsDelete = { bg = "#4a262e" }, -- left diff delete
+   DiffAdd = { bg = utils.darken(gitColors.add, 0.2, themeColors.base01) }, -- right diff add
+   DiffChange = { bg = utils.darken(gitColors.change, 0.2, themeColors.base01) }, -- both diff change line
+   DiffDelete = { bg = utils.darken(gitColors.delete, 0.2, themeColors.base01) }, -- right delete
+   DiffText = { bg = utils.brighten(utils.darken(gitColors.change, 0.2, themeColors.base01), 0.3) }, -- both diff change text
+   DiffviewDiffAddAsDelete = { bg = utils.darken(gitColors.delete, 0.2, themeColors.base01) }, -- left diff delete
    DiffviewDiffDelete = { fg = themeColors.base03 }, -- both diff delete sign
    DiffviewFilePanelCounter = { fg = colors.blue, bg = "NONE" },
    DiffviewFilePanelTitle = { fg = colors.red, bg = "NONE" },
@@ -88,14 +100,14 @@ local syntax = {
    -- DiffviewStatusBroken = { fg = , bg = },
 
    -- Neogit
-   NeogitDiffAdd = { fg = themeColors.base0B },
-   NeogitDiffAddHighlight = { fg = "#abb2bf", bg = "#1a4b59" },
-   NeogitDiffContext = { fg = themeColors.base05 },
-   NeogitDiffContextHighlight = { fg = themeColors.base05, bg = colors.darker_black },
-   NeogitDiffDelete = { fg = themeColors.base08 },
-   NeogitDiffDeleteHighlight = { fg = "#abb2bf", bg = "#751c22" },
-   NeogitHunkHeader = { fg = themeColors.base0A, bg = colors.black },
-   NeogitHunkHeaderHighlight ={ fg = themeColors.base0A, bg = colors.darker_black },
+   NeogitDiffAdd = { fg = themeColors.base05, bg = utils.darken(gitColors.add, 0.2, themeColors.base01) },
+   NeogitDiffAddHighlight = { fg = colors.white, bg = utils.darken(gitColors.add, 0.2, themeColors.base01) },
+   -- NeogitDiffContext = { fg = themeColors.base05 },
+   NeogitDiffContextHighlight = { bg = "#383a45" },
+   NeogitDiffDelete = { fg = themeColors.base0, bg = utils.darken(gitColors.delete, 0.2, themeColors.base01) },
+   NeogitDiffDeleteHighlight = { fg = colors.white, bg = utils.darken(gitColors.delete, 0.2, themeColors.base01) },
+   NeogitHunkHeader = { fg = themeColors.base05 },
+   NeogitHunkHeaderHighlight ={ fg = themeColors.white, bg = "#484a54" },
    -- NeogitBranch = { fg = , bg = },
    -- NeogitRemote = { fg = , bg = },
 
@@ -110,6 +122,25 @@ local syntax = {
 
    -- Others
    EndOfBuffer = { fg = colors.grey },
+
+   -- Diagnostics
+   DiagnosticUnderlineError = { style = "undercurl", sp = stateColors.error }, -- Used to underline "Error" diagnostics
+   DiagnosticUnderlineWarn = { style = "undercurl", sp = stateColors.warning }, -- Used to underline "Warning" diagnostics
+   DiagnosticUnderlineInfo = { style = "undercurl", sp = stateColors.info }, -- Used to underline "Information" diagnostics
+   DiagnosticUnderlineHint = { style = "undercurl", sp = stateColors.hint }, -- Used to underline "Hint" diagnostics
+   ErrorMsg = { fg = stateColors.error }, -- error messages on the command line
+   SpellBad = { sp = stateColors.error, style = "undercurl" }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
+   SpellCap = { sp = stateColors.warning, style = "undercurl" }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
+   SpellLocal = { sp = stateColors.info, style = "undercurl" }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
+   SpellRare = { sp = stateColors.hint, style = "undercurl" }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
+   DiagnosticError = { fg = stateColors.error }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+   DiagnosticWarn = { fg = stateColors.warning }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+   DiagnosticInfo = { fg = stateColors.info }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+   DiagnosticHint = { fg = stateColors.hint }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+   DiagnosticVirtualTextError = { fg = stateColors.error }, -- Used for "Error" diagnostic virtual text
+   DiagnosticVirtualTextWarn = { fg = stateColors.warning }, -- Used for "Warning" diagnostic virtual text
+   DiagnosticVirtualTextInfo = { fg = stateColors.info }, -- Used for "Information" diagnostic virtual text
+   DiagnosticVirtualTextHint = { fg = stateColors.hint }, -- Used for "Hint" diagnostic virtual text
 }
 
 for group, colors in pairs(syntax) do
