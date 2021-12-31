@@ -6,4 +6,4 @@ g.did_load_filetypes = 1
 opt.scrolloff = 4
 opt.sidescrolloff = 4
 opt.list = true
-opt.listchars = "tab:▸\ ,trail:·"
+opt.listchars = "tab:▸ ,trail:·"
