@@ -10,6 +10,10 @@ local plugin_maps = maps.plugins
 hooks.add("setup_mappings", function(map)
    local opts = { noremap = true, silent = true }
 
+   map("v", plugin_maps.lspconfig.  formatting, "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
+
+   map("i", "<C-s>", "<C-o>:w <CR>", opts)
+
    map("n", "<leader>fs", "<cmd>Telescope filetypes<CR>")
 
    -- ThePrimeagen - keeping centered
