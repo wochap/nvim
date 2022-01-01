@@ -3,7 +3,21 @@ local M = {}
 M.setup_lsp = function(attach, capabilities)
   local lspconfig = require "lspconfig"
   -- TODO: add clangd vimls pyls_ms?
-  local servers = { "html", "cssls", "emmet_ls", "jsonls", "svelte", "tailwindcss", "bashls", "tsserver", "sumneko_lua" }
+  local servers = {
+    "html",
+    "cssls",
+    "emmet_ls",
+    "jsonls",
+    "svelte",
+    "tailwindcss",
+    "bashls",
+    "tsserver",
+    "sumneko_lua",
+    "flow",
+    "cssmodules_ls",
+    "rnix",
+    "statix",
+  }
 
   for _, lsp in ipairs(servers) do
     local opts = {
