@@ -61,6 +61,17 @@ M.setup_lsp = function(attach, capabilities)
       opts.filetypes = { "html", "css", "scss" }
     end
 
+    -- lua
+    if lsp == "sumneko_lua" then
+      opts.settings = {
+        Lua = {
+          diagnostics = {
+            globals = { "vim" },
+          },
+        },
+      },
+    end
+
     lspconfig[lsp].setup(opts)
   end
 
