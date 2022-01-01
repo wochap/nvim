@@ -69,7 +69,7 @@ M.setup_lsp = function(attach, capabilities)
             globals = { "vim" },
           },
         },
-      },
+      }
     end
 
     lspconfig[lsp].setup(opts)
