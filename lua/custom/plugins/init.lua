@@ -127,7 +127,26 @@ hooks.add("install_plugins", function(use)
       "blackCauldron7/surround.nvim",
       config = function()
          require"surround".setup {mappings_style = "surround"}
+      end,
+   }
+
+   use {
+      "folke/trouble.nvim",
+      requires = "kyazdani42/nvim-web-devicons",
+      opt = true,
+      setup = function()
+         require("core.utils").packer_lazy_load "trouble.nvim"
+      end,
+      config = function()
+         require("custom.plugins.configs.others").trouble_nvim()
       end
+   }
+
+   use {
+      "ThePrimeagen/harpoon",
+      config = function()
+         -- require"surround".setup {mappings_style = "surround"}
+      end,
    }
 
    -- use "dstein64/nvim-scrollview"
