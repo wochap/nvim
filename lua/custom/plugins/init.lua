@@ -150,6 +150,14 @@ hooks.add("install_plugins", function(use)
    }
 
    use {
+      "theHamsta/nvim-dap-virtual-text",
+      after = "nvim-dap",
+      config = function()
+         require("custom.plugins.configs.others").nvim_dap_virtual_text()
+      end,
+   }
+
+   use {
       "ThePrimeagen/refactoring.nvim",
       requires = {
          { "nvim-lua/plenary.nvim" },
@@ -159,6 +167,9 @@ hooks.add("install_plugins", function(use)
          require("custom.plugins.configs.others").refactoring()
       end
    }
+
+   -- This is needed to fix lsp doc highlight
+   use "antoinemadec/FixCursorHold.nvim"
 
    -- use "dstein64/nvim-scrollview"
 end)
