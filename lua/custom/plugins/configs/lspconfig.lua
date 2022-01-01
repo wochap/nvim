@@ -16,7 +16,6 @@ M.setup_lsp = function(attach, capabilities)
     "flow",
     "cssmodules_ls",
     "rnix",
-    "statix",
   }
 
   for _, lsp in ipairs(servers) do
