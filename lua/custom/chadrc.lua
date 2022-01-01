@@ -27,6 +27,8 @@ M.mappings = {
    plugins = {
       lspconfig = {
          references = "gre",
+         goto_prev = "<F20>", -- SHIFT + F8
+         goto_next = "<F8>",
       }, 
 
       bufferline = {
@@ -37,7 +39,7 @@ M.mappings = {
 }
 
 M.options = {
-   signcolumn = "yes:3",
+   signcolumn = "yes:2",
    relativenumber = true,
    fillchars = {
       eob = "~",
