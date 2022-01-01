@@ -53,10 +53,9 @@ local sources = {
 
 local M = {}
 
-M.setup = function(on_attach)
+M.setup = function()
   null_ls.setup {
     sources = sources,
-    on_attach = on_attach
   }
 end
 
