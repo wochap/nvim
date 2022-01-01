@@ -149,5 +149,16 @@ hooks.add("install_plugins", function(use)
       end,
    }
 
+   use {
+      "ThePrimeagen/refactoring.nvim",
+      requires = {
+         { "nvim-lua/plenary.nvim" },
+         { "nvim-treesitter/nvim-treesitter" },
+      },
+      config = function()
+         require("custom.plugins.configs.others").refactoring()
+      end
+   }
+
    -- use "dstein64/nvim-scrollview"
 end)

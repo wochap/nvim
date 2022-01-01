@@ -24,4 +24,14 @@ M.trouble_nvim = function()
   }
 end
 
+M.refactoring = function()
+  local present, refactoring = pcall(require, "refactoring")
+
+  if not present then
+    return
+  end
+
+  refactoring.setup({})
+end
+
 return M
