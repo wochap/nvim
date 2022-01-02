@@ -7,7 +7,7 @@ M.mappings = {
       close_buffer = "<leader>w",
       copy_whole_file = "<C-a>", -- copy all contents of current buffer
       line_number_toggle = "<leader>n", -- toggle line number
-      update_nvchad = "<leader>uu",
+      update_nvchad = "<leader>hu",
       save_file = "<C-s>", -- save file using :w
       new_tab = "tn",
       
@@ -51,7 +51,7 @@ M.mappings = {
          hover = "K",
          
          declaration = "gD",
-         definition = "gd",
+         definition = "gdd",
          implementation = "gi",
          signature_help = "gs",
          type_definition = "gt",

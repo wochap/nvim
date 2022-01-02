@@ -12,9 +12,16 @@ hooks.add("setup_mappings", function(map)
 
    map("n", "<leader>qa", ":qa <CR>", opts)
 
+   -- Packer
+   map("n", "<leader>pc", "<cmd>PackerCompile<cr>", opts)
+   map("n", "<leader>pi", "<cmd>PackerInstall<cr>", opts)
+   map("n", "<leader>ps", "<cmd>PackerSync<cr>", opts)
+   map("n", "<leader>pS", "<cmd>PackerStatus<cr>", opts)
+   map("n", "<leader>pu", "<cmd>PackerUpdate<cr>", opts)
+
    -- LSP
-   map("n", "gdv", "<Cmd>vsplit | lua vim.lsp.buf.definition()<CR>", opts)
-   map("n", "gds", "<Cmd>split | lua vim.lsp.buf.definition()<CR>", opts)
+   map("n", "gdv", "<cmd>vsplit | lua vim.lsp.buf.definition()<CR>", opts)
+   map("n", "gds", "<cmd>split | lua vim.lsp.buf.definition()<CR>", opts)
    map("n", "[e", "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>", opts)
    map("n", "]e", "<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>", opts)
    map("v", plugin_maps.lspconfig.formatting, "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
