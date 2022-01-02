@@ -10,14 +10,20 @@ local plugin_maps = maps.plugins
 hooks.add("setup_mappings", function(map)
    local opts = { noremap = true, silent = true }
 
-   map("v", plugin_maps.lspconfig.formatting, "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
+   map("n", "<leader>qa", ":qa <CR>", opts)
 
-   -- TODO: remap
+   -- LSP
+   map("n", "gdv", "<Cmd>vsplit | lua vim.lsp.buf.definition()<CR>", opts)
+   map("n", "gds", "<Cmd>split | lua vim.lsp.buf.definition()<CR>", opts)
+   map("n", "[e", "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>", opts)
+   map("n", "]e", "<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>", opts)
+   map("v", plugin_maps.lspconfig.formatting, "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+
    map("n", "<leader>fs", "<cmd>Telescope filetypes<CR>")
 
    -- Git
    map("n", "<leader>gf", "<cmd>DiffviewFileHistory<CR>", opts)
-   map("n", "<leader>gb", "<cmd>lua require'custom.utils.telescope'.branches()<CR>")
+   map("n", "<leader>gB", "<cmd>lua require'custom.utils.telescope'.branches()<CR>", opts)
    map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opts)
    map("n", "<leader>gq", "<cmd>DiffviewClose<CR>", opts)
    map("n", "<leader>gg", "<cmd>Neogit<CR>", opts)

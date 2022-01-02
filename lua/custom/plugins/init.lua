@@ -64,7 +64,7 @@ hooks.add("install_plugins", function(use)
 
    use {
       "sindrets/diffview.nvim",
-      cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+      cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
       requires = "nvim-lua/plenary.nvim",
       config = function()
          require("custom.plugins.configs.diffview").setup()

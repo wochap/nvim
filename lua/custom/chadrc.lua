@@ -45,8 +45,8 @@ M.mappings = {
       },
 
       lspconfig = {
-         goto_prev = "<F20>", -- SHIFT + F8
-         goto_next = "<F8>",
+         goto_next = "]d",
+         goto_prev = "[d",
          
          hover = "K",
          
@@ -77,9 +77,10 @@ M.mappings = {
          live_grep = "<leader>sw",
 
          buffers = "<leader>fb",
-         git_commits = "<leader>cm",
-         git_status = "<leader>gt",
          oldfiles = "<leader>fo",
+
+         git_commits = "<leader>gm",
+         git_status = "<leader>gt",
 
          help_tags = ignore,
       },
