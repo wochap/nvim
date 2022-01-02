@@ -12,6 +12,22 @@ hooks.add("setup_mappings", function(map)
 
    map("n", "<leader>qa", ":qa <CR>", opts)
 
+   map("n", "<leader>sr", "<cmd>lua require('spectre').open()<CR>", opts)
+   map("n", "<leader>ss", "<cmd>lua require'custom.utils.telescope'.symbols()<CR>", opts)
+   map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
+
+   -- Trouble
+   map("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
+   map("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
+   map("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
+   map("n", "<leader>xt", "<cmd>TodoTrouble<cr>", opts)
+   map("n", "<leader>xT", "<cmd>TodoTelescope<cr>", opts)
+   map("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
+   map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
+   map("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", opts)
+   map("n", "[t", "<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>", opts)
+   map("n", "]t", "<cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>", opts)
+
    -- Packer
    map("n", "<leader>pc", "<cmd>PackerCompile<cr>", opts)
    map("n", "<leader>pi", "<cmd>PackerInstall<cr>", opts)

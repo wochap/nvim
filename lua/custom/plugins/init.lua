@@ -43,11 +43,20 @@ hooks.add("install_plugins", function(use)
 
    use {
       "folke/todo-comments.nvim",
+      cmd = { "TodoTrouble", "TodoTelescope" },
       requires = "nvim-lua/plenary.nvim",
       event = "BufReadPost",
       config = function()
          require("custom.plugins.configs.todo-comments").setup()
       end,
+   }
+
+   use {
+      "windwp/nvim-spectre",
+      opt = true,
+      module = "spectre",
+      wants = { "plenary.nvim", "popup.nvim" },
+      requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
    }
 
    use { 
@@ -142,6 +151,7 @@ hooks.add("install_plugins", function(use)
 
    use {
       "folke/trouble.nvim",
+      cmd = { "TroubleToggle", "Trouble" },
       event = "BufReadPre",
       requires = "kyazdani42/nvim-web-devicons",
       config = function()

@@ -64,6 +64,9 @@ M.setup = function(on_attach)
     p = {
       name = "Packer",
     },
+    x = {
+      name = "Trouble",
+    },
   }, {
     mode = "n",
     prefix = "<leader>",

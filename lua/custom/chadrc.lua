@@ -74,7 +74,7 @@ M.mappings = {
       },
 
       telescope = {
-         live_grep = "<leader>sw",
+         live_grep = "<leader>sg",
 
          buffers = "<leader>fb",
          oldfiles = "<leader>fo",
