@@ -21,6 +21,14 @@ hooks.add("install_plugins", function(use)
    }
 
    use {
+      "theHamsta/nvim-dap-virtual-text",
+      after = "nvim-dap",
+      config = function()
+         require("custom.plugins.configs.others").nvim_dap_virtual_text()
+      end,
+   }
+
+   use {
       "jose-elias-alvarez/null-ls.nvim",
       after = "nvim-lspconfig",
       config = function()
@@ -36,6 +44,7 @@ hooks.add("install_plugins", function(use)
    use {
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
+      event = "BufReadPost",
       config = function()
          require("custom.plugins.configs.todo-comments").setup()
       end,
@@ -43,7 +52,7 @@ hooks.add("install_plugins", function(use)
 
    use { 
       "TimUntersberger/neogit",
-      opt = true,
+      cmd = "Neogit",
       requires = { 
         "nvim-lua/plenary.nvim",
         "sindrets/diffview.nvim",
@@ -51,25 +60,20 @@ hooks.add("install_plugins", function(use)
       config = function()
          require("custom.plugins.configs.neogit").setup()
       end,
-      setup = function()
-         require("core.utils").packer_lazy_load "neogit"
-      end,
     }
 
    use {
       "sindrets/diffview.nvim",
-      opt = true,
+      cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
       requires = "nvim-lua/plenary.nvim",
       config = function()
          require("custom.plugins.configs.diffview").setup()
-      end,
-      setup = function()
-         require("core.utils").packer_lazy_load "diffview.nvim"
       end,
    }
 
    use {
       "folke/which-key.nvim",
+      event = "VimEnter",
       config = function()
          require("custom.plugins.configs.which-key").setup()
       end,
@@ -87,13 +91,17 @@ hooks.add("install_plugins", function(use)
 
    use {
       "elkowar/yuck.vim",
+      event = "BufReadPre",
+   }
+
+   use {
+      "szw/vim-maximizer",
       event = "BufRead",
    }
 
-   use "szw/vim-maximizer"
-
    use {
       "rhysd/conflict-marker.vim",
+      event = "BufReadPost",
       setup = function()
          require("custom.plugins.configs.others").conflict_marker()
       end,
@@ -101,6 +109,7 @@ hooks.add("install_plugins", function(use)
 
    use {
       "mattn/emmet-vim",
+      event = "InsertEnter",
       setup = function()
          require("custom.plugins.configs.others").emmet_vim()
       end,
@@ -108,7 +117,7 @@ hooks.add("install_plugins", function(use)
 
    use {
       "ThePrimeagen/vim-be-good",
-      opt = true,
+      cmd = "VimBeGood",
       setup = function()
          require("core.utils").packer_lazy_load "vim-be-good"
       end,
@@ -125,6 +134,7 @@ hooks.add("install_plugins", function(use)
 
    use {
       "blackCauldron7/surround.nvim",
+      event = "BufReadPre",
       config = function()
          require"surround".setup {mappings_style = "surround"}
       end,
@@ -132,11 +142,8 @@ hooks.add("install_plugins", function(use)
 
    use {
       "folke/trouble.nvim",
+      event = "BufReadPre",
       requires = "kyazdani42/nvim-web-devicons",
-      opt = true,
-      setup = function()
-         require("core.utils").packer_lazy_load "trouble.nvim"
-      end,
       config = function()
          require("custom.plugins.configs.others").trouble_nvim()
       end
@@ -146,14 +153,6 @@ hooks.add("install_plugins", function(use)
       "ThePrimeagen/harpoon",
       config = function()
          -- require"surround".setup {mappings_style = "surround"}
-      end,
-   }
-
-   use {
-      "theHamsta/nvim-dap-virtual-text",
-      after = "nvim-dap",
-      config = function()
-         require("custom.plugins.configs.others").nvim_dap_virtual_text()
       end,
    }
 
@@ -170,6 +169,11 @@ hooks.add("install_plugins", function(use)
 
    -- This is needed to fix lsp doc highlight
    use "antoinemadec/FixCursorHold.nvim"
+
+   use {
+      "tweekmonster/startuptime.vim",
+      cmd = "StartupTime"
+   }
 
    -- use "dstein64/nvim-scrollview"
 end)
