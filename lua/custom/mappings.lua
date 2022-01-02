@@ -10,30 +10,10 @@ local plugin_maps = maps.plugins
 hooks.add("setup_mappings", function(map)
    local opts = { noremap = true, silent = true }
 
-   map("v", plugin_maps.lspconfig.  formatting, "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
+   map("v", plugin_maps.lspconfig.formatting, "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
 
-   map("i", "<C-s>", "<C-o>:w <CR>", opts)
-
+   -- TODO: remap
    map("n", "<leader>fs", "<cmd>Telescope filetypes<CR>")
-
-   -- ThePrimeagen - keeping centered
-   map("n", "n", "nzzzv", opts)
-   map("n", "N", "Nzzzv", opts)
-   map("n", "J", "mzJ`z", opts)
-   
-   -- ThePrimeagen - unto break points
-   map("i", ",", ",<C-g>u", opts)
-   map("i", ".", ".<C-g>u", opts)
-   map("i", "!", "!<C-g>u", opts)
-   map("i", "?", "?<C-g>u", opts)
-
-   -- Move current line / block with Alt-j/k ala vscode.
-   map("i", "<A-Down>", "<Esc>:m .+1<CR>==gi", opts)
-   map("i", "<A-Up>", "<Esc>:m .-2<CR>==gi", opts)
-   map("n", "<A-Down>", ":m .+1<CR>==", opts)
-   map("n", "<A-Up>", ":m .-2<CR>==", opts)
-   map("x", "<A-Down>", ":m '>+1<CR>gv-gv", opts)
-   map("x", "<A-Up>", ":m '<-2<CR>gv-gv", opts)
 
    -- Git
    map("n", "<leader>gf", "<cmd>DiffviewFileHistory<CR>", opts)
@@ -42,13 +22,6 @@ hooks.add("setup_mappings", function(map)
    map("n", "<leader>gq", "<cmd>DiffviewClose<CR>", opts)
    map("n", "<leader>gg", "<cmd>Neogit<CR>", opts)
    -- map("n", "<leader>gf", "<cmd>Telescope git_bcommits <CR>", opts)
-
-   -- Stay in indent mode
-   map("v", "<", "<gv", opts)
-   map("v", ">", ">gv", opts)
-   
-   -- Sort multiples lines with F9
-   map("v", "<F9>", ":'<,'>sort<CR>", opts)
 
    -- MaximizerToggle
    map("n", "<leader>m", "<cmd>MaximizerToggle!<CR>", opts)
@@ -71,7 +44,32 @@ hooks.add("setup_mappings", function(map)
    -- map("n", "<leader>dk", "<cmd>lua require"dap".up()<CR>", opts)
    -- map("n", "<leader>dj", "<cmd>lua require"dap".down()<CR>", opts)
 
-   -- LSP
-   map("n", "grh", "<cmd>lua vim.lsp.buf.document_highlight()<CR>")
-   map("n", "grc", "<cmd>lua vim.lsp.buf.clear_references()<CR>")
+   -- Stay in indent mode
+   map("v", "<", "<gv", opts)
+   map("v", ">", ">gv", opts)
+   
+   -- Sort multiples lines with F9
+   map("v", "<F9>", ":'<,'>sort<CR>", opts)
+
+    -- ThePrimeagen - keeping centered
+   map("n", "n", "nzzzv", opts)
+   map("n", "N", "Nzzzv", opts)
+   map("n", "J", "mzJ`z", opts)
+   
+   -- ThePrimeagen - unto break points
+   map("i", ",", ",<C-g>u", opts)
+   map("i", ".", ".<C-g>u", opts)
+   map("i", "!", "!<C-g>u", opts)
+   map("i", "?", "?<C-g>u", opts)
+
+   -- Move current line / block with Alt-j/k ala vscode.
+   map("i", "<A-Down>", "<Esc>:m .+1<CR>==gi", opts)
+   map("i", "<A-Up>", "<Esc>:m .-2<CR>==gi", opts)
+   map("n", "<A-Down>", ":m .+1<CR>==", opts)
+   map("n", "<A-Up>", ":m .-2<CR>==", opts)
+   map("x", "<A-Down>", ":m '>+1<CR>gv-gv", opts)
+   map("x", "<A-Up>", ":m '<-2<CR>gv-gv", opts)
+
+   -- Save on insert mode
+   map("i", "<C-s>", "<C-o>:w <CR>", opts)
 end)
