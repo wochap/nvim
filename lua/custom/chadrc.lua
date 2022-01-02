@@ -1,17 +1,19 @@
--- IMPORTANT NOTE : This is the user config, can be edited. Will be preserved if updated with internal updater
--- This file is for NvChad options & tools, custom settings are split between here and 'lua/custom/init.lua'
-
 local M = {}
--- M.options, M.ui, M.mappings, M.plugins = {}, {}, {}, {}
-
--- NOTE: To use this, make a copy with `cp example_chadrc.lua chadrc.lua`
-
---------------------------------------------------------------------
-
--- To use this file, copy the structure of `core/default_config.lua`,
--- examples of setting relative number & changing theme:
+local ignore = "<leader>zx"
 
 M.mappings = {
+   misc = {
+      cheatsheet = "<leader>hc",
+      close_buffer = "<leader>w",
+      copy_whole_file = "<C-a>", -- copy all contents of current buffer
+      line_number_toggle = "<leader>n", -- toggle line number
+      update_nvchad = "<leader>uu",
+      save_file = "<C-s>", -- save file using :w
+      new_tab = "tn",
+      
+      new_buffer = ignore,
+   },
+
    window_nav = {
       moveLeft = "<C-Left>",
       moveRight = "<C-Right>",
@@ -20,20 +22,66 @@ M.mappings = {
    },
 
    terminal = {
-      new_horizontal = "<leader>hh",
-      new_window = "<leader>ww",
+      esc_termmode = { "jk" },
+      esc_hide_termmode = { "JK" },
+      pick_term = "<leader>tW",
+      new_horizontal = "<leader>th",
+      new_vertical = "<leader>tv",
+      new_window = "<leader>tw",
    },
 
    plugins = {
-      lspconfig = {
-         references = "gre",
-         goto_prev = "<F20>", -- SHIFT + F8
-         goto_next = "<F8>",
-      }, 
-
       bufferline = {
          next_buffer = "<S-Right>",
          prev_buffer = "<S-Left>",
+      },
+
+      dashboard = {
+         bookmarks = "<leader>fm",
+         new_file = "<C-n>", -- basically create a new buffer
+         open = "<leader>bb", -- open dashboard
+         session_load = "<leader>bl",
+         session_save = "<leader>bs",
+      },
+
+      lspconfig = {
+         goto_prev = "<F20>", -- SHIFT + F8
+         goto_next = "<F8>",
+         
+         hover = "K",
+         
+         declaration = "gD",
+         definition = "gd",
+         implementation = "gi",
+         signature_help = "gs",
+         type_definition = "gt",
+         
+         rename = "<leader>lr",
+         code_action = "<leader>la",
+         float_diagnostics = "<leader>ld",
+         formatting = "<leader>lf",
+         
+         references = ignore,
+         add_workspace_folder = ignore,
+         remove_workspace_folder = ignore,
+         list_workspace_folders = ignore,
+         set_loclist = ignore,
+      }, 
+
+      nvimtree = {
+         toggle = "<leader>b",
+         focus = "<leader>e",
+      },
+
+      telescope = {
+         live_grep = "<leader>sw",
+
+         buffers = "<leader>fb",
+         git_commits = "<leader>cm",
+         git_status = "<leader>gt",
+         oldfiles = "<leader>fo",
+
+         help_tags = ignore,
       },
    },
 }
