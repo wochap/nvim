@@ -59,6 +59,9 @@ M.setup = function(on_attach)
       name = "IGNORE",
     },
     h = {
+      name = "Harpon",
+    },
+    n = {
       name = "Misc",
     },
     p = {

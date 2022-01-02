@@ -3,11 +3,11 @@ local ignore = "<leader>zx"
 
 M.mappings = {
    misc = {
-      cheatsheet = "<leader>hc",
+      cheatsheet = "<leader>nc",
       close_buffer = "<leader>w",
       copy_whole_file = "<C-a>", -- copy all contents of current buffer
-      line_number_toggle = "<leader>n", -- toggle line number
-      update_nvchad = "<leader>hu",
+      line_number_toggle = "<leader>nn", -- toggle line number
+      update_nvchad = "<leader>nu",
       save_file = "<C-s>", -- save file using :w
       new_tab = "tn",
       

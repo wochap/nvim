@@ -14,4 +14,10 @@ M.branches = function()
   })
 end
 
+M.symbols = function()
+  require("telescope.builtin").lsp_document_symbols({
+    symbols = { "Class", "Function", "Method", "Constructor", "Interface", "Module" },
+  })
+end
+
 return M

@@ -16,6 +16,14 @@ hooks.add("setup_mappings", function(map)
    map("n", "<leader>ss", "<cmd>lua require'custom.utils.telescope'.symbols()<CR>", opts)
    map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
 
+   -- Harpon
+   map("n", "<leader>hs", [[ <Cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>]], opts)
+   map("n", "<leader>ha", [[ <Cmd>lua require("harpoon.mark").add_file()<CR>]], opts)
+   map("n", "<leader>hl", [[ <Cmd>lua require("harpoon.ui").nav_file(1)<CR>]], opts)
+   map("n", "<leader>hu", [[ <Cmd>lua require("harpoon.ui").nav_file(2)<CR>]], opts)
+   map("n", "<leader>hy", [[ <Cmd>lua require("harpoon.ui").nav_file(3)<CR>]], opts)
+   map("n", "<leader>h;", [[ <Cmd>lua require("harpoon.ui").nav_file(4)<CR>]], opts)
+
    -- Trouble
    map("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
    map("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
