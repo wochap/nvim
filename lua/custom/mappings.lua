@@ -10,6 +10,12 @@ local plugin_maps = maps.plugins
 hooks.add("setup_mappings", function(map)
    local opts = { noremap = true, silent = true }
 
+   -- Clone lines ala vscode 
+   map("n", "<C-S-A-Down>", "yyp", opts)
+   map("n", "<C-S-A-Up>", "yyP", opts)
+   map("v", "<C-S-A-Down>", "y`]p", opts)
+   map("v", "<C-S-A-Up>", "y`[P", opts)
+
    map("n", "<leader>qa", ":qa <CR>", opts)
 
    map("n", "<leader>sr", "<cmd>lua require('spectre').open()<CR>", opts)
@@ -111,5 +117,5 @@ hooks.add("setup_mappings", function(map)
    map("x", "<A-Up>", ":m '<-2<CR>gv-gv", opts)
 
    -- Save on insert mode
-   map("i", "<C-s>", "<C-o>:w <CR>", opts)
+   map("i", "<C-s>", "<Esc>:w <CR>", opts)
 end)

@@ -82,12 +82,15 @@ M.mappings = {
          git_commits = "<leader>gm",
          git_status = "<leader>gt",
 
+         themes = "<leader>nt", -- NvChad theme picker
+
          help_tags = ignore,
       },
    },
 }
 
 M.options = {
+   tabstop = 2,
    signcolumn = "yes:2",
    relativenumber = true,
    fillchars = {

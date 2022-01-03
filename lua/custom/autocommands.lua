@@ -8,6 +8,13 @@ vim.cmd [[
   augroup end
 ]]
 
+vim.cmd [[
+  augroup _more_settings
+    autocmd!
+    autocmd FileType Trouble set nu
+  augroup end
+]]
+
 -- Autoformat
 -- augroup _lsp
 --   autocmd!
