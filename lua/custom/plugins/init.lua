@@ -100,7 +100,7 @@ hooks.add("install_plugins", function(use)
 
    use {
       "elkowar/yuck.vim",
-      event = "BufReadPre",
+      event = "VimEnter",
    }
 
    use {
