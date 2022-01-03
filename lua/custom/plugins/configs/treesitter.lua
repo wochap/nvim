@@ -5,7 +5,7 @@ if not present then
 end
 
 ts_config.setup {
-   autopairs = { 
+   autopairs = {
       enable = true,
    },
    autotag = {
@@ -34,6 +34,9 @@ ts_config.setup {
    highlight = {
       enable = true,
       use_languagetree = true,
-      additional_vim_regex_highlighting = true,
+      additional_vim_regex_highlighting = {},
+   },
+   incremental_selection = {
+      enable = false,
    },
 }

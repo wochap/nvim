@@ -39,9 +39,9 @@ M.mappings = {
       dashboard = {
          bookmarks = "<leader>fm",
          new_file = "<C-n>", -- basically create a new buffer
-         open = "<leader>bb", -- open dashboard
-         session_load = "<leader>bl",
-         session_save = "<leader>bs",
+         open = "<leader>nb", -- open dashboard
+         session_load = "<leader>nl",
+         session_save = "<leader>ns",
       },
 
       lspconfig = {

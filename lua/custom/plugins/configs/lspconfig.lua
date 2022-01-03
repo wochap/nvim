@@ -43,6 +43,19 @@ M.setup_lsp = function(attach, capabilities)
       end
     end
 
+    if lsp == "rnix" then
+      opts.on_attach = function(client, bufnr)
+        -- Run nvchad's attach
+        attach(client, bufnr)
+
+        -- disable tsserver's inbuilt formatting 
+        -- since I use null-ls for formatting
+        client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false
+      end
+    end
+
+
     -- json
     if lsp == "jsonls" then
       local present, schemastore = pcall(require, "schemastore")

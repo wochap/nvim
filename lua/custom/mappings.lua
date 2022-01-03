@@ -81,6 +81,9 @@ hooks.add("setup_mappings", function(map)
    -- map("n", "<leader>dk", "<cmd>lua require"dap".up()<CR>", opts)
    -- map("n", "<leader>dj", "<cmd>lua require"dap".down()<CR>", opts)
 
+   -- Select last yanked/changed text
+   map("n", "gV", "`[v`]", opts)
+
    -- Stay in indent mode
    map("v", "<", "<gv", opts)
    map("v", ">", ">gv", opts)
