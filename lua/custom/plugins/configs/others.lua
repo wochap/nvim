@@ -44,4 +44,20 @@ M.nvim_dap_virtual_text = function()
   nvim_dap_virtual_text.setup({})
 end
 
+M.filetype = function()
+  local present, filetype = pcall(require, "filetype")
+
+  if not present then
+    return
+  end
+
+  filetype.setup({
+    overrides = {
+      extensions = {
+        nix = "nix",
+      },
+    }
+  })
+end
+
 return M

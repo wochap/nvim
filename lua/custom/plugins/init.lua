@@ -73,6 +73,7 @@ hooks.add("install_plugins", function(use)
 
    use {
       "sindrets/diffview.nvim",
+      after = "neogit",
       cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
       requires = "nvim-lua/plenary.nvim",
       config = function()
@@ -132,7 +133,12 @@ hooks.add("install_plugins", function(use)
       end,
    }
 
-   use "nathom/filetype.nvim"
+   use {
+     "nathom/filetype.nvim",
+      config = function()
+         require("custom.plugins.configs.others").filetype()
+      end,
+   }
 
    use {
       "JoosepAlviste/nvim-ts-context-commentstring",
@@ -161,9 +167,6 @@ hooks.add("install_plugins", function(use)
 
    use {
       "ThePrimeagen/harpoon",
-      config = function()
-         -- require"surround".setup {mappings_style = "surround"}
-      end,
    }
 
    use {
