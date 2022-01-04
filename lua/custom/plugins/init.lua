@@ -12,7 +12,7 @@ hooks.add("install_plugins", function(use)
       end,
    }
 
-   use { 
+   use {
       "rcarriga/nvim-dap-ui",
       after = "nvim-dap",
       config = function()
@@ -67,10 +67,10 @@ hooks.add("install_plugins", function(use)
       requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
    }
 
-   use { 
+   use {
       "TimUntersberger/neogit",
       cmd = "Neogit",
-      requires = { 
+      requires = {
         "nvim-lua/plenary.nvim",
         "sindrets/diffview.nvim",
       },
@@ -190,6 +190,8 @@ hooks.add("install_plugins", function(use)
 
    -- This is needed to fix lsp doc highlight
    use "antoinemadec/FixCursorHold.nvim"
+
+   use "editorconfig/editorconfig-vim"
 
    use {
       "tweekmonster/startuptime.vim",
