@@ -37,6 +37,14 @@ hooks.add("install_plugins", function(use)
    }
 
    use {
+      "tami5/lspsaga.nvim",
+      after = "nvim-lspconfig",
+      config = function()
+         require("custom.plugins.configs.lspsaga").setup()
+      end,
+   }
+
+   use {
       "dsznajder/vscode-es7-javascript-react-snippets",
       event = "InsertEnter",
    }

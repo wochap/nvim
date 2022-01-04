@@ -50,6 +50,9 @@ hooks.add("setup_mappings", function(map)
    map("n", "<leader>pu", "<cmd>PackerUpdate<cr>", opts)
 
    -- LSP
+   map("n", "<leader>lr", "<cmd>Lspsaga rename<CR>")
+   map("n", "<leader>la", "<cmd>Lspsaga code_action<CR>")
+   map("v", "<leader>la", "<cmd><C-U>Lspsaga range_code_action<CR>")
    map("n", "grh", "<cmd>lua vim.lsp.buf.document_highlight()<CR>")
    map("n", "grc", "<cmd>lua vim.lsp.buf.clear_references()<CR>")
    map("n", "gdv", "<cmd>vsplit | lua vim.lsp.buf.definition()<CR>", opts)

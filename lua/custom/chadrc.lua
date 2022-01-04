@@ -56,11 +56,11 @@ M.mappings = {
          signature_help = "gs",
          type_definition = "gy",
 
-         rename = "<leader>lr",
-         code_action = "<leader>la",
          float_diagnostics = "<leader>ld",
          formatting = "<leader>lf",
 
+         rename = ignore,
+         code_action = ignore,
          references = ignore,
          add_workspace_folder = ignore,
          remove_workspace_folder = ignore,
