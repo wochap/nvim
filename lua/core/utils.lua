@@ -22,6 +22,7 @@ M.close_buffer = function(force)
    local function switch_buffer(windows, buf)
       local cur_win = vim.fn.winnr()
       for _, winid in ipairs(windows) do
+         winid = tonumber(winid) or 0
          vim.cmd(string.format("%d wincmd w", vim.fn.win_id2win(winid)))
          vim.cmd(string.format("buffer %d", buf))
       end
@@ -92,8 +93,8 @@ M.close_buffer = function(force)
          if type == "wind" then
             -- hide from bufferline
             vim.cmd(string.format("%d bufdo setlocal nobl", buf))
-            -- swtich to another buff
-            -- TODO switch to next bufffer, this works too
+            -- switch to another buff
+            -- TODO switch to next buffer, this works too
             vim.cmd "BufferLineCycleNext"
          else
             local cur_win = vim.fn.winnr()
@@ -121,7 +122,7 @@ M.hide_statusline = function()
    local hidden = require("core.utils").load_config().plugins.options.statusline.hidden
    local shown = require("core.utils").load_config().plugins.options.statusline.shown
    local api = vim.api
-   local buftype = api.nvim_buf_get_option("%", "ft")
+   local buftype = api.nvim_buf_get_option(0, "ft")
 
    -- shown table from config has the highest priority
    if vim.tbl_contains(shown, buftype) then
