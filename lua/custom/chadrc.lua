@@ -10,7 +10,7 @@ M.mappings = {
       update_nvchad = "<leader>nu",
       save_file = "<C-s>", -- save file using :w
       new_tab = "tn",
-      
+
       new_buffer = ignore,
    },
 
@@ -47,26 +47,26 @@ M.mappings = {
       lspconfig = {
          goto_next = "]d",
          goto_prev = "[d",
-         
+
          hover = "K",
-         
+
          declaration = "gD",
          definition = "gdd",
          implementation = "gi",
          signature_help = "gs",
          type_definition = "gy",
-         
+
          rename = "<leader>lr",
          code_action = "<leader>la",
          float_diagnostics = "<leader>ld",
          formatting = "<leader>lf",
-         
+
          references = ignore,
          add_workspace_folder = ignore,
          remove_workspace_folder = ignore,
          list_workspace_folders = ignore,
          set_loclist = ignore,
-      }, 
+      },
 
       nvimtree = {
          toggle = "<leader>b",
@@ -95,9 +95,9 @@ M.options = {
    relativenumber = true,
    fillchars = {
       eob = "~",
-      diff = "╱"
+      diff = "╱",
    },
-   
+
    nvChad = {
       insert_nav = false, -- navigation in insertmode
    },

@@ -10,7 +10,7 @@ local plugin_maps = maps.plugins
 hooks.add("setup_mappings", function(map)
    local opts = { noremap = true, silent = true }
 
-   -- Clone lines ala vscode 
+   -- Clone lines ala vscode
    map("n", "<C-S-A-Down>", "yyp", opts)
    map("n", "<C-S-A-Up>", "yyP", opts)
    map("v", "<C-S-A-Down>", "y`]p", opts)
@@ -70,7 +70,7 @@ hooks.add("setup_mappings", function(map)
 
    -- MaximizerToggle
    map("n", "<leader>m", "<cmd>MaximizerToggle!<CR>", opts)
-   
+
    -- Dap
    map("n", "<leader>d<Up>", "<cmd>lua require'dap'.step_out()<CR>", opts)
    map("n", "<leader>d<Right>", "<cmd>lua require'dap'.step_into()<CR>", opts)
@@ -95,7 +95,7 @@ hooks.add("setup_mappings", function(map)
    -- Stay in indent mode
    map("v", "<", "<gv", opts)
    map("v", ">", ">gv", opts)
-   
+
    -- Sort multiples lines with F9
    map("v", "<F9>", ":'<,'>sort<CR>", opts)
 
@@ -103,7 +103,7 @@ hooks.add("setup_mappings", function(map)
    map("n", "n", "nzzzv", opts)
    map("n", "N", "Nzzzv", opts)
    map("n", "J", "mzJ`z", opts)
-   
+
    -- ThePrimeagen - unto break points
    map("i", ",", ",<C-g>u", opts)
    map("i", ".", ".<C-g>u", opts)
