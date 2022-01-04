@@ -12,7 +12,7 @@ local stateColors = {
 local gitColors = {
    delete = colors.red,
    add = colors.green,
-   change = colors.yellow,
+   change = colors.orange,
 }
 
 -- Add # sign
@@ -25,9 +25,9 @@ local function highlight(group, color)
   local fg = color.fg and "guifg=" .. color.fg or "guifg=NONE"
   local bg = color.bg and "guibg=" .. color.bg or "guibg=NONE"
   local sp = color.sp and "guisp=" .. color.sp or ""
- 
+
   local hl = "highlight " .. group .. " " .. style .. " " .. fg .. " " .. bg .. " " .. sp
- 
+
   if color.link then
      vim.cmd("highlight! link " .. group .. " " .. color.link)
   else
@@ -36,6 +36,8 @@ local function highlight(group, color)
 end
 
 local syntax = {
+   -- CursorLine = { bg = colors.one_bg2 },
+   -- Comment = { fg = themeColors.base03 },
    -- diffAdded
    -- diffChanged
    -- diffChanged
@@ -54,19 +56,19 @@ local syntax = {
    -- DiffLine = { fg = themeColors.base0D, bg = themeColors.base00 },
    -- DiffNewFile = { fg = themeColors.base0B, bg = themeColors.base00 },
    -- DiffRemoved = { fg = themeColors.base08, bg = themeColors.base00 },
-   
+
    -- ConflictMarkerBegin = {bg = "#347a71", fg = "#abb2bf" },
    -- ConflictMarkerOurs = {bg = "#2d4b4d"},
    -- ConflictMarkerTheirs = {bg = "#2d445d"},
    -- ConflictMarkerEnd = {bg = "#366b9e", fg = "#abb2bf" },
    -- ConflictMarkerCommonAncestorsHunk = {bg = "#754a81"},
    -- ConflictMarkerSeparator = {fg = themeColors.base0B},
-   
+
    -- Git signs
    GitSignsAdd = { fg = gitColors.add },
    GitSignsChange = { fg = gitColors.change },
    GitSignsDelete = { fg = gitColors.delete },
-   
+
    -- Diffview
    DiffAdd = { bg = utils.darken(gitColors.add, 0.2, themeColors.base01) }, -- right diff add
    DiffChange = { bg = utils.darken(gitColors.change, 0.2, themeColors.base01) }, -- both diff change line
