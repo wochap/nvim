@@ -10,8 +10,6 @@ local sources = {
   -- JS TS Vue CSS HTML JSON YAML Markdown GraphQL
   b.formatting.prettierd.with {
     prefer_local = true,
-    -- "javascript", "javascriptreact", "typescript", "typescriptreact", "vue",
-    filetypes = { "css", "scss", "less", "html", "json", "yaml", "markdown", "graphql" }
   },
 
   -- CSS

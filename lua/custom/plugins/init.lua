@@ -45,6 +45,11 @@ hooks.add("install_plugins", function(use)
    }
 
    use {
+      "jose-elias-alvarez/nvim-lsp-ts-utils",
+      after = "nvim-lspconfig",
+   }
+
+   use {
       "RRethy/nvim-treesitter-textsubjects",
       after = "nvim-treesitter",
    }
