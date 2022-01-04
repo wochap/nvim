@@ -12,6 +12,8 @@ vim.cmd [[
   augroup _more_settings
     autocmd!
     autocmd FileType Trouble set nu
+    autocmd FileType NeogitStatus set rnu 
+    autocmd FileType dap-repl lua require('dap.ext.autocompl').attach()
   augroup end
 ]]
 

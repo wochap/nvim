@@ -24,10 +24,10 @@ M.mappings = {
    terminal = {
       esc_termmode = { "jk" },
       esc_hide_termmode = { "JK" },
-      pick_term = "<leader>tW",
+      pick_term = "<leader>tT",
       new_horizontal = "<leader>th",
       new_vertical = "<leader>tv",
-      new_window = "<leader>tw",
+      new_window = "<leader>tt",
    },
 
    plugins = {
@@ -54,7 +54,7 @@ M.mappings = {
          definition = "gdd",
          implementation = "gi",
          signature_help = "gs",
-         type_definition = "gt",
+         type_definition = "gy",
          
          rename = "<leader>lr",
          code_action = "<leader>la",
@@ -132,7 +132,18 @@ M.plugins = {
          setup_lspconf = "custom.plugins.configs.lspconfig",
       },
       statusline = {
-         -- shortline = false,
+         hidden = {
+            "help",
+            "dashboard",
+            "NvimTree",
+            "terminal",
+            "dap-repl",
+            "dapui_watches",
+            "dapui_stacks",
+            "dapui_breakpoints",
+            "dapui_scopes",
+            "DiffviewFiles",
+         },
          style = "default",
       },
    },
