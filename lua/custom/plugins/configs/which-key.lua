@@ -93,8 +93,8 @@ M.setup = function(on_attach)
       c = "Comment toggle_current_line_linewise",
       b = "Comment toggle_current_line_blockwise",
 
-      D = "Lsp definition",
-      d = "Lsp declaration",
+      D = "Lsp declaration",
+      d = "Lsp definition",
       s = "Lsp signature_help",
       t = "Lsp type_definition",
     },
