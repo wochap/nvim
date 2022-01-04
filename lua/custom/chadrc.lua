@@ -22,8 +22,8 @@ M.mappings = {
    },
 
    terminal = {
-      esc_termmode = { "jk" },
-      esc_hide_termmode = { "JK" },
+      esc_termmode = { "jj" },
+      esc_hide_termmode = { "JJ" },
       pick_term = "<leader>tT",
       new_horizontal = "<leader>th",
       new_vertical = "<leader>tv",
