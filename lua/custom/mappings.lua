@@ -10,6 +10,32 @@ local plugin_maps = maps.plugins
 hooks.add("setup_mappings", function(map)
    local opts = { noremap = true, silent = true }
 
+   -- Remaps for each of the four debug operations currently offered by the plugin
+   vim.api.nvim_set_keymap(
+      "v",
+      "<Leader>lre",
+      [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
+      { noremap = true, silent = true, expr = false }
+   )
+   vim.api.nvim_set_keymap(
+      "v",
+      "<Leader>lrf",
+      [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
+      { noremap = true, silent = true, expr = false }
+   )
+   vim.api.nvim_set_keymap(
+      "v",
+      "<Leader>lrv",
+      [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],
+      { noremap = true, silent = true, expr = false }
+   )
+   vim.api.nvim_set_keymap(
+      "v",
+      "<Leader>lri",
+      [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
+      { noremap = true, silent = true, expr = false }
+   )
+
    -- Clone lines ala vscode
    map("n", "<C-S-A-Down>", "yyp", opts)
    map("n", "<C-S-A-Up>", "yyP", opts)
@@ -102,7 +128,7 @@ hooks.add("setup_mappings", function(map)
    -- Sort multiples lines with F9
    map("v", "<F9>", ":'<,'>sort<CR>", opts)
 
-    -- ThePrimeagen - keeping centered
+   -- ThePrimeagen - keeping centered
    map("n", "n", "nzzzv", opts)
    map("n", "N", "Nzzzv", opts)
    map("n", "J", "mzJ`z", opts)

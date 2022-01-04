@@ -45,6 +45,11 @@ hooks.add("install_plugins", function(use)
    }
 
    use {
+      "RRethy/nvim-treesitter-textsubjects",
+      after = "nvim-treesitter",
+   }
+
+   use {
       "dsznajder/vscode-es7-javascript-react-snippets",
       event = "InsertEnter",
    }
@@ -71,13 +76,13 @@ hooks.add("install_plugins", function(use)
       "TimUntersberger/neogit",
       cmd = "Neogit",
       requires = {
-        "nvim-lua/plenary.nvim",
-        "sindrets/diffview.nvim",
+         "nvim-lua/plenary.nvim",
+         "sindrets/diffview.nvim",
       },
       config = function()
          require("custom.plugins.configs.neogit").setup()
       end,
-    }
+   }
 
    use {
       "sindrets/diffview.nvim",
@@ -142,7 +147,7 @@ hooks.add("install_plugins", function(use)
    }
 
    use {
-     "nathom/filetype.nvim",
+      "nathom/filetype.nvim",
       config = function()
          require("custom.plugins.configs.others").filetype()
       end,
@@ -159,7 +164,7 @@ hooks.add("install_plugins", function(use)
       "blackCauldron7/surround.nvim",
       event = "BufReadPre",
       config = function()
-         require"surround".setup {mappings_style = "surround"}
+         require("surround").setup { mappings_style = "surround" }
       end,
    }
 
@@ -170,7 +175,7 @@ hooks.add("install_plugins", function(use)
       requires = "kyazdani42/nvim-web-devicons",
       config = function()
          require("custom.plugins.configs.others").trouble_nvim()
-      end
+      end,
    }
 
    use {
@@ -185,7 +190,7 @@ hooks.add("install_plugins", function(use)
       },
       config = function()
          require("custom.plugins.configs.others").refactoring()
-      end
+      end,
    }
 
    -- This is needed to fix lsp doc highlight
@@ -195,7 +200,7 @@ hooks.add("install_plugins", function(use)
 
    use {
       "tweekmonster/startuptime.vim",
-      cmd = "StartupTime"
+      cmd = "StartupTime",
    }
 
    -- use "dstein64/nvim-scrollview"
