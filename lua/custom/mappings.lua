@@ -2,8 +2,6 @@ local utils = require "core.utils"
 local hooks = require "core.hooks"
 
 local config = utils.load_config()
-local map = utils.map
-
 local maps = config.mappings
 local plugin_maps = maps.plugins
 
@@ -11,39 +9,12 @@ hooks.add("setup_mappings", function(map)
    local opts = { noremap = true, silent = true }
 
    -- Remaps for each of the four debug operations currently offered by the plugin
-   vim.api.nvim_set_keymap(
-      "v",
-      "<Leader>lre",
-      [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
-      { noremap = true, silent = true, expr = false }
-   )
-   vim.api.nvim_set_keymap(
-      "v",
-      "<Leader>lrf",
-      [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
-      { noremap = true, silent = true, expr = false }
-   )
-   vim.api.nvim_set_keymap(
-      "v",
-      "<Leader>lrv",
-      [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],
-      { noremap = true, silent = true, expr = false }
-   )
-   vim.api.nvim_set_keymap(
-      "v",
-      "<Leader>lri",
-      [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
-      { noremap = true, silent = true, expr = false }
-   )
+   map("v", "<Leader>lre", "<Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>", opts)
+   map("v", "<Leader>lrf", "<Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>", opts)
+   map("v", "<Leader>lrv", "<Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>", opts)
+   map("v", "<Leader>lri", "<Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>", opts)
 
-   -- Clone lines ala vscode
-   map("n", "<C-S-A-Down>", "yyp", opts)
-   map("n", "<C-S-A-Up>", "yyP", opts)
-   map("v", "<C-S-A-Down>", "y`]p", opts)
-   map("v", "<C-S-A-Up>", "y`[P", opts)
-
-   map("n", "<leader>qa", ":qa <CR>", opts)
-
+   -- Search
    map("n", "<leader>sr", "<cmd>lua require('spectre').open()<CR>", opts)
    map("n", "<leader>ss", "<cmd>lua require'custom.utils.telescope'.symbols()<CR>", opts)
    map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
@@ -118,6 +89,10 @@ hooks.add("setup_mappings", function(map)
    -- map("n", "<leader>dk", "<cmd>lua require"dap".up()<CR>", opts)
    -- map("n", "<leader>dj", "<cmd>lua require"dap".down()<CR>", opts)
 
+   -- Exit
+   map("n", "<leader>qa", "<cmd>qa <CR>", opts)
+   map("n", "<leader>q!", "<cmd>qa! <CR>", opts)
+
    -- Select last yanked/changed text
    map("n", "gV", "`[v`]", opts)
 
@@ -139,7 +114,13 @@ hooks.add("setup_mappings", function(map)
    map("i", "!", "!<C-g>u", opts)
    map("i", "?", "?<C-g>u", opts)
 
-   -- Move current line / block with Alt-j/k ala vscode.
+   -- Clone lines ala vscode
+   map("n", "<C-S-A-Down>", "yyp", opts)
+   map("n", "<C-S-A-Up>", "yyP", opts)
+   map("v", "<C-S-A-Down>", "y`]p", opts)
+   map("v", "<C-S-A-Up>", "y`[P", opts)
+
+   -- Move current line / block with Alt-Down/Up ala vscode.
    map("i", "<A-Down>", "<Esc>:m .+1<CR>==gi", opts)
    map("i", "<A-Up>", "<Esc>:m .-2<CR>==gi", opts)
    map("n", "<A-Down>", ":m .+1<CR>==", opts)
@@ -147,6 +128,6 @@ hooks.add("setup_mappings", function(map)
    map("x", "<A-Down>", ":m '>+1<CR>gv-gv", opts)
    map("x", "<A-Up>", ":m '<-2<CR>gv-gv", opts)
 
-   -- Save on insert mode
+   -- Save in insert mode
    map("i", "<C-s>", "<Esc>:w <CR>", opts)
 end)
