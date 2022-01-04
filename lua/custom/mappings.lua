@@ -38,7 +38,7 @@ hooks.add("setup_mappings", function(map)
    map("n", "<leader>xT", "<cmd>TodoTelescope<cr>", opts)
    map("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
    map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
-   map("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", opts)
+   map("n", "grr", "<cmd>TroubleToggle lsp_references<cr>", opts)
    map("n", "[t", "<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>", opts)
    map("n", "]t", "<cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>", opts)
 
@@ -50,6 +50,8 @@ hooks.add("setup_mappings", function(map)
    map("n", "<leader>pu", "<cmd>PackerUpdate<cr>", opts)
 
    -- LSP
+   map("n", "grh", "<cmd>lua vim.lsp.buf.document_highlight()<CR>")
+   map("n", "grc", "<cmd>lua vim.lsp.buf.clear_references()<CR>")
    map("n", "gdv", "<cmd>vsplit | lua vim.lsp.buf.definition()<CR>", opts)
    map("n", "gds", "<cmd>split | lua vim.lsp.buf.definition()<CR>", opts)
    map("n", "[e", "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>", opts)
