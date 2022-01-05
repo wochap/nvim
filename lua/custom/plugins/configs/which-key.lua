@@ -111,6 +111,18 @@ M.setup = function(on_attach)
             ["-"] = "Coerse kebab-case",
          },
       },
+      ["["] = {
+         d = "Prev diagnostic",
+         e = "Prev diagnostic error",
+         g = "Prev git hunk",
+         g = "Prev trouble item",
+      },
+      ["]"] = {
+         d = "Next diagnostic",
+         e = "Next diagnostic error",
+         g = "Next git hunk",
+         t = "Next trouble item",
+      },
    }, {
       mode = "n",
    })
