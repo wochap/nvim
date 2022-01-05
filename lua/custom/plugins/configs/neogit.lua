@@ -7,7 +7,7 @@ local M = {}
 
 M.setup = function(on_attach)
   neogit.setup {
-    kind = "vsplit",
+    kind = "split",
     integrations = {
       diffview = true,
     },

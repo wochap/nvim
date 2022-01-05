@@ -65,7 +65,7 @@ hooks.add("setup_mappings", function(map)
    map("n", "<leader>gB", "<cmd>lua require'custom.utils.telescope'.branches()<CR>", opts)
    map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opts)
    map("n", "<leader>gq", "<cmd>DiffviewClose<CR>", opts)
-   map("n", "<leader>gg", "<cmd>Neogit<CR>", opts)
+   map("n", "<leader>gg", "<cmd>Neogit kind=vsplit<CR>", opts)
    -- map("n", "<leader>gf", "<cmd>Telescope git_bcommits <CR>", opts)
 
    -- MaximizerToggle
