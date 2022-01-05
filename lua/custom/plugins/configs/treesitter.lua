@@ -5,6 +5,16 @@ if not present then
 end
 
 ts_config.setup {
+   textsubjects = {
+      enable = true,
+      keymaps = {
+         ["."] = "textsubjects-smart",
+         [";"] = "textsubjects-container-outer",
+      },
+   },
+   matchup = {
+      enable = true,
+   },
    autopairs = {
       enable = true,
    },
@@ -37,6 +47,6 @@ ts_config.setup {
       additional_vim_regex_highlighting = {},
    },
    incremental_selection = {
-      enable = false,
+      enable = true,
    },
 }
