@@ -203,6 +203,8 @@ hooks.add("install_plugins", function(use)
 
    use "editorconfig/editorconfig-vim"
 
+   use "tpope/vim-abolish"
+
    use {
       "tweekmonster/startuptime.vim",
       cmd = "StartupTime",

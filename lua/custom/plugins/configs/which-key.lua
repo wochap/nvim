@@ -102,6 +102,15 @@ M.setup = function(on_attach)
          t = "Lsp type_definition",
          r = "Lsp references",
       },
+      c = {
+         r = {
+            name = "Coerse",
+            s = "Coerse snake_case",
+            c = "Coerse camelCase",
+            u = "Coerse UPPER_CASE",
+            ["-"] = "Coerse kebab-case",
+         },
+      },
    }, {
       mode = "n",
    })
