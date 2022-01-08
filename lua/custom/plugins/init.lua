@@ -203,7 +203,22 @@ hooks.add("install_plugins", function(use)
 
    use "editorconfig/editorconfig-vim"
 
+   -- Change word casing
    use "tpope/vim-abolish"
+
+   use "tpope/vim-repeat"
+
+   -- Switch words
+   use "tommcdo/vim-exchange"
+
+   -- Align text vertically
+   use "tommcdo/vim-lion"
+
+   -- Better pasting
+   use "sickill/vim-pasta"
+
+   -- Smooth scroll
+   -- use "psliwka/vim-smoothie"
 
    use {
       "tweekmonster/startuptime.vim",
