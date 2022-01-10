@@ -32,10 +32,10 @@ cmp.setup {
       ["<C-d>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping({
+      ["<C-e>"] = cmp.mapping {
          i = cmp.mapping.abort(),
          c = cmp.mapping.close(),
-      }),
+      },
       ["<CR>"] = cmp.mapping.confirm {
          -- behavior = cmp.ConfirmBehavior.Replace,
          select = true,
@@ -65,8 +65,28 @@ cmp.setup {
       { name = "buffer" },
       { name = "nvim_lua" },
       { name = "path" },
+      { name = "neorg" },
    },
    experimental = {
       ghost_text = true,
    },
 }
+
+local present2, neorg = pcall(require, "neorg")
+
+if not present2 then
+   return
+end
+
+local function load_completion()
+   neorg.modules.load_module("core.norg.completion", nil, {
+      engine = "nvim-cmp",
+   })
+end
+
+if neorg.is_loaded() then
+   load_completion()
+else
+   neorg.callbacks.on_event("core.started", load_completion)
+end
+

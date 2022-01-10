@@ -198,6 +198,14 @@ hooks.add("install_plugins", function(use)
       end,
    }
 
+   use {
+      "nvim-neorg/neorg",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+         require("custom.plugins.configs.neorg").setup()
+      end,
+   }
+
    -- This is needed to fix lsp doc highlight
    use "antoinemadec/FixCursorHold.nvim"
 
