@@ -94,8 +94,8 @@ hooks.add("setup_mappings", function(map)
    -- Quickly adding and deleting empty lines
    map("n", "[<Space>", ":set paste<CR>m`O<Esc>``:set nopaste<CR>", opts)
    map("n", "]<Space>", ":set paste<CR>m`o<Esc>``:set nopaste<CR>", opts)
-   map("n", "[<BS>", "m`:silent +g/\\m^\\s*$/d<CR>``:noh<CR>", opts)
-   map("n", "]<BS>", "m`:silent -g/\\m^\\s*$/d<CR>``:noh<CR>", opts)
+   map("n", "[<Del>", "m`:silent +g/\\m^\\s*$/d<CR>``:noh<CR>", opts)
+   map("n", "]<Del>", "m`:silent -g/\\m^\\s*$/d<CR>``:noh<CR>", opts)
 
    -- Exit
    map("n", "<leader>qa", "<cmd>qa <CR>", opts)
