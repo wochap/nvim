@@ -114,7 +114,10 @@ hooks.add("install_plugins", function(use)
 
    use {
       "hrsh7th/cmp-cmdline",
-      after = "cmp-buffer",
+      after = "cmp-path",
+      config = function()
+         require("custom.plugins.configs.others").cmp_cmdline()
+      end,
    }
 
    use {

@@ -1,6 +1,6 @@
 local M = {}
 
-M.setup = function(on_attach)
+M.setup = function()
    local present, which_key = pcall(require, "which-key")
 
    if not present then
