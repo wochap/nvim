@@ -168,13 +168,17 @@ hooks.add("install_plugins", function(use)
 
    use "b0o/schemastore.nvim"
 
-   use {
-      "blackCauldron7/surround.nvim",
-      event = "BufReadPre",
-      config = function()
-         require("surround").setup { mappings_style = "surround" }
-      end,
-   }
+   use "tpope/vim-surround"
+
+   -- following macro deletes lines
+   -- 0vt:s"kd
+   -- use {
+   --    "blackCauldron7/surround.nvim",
+   --    event = "BufReadPre",
+   --    config = function()
+   --       require("surround").setup { mappings_style = "surround", map_insert_mode = false }
+   --    end,
+   -- }
 
    use {
       "folke/trouble.nvim",
