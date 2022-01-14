@@ -91,6 +91,11 @@ hooks.add("setup_mappings", function(map)
    -- map("n", "<leader>dk", "<cmd>lua require"dap".up()<CR>", opts)
    -- map("n", "<leader>dj", "<cmd>lua require"dap".down()<CR>", opts)
 
+   map("n", "[q", ":cprevious<CR>", opts)
+   map("n", "]q", ":cnext<CR>", opts)
+   map("n", "[l", ":lprevious<CR>", opts)
+   map("n", "]l", ":lnext<CR>", opts)
+
    -- Quickly adding and deleting empty lines
    map("n", "[<Space>", ":set paste<CR>m`O<Esc>``:set nopaste<CR>", opts)
    map("n", "]<Space>", ":set paste<CR>m`o<Esc>``:set nopaste<CR>", opts)
