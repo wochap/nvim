@@ -8,9 +8,7 @@ local b = null_ls.builtins
 
 local sources = {
   -- JS TS Vue CSS HTML JSON YAML Markdown GraphQL
-  b.formatting.prettierd.with {
-    prefer_local = true,
-  },
+  b.formatting.prettierd,
 
   -- CSS
   -- b.diagnostics.stylelint
