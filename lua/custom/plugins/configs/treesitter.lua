@@ -38,6 +38,9 @@ ts_config.setup {
          [";"] = "textsubjects-container-outer",
       },
    },
+   indent = {
+      enable = true,
+   },
    matchup = {
       enable = true,
    },
