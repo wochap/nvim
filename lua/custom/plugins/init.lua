@@ -75,6 +75,9 @@ hooks.add("install_plugins", function(use)
       module = "spectre",
       wants = { "plenary.nvim", "popup.nvim" },
       requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
+      config = function()
+         require("custom.plugins.configs.others").nvim_spectre()
+      end,
    }
 
    use {
