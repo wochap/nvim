@@ -34,8 +34,8 @@ ts_config.setup {
    textsubjects = {
       enable = true,
       keymaps = {
-         ["."] = "textsubjects-smart",
-         [";"] = "textsubjects-container-outer",
+         ["g."] = "textsubjects-smart",
+         ["g;"] = "textsubjects-container-outer",
       },
    },
    indent = {
@@ -58,6 +58,7 @@ ts_config.setup {
       "norg",
       "norg_meta",
       "norg_table",
+      "c",
       "css",
       "graphql",
       "html",

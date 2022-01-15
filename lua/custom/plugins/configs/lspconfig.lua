@@ -5,6 +5,7 @@ M.setup_lsp = function(attach, capabilities)
 
    -- TODO: add clangd vimls pyls_ms?
    local servers = {
+      "clangd",
       "html",
       "cssls",
       "emmet_ls",
@@ -14,7 +15,7 @@ M.setup_lsp = function(attach, capabilities)
       "bashls",
       "tsserver",
       "sumneko_lua",
-      "flow",
+      -- "flow",
       "cssmodules_ls",
       "rnix",
    }

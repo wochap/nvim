@@ -43,6 +43,7 @@ M.trouble_nvim = function()
 
    trouble.setup {
       use_diagnostic_signs = true,
+      group = false,
    }
 end
 
@@ -95,6 +96,7 @@ M.filetype = function()
       overrides = {
          extensions = {
             nix = "nix",
+            rasi = "less",
          },
       },
    }
