@@ -72,7 +72,13 @@ M.plugins = {
       autopairs = true,
    },
    options = {
+      packer = {
+         init_file = "plugins.packerInit",
+      },
       autopairs = { loadAfter = "nvim-cmp" },
+      cmp = {
+         lazy_load = true,
+      },
       lspconfig = {
          setup_lspconf = "", -- path of file containing setups of different lsps
       },
