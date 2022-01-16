@@ -1,6 +1,6 @@
-local hooks = require "core.hooks"
+local customPlugins = require "core.customPlugins"
 
-hooks.add("install_plugins", function(use)
+customPlugins.add(function(use)
    use {
       "mfussenegger/nvim-dap",
       opt = true,
@@ -30,6 +30,7 @@ hooks.add("install_plugins", function(use)
 
    use {
       "jose-elias-alvarez/null-ls.nvim",
+      commit = "92cd2951160442039744545bb76ede43480f6807",
       after = "nvim-lspconfig",
       config = function()
          require("custom.plugins.configs.null-ls").setup()

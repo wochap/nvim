@@ -2,7 +2,7 @@ local colors = require("colors").get()
 local theme = require("core.utils").load_config().ui.theme
 local present, base16 = pcall(require, "base16")
 local themeColors = base16.themes(theme)
-local utils = require("custom.colors.utils")
+local utils = require "custom.colors.utils"
 local stateColors = {
    error = colors.red,
    warning = colors.yellow,
@@ -13,7 +13,12 @@ local gitColors = {
    delete = colors.red,
    add = colors.green,
    change = colors.orange,
+   info = colors.blue,
 }
+
+if not present then
+   return
+end
 
 -- Add # sign
 for name, color in pairs(themeColors) do
@@ -21,18 +26,18 @@ for name, color in pairs(themeColors) do
 end
 
 local function highlight(group, color)
-  local style = color.style and "gui=" .. color.style or "gui=NONE"
-  local fg = color.fg and "guifg=" .. color.fg or "guifg=NONE"
-  local bg = color.bg and "guibg=" .. color.bg or "guibg=NONE"
-  local sp = color.sp and "guisp=" .. color.sp or ""
+   local style = color.style and "gui=" .. color.style or "gui=NONE"
+   local fg = color.fg and "guifg=" .. color.fg or "guifg=NONE"
+   local bg = color.bg and "guibg=" .. color.bg or "guibg=NONE"
+   local sp = color.sp and "guisp=" .. color.sp or ""
 
-  local hl = "highlight " .. group .. " " .. style .. " " .. fg .. " " .. bg .. " " .. sp
+   local hl = "highlight " .. group .. " " .. style .. " " .. fg .. " " .. bg .. " " .. sp
 
-  if color.link then
-     vim.cmd("highlight! link " .. group .. " " .. color.link)
-  else
-     vim.cmd(hl)
-  end
+   if color.link then
+      vim.cmd("highlight! link " .. group .. " " .. color.link)
+   else
+      vim.cmd(hl)
+   end
 end
 
 local syntax = {
@@ -57,12 +62,12 @@ local syntax = {
    -- DiffNewFile = { fg = themeColors.base0B, bg = themeColors.base00 },
    -- DiffRemoved = { fg = themeColors.base08, bg = themeColors.base00 },
 
-   -- ConflictMarkerBegin = {bg = "#347a71", fg = "#abb2bf" },
-   -- ConflictMarkerOurs = {bg = "#2d4b4d"},
-   -- ConflictMarkerTheirs = {bg = "#2d445d"},
-   -- ConflictMarkerEnd = {bg = "#366b9e", fg = "#abb2bf" },
-   -- ConflictMarkerCommonAncestorsHunk = {bg = "#754a81"},
-   -- ConflictMarkerSeparator = {fg = themeColors.base0B},
+   ConflictMarkerBegin = { bg = utils.darken(gitColors.add, 0.4, themeColors.base01) },
+   ConflictMarkerOurs = { bg = utils.darken(gitColors.add, 0.2, themeColors.base01) },
+   ConflictMarkerTheirs = { bg = utils.darken(gitColors.info, 0.2, themeColors.base01) },
+   ConflictMarkerEnd = { bg = utils.darken(gitColors.info, 0.4, themeColors.base01) },
+   ConflictMarkerCommonAncestorsHunk = { bg = themeColors.base01 },
+   ConflictMarkerSeparator = { fg = themeColors.base0B },
 
    -- Git signs
    GitSignsAdd = { fg = gitColors.add },
@@ -109,7 +114,7 @@ local syntax = {
    NeogitDiffDelete = { fg = themeColors.base0, bg = utils.darken(gitColors.delete, 0.2, themeColors.base01) },
    NeogitDiffDeleteHighlight = { fg = colors.white, bg = utils.darken(gitColors.delete, 0.2, themeColors.base01) },
    NeogitHunkHeader = { fg = themeColors.base05 },
-   NeogitHunkHeaderHighlight ={ fg = themeColors.white, bg = "#484a54" },
+   NeogitHunkHeaderHighlight = { fg = themeColors.white, bg = "#484a54" },
    -- NeogitBranch = { fg = , bg = },
    -- NeogitRemote = { fg = , bg = },
 
