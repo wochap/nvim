@@ -14,11 +14,11 @@ M.setup = function()
                },
             },
          },
-         ["core.norg.completion"] = {
-            config = {
-               engine = "nvim-cmp",
-            },
-         },
+         -- ["core.norg.completion"] = {
+         --    config = {
+         --       engine = "nvim-cmp",
+         --    },
+         -- },
       },
    }
 end
