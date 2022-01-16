@@ -64,6 +64,7 @@ customPlugins.add(function(use)
       "folke/todo-comments.nvim",
       cmd = { "TodoTrouble", "TodoTelescope" },
       requires = "nvim-lua/plenary.nvim",
+      wants = { "plenary.nvim" },
       event = "BufReadPost",
       config = function()
          require("custom.plugins.configs.todo-comments").setup()
@@ -83,10 +84,15 @@ customPlugins.add(function(use)
 
    use {
       "TimUntersberger/neogit",
+      opt = true,
       cmd = "Neogit",
       requires = {
          "nvim-lua/plenary.nvim",
          "sindrets/diffview.nvim",
+      },
+      wants = {
+         "plenary.nvim",
+         "diffview.nvim",
       },
       config = function()
          require("custom.plugins.configs.neogit").setup()
@@ -95,9 +101,11 @@ customPlugins.add(function(use)
 
    use {
       "sindrets/diffview.nvim",
+      opt = true,
       after = "neogit",
       cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
       requires = "nvim-lua/plenary.nvim",
+      wants = "plenary.nvim",
       config = function()
          require("custom.plugins.configs.diffview").setup()
       end,
@@ -152,6 +160,7 @@ customPlugins.add(function(use)
 
    use {
       "ThePrimeagen/vim-be-good",
+      opt = true,
       cmd = "VimBeGood",
       setup = function()
          require("core.utils").packer_lazy_load "vim-be-good"
@@ -186,9 +195,11 @@ customPlugins.add(function(use)
 
    use {
       "folke/trouble.nvim",
-      cmd = { "TroubleToggle", "Trouble" },
-      event = "BufReadPre",
+      opt = true,
+      module = "trouble",
+      cmd = { "TroubleToggle", "Trouble", "TodoTrouble", "TodoTelescope" },
       requires = "kyazdani42/nvim-web-devicons",
+      wants = "nvim-web-devicons",
       config = function()
          require("custom.plugins.configs.others").trouble_nvim()
       end,
@@ -212,6 +223,7 @@ customPlugins.add(function(use)
    use {
       "nvim-neorg/neorg",
       requires = "nvim-lua/plenary.nvim",
+      wants = "plenary.nvim",
       config = function()
          require("custom.plugins.configs.neorg").setup()
       end,
