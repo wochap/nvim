@@ -1,0 +1,58 @@
+# NVIM
+
+[NVChad](https://github.com/NvChad/NvChad) plus custom config
+
+## Getting started
+
+```sh
+$ git clone git@github.com:wochap/nvim.git ~/.config/nvim
+$ cd ~/.config/nvim
+$ git remote add nvchad https://github.com/NvChad/NvChad
+$ nvim -c "autocmd User PackerComplete quitall" -c "PackerSync"
+$ nvim
+```
+
+## Dependencies
+
+* [neovim nightly](https://github.com/neovim/neovim)
+* tree-sitter
+
+Required by [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+
+* ripgrep
+* fd
+
+Required by [NullLS](https://github.com/jose-elias-alvarez/null-ls.nvim)
+
+* localPkgs.customNodePackages."@fsouza/prettierd"
+* localPkgs.customNodePackages.markdownlint
+* localPkgs.customNodePackages.stylelint
+* lua51Packages.luacheck
+* nixfmt
+* nodePackages.eslint_d
+* python39Packages.pylint
+* shellcheck
+* shfmt
+* statix
+* stylua
+
+Required by [lspconfig](https://github.com/neovim/nvim-lspconfig)
+
+* clang-tools
+* rnix-lsp
+* flow
+* sumneko-lua-language-server
+
+* @tailwindcss/language-server
+* cssmodules-language-server
+* emmet-ls
+* bash-language-server
+* svelte-language-server
+* vscode-langservers-extracted
+* typescript
+* typescript-language-server
+
+Required by [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap)
+
+* [vscode-node-debug2](https://github.com/microsoft/vscode-node-debug2) on `~/dev/microsoft/vscode-node-debug2`
+
