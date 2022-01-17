@@ -2,12 +2,15 @@
 
 [NVChad](https://github.com/NvChad/NvChad) plus custom config
 
+![](https://i.imgur.com/u6RxqxO.png)
+![](https://i.imgur.com/lIVQtqe.png)
+
 ## Getting started
 
 ```sh
 $ git clone git@github.com:wochap/nvim.git ~/.config/nvim
 $ cd ~/.config/nvim
-$ git remote add nvchad https://github.com/NvChad/NvChad
+$ git remote add nvchad https://github.com/NvChad/NvChad.git
 $ nvim -c "autocmd User PackerComplete quitall" -c "PackerSync"
 $ nvim
 ```
