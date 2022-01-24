@@ -1,8 +1,7 @@
-local telescope = require "telescope"
-local actions = require "telescope.actions"
 local M = {}
 
 M.branches = function()
+   local actions = require "telescope.actions"
    require("telescope.builtin").git_branches {
       attach_mappings = function(_, map)
          map("i", "<C-j>", actions.git_create_branch)

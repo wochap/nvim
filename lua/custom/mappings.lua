@@ -142,3 +142,4 @@ map("x", "<A-Up>", ":m '<-2<CR>gv-gv", opts)
 
 -- Save in insert mode
 map("i", "<C-s>", "<Esc>:w <CR>", opts)
+map("v", "<C-s>", "<Esc>:w <CR>", opts)

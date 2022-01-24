@@ -43,7 +43,7 @@ M.trouble_nvim = function()
 
    trouble.setup {
       use_diagnostic_signs = true,
-      group = false,
+      -- group = false,
    }
 end
 
