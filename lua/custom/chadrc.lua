@@ -1,4 +1,4 @@
-local pluginOverridesOthers = require "custom.plugins.configs.others"
+local pluginOverridesOthers = require "custom.plugins.overrides.others"
 local M = {}
 local ignore = "<leader>zx"
 
@@ -119,18 +119,8 @@ M.plugins = {
       colorizer = false,
       better_escape = false,
    },
+
    options = {
-      nvimtree = {
-         enable_git = 1,
-         ui = {
-            allow_resize = true,
-            side = "left",
-            width = 35,
-            hide_root_folder = false,
-            number = true,
-            relativenumber = true,
-         },
-      },
       lspconfig = {
          setup_lspconf = "custom.plugins.configs.lspconfig",
       },
@@ -151,13 +141,13 @@ M.plugins = {
       },
    },
    default_plugin_config_replace = {
-      gitsigns = pluginOverridesOthers.gitsigns,
-      nvim_cmp = "custom.plugins.configs.cmp",
-      nvim_comment = pluginOverridesOthers.nvim_comment,
-      nvim_tree = "custom.plugins.configs.nvimtree",
-      nvim_treesitter = "custom.plugins.configs.treesitter",
-      nvim_autopairs = "custom.plugins.configs.autopairs",
       bufferline = pluginOverridesOthers.bufferline,
+      gitsigns = pluginOverridesOthers.gitsigns,
+      nvim_autopairs = "custom.plugins.overrides.autopairs",
+      nvim_cmp = "custom.plugins.overrides.cmp",
+      nvim_comment = pluginOverridesOthers.nvim_comment,
+      nvim_tree = "custom.plugins.overrides.nvimtree",
+      nvim_treesitter = "custom.plugins.overrides.treesitter",
    },
    default_plugin_remove = {
       "nathom/filetype.nvim",

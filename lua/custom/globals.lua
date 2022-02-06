@@ -10,7 +10,7 @@ opt.listchars:append "tab:» "
 opt.listchars:append "trail:·"
 
 vim.cmd [[
- let g:matchup_matchparen_offscreen = {'method': 'popup'}
+   let g:matchup_matchparen_offscreen = {'method': 'popup'}
 
    " Protect large files from sourcing and other overhead.
    " Files become read only
@@ -29,5 +29,4 @@ vim.cmd [[
          autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
       augroup END
    endif
-
 ]]
