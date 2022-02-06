@@ -1,3 +1,4 @@
+local pluginOverridesOthers = require "custom.plugins.configs.others"
 local M = {}
 local ignore = "<leader>zx"
 
@@ -110,6 +111,8 @@ M.ui = {
 
 -- NvChad included plugin options & overrides
 M.plugins = {
+   install = require "custom.plugins",
+
    status = {
       -- feline = false,
       dashboard = true,
@@ -147,20 +150,17 @@ M.plugins = {
          style = "default",
       },
    },
-   -- To change the Packer `config` of a plugin that comes with NvChad,
-   -- add a table entry below matching the plugin github name
-   --              '-' -> '_', remove any '.lua', '.nvim' extensions
-   -- this string will be called in a `require`
-   --              use "(custom.configs).my_func()" to call a function
-   --              use "custom.blankline" to call a file
    default_plugin_config_replace = {
-      gitsigns = "custom.plugins.configs.gitsigns",
+      gitsigns = pluginOverridesOthers.gitsigns,
       nvim_cmp = "custom.plugins.configs.cmp",
-      nvim_comment = "custom.plugins.configs.nvim-comment",
+      nvim_comment = pluginOverridesOthers.nvim_comment,
       nvim_tree = "custom.plugins.configs.nvimtree",
       nvim_treesitter = "custom.plugins.configs.treesitter",
       nvim_autopairs = "custom.plugins.configs.autopairs",
-      bufferline = "custom.plugins.configs.bufferline",
+      bufferline = pluginOverridesOthers.bufferline,
+   },
+   default_plugin_remove = {
+      "nathom/filetype.nvim",
    },
 }
 

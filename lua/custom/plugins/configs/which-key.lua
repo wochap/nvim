@@ -115,7 +115,7 @@ M.setup = function()
          d = "Prev diagnostic",
          e = "Prev diagnostic error",
          g = "Prev git hunk",
-         g = "Prev trouble item",
+         t = "Prev trouble item",
       },
       ["]"] = {
          d = "Next diagnostic",

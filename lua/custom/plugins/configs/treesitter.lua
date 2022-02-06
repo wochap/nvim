@@ -30,7 +30,7 @@ parser_configs.norg_table = {
    },
 }
 
-ts_config.setup {
+local default = {
    textsubjects = {
       enable = true,
       keymaps = {
@@ -82,3 +82,5 @@ ts_config.setup {
       enable = true,
    },
 }
+
+ts_config.setup(default)
