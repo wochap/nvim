@@ -111,6 +111,7 @@ M.setup = function()
       },
       c = {
          r = {
+            -- vim-abolish
             name = "Coerse",
             s = "Coerse snake_case",
             c = "Coerse camelCase",

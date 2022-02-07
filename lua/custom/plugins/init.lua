@@ -1,3 +1,7 @@
+-- local commit = {
+--    vscode-es7-javascript-react-snippets = "6bc8ec96c24beea7e54f21c9fe2476e73d669cd7",
+-- };
+
 return {
    -- Dap
    {
@@ -26,7 +30,8 @@ return {
    -- LSP stuff
    {
       "jose-elias-alvarez/null-ls.nvim",
-      commit = "92cd2951160442039744545bb76ede43480f6807",
+      requires = "nvim-lua/plenary.nvim",
+      wants = "plenary.nvim",
       after = "nvim-lspconfig",
       config = function()
          require("custom.plugins.configs.null-ls").setup()
@@ -43,6 +48,7 @@ return {
       "jose-elias-alvarez/nvim-lsp-ts-utils",
       after = "nvim-lspconfig",
    },
+   { "b0o/schemastore.nvim" },
 
    -- treesitter
    {
@@ -69,17 +75,6 @@ return {
    {
       "rafamadriz/friendly-snippets",
       after = "vscode-es7-javascript-react-snippets",
-   },
-
-   {
-      "folke/todo-comments.nvim",
-      cmd = { "TodoTrouble", "TodoTelescope" },
-      requires = "nvim-lua/plenary.nvim",
-      wants = { "plenary.nvim" },
-      event = "BufReadPost",
-      config = function()
-         require("custom.plugins.configs.todo-comments").setup()
-      end,
    },
 
    {
@@ -123,14 +118,6 @@ return {
    },
 
    {
-      "folke/which-key.nvim",
-      event = "VimEnter",
-      config = function()
-         require("custom.plugins.configs.which-key").setup()
-      end,
-   },
-
-   {
       "hrsh7th/cmp-cmdline",
       after = "cmp-path",
       config = function()
@@ -148,6 +135,13 @@ return {
    {
       "szw/vim-maximizer",
       event = "BufRead",
+   },
+   {
+      "folke/which-key.nvim",
+      event = "VimEnter",
+      config = function()
+         require("custom.plugins.configs.which-key").setup()
+      end,
    },
 
    {
@@ -182,8 +176,6 @@ return {
       end,
    },
 
-   { "b0o/schemastore.nvim" },
-
    { "tpope/vim-surround" },
    -- following macro deletes lines
    -- 0vt:s"kd
@@ -195,6 +187,16 @@ return {
    --    end,
    -- }
 
+   {
+      "folke/todo-comments.nvim",
+      cmd = { "TodoTrouble", "TodoTelescope" },
+      requires = "nvim-lua/plenary.nvim",
+      wants = { "plenary.nvim" },
+      event = "BufReadPost",
+      config = function()
+         require("custom.plugins.configs.todo-comments").setup()
+      end,
+   },
    {
       "folke/trouble.nvim",
       opt = true,
