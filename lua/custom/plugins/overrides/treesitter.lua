@@ -30,11 +30,12 @@ parser_configs.norg_table = {
    },
 }
 
-ts_config.setup {
+local default = {
    textsubjects = {
       enable = true,
       keymaps = {
          ["g."] = "textsubjects-smart",
+         ["g,"] = "textsubjects-container-inner",
          ["g;"] = "textsubjects-container-outer",
       },
    },
@@ -77,8 +78,14 @@ ts_config.setup {
       enable = true,
       use_languagetree = true,
       additional_vim_regex_highlighting = {},
+      -- Disable in large buffers
+      disable = function(lang, bufnr)
+         return vim.api.nvim_buf_line_count(bufnr) > 10000
+      end,
    },
    incremental_selection = {
       enable = true,
    },
 }
+
+ts_config.setup(default)
