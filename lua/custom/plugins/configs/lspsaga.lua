@@ -9,6 +9,10 @@ M.setup = function()
 
    lspsaga.setup {
       use_saga_diagnostic_sign = false,
+      code_action_prompt = {
+         sign_priority = 0,
+         virtual_text = false,
+      };
    }
 end
 

@@ -85,6 +85,13 @@ M.setup = function()
       },
       l = {
          name = "Lsp",
+         r = {
+            name = "Refactor",
+            e = "Extract Function",
+            f = "Extract Function To File",
+            v = "Extract Variable",
+            i = "Inline Variable",
+         },
       },
    }, {
       mode = "v",
@@ -131,15 +138,9 @@ M.setup = function()
       g = {
          c = "Comment toggle_current_lines_linewise",
          b = "Comment toggle_current_lines_blockwise",
-      },
-      l = {
-         r = {
-            name = "Refactor",
-            e = "Extract Function",
-            f = "Extract Function To File",
-            v = "Extract Variable",
-            i = "Inline Variable",
-         },
+         ["."] = "TS textsubjects-smart",
+         [","] = "TS textsubjects-container-inner",
+         [";"] = "TS textsubjects-container-outer",
       },
    }, {
       mode = "v",

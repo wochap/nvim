@@ -1,15 +1,13 @@
 return {
+   -- Dap
    {
       "mfussenegger/nvim-dap",
       opt = true,
+      module = "dap",
       config = function()
          require("custom.plugins.configs.nvim-dap").setup()
       end,
-      setup = function()
-         require("core.utils").packer_lazy_load "nvim-dap"
-      end,
    },
-
    {
       "rcarriga/nvim-dap-ui",
       after = "nvim-dap",
@@ -17,15 +15,15 @@ return {
          require("dapui").setup()
       end,
    },
-
    {
       "theHamsta/nvim-dap-virtual-text",
       after = "nvim-dap",
       config = function()
-         require("custom.plugins.configs.others").nvim_dap_virtual_text()
+         require("nvim-dap-virtual-text").setup()
       end,
    },
 
+   -- LSP stuff
    {
       "jose-elias-alvarez/null-ls.nvim",
       commit = "92cd2951160442039744545bb76ede43480f6807",
@@ -34,7 +32,6 @@ return {
          require("custom.plugins.configs.null-ls").setup()
       end,
    },
-
    {
       "tami5/lspsaga.nvim",
       after = "nvim-lspconfig",
@@ -42,20 +39,36 @@ return {
          require("custom.plugins.configs.lspsaga").setup()
       end,
    },
-
    {
       "jose-elias-alvarez/nvim-lsp-ts-utils",
       after = "nvim-lspconfig",
    },
 
+   -- treesitter
    {
-      "RRethy/nvim-treesitter-textsubjects",
-      after = "nvim-treesitter",
+      "nvim-treesitter/nvim-treesitter",
+      requires = {
+         { "RRethy/nvim-treesitter-textsubjects" },
+         { "windwp/nvim-ts-autotag" },
+         { "JoosepAlviste/nvim-ts-context-commentstring" },
+      },
+      event = "BufRead",
+      config = function()
+         require "custom.plugins.overrides.treesitter"
+      end,
    },
 
+   -- snippets
    {
       "dsznajder/vscode-es7-javascript-react-snippets",
+      run = "yarn install --frozen-lockfile && yarn compile",
+      commit = "6bc8ec96c24beea7e54f21c9fe2476e73d669cd7",
+      module = "cmp_nvim_lsp",
       event = "InsertEnter",
+   },
+   {
+      "rafamadriz/friendly-snippets",
+      after = "vscode-es7-javascript-react-snippets",
    },
 
    {
@@ -118,11 +131,6 @@ return {
    },
 
    {
-      "windwp/nvim-ts-autotag",
-      after = "nvim-treesitter",
-   },
-
-   {
       "hrsh7th/cmp-cmdline",
       after = "cmp-path",
       config = function()
@@ -130,11 +138,13 @@ return {
       end,
    },
 
+   -- langs support
    {
       "elkowar/yuck.vim",
-      event = "VimEnter",
+      ft = "yuck",
    },
 
+   -- misc
    {
       "szw/vim-maximizer",
       event = "BufRead",
@@ -172,15 +182,9 @@ return {
       end,
    },
 
-   {
-      "JoosepAlviste/nvim-ts-context-commentstring",
-      after = "nvim-treesitter",
-   },
-
    { "b0o/schemastore.nvim" },
 
    { "tpope/vim-surround" },
-
    -- following macro deletes lines
    -- 0vt:s"kd
    -- {
@@ -205,10 +209,14 @@ return {
 
    {
       "ThePrimeagen/harpoon",
+      opt = true,
+      module = "harpoon",
    },
 
    {
       "ThePrimeagen/refactoring.nvim",
+      opt = true,
+      module = "refactoring",
       requires = {
          { "nvim-lua/plenary.nvim" },
          { "nvim-treesitter/nvim-treesitter" },
@@ -245,9 +253,6 @@ return {
 
    -- Better pasting
    { "sickill/vim-pasta" },
-
-   -- Smooth scroll
-   -- { "psliwka/vim-smoothie" },
 
    {
       "tweekmonster/startuptime.vim",

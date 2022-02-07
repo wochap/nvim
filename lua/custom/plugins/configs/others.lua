@@ -75,16 +75,6 @@ M.refactoring = function()
    refactoring.setup {}
 end
 
-M.nvim_dap_virtual_text = function()
-   local present, nvim_dap_virtual_text = pcall(require, "nvim-dap-virtual-text")
-
-   if not present then
-      return
-   end
-
-   nvim_dap_virtual_text.setup {}
-end
-
 M.filetype = function()
    local present, filetype = pcall(require, "filetype")
 

@@ -63,11 +63,11 @@ local plugins = {
       config = override_req("nvim_colorizer", "plugins.configs.others", "colorizer"),
    },
 
-   {
-      "nvim-treesitter/nvim-treesitter",
-      event = "BufRead",
-      config = override_req("nvim_treesitter", "plugins.configs.treesitter", "setup"),
-   },
+   -- {
+   -- "nvim-treesitter/nvim-treesitter",
+   -- event = "BufRead",
+   -- config = override_req("nvim_treesitter", "plugins.configs.treesitter", "setup"),
+   -- },
 
    -- git stuff
    {
@@ -121,12 +121,12 @@ local plugins = {
 
    -- load luasnips + cmp related in insert mode only
 
-   {
-      "rafamadriz/friendly-snippets",
-      module = "cmp_nvim_lsp",
-      disable = not (plugin_settings.status.cmp and plugin_settings.status.snippets),
-      event = "InsertEnter",
-   },
+   -- {
+   --    "rafamadriz/friendly-snippets",
+   --    module = "cmp_nvim_lsp",
+   --    disable = not (plugin_settings.status.cmp and plugin_settings.status.snippets),
+   --    event = "InsertEnter",
+   -- },
 
    -- cmp by default loads after friendly snippets
    -- if snippets are disabled -> cmp loads on insertEnter!
@@ -197,7 +197,7 @@ local plugins = {
       "numToStr/Comment.nvim",
       disable = not plugin_settings.status.comment,
       module = "Comment",
-      keys = {"gcc"},
+      keys = { "gcc" },
       config = override_req("nvim_comment", "plugins.configs.others", "comment"),
       setup = function()
          require("core.mappings").comment()

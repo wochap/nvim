@@ -35,6 +35,7 @@ local default = {
       enable = true,
       keymaps = {
          ["g."] = "textsubjects-smart",
+         ["g,"] = "textsubjects-container-inner",
          ["g;"] = "textsubjects-container-outer",
       },
    },

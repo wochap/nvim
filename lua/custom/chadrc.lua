@@ -151,6 +151,8 @@ M.plugins = {
    },
    default_plugin_remove = {
       "nathom/filetype.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "rafamadriz/friendly-snippets",
    },
 }
 
