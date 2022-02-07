@@ -4,7 +4,7 @@ if not present then
    return
 end
 
-ts_config.setup {
+local default = {
    ensure_installed = {
       "lua",
       "vim",
@@ -14,3 +14,13 @@ ts_config.setup {
       use_languagetree = true,
    },
 }
+
+local M = {}
+M.setup = function(override_flag)
+   if override_flag then
+      default = require("core.utils").tbl_override_req("nvim_treesitter", default)
+   end
+   ts_config.setup(default)
+end
+
+return M

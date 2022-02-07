@@ -4,7 +4,7 @@ if not present then
    return
 end
 
-telescope.setup {
+local default = {
    defaults = {
       vimgrep_arguments = {
          "rg",
@@ -53,10 +53,21 @@ telescope.setup {
    },
 }
 
-local extensions = { "themes", "terms" }
-
-pcall(function()
-   for _, ext in ipairs(extensions) do
-      telescope.load_extension(ext)
+local M = {}
+M.setup = function(override_flag)
+   if override_flag then
+      default = require("core.utils").tbl_override_req("telescope", default)
    end
-end)
+
+   telescope.setup(default)
+
+   local extensions = { "themes", "terms" }
+
+   pcall(function()
+      for _, ext in ipairs(extensions) do
+         telescope.load_extension(ext)
+      end
+   end)
+end
+
+return M

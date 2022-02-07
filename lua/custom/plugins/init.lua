@@ -1,77 +1,83 @@
-local customPlugins = require "core.customPlugins"
+-- local commit = {
+--    vscode-es7-javascript-react-snippets = "6bc8ec96c24beea7e54f21c9fe2476e73d669cd7",
+-- };
 
-customPlugins.add(function(use)
-   use {
+return {
+   -- Dap
+   {
       "mfussenegger/nvim-dap",
       opt = true,
+      module = "dap",
       config = function()
          require("custom.plugins.configs.nvim-dap").setup()
       end,
-      setup = function()
-         require("core.utils").packer_lazy_load "nvim-dap"
-      end,
-   }
-
-   use {
+   },
+   {
       "rcarriga/nvim-dap-ui",
       after = "nvim-dap",
       config = function()
          require("dapui").setup()
       end,
-   }
-
-   use {
+   },
+   {
       "theHamsta/nvim-dap-virtual-text",
       after = "nvim-dap",
       config = function()
-         require("custom.plugins.configs.others").nvim_dap_virtual_text()
+         require("nvim-dap-virtual-text").setup()
       end,
-   }
+   },
 
-   use {
+   -- LSP stuff
+   {
       "jose-elias-alvarez/null-ls.nvim",
-      commit = "92cd2951160442039744545bb76ede43480f6807",
+      requires = "nvim-lua/plenary.nvim",
+      wants = "plenary.nvim",
       after = "nvim-lspconfig",
       config = function()
          require("custom.plugins.configs.null-ls").setup()
       end,
-   }
-
-   use {
+   },
+   {
       "tami5/lspsaga.nvim",
       after = "nvim-lspconfig",
       config = function()
          require("custom.plugins.configs.lspsaga").setup()
       end,
-   }
-
-   use {
+   },
+   {
       "jose-elias-alvarez/nvim-lsp-ts-utils",
       after = "nvim-lspconfig",
-   }
+   },
+   { "b0o/schemastore.nvim" },
 
-   use {
-      "RRethy/nvim-treesitter-textsubjects",
-      after = "nvim-treesitter",
-   }
-
-   use {
-      "dsznajder/vscode-es7-javascript-react-snippets",
-      event = "InsertEnter",
-   }
-
-   use {
-      "folke/todo-comments.nvim",
-      cmd = { "TodoTrouble", "TodoTelescope" },
-      requires = "nvim-lua/plenary.nvim",
-      wants = { "plenary.nvim" },
-      event = "BufReadPost",
+   -- treesitter
+   {
+      "nvim-treesitter/nvim-treesitter",
+      requires = {
+         { "RRethy/nvim-treesitter-textsubjects" },
+         { "windwp/nvim-ts-autotag" },
+         { "JoosepAlviste/nvim-ts-context-commentstring" },
+      },
+      event = "BufRead",
       config = function()
-         require("custom.plugins.configs.todo-comments").setup()
+         require "custom.plugins.overrides.treesitter"
       end,
-   }
+   },
 
-   use {
+   -- snippets
+   {
+      "dsznajder/vscode-es7-javascript-react-snippets",
+      run = "yarn install --frozen-lockfile && yarn compile",
+      commit = "6bc8ec96c24beea7e54f21c9fe2476e73d669cd7",
+      module = "cmp_nvim_lsp",
+      event = "InsertEnter",
+   },
+   {
+      "rafamadriz/friendly-snippets",
+      after = "vscode-es7-javascript-react-snippets",
+   },
+
+   {
       "windwp/nvim-spectre",
       opt = true,
       module = "spectre",
@@ -80,9 +86,9 @@ customPlugins.add(function(use)
       config = function()
          require("custom.plugins.configs.others").nvim_spectre()
       end,
-   }
+   },
 
-   use {
+   {
       "TimUntersberger/neogit",
       opt = true,
       cmd = "Neogit",
@@ -97,9 +103,9 @@ customPlugins.add(function(use)
       config = function()
          require("custom.plugins.configs.neogit").setup()
       end,
-   }
+   },
 
-   use {
+   {
       "sindrets/diffview.nvim",
       opt = true,
       after = "neogit",
@@ -109,83 +115,71 @@ customPlugins.add(function(use)
       config = function()
          require("custom.plugins.configs.diffview").setup()
       end,
-   }
+   },
 
-   use {
-      "folke/which-key.nvim",
-      event = "VimEnter",
-      config = function()
-         require("custom.plugins.configs.which-key").setup()
-      end,
-   }
-
-   use {
-      "windwp/nvim-ts-autotag",
-      after = "nvim-treesitter",
-   }
-
-   use {
+   {
       "hrsh7th/cmp-cmdline",
       after = "cmp-path",
       config = function()
          require("custom.plugins.configs.others").cmp_cmdline()
       end,
-   }
+   },
 
-   use {
+   -- langs support
+   {
       "elkowar/yuck.vim",
-      event = "VimEnter",
-   }
+      ft = "yuck",
+   },
 
-   use {
+   -- misc
+   {
       "szw/vim-maximizer",
       event = "BufRead",
-   }
+   },
+   {
+      "folke/which-key.nvim",
+      event = "VimEnter",
+      config = function()
+         require("custom.plugins.configs.which-key").setup()
+      end,
+   },
 
-   use {
+   {
       "rhysd/conflict-marker.vim",
       event = "BufReadPost",
       setup = function()
          require("custom.plugins.configs.others").conflict_marker()
       end,
-   }
+   },
 
-   use {
+   {
       "mattn/emmet-vim",
       event = "InsertEnter",
       setup = function()
          require("custom.plugins.configs.others").emmet_vim()
       end,
-   }
+   },
 
-   use {
+   {
       "ThePrimeagen/vim-be-good",
       opt = true,
       cmd = "VimBeGood",
       setup = function()
          require("core.utils").packer_lazy_load "vim-be-good"
       end,
-   }
+   },
 
-   use {
+   {
       "nathom/filetype.nvim",
       config = function()
          require("custom.plugins.configs.others").filetype()
       end,
-   }
+   },
 
-   use {
-      "JoosepAlviste/nvim-ts-context-commentstring",
-      after = "nvim-treesitter",
-   }
-
-   use "b0o/schemastore.nvim"
-
-   use "tpope/vim-surround"
-
+   { "tpope/vim-surround" },
    -- following macro deletes lines
    -- 0vt:s"kd
-   -- use {
+   -- {
    --    "blackCauldron7/surround.nvim",
    --    event = "BufReadPre",
    --    config = function()
@@ -193,7 +187,17 @@ customPlugins.add(function(use)
    --    end,
    -- }
 
-   use {
+   {
+      "folke/todo-comments.nvim",
+      cmd = { "TodoTrouble", "TodoTelescope" },
+      requires = "nvim-lua/plenary.nvim",
+      wants = { "plenary.nvim" },
+      event = "BufReadPost",
+      config = function()
+         require("custom.plugins.configs.todo-comments").setup()
+      end,
+   },
+   {
       "folke/trouble.nvim",
       opt = true,
       module = "trouble",
@@ -203,14 +207,18 @@ customPlugins.add(function(use)
       config = function()
          require("custom.plugins.configs.others").trouble_nvim()
       end,
-   }
+   },
 
-   use {
+   {
       "ThePrimeagen/harpoon",
-   }
+      opt = true,
+      module = "harpoon",
+   },
 
-   use {
+   {
       "ThePrimeagen/refactoring.nvim",
+      opt = true,
+      module = "refactoring",
       requires = {
          { "nvim-lua/plenary.nvim" },
          { "nvim-treesitter/nvim-treesitter" },
@@ -218,43 +226,40 @@ customPlugins.add(function(use)
       config = function()
          require("custom.plugins.configs.others").refactoring()
       end,
-   }
+   },
 
-   use {
+   {
       "nvim-neorg/neorg",
       requires = "nvim-lua/plenary.nvim",
       wants = "plenary.nvim",
       config = function()
          require("custom.plugins.configs.neorg").setup()
       end,
-   }
+   },
 
    -- This is needed to fix lsp doc highlight
-   use "antoinemadec/FixCursorHold.nvim"
+   { "antoinemadec/FixCursorHold.nvim" },
 
-   use "editorconfig/editorconfig-vim"
+   { "editorconfig/editorconfig-vim" },
 
    -- Change word casing
-   use "tpope/vim-abolish"
+   { "tpope/vim-abolish" },
 
-   use "tpope/vim-repeat"
+   { "tpope/vim-repeat" },
 
    -- Switch words
-   use "tommcdo/vim-exchange"
+   { "tommcdo/vim-exchange" },
 
    -- Align text vertically
-   use "tommcdo/vim-lion"
+   { "tommcdo/vim-lion" },
 
    -- Better pasting
-   use "sickill/vim-pasta"
+   { "sickill/vim-pasta" },
 
-   -- Smooth scroll
-   -- use "psliwka/vim-smoothie"
-
-   use {
+   {
       "tweekmonster/startuptime.vim",
       cmd = "StartupTime",
-   }
+   },
 
-   -- use "dstein64/nvim-scrollview"
-end)
+   -- { "dstein64/nvim-scrollview" },
+}

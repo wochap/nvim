@@ -1,7 +1,7 @@
 local utils = require "core.utils"
 
 local config = utils.load_config()
-local map = utils.map
+local map_wrapper = utils.map
 
 local maps = config.mappings
 local plugin_maps = maps.plugins
@@ -9,41 +9,52 @@ local nvChad_options = config.options.nvChad
 
 local cmd = vim.cmd
 
+-- This is a wrapper function made to disable a plugin mapping from chadrc
+-- If keys are nil, false or empty string, then the mapping will be not applied
+-- Useful when one wants to use that keymap for any other purpose
+local map = function(...)
+   local keys = select(2, ...)
+   if not keys or keys == "" then
+      return
+   end
+   map_wrapper(...)
+end
+
 local M = {}
 
 -- these mappings will only be called during initialization
 M.misc = function()
    local function non_config_mappings()
       -- Don't copy the replaced text after pasting in visual mode
-      map("v", "p", '"_dP')
+      map_wrapper("v", "p", '"_dP')
 
       -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
       -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
       -- empty mode is same as using :map
       -- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
-      map("", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
-      map("", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
-      map("", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
-      map("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
+      map_wrapper("", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
+      map_wrapper("", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
+      map_wrapper("", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
+      map_wrapper("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 
       -- use ESC to turn off search highlighting
-      map("n", "<Esc>", ":noh <CR>")
+      map_wrapper("n", "<Esc>", ":noh <CR>")
 
       -- center cursor when moving (goto_definition)
 
       -- yank from current cursor to end of line
-      map("n", "Y", "yg$")
+      map_wrapper("n", "Y", "yg$")
    end
 
    local function optional_mappings()
       -- don't yank text on cut ( x )
       if not nvChad_options.copy_cut then
-         map({ "n", "v" }, "x", '"_x')
+         map_wrapper({ "n", "v" }, "x", '"_x')
       end
 
       -- don't yank text on delete ( dd )
       if not nvChad_options.copy_del then
-         map({ "n", "v" }, "d", '"_d')
+         map_wrapper({ "n", "v" }, "d", '"_d')
       end
 
       -- navigation within insert mode
@@ -73,9 +84,12 @@ M.misc = function()
       map("n", maps.misc.cheatsheet, ":lua require('nvchad.cheatsheet').show() <CR>") -- show keybinds
       map("n", maps.misc.close_buffer, ":lua require('core.utils').close_buffer() <CR>") -- close  buffer
       map("n", maps.misc.copy_whole_file, ":%y+ <CR>") -- copy whole file content
+      map("v", maps.misc.copy_to_system_clipboard, '"+y')
+      map("n", maps.misc.copy_to_system_clipboard, '"+yy') -- copy curent line in normal mode
       map("n", maps.misc.new_buffer, ":enew <CR>") -- new buffer
       map("n", maps.misc.new_tab, ":tabnew <CR>") -- new tabs
       map("n", maps.misc.line_number_toggle, ":set nu! <CR>") -- toggle numbers
+      map("n", maps.misc.relative_line_number_toggle, ":set rnu! <CR>") -- toggle relative numbers
       map("n", maps.misc.save_file, ":w <CR>") -- ctrl + s to save file
 
       -- terminal mappings --

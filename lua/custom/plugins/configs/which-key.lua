@@ -85,6 +85,13 @@ M.setup = function()
       },
       l = {
          name = "Lsp",
+         r = {
+            name = "Refactor",
+            e = "Extract Function",
+            f = "Extract Function To File",
+            v = "Extract Variable",
+            i = "Inline Variable",
+         },
       },
    }, {
       mode = "v",
@@ -104,6 +111,7 @@ M.setup = function()
       },
       c = {
          r = {
+            -- vim-abolish
             name = "Coerse",
             s = "Coerse snake_case",
             c = "Coerse camelCase",
@@ -115,7 +123,7 @@ M.setup = function()
          d = "Prev diagnostic",
          e = "Prev diagnostic error",
          g = "Prev git hunk",
-         g = "Prev trouble item",
+         t = "Prev trouble item",
       },
       ["]"] = {
          d = "Next diagnostic",
@@ -131,15 +139,9 @@ M.setup = function()
       g = {
          c = "Comment toggle_current_lines_linewise",
          b = "Comment toggle_current_lines_blockwise",
-      },
-      l = {
-         r = {
-            name = "Refactor",
-            e = "Extract Function",
-            f = "Extract Function To File",
-            v = "Extract Variable",
-            i = "Inline Variable",
-         },
+         ["."] = "TS textsubjects-smart",
+         [","] = "TS textsubjects-container-inner",
+         [";"] = "TS textsubjects-container-outer",
       },
    }, {
       mode = "v",
