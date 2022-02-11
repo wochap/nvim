@@ -10,5 +10,7 @@ opt.listchars:append "tab:» "
 opt.listchars:append "trail:·"
 
 vim.cmd [[
+   set guifont=FiraCode\ Nerd\ Font:h10
+
    let g:matchup_matchparen_offscreen = {'method': 'popup'}
 ]]

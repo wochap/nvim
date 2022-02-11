@@ -1,58 +1,61 @@
 local ok, null_ls = pcall(require, "null-ls")
 
 if not ok then
-  return
+   return
 end
 
 local b = null_ls.builtins
 
 local sources = {
-  -- JS TS Vue CSS HTML JSON YAML Markdown GraphQL
-  b.formatting.prettierd,
+   -- JS TS Vue CSS HTML JSON YAML Markdown GraphQL
+   b.formatting.prettierd,
 
-  -- CSS
-  -- b.diagnostics.stylelint
+   -- CSS
+   -- b.diagnostics.stylelint
 
-  -- JS
-  b.code_actions.eslint_d,
-  b.formatting.eslint_d,
-  b.diagnostics.eslint_d.with {
-    method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-  },
+   -- JS
+   b.code_actions.eslint_d,
+   b.formatting.eslint_d,
+   b.diagnostics.eslint_d.with {
+      method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+      dynamic_command = function()
+         return "eslint_d"
+      end,
+   },
 
-  -- Python
-  b.diagnostics.pylint,
+   -- Python
+   b.diagnostics.pylint,
 
-  -- Lua
-  b.formatting.stylua,
-  b.diagnostics.luacheck.with { extra_args = { "--globals vim" } },
+   -- Lua
+   b.formatting.stylua,
+   b.diagnostics.luacheck.with { extra_args = { "--globals vim" } },
 
-  -- Shell
-  b.formatting.shfmt,
-  b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
+   -- Shell
+   b.formatting.shfmt,
+   b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
 
-  -- Nix
-  b.code_actions.statix,
-  b.formatting.nixfmt,
-  b.diagnostics.statix,
+   -- Nix
+   b.code_actions.statix,
+   b.formatting.nixfmt,
+   b.diagnostics.statix,
 
-  -- Extras
-  -- b.formatting.trim_newlines,
+   -- Extras
+   -- b.formatting.trim_newlines,
 
-  -- Git stage / preview / reset hunks, blame, etc.
-  b.code_actions.gitsigns,
-  b.code_actions.gitrebase,
+   -- Git stage / preview / reset hunks, blame, etc.
+   b.code_actions.gitsigns,
+   b.code_actions.gitrebase,
 
-  -- Refactor for ts, js, go, lua, python
-  -- b.code_actions.refactoring,
+   -- Refactor for ts, js, go, lua, python
+   -- b.code_actions.refactoring,
 }
 
 local M = {}
 
 M.setup = function()
-  null_ls.setup {
-    sources = sources,
-  }
+   null_ls.setup {
+      sources = sources,
+   }
 end
 
 return M
