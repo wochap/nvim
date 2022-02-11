@@ -207,6 +207,7 @@ local plugins = {
    -- file managing , picker etc
    {
       "kyazdani42/nvim-tree.lua",
+      commit = "e1c3744631b5e31f9aed0434e89e0f6037cdc2f6",
       disable = not plugin_settings.status.nvimtree,
       -- only set "after" if lazy load is disabled and vice versa for "cmd"
       after = not plugin_settings.options.nvimtree.lazy_load and "nvim-web-devicons",
