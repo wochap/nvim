@@ -10,7 +10,7 @@ M.setup = function()
          ["core.norg.dirman"] = { -- Manage your directories with Neorg
             config = {
                workspaces = {
-                  home = "~/neorg",
+                  home = "~/Sync/neorg",
                },
             },
          },
