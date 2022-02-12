@@ -1,4 +1,5 @@
 local commit = {
+   vim_visual_multi = "e20908963d9b0114e5da1eacbc516e4b09cf5803",
    cmp_cmdline = "29ca81a6f0f288e6311b3377d9d9684d22eac2ec",
    conflict_marker = "22b6133116795ea8fb6705ddca981aa8faecedda",
    diffview = "eef47458679a922ef101c1e4c07fb7b36d701385",
@@ -203,6 +204,15 @@ return {
       setup = function()
          require("custom.plugins.configs.others").emmet_vim()
       end,
+   },
+
+   {
+      "mg979/vim-visual-multi",
+      commit = commit.vim_visual_multi,
+      keys = {
+         { "n", "<C-n>" },
+         { "v", "<C-n>" },
+      },
    },
 
    {
