@@ -1,5 +1,17 @@
 local M = {}
 
+M.vim_visual_multi = function()
+   vim.g.VM_default_mappings = 0
+
+   vim.cmd [[
+      let g:VM_maps = {}
+      let g:VM_maps["Add Cursor Down"] = '<S-C-Down>'
+      let g:VM_maps["Add Cursor Up"] = '<S-C-Up>'
+      let g:VM_maps["Select Cursor Down"] = '<S-C-Down>'
+      let g:VM_maps["Select Cursor Up"] = '<S-C-Up>'
+   ]]
+end
+
 M.conflict_marker = function()
    local g = vim.g
 
@@ -93,4 +105,3 @@ M.filetype = function()
 end
 
 return M
-

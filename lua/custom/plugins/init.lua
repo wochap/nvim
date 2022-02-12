@@ -211,8 +211,13 @@ return {
       commit = commit.vim_visual_multi,
       keys = {
          { "n", "<C-n>" },
+         { "n", "<S-C-Down>" },
+         { "n", "<S-C-Up>" },
          { "v", "<C-n>" },
       },
+      setup = function()
+         require("custom.plugins.configs.others").vim_visual_multi()
+      end,
    },
 
    {
