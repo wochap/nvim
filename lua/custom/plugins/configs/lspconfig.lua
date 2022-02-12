@@ -82,7 +82,18 @@ M.setup_lsp = function(attach, capabilities)
 
       -- emmet
       if lsp == "emmet_ls" then
-         opts.filetypes = { "html", "css", "scss" }
+         opts.filetypes = {
+            "css",
+            "eruby",
+            "html",
+            "javascript",
+            "javascriptreact",
+            "scss",
+            "svelte",
+            "typescript",
+            "typescriptreact",
+            "vue",
+         }
       end
 
       -- lua

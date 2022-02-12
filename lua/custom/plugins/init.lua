@@ -200,7 +200,9 @@ return {
    {
       "mattn/emmet-vim",
       commit = commit.emmet_vim,
-      event = "InsertEnter",
+      keys = {
+         { "i", "<C-y>" },
+      },
       setup = function()
          require("custom.plugins.configs.others").emmet_vim()
       end,
