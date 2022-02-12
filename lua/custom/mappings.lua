@@ -127,10 +127,10 @@ map("i", "!", "!<C-g>u", opts)
 map("i", "?", "?<C-g>u", opts)
 
 -- Clone lines ala vscode
-map("n", "<C-S-A-Down>", "yyp", opts)
-map("n", "<C-S-A-Up>", "yyP", opts)
-map("v", "<C-S-A-Down>", "y`]p", opts)
-map("v", "<C-S-A-Up>", "y`[P", opts)
+map("n", "<C-S-A-Down>", "\"zyy\"zp", opts)
+map("n", "<C-S-A-Up>", "\"zyy\"zP", opts)
+map("v", "<C-S-A-Down>", "\"zy`]\"zp", opts)
+map("v", "<C-S-A-Up>", "\"zy`[\"zP", opts)
 
 -- Move current line / block with Alt-Down/Up ala vscode.
 map("i", "<A-Down>", "<Esc>:m .+1<CR>==gi", opts)
