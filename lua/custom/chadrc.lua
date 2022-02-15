@@ -120,6 +120,7 @@ M.plugins = {
       colorizer = false,
       better_escape = false,
       autotag = false,
+      lspsignature = false,
    },
 
    options = {
@@ -150,6 +151,7 @@ M.plugins = {
       nvim_comment = pluginOverridesOthers.nvim_comment,
       nvim_tree = "custom.plugins.overrides.nvimtree",
       nvim_treesitter = "custom.plugins.overrides.treesitter",
+      signature = pluginOverridesOthers.signature,
    },
    default_plugin_remove = {
       "nathom/filetype.nvim",

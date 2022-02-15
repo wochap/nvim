@@ -79,5 +79,9 @@ M.nvim_comment = {
    end,
 }
 
+M.signature = {
+   toggle_key = "<C-i>",
+}
+
 return M
 
