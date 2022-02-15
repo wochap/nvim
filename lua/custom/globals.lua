@@ -8,6 +8,7 @@ opt.list = true
 opt.compatible = false
 opt.listchars:append "tab:» "
 opt.listchars:append "trail:·"
+opt.pumheight = 15
 
 vim.cmd [[
    set guifont=FiraCode\ Nerd\ Font:h10
