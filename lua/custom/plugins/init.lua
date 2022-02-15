@@ -1,3 +1,4 @@
+local plugin_settings = require("core.utils").load_config().plugins
 local commit = {
    vim_visual_multi = "e20908963d9b0114e5da1eacbc516e4b09cf5803",
    cmp_cmdline = "29ca81a6f0f288e6311b3377d9d9684d22eac2ec",
@@ -91,7 +92,7 @@ return {
       run = ":TSUpdate",
       requires = {
          { "RRethy/nvim-treesitter-textsubjects" },
-         { "windwp/nvim-ts-autotag" },
+         { "windwp/nvim-ts-autotag", disable = not plugin_settings.status.autotag },
          { "JoosepAlviste/nvim-ts-context-commentstring" },
       },
       event = "BufRead",

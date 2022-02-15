@@ -1,3 +1,4 @@
+local plugin_settings = require("core.utils").load_config().plugins
 local present, ts_config = pcall(require, "nvim-treesitter.configs")
 
 if not present then
@@ -49,7 +50,7 @@ local default = {
       enable = true,
    },
    autotag = {
-      enable = true,
+      enable = plugin_settings.status.autotag,
    },
    context_commentstring = {
       enable = true,

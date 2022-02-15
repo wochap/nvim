@@ -119,6 +119,7 @@ M.plugins = {
       dashboard = true,
       colorizer = false,
       better_escape = false,
+      autotag = false,
    },
 
    options = {
