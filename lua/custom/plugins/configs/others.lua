@@ -22,6 +22,14 @@ end
 
 M.emmet_vim = function()
    local g = vim.g
+
+   -- Not necessary with my fork
+   -- https://github.com/mattn/emmet-vim/issues/350
+   g.user_emmet_settings = {
+      javascript = {
+         extends = "jsx",
+      },
+   }
 end
 
 M.cmp_cmdline = function()

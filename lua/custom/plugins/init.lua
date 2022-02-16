@@ -199,8 +199,9 @@ return {
    },
 
    {
-      "mattn/emmet-vim",
-      commit = commit.emmet_vim,
+      "wochap/emmet-vim",
+      -- "mattn/emmet-vim",
+      -- commit = "0f247f9dee4d23cca6650129dac4c0112fe2a09e",
       keys = {
          { "i", "<C-y>" },
       },

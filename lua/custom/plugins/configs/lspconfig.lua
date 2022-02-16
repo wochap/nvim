@@ -84,15 +84,8 @@ M.setup_lsp = function(attach, capabilities)
       if lsp == "emmet_ls" then
          opts.filetypes = {
             "css",
-            "eruby",
             "html",
-            "javascript",
-            "javascriptreact",
             "scss",
-            "svelte",
-            "typescript",
-            "typescriptreact",
-            "vue",
          }
       end
 
