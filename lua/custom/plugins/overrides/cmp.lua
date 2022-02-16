@@ -32,6 +32,10 @@ local default = {
             path = "[Path]",
          })[entry.source.name]
 
+         if string.len(vim_item.abbr) > 60 then
+            vim_item.abbr = string.format("%s...", string.sub(vim_item.abbr, 1, 60))
+         end
+
          return vim_item
       end,
    },
@@ -52,8 +56,8 @@ local default = {
       },
       ["<C-p>"] = cmp.mapping.select_prev_item(),
       ["<C-n>"] = cmp.mapping.select_next_item(),
-      ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
+      ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-d>"] = cmp.mapping.scroll_docs(4),
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-e>"] = cmp.mapping {
          i = cmp.mapping.abort(),
