@@ -146,6 +146,7 @@ M.plugins = {
    default_plugin_config_replace = {
       bufferline = pluginOverridesOthers.bufferline,
       gitsigns = pluginOverridesOthers.gitsigns,
+      luasnip = pluginOverridesOthers.luasnip,
       nvim_autopairs = "custom.plugins.overrides.autopairs",
       nvim_cmp = "custom.plugins.overrides.cmp",
       nvim_comment = pluginOverridesOthers.nvim_comment,
