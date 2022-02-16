@@ -100,6 +100,11 @@ return {
          require "custom.plugins.overrides.treesitter"
       end,
    },
+   {
+      "nvim-treesitter/playground",
+      run = ":TSInstall query",
+      cmd = "TSPlaygroundToggle",
+   },
 
    -- snippets
    {
