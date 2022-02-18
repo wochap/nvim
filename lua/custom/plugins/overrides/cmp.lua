@@ -7,6 +7,11 @@ end
 local snippets_status = require("core.utils").load_config().plugins.status.snippets
 
 local default = {
+   enabled = function()
+      -- disable on macros
+      -- https://github.com/hrsh7th/nvim-cmp/issues/551
+      return vim.fn.reg_recording() == ""
+   end,
    completion = {
       completeopt = "menuone,noselect",
    },

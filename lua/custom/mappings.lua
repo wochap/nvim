@@ -126,11 +126,10 @@ map("n", "N", "Nzzzv", opts)
 map("n", "J", "mzJ`z", opts)
 
 -- ThePrimeagen - unto break points
--- buggy in macros
--- map("i", ",", ",<C-g>u", opts)
--- map("i", ".", ".<C-g>u", opts)
--- map("i", "!", "!<C-g>u", opts)
--- map("i", "?", "?<C-g>u", opts)
+map("i", ",", ",<C-g>u", opts)
+map("i", ".", ".<C-g>u", opts)
+map("i", "!", "!<C-g>u", opts)
+map("i", "?", "?<C-g>u", opts)
 
 -- Clone lines ala vscode
 map("n", "<C-S-A-Down>", "\"zyy\"zp", opts)
