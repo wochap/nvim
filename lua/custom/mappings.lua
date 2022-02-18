@@ -21,12 +21,17 @@ map("n", "<leader>ss", "<cmd>lua require'custom.utils.telescope'.symbols()<CR>",
 map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
 
 -- Harpon
+map("n", "<leader>ht", "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<CR>", opts)
+map("n", "<leader>hl", "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>", opts)
+map("n", "<leader>hu", "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>", opts)
+map("n", "<leader>hy", "<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>", opts)
+map("n", "<leader>h;", "<cmd>lua require('harpoon.term').gotoTerminal(4)<CR>", opts)
 map("n", "<leader>hs", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", opts)
 map("n", "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<CR>", opts)
-map("n", "<leader>hl", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", opts)
-map("n", "<leader>hu", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", opts)
-map("n", "<leader>hy", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", opts)
-map("n", "<leader>h;", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", opts)
+map("n", "<leader>hp", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", opts)
+map("n", "<leader>hf", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", opts)
+map("n", "<leader>hw", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", opts)
+map("n", "<leader>hq", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", opts)
 
 -- Trouble
 map("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
