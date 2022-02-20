@@ -8,6 +8,7 @@ local plugin_maps = maps.plugins
 local opts = { noremap = true, silent = true }
 
 map("n", "<C-e>", "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", opts)
+map("i", "<C-e>", "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", opts)
 
 map("i", "<C-k>", "<cmd>lua require'custom.utils.others'.expandSnippet()<CR>", opts)
 
