@@ -50,13 +50,12 @@ M.mappings = {
          goto_next = "]d",
          goto_prev = "[d",
 
-         hover = "K",
-
+         hover = "gh",
          declaration = "gD",
          definition = "gdd",
          implementation = "gi",
          signature_help = "gs",
-         type_definition = "gy",
+         type_definition = "gt",
 
          float_diagnostics = "<leader>ld",
          formatting = "<leader>lf",
