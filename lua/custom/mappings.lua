@@ -9,7 +9,7 @@ local opts = { noremap = true, silent = true }
 
 map("n", "<C-e>", "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", opts)
 
-map("i", "<C-j>", "<cmd>lua require'custom.utils.others'.expandSnippet()<CR>", opts)
+map("i", "<C-k>", "<cmd>lua require'custom.utils.others'.expandSnippet()<CR>", opts)
 
 -- Remaps for each of the four debug operations currently offered by the plugin
 map("v", "<Leader>lre", "<Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>", opts)
