@@ -108,6 +108,7 @@ M.setup = function()
          s = "Lsp signature_help",
          t = "Lsp type_definition",
          r = "Lsp references",
+         V = "Switch to VISUAL using last paste",
       },
       c = {
          r = {
