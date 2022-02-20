@@ -104,10 +104,13 @@ M.setup = function()
          b = "Comment toggle_current_line_blockwise",
 
          D = "Lsp declaration",
+         I = "Lsp implementation",
          d = "Lsp definition",
          s = "Lsp signature_help",
          t = "Lsp type_definition",
          r = "Lsp references",
+         h = "Lsp hover",
+
          V = "Switch to VISUAL using last paste",
       },
       c = {

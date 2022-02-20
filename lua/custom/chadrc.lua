@@ -53,7 +53,7 @@ M.mappings = {
          hover = "gh",
          declaration = "gD",
          definition = "gdd",
-         implementation = "gi",
+         implementation = "gI",
          signature_help = "gs",
          type_definition = "gt",
 
