@@ -17,6 +17,16 @@ local sources = {
    b.code_actions.eslint_d,
    b.formatting.eslint_d,
    b.diagnostics.eslint_d.with {
+      prefer_local = false,
+      condition = function(utils)
+         return utils.root_has_file {
+            ".eslintrc",
+            ".eslintrc.js",
+            ".eslintrc.yaml",
+            ".eslintrc.yml",
+            ".eslintrc.json",
+         }
+      end,
       method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
       dynamic_command = function()
          return "eslint_d"
