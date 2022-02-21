@@ -70,3 +70,4 @@ Required by [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap)
 
 -  [vscode-node-debug2](https://github.com/microsoft/vscode-node-debug2) on `~/dev/microsoft/vscode-node-debug2`
 -  [vscode-chrome-debug](https://github.com/Microsoft/vscode-chrome-debug) on `~/dev/microsoft/vscode-chrome-debug`
+-  ts-node
