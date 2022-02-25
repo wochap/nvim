@@ -5,7 +5,7 @@ end
 
 local M = {}
 
-M.setup = function(on_attach)
+M.setup = function()
   diffview.setup {
     enhanced_diff_hl = true,
     file_panel = {
