@@ -57,7 +57,7 @@ local plugins = {
    },
 
    {
-      "norcalli/nvim-colorizer.lua",
+      "NvChad/nvim-colorizer.lua",
       disable = not plugin_settings.status.colorizer,
       event = "BufRead",
       config = override_req("nvim_colorizer", "plugins.configs.others", "colorizer"),
@@ -67,6 +67,7 @@ local plugins = {
    -- "nvim-treesitter/nvim-treesitter",
    -- event = "BufRead",
    -- config = override_req("nvim_treesitter", "plugins.configs.treesitter", "setup"),
+   -- run = ":TSUpdate",
    -- },
 
    -- git stuff
@@ -115,7 +116,7 @@ local plugins = {
    {
       "max397574/better-escape.nvim",
       disable = not plugin_settings.status.better_escape,
-      event = "InsertEnter",
+      event = "InsertCharPre",
       config = override_req("better_escape", "plugins.configs.others", "better_escape"),
    },
 
@@ -124,23 +125,20 @@ local plugins = {
    -- {
    --    "rafamadriz/friendly-snippets",
    --    module = "cmp_nvim_lsp",
-   --    disable = not (plugin_settings.status.cmp and plugin_settings.status.snippets),
+   --    disable = not plugin_settings.status.cmp,
    --    event = "InsertEnter",
    -- },
 
-   -- cmp by default loads after friendly snippets
-   -- if snippets are disabled -> cmp loads on insertEnter!
    {
       "hrsh7th/nvim-cmp",
       disable = not plugin_settings.status.cmp,
-      event = not plugin_settings.status.snippets and "InsertEnter",
-      after = plugin_settings.status.snippets and "friendly-snippets",
+      after = "friendly-snippets",
       config = override_req("nvim_cmp", "plugins.configs.cmp", "setup"),
    },
 
    {
       "L3MON4D3/LuaSnip",
-      disable = not (plugin_settings.status.cmp and plugin_settings.status.snippets),
+      disable = not plugin_settings.status.cmp,
       wants = "friendly-snippets",
       after = "nvim-cmp",
       config = override_req("luasnip", "plugins.configs.others", "luasnip"),
@@ -148,14 +146,14 @@ local plugins = {
 
    {
       "saadparwaiz1/cmp_luasnip",
-      disable = not (plugin_settings.status.cmp and plugin_settings.status.snippets),
+      disable = not plugin_settings.status.cmp,
       after = plugin_settings.options.cmp.lazy_load and "LuaSnip",
    },
 
    {
       "hrsh7th/cmp-nvim-lua",
       disable = not plugin_settings.status.cmp,
-      after = (plugin_settings.status.snippets and "cmp_luasnip") or "nvim-cmp",
+      after = "cmp_luasnip",
    },
 
    {
@@ -185,12 +183,9 @@ local plugins = {
    },
 
    {
-      "glepnir/dashboard-nvim",
-      disable = not plugin_settings.status.dashboard,
-      config = override_req("dashboard", "plugins.configs.dashboard"),
-      setup = function()
-         require("core.mappings").dashboard()
-      end,
+      disable = not plugin_settings.status.alpha,
+      "goolord/alpha-nvim",
+      config = override_req("alpha", "plugins.configs.alpha"),
    },
 
    {
@@ -228,18 +223,16 @@ local plugins = {
       end,
    },
 }
+
+--label plugins for operational assistance
+plugins = require("core.utils").label_plugins(plugins)
 --remove plugins specified in chadrc
 plugins = require("core.utils").remove_default_plugins(plugins)
+--add plugins specified in chadrc
+plugins = require("core.utils").add_user_plugins(plugins)
 
--- append user plugins to default plugins
-local user_Plugins = plugin_settings.install
-
-if type(user_Plugins) == "table" then
-   if table.maxn(user_Plugins) == 1 then
-      plugins[#plugins + 1] = user_Plugins[1]
-   else
-      plugins[#plugins + 1] = user_Plugins
+return packer.startup(function(use)
+   for _, v in pairs(plugins) do
+      use(v)
    end
-end
-
-return packer.startup { plugins }
+end)

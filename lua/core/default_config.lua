@@ -34,6 +34,7 @@ M.options = {
       copy_del = true, -- copy deleted text ( dd key ), visual and normal mode
       insert_nav = true, -- navigation in insertmode
       window_nav = true,
+      terminal_numbers = false,
 
       -- updater
       update_url = "https://github.com/NvChad/NvChad",
@@ -62,14 +63,13 @@ M.plugins = {
       bufferline = true, -- manage and preview opened buffers
       colorizer = false, -- color RGB, HEX, CSS, NAME color codes
       comment = true, -- easily (un)comment code, language aware
-      dashboard = false,
+      alpha = false, -- dashboard
       better_escape = true, -- map to <ESC> with no lag
       feline = true, -- statusline
       gitsigns = true,
       lspsignature = true, -- lsp enhancements
       vim_matchup = true, -- improved matchit
       cmp = true,
-      snippets = true,
       nvimtree = true,
       autopairs = true,
    },
@@ -95,9 +95,9 @@ M.plugins = {
          -- hide, show on specific filetypes
          hidden = {
             "help",
-            "dashboard",
             "NvimTree",
             "terminal",
+            "alpha",
          },
          shown = {},
 
@@ -180,14 +180,6 @@ M.mappings.plugins = {
    },
    comment = {
       toggle = "<leader>/",
-   },
-
-   dashboard = {
-      bookmarks = "<leader>bm",
-      new_file = "<leader>fn", -- basically create a new buffer
-      open = "<leader>db", -- open dashboard
-      session_load = "<leader>l",
-      session_save = "<leader>s",
    },
 
    -- map to <ESC> with no lag
