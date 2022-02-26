@@ -75,8 +75,6 @@ M.mappings = {
       },
 
       telescope = {
-         live_grep = "<leader>sg",
-
          buffers = "<leader>fb",
          oldfiles = "<leader>fo",
 
@@ -85,7 +83,10 @@ M.mappings = {
 
          themes = "<leader>nt", -- NvChad theme picker
 
+         find_files = ignore,
+         find_hiddenfiles = ignore,
          help_tags = ignore,
+         live_grep = ignore,
       },
    },
 }
@@ -152,6 +153,7 @@ M.plugins = {
       nvim_tree = "custom.plugins.overrides.nvimtree",
       nvim_treesitter = "custom.plugins.overrides.treesitter",
       signature = pluginOverridesOthers.signature,
+      telescope = pluginOverridesOthers.telescope,
    },
    default_plugin_remove = {
       "nathom/filetype.nvim",

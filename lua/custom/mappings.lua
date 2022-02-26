@@ -19,6 +19,9 @@ map("v", "<Leader>lrv", "<Esc><Cmd>lua require('refactoring').refactor('Extract 
 map("v", "<Leader>lri", "<Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>", opts)
 
 -- Search
+map("n", "<leader>ff", "<cmd>Telescope find_files hidden=true <CR>")
+map("n", "<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true <CR>")
+map("n", "<leader>sg", "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>")
 map("n", "<leader>sr", "<cmd>lua require('spectre').open()<CR>", opts)
 map("n", "<leader>ss", "<cmd>lua require'custom.utils.telescope'.symbols()<CR>", opts)
 map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)

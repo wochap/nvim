@@ -1,5 +1,11 @@
 local M = {}
 
+M.telescope = {
+   defaults = {
+      file_ignore_patterns = { "node_modules", ".git/" },
+   },
+}
+
 M.luasnip = {
    -- Show snippets related to the language
    -- in the current cursor position
