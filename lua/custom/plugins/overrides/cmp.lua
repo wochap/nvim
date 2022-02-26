@@ -4,7 +4,7 @@ if not present then
    return
 end
 
-local snippets_status = require("core.utils").load_config().plugins.status.snippets
+vim.opt.completeopt = "menuone,noselect"
 
 local default = {
    enabled = function()
@@ -12,18 +12,10 @@ local default = {
       -- https://github.com/hrsh7th/nvim-cmp/issues/551
       return vim.fn.reg_recording() == ""
    end,
-   completion = {
-      completeopt = "menuone,noselect",
-   },
-   documentation = {
-      border = "single",
-   },
-   snippet = (snippets_status and {
+   snippet = {
       expand = function(args)
          require("luasnip").lsp_expand(args.body)
       end,
-   }) or {
-      expand = function(_) end,
    },
    formatting = {
       format = function(entry, vim_item)
@@ -31,12 +23,13 @@ local default = {
          vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 
          vim_item.menu = ({
-            buffer = "[BUF]",
             nvim_lsp = "[LSP]",
             nvim_lua = "[Lua]",
+            buffer = "[BUF]",
             path = "[Path]",
          })[entry.source.name]
 
+         -- limit str length
          if string.len(vim_item.abbr) > 60 then
             vim_item.abbr = string.format("%s...", string.sub(vim_item.abbr, 1, 60))
          end
@@ -75,8 +68,8 @@ local default = {
       ["<Tab>"] = cmp.mapping(function(fallback)
          if cmp.visible() then
             cmp.select_next_item()
-         elseif snippets_status and require("luasnip").expand_or_jumpable() then
-            require("luasnip").expand_or_jump()
+         elseif require("luasnip").expand_or_jumpable() then
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
          else
             fallback()
          end
@@ -85,7 +78,7 @@ local default = {
          if cmp.visible() then
             cmp.select_prev_item()
          elseif require("luasnip").jumpable(-1) then
-            require("luasnip").jump(-1)
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
          else
             fallback()
          end

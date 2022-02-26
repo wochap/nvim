@@ -116,7 +116,7 @@ M.plugins = {
 
    status = {
       -- feline = false,
-      dashboard = true,
+      alpha = false,
       colorizer = false,
       better_escape = false,
       autotag = false,
