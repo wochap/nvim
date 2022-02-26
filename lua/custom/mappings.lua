@@ -135,10 +135,10 @@ map("i", "!", "!<C-g>u", opts)
 map("i", "?", "?<C-g>u", opts)
 
 -- Clone lines ala vscode
-map("n", "<C-S-A-Down>", "\"zyy\"zp", opts)
-map("n", "<C-S-A-Up>", "\"zyy\"zP", opts)
-map("v", "<C-S-A-Down>", "\"zy`]\"zp", opts)
-map("v", "<C-S-A-Up>", "\"zy`[\"zP", opts)
+map("n", "<C-S-A-Down>", '"zyy"zp', opts)
+map("n", "<C-S-A-Up>", '"zyy"zP', opts)
+map("v", "<C-S-A-Down>", '"zy`]"zp', opts)
+map("v", "<C-S-A-Up>", '"zy`["zP', opts)
 
 -- Move current line / block with Alt-Down/Up ala vscode.
 map("i", "<A-Down>", "<Esc>:m .+1<CR>==gi", opts)
@@ -151,3 +151,22 @@ map("x", "<A-Up>", ":m '<-2<CR>gv-gv", opts)
 -- Save in insert mode
 map("i", "<C-s>", "<Esc>:w <CR>", opts)
 map("v", "<C-s>", "<Esc>:w <CR>", opts)
+
+map("n", "<S-Up>", "<cmd>tabn<CR>", opts)
+map("n", "<S-Down>", "<cmd>tabp<CR>", opts)
+
+-- -- Prevent changes made to text from landing in the default registers
+-- map("n", "c", '"_c', opts)
+-- map("n", "C", '"_C', opts)
+-- map("n", "s", '"_s', opts)
+-- map("n", "S", '"_S', opts)
+--
+-- -- Same as above but for visual mode
+-- map("v", "c", '"_c', opts)
+-- map("v", "C", '"_C', opts)
+-- map("v", "s", '"_s', opts)
+-- map("v", "S", '"_S', opts)
+
+-- Don't change default register on pasting (visual mode)
+map("v", "p", '"_dP', opts)
+map("v", "P", '"_dP', opts)
