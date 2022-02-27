@@ -128,7 +128,7 @@ local syntax = {
    -- LspReferenceWrite = { bg = colors.yellow },
 
    -- Others
-   EndOfBuffer = { fg = colors.grey },
+   -- EndOfBuffer = { fg = colors.grey },
 
    -- Diagnostics
    DiagnosticUnderlineError = { style = "undercurl", sp = stateColors.error }, -- Used to underline "Error" diagnostics
