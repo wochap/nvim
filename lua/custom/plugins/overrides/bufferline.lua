@@ -6,6 +6,17 @@ end
 local default = {
    colors = require("colors").get(),
 }
+local bufferlineColors = {
+   focused = {
+      fg = default.colors.white,
+      bg = default.colors.black,
+   },
+   unfocused = {
+      fg = default.colors.light_grey,
+      bg = default.colors.black2,
+   },
+}
+
 default = {
    options = {
       offsets = {
@@ -19,7 +30,7 @@ default = {
          {
             filetype = "DiffviewFiles",
             highlight = "CustomDirectory",
-            padding = 1,
+            padding = 0,
             text = "  Diff view",
             text_align = "left",
          },
@@ -62,106 +73,106 @@ default = {
    highlights = {
       background = {
          guifg = default.colors.grey_fg,
-         guibg = default.colors.black2,
+         guibg = bufferlineColors.unfocused.bg,
       },
 
       -- buffers
       buffer_selected = {
-         guifg = default.colors.white,
-         guibg = default.colors.black,
+         guifg = bufferlineColors.focused.fg,
+         guibg = bufferlineColors.focused.bg,
          gui = "bold",
       },
       buffer_visible = {
-         guifg = default.colors.light_grey,
-         guibg = default.colors.black2,
+         guifg = bufferlineColors.unfocused.fg,
+         guibg = bufferlineColors.unfocused.bg,
       },
 
       -- for diagnostics = "nvim_lsp"
       error = {
-         guifg = default.colors.light_grey,
-         guibg = default.colors.black2,
+         guifg = bufferlineColors.unfocused.fg,
+         guibg = bufferlineColors.unfocused.bg,
       },
       error_diagnostic = {
-         guifg = default.colors.light_grey,
-         guibg = default.colors.black2,
+         guifg = bufferlineColors.unfocused.fg,
+         guibg = bufferlineColors.unfocused.bg,
       },
 
       -- close buttons
       close_button = {
-         guifg = default.colors.light_grey,
-         guibg = default.colors.black2,
+         guifg = bufferlineColors.unfocused.fg,
+         guibg = bufferlineColors.unfocused.bg,
       },
       close_button_visible = {
-         guifg = default.colors.light_grey,
-         guibg = default.colors.black2,
+         guifg = bufferlineColors.unfocused.fg,
+         guibg = bufferlineColors.unfocused.bg,
       },
       close_button_selected = {
          guifg = default.colors.red,
-         guibg = default.colors.black,
+         guibg = bufferlineColors.focused.bg,
       },
       fill = {
          guifg = default.colors.grey_fg,
-         guibg = default.colors.black2,
+         guibg = bufferlineColors.unfocused.bg,
       },
       indicator_selected = {
-         guifg = default.colors.black,
-         guibg = default.colors.black,
+         guifg = bufferlineColors.focused.bg,
+         guibg = bufferlineColors.focused.bg,
       },
 
       -- modified
       modified = {
          guifg = default.colors.red,
-         guibg = default.colors.black2,
+         guibg = bufferlineColors.unfocused.bg,
       },
       modified_visible = {
          guifg = default.colors.red,
-         guibg = default.colors.black2,
+         guibg = bufferlineColors.unfocused.bg,
       },
       modified_selected = {
          guifg = default.colors.green,
-         guibg = default.colors.black,
+         guibg = bufferlineColors.focused.bg,
       },
 
       -- separators
       separator = {
-         guifg = default.colors.black2,
-         guibg = default.colors.black2,
+         guifg = bufferlineColors.unfocused.bg,
+         guibg = bufferlineColors.unfocused.bg,
       },
       separator_visible = {
-         guifg = default.colors.black2,
-         guibg = default.colors.black2,
+         guifg = bufferlineColors.unfocused.bg,
+         guibg = bufferlineColors.unfocused.bg,
       },
       separator_selected = {
-         guifg = default.colors.black2,
-         guibg = default.colors.black2,
+         guifg = bufferlineColors.unfocused.bg,
+         guibg = bufferlineColors.unfocused.bg,
       },
 
       -- tabs
       tab = {
-         guifg = default.colors.light_grey,
+         guifg = bufferlineColors.unfocused.fg,
          guibg = default.colors.one_bg3,
       },
       tab_selected = {
-         guifg = default.colors.black2,
+         guifg = bufferlineColors.unfocused.bg,
          guibg = default.colors.nord_blue,
       },
       tab_close = {
          guifg = default.colors.red,
-         guibg = default.colors.black,
+         guibg = bufferlineColors.focused.bg,
       },
 
       -- dublicate
       duplicate = {
          guifg = default.colors.grey_fg,
-         guibg = default.colors.black2,
+         guibg = bufferlineColors.unfocused.bg,
       },
       duplicate_selected = {
-         guifg = default.colors.white,
-         guibg = default.colors.black,
+         guifg = bufferlineColors.focused.fg,
+         guibg = bufferlineColors.focused.bg,
       },
       duplicate_visible = {
-         guifg = default.colors.light_grey,
-         guibg = default.colors.black2,
+         guifg = bufferlineColors.unfocused.fg,
+         guibg = bufferlineColors.unfocused.bg,
       },
    },
 }

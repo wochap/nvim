@@ -10,6 +10,13 @@ local default = {
    config = require("core.utils").load_config().plugins.options.statusline,
 }
 
+local gitColors = {
+   delete = default.colors.red,
+   add = default.colors.green,
+   change = default.colors.orange,
+}
+default.colors.statusline_bg = default.colors.black2
+
 default.icon_styles = {
    default = {
       left = "",
@@ -131,7 +138,7 @@ default.diff = {
    add = {
       provider = "git_diff_added",
       hl = {
-         fg = default.colors.grey_fg2,
+         fg = gitColors.add,
          bg = default.colors.statusline_bg,
       },
       icon = " ",
@@ -140,7 +147,7 @@ default.diff = {
    change = {
       provider = "git_diff_changed",
       hl = {
-         fg = default.colors.grey_fg2,
+         fg = gitColors.change,
          bg = default.colors.statusline_bg,
       },
       icon = "  ",
@@ -149,7 +156,7 @@ default.diff = {
    remove = {
       provider = "git_diff_removed",
       hl = {
-         fg = default.colors.grey_fg2,
+         fg = gitColors.delete,
          bg = default.colors.statusline_bg,
       },
       icon = "  ",
@@ -291,8 +298,11 @@ end
 
 default.empty_space = {
    provider = " " .. default.statusline_style.left,
+   enabled = default.shortline or function(winid)
+      return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
+   end,
    hl = {
-      fg = default.colors.one_bg2,
+      fg = default.colors.grey,
       bg = default.colors.statusline_bg,
    },
 }
@@ -318,22 +328,37 @@ default.mode_icon = {
    end,
 }
 
-default.empty_space2 = {
+default.mode_text = {
    provider = function()
       return " " .. default.mode_colors[vim.fn.mode()][1] .. " "
    end,
-   hl = default.chad_mode_hl,
+   hl = default.mode_icon.hl,
 }
 
 default.separator_right = {
-   provider = default.statusline_style.left,
-   enabled = default.shortline or function(winid)
+   provider = default.statusline_style.right,
+   enabled = function(winid)
       return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
    end,
-   hl = {
-      fg = default.colors.grey,
-      bg = default.colors.one_bg,
-   },
+   hl = function()
+      return {
+         fg = default.mode_colors[vim.fn.mode()][2],
+         bg = default.colors.lightbg,
+      }
+   end,
+}
+
+default.separator_right_shortline = {
+   provider = default.statusline_style.right,
+   enabled = default.shortline or function(winid)
+      return vim.api.nvim_win_get_width(tonumber(winid) or 0) <= 90
+   end,
+   hl = function()
+      return {
+         fg = default.mode_colors[vim.fn.mode()][2],
+         bg = default.colors.statusline_bg,
+      }
+   end,
 }
 
 default.separator_right2 = {
@@ -343,7 +368,7 @@ default.separator_right2 = {
    end,
    hl = {
       fg = default.colors.green,
-      bg = default.colors.grey,
+      bg = default.colors.grey_fg2,
    },
 }
 
@@ -378,7 +403,7 @@ default.current_line = {
 
    hl = {
       fg = default.colors.green,
-      bg = default.colors.one_bg,
+      bg = default.colors.black2,
    },
 }
 
@@ -393,7 +418,9 @@ local function setup()
    default.right = {}
 
    -- left
-   add_table(default.left, default.main_icon)
+   add_table(default.left, default.mode_text)
+   add_table(default.left, default.separator_right)
+   add_table(default.left, default.separator_right_shortline)
    add_table(default.left, default.file_name)
    add_table(default.left, default.dir_name)
    add_table(default.left, default.diff.add)
@@ -410,10 +437,6 @@ local function setup()
    add_table(default.right, default.lsp_icon)
    add_table(default.right, default.git_branch)
    add_table(default.right, default.empty_space)
-   add_table(default.right, default.empty_spaceColored)
-   add_table(default.right, default.mode_icon)
-   add_table(default.right, default.empty_space2)
-   add_table(default.right, default.separator_right)
    add_table(default.right, default.separator_right2)
    add_table(default.right, default.position_icon)
    add_table(default.right, default.current_line)
@@ -432,4 +455,3 @@ local function setup()
 end
 
 setup()
-

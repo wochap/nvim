@@ -122,16 +122,17 @@ M.plugins = {
       },
       statusline = {
          hidden = {
-            "help",
-            "NvimTree",
-            "terminal",
+            -- "DiffviewFiles",
+            -- "NvimTree", -- Fix jump on focus
             "dap-repl",
-            "dapui_watches",
-            "dapui_stacks",
             "dapui_breakpoints",
             "dapui_scopes",
-            "DiffviewFiles",
+            "dapui_stacks",
+            "dapui_watches",
+            "help",
+            "terminal",
          },
+         shown = {},
          style = "default",
       },
    },

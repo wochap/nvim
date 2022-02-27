@@ -74,6 +74,12 @@ local syntax = {
    GitSignsChange = { fg = gitColors.change },
    GitSignsDelete = { fg = gitColors.delete },
 
+   -- NvimTree
+   NvimTreeRootFolder = {
+      fg = colors.red,
+      -- style = "underline"
+   },
+
    -- Diffview
    DiffAdd = { bg = utils.darken(gitColors.add, 0.2, themeColors.base01) }, -- right diff add
    DiffChange = { bg = utils.darken(gitColors.change, 0.2, themeColors.base01) }, -- both diff change line
@@ -83,10 +89,10 @@ local syntax = {
    DiffviewDiffDelete = { fg = themeColors.base03 }, -- both diff delete sign
    DiffviewFilePanelCounter = { fg = colors.blue, bg = "NONE" },
    DiffviewFilePanelTitle = { fg = colors.red, bg = "NONE" },
+   DiffviewNormal = { link = "NvimTreeNormal" },
+   DiffviewVertSplit = { link = "VertSplit" },
    -- DiffviewFilePanelFileName = { fg = , bg = },
-   -- DiffviewNormal = { fg = , bg = },
    -- DiffviewCursorLine = { fg = , bg = },
-   -- DiffviewVertSplit = { fg = , bg = },
    -- DiffviewSignColumn = { fg = , bg = },
    -- DiffviewStatusLine = { fg = , bg = },
    -- DiffviewStatusLineNC = { fg = , bg = },
@@ -130,6 +136,21 @@ local syntax = {
    -- Others
    -- EndOfBuffer = { fg = colors.grey },
    CustomDirectory = { fg = colors.green, bg = colors.darker_black },
+   FoldColumn = { fg = themeColors.base0C, bg = colors.black },
+   VertSplit = {
+      bg = colors.black2,
+      fg = colors.black2,
+   },
+
+   -- StatusLine
+   StatusLine = {
+      bg = colors.black2,
+   },
+   StatusLineNC = {
+      bg = colors.black2,
+      fg = colors.black2,
+      style = "underline",
+   },
 
    -- Diagnostics
    DiagnosticUnderlineError = { style = "undercurl", sp = stateColors.error }, -- Used to underline "Error" diagnostics
