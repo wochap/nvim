@@ -18,10 +18,22 @@ map("v", "<Leader>lrf", "<Esc><Cmd>lua require('refactoring').refactor('Extract 
 map("v", "<Leader>lrv", "<Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>", opts)
 map("v", "<Leader>lri", "<Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>", opts)
 
+-- Open new buffer
+map("n", "<Leader>fn", ":enew<CR>", opts)
+
+-- Close buffers
+map("n", "<leader>w", "<cmd>lua require('close_buffers').delete({ type = 'this' })<CR>", opts)
+map("n", "<leader>W", "<cmd>lua require('close_buffers').delete({ type = 'this', force = true })<CR>", opts)
+map("n", "<leader>fk", "<cmd>lua require('close_buffers').delete({ type = 'other' })<CR>", opts)
+map("n", "<leader>fK", "<cmd>lua require('close_buffers').delete({ type = 'other', force = true })<CR>", opts)
+
+-- Persistence
+map("n", "<leader>nl", "<cmd>lua require('persistence').load()<CR>", opts)
+
 -- Search
-map("n", "<leader>ff", "<cmd>Telescope find_files hidden=true <CR>")
-map("n", "<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true <CR>")
-map("n", "<leader>sg", "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>")
+map("n", "<leader>ff", "<cmd>Telescope find_files hidden=true <CR>", opts)
+map("n", "<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true <CR>", opts)
+map("n", "<leader>sg", "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>", opts)
 map("n", "<leader>sr", "<cmd>lua require('spectre').open()<CR>", opts)
 map("n", "<leader>ss", "<cmd>lua require'custom.utils.telescope'.symbols()<CR>", opts)
 map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)

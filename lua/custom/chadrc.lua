@@ -5,12 +5,13 @@ local ignore = "<leader>zx"
 M.mappings = {
    misc = {
       cheatsheet = "<leader>nc",
-      close_buffer = "<leader>w",
-      copy_whole_file = "<C-a>", -- copy all contents of current buffer
       copy_to_system_clipboard = "<C-C>", -- copy selected text (visual mode) or curent line (normal)
+      copy_whole_file = "<C-a>", -- copy all contents of current buffer
       line_number_toggle = "<leader>nn", -- toggle line number
+      relative_line_number_toggle = "<leader>nr",
       save_file = "<C-s>", -- save file using :w
 
+      close_buffer = ignore,
       new_buffer = ignore,
       new_tab = ignore,
       update_nvchad = ignore,
@@ -36,14 +37,6 @@ M.mappings = {
       bufferline = {
          next_buffer = "<S-Right>",
          prev_buffer = "<S-Left>",
-      },
-
-      dashboard = {
-         bookmarks = "<leader>fm",
-         new_file = "<leader>fn", -- basically create a new buffer
-         open = "<leader>nb", -- open dashboard
-         session_load = "<leader>nl",
-         session_save = "<leader>ns",
       },
 
       lspconfig = {
@@ -130,7 +123,6 @@ M.plugins = {
       statusline = {
          hidden = {
             "help",
-            "dashboard",
             "NvimTree",
             "terminal",
             "dap-repl",

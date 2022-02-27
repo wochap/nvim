@@ -1,6 +1,6 @@
 local plugin_settings = require("core.utils").load_config().plugins
 local commit = {
-   vim_visual_multi = "e20908963d9b0114e5da1eacbc516e4b09cf5803",
+   close_buffer = "3acbcad1211572342632a6c0151f839e7dead27f",
    cmp_cmdline = "29ca81a6f0f288e6311b3377d9d9684d22eac2ec",
    conflict_marker = "22b6133116795ea8fb6705ddca981aa8faecedda",
    diffview = "eef47458679a922ef101c1e4c07fb7b36d701385",
@@ -19,6 +19,7 @@ local commit = {
    nvim_spectre = "9842b5fe987fb2c5a4ec4d42f8dbcdd04a047d4d",
    nvim_treesitter = "1f0771153542608a29cd06bacf2978adc40d1265",
    nvim_treesitter_textsubjects = "795e577fd69c2427158cad97d77d54ae5c6269ac",
+   persistence = "77cf5a6ee162013b97237ff25450080401849f85",
    plenary = "e86dc9b11241ff69ece50c15a5cdd49d20d4c27c",
    refactoring = "23340bf6b19ab50504165462676f87a3e1bd4870",
    startuptime = "dfa57f522d6f61793fe5fea65bca7484751b8ca2",
@@ -26,6 +27,7 @@ local commit = {
    trouble = "20469be985143d024c460d95326ebeff9971d714",
    vim_be_good = "bc499a06c14c729b22a6cc7e730a9fbc44d4e737",
    vim_maximizer = "2e54952fe91e140a2e69f35f22131219fcd9c5f1",
+   vim_visual_multi = "e20908963d9b0114e5da1eacbc516e4b09cf5803",
    vscode_es7_javascript_react_snippets = "6bc8ec96c24beea7e54f21c9fe2476e73d669cd7",
    which_key = "28d2bd129575b5e9ebddd88506601290bb2bb221",
    yuck = "6dc3da77c53820c32648cf67cbdbdfb6994f4e08",
@@ -191,6 +193,23 @@ return {
       event = "VimEnter",
       config = function()
          require("custom.plugins.configs.which-key").setup()
+      end,
+   },
+
+   {
+      "kazhala/close-buffers.nvim",
+      commit = commit.close_buffer,
+      module = "close_buffers",
+      cmd = { "BDelete", "BWipeout" },
+   },
+
+   {
+      "folke/persistence.nvim",
+      commit = commit.persistence,
+      event = "BufReadPre", -- this will only start session saving when an actual file was opened
+      module = "persistence",
+      config = function()
+         require("persistence").setup()
       end,
    },
 

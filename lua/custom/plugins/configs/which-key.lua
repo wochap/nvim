@@ -37,6 +37,9 @@ M.setup = function()
       },
       f = {
          name = "Files",
+         n = "Open new buffer",
+         k = "Close all but the focused",
+         K = "Close all but the focused (FORCE)",
          a = "Telescope find_files hidden",
       },
       g = {
@@ -66,12 +69,22 @@ M.setup = function()
       },
       n = {
          name = "Misc",
+         c = "Show nvchad cheatsheet",
+         n = "Toggle numbers",
+         r = "Toggle relative numbers",
+         l = "Load last session",
       },
       p = {
          name = "Packer",
       },
       x = {
          name = "Trouble",
+      },
+      w = {
+         name = "Close current buffer",
+      },
+      W = {
+         name = "Close current buffer (FORCE)",
       },
    }, {
       mode = "n",
