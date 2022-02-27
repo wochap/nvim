@@ -9,11 +9,11 @@ M.mappings = {
       copy_whole_file = "<C-a>", -- copy all contents of current buffer
       copy_to_system_clipboard = "<C-C>", -- copy selected text (visual mode) or curent line (normal)
       line_number_toggle = "<leader>nn", -- toggle line number
-      update_nvchad = "<leader>nu",
       save_file = "<C-s>", -- save file using :w
 
-      new_tab = ignore,
       new_buffer = ignore,
+      new_tab = ignore,
+      update_nvchad = ignore,
    },
 
    window_nav = {
