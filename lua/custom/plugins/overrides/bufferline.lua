@@ -8,11 +8,14 @@ local default = {
 }
 default = {
    options = {
-      offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
+      offsets = {
+         { filetype = "NvimTree", text = "", padding = 1 },
+         { filetype = "DiffviewFiles", text = "", padding = 1 },
+      },
       buffer_close_icon = "",
       modified_icon = "",
       close_icon = "",
-      show_close_icon = true,
+      show_close_icon = false,
       left_trunc_marker = "",
       right_trunc_marker = "",
       max_name_length = 14,
@@ -21,7 +24,7 @@ default = {
       show_tab_indicators = true,
       enforce_regular_tabs = false,
       view = "multiwindow",
-      show_buffer_close_icons = true,
+      show_buffer_close_icons = false,
       separator_style = "thin",
       always_show_bufferline = true,
       diagnostics = false,
@@ -134,15 +137,22 @@ default = {
          guifg = default.colors.red,
          guibg = default.colors.black,
       },
+
+      -- dublicate
+      duplicate = {
+         guifg = default.colors.grey_fg,
+         guibg = default.colors.black2,
+      },
+      duplicate_selected = {
+         guifg = default.colors.white,
+         guibg = default.colors.black,
+      },
+      duplicate_visible = {
+         guifg = default.colors.light_grey,
+         guibg = default.colors.black2,
+      },
    },
 }
 
-local M = {}
-M.setup = function(override_flag)
-   if override_flag then
-      default = require("core.utils").tbl_override_req("bufferline", default)
-   end
-   bufferline.setup(default)
-end
+bufferline.setup(default)
 
-return M

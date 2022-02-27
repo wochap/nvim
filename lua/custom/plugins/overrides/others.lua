@@ -66,13 +66,6 @@ M.gitsigns = {
    },
 }
 
-M.bufferline = {
-   options = {
-      show_close_icon = false,
-      show_buffer_close_icons = false,
-   },
-}
-
 M.nvim_comment = {
    pre_hook = function(ctx)
       local U = require "Comment.utils"
