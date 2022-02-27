@@ -129,6 +129,7 @@ local syntax = {
 
    -- Others
    -- EndOfBuffer = { fg = colors.grey },
+   CustomDirectory = { fg = colors.green, bg = colors.darker_black },
 
    -- Diagnostics
    DiagnosticUnderlineError = { style = "undercurl", sp = stateColors.error }, -- Used to underline "Error" diagnostics

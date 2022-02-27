@@ -9,8 +9,20 @@ local default = {
 default = {
    options = {
       offsets = {
-         { filetype = "NvimTree", text = "", padding = 1 },
-         { filetype = "DiffviewFiles", text = "", padding = 1 },
+         {
+            filetype = "NvimTree",
+            highlight = "CustomDirectory",
+            padding = 1,
+            text = "  File Explorer",
+            text_align = "left",
+         },
+         {
+            filetype = "DiffviewFiles",
+            highlight = "CustomDirectory",
+            padding = 1,
+            text = "  Diff view",
+            text_align = "left",
+         },
       },
       buffer_close_icon = "",
       modified_icon = "",
@@ -155,4 +167,3 @@ default = {
 }
 
 bufferline.setup(default)
-
