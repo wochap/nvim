@@ -386,11 +386,7 @@ local function add_table(a, b)
    table.insert(a, b)
 end
 
-local M = {}
-M.setup = function(override_flag)
-   if override_flag then
-      default = require("core.utils").tbl_override_req("feline", default)
-   end
+local function setup()
    -- components are divided in 3 sections
    default.left = {}
    default.middle = {}
@@ -435,5 +431,5 @@ M.setup = function(override_flag)
    }
 end
 
-return M
+setup()
 
