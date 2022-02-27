@@ -86,29 +86,80 @@ default.main_icon = {
    },
 }
 
-default.file_name = {
+default.file_icon = {
    provider = function()
       local filename = vim.fn.expand "%:t"
       local extension = vim.fn.expand "%:e"
       local icon = require("nvim-web-devicons").get_icon(filename, extension)
       if icon == nil then
-         icon = " "
+         icon = "  "
          return icon
       end
-      return " " .. icon .. " " .. filename .. " "
+      return "  " .. icon
+   end,
+   enabled = default.shortline or function(winid)
+      return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 70
+   end,
+   hl = function()
+      local filename = vim.fn.expand "%:t"
+      local extension = vim.fn.expand "%:e"
+      local _, icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+
+      if string.len(filename) == 0 then
+         icon_color = default.colors.green
+      end
+
+      return {
+         fg = icon_color,
+         bg = default.colors.statusline_bg,
+      }
+   end,
+}
+
+default.relative_path = {
+   provider = function()
+      local filename_str = vim.fn.expand "%:t"
+
+      if string.len(filename_str) == 0 then
+         return " "
+      end
+
+      local filename = vim.api.nvim_buf_get_name(0)
+      local relative_path = vim.fn.fnamemodify(filename, ":~:.")
+
+      relative_path = string.sub(relative_path, 1, -1 + string.len(filename_str) * -1)
+
+      return " " .. relative_path
+   end,
+   enabled = default.shortline or function(winid)
+      return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 80
+   end,
+   hl = {
+      fg = default.colors.light_grey,
+      bg = default.colors.statusline_bg,
+   },
+}
+
+default.file_name = {
+   provider = function()
+      local filename = vim.fn.expand "%:t"
+      if string.len(filename) == 0 then
+         return "[No Name] "
+      end
+      return filename .. " "
    end,
    enabled = default.shortline or function(winid)
       return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 70
    end,
    hl = {
       fg = default.colors.white,
-      bg = default.colors.lightbg,
+      bg = default.colors.statusline_bg,
+      style = "bold",
    },
-
-   right_sep = {
-      str = default.statusline_style.right,
-      hl = { fg = default.colors.lightbg, bg = default.colors.lightbg2 },
-   },
+   -- right_sep = {
+   --    str = default.statusline_style.right,
+   --    hl = { fg = default.colors.statusline_bg, bg = default.colors.statusline_bg },
+   -- },
 }
 
 default.dir_name = {
@@ -141,7 +192,7 @@ default.diff = {
          fg = gitColors.add,
          bg = default.colors.statusline_bg,
       },
-      icon = " ",
+      icon = "  ",
    },
 
    change = {
@@ -343,7 +394,7 @@ default.separator_right = {
    hl = function()
       return {
          fg = default.mode_colors[vim.fn.mode()][2],
-         bg = default.colors.lightbg,
+         bg = default.colors.statusline_bg,
       }
    end,
 }
@@ -419,10 +470,11 @@ local function setup()
 
    -- left
    add_table(default.left, default.mode_text)
-   add_table(default.left, default.separator_right)
-   add_table(default.left, default.separator_right_shortline)
+   -- add_table(default.left, default.separator_right)
+   -- add_table(default.left, default.separator_right_shortline)
+   add_table(default.left, default.file_icon)
+   add_table(default.left, default.relative_path)
    add_table(default.left, default.file_name)
-   add_table(default.left, default.dir_name)
    add_table(default.left, default.diff.add)
    add_table(default.left, default.diff.change)
    add_table(default.left, default.diff.remove)
