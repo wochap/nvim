@@ -144,6 +144,7 @@ M.plugins = {
       nvim_comment = pluginOverridesOthers.nvim_comment,
       nvim_tree = "custom.plugins.overrides.nvimtree",
       nvim_treesitter = "custom.plugins.overrides.treesitter",
+      feline = "custom.plugins.overrides.statusline",
       signature = pluginOverridesOthers.signature,
       telescope = pluginOverridesOthers.telescope,
    },
