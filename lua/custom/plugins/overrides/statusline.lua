@@ -348,7 +348,7 @@ default.chad_mode_hl = function()
 end
 
 default.empty_space = {
-   provider = " " .. default.statusline_style.left,
+   provider = " ",
    enabled = default.shortline or function(winid)
       return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
    end,
@@ -424,7 +424,7 @@ default.separator_right2 = {
 }
 
 default.position_icon = {
-   provider = default.statusline_style.position_icon,
+   provider = ' ' .. default.statusline_style.position_icon,
    enabled = default.shortline or function(winid)
       return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
    end,
@@ -489,7 +489,6 @@ local function setup()
    add_table(default.right, default.lsp_icon)
    add_table(default.right, default.git_branch)
    add_table(default.right, default.empty_space)
-   add_table(default.right, default.separator_right2)
    add_table(default.right, default.position_icon)
    add_table(default.right, default.current_line)
 
