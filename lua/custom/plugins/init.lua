@@ -196,6 +196,14 @@ return {
       end,
    },
 
+   -- TODO: fix exa icons
+   -- {
+   --    "yamatsum/nvim-nonicons",
+   --    after = "nvim-base16.lua",
+   --    requires = { { "kyazdani42/nvim-web-devicons" } },
+   --    config = override_req("nvim_web_devicons", "plugins.configs.icons", "setup"),
+   -- },
+
    {
       "kazhala/close-buffers.nvim",
       commit = commit.close_buffer,
