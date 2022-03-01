@@ -357,7 +357,7 @@ return {
    { "tommcdo/vim-lion" },
 
    -- Better pasting
-   { "sickill/vim-pasta" },
+   -- { "sickill/vim-pasta" },
 
    {
       "tweekmonster/startuptime.vim",
