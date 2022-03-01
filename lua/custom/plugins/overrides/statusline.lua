@@ -423,29 +423,19 @@ default.separator_right2 = {
    },
 }
 
-default.position_icon = {
-   provider = ' ' .. default.statusline_style.position_icon,
-   enabled = default.shortline or function(winid)
-      return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
-   end,
-   hl = {
-      fg = default.colors.black,
-      bg = default.colors.green,
-   },
-}
-
 default.current_line = {
    provider = function()
       local current_line = vim.fn.line "."
       local total_line = vim.fn.line "$"
+      local icon = default.statusline_style.position_icon
 
       if current_line == 1 then
-         return " Top "
+         return " " .. icon .. "Top "
       elseif current_line == vim.fn.line "$" then
-         return " Bot "
+         return " " .. icon .."Bot "
       end
       local result, _ = math.modf((current_line / total_line) * 100)
-      return " " .. result .. "%% "
+      return " " .. icon .. "" .. result .. "%% "
    end,
 
    enabled = default.shortline or function(winid)
@@ -453,8 +443,8 @@ default.current_line = {
    end,
 
    hl = {
-      fg = default.colors.green,
-      bg = default.colors.black2,
+      fg = default.colors.black,
+      bg = default.colors.green,
    },
 }
 
@@ -489,7 +479,6 @@ local function setup()
    add_table(default.right, default.lsp_icon)
    add_table(default.right, default.git_branch)
    add_table(default.right, default.empty_space)
-   add_table(default.right, default.position_icon)
    add_table(default.right, default.current_line)
 
    default.components.active[1] = default.left
