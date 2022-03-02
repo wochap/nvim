@@ -185,3 +185,7 @@ map("n", "<S-Down>", "<cmd>tabp<CR>", opts)
 -- Don't change default register on pasting (visual mode)
 map("v", "p", '"_dP`[v`]=', opts)
 map("v", "P", '"_dP`[v`]=', opts)
+
+-- Change selected content
+map("s", "c", "<C-o>c", opts)
+
