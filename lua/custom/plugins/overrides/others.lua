@@ -9,7 +9,9 @@ M.telescope = {
 M.luasnip = {
    -- Show snippets related to the language
    -- in the current cursor position
-   ft_func = require("luasnip.extras.filetype_functions").from_pos_or_filetype,
+   ft_func = function()
+      return require("luasnip.extras.filetype_functions").from_pos_or_filetype()
+   end,
 }
 
 M.gitsigns = {
