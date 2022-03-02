@@ -220,7 +220,7 @@ default.git_branch = {
       return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 70
    end,
    hl = {
-      fg = default.colors.grey_fg2,
+      fg = default.colors.white,
       bg = default.colors.statusline_bg,
    },
    icon = "  ",
