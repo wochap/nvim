@@ -1,5 +1,6 @@
 local plugin_settings = require("core.utils").load_config().plugins
 local commit = {
+   lazygit = "9bceeab97668935cc6b91ab5190167d9771b5210",
    close_buffer = "3acbcad1211572342632a6c0151f839e7dead27f",
    cmp_cmdline = "29ca81a6f0f288e6311b3377d9d9684d22eac2ec",
    conflict_marker = "22b6133116795ea8fb6705ddca981aa8faecedda",
@@ -163,6 +164,12 @@ return {
       config = function()
          require("custom.plugins.configs.diffview").setup()
       end,
+   },
+
+   {
+      "kdheepak/lazygit.nvim",
+      commit = commit.lazygit,
+      cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" },
    },
 
    {
