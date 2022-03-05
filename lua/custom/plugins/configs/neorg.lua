@@ -5,20 +5,45 @@ M.setup = function()
    neorg.setup {
       -- Tell Neorg what modules to load
       load = {
-         ["core.defaults"] = {}, -- Load all the default modules
-         ["core.norg.concealer"] = {}, -- Allows for use of icons
-         ["core.norg.dirman"] = { -- Manage your directories with Neorg
+         -- Load all the default modules
+         ["core.defaults"] = {},
+
+         -- Get things done
+         ["core.gtd.base"] = {
+            config = {
+               workspace = "gtd",
+            },
+         },
+
+         -- Allows for use of icons
+         ["core.norg.concealer"] = {
+            config = {},
+         },
+
+         -- Manage your directories with Neorg
+         ["core.norg.dirman"] = {
             config = {
                workspaces = {
                   home = "~/Sync/neorg",
+                  journal = "~/Sync/journal",
+                  gtd = "~/Sync/gtd",
                },
+               autochdir = true,
             },
          },
-         -- ["core.norg.completion"] = {
-         --    config = {
-         --       engine = "nvim-cmp",
-         --    },
-         -- },
+
+         ["core.norg.journal"] = {
+            config = {
+               workspace = "journal",
+               journal_folder = "",
+            },
+         },
+
+         ["core.norg.completion"] = {
+            config = {
+               engine = "nvim-cmp",
+            },
+         },
       },
    }
 end
