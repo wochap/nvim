@@ -340,7 +340,7 @@ return {
    {
       "nvim-neorg/neorg",
       commit = commit.neorg,
-      requires = "nvim-lua/plenary.nvim",
+      requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" },
       wants = "plenary.nvim",
       config = function()
          require("custom.plugins.configs.neorg").setup()
