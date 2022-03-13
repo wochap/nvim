@@ -98,7 +98,7 @@ return {
          { "windwp/nvim-ts-autotag", disable = not plugin_settings.status.autotag },
          { "JoosepAlviste/nvim-ts-context-commentstring" },
       },
-      event = "BufRead",
+      event = { "BufRead", "BufNewFile" },
       config = function()
          require "custom.plugins.overrides.treesitter"
       end,
