@@ -46,8 +46,12 @@ local function live_grep(state, actions)
          args[index] = "--trim"
          index = index + 1
 
-         args[index] = "--vimgrep"
+         -- TODO: add shortcut to disable
+         args[index] = "--fixed-strings"
          index = index + 1
+
+         -- args[index] = "--vimgrep"
+         -- index = index + 1
 
          return args
          -- return { "-g", glob, "--word-regexp", "--case-sensitive", "--hidden" }
