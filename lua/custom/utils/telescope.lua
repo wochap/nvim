@@ -11,6 +11,27 @@ M.branches = function()
    }
 end
 
+M.find_files = function()
+   local builtin = require "telescope.builtin"
+
+   builtin.find_files {
+      find_command = { "fd", "--fixed-strings", "--type", "f" },
+      follow = true,
+      hidden = true,
+   }
+end
+
+M.find_all_files = function()
+   local builtin = require "telescope.builtin"
+
+   builtin.find_files {
+      find_command = { "fd", "--fixed-strings", "--type", "f" },
+      follow = true,
+      hidden = true,
+      no_ignore = true,
+   }
+end
+
 local function live_grep(state, actions)
    local builtin = require "telescope.builtin"
 
