@@ -121,17 +121,7 @@ M.plugins = {
          setup_lspconf = "custom.plugins.configs.lspconfig",
       },
       statusline = {
-         hidden = {
-            -- "DiffviewFiles",
-            -- "NvimTree", -- Fix jump on focus
-            "dap-repl",
-            "dapui_breakpoints",
-            "dapui_scopes",
-            "dapui_stacks",
-            "dapui_watches",
-            "help",
-            "terminal",
-         },
+         hidden = {},
          shown = {},
          style = "default",
       },

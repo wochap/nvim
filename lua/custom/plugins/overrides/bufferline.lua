@@ -23,7 +23,7 @@ default = {
          {
             filetype = "NvimTree",
             highlight = "CustomDirectory",
-            padding = 1,
+            padding = 0,
             text = "  File Explorer",
             text_align = "left",
          },

@@ -151,6 +151,10 @@ local syntax = {
       fg = colors.black2,
       style = "underline",
    },
+   -- WinSeparator = {
+   --    bg = "NONE",
+   --    fg = colors.black2,
+   -- },
 
    -- Diagnostics
    DiagnosticUnderlineError = { style = "undercurl", sp = stateColors.error }, -- Used to underline "Error" diagnostics
