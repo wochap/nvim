@@ -2,7 +2,7 @@ local M = {}
 
 M.telescope = {
    defaults = {
-      file_ignore_patterns = { "node_modules", "%.git/" },
+      file_ignore_patterns = { "node_modules", "%.git/", "%.lock$", "%-lock.json$" },
    },
 }
 
