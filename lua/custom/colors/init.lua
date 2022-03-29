@@ -92,6 +92,9 @@ local syntax = {
    -- NvimTreeFileStaged
    -- NvimTreeFileMerge
 
+   -- WhichKey
+   WhichKeySeparator = { fg = themeColors.base03 },
+
    -- Diffview
    DiffAdd = { bg = utils.darken(gitColors.add, 0.2, themeColors.base01) }, -- right diff add
    DiffChange = { bg = utils.darken(gitColors.change, 0.2, themeColors.base01) }, -- both diff change line
