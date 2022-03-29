@@ -43,19 +43,28 @@ local default = {
    indent = {
       enable = true,
    },
+
+   -- andymass/vim-matchup
    matchup = {
       enable = true,
    },
+
+   -- windwp/nvim-autopairs
    autopairs = {
       enable = true,
    },
+
+   -- windwp/nvim-ts-autotag
    autotag = {
       enable = plugin_settings.status.autotag,
    },
+
+   -- JoosepAlviste/nvim-ts-context-commentstring
    context_commentstring = {
       enable = true,
       enable_autocmd = false,
    },
+
    ensure_installed = {
       "norg",
       "norg_meta",
@@ -65,7 +74,6 @@ local default = {
       "graphql",
       "html",
       "javascript",
-      "json",
       "lua",
       "markdown",
       "nix",

@@ -1,10 +1,10 @@
 local present1, autopairs = pcall(require, "nvim-autopairs")
-local present2, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
 
-if present1 and present2 then
+if present1 then
    local default = {
-      fast_wrap = {},
+      disable_in_macro = true,
       enable_moveright = true,
+      enable_check_bracket_line = true,
       map_bs = false,
       check_ts = true,
       ts_config = {
@@ -15,6 +15,7 @@ if present1 and present2 then
    }
    autopairs.setup(default)
 
+   local cmp_autopairs = require "nvim-autopairs.completion.cmp"
    local cmp = require "cmp"
    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
 end
