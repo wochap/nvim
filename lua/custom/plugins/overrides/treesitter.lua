@@ -79,8 +79,14 @@ local default = {
       enable = true,
       use_languagetree = true,
       additional_vim_regex_highlighting = {},
+
       -- Disable in large buffers
       disable = function(lang, bufnr)
+         -- Fix errors on neorg
+         if type(bufnr) ~= "number" then
+            return
+         end
+
          return vim.api.nvim_buf_line_count(bufnr) > 10000
       end,
    },
