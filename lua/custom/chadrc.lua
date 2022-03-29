@@ -5,10 +5,9 @@ local ignore = "<leader>zx"
 M.mappings = {
    misc = {
       cheatsheet = "<leader>nc",
-      copy_to_system_clipboard = "<C-C>", -- copy selected text (visual mode) or curent line (normal)
-      copy_whole_file = "<C-a>", -- copy all contents of current buffer
-      line_number_toggle = "<leader>nn", -- toggle line number
-      relative_line_number_toggle = "<leader>nr",
+      cp_whole_file = "<C-a>", -- copy all contents of current buffer
+      lineNR_toggle = "<leader>nn", -- toggle line number
+      lineNR_rel_toggle = "<leader>nr",
       save_file = "<C-s>", -- save file using :w
 
       close_buffer = ignore,
