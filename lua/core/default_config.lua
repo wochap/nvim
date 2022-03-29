@@ -46,6 +46,7 @@ M.options = {
 
 M.ui = {
    hl_override = "", -- path of your file that contains highlights
+   colors = "", -- path of your file that contains colors
    italic_comments = false,
    theme = "onedark", -- default theme
 
@@ -123,7 +124,7 @@ M.mappings = {
    misc = {
       cheatsheet = "<leader>ch",
       close_buffer = "<leader>x",
-      cp_whole_file = "<C-a>", -- copy all contents of current buffer
+      cp_whole_file = "<C-y>", -- copy all contents of current buffer
       lineNR_toggle = "<leader>n", -- toggle line number
       lineNR_rel_toggle = "<leader>rn",
       update_nvchad = "<leader>uu",
