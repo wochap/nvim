@@ -70,6 +70,20 @@ local default = {
       relativenumber = true,
       side = "left",
       width = 35,
+      mappings = {
+         list = {
+            { key = "R", action = "full_rename" },
+            { key = "<C-r>", action = "refresh" },
+            { key = "?", action = "toggle_help" },
+            { key = "[g", action = "prev_git_item" },
+            { key = "]g", action = "next_git_item" },
+            { key = { "<CR>", "<2-LeftMouse>" }, action = "edit" },
+            { key = "o", action = "system_open" },
+            { key = "<C-h>", action = "split" },
+            -- { key = { "<2-RightMouse>", "<C-]>" }, action = "cd" },
+            -- { key = "-", action = "dir_up" },
+         },
+      },
    },
    git = {
       enable = true,
