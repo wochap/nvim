@@ -1,9 +1,4 @@
-local present, nvimtree = pcall(require, "nvim-tree")
-
-if not present then
-   return
-end
-
+-- globals must be set prior to requiring nvim-tree to function
 local g = vim.g
 
 g.nvim_tree_group_empty = 1
@@ -43,6 +38,12 @@ g.nvim_tree_icons = {
       symlink_open = "",
    },
 }
+
+local present, nvimtree = pcall(require, "nvim-tree")
+
+if not present then
+   return
+end
 
 local default = {
    filters = {
