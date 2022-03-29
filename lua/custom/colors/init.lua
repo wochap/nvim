@@ -79,6 +79,18 @@ local syntax = {
       fg = colors.red,
       -- style = "underline"
    },
+   NvimTreeSymlink = { fg = colors.white },
+   NvimTreeFolderName = { fg = colors.white },
+   NvimTreeFolderIcon = { fg = colors.blue },
+   NvimTreeEmptyFolderName = { fg = colors.white },
+   NvimTreeOpenedFolderName = { fg = colors.white },
+   NvimTreeExecFile = { fg = colors.white },
+   NvimTreeFileDirty = { fg = gitColors.change },
+   NvimTreeFileNew = { fg = gitColors.add },
+   NvimTreeFileDeleted = { fg = gitColors.delete },
+   -- NvimTreeFileRenamed
+   -- NvimTreeFileStaged
+   -- NvimTreeFileMerge
 
    -- Diffview
    DiffAdd = { bg = utils.darken(gitColors.add, 0.2, themeColors.base01) }, -- right diff add
@@ -200,4 +212,3 @@ if vim.fn.has "nvim" then
    vim.g.terminal_color_14 = "#" .. "A4FFFF"
    vim.g.terminal_color_15 = "#" .. "FFFFFF"
 end
-
