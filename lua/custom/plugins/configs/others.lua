@@ -1,5 +1,19 @@
 local M = {}
 
+M.shade = function()
+   local present, shade = pcall(require, "shade")
+
+   if present then
+      shade.setup {
+         overlay_opacity = 80,
+         opacity_step = 1,
+         keys = {
+            toggle = "<Leader>ns",
+         },
+      }
+   end
+end
+
 M.vim_visual_multi = function()
    vim.g.VM_default_mappings = 0
 

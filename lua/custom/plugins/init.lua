@@ -23,6 +23,7 @@ local commit = {
    persistence = "77cf5a6ee162013b97237ff25450080401849f85",
    plenary = "e86dc9b11241ff69ece50c15a5cdd49d20d4c27c",
    refactoring = "23340bf6b19ab50504165462676f87a3e1bd4870",
+   shade = "4286b5abc47d62d0c9ffb22a4f388b7bf2ac2461",
    startuptime = "dfa57f522d6f61793fe5fea65bca7484751b8ca2",
    todo_comments = "98b1ebf198836bdc226c0562b9f906584e6c400e",
    trouble = "20469be985143d024c460d95326ebeff9971d714",
@@ -200,6 +201,13 @@ return {
       event = "VimEnter",
       config = function()
          require("custom.plugins.configs.which-key").setup()
+      end,
+   },
+   {
+      "sunjon/shade.nvim",
+      commit = commit.shade,
+      config = function()
+         require("custom.plugins.configs.others").shade()
       end,
    },
 
