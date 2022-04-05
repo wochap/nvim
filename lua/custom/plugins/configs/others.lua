@@ -75,6 +75,11 @@ M.nvim_spectre = function()
    end
 
    spectre.setup {
+      highlight = {
+         ui = "String",
+         search = "SpectreSearch",
+         replace = "DiffAdd",
+      },
       mapping = {
          ["send_to_qf"] = {
             map = "<C-q>",

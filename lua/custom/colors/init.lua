@@ -171,6 +171,13 @@ local syntax = {
    --    fg = colors.black2,
    -- },
 
+   -- NvimSpectre
+   SpectreSearch = {
+      bg = utils.darken(gitColors.delete, 0.2, themeColors.base01),
+      style = "undercurl",
+      -- style = "strikethrough",
+   },
+
    -- Diagnostics
    DiagnosticUnderlineError = { style = "undercurl", sp = stateColors.error }, -- Used to underline "Error" diagnostics
    DiagnosticUnderlineWarn = { style = "undercurl", sp = stateColors.warning }, -- Used to underline "Warning" diagnostics
