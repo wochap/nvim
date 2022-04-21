@@ -88,6 +88,10 @@ local syntax = {
    NvimTreeFileDirty = { fg = gitColors.change },
    NvimTreeFileNew = { fg = gitColors.add },
    NvimTreeFileDeleted = { fg = gitColors.delete },
+   -- NvimTreeVertSplit = {
+   --    fg = colors.red,
+   --    bg = colors.blue,
+   -- },
    -- NvimTreeFileRenamed
    -- NvimTreeFileStaged
    -- NvimTreeFileMerge
