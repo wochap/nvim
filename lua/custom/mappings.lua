@@ -188,5 +188,4 @@ map("v", "p", '"_dp', opts)
 map("v", "P", '"_dP', opts)
 
 -- Change selected content
-map("s", "c", "<C-o>c", opts)
-
+map("s", "c", '<C-o>"_c', opts)
