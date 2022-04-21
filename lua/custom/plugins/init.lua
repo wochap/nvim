@@ -116,7 +116,8 @@ return {
       commit = commit.vscode_es7_javascript_react_snippets,
       run = "yarn install --frozen-lockfile && yarn compile",
       module = "cmp_nvim_lsp",
-      event = "InsertEnter",
+      -- event = "InsertEnter",
+      event = "VimEnter",
    },
    {
       "rafamadriz/friendly-snippets",
@@ -205,6 +206,7 @@ return {
    },
    {
       "sunjon/shade.nvim",
+      disable = true,
       commit = commit.shade,
       config = function()
          require("custom.plugins.configs.others").shade()
