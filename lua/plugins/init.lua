@@ -20,6 +20,7 @@ local plugins = {
 
    {
       "NvChad/nvim-base16.lua",
+      commit = "489408c1d0a3d310ecddd383ddc4389df862f6ad",
       after = "packer.nvim",
       config = function()
          require("colors").init()
@@ -41,6 +42,7 @@ local plugins = {
 
    {
       "akinsho/bufferline.nvim",
+      commit = "0a83c615a8ab49718d9b4cdc60127003307829b2",
       disable = not plugin_settings.status.bufferline,
       after = "nvim-web-devicons",
       config = override_req("bufferline", "plugins.configs.bufferline", "setup"),
@@ -215,6 +217,7 @@ local plugins = {
 
    {
       "nvim-telescope/telescope.nvim",
+      commit = "d38ad438f3bb4e3721b9964172c8c9d70d5d06a8",
       module = "telescope",
       cmd = "Telescope",
       config = override_req("telescope", "plugins.configs.telescope", "setup"),
