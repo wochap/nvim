@@ -1,6 +1,5 @@
 local plugin_settings = require("core.utils").load_config().plugins
 local commit = {
-   lazygit = "9bceeab97668935cc6b91ab5190167d9771b5210",
    close_buffer = "3acbcad1211572342632a6c0151f839e7dead27f",
    cmp_cmdline = "29ca81a6f0f288e6311b3377d9d9684d22eac2ec",
    conflict_marker = "22b6133116795ea8fb6705ddca981aa8faecedda",
@@ -9,6 +8,7 @@ local commit = {
    filetype = "4d2c0d4488a05f9b0d18a7e2004c0182e350bb45",
    friendly_snippets = "2e575549910571ff5abb6b02178c69ad760a4e00",
    harpoon = "d035ef263a75029b0351f2be3708ec2829e2a3df",
+   lazygit = "9bceeab97668935cc6b91ab5190167d9771b5210",
    lspsaga = "73c89a000429e58dcdb3b13cecc4148b5f2929ae",
    neogit = "c8a320359cea86834f62225849a75632258a7503",
    neorg = "27578af8581ca109ac51f0f5d215d12bf6933be1",
