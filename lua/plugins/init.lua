@@ -133,6 +133,7 @@ local plugins = {
 
    {
       "hrsh7th/nvim-cmp",
+      commit = "f841fa6ced194aa930136a7671439e6bd4c51722",
       disable = not plugin_settings.status.cmp,
       after = "friendly-snippets",
       config = override_req("nvim_cmp", "plugins.configs.cmp", "setup"),
