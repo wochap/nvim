@@ -1,6 +1,11 @@
 local opt = vim.opt
 local g = vim.g
 
+opt.relativenumber = true
+opt.fillchars = {
+   eob = " ",
+   diff = "╱",
+}
 opt.pastetoggle = "<F2>"
 opt.scrolloff = 4
 opt.sidescrolloff = 4

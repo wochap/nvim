@@ -1,92 +1,92 @@
 local present, alpha = pcall(require, "alpha")
 
 if not present then
-   return
+  return
 end
+
+require("base46").load_highlight "alpha"
 
 local function button(sc, txt, keybind)
-   local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
+  local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
 
-   local opts = {
-      position = "center",
-      text = txt,
-      shortcut = sc,
-      cursor = 5,
-      width = 36,
-      align_shortcut = "right",
-      hl = "AlphaButtons",
-   }
+  local opts = {
+    position = "center",
+    text = txt,
+    shortcut = sc,
+    cursor = 5,
+    width = 36,
+    align_shortcut = "right",
+    hl = "AlphaButtons",
+  }
 
-   if keybind then
-      opts.keymap = { "n", sc_, keybind, { noremap = true, silent = true } }
-   end
+  if keybind then
+    opts.keymap = { "n", sc_, keybind, { noremap = true, silent = true } }
+  end
 
-   return {
-      type = "button",
-      val = txt,
-      on_press = function()
-         local key = vim.api.nvim_replace_termcodes(sc_, true, false, true)
-         vim.api.nvim_feedkeys(key, "normal", false)
-      end,
-      opts = opts,
-   }
+  return {
+    type = "button",
+    val = txt,
+    on_press = function()
+      local key = vim.api.nvim_replace_termcodes(sc_, true, false, true)
+      vim.api.nvim_feedkeys(key, "normal", false)
+    end,
+    opts = opts,
+  }
 end
 
-local default = {}
+local options = {}
 
-default.ascii = {
-   "   ⣴⣶⣤⡤⠦⣤⣀⣤⠆     ⣈⣭⣿⣶⣿⣦⣼⣆          ",
-   "    ⠉⠻⢿⣿⠿⣿⣿⣶⣦⠤⠄⡠⢾⣿⣿⡿⠋⠉⠉⠻⣿⣿⡛⣦       ",
-   "          ⠈⢿⣿⣟⠦ ⣾⣿⣿⣷    ⠻⠿⢿⣿⣧⣄     ",
-   "           ⣸⣿⣿⢧ ⢻⠻⣿⣿⣷⣄⣀⠄⠢⣀⡀⠈⠙⠿⠄    ",
-   "          ⢠⣿⣿⣿⠈    ⣻⣿⣿⣿⣿⣿⣿⣿⣛⣳⣤⣀⣀   ",
-   "   ⢠⣧⣶⣥⡤⢄ ⣸⣿⣿⠘  ⢀⣴⣿⣿⡿⠛⣿⣿⣧⠈⢿⠿⠟⠛⠻⠿⠄  ",
-   "  ⣰⣿⣿⠛⠻⣿⣿⡦⢹⣿⣷   ⢊⣿⣿⡏  ⢸⣿⣿⡇ ⢀⣠⣄⣾⠄   ",
-   " ⣠⣿⠿⠛ ⢀⣿⣿⣷⠘⢿⣿⣦⡀ ⢸⢿⣿⣿⣄ ⣸⣿⣿⡇⣪⣿⡿⠿⣿⣷⡄  ",
-   " ⠙⠃   ⣼⣿⡟  ⠈⠻⣿⣿⣦⣌⡇⠻⣿⣿⣷⣿⣿⣿ ⣿⣿⡇ ⠛⠻⢷⣄ ",
-   "      ⢻⣿⣿⣄   ⠈⠻⣿⣿⣿⣷⣿⣿⣿⣿⣿⡟ ⠫⢿⣿⡆     ",
-   "       ⠻⣿⣿⣿⣿⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⡟⢀⣀⣤⣾⡿⠃     ",
+local ascii = {
+  "   ⣴⣶⣤⡤⠦⣤⣀⣤⠆     ⣈⣭⣿⣶⣿⣦⣼⣆          ",
+  "    ⠉⠻⢿⣿⠿⣿⣿⣶⣦⠤⠄⡠⢾⣿⣿⡿⠋⠉⠉⠻⣿⣿⡛⣦       ",
+  "          ⠈⢿⣿⣟⠦ ⣾⣿⣿⣷    ⠻⠿⢿⣿⣧⣄     ",
+  "           ⣸⣿⣿⢧ ⢻⠻⣿⣿⣷⣄⣀⠄⠢⣀⡀⠈⠙⠿⠄    ",
+  "          ⢠⣿⣿⣿⠈    ⣻⣿⣿⣿⣿⣿⣿⣿⣛⣳⣤⣀⣀   ",
+  "   ⢠⣧⣶⣥⡤⢄ ⣸⣿⣿⠘  ⢀⣴⣿⣿⡿⠛⣿⣿⣧⠈⢿⠿⠟⠛⠻⠿⠄  ",
+  "  ⣰⣿⣿⠛⠻⣿⣿⡦⢹⣿⣷   ⢊⣿⣿⡏  ⢸⣿⣿⡇ ⢀⣠⣄⣾⠄   ",
+  " ⣠⣿⠿⠛ ⢀⣿⣿⣷⠘⢿⣿⣦⡀ ⢸⢿⣿⣿⣄ ⣸⣿⣿⡇⣪⣿⡿⠿⣿⣷⡄  ",
+  " ⠙⠃   ⣼⣿⡟  ⠈⠻⣿⣿⣦⣌⡇⠻⣿⣿⣷⣿⣿⣿ ⣿⣿⡇ ⠛⠻⢷⣄ ",
+  "      ⢻⣿⣿⣄   ⠈⠻⣿⣿⣿⣷⣿⣿⣿⣿⣿⡟ ⠫⢿⣿⡆     ",
+  "       ⠻⣿⣿⣿⣿⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⡟⢀⣀⣤⣾⡿⠃     ",
 }
 
-default.header = {
-   type = "text",
-   val = default.ascii,
-   opts = {
-      position = "center",
-      hl = "AlphaHeader",
-   },
+options.header = {
+  type = "text",
+  val = ascii,
+  opts = {
+    position = "center",
+    hl = "AlphaHeader",
+  },
 }
 
-default.buttons = {
-   type = "group",
-   val = {
-      button("SPC f f", "  Find File  ", ":Telescope find_files<CR>"),
-      button("SPC f o", "  Recent File  ", ":Telescope oldfiles<CR>"),
-      button("SPC f w", "  Find Word  ", ":Telescope live_grep<CR>"),
-      button("SPC b m", "  Bookmarks  ", ":Telescope marks<CR>"),
-      button("SPC t h", "  Themes  ", ":Telescope themes<CR>"),
-      button("SPC e s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
-   },
-   opts = {
-      spacing = 1,
-   },
+options.buttons = {
+  type = "group",
+  val = {
+    button("SPC f f", "  Find File  ", ":Telescope find_files<CR>"),
+    button("SPC f o", "  Recent File  ", ":Telescope oldfiles<CR>"),
+    button("SPC f w", "  Find Word  ", ":Telescope live_grep<CR>"),
+    button("SPC b m", "  Bookmarks  ", ":Telescope marks<CR>"),
+    button("SPC t h", "  Themes  ", ":Telescope themes<CR>"),
+    button("SPC e s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
+  },
+  opts = {
+    spacing = 1,
+  },
 }
 
-local M = {}
+options = require("core.utils").load_override(options, "goolord/alpha-nvim")
 
-M.setup = function(override_flag)
-   if override_flag then
-      default = require("core.utils").tbl_override_req("alpha", default)
-   end
-   alpha.setup {
-      layout = {
-         { type = "padding", val = 9 },
-         default.header,
-         { type = "padding", val = 2 },
-         default.buttons,
-      },
-      opts = {},
-   }
-end
+-- dynamic header padding
+local fn = vim.fn
+local marginTopPercent = 0.3
+local headerPadding = fn.max { 2, fn.floor(fn.winheight(0) * marginTopPercent) }
 
-return M
+alpha.setup {
+  layout = {
+    { type = "padding", val = headerPadding },
+    options.header,
+    { type = "padding", val = 2 },
+    options.buttons,
+  },
+  opts = {},
+}

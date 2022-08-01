@@ -1,37 +1,5 @@
 local M = {}
 
-M.branches = function()
-   local actions = require "telescope.actions"
-   require("telescope.builtin").git_branches {
-      attach_mappings = function(_, map)
-         map("i", "<C-j>", actions.git_create_branch)
-         map("n", "<C-j>", actions.git_create_branch)
-         return true
-      end,
-   }
-end
-
-M.find_files = function()
-   local builtin = require "telescope.builtin"
-
-   builtin.find_files {
-      find_command = { "fd", "--fixed-strings", "--type", "f" },
-      follow = true,
-      hidden = true,
-   }
-end
-
-M.find_all_files = function()
-   local builtin = require "telescope.builtin"
-
-   builtin.find_files {
-      find_command = { "fd", "--fixed-strings", "--type", "f" },
-      follow = true,
-      hidden = true,
-      no_ignore = true,
-   }
-end
-
 function files_live_grep(opts)
    local Path = require "plenary.path"
    local conf = require("telescope.config").values

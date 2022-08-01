@@ -1,11 +1,5 @@
 local M = {}
 
-M.telescope = {
-   defaults = {
-      file_ignore_patterns = { "node_modules", "%.git/", "%.lock$", "%-lock.json$" },
-   },
-}
-
 M.luasnip = {
    -- Show snippets related to the language
    -- in the current cursor position
@@ -68,7 +62,7 @@ M.gitsigns = {
    },
 }
 
-M.nvim_comment = {
+M.comment = {
    pre_hook = function(ctx)
       local U = require "Comment.utils"
 
@@ -84,10 +78,6 @@ M.nvim_comment = {
          location = location,
       }
    end,
-}
-
-M.signature = {
-   toggle_key = "<C-i>",
 }
 
 return M

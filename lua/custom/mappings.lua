@@ -1,191 +1,423 @@
-local utils = require "core.utils"
+local M = {}
 
-local map = utils.map
-local config = utils.load_config()
-local maps = config.mappings
-local plugin_maps = maps.plugins
+M.disabled = {
+   n = {
+      -- switch between windows
+      ["<C-h>"] = "",
+      ["<C-l>"] = "",
+      ["<C-j>"] = "",
+      ["<C-k>"] = "",
 
-local opts = { noremap = true, silent = true }
+      -- Copy all
+      ["<C-c>"] = "",
 
-map("n", "<C-e>", "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", opts)
-map("i", "<C-e>", "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", opts)
+      -- line numbers
+      ["<leader>n"] = "",
+      ["<leader>rn"] = "",
 
-map("i", "<C-k>", "<cmd>lua require'custom.utils.others'.expandSnippet()<CR>", opts)
+      -- update nvchad
+      ["<leader>uu"] = "",
 
--- Remaps for each of the four debug operations currently offered by the plugin
-map("v", "<Leader>lre", "<Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>", opts)
-map("v", "<Leader>lrf", "<Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>", opts)
-map("v", "<Leader>lrv", "<Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>", opts)
-map("v", "<Leader>lri", "<Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>", opts)
+      ["<leader>tt"] = "",
 
--- Open new buffer
-map("n", "<Leader>fn", ":enew<CR>", opts)
+      -- cycle through buffers
+      ["<TAB>"] = "",
+      ["<S-Tab>"] = "",
 
--- Close buffers
-map("n", "<leader>w", "<cmd>lua require('close_buffers').delete({ type = 'this' })<CR>", opts)
-map("n", "<leader>W", "<cmd>lua require('close_buffers').delete({ type = 'this', force = true })<CR>", opts)
-map("n", "<leader>fk", "<cmd>lua require('close_buffers').delete({ type = 'other' })<CR>", opts)
-map("n", "<leader>fK", "<cmd>lua require('close_buffers').delete({ type = 'other', force = true })<CR>", opts)
+      -- cycle through tabs
+      ["<leader>tp"] = "",
+      ["<leader>tn"] = "",
 
--- Persistence
-map("n", "<leader>nl", "<cmd>lua require('persistence').load()<CR>", opts)
+      -- close buffer + hide terminal buffer
+      ["<leader>x"] = "",
 
--- Search
-map("n", "<leader>ff", "<cmd>lua require'custom.utils.telescope'.find_files()<CR>", opts)
-map("n", "<leader>fa", "<cmd>lua require'custom.utils.telescope'.find_all_files()<CR>", opts)
-map("n", "<leader>sg", "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>", opts)
-map("n", "<leader>sr", "<cmd>lua require('spectre').open()<CR>", opts)
-map("n", "<leader>ss", "<cmd>lua require'custom.utils.telescope'.symbols()<CR>", opts)
-map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
+      -- new buffer
+      ["<S-b>"] = "",
 
--- Harpon
-map("n", "<leader>ht", "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<CR>", opts)
-map("n", "<leader>hl", "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>", opts)
-map("n", "<leader>hu", "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>", opts)
-map("n", "<leader>hy", "<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>", opts)
-map("n", "<leader>h;", "<cmd>lua require('harpoon.term').gotoTerminal(4)<CR>", opts)
-map("n", "<leader>hs", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", opts)
-map("n", "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<CR>", opts)
-map("n", "<leader>hp", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", opts)
-map("n", "<leader>hf", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", opts)
-map("n", "<leader>hw", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", opts)
-map("n", "<leader>hq", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", opts)
+      -- lsp
+      ["K"] = "",
+      ["gi"] = "",
+      ["<leader>ls"] = "",
+      ["<leader>D"] = "",
+      ["<leader>ra"] = "",
+      ["<leader>ca"] = "",
+      ["gr"] = "",
+      ["<leader>q"] = "",
+      ["<leader>fm"] = "",
+      ["<leader>wa"] = "",
+      ["<leader>wr"] = "",
+      ["<leader>wl"] = "",
+      ["d]"] = "",
 
--- Trouble
-map("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
-map("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
-map("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
-map("n", "<leader>xt", "<cmd>TodoTrouble<cr>", opts)
-map("n", "<leader>xT", "<cmd>TodoTelescope<cr>", opts)
-map("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
-map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
-map("n", "grr", "<cmd>TroubleToggle lsp_references<cr>", opts)
-map("n", "[t", "<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>", opts)
-map("n", "]t", "<cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>", opts)
+      -- toggle nvimtree
+      ["<C-n>"] = "",
 
--- Packer
-map("n", "<leader>pc", "<cmd>PackerCompile<cr>", opts)
-map("n", "<leader>pi", "<cmd>PackerInstall<cr>", opts)
-map("n", "<leader>ps", "<cmd>PackerSync<cr>", opts)
-map("n", "<leader>pS", "<cmd>PackerStatus<cr>", opts)
-map("n", "<leader>pu", "<cmd>PackerUpdate<cr>", opts)
+      -- find
+      ["<leader>ff"] = "",
+      ["<leader>fa"] = "",
 
--- LSP
-map("n", "<leader>lr", "<cmd>Lspsaga rename<CR>")
-map("n", "<leader>la", "<cmd>Lspsaga code_action<CR>")
-map("v", "<leader>la", "<cmd><C-U>Lspsaga range_code_action<CR>")
-map("n", "grh", "<cmd>lua vim.lsp.buf.document_highlight()<CR>")
-map("n", "grc", "<cmd>lua vim.lsp.buf.clear_references()<CR>")
-map("n", "gdv", "<cmd>vsplit | lua vim.lsp.buf.definition()<CR>", opts)
-map("n", "gds", "<cmd>split | lua vim.lsp.buf.definition()<CR>", opts)
-map("n", "[e", "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>", opts)
-map("n", "]e", "<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>", opts)
-map("v", plugin_maps.lspconfig.formatting, "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+      -- git
+      ["<leader>cm"] = "",
+      ["<leader>gt"] = "",
 
-map("n", "<leader>fs", "<cmd>Telescope filetypes<CR>")
+      -- pick a hidden term
+      ["<leader>pt"] = "",
 
--- Git
-map("n", "<leader>gf", "<cmd>DiffviewFileHistory<CR>", opts)
-map("n", "<leader>gB", "<cmd>lua require'custom.utils.telescope'.branches()<CR>", opts)
-map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opts)
-map("n", "<leader>gq", "<cmd>DiffviewClose<CR>", opts)
-map("n", "<leader>gg", "<cmd>Neogit kind=vsplit<CR>", opts)
-map("n", "<leader>gl", "<cmd>LazyGit<CR>", opts)
--- map("n", "<leader>gf", "<cmd>Telescope git_bcommits <CR>", opts)
+      -- theme switcher
+      ["<leader>th"] = "",
+      ["<leader>tk"] = "",
 
--- MaximizerToggle
-map("n", "<leader>m", "<cmd>MaximizerToggle!<CR>", opts)
+      -- new terminal
+      ["<leader>h"] = "",
+      ["<leader>v"] = "",
 
--- Dap
-map("n", "<leader>d<Up>", "<cmd>lua require'dap'.step_out()<CR>", opts)
-map("n", "<leader>d<Right>", "<cmd>lua require'dap'.step_into()<CR>", opts)
-map("n", "<leader>d<Down>", "<cmd>lua require'dap'.step_over()<CR>", opts)
-map("n", "<leader>d<Left>", "<cmd>lua require'dap'.continue()<CR>", opts)
-map("n", "<leader>da", "<cmd>lua require'custom.utils.debugHelper'.attach()<CR>", opts)
-map("n", "<leader>dH", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opts)
-map("n", "<leader>dh", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", opts)
-map("n", "<leader>dc", "<cmd>lua require'dap'.terminate()<CR>", opts)
-map("n", "<leader>de", "<cmd>lua require'dap'.set_exception_breakpoints({'all'})<CR>", opts)
-map("n", "<leader>di", "<cmd>lua require'dap.ui.widgets'.hover()<CR>", opts)
-map("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle({}, 'vsplit')<CR><C-w>l", opts)
-map("n", "<leader>dn", "<cmd>lua require'dap'.run_to_cursor()<CR>", opts)
-map("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<CR>", opts)
--- map("n", "<leader>d?", "<cmd>lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>", opts)
--- map("n", "<leader>dk", "<cmd>lua require"dap".up()<CR>", opts)
--- map("n", "<leader>dj", "<cmd>lua require"dap".down()<CR>", opts)
+      -- whichkey
+      ["<leader>wK"] = "",
+      ["<leader>wk"] = "",
 
-map("n", "[q", ":cprevious<CR>", opts)
-map("n", "]q", ":cnext<CR>", opts)
-map("n", "[l", ":lprevious<CR>", opts)
-map("n", "]l", ":lnext<CR>", opts)
+      ["<leader>bc"] = "",
+   },
+   i = {
+      -- go to  beginning and end
+      ["<C-b>"] = "",
+      ["<C-e>"] = "",
 
--- Quickly adding and deleting empty lines
-map("n", "[<Space>", ":set paste<CR>m`O<Esc>``:set nopaste<CR>", opts)
-map("n", "]<Space>", ":set paste<CR>m`o<Esc>``:set nopaste<CR>", opts)
-map("n", "[<Del>", "m`:silent +g/\\m^\\s*$/d<CR>``:noh<CR>", opts)
-map("n", "]<Del>", "m`:silent -g/\\m^\\s*$/d<CR>``:noh<CR>", opts)
+      -- navigate within insert mode
+      ["<C-h>"] = "",
+      ["<C-l>"] = "",
+      ["<C-j>"] = "",
+      ["<C-k>"] = "",
+   },
+}
 
--- Exit
-map("n", "<leader>qa", "<cmd>qa <CR>", opts)
-map("n", "<leader>q!", "<cmd>qa! <CR>", opts)
+M.groups = {
+   n = {
+      ["<leader>"] = {
+         o = { name = "neorg" },
+         d = { name = "dap" },
+         h = { name = "harpon" },
+         l = { name = "lsp" },
+         n = { name = "misc" },
+         p = { name = "packer" },
+         q = { name = "quit" },
+         s = { name = "search" },
+         t = { name = "terminal" },
+         x = { name = "trouble" },
+      },
+   },
+}
 
--- Select last yanked/changed text
-map("n", "gV", "`[v`]", opts)
+M.tabufline = {
+   n = {
+      ["<Leader>fn"] = { "<cmd> enew <CR>", "烙  new buffer" },
 
--- Stay in indent mode
-map("v", "<", "<gv", opts)
-map("v", ">", ">gv", opts)
+      -- cycle through buffers
+      ["<S-Right>"] = { "<cmd> Tbufnext <CR>", "  goto next buffer" },
+      ["<S-Left>"] = { "<cmd> Tbufprev <CR> ", "  goto prev buffer" },
 
--- Sort multiples lines with F9
-map("v", "<F9>", ":'<,'>sort<CR>", opts)
+      -- cycle through tabs
+      ["<S-Up>"] = { "<cmd> tabprevious <CR>", "  goto next tab" },
+      ["<S-Down>"] = { "<cmd> tabnext <CR> ", "  goto prev tab" },
+   },
+}
 
--- ThePrimeagen - keeping centered
-map("n", "n", "nzzzv", opts)
-map("n", "N", "Nzzzv", opts)
-map("n", "J", "mzJ`z", opts)
+M.general = {
+   n = {
+      ["<C-Left>"] = { "<C-w>h", " window left" },
+      ["<C-Right>"] = { "<C-w>l", " window right" },
+      ["<C-Down>"] = { "<C-w>j", " window down" },
+      ["<C-Up>"] = { "<C-w>k", " window up" },
 
--- ThePrimeagen - unto break points
-map("i", ",", ",<C-g>u", opts)
-map("i", ".", ".<C-g>u", opts)
-map("i", "!", "!<C-g>u", opts)
-map("i", "?", "?<C-g>u", opts)
+      ["<C-y>"] = { "<cmd> %y+ <CR>", "  copy whole file" },
+   },
+}
 
--- Clone lines ala vscode
-map("n", "<C-S-A-Down>", '"zyy"zp', opts)
-map("n", "<C-S-A-Up>", '"zyy"zP', opts)
-map("v", "<C-S-A-Down>", '"zy`]"zp', opts)
-map("v", "<C-S-A-Up>", '"zy`["zP', opts)
+M.lspconfig = {
+   n = {
+      ["gh"] = {
+         function()
+            vim.lsp.buf.hover()
+         end,
+         "   lsp hover",
+      },
+      ["gI"] = {
+         function()
+            vim.lsp.buf.implementation()
+         end,
+         "   lsp implementation",
+      },
+      ["gs"] = {
+         function()
+            vim.lsp.buf.signature_help()
+         end,
+         "   lsp signature_help",
+      },
+      ["gt"] = {
+         function()
+            vim.lsp.buf.type_definition()
+         end,
+         "   lsp definition type",
+      },
+      ["<leader>lr"] = {
+         function()
+            require("nvchad_ui.renamer").open()
+         end,
+         "   lsp rename",
+      },
+      ["<leader>la"] = {
+         function()
+            vim.lsp.buf.code_action()
+         end,
+         "   lsp code_action",
+      },
+      ["gr"] = {
+         "<cmd>TroubleToggle lsp_references<cr>",
+         "   lsp references",
+      },
+      ["<leader>ld"] = {
+         function()
+            vim.diagnostic.open_float()
+         end,
+         "   floating diagnostic",
+      },
+      ["]d"] = {
+         function()
+            vim.diagnostic.goto_next()
+         end,
+         "   goto_next",
+      },
 
--- Move current line / block with Alt-Down/Up ala vscode.
-map("i", "<A-Down>", "<Esc>:m .+1<CR>==gi", opts)
-map("i", "<A-Up>", "<Esc>:m .-2<CR>==gi", opts)
-map("n", "<A-Down>", ":m .+1<CR>==", opts)
-map("n", "<A-Up>", ":m .-2<CR>==", opts)
-map("x", "<A-Down>", ":m '>+1<CR>gv-gv", opts)
-map("x", "<A-Up>", ":m '<-2<CR>gv-gv", opts)
+      ["<leader>lf"] = {
+         function()
+            vim.lsp.buf.formatting()
+         end,
+         "   lsp formatting",
+      },
+   },
+}
 
--- Save in insert mode
-map("i", "<C-s>", "<Esc>:w <CR>", opts)
-map("v", "<C-s>", "<Esc>:w <CR>", opts)
+M.nvimtree = {
+   n = {
+      -- toggle
+      ["<leader>b"] = { "<cmd> NvimTreeToggle <CR>", "   toggle nvimtree" },
 
-map("n", "<S-Up>", "<cmd>tabn<CR>", opts)
-map("n", "<S-Down>", "<cmd>tabp<CR>", opts)
+      -- focus
+      ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "   focus nvimtree" },
+   },
+}
 
--- -- Prevent changes made to text from landing in the default registers
--- map("n", "c", '"_c', opts)
--- map("n", "C", '"_C', opts)
--- map("n", "s", '"_s', opts)
--- map("n", "S", '"_S', opts)
---
--- -- Same as above but for visual mode
--- map("v", "c", '"_c', opts)
--- map("v", "C", '"_C', opts)
--- map("v", "s", '"_s', opts)
--- map("v", "S", '"_S', opts)
+M.telescope = {
+   n = {
+      -- find
+      ["<leader>ff"] = {
+         "<cmd> Telescope find_files find_command=fd,--fixed-strings,--type,f follow=true hidden=true <CR>",
+         "  find files",
+      },
+      ["<leader>fa"] = {
+         "<cmd> Telescope find_files find_command=fd,--fixed-strings,--type,f follow=true hidden=true no_ignore=true <CR>",
+         "  find all",
+      },
+   },
+}
 
--- Don't change default register on pasting (visual mode)
-map("v", "p", '"_dp', opts)
-map("v", "P", '"_dP', opts)
+M.blankline = {
+   n = {
+      ["gC"] = {
+         function()
+            local ok, start = require("indent_blankline.utils").get_current_context(
+               vim.g.indent_blankline_context_patterns,
+               vim.g.indent_blankline_use_treesitter_scope
+            )
 
--- Change selected content
-map("s", "c", '<C-o>"_c', opts)
+            if ok then
+               vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start, 0 })
+               vim.cmd [[normal! _]]
+            end
+         end,
+
+         "  Jump to current_context",
+      },
+   },
+}
+
+M.utils = {
+   n = {
+      ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", "close floating windows" },
+   },
+   i = {
+      ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", "close floating windows" },
+      ["<C-k>"] = { "<cmd>lua require'custom.utils.others'.expandSnippet()<CR>", "expand snippet" },
+   },
+}
+
+M.close_buffers = {
+   n = {
+      ["<leader>w"] = { "<cmd>lua require('close_buffers').delete({ type = 'this' })<CR>", "   close buffer" },
+      ["<leader>W"] = {
+         "<cmd>lua require('close_buffers').delete({ type = 'this', force = true })<CR>",
+         "   close buffer!",
+      },
+      ["<leader>fk"] = {
+         "<cmd>lua require('close_buffers').delete({ type = 'other' })<CR>",
+         "   close other buffers",
+      },
+      ["<leader>fK"] = {
+         "<cmd>lua require('close_buffers').delete({ type = 'other', force = true })<CR>",
+         "   close other buffers!",
+      },
+   },
+}
+
+M.search = {
+   n = {
+      ["<leader>sg"] = { "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>", "   live grep" },
+      ["<leader>sr"] = { "<cmd>lua require('spectre').open()<CR>", "search with spectre" },
+   },
+}
+
+M.terminal = {
+   n = {
+      -- pick a hidden term
+      ["<leader>tT"] = { "<cmd> Telescope terms <CR>", "   pick hidden term" },
+
+      -- new
+      ["<leader>th"] = {
+         function()
+            require("nvterm.terminal").new "horizontal"
+         end,
+         "   new horizontal term",
+      },
+      ["<leader>tv"] = {
+         function()
+            require("nvterm.terminal").new "vertical"
+         end,
+         "   new vertical term",
+      },
+   },
+}
+
+M.git = {
+   n = {
+      ["<leader>gl"] = { "<cmd>LazyGit<CR>", "open lazygit" },
+      ["<leader>gf"] = { "<cmd>DiffviewFileHistory<CR>", "open file history" },
+   },
+}
+
+M.persistence = {
+   n = {
+      ["<leader>nl"] = { "<cmd>lua require('persistence').load()<CR>", "load last session" },
+   },
+}
+
+M.custom_general = {
+   n = {
+      ["<leader>qa"] = { "<cmd>qa <CR>", "exit" },
+      ["<leader>q!"] = { "<cmd>qa! <CR>", "exit!" },
+      ["<A-Down>"] = { ":m .+1<CR>==", "move line down" },
+      ["<A-Up>"] = { ":m .-2<CR>==", "move line up" },
+      ["<C-S-A-Down>"] = { '"zyy"zp', "clone line down" },
+      ["<C-S-A-Up>"] = { '"zyy"zP', "clone line up" },
+      ["gV"] = { "`[v`]", "select last yanked/changed text" },
+      ["[<Space>"] = { ":set paste<CR>m`O<Esc>``:set nopaste<CR>", "add empty line up" },
+      ["]<Space>"] = { ":set paste<CR>m`o<Esc>``:set nopaste<CR>", "add empty line down" },
+      ["[<Del>"] = { "m`:silent +g/\\m^\\s*$/d<CR>``:noh<CR>", "remove emply line up" },
+      ["]<Del>"] = { "m`:silent -g/\\m^\\s*$/d<CR>``:noh<CR>", "remove emply line down" },
+      ["[q"] = { ":cprevious<CR>", "go to prev quicklist item" },
+      ["]q"] = { ":cnext<CR>", "go to next quicklist item" },
+      ["[l"] = { ":lprevious<CR>", "go to prev loclist item" },
+      ["]l"] = { ":lnext<CR>", "go to next loclist item" },
+   },
+   i = {
+      ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
+      ["<A-Down>"] = { "<Esc>:m .+1<CR>==gi", "move line down" },
+      ["<A-Up>"] = { "<Esc>:m .-2<CR>==gi", "move line up" },
+   },
+   x = {
+      ["<A-Down>"] = { ":m '>+1<CR>gv-gv", "move lines down" },
+      ["<A-Up>"] = { ":m '<-2<CR>gv-gv", "move lines up" },
+   },
+   v = {
+      ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
+      ["<C-S-A-Down>"] = { '"zy`]"zp', "clone line down" },
+      ["<C-S-A-Up>"] = { '"zy`["zP', "clone line down" },
+      ["<F9>"] = { ":'<,'>sort<CR>", "sort lines" },
+      ["<"] = { "<gv" },
+      [">"] = { ">gv" },
+   },
+   s = {
+      ["c"] = { '<C-o>"_c', "change selected text" },
+   },
+}
+
+M.maximizer_toggle = {
+   n = {
+      ["<leader>m"] = { "<cmd>MaximizerToggle!<CR>", "max window" },
+   },
+}
+
+M.packer = {
+   n = {
+      ["<leader>pc"] = { "<cmd>PackerCompile<cr>", "packercompile" },
+      ["<leader>pi"] = { "<cmd>PackerInstall<cr>", "PackerInstall" },
+      ["<leader>ps"] = { "<cmd>PackerSync<cr>", "PackerSync" },
+      ["<leader>pS"] = { "<cmd>PackerStatus<cr>", "PackerStatus" },
+      ["<leader>pu"] = { "<cmd>PackerUpdate<cr>", "PackerUpdate" },
+   },
+}
+
+M.trouble = {
+   n = {
+      ["<leader>xx"] = { "<cmd>TroubleToggle<cr>" },
+      ["<leader>xw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>" },
+      ["<leader>xd"] = { "<cmd>TroubleToggle document_diagnostics<cr>" },
+      ["<leader>xt"] = { "<cmd>TodoTrouble<cr>" },
+      ["<leader>xT"] = { "<cmd>TodoTelescope<cr>" },
+      ["<leader>xl"] = { "<cmd>TroubleToggle loclist<cr>" },
+      ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>" },
+      ["gr"] = { "<cmd>TroubleToggle lsp_references<cr>" },
+      ["[t"] = {
+         "<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>",
+         "go to prev troublelist item",
+      },
+      ["]t"] = {
+         "<cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>",
+         "go to next troublelist item",
+      },
+   },
+}
+
+M.harpon = {
+   n = {
+      ["<leader>ht"] = { "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<CR>" },
+      ["<leader>hl"] = { "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>" },
+      ["<leader>hu"] = { "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>" },
+      ["<leader>hy"] = { "<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>" },
+      ["<leader>h;"] = { "<cmd>lua require('harpoon.term').gotoTerminal(4)<CR>" },
+      ["<leader>hs"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>" },
+      ["<leader>ha"] = { "<cmd>lua require('harpoon.mark').add_file()<CR>" },
+      ["<leader>hp"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<CR>" },
+      ["<leader>hf"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<CR>" },
+      ["<leader>hw"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<CR>" },
+      ["<leader>hq"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<CR>" },
+   },
+}
+
+M.dap = {
+   n = {
+      ["<leader>d<Up>"] = { "<cmd>lua require'dap'.step_out()<CR>" },
+      ["<leader>d<Right>"] = { "<cmd>lua require'dap'.step_into()<CR>" },
+      ["<leader>d<Down>"] = { "<cmd>lua require'dap'.step_over()<CR>" },
+      ["<leader>d<Left>"] = { "<cmd>lua require'dap'.continue()<CR>" },
+      ["<leader>da"] = { "<cmd>lua require'custom.utils.debugHelper'.attach()<CR>" },
+      ["<leader>dH"] = { "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>" },
+      ["<leader>dh"] = { "<cmd>lua require'dap'.toggle_breakpoint()<CR>" },
+      ["<leader>dc"] = { "<cmd>lua require'dap'.terminate()<CR>" },
+      ["<leader>de"] = { "<cmd>lua require'dap'.set_exception_breakpoints({'all'})<CR>" },
+      ["leader>di"] = { "<cmd>lua require'dap.ui.widgets'.hover()<CR>" },
+      ["<leader>dr"] = { "<cmd>lua require'dap'.repl.toggle({}, 'vsplit')<CR><C-w>l" },
+      ["<leader>dn"] = { "<cmd>lua require'dap'.run_to_cursor()<CR>" },
+      ["<leader>du"] = { "<cmd>lua require'dapui'.toggle()<CR>" },
+   },
+}
+
+return M

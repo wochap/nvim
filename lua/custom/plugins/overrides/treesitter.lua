@@ -1,74 +1,16 @@
-local plugin_settings = require("core.utils").load_config().plugins
-local present, ts_config = pcall(require, "nvim-treesitter.configs")
-
-if not present then
-   return
-end
-
-local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-
-parser_configs.norg = {
-   install_info = {
-      url = "https://github.com/nvim-neorg/tree-sitter-norg",
-      files = { "src/parser.c", "src/scanner.cc" },
-      branch = "main",
-   },
-}
-
-parser_configs.norg_meta = {
-   install_info = {
-      url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
-      files = { "src/parser.c" },
-      branch = "main",
-   },
-}
-
-parser_configs.norg_table = {
-   install_info = {
-      url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
-      files = { "src/parser.c" },
-      branch = "main",
-   },
-}
-
-local default = {
-   textsubjects = {
-      enable = true,
-      keymaps = {
-         ["g."] = "textsubjects-smart",
-         ["g,"] = "textsubjects-container-inner",
-         ["g;"] = "textsubjects-container-outer",
-      },
-   },
-   indent = {
-      enable = true,
-   },
-
-   -- andymass/vim-matchup
-   matchup = {
-      enable = true,
-   },
-
-   -- windwp/nvim-autopairs
-   autopairs = {
-      enable = true,
-   },
-
-   -- windwp/nvim-ts-autotag
-   autotag = {
-      enable = plugin_settings.status.autotag,
-   },
-
+return {
    -- JoosepAlviste/nvim-ts-context-commentstring
    context_commentstring = {
       enable = true,
       enable_autocmd = false,
    },
 
+   highlight = { -- Be sure to enable highlights if you haven't!
+      enable = true,
+   },
+
    ensure_installed = {
       "norg",
-      "norg_meta",
-      "norg_table",
       "c",
       "css",
       "graphql",
@@ -83,24 +25,4 @@ local default = {
       "typescript",
       "vim",
    },
-   highlight = {
-      enable = true,
-      use_languagetree = true,
-      additional_vim_regex_highlighting = {},
-
-      -- Disable in large buffers
-      disable = function(lang, bufnr)
-         -- Fix errors on neorg
-         if type(bufnr) ~= "number" then
-            return
-         end
-
-         return vim.api.nvim_buf_line_count(bufnr) > 10000
-      end,
-   },
-   incremental_selection = {
-      enable = true,
-   },
 }
-
-ts_config.setup(default)

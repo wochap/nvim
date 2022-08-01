@@ -1,31 +1,5 @@
 local M = {}
 
-M.shade = function()
-   local present, shade = pcall(require, "shade")
-
-   if present then
-      shade.setup {
-         overlay_opacity = 80,
-         opacity_step = 1,
-         keys = {
-            toggle = "<Leader>ns",
-         },
-      }
-   end
-end
-
-M.vim_visual_multi = function()
-   vim.g.VM_default_mappings = 0
-
-   vim.cmd [[
-      let g:VM_maps = {}
-      let g:VM_maps["Add Cursor Down"] = '<S-C-Down>'
-      let g:VM_maps["Add Cursor Up"] = '<S-C-Up>'
-      let g:VM_maps["Select Cursor Down"] = '<S-C-Down>'
-      let g:VM_maps["Select Cursor Up"] = '<S-C-Up>'
-   ]]
-end
-
 M.conflict_marker = function()
    local g = vim.g
 
@@ -46,28 +20,6 @@ M.emmet_vim = function()
    }
 end
 
-M.cmp_cmdline = function()
-   local present, cmp = pcall(require, "cmp")
-
-   if not present then
-      return
-   end
-
-   cmp.setup.cmdline("/", {
-      sources = {
-         { name = "buffer" },
-      },
-   })
-
-   cmp.setup.cmdline(":", {
-      sources = cmp.config.sources({
-         { name = "path" },
-      }, {
-         { name = "cmdline" },
-      }),
-   })
-end
-
 M.trouble_nvim = function()
    local present, trouble = pcall(require, "trouble")
 
@@ -78,56 +30,6 @@ M.trouble_nvim = function()
    trouble.setup {
       use_diagnostic_signs = true,
       -- group = false,
-   }
-end
-
-M.nvim_spectre = function()
-   local present, spectre = pcall(require, "spectre")
-
-   if not present then
-      return
-   end
-
-   spectre.setup {
-      highlight = {
-         ui = "String",
-         search = "SpectreSearch",
-         replace = "DiffAdd",
-      },
-      mapping = {
-         ["send_to_qf"] = {
-            map = "<C-q>",
-            cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
-            desc = "send all item to quickfix",
-         },
-      },
-   }
-end
-
-M.refactoring = function()
-   local present, refactoring = pcall(require, "refactoring")
-
-   if not present then
-      return
-   end
-
-   refactoring.setup {}
-end
-
-M.filetype = function()
-   local present, filetype = pcall(require, "filetype")
-
-   if not present then
-      return
-   end
-
-   filetype.setup {
-      overrides = {
-         extensions = {
-            nix = "nix",
-            rasi = "less",
-         },
-      },
    }
 end
 
