@@ -388,11 +388,11 @@ M.trouble = {
 
 M.harpon = {
    n = {
-      ["<leader>ht"] = { "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<CR>", "toggle quick menu terminals" },
-      ["<leader>hl"] = { "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>", "go to terminal 1" },
-      ["<leader>hu"] = { "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>", "go to terminal 2" },
-      ["<leader>hy"] = { "<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>", "go to terminal 3" },
-      ["<leader>h;"] = { "<cmd>lua require('harpoon.term').gotoTerminal(4)<CR>", "go to terminal 4" },
+      -- ["<leader>ht"] = { "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<CR>", "toggle quick menu terminals" },
+      -- ["<leader>hl"] = { "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>", "go to terminal 1" },
+      -- ["<leader>hu"] = { "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>", "go to terminal 2" },
+      -- ["<leader>hy"] = { "<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>", "go to terminal 3" },
+      -- ["<leader>h;"] = { "<cmd>lua require('harpoon.term').gotoTerminal(4)<CR>", "go to terminal 4" },
       ["<leader>hs"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "toggle quick menu files" },
       ["<leader>ha"] = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "add file" },
       ["<leader>hp"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "go to file 1" },
