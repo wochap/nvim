@@ -341,8 +341,8 @@ M.custom_general = {
       ["<C-S-A-Down>"] = { '"zy`]"zp', "clone line down" },
       ["<C-S-A-Up>"] = { '"zy`["zP', "clone line down" },
       ["<F9>"] = { ":'<,'>sort<CR>", "sort lines" },
-      ["<"] = { "<gv" },
-      [">"] = { ">gv" },
+      ["<"] = { "<gv", "indent left" },
+      [">"] = { ">gv", "indent right" },
    },
    s = {
       ["c"] = { '<C-o>"_c', "change selected text" },
@@ -357,7 +357,7 @@ M.maximizer_toggle = {
 
 M.packer = {
    n = {
-      ["<leader>pc"] = { "<cmd>PackerCompile<cr>", "packercompile" },
+      ["<leader>pc"] = { "<cmd>PackerCompile<cr>", "PackerCompile" },
       ["<leader>pi"] = { "<cmd>PackerInstall<cr>", "PackerInstall" },
       ["<leader>ps"] = { "<cmd>PackerSync<cr>", "PackerSync" },
       ["<leader>pS"] = { "<cmd>PackerStatus<cr>", "PackerStatus" },
@@ -367,14 +367,14 @@ M.packer = {
 
 M.trouble = {
    n = {
-      ["<leader>xx"] = { "<cmd>TroubleToggle<cr>" },
-      ["<leader>xw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>" },
-      ["<leader>xd"] = { "<cmd>TroubleToggle document_diagnostics<cr>" },
-      ["<leader>xt"] = { "<cmd>TodoTrouble<cr>" },
-      ["<leader>xT"] = { "<cmd>TodoTelescope<cr>" },
-      ["<leader>xl"] = { "<cmd>TroubleToggle loclist<cr>" },
-      ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>" },
-      ["gr"] = { "<cmd>TroubleToggle lsp_references<cr>" },
+      ["<leader>xx"] = { "<cmd>TroubleToggle<cr>", "show last list" },
+      ["<leader>xw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "show project diagnostics" },
+      ["<leader>xd"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "show file diagnostic" },
+      ["<leader>xt"] = { "<cmd>TodoTrouble<cr>", "open TODOs" },
+      ["<leader>xT"] = { "<cmd>TodoTelescope<cr>", "search TODOs" },
+      ["<leader>xl"] = { "<cmd>TroubleToggle loclist<cr>", "toggle loclist" },
+      ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", "toggle quicklist" },
+      ["gr"] = { "<cmd>TroubleToggle lsp_references<cr>", "toggle references" },
       ["[t"] = {
          "<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>",
          "go to prev troublelist item",
@@ -388,35 +388,41 @@ M.trouble = {
 
 M.harpon = {
    n = {
-      ["<leader>ht"] = { "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<CR>" },
-      ["<leader>hl"] = { "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>" },
-      ["<leader>hu"] = { "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>" },
-      ["<leader>hy"] = { "<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>" },
-      ["<leader>h;"] = { "<cmd>lua require('harpoon.term').gotoTerminal(4)<CR>" },
-      ["<leader>hs"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>" },
-      ["<leader>ha"] = { "<cmd>lua require('harpoon.mark').add_file()<CR>" },
-      ["<leader>hp"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<CR>" },
-      ["<leader>hf"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<CR>" },
-      ["<leader>hw"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<CR>" },
-      ["<leader>hq"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<CR>" },
+      ["<leader>ht"] = { "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<CR>", "toggle quick menu terminals" },
+      ["<leader>hl"] = { "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>", "go to terminal 1" },
+      ["<leader>hu"] = { "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>", "go to terminal 2" },
+      ["<leader>hy"] = { "<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>", "go to terminal 3" },
+      ["<leader>h;"] = { "<cmd>lua require('harpoon.term').gotoTerminal(4)<CR>", "go to terminal 4" },
+      ["<leader>hs"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "toggle quick menu files" },
+      ["<leader>ha"] = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "add file" },
+      ["<leader>hp"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "go to file 1" },
+      ["<leader>hf"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", "go to file 2" },
+      ["<leader>hw"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", "go to file 3" },
+      ["<leader>hq"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", "go to file 4" },
    },
 }
 
 M.dap = {
    n = {
-      ["<leader>d<Up>"] = { "<cmd>lua require'dap'.step_out()<CR>" },
-      ["<leader>d<Right>"] = { "<cmd>lua require'dap'.step_into()<CR>" },
-      ["<leader>d<Down>"] = { "<cmd>lua require'dap'.step_over()<CR>" },
-      ["<leader>d<Left>"] = { "<cmd>lua require'dap'.continue()<CR>" },
-      ["<leader>da"] = { "<cmd>lua require'custom.utils.debugHelper'.attach()<CR>" },
-      ["<leader>dH"] = { "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>" },
-      ["<leader>dh"] = { "<cmd>lua require'dap'.toggle_breakpoint()<CR>" },
-      ["<leader>dc"] = { "<cmd>lua require'dap'.terminate()<CR>" },
-      ["<leader>de"] = { "<cmd>lua require'dap'.set_exception_breakpoints({'all'})<CR>" },
-      ["leader>di"] = { "<cmd>lua require'dap.ui.widgets'.hover()<CR>" },
-      ["<leader>dr"] = { "<cmd>lua require'dap'.repl.toggle({}, 'vsplit')<CR><C-w>l" },
-      ["<leader>dn"] = { "<cmd>lua require'dap'.run_to_cursor()<CR>" },
-      ["<leader>du"] = { "<cmd>lua require'dapui'.toggle()<CR>" },
+      ["<leader>d<Up>"] = { "<cmd>lua require'dap'.step_out()<CR>", "step out" },
+      ["<leader>d<Right>"] = { "<cmd>lua require'dap'.step_into()<CR>", "step into" },
+      ["<leader>d<Down>"] = { "<cmd>lua require'dap'.step_over()<CR>", "step over" },
+      ["<leader>d<Left>"] = { "<cmd>lua require'dap'.continue()<CR>", "continue" },
+      ["<leader>da"] = { "<cmd>lua require'custom.utils.debugHelper'.attach()<CR>", "attach" },
+      ["<leader>dH"] = {
+         "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+         "set breakpoint condition",
+      },
+      ["<leader>dh"] = { "<cmd>lua require'dap'.toggle_breakpoint()<CR>", "set breakpoint" },
+      ["<leader>dc"] = { "<cmd>lua require'dap'.terminate()<CR>", "terminate" },
+      ["<leader>de"] = {
+         "<cmd>lua require'dap'.set_exception_breakpoints({'all'})<CR>",
+         "set exception breakpoints ALL",
+      },
+      ["leader>di"] = { "<cmd>lua require'dap.ui.widgets'.hover()<CR>", "hover" },
+      ["<leader>dr"] = { "<cmd>lua require'dap'.repl.toggle({}, 'vsplit')<CR><C-w>l", "toggle repl" },
+      ["<leader>dn"] = { "<cmd>lua require'dap'.run_to_cursor()<CR>", "run to cursor" },
+      ["<leader>du"] = { "<cmd>lua require'dapui'.toggle()<CR>", "open dapui" },
    },
 }
 
