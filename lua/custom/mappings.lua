@@ -419,7 +419,7 @@ M.dap = {
          "<cmd>lua require'dap'.set_exception_breakpoints({'all'})<CR>",
          "set exception breakpoints ALL",
       },
-      ["leader>di"] = { "<cmd>lua require'dap.ui.widgets'.hover()<CR>", "hover" },
+      ["<leader>di"] = { "<cmd>lua require'dap.ui.widgets'.hover()<CR>", "hover" },
       ["<leader>dr"] = { "<cmd>lua require'dap'.repl.toggle({}, 'vsplit')<CR><C-w>l", "toggle repl" },
       ["<leader>dn"] = { "<cmd>lua require'dap'.run_to_cursor()<CR>", "run to cursor" },
       ["<leader>du"] = { "<cmd>lua require'dapui'.toggle()<CR>", "open dapui" },
