@@ -47,6 +47,7 @@ local commit = {
    schemastore = "65e845c491db027f93648dbf6241bc73e68a44d0",
    null_ls = "e8a666829a3d803844f24daa4932e4f5fe76cbeb",
    neorg = "5dc942ce225f80639a9a37fe39f488b6c6cbb791",
+   nvim_surround = "d91787d5a716623be7cec3be23c06c0856dc21b8",
 
    -- legacy
    cmp_cmdline = "29ca81a6f0f288e6311b3377d9d9684d22eac2ec",
@@ -268,6 +269,13 @@ M.user = {
       event = "BufReadPost",
       setup = function()
          require("custom.plugins.configs.others").conflict_marker()
+      end,
+   },
+
+   ["kylechui/nvim-surround"] = {
+      commit = commit.nvim_surround,
+      config = function()
+         require("custom.plugins.configs.others").nvim_surround()
       end,
    },
 
