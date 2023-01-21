@@ -1,3 +1,6 @@
 plugin
 spell
 sessions
+ftplugin
+coc-settings.json
+.luarc.json
