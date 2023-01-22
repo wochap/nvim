@@ -59,4 +59,24 @@ M.trouble_nvim = function()
    }
 end
 
+M.which_key = function()
+   local wk = require("which-key")
+
+   
+   wk.register({
+   o = {
+      name = "neorg",
+   },
+   d = { name = "dap" },
+         h = { name = "harpon" },
+         l = { name = "lsp" },
+         n = { name = "misc" },
+         p = { name = "packer" },
+         q = { name = "quit" },
+         s = { name = "search" },
+         t = { name = "terminal" },
+         x = { name = "trouble" },
+   }, {prefix = "<leader>"}) --insert any whichkey opts here
+end
+
 return M

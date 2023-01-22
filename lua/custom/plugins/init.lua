@@ -1,31 +1,31 @@
 local commit = {
    -- nvchad
-   plenary = "986ad71ae930c7d96e812734540511b4ca838aa2",
-   nvchad_extensions = "fd46bb0ed0eab9584e75742bf18d81467b1b6faa",
-   nvchad_base64 = "f7340d7245eb5a6f47bc2c3df50a3c130ba04ece",
-   nvchad_ui = "21e627a91f9607274abd2bd3d75c516070bb20d2",
-   nvchad_nvterm = "1317d6238f089e117e3ed98b3cecc37cc4364675",
-   web_devicons = "2d02a56189e2bde11edd4712fea16f08a6656944",
-   indent_blankline = "c15bbe9f23d88b5c0b4ca45a446e01a0a3913707",
-   nvchad_colorizer = "fbe4a8d12ec1238ab1552361f64c852debd9a33f",
-   treesitter = "6289410c7a4715d6e7743c4d81cf5d262e90951e",
-   gitsigns = "8b817e76b6399634f3f49e682d6e409844241858",
-   mason = "2f7a2c317f14a2d0e8a5ad4b583eeeea9f7deb7d",
-   lspconfig = "ba25b747a3cff70c1532c2f28fcc912cf7b938ea",
-   friendly_snippets = "8c95fecb3960eb0d3d3b9bd582d49a613bd7a7fb",
-   cmp = "706371f1300e7c0acb98b346f80dad2dd9b5f679",
-   luasnip = "53e812a6f51c9d567c98215733100f0169bcc20a",
-   cmp_luasnip = "a9de941bcbda508d0a45d28ae366bb3f08db2e36",
-   cmp_lua = "d276254e7198ab7d00f117e88e223b4bd8c02d21",
-   cmp_lsp = "affe808a5c56b71630f17aa7c38e15c59fd648a8",
-   cmp_buffer = "62fc67a2b0205136bc3e312664624ba2ab4a9323",
-   cmp_path = "447c87cdd6e6d6a1d2488b1d43108bfa217f56e1",
-   autopairs = "972a7977e759733dd6721af7bcda7a67e40c010e",
-   alpha = "d688f46090a582be8f9d7b70b4cf999b780e993d",
-   comment = "78ab4e9785b6da9b7a539df3bd6f70300dc9482b",
-   tree = "7fcb48c852b9d58709169a4dc1ec634fa9ea56f9",
-   telescope = "b5833a682c511885887373aad76272ad70f7b3c2",
-   which_key = "bd4411a2ed4dd8bb69c125e339d837028a6eea71",
+   plenary = "1c7e3e6b0f4dd5a174fcea9fda8a4d7de593b826",
+   nvchad_extensions = "1f67c3c2dfca8ff545afd694eb76c9ef45169567",
+   nvchad_base64 = "be301b2cd309394dfa62e8c569250e4fb58dd763",
+   nvchad_ui = "eaf9d087594cc8cc6cf8355ebcc1568edb817f66",
+   nvchad_nvterm = "29a70ef608a8cc5db3a5fc300d39a39d1a44a863",
+   web_devicons = "9ca185ed23cc47bef66d97332f0694be568121e8",
+   indent_blankline = "c4c203c3e8a595bc333abaf168fcb10c13ed5fb7",
+   nvchad_colorizer = "760e27df4dd966607e8fb7fd8b6b93e3c7d2e193",
+   treesitter = "da6dc214ddde3fac867bd4a6f4ea51a794b01e18",
+   gitsigns = "7b37bd5c2dd4d7abc86f2af096af79120608eeca",
+   mason = "71069da64d33a33afc169ca37d7ae66699cfe5ee",
+   lspconfig = "0eecf453d33248e9d571ad26559f35175c37502d",
+   friendly_snippets = "046e4d3491baf664e0eef5231d28beb49333578b",
+   cmp = "11a95792a5be0f5a40bab5fc5b670e5b1399a939",
+   luasnip = "8c23e1af82bdafa86556a36c4e075079dd167771",
+   cmp_luasnip = "18095520391186d634a0045dacaa346291096566",
+   cmp_lua = "f3491638d123cfd2c8048aefaf66d246ff250ca6",
+   cmp_lsp = "59224771f91b86d1de12570b4070fe4ad7cd1eeb",
+   cmp_buffer = "3022dbc9166796b644a841a02de8dd1cc1d311fa",
+   cmp_path = "91ff86cd9c29299a64f968ebb45846c485725f23",
+   autopairs = "31042a5823b55c4bfb30efcbba2fc1b5b53f90dc",
+   alpha = "21a0f2520ad3a7c32c0822f943368dc063a569fb",
+   comment = "eab2c83a0207369900e92783f56990808082eac2",
+   tree = "96506fee49542f3aedab76368d400a147fea344e",
+   telescope = "2f32775405f6706348b71d0bb8a15a22852a61e4",
+   which_key = "e4fa445065a2bb0bbc3cca85346b67817f28e83e",
 
    -- custom
    lazygit = "9bceeab97668935cc6b91ab5190167d9771b5210",
@@ -45,8 +45,8 @@ local commit = {
    conflict_marker = "22b6133116795ea8fb6705ddca981aa8faecedda",
    vscode_es7_javascript_react_snippets = "6bc8ec96c24beea7e54f21c9fe2476e73d669cd7",
    schemastore = "65e845c491db027f93648dbf6241bc73e68a44d0",
-   null_ls = "e8a666829a3d803844f24daa4932e4f5fe76cbeb",
-   neorg = "5dc942ce225f80639a9a37fe39f488b6c6cbb791",
+   null_ls = "33cfeb7a761f08e8535dca722d4b237cabadd371",
+   neorg = "4ad79529477fd8b84fec75485e705eab2d3ca34a",
    nvim_surround = "d91787d5a716623be7cec3be23c06c0856dc21b8",
 
    -- legacy
@@ -63,14 +63,19 @@ local commit = {
    yuck = "6dc3da77c53820c32648cf67cbdbdfb6994f4e08",
 }
 
-local M = {}
-
-M.user = {
+local M = {
    -- nvchad
    ["nvim-lua/plenary.nvim"] = { commit = commit.plenary },
    ["NvChad/extensions"] = { commit = commit.nvchad_extensions },
    ["NvChad/base46"] = { commit = commit.nvchad_base64 },
-   ["NvChad/ui"] = { commit = commit.nvchad_ui },
+   ["NvChad/ui"] = { commit = commit.nvchad_ui, 
+   override_options = {
+
+      -- TODO: fix
+      tabufline = require "custom.plugins.overrides.tabufline",
+      statusline = require "custom.plugins.overrides.statusline",
+   },
+},
    ["NvChad/nvterm"] = { commit = commit.nvchad_nvterm },
    ["kyazdani42/nvim-web-devicons"] = { commit = commit.web_devicons },
    ["lukas-reineke/indent-blankline.nvim"] = { commit = commit.indent_blankline },
@@ -80,8 +85,9 @@ M.user = {
       requires = {
          { "JoosepAlviste/nvim-ts-context-commentstring" },
       },
+      override_options = require "custom.plugins.overrides.treesitter",
    },
-   ["lewis6991/gitsigns.nvim"] = { commit = commit.gitsigns },
+   ["lewis6991/gitsigns.nvim"] = { commit = commit.gitsigns, override_options = require("custom.plugins.overrides.others").gitsigns, },
    ["williamboman/mason.nvim"] = { commit = commit.mason },
    ["neovim/nvim-lspconfig"] = {
       commit = commit.lspconfig,
@@ -96,8 +102,8 @@ M.user = {
       event = nil,
       after = "vscode-es7-javascript-react-snippets",
    },
-   ["hrsh7th/nvim-cmp"] = { commit = commit.cmp },
-   ["L3MON4D3/LuaSnip"] = { commit = commit.luasnip },
+   ["hrsh7th/nvim-cmp"] = { commit = commit.cmp, override_options = require "custom.plugins.overrides.cmp", },
+   ["L3MON4D3/LuaSnip"] = { commit = commit.luasnip, override_options = require("custom.plugins.overrides.others").luasnip, },
    ["saadparwaiz1/cmp_luasnip"] = { commit = commit.cmp_luasnip },
    ["hrsh7th/cmp-nvim-lua"] = { commit = commit.cmp_lua },
    ["hrsh7th/cmp-nvim-lsp"] = { commit = commit.cmp_lsp },
@@ -105,15 +111,21 @@ M.user = {
    ["hrsh7th/cmp-path"] = { commit = commit.cmp_path },
    ["windwp/nvim-autopairs"] = { commit = commit.autopairs },
    ["goolord/alpha-nvim"] = { commit = commit.alpha },
-   ["numToStr/Comment.nvim"] = { commit = commit.comment },
-   ["kyazdani42/nvim-tree.lua"] = { commit = commit.tree },
+   ["numToStr/Comment.nvim"] = { commit = commit.comment, override_options = require("custom.plugins.overrides.others").comment, },
+   ["nvim-tree/nvim-tree.lua"] = { commit = commit.tree, override_options = require "custom.plugins.overrides.nvim-tree", },
    ["nvim-telescope/telescope.nvim"] = {
       commit = commit.telescope,
       ft = { "norg" },
       module = { "telescope", "telescope.builtin", "telescope.action" },
       cmd = "Telescope",
+      override_options = require "custom.plugins.overrides.telescope",
    },
-   ["folke/which-key.nvim"] = { commit = commit.which_key },
+   ["folke/which-key.nvim"] = { commit = commit.which_key, disable = false,
+   config = function()
+      require "plugins.configs.whichkey"
+      require("custom.plugins.configs.others").which_key()
+   end,
+},
 
    -- custom
    ["dsznajder/vscode-es7-javascript-react-snippets"] = {
@@ -294,18 +306,19 @@ M.user = {
    ["tommcdo/vim-lion"] = {},
 }
 
-M.override = {
-   ["kyazdani42/nvim-tree.lua"] = require "custom.plugins.overrides.nvim-tree",
-   ["nvim-telescope/telescope.nvim"] = require "custom.plugins.overrides.telescope",
-   ["lewis6991/gitsigns.nvim"] = require("custom.plugins.overrides.others").gitsigns,
-   ["hrsh7th/nvim-cmp"] = require "custom.plugins.overrides.cmp",
-   ["nvim-treesitter/nvim-treesitter"] = require "custom.plugins.overrides.treesitter",
-   ["L3MON4D3/LuaSnip"] = require("custom.plugins.overrides.others").luasnip,
-   ["numToStr/Comment.nvim"] = require("custom.plugins.overrides.others").comment,
-   ["NvChad/ui"] = {
-      tabufline = require "custom.plugins.overrides.tabufline",
-      statusline = require "custom.plugins.overrides.statusline",
-   },
-}
+-- M.override = {
+--    ["kyazdani42/nvim-tree.lua"] = require "custom.plugins.overrides.nvim-tree",
+--    ["nvim-telescope/telescope.nvim"] = require "custom.plugins.overrides.telescope",
+--    ["lewis6991/gitsigns.nvim"] = require("custom.plugins.overrides.others").gitsigns,
+--    ["hrsh7th/nvim-cmp"] = require "custom.plugins.overrides.cmp",
+--    ["nvim-treesitter/nvim-treesitter"] = require "custom.plugins.overrides.treesitter",
+--    ["L3MON4D3/LuaSnip"] = require("custom.plugins.overrides.others").luasnip,
+--    ["numToStr/Comment.nvim"] = require("custom.plugins.overrides.others").comment,
+--    ["NvChad/ui"] = {
+--       -- TODO: fix
+--       -- tabufline = require "custom.plugins.overrides.tabufline",
+--       -- statusline = require "custom.plugins.overrides.statusline",
+--    },
+-- }
 
 return M

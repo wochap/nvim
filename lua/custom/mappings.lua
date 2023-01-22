@@ -24,15 +24,8 @@ M.disabled = {
       ["<TAB>"] = "",
       ["<S-Tab>"] = "",
 
-      -- cycle through tabs
-      ["<leader>tp"] = "",
-      ["<leader>tn"] = "",
-
       -- close buffer + hide terminal buffer
       ["<leader>x"] = "",
-
-      -- new buffer
-      ["<S-b>"] = "",
 
       -- lsp
       ["K"] = "",
@@ -75,7 +68,14 @@ M.disabled = {
       ["<leader>wK"] = "",
       ["<leader>wk"] = "",
 
-      ["<leader>bc"] = "",
+      ["<leader>cc"] = "",
+
+      -- gitsigns
+      ["]c"] = "",
+      ["[c"] = "",
+      ["<leader>rh"] = "",
+      ["<leader>ph"] = "",
+      ["<leader>td"] = "",
    },
    i = {
       -- go to  beginning and end
@@ -90,30 +90,25 @@ M.disabled = {
    },
 }
 
-M.groups = {
-   n = {
-      ["<leader>"] = {
-         o = { name = "neorg" },
-         d = { name = "dap" },
-         h = { name = "harpon" },
-         l = { name = "lsp" },
-         n = { name = "misc" },
-         p = { name = "packer" },
-         q = { name = "quit" },
-         s = { name = "search" },
-         t = { name = "terminal" },
-         x = { name = "trouble" },
-      },
-   },
-}
+
 
 M.tabufline = {
    n = {
       ["<Leader>fn"] = { "<cmd> enew <CR>", "烙  new buffer" },
 
       -- cycle through buffers
-      ["<S-Right>"] = { "<cmd> Tbufnext <CR>", "  goto next buffer" },
-      ["<S-Left>"] = { "<cmd> Tbufprev <CR> ", "  goto prev buffer" },
+      ["<S-Right>"] = {
+         function()
+           require("nvchad_ui.tabufline").tabuflineNext()
+         end,
+         "goto next buffer",
+       },
+      ["<S-Left>"] = {
+         function()
+           require("nvchad_ui.tabufline").tabuflinePrev()
+         end,
+         "goto prev buffer",
+       },
 
       -- cycle through tabs
       ["<S-Up>"] = { "<cmd> tabprevious <CR>", "  goto next tab" },
@@ -235,7 +230,8 @@ M.blankline = {
             end
          end,
 
-         "  Jump to current_context",
+
+         "Jump to current_context",
       },
    },
 }
@@ -425,5 +421,75 @@ M.dap = {
       ["<leader>du"] = { "<cmd>lua require'dapui'.toggle()<CR>", "open dapui" },
    },
 }
+
+M.gitsigns = {
+   n = {
+     -- Navigation through hunks
+     ["]g"] = {
+       function()
+         if vim.wo.diff then
+           return "]c"
+         end
+         vim.schedule(function()
+           require("gitsigns").next_hunk()
+         end)
+         return "<Ignore>"
+       end,
+       "Jump to next hunk",
+       opts = { expr = true },
+     },
+
+     ["[g"] = {
+       function()
+         if vim.wo.diff then
+           return "[c"
+         end
+         vim.schedule(function()
+           require("gitsigns").prev_hunk()
+         end)
+         return "<Ignore>"
+       end,
+       "Jump to prev hunk",
+       opts = { expr = true },
+     },
+
+     -- Actions
+     ["<leader>gr"] = {
+       function()
+         require("gitsigns").reset_hunk()
+       end,
+       "Reset hunk",
+     },
+
+     ["<leader>gp"] = {
+       function()
+         require("gitsigns").preview_hunk()
+       end,
+       "Preview hunk",
+     },
+
+     ["<leader>gb"] = {
+       function()
+         package.loaded.gitsigns.blame_line({full=true})
+       end,
+       "Blame line",
+     },
+
+     ["<leader>gd"] = {
+       function()
+         require("gitsigns").toggle_deleted()
+       end,
+       "Toggle deleted",
+     },
+   },
+   v = {
+      ["<leader>gr"] = {
+         function()
+           require("gitsigns").reset_hunk()
+         end,
+         "Reset hunk",
+       },
+   },
+ }
 
 return M
