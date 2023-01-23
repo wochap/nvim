@@ -15,11 +15,6 @@ local function keybinds_hook(keybinds)
       { "ti", "core.norg.qol.todo_items.todo.task_important" },
       { "<C-Space>", "core.norg.qol.todo_items.todo.task_cycle" },
 
-      -- Keys for managing GTD
-      { leader .. "oc", "core.gtd.base.capture" },
-      { leader .. "ov", "core.gtd.base.views" },
-      { leader .. "oe", "core.gtd.base.edit" },
-
       -- Keys for managing notes
       { leader .. "on", "core.norg.dirman.new.note" },
     },
@@ -65,24 +60,6 @@ local function keybinds_hook(keybinds)
       -- Closes the TOC split
       -- ^escape
       { "<Esc>", "core.norg.qol.toc.close" },
-    },
-  }, {
-    silent = true,
-    noremap = true,
-    nowait = true,
-  })
-
-  -- Map the below keys on gtd displays
-  keybinds.map_event_to_mode("gtd-displays", {
-    n = {
-      { "<CR>", "core.gtd.ui.goto_task" },
-
-      -- Keys for closing the current display
-      { "q", "core.gtd.ui.close" },
-      { "<Esc>", "core.gtd.ui.close" },
-
-      { "e", "core.gtd.ui.edit_task" },
-      { "<Tab>", "core.gtd.ui.details" },
     },
   }, {
     silent = true,
@@ -152,14 +129,6 @@ M.setup = function()
       ["core.norg.concealer"] = {
         config = {},
       },
-
-      -- Get things done
-      -- ["core.gtd.base"] = {
-      --   config = {
-      --     workspace = "gtd",
-      --   },
-      --   exclude = { "home", "journal" },
-      -- },
 
       ["core.norg.completion"] = {
         config = {

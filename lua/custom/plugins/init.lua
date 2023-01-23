@@ -68,7 +68,7 @@ local M = {
    ["nvim-lua/plenary.nvim"] = { commit = commit.plenary },
    ["NvChad/extensions"] = { commit = commit.nvchad_extensions },
    ["NvChad/base46"] = { commit = commit.nvchad_base64 },
-   ["NvChad/ui"] = { commit = commit.nvchad_ui, 
+   ["NvChad/ui"] = { commit = commit.nvchad_ui,
    override_options = {
 
       -- TODO: fix
@@ -217,7 +217,7 @@ local M = {
 
    ["nvim-neorg/neorg"] = {
       commit = commit.neorg,
-      -- run = ":Neorg sync-parsers",
+      run = ":Neorg sync-parsers",
       requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" },
       wants = { "plenary.nvim", "neorg-telescope" },
       config = function()
