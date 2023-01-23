@@ -3,8 +3,8 @@ local g = vim.g
 
 opt.relativenumber = true
 opt.fillchars = {
-   eob = " ",
-   diff = "╱",
+  eob = " ",
+  diff = "╱",
 }
 opt.pastetoggle = "<F2>"
 opt.scrolloff = 4

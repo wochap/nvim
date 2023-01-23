@@ -1,6 +1,6 @@
 local present, diffview = pcall(require, "diffview")
 if not present then
-   return
+  return
 end
 
 local M = {}
@@ -15,4 +15,3 @@ M.setup = function()
 end
 
 return M
-
