@@ -114,7 +114,7 @@ M.setup = function()
             journal = "~/Sync/journal",
             gtd = "~/Sync/gtd",
           },
-          autochdir = true,
+          default_workspace = "home",
         },
       },
 
