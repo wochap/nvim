@@ -1,4 +1,4 @@
-local attach = require("plugins.configs.lspconfig").on_attach
+local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
@@ -22,7 +22,7 @@ local servers = {
 
 for _, lsp in ipairs(servers) do
   local opts = {
-    on_attach = attach,
+    on_attach = on_attach,
     capabilities = capabilities,
     flags = {
       debounce_text_changes = 150,
@@ -35,15 +35,15 @@ for _, lsp in ipairs(servers) do
       local nvim_lsp_ts_utils = require "nvim-lsp-ts-utils"
 
       -- Run nvchad's attach
-      attach(client, bufnr)
+      on_attach(client, bufnr)
 
       -- disable tsserver's inbuilt formatting
       -- since I use null-ls for formatting
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
+      client.server_capabilities.document_formatting = false
+      client.server_capabilities.document_range_formatting = false
 
       -- enable document_highlight
-      client.resolved_capabilities.document_highlight = true
+      client.server_capabilities.document_highlight = true
 
       nvim_lsp_ts_utils.setup {
         filter_out_diagnostics_by_severity = { "hint" },
@@ -58,12 +58,12 @@ for _, lsp in ipairs(servers) do
   if lsp == "rnix" or lsp == "jsonls" then
     opts.on_attach = function(client, bufnr)
       -- Run nvchad's attach
-      attach(client, bufnr)
+      on_attach(client, bufnr)
 
       -- disable server inbuilt formatting
       -- since I use null-ls for formatting
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
+      client.server_capabilities.document_formatting = false
+      client.server_capabilities.document_range_formatting = false
     end
   end
 
