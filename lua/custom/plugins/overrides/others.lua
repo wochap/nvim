@@ -60,4 +60,24 @@ M.comment = {
   pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
 }
 
+M.which_key = function()
+  local wk = require "which-key"
+
+  wk.register({
+    o = {
+      name = "neorg",
+    },
+    g = { name = "git" },
+    f = { name = "find" },
+    d = { name = "dap" },
+    h = { name = "harpon" },
+    l = { name = "lsp" },
+    n = { name = "misc" },
+    p = { name = "packer" },
+    q = { name = "quit" },
+    t = { name = "terminal" },
+    x = { name = "trouble" },
+  }, { prefix = "<leader>" })
+end
+
 return M

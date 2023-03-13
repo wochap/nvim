@@ -123,7 +123,7 @@ local M = {
    ["folke/which-key.nvim"] = { commit = commit.which_key, disable = false,
    config = function()
       require "plugins.configs.whichkey"
-      require("custom.plugins.configs.others").which_key()
+      require("custom.plugins.overrides.others").which_key()
    end,
 },
 
