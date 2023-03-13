@@ -60,6 +60,9 @@ M.disabled = {
     ["<leader>th"] = "",
     ["<leader>tk"] = "",
 
+    -- exit terminal mode
+    ["<C-x>"] = "",
+
     -- new terminal
     ["<leader>h"] = "",
     ["<leader>v"] = "",
@@ -92,7 +95,7 @@ M.disabled = {
 
 M.tabufline = {
   n = {
-    ["<Leader>fn"] = { "<cmd> enew <CR>", "烙  new buffer" },
+    ["<Leader>fn"] = { "<cmd> enew <CR>", "new buffer" },
 
     -- cycle through buffers
     ["<S-Right>"] = {
@@ -109,19 +112,19 @@ M.tabufline = {
     },
 
     -- cycle through tabs
-    ["<S-Up>"] = { "<cmd> tabprevious <CR>", "  goto next tab" },
-    ["<S-Down>"] = { "<cmd> tabnext <CR> ", "  goto prev tab" },
+    ["<S-Up>"] = { "<cmd> tabprevious <CR>", "goto next tab" },
+    ["<S-Down>"] = { "<cmd> tabnext <CR> ", "goto prev tab" },
   },
 }
 
 M.general = {
   n = {
-    ["<C-Left>"] = { "<C-w>h", " window left" },
-    ["<C-Right>"] = { "<C-w>l", " window right" },
-    ["<C-Down>"] = { "<C-w>j", " window down" },
-    ["<C-Up>"] = { "<C-w>k", " window up" },
+    ["<C-Left>"] = { "<C-w>h", "window left" },
+    ["<C-Right>"] = { "<C-w>l", "window right" },
+    ["<C-Down>"] = { "<C-w>j", "window down" },
+    ["<C-Up>"] = { "<C-w>k", "window up" },
 
-    ["<C-y>"] = { "<cmd> %y+ <CR>", "  copy whole file" },
+    ["<C-y>"] = { "<cmd> %y+ <CR>", "copy whole file" },
   },
 }
 
@@ -131,60 +134,60 @@ M.lspconfig = {
       function()
         vim.lsp.buf.hover()
       end,
-      "   lsp hover",
+      "lsp hover",
     },
     ["gI"] = {
       function()
         vim.lsp.buf.implementation()
       end,
-      "   lsp implementation",
+      "lsp implementation",
     },
     ["gs"] = {
       function()
         vim.lsp.buf.signature_help()
       end,
-      "   lsp signature_help",
+      "lsp signature_help",
     },
     ["gt"] = {
       function()
         vim.lsp.buf.type_definition()
       end,
-      "   lsp definition type",
+      "lsp definition type",
     },
     ["<leader>lr"] = {
       function()
         require("nvchad_ui.renamer").open()
       end,
-      "   lsp rename",
+      "lsp rename",
     },
     ["<leader>la"] = {
       function()
         vim.lsp.buf.code_action()
       end,
-      "   lsp code_action",
+      "lsp code_action",
     },
     ["gr"] = {
       "<cmd>TroubleToggle lsp_references<cr>",
-      "   lsp references",
+      "lsp references",
     },
     ["<leader>ld"] = {
       function()
         vim.diagnostic.open_float()
       end,
-      "   floating diagnostic",
+      "floating diagnostic",
     },
     ["]d"] = {
       function()
         vim.diagnostic.goto_next()
       end,
-      "   goto_next",
+      "goto_next",
     },
 
     ["<leader>lf"] = {
       function()
         vim.lsp.buf.formatting()
       end,
-      "   lsp formatting",
+      "lsp formatting",
     },
   },
 }
@@ -192,23 +195,27 @@ M.lspconfig = {
 M.nvimtree = {
   n = {
     -- toggle
-    ["<leader>b"] = { "<cmd> NvimTreeToggle <CR>", "   toggle nvimtree" },
+    ["<leader>b"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
 
     -- focus
-    ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "   focus nvimtree" },
+    ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
   },
 }
 
 M.telescope = {
   n = {
+    ["<leader>fs"] = { "<cmd>lua require('spectre').open()<CR>", "find word spectre" },
+    ["<leader>fw"] = { "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>", "find word" },
+    ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "find old files" },
+
     -- find
     ["<leader>ff"] = {
       "<cmd> Telescope find_files find_command=fd,--fixed-strings,--type,f follow=true hidden=true <CR>",
-      "  find files",
+      "find files",
     },
     ["<leader>fa"] = {
       "<cmd> Telescope find_files find_command=fd,--fixed-strings,--type,f follow=true hidden=true no_ignore=true <CR>",
-      "  find all",
+      "find files!",
     },
   },
 }
@@ -228,7 +235,7 @@ M.blankline = {
         end
       end,
 
-      "Jump to current_context",
+      "jump to current_context",
     },
   },
 }
@@ -245,46 +252,50 @@ M.utils = {
 
 M.close_buffers = {
   n = {
-    ["<leader>w"] = { "<cmd>lua require('close_buffers').delete({ type = 'this' })<CR>", "   close buffer" },
+    ["<leader>w"] = { "<cmd>lua require('close_buffers').delete({ type = 'this' })<CR>", "close buffer" },
     ["<leader>W"] = {
       "<cmd>lua require('close_buffers').delete({ type = 'this', force = true })<CR>",
-      "   close buffer!",
+      "close buffer!",
     },
     ["<leader>fk"] = {
       "<cmd>lua require('close_buffers').delete({ type = 'other' })<CR>",
-      "   close other buffers",
+      "close other buffers",
     },
     ["<leader>fK"] = {
       "<cmd>lua require('close_buffers').delete({ type = 'other', force = true })<CR>",
-      "   close other buffers!",
+      "close other buffers!",
     },
   },
 }
 
-M.search = {
-  n = {
-    ["<leader>sg"] = { "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>", "   live grep" },
-    ["<leader>sr"] = { "<cmd>lua require('spectre').open()<CR>", "search with spectre" },
-  },
-}
+local function termcodes(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local exitTerminalMode = termcodes "<C-\\><C-N>"
 
 M.terminal = {
+  t = {
+    ["<C-x>x"] = { exitTerminalMode, "hide terminal" },
+    ["<C-x>X"] = { exitTerminalMode .. "<C-w>q", "hide terminal" },
+  },
+
   n = {
     -- pick a hidden term
-    ["<leader>tT"] = { "<cmd> Telescope terms <CR>", "   pick hidden term" },
+    ["<leader>tt"] = { "<cmd> Telescope terms <CR>", "pick hidden term" },
 
     -- new
     ["<leader>th"] = {
       function()
         require("nvterm.terminal").new "horizontal"
       end,
-      "   new horizontal term",
+      "new horizontal term",
     },
     ["<leader>tv"] = {
       function()
         require("nvterm.terminal").new "vertical"
       end,
-      "   new vertical term",
+      "new vertical term",
     },
   },
 }
@@ -350,11 +361,11 @@ M.maximizer_toggle = {
 
 M.packer = {
   n = {
-    ["<leader>pc"] = { "<cmd>PackerCompile<cr>", "PackerCompile" },
-    ["<leader>pi"] = { "<cmd>PackerInstall<cr>", "PackerInstall" },
-    ["<leader>ps"] = { "<cmd>PackerSync<cr>", "PackerSync" },
-    ["<leader>pS"] = { "<cmd>PackerStatus<cr>", "PackerStatus" },
-    ["<leader>pu"] = { "<cmd>PackerUpdate<cr>", "PackerUpdate" },
+    ["<leader>pc"] = { "<cmd>PackerCompile<cr>", "compile" },
+    ["<leader>pi"] = { "<cmd>PackerInstall<cr>", "install" },
+    ["<leader>ps"] = { "<cmd>PackerSync<cr>", "sync" },
+    ["<leader>pS"] = { "<cmd>PackerStatus<cr>", "status" },
+    ["<leader>pu"] = { "<cmd>PackerUpdate<cr>", "update" },
   },
 }
 
@@ -432,7 +443,7 @@ M.gitsigns = {
         end)
         return "<Ignore>"
       end,
-      "Jump to next hunk",
+      "jump to next hunk",
       opts = { expr = true },
     },
 
@@ -446,7 +457,7 @@ M.gitsigns = {
         end)
         return "<Ignore>"
       end,
-      "Jump to prev hunk",
+      "jump to prev hunk",
       opts = { expr = true },
     },
 
@@ -455,28 +466,28 @@ M.gitsigns = {
       function()
         require("gitsigns").reset_hunk()
       end,
-      "Reset hunk",
+      "reset hunk",
     },
 
     ["<leader>gp"] = {
       function()
         require("gitsigns").preview_hunk()
       end,
-      "Preview hunk",
+      "preview hunk",
     },
 
     ["<leader>gb"] = {
       function()
         package.loaded.gitsigns.blame_line { full = true }
       end,
-      "Blame line",
+      "blame line",
     },
 
     ["<leader>gd"] = {
       function()
         require("gitsigns").toggle_deleted()
       end,
-      "Toggle deleted",
+      "toggle deleted",
     },
   },
   v = {
@@ -484,7 +495,7 @@ M.gitsigns = {
       function()
         require("gitsigns").reset_hunk()
       end,
-      "Reset hunk",
+      "reset hunk",
     },
   },
 }

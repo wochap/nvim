@@ -66,13 +66,14 @@ M.which_key = function()
     o = {
       name = "neorg",
     },
+    g = { name = "git" },
+    f = { name = "find" },
     d = { name = "dap" },
     h = { name = "harpon" },
     l = { name = "lsp" },
     n = { name = "misc" },
     p = { name = "packer" },
     q = { name = "quit" },
-    s = { name = "search" },
     t = { name = "terminal" },
     x = { name = "trouble" },
   }, { prefix = "<leader>" })
