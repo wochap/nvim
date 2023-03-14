@@ -276,8 +276,8 @@ local exitTerminalMode = termcodes "<C-\\><C-N>"
 
 M.terminal = {
   t = {
-    ["<C-x>x"] = { exitTerminalMode, "hide terminal" },
-    ["<C-x>X"] = { exitTerminalMode .. "<C-w>q", "hide terminal" },
+    ["<C-x>"] = { exitTerminalMode, "hide terminal" },
+    ["<C-S-x>"] = { exitTerminalMode .. "<C-w>q", "hide terminal" },
   },
 
   n = {
@@ -315,6 +315,8 @@ M.persistence = {
 
 M.custom_general = {
   n = {
+    ["<C-S-d>"] = { "zL", "scroll half screen to the right" },
+    ["<C-S-u>"] = { "zH", "scroll half screen to the left" },
     ["<leader>qa"] = { "<cmd>qa <CR>", "exit" },
     ["<leader>q!"] = { "<cmd>qa! <CR>", "exit!" },
     ["<A-Down>"] = { ":m .+1<CR>==", "move line down" },
@@ -341,6 +343,8 @@ M.custom_general = {
     ["<A-Up>"] = { ":m '<-2<CR>gv-gv", "move lines up" },
   },
   v = {
+    ["<C-S-d>"] = { "zL", "scroll half screen to the right" },
+    ["<C-S-u>"] = { "zH", "scroll half screen to the left" },
     ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
     ["<C-S-A-Down>"] = { '"zy`]"zp', "clone line down" },
     ["<C-S-A-Up>"] = { '"zy`["zP', "clone line down" },

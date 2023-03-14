@@ -1,6 +1,7 @@
 local opt = vim.opt
 local g = vim.g
 
+opt.wrap = false
 opt.relativenumber = true
 opt.fillchars = {
   eob = " ",
