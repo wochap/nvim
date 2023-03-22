@@ -303,7 +303,7 @@ M.terminal = {
 M.git = {
   n = {
     ["<leader>gl"] = { "<cmd>LazyGit<CR>", "open lazygit" },
-    ["<leader>gf"] = { "<cmd>DiffviewFileHistory<CR>", "open file history" },
+    ["<leader>gf"] = { "<cmd>DiffviewFileHistory %<CR>", "open current file history" },
   },
 }
 
