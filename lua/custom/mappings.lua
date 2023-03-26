@@ -176,11 +176,17 @@ M.lspconfig = {
       end,
       "floating diagnostic",
     },
+    ["[d"] = {
+      function()
+        vim.diagnostic.goto_prev()
+      end,
+      "prev diagnostic",
+    },
     ["]d"] = {
       function()
         vim.diagnostic.goto_next()
       end,
-      "goto_next",
+      "next diagnostic",
     },
 
     ["<leader>lf"] = {
@@ -315,6 +321,7 @@ M.persistence = {
 
 M.custom_general = {
   n = {
+    ["<C-S-s>"] = { "<Esc>:w! <CR>", "save buffer!" },
     ["<C-S-d>"] = { "zL", "scroll half screen to the right" },
     ["<C-S-u>"] = { "zH", "scroll half screen to the left" },
     ["<leader>qa"] = { "<cmd>qa <CR>", "exit" },
@@ -335,6 +342,7 @@ M.custom_general = {
   },
   i = {
     ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
+    ["<C-S-s>"] = { "<Esc>:w! <CR>", "save buffer!" },
     ["<A-Down>"] = { "<Esc>:m .+1<CR>==gi", "move line down" },
     ["<A-Up>"] = { "<Esc>:m .-2<CR>==gi", "move line up" },
   },
@@ -346,6 +354,7 @@ M.custom_general = {
     ["<C-S-d>"] = { "zL", "scroll half screen to the right" },
     ["<C-S-u>"] = { "zH", "scroll half screen to the left" },
     ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
+    ["<C-S-s>"] = { "<Esc>:w! <CR>", "save buffer!" },
     ["<C-S-A-Down>"] = { '"zy`]"zp', "clone line down" },
     ["<C-S-A-Up>"] = { '"zy`["zP', "clone line down" },
     ["<F9>"] = { ":'<,'>sort<CR>", "sort lines" },

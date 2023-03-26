@@ -17,7 +17,8 @@ opt.listchars:append "trail:·"
 opt.pumheight = 15
 
 vim.cmd [[
-   set guifont=FiraCode\ Nerd\ Font:h10
+   " set guifont=FiraCode\ Nerd\ Font:h10
+   set guifont=JetBrainsMono\ Nerd\ Font\ Mono:h10:#e-antialias
 
    let g:matchup_matchparen_offscreen = {'method': 'popup'}
 ]]
