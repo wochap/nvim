@@ -1,11 +1,3 @@
-local present, wk = pcall(require, "which-key")
-
-if not present then
-  return
-end
-
-require("base46").load_highlight "whichkey"
-
 local options = {
 
   icons = {
@@ -36,6 +28,4 @@ local options = {
   },
 }
 
-options = require("core.utils").load_override(options, "folke/which-key.nvim")
-
-wk.setup(options)
+return options
