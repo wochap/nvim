@@ -1,4 +1,4 @@
-function get_relative_path()
+local function get_relative_path()
   local filename_str = vim.fn.expand "%:t"
 
   if string.len(filename_str) == 0 then
@@ -14,13 +14,9 @@ function get_relative_path()
 end
 
 return {
-  -- separator_style = "block",
   overriden_modules = function()
     local fn = vim.fn
-    local sep_style = vim.g.statusline_sep_style
-    local separators = (type(sep_style) == "table" and sep_style)
-      or require("nvchad_ui.icons").statusline_separators[sep_style]
-    local sep_r = separators["right"]
+    local sep_r = " "
 
     return {
       fileInfo = function()
