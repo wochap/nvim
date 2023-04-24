@@ -1,8 +1,4 @@
-local ok, null_ls = pcall(require, "null-ls")
-
-if not ok then
-  return
-end
+local null_ls = require "null-ls"
 
 local b = null_ls.builtins
 
@@ -65,12 +61,6 @@ local sources = {
   -- b.code_actions.refactoring,
 }
 
-local M = {}
-
-M.setup = function()
-  null_ls.setup {
-    sources = sources,
-  }
-end
-
-return M
+null_ls.setup {
+  sources = sources,
+}

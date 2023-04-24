@@ -191,7 +191,13 @@ M.lspconfig = {
 
     ["<leader>lf"] = {
       function()
-        vim.lsp.buf.formatting()
+        vim.lsp.buf.format {
+          async = false,
+          bufnr = bufnr,
+          filter = function(client)
+            return client.name == "null-ls"
+          end,
+        }
       end,
       "lsp formatting",
     },
@@ -199,6 +205,8 @@ M.lspconfig = {
 }
 
 M.nvimtree = {
+  plugin = true,
+
   n = {
     -- toggle
     ["<leader>b"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
@@ -374,11 +382,11 @@ M.maximizer_toggle = {
 
 M.packer = {
   n = {
-    ["<leader>pc"] = { "<cmd>PackerCompile<cr>", "compile" },
-    ["<leader>pi"] = { "<cmd>PackerInstall<cr>", "install" },
-    ["<leader>ps"] = { "<cmd>PackerSync<cr>", "sync" },
-    ["<leader>pS"] = { "<cmd>PackerStatus<cr>", "status" },
-    ["<leader>pu"] = { "<cmd>PackerUpdate<cr>", "update" },
+    ["<leader>pc"] = { "<cmd>Lazy restore<cr>", "restore" },
+    ["<leader>pi"] = { "<cmd>Lazy install<cr>", "install" },
+    ["<leader>ps"] = { "<cmd>Lazy sync<cr>", "sync" },
+    ["<leader>pS"] = { "<cmd>Lazy check<cr>", "check" },
+    ["<leader>pu"] = { "<cmd>Lazy update<cr>", "update" },
   },
 }
 
@@ -444,6 +452,8 @@ M.dap = {
 }
 
 M.gitsigns = {
+  plugin = true,
+
   n = {
     -- Navigation through hunks
     ["]g"] = {
@@ -475,6 +485,25 @@ M.gitsigns = {
     },
 
     -- Actions
+    ["<leader>gS"] = {
+      function()
+        require("gitsigns").stage_buffer()
+      end,
+      "stage buffer",
+    },
+    ["<leader>gs"] = {
+      function()
+        require("gitsigns").stage_hunk()
+      end,
+      "stage hunk",
+    },
+
+    ["<leader>gR"] = {
+      function()
+        require("gitsigns").reset_buffer()
+      end,
+      "reset buffer",
+    },
     ["<leader>gr"] = {
       function()
         require("gitsigns").reset_hunk()
