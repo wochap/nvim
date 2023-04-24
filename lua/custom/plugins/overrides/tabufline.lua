@@ -1,10 +1,11 @@
 return {
-  lazyload = false,
   overriden_modules = function()
     local fn = vim.fn
     local api = vim.api
     local devicons_present, devicons = pcall(require, "nvim-web-devicons")
-    local isBufValid = require("nvchad_ui.tabufline").isBufValid
+    local isBufValid = function(bufnr)
+      return vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buflisted
+    end
 
     local function new_hl(group1, group2)
       local fg = fn.synIDattr(fn.synIDtrans(fn.hlID(group1)), "fg#")

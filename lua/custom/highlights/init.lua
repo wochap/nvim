@@ -119,4 +119,6 @@ return {
   theme = "chadracula",
   hl_add = hls,
   hl_override = hls,
+  tabufline = require "custom.plugins.overrides.tabufline",
+  statusline = require "custom.plugins.overrides.statusline",
 }
