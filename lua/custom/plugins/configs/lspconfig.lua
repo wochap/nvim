@@ -14,7 +14,7 @@ local servers = {
   "tailwindcss",
   "bashls",
   "tsserver",
-  "sumneko_lua",
+  "lua_ls",
   -- "flow",
   "cssmodules_ls",
   "rnix",
@@ -90,7 +90,7 @@ for _, lsp in ipairs(servers) do
   end
 
   -- lua
-  if lsp == "sumneko_lua" then
+  if lsp == "lua_ls" then
     opts.settings = {
       Lua = {
         diagnostics = {

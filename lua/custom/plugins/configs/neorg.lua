@@ -6,25 +6,25 @@ local function keybinds_hook(keybinds)
     n = {
 
       -- Keys for managing TODO items and setting their states
-      { "tu", "core.norg.qol.todo_items.todo.task_undone" },
-      { "tp", "core.norg.qol.todo_items.todo.task_pending" },
-      { "td", "core.norg.qol.todo_items.todo.task_done" },
-      { "th", "core.norg.qol.todo_items.todo.task_on_hold" },
-      { "tc", "core.norg.qol.todo_items.todo.task_cancelled" },
-      { "tr", "core.norg.qol.todo_items.todo.task_recurring" },
-      { "ti", "core.norg.qol.todo_items.todo.task_important" },
-      { "<C-Space>", "core.norg.qol.todo_items.todo.task_cycle" },
+      { "tu", "core.qol.todo_items.todo.task_undone" },
+      { "tp", "core.qol.todo_items.todo.task_pending" },
+      { "td", "core.qol.todo_items.todo.task_done" },
+      { "th", "core.qol.todo_items.todo.task_on_hold" },
+      { "tc", "core.qol.todo_items.todo.task_cancelled" },
+      { "tr", "core.qol.todo_items.todo.task_recurring" },
+      { "ti", "core.qol.todo_items.todo.task_important" },
+      { "<C-Space>", "core.qol.todo_items.todo.task_cycle" },
 
       -- Keys for managing notes
-      { leader .. "on", "core.norg.dirman.new.note" },
+      { leader .. "on", "core.dirman.new.note" },
     },
 
     o = {
-      { "ah", "core.norg.manoeuvre.textobject.around-heading" },
-      { "ih", "core.norg.manoeuvre.textobject.inner-heading" },
-      { "at", "core.norg.manoeuvre.textobject.around-tag" },
-      { "it", "core.norg.manoeuvre.textobject.inner-tag" },
-      { "al", "core.norg.manoeuvre.textobject.around-whole-list" },
+      { "ah", "core.manoeuvre.textobject.around-heading" },
+      { "ih", "core.manoeuvre.textobject.inner-heading" },
+      { "at", "core.manoeuvre.textobject.around-tag" },
+      { "it", "core.manoeuvre.textobject.inner-tag" },
+      { "al", "core.manoeuvre.textobject.around-whole-list" },
     },
     i = {
       { "<C-l>", "core.integrations.telescope.insert_link" },
@@ -51,15 +51,15 @@ local function keybinds_hook(keybinds)
   keybinds.map_event_to_mode("toc-split", {
     n = {
       -- Hop to the target of the TOC link
-      { "<CR>", "core.norg.qol.toc.hop-toc-link" },
+      { "<CR>", "core.qol.toc.hop-toc-link" },
 
       -- Closes the TOC split
       -- ^Quit
-      { "q", "core.norg.qol.toc.close" },
+      { "q", "core.qol.toc.close" },
 
       -- Closes the TOC split
       -- ^escape
-      { "<Esc>", "core.norg.qol.toc.close" },
+      { "<Esc>", "core.qol.toc.close" },
     },
   }, {
     silent = true,
@@ -91,10 +91,10 @@ M.setup = function()
       ["core.autocommands"] = {},
       ["core.mode"] = {},
       ["core.neorgcmd"] = {},
-      ["core.norg.esupports.hop"] = {},
-      ["core.norg.esupports.indent"] = {},
-      ["core.norg.esupports.metagen"] = {},
-      ["core.norg.news"] = {},
+      ["core.esupports.hop"] = {},
+      ["core.esupports.indent"] = {},
+      ["core.esupports.metagen"] = {},
+      ["core.news"] = {},
       ["core.syntax"] = {},
       ["core.tangle"] = {},
       ["core.keybinds"] = {
@@ -104,10 +104,10 @@ M.setup = function()
           hook = keybinds_hook,
         },
       },
-      ["core.norg.qol.todo_items"] = {},
+      ["core.qol.todo_items"] = {},
 
       -- Manage your directories with Neorg
-      ["core.norg.dirman"] = {
+      ["core.dirman"] = {
         config = {
           workspaces = {
             home = "~/Sync/neorg",
@@ -118,7 +118,7 @@ M.setup = function()
         },
       },
 
-      ["core.norg.journal"] = {
+      ["core.journal"] = {
         config = {
           workspace = "journal",
           journal_folder = "",
@@ -126,11 +126,11 @@ M.setup = function()
       },
 
       -- Allows for use of icons
-      ["core.norg.concealer"] = {
+      ["core.concealer"] = {
         config = {},
       },
 
-      ["core.norg.completion"] = {
+      ["core.completion"] = {
         config = {
           engine = "nvim-cmp",
         },

@@ -59,4 +59,23 @@ M.trouble_nvim = function()
   }
 end
 
+M.nvim_spectre = function()
+  local spectre = require "spectre"
+
+  spectre.setup {
+    highlight = {
+      ui = "String",
+      search = "SpectreSearch",
+      replace = "DiffAdd",
+    },
+    mapping = {
+      ["send_to_qf"] = {
+        map = "<C-q>",
+        cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
+        desc = "send all item to quickfix",
+      },
+    },
+  }
+end
+
 return M

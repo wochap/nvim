@@ -1,28 +1,24 @@
-return function()
-  local present, cmp = pcall(require, "cmp")
+local cmp = require "cmp"
 
-  if not present then
-    return {}
-  end
+local options = {
+  formatting = {
+    format = function(_, vim_item)
+      local icons = require("nvchad_ui.icons").lspkind
+      vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 
-  return {
-    formatting = {
-      format = function(_, vim_item)
-        local icons = require("nvchad_ui.icons").lspkind
-        vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
+      -- limit str length
+      if string.len(vim_item.abbr) > 60 then
+        vim_item.abbr = string.format("%s...", string.sub(vim_item.abbr, 1, 60))
+      end
 
-        -- limit str length
-        if string.len(vim_item.abbr) > 60 then
-          vim_item.abbr = string.format("%s...", string.sub(vim_item.abbr, 1, 60))
-        end
+      return vim_item
+    end,
+  },
+  mapping = {
+    ["<C-f>"] = nil,
+    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-d>"] = cmp.mapping.scroll_docs(4),
+  },
+}
 
-        return vim_item
-      end,
-    },
-    mapping = {
-      ["<C-f>"] = nil,
-      ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-d>"] = cmp.mapping.scroll_docs(4),
-    },
-  }
-end
+return options
