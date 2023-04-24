@@ -12,13 +12,6 @@ M.luasnip = {
   end,
 }
 
-M.comment = {
-  pre_hook = function(ctx)
-    local pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook()
-    pre_hook(ctx)
-  end,
-}
-
 M.which_key = function()
   local wk = require "which-key"
 

@@ -48,11 +48,10 @@ local plugins = {
   },
   {
     "numToStr/Comment.nvim",
-    opts = function()
-      return require("custom.plugins.overrides.others").comment
-    end,
     config = function(_, opts)
-      require("Comment").setup(opts)
+      require("Comment").setup {
+        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+      }
     end,
   },
   {
