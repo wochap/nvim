@@ -1,4 +1,4 @@
-return {
+local options = {
   -- JoosepAlviste/nvim-ts-context-commentstring
   context_commentstring = {
     enable = true,
@@ -10,7 +10,6 @@ return {
   },
 
   ensure_installed = {
-    "norg",
     "c",
     "css",
     "graphql",
@@ -19,10 +18,14 @@ return {
     "lua",
     "markdown",
     "nix",
+    "norg",
     "python",
     "svelte",
     "toml",
+    "tsx",
     "typescript",
     "vim",
   },
 }
+
+return options
