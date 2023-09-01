@@ -16,6 +16,14 @@ $ nvim -c "autocmd User PackerComplete quitall" -c "PackerSync"
 $ nvim
 ```
 
+## Updating NvChad
+
+```
+$ git remote add nvchad git@github.com:NvChad/NvChad.git
+$ git fetch nvchad
+$ git rebase --rebase-merges nvchad/v2.0
+```
+
 ## Troubleshooting
 
 -  Anything Eslint related
