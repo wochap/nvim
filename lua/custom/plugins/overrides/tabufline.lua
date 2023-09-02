@@ -1,5 +1,6 @@
 return {
-  overriden_modules = function()
+  lazyload = false,
+  overriden_modules = function(modules)
     local fn = vim.fn
     local api = vim.api
     local devicons_present, devicons = pcall(require, "nvim-web-devicons")
@@ -105,62 +106,64 @@ return {
       return name
     end
 
-    return {
-      tablist = function()
-        local result, number_of_tabs = "", fn.tabpagenr "$"
+    local function bufferlist()
+      local buffers = {} -- buffersults
+      local available_space = vim.o.columns - getNvimTreeWidth() - getBtnsWidth()
+      local current_buf = api.nvim_get_current_buf()
+      local has_current = false -- have we seen current buffer yet?
 
-        if number_of_tabs > 1 then
-          for i = 1, number_of_tabs, 1 do
-            local tab_hl = ((i == fn.tabpagenr()) and "%#TbLineTabOn# ") or "%#TbLineTabOff# "
-            result = result .. ("%" .. i .. "@TbGotoTab@" .. tab_hl .. i .. " ")
-            -- result = (i == fn.tabpagenr() and result .. "%#TbLineTabCloseBtn#" .. "%@TbTabClose@ %X") or result
-          end
-
-          -- local new_tabtn = "%#TblineTabNewBtn#" .. "%@TbNewTab@  %X"
-          local tabstoggleBtn = "%@TbToggleTabs@ %#TBTabTitle# TABS %X"
-
-          return vim.g.TbTabsToggled == 1 and tabstoggleBtn:gsub("()", { [36] = " " }) or tabstoggleBtn .. result
-          -- or new_tabtn .. tabstoggleBtn .. result
+      -- show buffer index numbers
+      if vim.g.tbufpick_showNums then
+        for index, value in ipairs(vim.g.visibuffers) do
+          local name = value:gsub("", "(" .. index .. ")")
+          table.insert(buffers, name)
         end
-      end,
-      bufferlist = function()
-        local buffers = {} -- buffersults
-        local available_space = vim.o.columns - getNvimTreeWidth() - getBtnsWidth()
-        local current_buf = api.nvim_get_current_buf()
-        local has_current = false -- have we seen current buffer yet?
+        return table.concat(buffers) .. "%#TblineFill#" .. "%=" -- buffers + empty space
+      end
 
-        -- show buffer index numbers
-        if vim.g.tbufpick_showNums then
-          for index, value in ipairs(vim.g.visibuffers) do
-            local name = value:gsub("", "(" .. index .. ")")
-            table.insert(buffers, name)
-          end
-          return table.concat(buffers) .. "%#TblineFill#" .. "%=" -- buffers + empty space
-        end
-
-        vim.g.bufirst = 0
-        for _, bufnr in ipairs(vim.t.bufs) do
-          if isBufValid(bufnr) then
-            if ((#buffers + 1) * 21) > available_space then
-              if has_current then
-                break
-              end
-
-              vim.g.bufirst = vim.g.bufirst + 1
-              table.remove(buffers, 1)
+      vim.g.bufirst = 0
+      for _, bufnr in ipairs(vim.t.bufs) do
+        if isBufValid(bufnr) then
+          if ((#buffers + 1) * 21) > available_space then
+            if has_current then
+              break
             end
 
-            has_current = (bufnr == current_buf and true) or has_current
-            table.insert(buffers, styleBufferTab(bufnr))
+            vim.g.bufirst = vim.g.bufirst + 1
+            table.remove(buffers, 1)
           end
+
+          has_current = (bufnr == current_buf and true) or has_current
+          table.insert(buffers, styleBufferTab(bufnr))
+        end
+      end
+
+      vim.g.visibuffers = buffers
+      return table.concat(buffers) .. "%#TblineFill#" .. "%=" -- buffers + empty space
+    end
+
+    local function tablist()
+      local result, number_of_tabs = "", fn.tabpagenr "$"
+
+      if number_of_tabs > 1 then
+        for i = 1, number_of_tabs, 1 do
+          local tab_hl = ((i == fn.tabpagenr()) and "%#TbLineTabOn# ") or "%#TbLineTabOff# "
+          result = result .. ("%" .. i .. "@TbGotoTab@" .. tab_hl .. i .. " ")
+          -- result = (i == fn.tabpagenr() and result .. "%#TbLineTabCloseBtn#" .. "%@TbTabClose@ %X") or result
         end
 
-        vim.g.visibuffers = buffers
-        return table.concat(buffers) .. "%#TblineFill#" .. "%=" -- buffers + empty space
-      end,
-      buttons = function()
-        return ""
-      end,
-    }
+        -- local new_tabtn = "%#TblineTabNewBtn#" .. "%@TbNewTab@  %X"
+        local tabstoggleBtn = "%@TbToggleTabs@ %#TBTabTitle# TABS %X"
+
+        return vim.g.TbTabsToggled == 1 and tabstoggleBtn:gsub("()", { [36] = " " }) or tabstoggleBtn .. result
+        -- or new_tabtn .. tabstoggleBtn .. result
+      end
+
+      return ""
+    end
+
+    modules[2] = bufferlist()
+    modules[3] = tablist()
+    modules[4] = ""
   end,
 }

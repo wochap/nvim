@@ -82,6 +82,10 @@ local plugins = {
       require "custom.plugins.overrides.whichkey"
     end,
   },
+  {
+    "williamboman/mason.nvim",
+    enabled = false,
+  },
 
   -- custom
   { "kdheepak/lazygit.nvim", cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" } },
@@ -115,15 +119,15 @@ local plugins = {
     end,
   },
   { "ThePrimeagen/harpoon" },
-  {
-    "nvim-neorg/neorg",
-    lazy = false,
-    build = ":Neorg sync-parsers",
-    dependencies = { "nvim-neorg/neorg-telescope" },
-    config = function()
-      require("custom.plugins.configs.neorg").setup()
-    end,
-  },
+  -- {
+  --   "nvim-neorg/neorg",
+  --   lazy = false,
+  --   build = ":Neorg sync-parsers",
+  --   dependencies = { "nvim-neorg/neorg-telescope" },
+  --   config = function()
+  --     require("custom.plugins.configs.neorg").setup()
+  --   end,
+  -- },
   { "szw/vim-maximizer", cmd = { "MaximizerToggle" } },
   {
     "windwp/nvim-spectre",

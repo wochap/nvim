@@ -23,11 +23,9 @@ vim.cmd [[
    let g:matchup_matchparen_offscreen = {'method': 'popup'}
 ]]
 
--- Fix error when using nvim inside nvim terminal
+-- Use nvim as git editor in lazygit
 vim.cmd [[
-   if has('nvim') && executable('nvr')
-      let $VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
-   endif
-
-   autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
+  if has('nvim') && executable('nvr')
+    let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
+  endif
 ]]

@@ -100,13 +100,13 @@ M.tabufline = {
     -- cycle through buffers
     ["<S-Right>"] = {
       function()
-        require("nvchad_ui.tabufline").tabuflineNext()
+        require("nvchad.tabufline").tabuflineNext()
       end,
       "goto next buffer",
     },
     ["<S-Left>"] = {
       function()
-        require("nvchad_ui.tabufline").tabuflinePrev()
+        require("nvchad.tabufline").tabuflinePrev()
       end,
       "goto prev buffer",
     },
@@ -156,7 +156,7 @@ M.lspconfig = {
     },
     ["<leader>lr"] = {
       function()
-        require("nvchad_ui.renamer").open()
+        require("nvchad.renamer").open()
       end,
       "lsp rename",
     },
@@ -278,6 +278,10 @@ M.close_buffers = {
     ["<leader>fK"] = {
       "<cmd>lua require('close_buffers').delete({ type = 'other', force = true })<CR>",
       "close other buffers!",
+    },
+    ["<leader>ft"] = {
+      "<cmd>lua require('nvchad.tabufline').closeAllBufs('closeTab') <CR>",
+      "close tab",
     },
   },
 }

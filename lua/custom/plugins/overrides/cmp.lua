@@ -3,7 +3,7 @@ local cmp = require "cmp"
 local options = {
   formatting = {
     format = function(_, vim_item)
-      local icons = require("nvchad_ui.icons").lspkind
+      local icons = require "nvchad.icons.lspkind"
       vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 
       -- limit str length
