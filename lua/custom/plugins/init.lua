@@ -88,6 +88,14 @@ local plugins = {
   },
 
   -- custom
+  {
+    "Saimo/peek.nvim",
+    commit = "f23200c241b06866b561150fa0389d535a4b903d",
+    build = "deno task --quiet build:fast",
+    config = function()
+      require("custom.plugins.configs.peek").setup()
+    end,
+  },
   { "kdheepak/lazygit.nvim", cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" } },
   { "kazhala/close-buffers.nvim" },
   {
