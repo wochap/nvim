@@ -12,7 +12,6 @@
 $ git clone git@github.com:wochap/nvim.git ~/.config/nvim
 $ cd ~/.config/nvim
 $ git remote add nvchad https://github.com/NvChad/NvChad.git
-$ nvim -c "autocmd User PackerComplete quitall" -c "PackerSync"
 $ nvim
 ```
 
