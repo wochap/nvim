@@ -1,4 +1,4 @@
-local theme = require "custom.highlights.chadracula"
+local theme = require "custom.highlights.catppuccin"
 local utils = require "custom.highlights.utils.init"
 
 local stateColors = {
@@ -116,7 +116,7 @@ local hls = {
 }
 
 return {
-  theme = "chadracula",
+  theme_toggle = {},
   hl_add = hls,
   hl_override = hls,
   tabufline = require "custom.plugins.overrides.tabufline",
