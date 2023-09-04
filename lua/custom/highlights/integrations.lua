@@ -1,5 +1,6 @@
 local utils = require "custom.highlights.utils.init"
 local theme = require "custom.highlights.catppuccin"
+local C = theme.palette
 
 local stateColors = {
   error = theme.base_30.red,
@@ -94,6 +95,14 @@ local M = {
     bg = theme.base_30.statusline_bg,
     fg = gitColors.delete,
   },
+
+  -- rainbow-delimiters
+  rainbow1 = { fg = C.red },
+  rainbow2 = { fg = C.peach },
+  rainbow3 = { fg = C.yellow },
+  rainbow4 = { fg = C.green },
+  rainbow5 = { fg = C.sapphire },
+  rainbow6 = { fg = C.lavender },
 }
 
 return M

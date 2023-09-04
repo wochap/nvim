@@ -6,6 +6,7 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
+      "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
     },
     opts = function()
       return vim.tbl_deep_extend(
@@ -161,6 +162,12 @@ local plugins = {
     event = "BufReadPost",
     init = function()
       require("custom.plugins.configs.others").conflict_marker()
+    end,
+  },
+  {
+    url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
+    config = function()
+      require("custom.plugins.configs.others").rainbow_delimiters()
     end,
   },
   {
