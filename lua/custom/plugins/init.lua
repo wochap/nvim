@@ -86,6 +86,12 @@ local plugins = {
     "williamboman/mason.nvim",
     enabled = false,
   },
+  {
+    "NvChad/nvim-colorizer.lua",
+    opts = function()
+      return require("custom.plugins.overrides.others").colorizer
+    end,
+  },
 
   -- custom
   {
