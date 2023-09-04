@@ -1,5 +1,5 @@
 local utils = require "custom.highlights.utils.init"
-local theme = require "custom.highlights.catppuccin"
+local theme = require "custom.highlights.catppuccin-mocha"
 local C = theme.palette
 
 -- overrides so nvim theme matches https://github.com/catppuccin/vscode

@@ -1,4 +1,4 @@
-local theme = require "custom.highlights.catppuccin"
+local theme = require "custom.highlights.catppuccin-mocha"
 local integrations = require "custom.highlights.integrations"
 local syntax = require "custom.highlights.syntax"
 local syntaxSpecific = require "custom.highlights.syntax-specific"
