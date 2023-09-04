@@ -6,6 +6,8 @@ local C = theme.palette
 local M = {
   PreProc = { link = "Comment" },
   Tag = { fg = C.blue },
+  TagAttribute = { fg = C.yellow },
+
   ["@boolean.javascript"] = { fg = C.peach },
   ["@boolean.nix"] = { fg = C.red },
   ["@boolean.python"] = { fg = C.mauve },
@@ -34,7 +36,7 @@ local M = {
   ["@text.title.5.markdown"] = { fg = C.blue },
   ["@text.title.5.marker.markdown"] = { fg = C.blue },
   ["@text.uri.markdown_inline"] = { fg = C.blue },
-  ["TagAttribute"] = { fg = C.yellow },
+  ["@type.builtin.python"] = { fg = C.peach },
 }
 
 return M
