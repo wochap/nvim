@@ -17,6 +17,7 @@ local options = {
     "javascript",
     "lua",
     "markdown",
+    "markdown_inline",
     "nix",
     "norg",
     "python",
