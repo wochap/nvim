@@ -2,24 +2,25 @@ local utils = require "custom.highlights.utils.init"
 local theme = require "custom.highlights.catppuccin"
 local C = theme.palette
 
+-- overrides so nvim theme matches https://github.com/catppuccin/vscode
 local M = {
-  BooleanJavascript = { fg = C.peach },
-  BooleanNix = { fg = C.red },
-  ConstantBuiltinJavascript = { fg = C.mauve },
-  ConstantBuiltinPython = { fg = C.mauve },
-  ConstructorJavascript = { fg = C.blue },
-  FieldNix = { fg = C.yellow },
-  FunctionBuiltinPython = { fg = C.peach },
-  FunctionCallJavascript = { fg = C.blue },
-  KeywordOperatorPython = { fg = C.mauve },
-  ParameterJavascript = { fg = C.maroon },
-  ParameterNix = { fg = C.maroon },
   PreProc = { link = "Comment" },
-  PunctuationSpecialMarkdown = { fg = C.teal },
   Tag = { fg = C.blue },
-  TagAttribute = { fg = C.yellow },
-  TagDelimiter = { fg = C.teal },
-  TextLiteralMarkdownInline = { fg = C.green },
+  ["@boolean.javascript"] = { fg = C.peach },
+  ["@boolean.nix"] = { fg = C.red },
+  ["@boolean.python"] = { fg = C.mauve },
+  ["@constant.builtin.javascript"] = { fg = C.mauve },
+  ["@constant.builtin.python"] = { fg = C.mauve },
+  ["@constructor.javascript"] = { fg = C.blue },
+  ["@field.nix"] = { fg = C.yellow },
+  ["@function.builtin.python"] = { fg = C.peach },
+  ["@function.call.javascript"] = { fg = C.blue },
+  ["@keyword.operator.python"] = { fg = C.mauve },
+  ["@parameter.javascript"] = { fg = C.maroon },
+  ["@parameter.nix"] = { fg = C.maroon },
+  ["@punctuation.special.markdown"] = { fg = C.teal },
+  ["@tag.delimiter"] = { fg = C.teal },
+  ["@text.literal.markdown_inline"] = { fg = C.green },
   ["@text.reference.markdown_inline"] = { fg = C.lavender },
   ["@text.strong.markdown_inline"] = { fg = C.red },
   ["@text.title.1.markdown"] = { fg = C.red },
@@ -33,6 +34,7 @@ local M = {
   ["@text.title.5.markdown"] = { fg = C.blue },
   ["@text.title.5.marker.markdown"] = { fg = C.blue },
   ["@text.uri.markdown_inline"] = { fg = C.blue },
+  ["TagAttribute"] = { fg = C.yellow },
 }
 
 return M
