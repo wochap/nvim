@@ -91,7 +91,7 @@ M.rainbow_delimiters = function()
       "rainbow5",
       "rainbow6",
     },
-    whitelist = { "javascript", "nix", "lua" },
+    whitelist = { "javascript", "lua" },
   }
 end
 
