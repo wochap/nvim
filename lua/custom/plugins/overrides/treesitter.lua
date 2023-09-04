@@ -10,6 +10,7 @@ local options = {
   },
 
   ensure_installed = {
+    "bash",
     "c",
     "css",
     "graphql",
