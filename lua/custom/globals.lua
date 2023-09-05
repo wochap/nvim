@@ -15,8 +15,9 @@ opt.compatible = false
 opt.listchars:append "tab:» "
 opt.listchars:append "trail:·"
 opt.pumheight = 15
+opt.cursorcolumn = true
 -- set cursor style to underline
-opt.guicursor = "n-v-c-sm:hor20-Cursor,i-ci-ve:ver25,r-cr-o:hor20"
+-- opt.guicursor = "n-v-c-sm:hor20-Cursor,i-ci-ve:ver25,r-cr-o:hor20"
 
 vim.cmd [[
    " set guifont=FiraCode\ Nerd\ Font:h10
