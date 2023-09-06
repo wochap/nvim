@@ -1,10 +1,12 @@
+local utils = require "custom.highlights.utils.init"
+
 local M = {}
 
 M.base_30 = {
   white = "#cdd6f4",
   darker_black = "#181825",
   black = "#1E1E2E", -- nvim bg
-  black2 = "#2A2B3C",
+  black2 = utils.darken("#313244", 0.64, "#1e1e2e"),
   -- one_bg = "#2d2c3c", -- real bg of onedark
   -- one_bg2 = "#363545",
   -- one_bg3 = "#3e3d4d",

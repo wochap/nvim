@@ -120,6 +120,15 @@ local M = {
     bg = theme.base_30.statusline_bg,
   },
 
+  -- cmp
+  CmpDoc = {
+    bg = utils.darken(C.surface0, 0.54, C.base),
+  },
+  CmpDocBorder = {
+    fg = utils.darken(C.surface0, 0.54, C.base),
+    bg = utils.darken(C.surface0, 0.54, C.base),
+  },
+
   -- nvim
   WinSeparator = {
     fg = theme.base_30.statusline_bg,

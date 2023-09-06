@@ -4,7 +4,7 @@ M.setup = function()
   local tint = require "tint"
 
   tint.setup {
-    tint = -30,
+    tint = -20,
     highlight_ignore_patterns = { "WinSeparator", "Status.*", "IndentBlankline.*", "CursorLineNr", "LineNr" },
     window_ignore_function = function(winid)
       local bufid = vim.api.nvim_win_get_buf(winid)
