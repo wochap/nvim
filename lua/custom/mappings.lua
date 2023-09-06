@@ -328,6 +328,9 @@ M.git = {
 M.persistence = {
   n = {
     ["<leader>nl"] = { "<cmd>lua require('persistence').load()<CR>", "load last session" },
+    ["<f2>"] = { "<cmd>lua require('base46').load_all_highlights()<CR>", "load custom theme without cache?" },
+    ["<f3>"] = { "<cmd>lua require'custom.utils.others'.printSyntaxInfo()<CR>", "print syntax info" },
+    ["<f4>"] = { "<cmd>lua require'custom.utils.others'.printBufInfo()<CR>", "print buffer info" },
   },
 }
 
