@@ -3,6 +3,12 @@ local plugins = {
 
   -- nvchad
   {
+    "NvChad/base46",
+    dependencies = {
+      "levouh/tint.nvim",
+    },
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
@@ -101,6 +107,12 @@ local plugins = {
     build = "deno task --quiet build:fast",
     config = function()
       require("custom.plugins.configs.peek").setup()
+    end,
+  },
+  {
+    "levouh/tint.nvim",
+    config = function()
+      require("custom.plugins.configs.tint").setup()
     end,
   },
   { "kdheepak/lazygit.nvim", cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" } },

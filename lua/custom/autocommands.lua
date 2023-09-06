@@ -16,6 +16,9 @@ vim.cmd [[
   augroup end
 ]]
 
+local tintGroup = vim.api.nvim_create_augroup("tintVimEnter", { clear = true })
+vim.api.nvim_create_autocmd({ "VimEnter" }, { group = tintGroup, command = "lua require('tint').refresh()" })
+
 -- vim.cmd [[
 --    " Protect large files from sourcing and other overhead.
 --    " Files become read only
