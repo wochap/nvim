@@ -28,9 +28,13 @@ return {
   theme_toggle = {},
   hl_add = hls,
   hl_override = hls,
+  lsp_semantic_tokens = true,
   tabufline = require "custom.plugins.overrides.tabufline",
   statusline = require "custom.plugins.overrides.statusline",
   changed_themes = {
     catppuccin = theme,
+  },
+  cmp = {
+    style = "flat_dark",
   },
 }
