@@ -52,6 +52,7 @@ local M = {
   NvimTreeFileDirty = { fg = gitColors.change },
   NvimTreeFileNew = { fg = gitColors.add },
   NvimTreeFileDeleted = { fg = gitColors.delete },
+  NvimTreeIndentMarker = { fg = theme.base_30.line },
 
   -- NvimSpectre
   SpectreSearch = {
@@ -103,6 +104,26 @@ local M = {
   rainbow4 = { fg = C.green },
   rainbow5 = { fg = C.sapphire },
   rainbow6 = { fg = C.lavender },
+
+  -- tabufline
+  TblineFill = {
+    bg = theme.base_30.statusline_bg,
+  },
+  TbLineBufOff = {
+    bg = theme.base_30.statusline_bg,
+    fg = theme.base_30.light_grey,
+  },
+  TbLineBufOffModified = {
+    bg = theme.base_30.statusline_bg,
+  },
+  TbLineBufOffClose = {
+    bg = theme.base_30.statusline_bg,
+  },
+
+  -- nvim
+  WinSeparator = {
+    fg = theme.base_30.statusline_bg,
+  },
 }
 
 return M
