@@ -53,6 +53,7 @@ local M = {
   NvimTreeFileNew = { fg = gitColors.add },
   NvimTreeFileDeleted = { fg = gitColors.delete },
   NvimTreeIndentMarker = { fg = theme.base_30.line },
+  NvimTreeImageFile = { fg = theme.base_30.white },
 
   -- NvimSpectre
   SpectreSearch = {
