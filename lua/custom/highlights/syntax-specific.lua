@@ -7,6 +7,7 @@ local M = {
   PreProc = { link = "Comment" },
   Tag = { fg = C.blue },
   TagAttribute = { fg = C.yellow },
+  Todo = { fg = C.blue, bg = C.base },
   zshCommands = { fg = C.blue },
   zshDeref = { fg = C.red },
   zshFunction = { fg = C.blue },
