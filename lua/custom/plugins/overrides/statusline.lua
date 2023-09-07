@@ -173,16 +173,23 @@ return {
       return ""
     end
 
+    local function location()
+      local line = vim.fn.line "."
+      local col = vim.fn.virtcol "."
+      return string.format("%3d:%-2d", line, col)
+    end
+
     local function cursor_position()
       local left_sep = "%#St_sep#" .. sep_r_b .. "%#St_module#"
 
       local current_line = fn.line "."
       local total_line = fn.line "$"
       local text = math.modf((current_line / total_line) * 100) .. tostring "%%"
+      text = string.format("%4s", text)
 
       text = (current_line == 1 and "Top") or text
       text = (current_line == total_line and "Bot") or text
-      text = text .. (vim.o.columns > 140 and " [%l:%c]" or "")
+      text = text .. (vim.o.columns > 140 and (" " .. location()) or "")
 
       return left_sep .. " " .. text .. " "
     end
