@@ -61,14 +61,17 @@ end
 return {
   overriden_modules = function(modules)
     local fn = vim.fn
-    local sep_r = " "
-    local sep_l = ""
+    local sep_l = ""
+    local sep_l_b = ""
+    local sep_r = ""
+    local sep_r_b = ""
 
     local function mode()
       local m = vim.api.nvim_get_mode().mode
-      local current_mode = "%#" .. M.modes[m][2] .. "#" .. "  " .. M.modes[m][1] .. " "
+      local current_mode = "%#" .. M.modes[m][2] .. "#" .. "  " .. M.modes[m][1]
+      local mode_sep1 = "%#" .. M.modes[m][2] .. "Sep" .. "#" .. sep_l
 
-      return current_mode .. "%#ST_EmptySpace# "
+      return current_mode .. " " .. mode_sep1
     end
 
     local function fileInfo()
@@ -88,14 +91,33 @@ return {
         filename = filename .. " "
       end
 
-      return "%#St_file_info#"
+      return "%#ST_sep#"
+        .. sep_l_b
+        .. "%#St_module#"
         .. icon
         .. "%#St_relative_path#"
         .. relative_path
-        .. "%#St_file_info#"
+        .. "%#St_module#"
         .. filename
-        .. "%#St_file_sep#"
-        .. sep_r
+        .. "%#ST_sep#"
+        .. sep_l
+    end
+
+    local function gitchanges()
+      if not vim.b.gitsigns_head or vim.b.gitsigns_git_status or vim.o.columns < 120 then
+        return ""
+      end
+
+      local git_status = vim.b.gitsigns_status_dict
+
+      local added = (git_status.added and git_status.added ~= 0) and ("%#St_lspInfo#  " .. git_status.added) or ""
+      local changed = (git_status.changed and git_status.changed ~= 0)
+          and ("%#St_lspWarning#  " .. git_status.changed)
+        or ""
+      local removed = (git_status.removed and git_status.removed ~= 0) and ("%#St_lspError#  " .. git_status.removed)
+        or ""
+
+      return added .. changed .. removed
     end
 
     local function git()
@@ -104,33 +126,73 @@ return {
       end
 
       local git_status = vim.b.gitsigns_status_dict
-
-      local added = (git_status.added and git_status.added ~= 0) and ("  " .. git_status.added) or ""
-      local changed = (git_status.changed and git_status.changed ~= 0) and ("  " .. git_status.changed) or ""
-      local removed = (git_status.removed and git_status.removed ~= 0) and ("  " .. git_status.removed) or ""
       local branch_name = " " .. git_status.head
 
-      return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed
+      return "%#St_gitIcons#  " .. branch_name .. " " .. gitchanges()
+    end
+
+    local function LSP_Diagnostics()
+      if not rawget(vim, "lsp") then
+        return ""
+      end
+
+      local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+      local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+      local hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+      local info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+
+      errors = (errors and errors > 0) and ("%#St_lspError#" .. "󰅚 " .. errors .. " ") or ""
+      warnings = (warnings and warnings > 0) and ("%#St_lspWarning#" .. "  " .. warnings .. " ") or ""
+      hints = (hints and hints > 0) and ("%#St_lspHints#" .. "󰛩 " .. hints .. " ") or ""
+      info = (info and info > 0) and ("%#St_lspInfo#" .. "󰋼 " .. info .. " ") or ""
+
+      return errors .. warnings .. hints .. info
+    end
+
+    local function cwd()
+      local dir_icon = "%#St_module#" .. " 󰉋 "
+      local dir_name = fn.fnamemodify(fn.getcwd(), ":t") .. " "
+
+      if vim.o.columns > 85 then
+        return "%#St_sep#" .. sep_r_b .. dir_icon .. dir_name .. "%#St_sep#" .. sep_r
+      end
+
+      return ""
+    end
+
+    function LSP_status()
+      if rawget(vim, "lsp") then
+        for _, client in ipairs(vim.lsp.get_active_clients()) do
+          if client.attached_buffers[vim.api.nvim_get_current_buf()] and client.name ~= "null-ls" then
+            return (vim.o.columns > 100 and "%#St_LspStatus# 󰄭  " .. client.name .. "  ")
+              or "%#St_LspStatus# 󰄭  LSP  "
+          end
+        end
+      end
+
+      return ""
     end
 
     local function cursor_position()
-      local left_sep = "%#St_pos_sep#" .. sep_l .. "%#St_pos_icon#" .. " "
+      local left_sep = "%#St_sep#" .. sep_r_b .. "%#St_module#"
 
       local current_line = fn.line "."
       local total_line = fn.line "$"
       local text = math.modf((current_line / total_line) * 100) .. tostring "%%"
-      text = string.format("%4s", text)
 
       text = (current_line == 1 and "Top") or text
       text = (current_line == total_line and "Bot") or text
-      text = text .. (vim.o.columns > 140 and "%#StText# [%l:%c]" or "")
+      text = text .. (vim.o.columns > 140 and " [%l:%c]" or "")
 
-      return left_sep .. "%#St_pos_text#" .. " " .. text .. " "
+      return left_sep .. " " .. text .. " "
     end
 
     modules[1] = mode()
     modules[2] = fileInfo()
     modules[3] = git()
+    modules[7] = LSP_Diagnostics()
+    modules[8] = LSP_status() or ""
+    modules[9] = cwd()
     modules[10] = cursor_position()
   end,
 }

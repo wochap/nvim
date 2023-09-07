@@ -2,6 +2,11 @@ local utils = require "custom.highlights.utils.init"
 local theme = require "custom.highlights.catppuccin-mocha"
 local C = theme.palette
 
+local tabuflineBg = theme.base_30.lightbg
+local tabuflineFg = theme.base_30.grey
+local stModuleBg = C.surface0
+local stModuleFg = theme.base_30.white
+local statusline_fg = theme.base_30.white
 local stateColors = {
   error = theme.base_30.red,
   warning = theme.base_30.yellow,
@@ -81,27 +86,37 @@ local M = {
   DiagnosticVirtualTextHint = { fg = stateColors.hint }, -- Used for "Hint" diagnostic virtual text
 
   -- statusline
-  St_relative_path = {
-    bg = theme.base_30.lightbg,
-    fg = theme.base_30.light_grey,
-  },
-  St_gitAdded = {
+  St_lspInfo = {
     bg = theme.base_30.statusline_bg,
     fg = gitColors.add,
   },
-  St_gitChanged = {
+  St_lspWarning = {
     bg = theme.base_30.statusline_bg,
     fg = gitColors.change,
   },
-  St_gitRemoved = {
+  St_lspError = {
     bg = theme.base_30.statusline_bg,
     fg = gitColors.delete,
   },
+  ST_sep = {
+    fg = stModuleBg,
+    bg = theme.base_30.statusline_bg,
+  },
+  ST_module = {
+    fg = stModuleFg,
+    bg = stModuleBg,
+  },
+  St_relative_path = {
+    fg = theme.base_30.light_grey,
+    bg = stModuleBg,
+  },
   St_gitIcons = {
+    fg = statusline_fg,
+    bg = theme.base_30.statusline_bg,
     bold = false,
   },
-  StText = {
-    fg = theme.base_30.white,
+  St_LspStatus = {
+    fg = statusline_fg,
     bg = theme.base_30.statusline_bg,
   },
 
@@ -115,17 +130,17 @@ local M = {
 
   -- tabufline
   TblineFill = {
-    bg = theme.base_30.statusline_bg,
+    bg = tabuflineBg,
   },
   TbLineBufOff = {
-    bg = theme.base_30.statusline_bg,
-    fg = theme.base_30.light_grey,
+    bg = tabuflineBg,
+    fg = tabuflineFg,
   },
   TbLineBufOffModified = {
-    bg = theme.base_30.statusline_bg,
+    bg = tabuflineBg,
   },
   TbLineBufOffClose = {
-    bg = theme.base_30.statusline_bg,
+    bg = tabuflineBg,
   },
 
   -- cmp
@@ -142,5 +157,20 @@ local M = {
   --   fg = theme.base_30.statusline_bg,
   -- },
 }
+
+local colors = theme.base_30
+local function genModes_hl(modename, col)
+  M["St_" .. modename .. "Mode"] = { fg = colors.black, bg = colors[col], bold = true }
+  M["St_" .. modename .. "ModeSep"] = { fg = colors[col], bg = colors.statusline_bg }
+end
+genModes_hl("Normal", "nord_blue")
+genModes_hl("Visual", "cyan")
+genModes_hl("Insert", "dark_purple")
+genModes_hl("Terminal", "green")
+genModes_hl("NTerminal", "yellow")
+genModes_hl("Replace", "orange")
+genModes_hl("Confirm", "teal")
+genModes_hl("Command", "green")
+genModes_hl("Select", "blue")
 
 return M
