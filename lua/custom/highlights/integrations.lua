@@ -131,9 +131,9 @@ local M = {
   },
 
   -- nvim
-  WinSeparator = {
-    fg = theme.base_30.statusline_bg,
-  },
+  -- WinSeparator = {
+  --   fg = theme.base_30.statusline_bg,
+  -- },
 }
 
 return M
