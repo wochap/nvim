@@ -97,6 +97,13 @@ local M = {
     bg = theme.base_30.statusline_bg,
     fg = gitColors.delete,
   },
+  St_gitIcons = {
+    bold = false,
+  },
+  StText = {
+    fg = theme.base_30.white,
+    bg = theme.base_30.statusline_bg,
+  },
 
   -- rainbow-delimiters
   rainbow1 = { fg = C.red },
