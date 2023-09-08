@@ -19,6 +19,9 @@ vim.cmd [[
 local tintGroup = vim.api.nvim_create_augroup("tintVimEnter", { clear = true })
 vim.api.nvim_create_autocmd({ "VimEnter" }, { group = tintGroup, command = "lua require('tint').refresh()" })
 
+local cmdWinGroup = vim.api.nvim_create_augroup("mapQCmdWinEnter", { clear = true })
+vim.api.nvim_create_autocmd({ "CmdwinEnter" }, { group = cmdWinGroup, command = "nnoremap <buffer> q :q<CR>" })
+
 -- vim.cmd [[
 --    " Protect large files from sourcing and other overhead.
 --    " Files become read only
