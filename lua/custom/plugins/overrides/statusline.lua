@@ -189,7 +189,7 @@ return {
 
       text = (current_line == 1 and "Top") or text
       text = (current_line == total_line and "Bot") or text
-      text = text .. (vim.o.columns > 140 and (" " .. location()) or "")
+      text = (vim.o.columns > 140 and (location() .. " ") or "") .. text
 
       return left_sep .. " " .. text .. " "
     end
