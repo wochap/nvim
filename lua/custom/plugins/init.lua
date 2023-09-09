@@ -3,9 +3,16 @@ local plugins = {
 
   -- nvchad
   {
+    "NvChad/base46",
+    dependencies = {
+      "levouh/tint.nvim",
+    },
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
+      "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
     },
     opts = function()
       return vim.tbl_deep_extend(
@@ -86,6 +93,12 @@ local plugins = {
     "williamboman/mason.nvim",
     enabled = false,
   },
+  {
+    "NvChad/nvim-colorizer.lua",
+    opts = function()
+      return require("custom.plugins.overrides.others").colorizer
+    end,
+  },
 
   -- custom
   {
@@ -94,6 +107,12 @@ local plugins = {
     build = "deno task --quiet build:fast",
     config = function()
       require("custom.plugins.configs.peek").setup()
+    end,
+  },
+  {
+    "levouh/tint.nvim",
+    config = function()
+      require("custom.plugins.configs.tint").setup()
     end,
   },
   { "kdheepak/lazygit.nvim", cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" } },
@@ -155,6 +174,12 @@ local plugins = {
     event = "BufReadPost",
     init = function()
       require("custom.plugins.configs.others").conflict_marker()
+    end,
+  },
+  {
+    url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
+    config = function()
+      require("custom.plugins.configs.others").rainbow_delimiters()
     end,
   },
   {

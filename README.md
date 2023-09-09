@@ -2,7 +2,7 @@
 
 [NVChad](https://github.com/NvChad/NvChad) plus custom config
 
-![](https://i.imgur.com/Xj6yi7q.jpg)
+![](https://i.imgur.com/EyQiY8G.jpg)
 
 ## Getting started
 
