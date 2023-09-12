@@ -115,7 +115,13 @@ local plugins = {
       require("custom.plugins.configs.tint").setup()
     end,
   },
-  { "kdheepak/lazygit.nvim", cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" } },
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" },
+    config = function()
+      vim.g.lazygit_floating_window_scaling_factor = 1 -- scaling factor for floating window
+    end,
+  },
   { "kazhala/close-buffers.nvim" },
   {
     "folke/todo-comments.nvim",
