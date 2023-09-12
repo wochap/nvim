@@ -126,7 +126,7 @@ return {
       end
 
       local git_status = vim.b.gitsigns_status_dict
-      local branch_name = " " .. git_status.head
+      local branch_name = " " .. git_status.head
 
       return "%#St_gitIcons#  " .. branch_name .. " " .. gitchanges()
     end
@@ -142,15 +142,15 @@ return {
       local info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
 
       errors = (errors and errors > 0) and ("%#St_lspError#" .. "󰅚 " .. errors .. " ") or ""
-      warnings = (warnings and warnings > 0) and ("%#St_lspWarning#" .. "  " .. warnings .. " ") or ""
+      warnings = (warnings and warnings > 0) and ("%#St_lspWarning#" .. " " .. warnings .. " ") or ""
       hints = (hints and hints > 0) and ("%#St_lspHints#" .. "󰛩 " .. hints .. " ") or ""
-      info = (info and info > 0) and ("%#St_lspInfo#" .. "󰋼 " .. info .. " ") or ""
+      info = (info and info > 0) and ("%#St_lspInfo#" .. " " .. info .. " ") or ""
 
       return errors .. warnings .. hints .. info
     end
 
     local function cwd()
-      local dir_icon = "%#St_module#" .. " 󰉋 "
+      local dir_icon = "%#St_module#" .. " 󰉖 "
       local dir_name = fn.fnamemodify(fn.getcwd(), ":t") .. " "
 
       if vim.o.columns > 85 then
