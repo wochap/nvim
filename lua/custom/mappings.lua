@@ -306,16 +306,16 @@ M.terminal = {
 
   n = {
     -- pick a hidden term
-    ["<leader>tt"] = { "<cmd> Telescope terms <CR>", "pick hidden term" },
+    ["<leader>Tt"] = { "<cmd> Telescope terms <CR>", "pick hidden term" },
 
     -- new
-    ["<leader>th"] = {
+    ["<leader>T_"] = {
       function()
         require("nvterm.terminal").new "horizontal"
       end,
       "new horizontal term",
     },
-    ["<leader>tv"] = {
+    ["<leader>T|"] = {
       function()
         require("nvterm.terminal").new "vertical"
       end,
@@ -357,6 +357,8 @@ M.custom_general = {
     ["]q"] = { ":cnext<CR>", "go to next quicklist item" },
     ["[l"] = { ":lprevious<CR>", "go to prev loclist item" },
     ["]l"] = { ":lnext<CR>", "go to next loclist item" },
+    ["<leader>|"] = { "<C-w>v", "split window vertically" },
+    ["<leader>_"] = { "<C-w>s", "split window horizontally" },
   },
   i = {
     ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
@@ -404,19 +406,32 @@ M.trouble = {
   n = {
     ["<leader>xx"] = { "<cmd>TroubleToggle<cr>", "show last list" },
     ["<leader>xw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "show project diagnostics" },
-    ["<leader>xd"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "show file diagnostic" },
-    ["<leader>xt"] = { "<cmd>TodoTrouble<cr>", "open TODOs" },
-    ["<leader>xT"] = { "<cmd>TodoTelescope<cr>", "search TODOs" },
+    ["<leader>xf"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "show file diagnostic" },
     ["<leader>xl"] = { "<cmd>TroubleToggle loclist<cr>", "toggle loclist" },
     ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", "toggle quicklist" },
     ["gr"] = { "<cmd>TroubleToggle lsp_references<cr>", "toggle references" },
-    ["[t"] = {
+    ["[x"] = {
       "<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>",
       "go to prev troublelist item",
     },
-    ["]t"] = {
+    ["]x"] = {
       "<cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>",
       "go to next troublelist item",
+    },
+  },
+}
+
+M.todo = {
+  n = {
+    ["<leader>tl"] = { "<cmd>TodoQuickFix<cr>", "toggle loclist" },
+    ["<leader>tq"] = { "<cmd>TodoLocList<cr>", "toggle quicklist" },
+    ["]t"] = {
+      "<cmd>lua require('todo-comments').jump_next({keywords = { 'TODO', 'HACK', 'FIX' }})<CR>",
+      "go to next todo|hack|fix comment",
+    },
+    ["]T"] = {
+      "<cmd>lua require('todo-comments').jump_prev({keywords = { 'TODO', 'HACK', 'FIX' }})<CR>",
+      "go to prev todo|hack|fix comment",
     },
   },
 }

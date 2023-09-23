@@ -12,6 +12,7 @@ l = { name = "lsp" },
 n = { name = "misc" },
 p = { name = "packer" },
 q = { name = "quit" },
-t = { name = "terminal" },
+t = { name = "todo" },
+T = { name = "terminal" },
 x = { name = "trouble" },
 }, { prefix = "<leader>" })

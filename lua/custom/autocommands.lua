@@ -16,8 +16,30 @@ vim.cmd [[
   augroup end
 ]]
 
-local tintGroup = vim.api.nvim_create_augroup("tintVimEnter", { clear = true })
-vim.api.nvim_create_autocmd({ "VimEnter" }, { group = tintGroup, command = "lua require('tint').refresh()" })
+local tintGroup = vim.api.nvim_create_augroup("tintBufEnter", { clear = true })
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  group = tintGroup,
+  pattern = "*",
+  callback = function()
+    local ok, tint = pcall(require, "tint")
+
+    if not ok then
+      return
+    end
+
+    if not vim.g.vimenter then
+      return
+    end
+
+    tint.refresh()
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  callback = function()
+    vim.g.vimenter = true
+  end,
+})
 
 local cmdWinGroup = vim.api.nvim_create_augroup("mapQCmdWinEnter", { clear = true })
 vim.api.nvim_create_autocmd({ "CmdwinEnter" }, { group = cmdWinGroup, command = "nnoremap <buffer> q :q<CR>" })
