@@ -48,6 +48,17 @@ local plugins = {
     end,
   },
   {
+    "windwp/nvim-autopairs",
+    opts = {
+      fast_wrap = {},
+      disable_filetype = { "TelescopePrompt", "vim" },
+      -- Don't add pairs if it already has a close pair in the same line
+      enable_check_bracket_line = true,
+      -- Don't add pairs if the next char is alphanumeric
+      ignored_next_char = "[%w%.]",
+    },
+  },
+  {
     "L3MON4D3/LuaSnip",
     opts = function()
       return require("custom.plugins.overrides.others").luasnip
@@ -106,6 +117,14 @@ local plugins = {
   },
 
   -- custom
+  {
+    "echasnovski/mini.nvim",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("custom.plugins.configs.mini").setup()
+    end,
+  },
   {
     "Saimo/peek.nvim",
     commit = "f23200c241b06866b561150fa0389d535a4b903d",
@@ -203,8 +222,6 @@ local plugins = {
   },
   { "tpope/vim-abolish" }, -- Change word casing
   { "tpope/vim-repeat" },
-  { "tommcdo/vim-exchange" }, -- Switch words
-  { "tommcdo/vim-lion" }, -- Align text vertically
 
   -- LSP stuff
   -- This is needed to fix lsp doc highlight

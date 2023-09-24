@@ -1,6 +1,6 @@
 local M = {}
 
-function files_live_grep(opts)
+local function files_live_grep(opts)
   local Path = require "plenary.path"
   local conf = require("telescope.config").values
   local finders = require "telescope.finders"
@@ -196,7 +196,18 @@ end
 
 M.symbols = function()
   require("telescope.builtin").lsp_document_symbols {
-    symbols = { "Class", "Function", "Method", "Constructor", "Interface", "Module" },
+    symbols = {
+      "Class",
+      "Function",
+      "Method",
+      "Constructor",
+      "Interface",
+      "Module",
+      "Struct",
+      "Trait",
+      "Field",
+      "Property",
+    },
   }
 end
 

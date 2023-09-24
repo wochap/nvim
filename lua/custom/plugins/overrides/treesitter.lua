@@ -5,8 +5,22 @@ local options = {
     enable_autocmd = false,
   },
 
+  indent = {
+    enable = true,
+  },
+
   highlight = { -- Be sure to enable highlights if you haven't!
     enable = true,
+  },
+
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<C-space>",
+      node_incremental = "<C-space>",
+      scope_incremental = false,
+      node_decremental = "<bs>",
+    },
   },
 
   ensure_installed = {
@@ -22,11 +36,14 @@ local options = {
     "nix",
     "norg",
     "python",
+    "query",
+    "regex",
     "svelte",
     "toml",
     "tsx",
     "typescript",
     "vim",
+    "vimdoc",
   },
 }
 

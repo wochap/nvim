@@ -220,6 +220,7 @@ M.telescope = {
   n = {
     ["<leader>fs"] = { "<cmd>lua require('spectre').open()<CR>", "find word spectre" },
     ["<leader>fw"] = { "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>", "find word" },
+    ["<leader>fy"] = { "<cmd>lua require'custom.utils.telescope'.symbols()<CR>", "find symbols" },
     ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "find old files" },
 
     -- find
@@ -333,7 +334,7 @@ M.git = {
 
 M.persistence = {
   n = {
-    ["<leader>nl"] = { "<cmd>lua require('persistence').load()<CR>", "load last session" },
+    ["<leader>ql"] = { "<cmd>lua require('persistence').load()<CR>", "load last session" },
   },
 }
 
@@ -344,8 +345,6 @@ M.custom_general = {
     ["<C-S-u>"] = { "zH", "scroll half screen to the left" },
     ["<leader>qa"] = { "<cmd>qa <CR>", "exit" },
     ["<leader>q!"] = { "<cmd>qa! <CR>", "exit!" },
-    ["<A-Down>"] = { ":m .+1<CR>==", "move line down" },
-    ["<A-Up>"] = { ":m .-2<CR>==", "move line up" },
     ["<C-S-A-Down>"] = { '"zyy"zp', "clone line down" },
     ["<C-S-A-Up>"] = { '"zyy"zP', "clone line up" },
     ["gV"] = { "`[v`]", "select last yanked/changed text" },
@@ -353,22 +352,14 @@ M.custom_general = {
     ["]<Space>"] = { ":set paste<CR>m`o<Esc>``:set nopaste<CR>", "add empty line down" },
     ["[<Del>"] = { "m`:silent +g/\\m^\\s*$/d<CR>``:noh<CR>", "remove emply line up" },
     ["]<Del>"] = { "m`:silent -g/\\m^\\s*$/d<CR>``:noh<CR>", "remove emply line down" },
-    ["[q"] = { ":cprevious<CR>", "go to prev quicklist item" },
-    ["]q"] = { ":cnext<CR>", "go to next quicklist item" },
-    ["[l"] = { ":lprevious<CR>", "go to prev loclist item" },
-    ["]l"] = { ":lnext<CR>", "go to next loclist item" },
     ["<leader>|"] = { "<C-w>v", "split window vertically" },
     ["<leader>_"] = { "<C-w>s", "split window horizontally" },
   },
   i = {
     ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
     ["<C-S-s>"] = { "<Esc>:w! <CR>", "save buffer!" },
-    ["<A-Down>"] = { "<Esc>:m .+1<CR>==gi", "move line down" },
-    ["<A-Up>"] = { "<Esc>:m .-2<CR>==gi", "move line up" },
-  },
-  x = {
-    ["<A-Down>"] = { ":m '>+1<CR>gv-gv", "move lines down" },
-    ["<A-Up>"] = { ":m '<-2<CR>gv-gv", "move lines up" },
+    ["<A-Down>"] = { "<Cmd>lua MiniMove.move_line('down')<CR>", "Move line down" },
+    ["<A-Up>"] = { "<Cmd>lua MiniMove.move_line('up')<CR>", "Move line up" },
   },
   v = {
     ["<C-S-d>"] = { "zL", "scroll half screen to the right" },
@@ -378,8 +369,6 @@ M.custom_general = {
     ["<C-S-A-Down>"] = { '"zy`]"zp', "clone line down" },
     ["<C-S-A-Up>"] = { '"zy`["zP', "clone line down" },
     ["<F9>"] = { ":'<,'>sort<CR>", "sort lines" },
-    ["<"] = { "<gv", "indent left" },
-    [">"] = { ">gv", "indent right" },
   },
   s = {
     ["c"] = { '<C-o>"_c', "change selected text" },
@@ -425,13 +414,13 @@ M.todo = {
   n = {
     ["<leader>tl"] = { "<cmd>TodoQuickFix<cr>", "toggle loclist" },
     ["<leader>tq"] = { "<cmd>TodoLocList<cr>", "toggle quicklist" },
+    ["[t"] = {
+      "<cmd>lua require('todo-comments').jump_prev({keywords = { 'TODO', 'HACK', 'FIX' }})<CR>",
+      "go to prev todo|hack|fix comment",
+    },
     ["]t"] = {
       "<cmd>lua require('todo-comments').jump_next({keywords = { 'TODO', 'HACK', 'FIX' }})<CR>",
       "go to next todo|hack|fix comment",
-    },
-    ["]T"] = {
-      "<cmd>lua require('todo-comments').jump_prev({keywords = { 'TODO', 'HACK', 'FIX' }})<CR>",
-      "go to prev todo|hack|fix comment",
     },
   },
 }
