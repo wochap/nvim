@@ -231,6 +231,7 @@ local plugins = {
     dependencies = {
       {
         "jose-elias-alvarez/null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
         config = function()
           require "custom.plugins.configs.null-ls"
         end,
