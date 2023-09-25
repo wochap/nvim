@@ -1,10 +1,9 @@
 local utils = require "custom.highlights.utils.init"
 local theme = require "custom.highlights.catppuccin-mocha"
-local C = theme.palette
 
 local tabuflineBg = theme.base_30.lightbg
 local tabuflineFg = theme.base_30.grey
-local stModuleBg = C.surface0
+local stModuleBg = theme.base_16.base02
 local stModuleFg = theme.base_30.white
 local statusline_fg = theme.base_30.white
 local stateColors = {
@@ -121,12 +120,12 @@ local M = {
   },
 
   -- rainbow-delimiters
-  rainbow1 = { fg = C.red },
-  rainbow2 = { fg = C.peach },
-  rainbow3 = { fg = C.yellow },
-  rainbow4 = { fg = C.green },
-  rainbow5 = { fg = C.sapphire },
-  rainbow6 = { fg = C.lavender },
+  rainbow1 = { fg = theme.base_30.red },
+  rainbow2 = { fg = theme.base_30.orange },
+  rainbow3 = { fg = theme.base_30.yellow },
+  rainbow4 = { fg = theme.base_30.green },
+  rainbow5 = { fg = theme.base_30.blue },
+  rainbow6 = { fg = theme.base_30.lavender },
 
   -- tabufline
   TblineFill = {
@@ -145,11 +144,11 @@ local M = {
 
   -- cmp
   CmpDoc = {
-    bg = utils.darken(C.surface0, 0.54, C.base),
+    bg = utils.darken(theme.base_16.base02, 0.54, theme.base_16.base00),
   },
   CmpDocBorder = {
-    fg = utils.darken(C.surface0, 0.54, C.base),
-    bg = utils.darken(C.surface0, 0.54, C.base),
+    fg = utils.darken(theme.base_16.base02, 0.54, theme.base_16.base00),
+    bg = utils.darken(theme.base_16.base02, 0.54, theme.base_16.base00),
   },
 
   -- nvim
