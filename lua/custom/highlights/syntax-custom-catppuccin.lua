@@ -9,6 +9,7 @@ local M = {
   ["@variable"] = { link = "Variable" },
   PreProc = { link = "Comment" },
   Todo = { fg = C.blue, bg = C.base },
+  Error = { fg = C.red, bg = "NONE" }, -- (preferred) any erroneous construct
 
   zshCommands = { fg = C.blue },
   zshDeref = { fg = C.red },

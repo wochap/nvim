@@ -21,6 +21,7 @@ local M = {
   SpecialKey = { link = "NonText" }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' textspace. |hl-Whitespace|
   NonText = { fg = C.overlay0 }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
 
+  -- source: https://github.com/catppuccin/nvim/blob/main/lua/catppuccin/groups/syntax.lua
   Comment = { fg = C.overlay0 }, -- just comments
   SpecialComment = { link = "Special" }, -- special things inside a comment
   Constant = { fg = C.peach }, -- (preferred) any constant
@@ -54,6 +55,8 @@ local M = {
   Tag = { fg = C.lavender }, -- you can use CTRL-] on this
   Delimiter = { fg = C.overlay2 }, -- character that needs attention
   Debug = { link = "Special" }, -- debugging statements
+
+  Error = { fg = C.red }, -- (preferred) any erroneous construct
 
   -- https://github.com/catppuccin/nvim/blob/main/lua/catppuccin/groups/integrations/semantic_tokens.lua
   ["@lsp.type.boolean"] = { link = "@boolean" },
