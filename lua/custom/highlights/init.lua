@@ -1,10 +1,9 @@
 local theme = require "custom.highlights.catppuccin-mocha"
 local integrations = require "custom.highlights.integrations"
-local syntax = require "custom.highlights.syntax"
 local syntaxCatppuccin = require "custom.highlights.syntax-catppuccin"
-local syntaxFixes = require "custom.highlights.syntax-fixes"
+local syntaxCustomCatppuccin = require "custom.highlights.syntax-custom-catppuccin"
 
-local hls = vim.tbl_deep_extend("force", integrations, syntaxFixes, syntaxCatppuccin, syntax)
+local hls = vim.tbl_deep_extend("force", integrations, syntaxCatppuccin, syntaxCustomCatppuccin)
 
 return {
   theme_toggle = {},
