@@ -13,7 +13,7 @@ opt.sidescrolloff = 4
 opt.list = true
 opt.compatible = false
 opt.listchars:append "tab:» "
-opt.listchars:append "trail:·"
+opt.listchars:append "trail: "
 opt.pumheight = 15
 opt.cursorcolumn = true
 -- set cursor style to underline

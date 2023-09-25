@@ -156,9 +156,12 @@ local M = {
   IndentBlanklineContextStart = { bg = "NONE" },
 
   -- nvim
-  -- WinSeparator = {
-  --   fg = theme.base_30.statusline_bg,
-  -- },
+  WinSeparator = {
+    -- fg = theme.base_30.darker_black,
+    -- bg = theme.base_30.darker_black,
+    fg = theme.base_30.statusline_bg,
+    bg = "NONE"
+  },
 }
 
 local colors = theme.base_30

@@ -48,6 +48,7 @@ M.disabled = {
     -- find
     ["<leader>ff"] = "",
     ["<leader>fa"] = "",
+    ["<leader>ma"] = "",
 
     -- git
     ["<leader>cm"] = "",
@@ -237,6 +238,10 @@ M.telescope = {
     ["<leader>fa"] = {
       "<cmd> Telescope find_files find_command=fd,--fixed-strings,--type,f follow=true hidden=true no_ignore=true <CR>",
       "find files!",
+    },
+    ["<leader>fx"] = {
+      "<cmd> Telescope marks <CR>",
+      "find marks",
     },
   },
 }
