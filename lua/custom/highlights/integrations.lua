@@ -152,6 +152,9 @@ local M = {
     bg = utils.darken(theme.base_16.base02, 0.54, theme.base_16.base00),
   },
 
+  -- blankline
+  IndentBlanklineContextStart = { bg = "NONE" },
+
   -- nvim
   -- WinSeparator = {
   --   fg = theme.base_30.statusline_bg,

@@ -162,12 +162,19 @@ return {
 
     function LSP_status()
       if rawget(vim, "lsp") then
+        local client_names = {}
         for _, client in ipairs(vim.lsp.get_active_clients()) do
           if client.attached_buffers[vim.api.nvim_get_current_buf()] and client.name ~= "null-ls" then
-            return (vim.o.columns > 100 and "%#St_LspStatus# 󰄭  " .. client.name .. "  ")
-              or "%#St_LspStatus# 󰄭  LSP  "
+            table.insert(client_names, client.name)
           end
         end
+        if next(client_names) == nil then
+          return ""
+        end
+        if #client_names > 1 then
+          return "%#St_LspStatus# 󰄭 " .. #client_names .. " LSP  "
+        end
+        return "%#St_LspStatus# 󰄭  " .. client_names[1] .. "  "
       end
 
       return ""
