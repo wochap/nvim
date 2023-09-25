@@ -94,6 +94,8 @@ M.disabled = {
 }
 
 M.tabufline = {
+  plugin = true,
+
   n = {
     ["<Leader>fn"] = { "<cmd> enew <CR>", "new buffer" },
 
@@ -129,6 +131,8 @@ M.general = {
 }
 
 M.lspconfig = {
+  plugin = true,
+
   n = {
     ["gh"] = {
       function()
@@ -217,6 +221,8 @@ M.nvimtree = {
 }
 
 M.telescope = {
+  plugin = true,
+
   n = {
     ["<leader>fs"] = { "<cmd>lua require('spectre').open()<CR>", "find word spectre" },
     ["<leader>fw"] = { "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>", "find word" },
@@ -235,25 +241,27 @@ M.telescope = {
   },
 }
 
-M.blankline = {
-  n = {
-    ["gC"] = {
-      function()
-        local ok, start = require("indent_blankline.utils").get_current_context(
-          vim.g.indent_blankline_context_patterns,
-          vim.g.indent_blankline_use_treesitter_scope
-        )
-
-        if ok then
-          vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start, 0 })
-          vim.cmd [[normal! _]]
-        end
-      end,
-
-      "jump to current_context",
-    },
-  },
-}
+-- M.blankline = {
+--   plugin = true,
+--
+--   n = {
+--     ["gC"] = {
+--       function()
+--         local ok, start = require("indent_blankline.utils").get_current_context(
+--           vim.g.indent_blankline_context_patterns,
+--           vim.g.indent_blankline_use_treesitter_scope
+--         )
+--
+--         if ok then
+--           vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start, 0 })
+--           vim.cmd [[normal! _]]
+--         end
+--       end,
+--
+--       "jump to current_context",
+--     },
+--   },
+-- }
 
 M.utils = {
   n = {
@@ -334,7 +342,10 @@ M.git = {
 
 M.persistence = {
   n = {
-    ["<leader>ql"] = { "<cmd>lua require('persistence').load()<CR>", "load last session" },
+    ["<leader>ql"] = {
+      "<cmd>lua require('persistence').load();require('base46').load_all_highlights()<CR>",
+      "load last session",
+    },
   },
 }
 
@@ -381,7 +392,7 @@ M.maximizer_toggle = {
   },
 }
 
-M.packer = {
+M.lazy = {
   n = {
     ["<leader>pc"] = { "<cmd>Lazy restore<cr>", "restore" },
     ["<leader>pi"] = { "<cmd>Lazy install<cr>", "install" },
@@ -427,11 +438,6 @@ M.todo = {
 
 M.harpon = {
   n = {
-    -- ["<leader>ht"] = { "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<CR>", "toggle quick menu terminals" },
-    -- ["<leader>hl"] = { "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>", "go to terminal 1" },
-    -- ["<leader>hu"] = { "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>", "go to terminal 2" },
-    -- ["<leader>hy"] = { "<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>", "go to terminal 3" },
-    -- ["<leader>h;"] = { "<cmd>lua require('harpoon.term').gotoTerminal(4)<CR>", "go to terminal 4" },
     ["<leader>hs"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "toggle quick menu files" },
     ["<leader>ha"] = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "add file" },
     ["<leader>hp"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "go to file 1" },
@@ -442,6 +448,8 @@ M.harpon = {
 }
 
 M.dap = {
+  plugin = true,
+
   n = {
     ["<leader>d<Up>"] = { "<cmd>lua require'dap'.step_out()<CR>", "step out" },
     ["<leader>d<Right>"] = { "<cmd>lua require'dap'.step_into()<CR>", "step into" },
@@ -557,6 +565,8 @@ M.gitsigns = {
 }
 
 M.peek = {
+  plugin = true,
+
   n = {
     ["<leader>fm"] = { "<cmd>lua require('peek').open()<CR>", "Open markdown previewer" },
     ["<leader>fM"] = { "<cmd>lua require('peek').close()<CR>", "Close markdown previewer" },

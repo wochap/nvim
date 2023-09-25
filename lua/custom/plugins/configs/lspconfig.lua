@@ -52,6 +52,9 @@ for _, lsp in ipairs(servers) do
 
       local _opts = { noremap = true, silent = true }
       vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>lR", "<cmd>TSLspRenameFile<CR>", _opts)
+
+      require("core.utils").load_mappings "dap"
+      require("which-key").register { d = { name = "dap" } }
     end
   end
 
@@ -108,6 +111,7 @@ vim.diagnostic.config {
   signs = false,
   virtual_text = false,
   float = {
+    border = "single",
     format = function(diagnostic)
       return string.format("%s (%s)", diagnostic.message, diagnostic.source)
     end,

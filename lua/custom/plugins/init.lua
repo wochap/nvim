@@ -9,6 +9,10 @@ local plugins = {
     },
   },
   {
+    "lukas-reineke/indent-blankline.nvim",
+    enabled = false,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
@@ -135,6 +139,7 @@ local plugins = {
   },
   {
     "levouh/tint.nvim",
+    event = "VeryLazy",
     config = function()
       require("custom.plugins.configs.tint").setup()
     end,
@@ -160,7 +165,6 @@ local plugins = {
       require("custom.plugins.configs.others").trouble_nvim()
     end,
   },
-  { "gpanders/editorconfig.nvim" },
   {
     "folke/persistence.nvim",
     event = "BufReadPre", -- this will only start session saving when an actual file was opened
@@ -212,20 +216,10 @@ local plugins = {
       require("custom.plugins.configs.others").rainbow_delimiters()
     end,
   },
-  {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-      require("custom.plugins.configs.others").nvim_surround()
-    end,
-  },
   { "tpope/vim-abolish" }, -- Change word casing
-  { "tpope/vim-repeat" },
+  { "tpope/vim-repeat" }, -- Repeat vim-abolish
 
   -- LSP stuff
-  -- This is needed to fix lsp doc highlight
-  -- { "antoinemadec/FixCursorHold.nvim" },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -243,7 +237,10 @@ local plugins = {
       require "custom.plugins.configs.lspconfig"
     end,
   },
-  { "b0o/schemastore.nvim" },
+  {
+    "b0o/schemastore.nvim",
+    event = "VeryLazy",
+  },
 
   -- Dap
   {

@@ -44,6 +44,11 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 local cmdWinGroup = vim.api.nvim_create_augroup("mapQCmdWinEnter", { clear = true })
 vim.api.nvim_create_autocmd({ "CmdwinEnter" }, { group = cmdWinGroup, command = "nnoremap <buffer> q :q<CR>" })
 
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = "markdown",
+  command = "lua require('core.utils').load_mappings('peek')",
+})
+
 -- vim.cmd [[
 --    " Protect large files from sourcing and other overhead.
 --    " Files become read only
