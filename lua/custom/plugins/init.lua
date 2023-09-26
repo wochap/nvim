@@ -222,19 +222,23 @@ local plugins = {
   -- LSP stuff
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      {
-        "jose-elias-alvarez/null-ls.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-          require "custom.plugins.configs.null-ls"
-        end,
-      },
-      { "jose-elias-alvarez/nvim-lsp-ts-utils" },
-    },
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.plugins.configs.lspconfig"
+    end,
+  },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require "custom.plugins.configs.null-ls"
+    end,
+  },
+  {
+    "jose-elias-alvarez/typescript.nvim",
+    dependencies = { "neovim/nvim-lspconfig" },
+    config = function()
+      require("custom.plugins.configs.typescript").setup()
     end,
   },
   {

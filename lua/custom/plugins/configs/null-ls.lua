@@ -15,6 +15,7 @@ local sources = {
   -- b.diagnostics.stylelint
 
   -- JS
+  require "typescript.extensions.null-ls.code-actions",
   b.code_actions.eslint_d,
   b.formatting.eslint_d,
   b.diagnostics.eslint_d.with {

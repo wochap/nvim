@@ -13,7 +13,7 @@ local servers = {
   "svelte",
   "tailwindcss",
   "bashls",
-  "tsserver",
+  -- "tsserver", -- setup lsp server inside jose-elias-alvarez/typescript.nvim
   "lua_ls",
   -- "flow",
   "cssmodules_ls",
@@ -28,35 +28,6 @@ for _, lsp in ipairs(servers) do
       debounce_text_changes = 150,
     },
   }
-
-  -- typescript
-  if lsp == "tsserver" then
-    opts.on_attach = function(client, bufnr)
-      local nvim_lsp_ts_utils = require "nvim-lsp-ts-utils"
-
-      -- Run nvchad's attach
-      on_attach(client, bufnr)
-
-      -- disable tsserver's inbuilt formatting
-      -- since I use null-ls for formatting
-      client.server_capabilities.document_formatting = false
-      client.server_capabilities.document_range_formatting = false
-
-      -- enable document_highlight
-      client.server_capabilities.document_highlight = true
-
-      nvim_lsp_ts_utils.setup {
-        filter_out_diagnostics_by_severity = { "hint" },
-      }
-      nvim_lsp_ts_utils.setup_client(client)
-
-      local _opts = { noremap = true, silent = true }
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>lR", "<cmd>TSLspRenameFile<CR>", _opts)
-
-      require("core.utils").load_mappings "dap"
-      require("which-key").register { d = { name = "dap" } }
-    end
-  end
 
   if lsp == "rnix" or lsp == "jsonls" then
     opts.on_attach = function(client, bufnr)
@@ -117,3 +88,16 @@ vim.diagnostic.config {
     end,
   },
 }
+
+-- HACK: hide hint diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, ...)
+  local client = vim.lsp.get_client_by_id(ctx.client_id)
+
+  if client and client.name == "tsserver" then
+    result.diagnostics = vim.tbl_filter(function(diagnostic)
+      return diagnostic.severity ~= vim.lsp.protocol.DiagnosticSeverity.Hint
+    end, result.diagnostics)
+  end
+
+  return vim.lsp.diagnostic.on_publish_diagnostics(nil, result, ctx, ...)
+end

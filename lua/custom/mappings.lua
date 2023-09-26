@@ -35,6 +35,7 @@ M.disabled = {
     ["<leader>ra"] = "",
     ["<leader>ca"] = "",
     ["gr"] = "",
+    ["gd"] = "",
     ["<leader>q"] = "",
     ["<leader>fm"] = "",
     ["<leader>wa"] = "",
@@ -153,6 +154,10 @@ M.lspconfig = {
       end,
       "lsp signature_help",
     },
+    ["gd"] = {
+      "<cmd>TypescriptGoToSourceDefinition<cr>",
+      "lsp definition",
+    },
     ["gt"] = {
       function()
         vim.lsp.buf.type_definition()
@@ -206,6 +211,14 @@ M.lspconfig = {
       end,
       "lsp formatting",
     },
+  },
+}
+
+M.lspconfig_tsserver = {
+  plugin = true,
+
+  n = {
+    ["<leader>lR"] = { "<cmd>TypescriptRenameFile<CR>", "lsp rename file" },
   },
 }
 
