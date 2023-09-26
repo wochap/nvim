@@ -591,4 +591,10 @@ M.peek = {
   },
 }
 
+M.peek = {
+  n = {
+    ["<leader>z"] = { "<cmd>ZenMode<CR>", "toggle ZenMode" },
+  },
+}
+
 return M

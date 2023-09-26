@@ -53,14 +53,9 @@ local plugins = {
   },
   {
     "windwp/nvim-autopairs",
-    opts = {
-      fast_wrap = {},
-      disable_filetype = { "TelescopePrompt", "vim" },
-      -- Don't add pairs if it already has a close pair in the same line
-      enable_check_bracket_line = true,
-      -- Don't add pairs if the next char is alphanumeric
-      ignored_next_char = "[%w%.]",
-    },
+    opts = function()
+      return require("custom.plugins.overrides.others").autopairs
+    end,
   },
   {
     "L3MON4D3/LuaSnip",
@@ -170,6 +165,13 @@ local plugins = {
     event = "BufReadPre", -- this will only start session saving when an actual file was opened
     config = function()
       require("persistence").setup()
+    end,
+  },
+  {
+    "folke/zen-mode.nvim",
+    cmd = { "ZenMode" },
+    opts = function()
+      return require "custom.plugins.configs.zen-mode"
     end,
   },
   {
