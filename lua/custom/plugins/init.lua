@@ -285,6 +285,13 @@ local plugins = {
       require("custom.plugins.configs.nvim-dap").setup()
     end,
   },
+
+  -- Lang
+  {
+    "fladson/vim-kitty",
+    event = "VeryLazy",
+    ft = "kitty",
+  },
 }
 
 return plugins

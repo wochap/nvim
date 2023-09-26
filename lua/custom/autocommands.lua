@@ -54,6 +54,11 @@ vim.api.nvim_create_autocmd({ "SwapExists" }, {
   command = 'let v:swapchoice = "e"',
 })
 
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = "*",
+  command = "if &filetype == '' || expand('%:e') == 'norg' | set wrap | endif",
+})
+
 -- vim.cmd [[
 --    " Protect large files from sourcing and other overhead.
 --    " Files become read only
