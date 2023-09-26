@@ -56,7 +56,7 @@ vim.api.nvim_create_autocmd({ "SwapExists" }, {
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = "*",
-  command = "if &filetype == '' || expand('%:e') == 'norg' | set wrap | endif",
+  command = "if &filetype == '' || expand('%:e') == 'norg' | set wrap | else | set nowrap | endif",
 })
 
 -- vim.cmd [[
