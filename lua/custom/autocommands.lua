@@ -49,6 +49,11 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   command = "lua require('core.utils').load_mappings('peek')",
 })
 
+vim.api.nvim_create_autocmd({ "SwapExists" }, {
+  pattern = "*",
+  command = 'let v:swapchoice = "e"',
+})
+
 -- vim.cmd [[
 --    " Protect large files from sourcing and other overhead.
 --    " Files become read only
