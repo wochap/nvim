@@ -74,6 +74,12 @@ for _, lsp in ipairs(servers) do
     }
   end
 
+  -- c
+  if lsp == "clangd" then
+    -- Fix clangd offset encoding
+    opts.capabilities.offsetEncoding = { "utf-16" }
+  end
+
   lspconfig[lsp].setup(opts)
 end
 
