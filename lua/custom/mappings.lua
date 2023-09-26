@@ -212,6 +212,20 @@ M.lspconfig = {
       "lsp formatting",
     },
   },
+  v = {
+    ["<leader>lf"] = {
+      function()
+        vim.lsp.buf.format {
+          async = false,
+          bufnr = bufnr,
+          filter = function(client)
+            return client.name == "null-ls"
+          end,
+        }
+      end,
+      "lsp formatting",
+    },
+  },
 }
 
 M.lspconfig_tsserver = {
@@ -570,14 +584,6 @@ M.gitsigns = {
         require("gitsigns").toggle_deleted()
       end,
       "toggle deleted",
-    },
-  },
-  v = {
-    ["<leader>gr"] = {
-      function()
-        require("gitsigns").reset_hunk()
-      end,
-      "reset hunk",
     },
   },
 }
