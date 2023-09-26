@@ -155,7 +155,9 @@ M.lspconfig = {
       "lsp signature_help",
     },
     ["gd"] = {
-      "<cmd>TypescriptGoToSourceDefinition<cr>",
+      function()
+        vim.lsp.buf.definition()
+      end,
       "lsp definition",
     },
     ["gt"] = {
@@ -411,7 +413,6 @@ M.custom_general = {
     ["<C-S-s>"] = { "<Esc>:w! <CR>", "save buffer!" },
     ["<C-S-A-Down>"] = { '"zy`]"zp', "clone line down" },
     ["<C-S-A-Up>"] = { '"zy`["zP', "clone line down" },
-    ["<F9>"] = { ":'<,'>sort<CR>", "sort lines" },
   },
   s = {
     ["c"] = { '<C-o>"_c', "change selected text" },

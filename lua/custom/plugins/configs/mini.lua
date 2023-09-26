@@ -34,6 +34,7 @@ M.setup = function()
   }
 
   -- https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-align.md
+  -- ga or gA
   require("mini.align").setup {}
 
   require("mini.operators").setup {
@@ -51,7 +52,8 @@ M.setup = function()
       prefix = "",
     },
     sort = {
-      prefix = "",
+      prefix = "gs",
+      reindent_linewise = false,
     },
   }
 
