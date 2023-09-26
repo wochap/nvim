@@ -146,7 +146,19 @@ local plugins = {
       vim.g.lazygit_floating_window_scaling_factor = 1 -- scaling factor for floating window
     end,
   },
-  { "kazhala/close-buffers.nvim" },
+  {
+    "kazhala/close-buffers.nvim",
+    opts = {
+      next_buffer_cmd = function(windows)
+        require("nvchad.tabufline").tabuflineNext()
+
+        local bufnr = vim.api.nvim_get_current_buf()
+        for _, window in ipairs(windows) do
+          vim.api.nvim_win_set_buf(window, bufnr)
+        end
+      end,
+    },
+  },
   {
     "folke/todo-comments.nvim",
     event = "BufReadPost",
@@ -234,6 +246,7 @@ local plugins = {
       require("custom.plugins.configs.others").rainbow_delimiters()
     end,
   },
+  { "mrjones2014/smart-splits.nvim" },
   { "tpope/vim-abolish" }, -- Change word casing
   { "tpope/vim-repeat" }, -- Repeat vim-abolish
 

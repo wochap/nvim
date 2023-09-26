@@ -38,6 +38,7 @@
   "popup.nvim": { "branch": "master", "commit": "b7404d35d5d3548a82149238289fa71f7f6de4ac" },
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "6b9fc617ad52f25372d1855e049cae3af348bc09" },
   "schemastore.nvim": { "branch": "main", "commit": "0b89c8722e0be233e45d7bef4220ae8abbac8e1f" },
+  "smart-splits.nvim": { "branch": "master", "commit": "0beb14427dcf2a5d5d63e0064b45032a7bd3e763" },
   "telescope.nvim": { "branch": "master", "commit": "ed9574dd6dde143d009b2528ea6d79bd34bbe6c8" },
   "tint.nvim": { "branch": "master", "commit": "862835626941d263466754b9c8e2ce2cb004f5ac" },
   "todo-comments.nvim": { "branch": "main", "commit": "3094ead8edfa9040de2421deddec55d3762f64d1" },

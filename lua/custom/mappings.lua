@@ -123,10 +123,10 @@ M.tabufline = {
 
 M.general = {
   n = {
-    ["<C-Left>"] = { "<C-w>h", "window left" },
-    ["<C-Right>"] = { "<C-w>l", "window right" },
-    ["<C-Down>"] = { "<C-w>j", "window down" },
-    ["<C-Up>"] = { "<C-w>k", "window up" },
+    ["<C-Left>"] = { "<cmd> lua require('smart-splits').move_cursor_left() <CR>", "window left" },
+    ["<C-Right>"] = { "<cmd> lua require('smart-splits').move_cursor_right() <CR>", "window right" },
+    ["<C-Down>"] = { "<cmd> lua require('smart-splits').move_cursor_down() <CR>", "window down" },
+    ["<C-Up>"] = { "<cmd> lua require('smart-splits').move_cursor_up() <CR>", "window up" },
 
     ["<C-y>"] = { "<cmd> %y+ <CR>", "copy whole file" },
   },
