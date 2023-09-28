@@ -47,8 +47,53 @@ local plugins = {
   },
   {
     "hrsh7th/nvim-cmp",
+    dependencies = {
+      {
+        -- snippet plugin
+        "L3MON4D3/LuaSnip",
+        dependencies = "rafamadriz/friendly-snippets",
+        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+        config = function(_, opts)
+          require("plugins.configs.others").luasnip(opts)
+        end,
+      },
+
+      -- autopairing of (){}[] etc
+      {
+        "windwp/nvim-autopairs",
+        opts = {
+          fast_wrap = {},
+          disable_filetype = { "TelescopePrompt", "vim" },
+        },
+        config = function(_, opts)
+          require("nvim-autopairs").setup(opts)
+
+          -- setup cmp for autopairs
+          local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+          require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+        end,
+      },
+
+      -- cmp sources plugins
+      {
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-nvim-lua",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-cmdline",
+      },
+    },
     opts = function()
-      return vim.tbl_deep_extend("force", require "plugins.configs.cmp", require "custom.plugins.overrides.cmp")
+      return vim.tbl_deep_extend(
+        "force",
+        require "plugins.configs.cmp",
+        require("custom.plugins.overrides.cmp").options
+      )
+    end,
+    config = function(_, opts)
+      require("cmp").setup(opts)
+      require("custom.plugins.overrides.cmp").setup(opts)
     end,
   },
   {
@@ -227,8 +272,10 @@ local plugins = {
     end,
   },
   {
+    -- <C-y>,
     "wochap/emmet-vim",
-    lazy = false,
+    event = "VeryLazy",
+    dependencies = { "wochap/cmp-emmet-vim" },
     init = function()
       require("custom.plugins.configs.others").emmet_vim()
     end,
