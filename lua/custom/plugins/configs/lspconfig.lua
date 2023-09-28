@@ -65,6 +65,9 @@ for _, lsp in ipairs(servers) do
       "scss",
       "less",
     }
+    opts.init_options = {
+      showSuggestionsAsSnippets = true,
+    }
   end
 
   -- lua
