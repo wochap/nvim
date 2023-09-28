@@ -75,7 +75,7 @@ return {
     end
 
     local function fileInfo()
-      local icon = "  "
+      local icon = " 󰈚 "
       local filename = (fn.expand "%" == "" and "Empty ") or fn.expand "%:t"
       local relative_path = ""
 
