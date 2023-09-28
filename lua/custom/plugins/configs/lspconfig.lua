@@ -8,7 +8,7 @@ local servers = {
   "clangd",
   "html",
   "cssls",
-  "emmet_ls",
+  "emmet_language_server",
   "jsonls",
   "svelte",
   "tailwindcss",
@@ -55,11 +55,15 @@ for _, lsp in ipairs(servers) do
   end
 
   -- emmet
-  if lsp == "emmet_ls" then
+  if lsp == "emmet_language_server" then
     opts.filetypes = {
-      "css",
       "html",
+      "xhtml",
+      "xml",
+      "css",
+      "sass",
       "scss",
+      "less",
     }
   end
 
