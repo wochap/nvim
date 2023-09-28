@@ -293,6 +293,17 @@ local plugins = {
       require("custom.plugins.configs.others").rainbow_delimiters()
     end,
   },
+  -- TODO: wait for nvim 0.10
+  -- {
+  --   "mikesmithgh/kitty-scrollback.nvim",
+  --   enabled = true,
+  --   lazy = true,
+  --   cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
+  --   version = "^1.0.0", -- pin major version, include fixes and features that do not have breaking changes
+  --   config = function()
+  --     require("kitty-scrollback").setup()
+  --   end,
+  -- },
   { "mrjones2014/smart-splits.nvim" },
   { "tpope/vim-abolish" }, -- Change word casing
   { "tpope/vim-repeat" }, -- Repeat vim-abolish
