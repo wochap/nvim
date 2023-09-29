@@ -72,6 +72,44 @@ local handlers = {
     require("lspconfig").jsonls.setup(opts)
   end,
 
+  ["yamlls"] = function()
+    local opts = get_opts()
+
+    opts.on_attach = function(client, bufnr)
+      -- Run nvchad's attach
+      on_attach(client, bufnr)
+
+      -- disable server inbuilt formatting
+      -- since I use null-ls for formatting
+      client.server_capabilities.documentFormattingProvider = false
+    end
+
+    -- lazy-load schemastore when needed
+    opts.on_new_config = function(new_config)
+      new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
+      vim.list_extend(new_config.settings.yaml.schemas, require("schemastore").yaml.schemas())
+    end
+    opts.settings = {
+      redhat = { telemetry = { enabled = false } },
+      yaml = {
+        keyOrdering = false,
+        format = {
+          enable = false,
+        },
+        validate = true,
+        schemaStore = {
+          -- Must disable built-in schemaStore support to use
+          -- schemas from SchemaStore.nvim plugin
+          enable = false,
+          -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+          url = "",
+        },
+      },
+    }
+
+    require("lspconfig").jsonls.setup(opts)
+  end,
+
   ["emmet_language_server"] = function()
     local opts = get_opts()
 
@@ -96,6 +134,12 @@ local handlers = {
 
     opts.settings = {
       Lua = {
+        workspace = {
+          checkThirdParty = false,
+        },
+        completion = {
+          callSnippet = "Replace",
+        },
         diagnostics = {
           globals = { "vim" },
         },
@@ -130,6 +174,7 @@ M.setup = function()
       "svelte",
       "tailwindcss",
       "tsserver",
+      "yamlls",
     },
     automatic_installation = true,
     handlers = handlers,
