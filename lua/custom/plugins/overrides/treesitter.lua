@@ -27,6 +27,7 @@ local options = {
     "bash",
     "c",
     "css",
+    "dap_repl",
     "graphql",
     "html",
     "javascript",

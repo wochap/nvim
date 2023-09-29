@@ -34,7 +34,7 @@ Required by [Telescope](https://github.com/nvim-telescope/telescope.nvim)
 -  ripgrep
 -  fd
 
-Required by [NullLS](https://github.com/jose-elias-alvarez/null-ls.nvim)
+Required by [NullLS](https://github.com/nvimtools/none-ls.nvim)
 
 -  localPkgs.customNodePackages."@fsouza/prettierd"
 -  localPkgs.customNodePackages.markdownlint

@@ -12,7 +12,6 @@ vim.cmd [[
   augroup _more_settings
     autocmd!
     autocmd FileType Trouble set nu
-    autocmd FileType dap-repl lua require('dap.ext.autocompl').attach()
   augroup end
 ]]
 

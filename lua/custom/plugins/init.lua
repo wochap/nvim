@@ -17,6 +17,12 @@ local plugins = {
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
       "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
+      {
+        "LiadOz/nvim-dap-repl-highlights",
+        config = function()
+          require("nvim-dap-repl-highlights").setup()
+        end,
+      },
     },
     opts = function()
       return vim.tbl_deep_extend(
@@ -82,6 +88,7 @@ local plugins = {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
+        "rcarriga/cmp-dap",
       },
     },
     opts = function()
@@ -324,7 +331,7 @@ local plugins = {
     end,
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     config = function()
       require "custom.plugins.configs.null-ls"
     end,
@@ -356,13 +363,24 @@ local plugins = {
     end,
   },
   {
+    "jay-babu/mason-nvim-dap.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap",
+    },
+    config = function()
+      require("custom.plugins.configs.mason-nvim-dap").setup()
+    end,
+  },
+  {
     "jay-babu/mason-null-ls.nvim",
     init = function()
       require("core.utils").lazy_load "mason-null-ls.nvim"
     end,
     dependencies = {
       "williamboman/mason.nvim",
-      "jose-elias-alvarez/null-ls.nvim",
+      "nvimtools/none-ls.nvim",
     },
     config = function()
       require("custom.plugins.configs.mason-null-ls").setup()

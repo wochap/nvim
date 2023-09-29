@@ -5,6 +5,9 @@ local cmp_style = cmp_ui.style
 local M = {}
 
 M.options = {
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+  end,
   formatting = {
     format = function(_, item)
       local icons = require "nvchad.icons.lspkind"
@@ -139,6 +142,12 @@ M.setup = function(opts)
       { name = "cmdline_history", max_item_count = 10 },
       { name = "path", max_item_count = 10 },
       { name = "nvim_lua", max_item_count = 10 },
+    },
+  })
+
+  cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+    sources = {
+      { name = "dap" },
     },
   })
 end
