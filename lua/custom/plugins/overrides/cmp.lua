@@ -1,4 +1,5 @@
 local cmp = require "cmp"
+local defaults = require "cmp.config.default"()
 local cmp_ui = require("core.utils").load_config().ui.cmp
 local cmp_style = cmp_ui.style
 
@@ -65,6 +66,7 @@ M.options = {
     ghost_text = false,
     native_menu = false,
   },
+  sorting = defaults.sorting,
 }
 
 local cmdlineMapping = {
