@@ -43,11 +43,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 local cmdWinGroup = vim.api.nvim_create_augroup("mapQCmdWinEnter", { clear = true })
 vim.api.nvim_create_autocmd({ "CmdwinEnter" }, { group = cmdWinGroup, command = "nnoremap <buffer> q :q<CR>" })
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = "markdown",
-  command = "lua require('core.utils').load_mappings('peek')",
-})
-
+-- Always edit files with swap
 vim.api.nvim_create_autocmd({ "SwapExists" }, {
   pattern = "*",
   command = 'let v:swapchoice = "e"',
@@ -56,6 +52,14 @@ vim.api.nvim_create_autocmd({ "SwapExists" }, {
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = "*",
   command = "if &filetype == '' || expand('%:e') == 'norg' | set wrap | else | set nowrap | endif",
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = "*.md",
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    require("core.utils").load_mappings("peek", { buffer = bufnr })
+  end,
 })
 
 -- vim.cmd [[

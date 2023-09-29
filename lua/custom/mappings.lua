@@ -35,6 +35,7 @@ M.disabled = {
     ["<leader>ra"] = "",
     ["<leader>ca"] = "",
     ["gr"] = "",
+    ["gs"] = "",
     ["gd"] = "",
     ["<leader>q"] = "",
     ["<leader>fm"] = "",
@@ -148,7 +149,7 @@ M.lspconfig = {
       end,
       "lsp implementation",
     },
-    ["gs"] = {
+    ["gS"] = {
       function()
         vim.lsp.buf.signature_help()
       end,
@@ -211,7 +212,9 @@ M.lspconfig_tsserver = {
   },
 }
 
-M.nulll_ls = {
+M.null_ls = {
+  plugin = true,
+
   n = {
     ["<leader>lf"] = {
       function()
@@ -603,7 +606,7 @@ M.peek = {
   },
 }
 
-M.peek = {
+M.zenmode = {
   n = {
     ["<leader>z"] = { "<cmd>ZenMode<CR>", "toggle ZenMode" },
   },

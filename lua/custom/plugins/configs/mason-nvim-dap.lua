@@ -41,6 +41,9 @@ local handlers = {
         name = "JS: Attach to process",
         processId = require("dap.utils").pick_process,
         cwd = "${workspaceFolder}",
+        sourceMaps = true,
+        protocol = "inspector",
+        skipFiles = { "<node_internals>/**/*.js" },
       },
     }
 
@@ -62,6 +65,9 @@ local handlers = {
         type = "node2",
         request = "attach",
         processId = require("dap.utils").pick_process,
+        sourceMaps = true,
+        protocol = "inspector",
+        skipFiles = { "<node_internals>/**/*.js" },
       },
     }
     dap.configurations.javascript = vim.list_extend(dap.configurations.javascript or {}, {

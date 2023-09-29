@@ -17,4 +17,7 @@ local sources = {
 
 null_ls.setup {
   sources = sources,
+  on_attach = function(client, bufnr)
+    require("core.utils").load_mappings("null_ls", { buffer = bufnr })
+  end,
 }

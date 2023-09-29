@@ -2,7 +2,7 @@ local M = {}
 
 M.setup = function()
   local capabilities = require("plugins.configs.lspconfig").capabilities
-  local on_attach = require("plugins.configs.lspconfig").on_attach
+  local on_attach = require("custom.utils.lsp").on_attach
 
   local opts = {
     on_attach = function(client, bufnr)
@@ -16,9 +16,7 @@ M.setup = function()
       -- enable document_highlight
       client.server_capabilities.document_highlight = true
 
-      require("core.utils").load_mappings "dap"
-      require("core.utils").load_mappings "lspconfig_tsserver"
-      require("which-key").register({ d = { name = "dap" } }, { prefix = "<leader>" })
+      require("core.utils").load_mappings("lspconfig_tsserver", { buffer = bufnr })
     end,
     capabilities = capabilities,
     flags = {
