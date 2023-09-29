@@ -64,9 +64,56 @@ M.options = {
   },
 }
 
+local cmdlineMapping = {
+  ["<C-Space>"] = { c = cmp.mapping.complete() },
+  ["<C-n>"] = {
+    c = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+      else
+        cmp.complete()
+      end
+    end,
+  },
+  ["<C-p>"] = {
+    c = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
+      else
+        cmp.complete()
+      end
+    end,
+  },
+  ["<C-e>"] = {
+    c = cmp.mapping.abort(),
+  },
+  ["<CR>"] = { c = cmp.mapping.confirm {
+    behavior = cmp.ConfirmBehavior.Insert,
+    select = true,
+  } },
+  ["<Tab>"] = {
+    c = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+      else
+        cmp.complete()
+      end
+    end,
+  },
+  ["<S-Tab>"] = {
+    c = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
+      else
+        cmp.complete()
+      end
+    end,
+  },
+}
+
 M.setup = function(opts)
   cmp.setup.cmdline({ "/", "?" }, {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmdlineMapping,
     sources = {
       { name = "buffer", max_item_count = 10 },
       { name = "cmdline_history", max_item_count = 10 },
@@ -74,7 +121,7 @@ M.setup = function(opts)
   })
 
   cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmdlineMapping,
     sources = {
       { name = "cmdline", max_item_count = 10 },
       { name = "cmdline_history", max_item_count = 10 },
