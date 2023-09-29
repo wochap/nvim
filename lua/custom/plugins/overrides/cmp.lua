@@ -91,6 +91,18 @@ local cmdlineMapping = {
     behavior = cmp.ConfirmBehavior.Insert,
     select = true,
   } },
+  ["<C-CR>"] = {
+    c = function(fallback)
+      if cmp.visible() then
+        cmp.confirm({
+          behavior = cmp.ConfirmBehavior.Insert,
+          select = true,
+        }, fallback)
+      else
+        fallback()
+      end
+    end,
+  },
   ["<Tab>"] = {
     c = function(fallback)
       if cmp.visible() then
