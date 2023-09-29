@@ -43,11 +43,6 @@ local handlers = {
 
   ["jsonls"] = function()
     local opts = get_opts()
-    local ok, schemastore = pcall(require, "schemastore")
-
-    if not ok then
-      return
-    end
 
     opts.on_attach = function(client, bufnr)
       -- Run nvchad's attach
@@ -58,9 +53,19 @@ local handlers = {
       client.server_capabilities.documentFormattingProvider = false
     end
 
+    -- lazy-load schemastore when needed
+    opts.on_new_config = function(new_config)
+      new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+      vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+    end
     opts.settings = {
       json = {
-        schemas = schemastore.json.schemas(),
+        format = {
+          enable = false,
+        },
+        validate = {
+          enable = true,
+        },
       },
     }
 

@@ -324,6 +324,10 @@ local plugins = {
   -- LSP stuff
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "b0o/SchemaStore.nvim",
+      version = false, -- last release is way too old
+    },
     init = nil,
     config = function()
       require "plugins.configs.lspconfig"
@@ -345,10 +349,6 @@ local plugins = {
     config = function()
       require("custom.plugins.configs.typescript").setup()
     end,
-  },
-  {
-    "b0o/schemastore.nvim",
-    event = "VeryLazy",
   },
   {
     "williamboman/mason-lspconfig.nvim",
