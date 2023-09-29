@@ -200,7 +200,19 @@ M.lspconfig = {
       end,
       "next diagnostic",
     },
+  },
+}
 
+M.lspconfig_tsserver = {
+  plugin = true,
+
+  n = {
+    ["<leader>lR"] = { "<cmd>TypescriptRenameFile<CR>", "lsp rename file" },
+  },
+}
+
+M.nulll_ls = {
+  n = {
     ["<leader>lf"] = {
       function()
         vim.lsp.buf.format {
@@ -227,14 +239,6 @@ M.lspconfig = {
       end,
       "lsp formatting",
     },
-  },
-}
-
-M.lspconfig_tsserver = {
-  plugin = true,
-
-  n = {
-    ["<leader>lR"] = { "<cmd>TypescriptRenameFile<CR>", "lsp rename file" },
   },
 }
 

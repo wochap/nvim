@@ -61,4 +61,8 @@ M.which_key = function()
   }, { prefix = "<leader>" })
 end
 
+M.mason = {
+  ensure_installed = {}, -- not an option from mason.nvim
+}
+
 return M

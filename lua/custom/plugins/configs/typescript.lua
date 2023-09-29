@@ -11,8 +11,7 @@ M.setup = function()
 
       -- disable tsserver's inbuilt formatting
       -- since I use null-ls for formatting
-      client.server_capabilities.document_formatting = false
-      client.server_capabilities.document_range_formatting = false
+      client.server_capabilities.documentFormattingProvider = false
 
       -- enable document_highlight
       client.server_capabilities.document_highlight = true

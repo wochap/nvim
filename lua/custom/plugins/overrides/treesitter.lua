@@ -34,7 +34,6 @@ local options = {
     "markdown",
     "markdown_inline",
     "nix",
-    "norg",
     "python",
     "query",
     "regex",
@@ -44,6 +43,7 @@ local options = {
     "typescript",
     "vim",
     "vimdoc",
+    -- "norg"
   },
 }
 

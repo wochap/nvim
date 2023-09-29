@@ -151,7 +151,13 @@ local plugins = {
   },
   {
     "williamboman/mason.nvim",
-    enabled = false,
+    opts = function()
+      return vim.tbl_deep_extend(
+        "force",
+        require "plugins.configs.mason",
+        require("custom.plugins.overrides.others").mason
+      )
+    end,
   },
   {
     "NvChad/nvim-colorizer.lua",
@@ -311,6 +317,7 @@ local plugins = {
   -- LSP stuff
   {
     "neovim/nvim-lspconfig",
+    init = nil,
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.plugins.configs.lspconfig"
@@ -318,14 +325,16 @@ local plugins = {
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require "custom.plugins.configs.null-ls"
     end,
   },
   {
     "jose-elias-alvarez/typescript.nvim",
-    dependencies = { "neovim/nvim-lspconfig" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
     config = function()
       require("custom.plugins.configs.typescript").setup()
     end,
@@ -333,6 +342,31 @@ local plugins = {
   {
     "b0o/schemastore.nvim",
     event = "VeryLazy",
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig",
+      "jose-elias-alvarez/typescript.nvim",
+    },
+    config = function()
+      require("custom.plugins.configs.mason-lspconfig").setup()
+    end,
+  },
+  {
+    "jay-babu/mason-null-ls.nvim",
+    init = function()
+      require("core.utils").lazy_load "mason-null-ls.nvim"
+    end,
+    dependencies = {
+      "williamboman/mason.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
+    },
+    config = function()
+      require("custom.plugins.configs.mason-null-ls").setup()
+    end,
   },
 
   -- Dap
