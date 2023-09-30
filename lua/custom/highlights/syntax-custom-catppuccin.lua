@@ -11,6 +11,8 @@ local M = {
   Todo = { fg = C.blue, bg = C.base },
   Error = { fg = C.red, bg = "NONE" }, -- (preferred) any erroneous construct
 
+  lessCssAttribute = { fg = C.white, link = nil },
+
   zshCommands = { fg = C.blue },
   zshDeref = { fg = C.red },
   zshFunction = { fg = C.blue },
