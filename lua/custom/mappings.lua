@@ -420,6 +420,7 @@ M.custom_general = {
     ["<C-S-s>"] = { "<Esc>:w! <CR>", "save buffer!" },
     ["<C-S-A-Down>"] = { '"zy`]"zp', "clone line down" },
     ["<C-S-A-Up>"] = { '"zy`["zP', "clone line down" },
+    ["g<C-a>"] = { ":s/\\([^ ]\\) \\{2,\\}/\\1 /g<CR>", "Unalign" },
   },
   s = {
     ["c"] = { '<C-o>"_c', "change selected text" },
