@@ -1,4 +1,5 @@
 local utils = require "custom.highlights.utils.init"
+local catppuccin_nvchad = require "custom.highlights.catppuccin-nvchad"
 
 local M = {}
 
@@ -35,6 +36,7 @@ M.base_30 = {
   folder_bg = "#89B4FA",
   lavender = "#b4befe",
 }
+M.base_30 = vim.tbl_deep_extend("force", {}, catppuccin_nvchad.base_30, M.base_30)
 
 M.base_16 = {
   base00 = "#1E1E2E", -- base

@@ -124,7 +124,7 @@ local M = {
   rainbow1 = { fg = theme.base_30.red },
   rainbow2 = { fg = theme.base_30.orange },
   rainbow3 = { fg = theme.base_30.yellow },
-  rainbow4 = { fg = theme.base_30.green },
+  rainbow4 = { fg = theme.base_30.vibrant_green },
   rainbow5 = { fg = theme.base_30.blue },
   rainbow6 = { fg = theme.base_30.lavender },
 
