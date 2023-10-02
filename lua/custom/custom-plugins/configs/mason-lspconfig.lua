@@ -179,4 +179,6 @@ M.options = {
   handlers = handlers,
 }
 
+M.get_opts = get_opts
+
 return M
