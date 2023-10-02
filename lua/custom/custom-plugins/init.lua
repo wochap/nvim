@@ -287,7 +287,7 @@ local plugins = {
       "b0o/SchemaStore.nvim",
       version = false, -- last release is way too old
     },
-    init = nil,
+    init = function() end,
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.custom-plugins.configs.lspconfig"
