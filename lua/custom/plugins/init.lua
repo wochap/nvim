@@ -24,22 +24,14 @@ local plugins = {
         end,
       },
     },
-    opts = function()
-      return vim.tbl_deep_extend(
-        "force",
-        require "plugins.configs.treesitter",
-        require "custom.plugins.overrides.treesitter"
-      )
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, require "custom.plugins.overrides.treesitter")
     end,
   },
   {
     "lewis6991/gitsigns.nvim",
-    opts = function()
-      return vim.tbl_deep_extend(
-        "force",
-        require("plugins.configs.others").gitsigns,
-        require "custom.plugins.overrides.gitsigns"
-      )
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, require "custom.plugins.overrides.gitsigns")
     end,
   },
   {
@@ -55,39 +47,8 @@ local plugins = {
     "hrsh7th/nvim-cmp",
     version = false, -- last release is way too old
     dependencies = {
-      {
-        -- snippet plugin
-        "L3MON4D3/LuaSnip",
-        dependencies = "rafamadriz/friendly-snippets",
-        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-        config = function(_, opts)
-          require("plugins.configs.others").luasnip(opts)
-        end,
-      },
-
-      -- autopairing of (){}[] etc
-      {
-        "windwp/nvim-autopairs",
-        opts = {
-          fast_wrap = {},
-          disable_filetype = { "TelescopePrompt", "vim" },
-        },
-        config = function(_, opts)
-          require("nvim-autopairs").setup(opts)
-
-          -- setup cmp for autopairs
-          local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-          require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-        end,
-      },
-
       -- cmp sources plugins
       {
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
         "rcarriga/cmp-dap",
       },
@@ -220,13 +181,15 @@ local plugins = {
   },
   {
     "folke/todo-comments.nvim",
-    event = "BufReadPost",
+    cmd = { "TodoTrouble", "TodoTelescope" },
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("custom.plugins.configs.todo-comments").setup()
     end,
   },
   {
     "folke/trouble.nvim",
+    cmd = { "TroubleToggle", "Trouble" },
     config = function()
       require("custom.plugins.configs.others").trouble_nvim()
     end,
@@ -280,7 +243,7 @@ local plugins = {
   -- },
   { "szw/vim-maximizer", cmd = { "MaximizerToggle" } },
   {
-    "windwp/nvim-spectre",
+    "nvim-pack/nvim-spectre",
     config = function()
       require("custom.plugins.configs.others").nvim_spectre()
     end,
