@@ -18,12 +18,12 @@ local handlers = {
   function(server_name)
     local opts = get_opts()
 
-    if server_name == "tsserver" then
-      -- NOTE: typescript.nvim take care of tsserver
-      return
-    end
-
     require("lspconfig")[server_name].setup(opts)
+  end,
+
+  ["tsserver"] = function()
+    local typescript_opts = require("lazyvim.util").opts "typescript.nvim"
+    require("typescript").setup(typescript_opts)
   end,
 
   ["rnix"] = function()
@@ -159,26 +159,24 @@ local handlers = {
   end,
 }
 
-M.setup = function()
-  require("mason-lspconfig").setup {
-    ensure_installed = {
-      "bashls",
-      "clangd",
-      "cssls",
-      "cssmodules_ls",
-      "emmet_language_server",
-      "html",
-      "jsonls",
-      "lua_ls",
-      "rnix",
-      "svelte",
-      "tailwindcss",
-      "tsserver",
-      "yamlls",
-    },
-    automatic_installation = true,
-    handlers = handlers,
-  }
-end
+M.options = {
+  ensure_installed = {
+    "bashls",
+    "clangd",
+    "cssls",
+    "cssmodules_ls",
+    "emmet_language_server",
+    "html",
+    "jsonls",
+    "lua_ls",
+    "rnix",
+    "svelte",
+    "tailwindcss",
+    "tsserver",
+    "yamlls",
+  },
+  automatic_installation = true,
+  handlers = handlers,
+}
 
 return M

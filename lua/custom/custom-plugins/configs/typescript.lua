@@ -1,10 +1,9 @@
+local capabilities = require("plugins.configs.lspconfig").capabilities
+local on_attach = require("custom.utils.lsp").on_attach
 local M = {}
 
-M.setup = function()
-  local capabilities = require("plugins.configs.lspconfig").capabilities
-  local on_attach = require("custom.utils.lsp").on_attach
-
-  local opts = {
+M.options = {
+  server = {
     on_attach = function(client, bufnr)
       -- Run nvchad's attach
       on_attach(client, bufnr)
@@ -41,11 +40,7 @@ M.setup = function()
         completeFunctionCalls = true,
       },
     },
-  }
-
-  require("typescript").setup {
-    server = opts,
-  }
-end
+  },
+}
 
 return M

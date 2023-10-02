@@ -284,71 +284,61 @@ local plugins = {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "b0o/SchemaStore.nvim",
-      version = false, -- last release is way too old
+      {
+        "b0o/SchemaStore.nvim",
+        version = false, -- last release is way too old
+      },
+      "jose-elias-alvarez/typescript.nvim",
+      "mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
     },
-    init = function() end,
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.custom-plugins.configs.lspconfig"
     end,
   },
   {
-    "nvimtools/none-ls.nvim",
-    config = function()
-      require "custom.custom-plugins.configs.null-ls"
-    end,
-  },
-  {
     "jose-elias-alvarez/typescript.nvim",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "neovim/nvim-lspconfig",
-    },
-    config = function()
-      require("custom.custom-plugins.configs.typescript").setup()
+    lazy = true,
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.typescript").options)
     end,
+    config = function() end,
   },
   {
     "williamboman/mason-lspconfig.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "neovim/nvim-lspconfig",
-      "jose-elias-alvarez/typescript.nvim",
-    },
-    config = function()
-      require("custom.custom-plugins.configs.mason-lspconfig").setup()
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.mason-lspconfig").options)
     end,
   },
+
+  -- Formatter
   {
-    "jay-babu/mason-nvim-dap.nvim",
-    event = "VeryLazy",
+    "nvimtools/none-ls.nvim",
     dependencies = {
-      "williamboman/mason.nvim",
-      "mfussenegger/nvim-dap",
+      "mason.nvim",
+      "jay-babu/mason-null-ls.nvim",
     },
-    config = function()
-      require("custom.custom-plugins.configs.mason-nvim-dap").setup()
+    init = function()
+      require("core.utils").lazy_load "none-ls.nvim"
+    end,
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.null-ls").options)
     end,
   },
   {
     "jay-babu/mason-null-ls.nvim",
-    init = function()
-      require("core.utils").lazy_load "mason-null-ls.nvim"
-    end,
-    dependencies = {
-      "williamboman/mason.nvim",
-      "nvimtools/none-ls.nvim",
-    },
-    config = function()
-      require("custom.custom-plugins.configs.mason-null-ls").setup()
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.mason-null-ls").options)
     end,
   },
 
   -- Dap
   {
     "mfussenegger/nvim-dap",
+    init = function()
+      require("core.utils").lazy_load "nvim-dap"
+    end,
     dependencies = {
       {
         "rcarriga/nvim-dap-ui",
@@ -362,9 +352,17 @@ local plugins = {
           require("nvim-dap-virtual-text").setup()
         end,
       },
+      "mason.nvim",
+      "jay-babu/mason-nvim-dap.nvim",
     },
     config = function()
       require("custom.custom-plugins.configs.nvim-dap").setup()
+    end,
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.mason-nvim-dap").options)
     end,
   },
 
@@ -374,6 +372,13 @@ local plugins = {
     event = "VeryLazy",
     ft = "kitty",
   },
+
+  -- Extras
+  {
+    "LazyVim/LazyVim",
+    config = function() end,
+  },
+  { import = "custom.extras-lang.go" },
 }
 
 return plugins

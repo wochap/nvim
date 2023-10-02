@@ -138,16 +138,14 @@ local handlers = {
   end,
 }
 
-M.setup = function()
-  require("mason-nvim-dap").setup {
-    ensure_installed = {
-      "chrome",
-      "js",
-      "node2",
-    },
-    automatic_installation = false,
-    handlers = handlers,
-  }
-end
+M.options = {
+  ensure_installed = {
+    "chrome",
+    "js",
+    "node2",
+  },
+  automatic_installation = false,
+  handlers = handlers,
+}
 
 return M

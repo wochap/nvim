@@ -83,20 +83,18 @@ local handlers = {
   end,
 }
 
-M.setup = function()
-  require("mason-null-ls").setup {
-    ensure_installed = {
-      "eslint_d",
-      "luacheck",
-      "prettierd",
-      "pylint",
-      "shellcheck",
-      "shfmt",
-      "stylua",
-    },
-    automatic_installation = true,
-    handlers = handlers,
-  }
-end
+M.options = {
+  ensure_installed = {
+    "eslint_d",
+    "luacheck",
+    "prettierd",
+    "pylint",
+    "shellcheck",
+    "shfmt",
+    "stylua",
+  },
+  automatic_installation = true,
+  handlers = handlers,
+}
 
 return M
