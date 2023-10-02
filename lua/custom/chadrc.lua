@@ -1,6 +1,6 @@
 local M = {}
 
-M.plugins = "custom.plugins"
+M.plugins = "custom.custom-plugins"
 
 M.mappings = require "custom.mappings"
 
