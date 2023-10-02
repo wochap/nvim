@@ -1,4 +1,6 @@
-local options = {
+local M = {}
+
+M.options = {
   window = {
     backdrop = 1,
     width = 120, -- width of the Zen window
@@ -17,4 +19,4 @@ local options = {
   on_close = function() end,
 }
 
-return options
+return M

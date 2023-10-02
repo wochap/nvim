@@ -1,13 +1,9 @@
+local g = vim.g
+
 local plugins = {
   { "nvim-lua/popup.nvim" },
 
   -- nvchad
-  {
-    "NvChad/base46",
-    dependencies = {
-      "levouh/tint.nvim",
-    },
-  },
   {
     "lukas-reineke/indent-blankline.nvim",
     enabled = false,
@@ -95,41 +91,32 @@ local plugins = {
   },
   {
     "nvim-telescope/telescope.nvim",
-    opts = function()
-      return vim.tbl_deep_extend(
-        "force",
-        require "plugins.configs.telescope",
-        require "custom.custom-plugins.overrides.telescope"
-      )
-    end,
+    opts = {
+      defaults = {
+        file_ignore_patterns = { "node_modules", "%.git/", "%.lock$", "%-lock.json$" },
+      },
+    },
   },
   {
     "folke/which-key.nvim",
-    event = "VeryLazy",
-    init = function()
+    config = function(_, opts)
       vim.o.timeout = true
       vim.o.timeoutlen = 300
-    end,
-    config = function(_, opts)
       dofile(vim.g.base46_cache .. "whichkey")
       require("which-key").setup(opts)
-      require "custom.custom-plugins.overrides.whichkey"
+      require("custom.custom-plugins.overrides.whichkey").setup()
     end,
   },
   {
     "williamboman/mason.nvim",
-    opts = function()
-      return vim.tbl_deep_extend(
-        "force",
-        require "plugins.configs.mason",
-        require("custom.custom-plugins.overrides.others").mason
-      )
-    end,
+    opts = {
+      ensure_installed = {}, -- not an option from mason.nvim
+    },
   },
   {
     "NvChad/nvim-colorizer.lua",
-    opts = function()
-      return require("custom.custom-plugins.overrides.others").colorizer
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.colorizer").options)
     end,
   },
 
@@ -143,18 +130,19 @@ local plugins = {
     end,
   },
   {
+    -- loaded with autocmd, md files
     "Saimo/peek.nvim",
     commit = "f23200c241b06866b561150fa0389d535a4b903d",
     build = "deno task --quiet build:fast",
-    config = function()
-      require("custom.custom-plugins.configs.peek").setup()
+    opts = function(_, opts)
+      return require("custom.custom-plugins.configs.peek").options
     end,
   },
   {
     "levouh/tint.nvim",
     event = "VeryLazy",
-    config = function()
-      require("custom.custom-plugins.configs.tint").setup()
+    opts = function(_, opts)
+      return require("custom.custom-plugins.configs.tint").options
     end,
   },
   {
@@ -181,29 +169,33 @@ local plugins = {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("custom.custom-plugins.configs.todo-comments").setup()
-    end,
+    opts = {
+      signs = false,
+      highlight = {
+        before = "", -- "fg" or "bg" or empty
+        keyword = "fg", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
+        after = "fg", -- "fg" or "bg" or empty
+      },
+    },
   },
   {
     "folke/trouble.nvim",
     cmd = { "TroubleToggle", "Trouble" },
-    config = function()
-      require("custom.custom-plugins.configs.others").trouble_nvim()
-    end,
+    opts = {
+      use_diagnostic_signs = true,
+      -- group = false,
+    },
   },
   {
     "folke/persistence.nvim",
     event = "BufReadPre", -- this will only start session saving when an actual file was opened
-    config = function()
-      require("persistence").setup()
-    end,
+    opts = {},
   },
   {
     "folke/zen-mode.nvim",
     cmd = { "ZenMode" },
     opts = function()
-      return require "custom.custom-plugins.configs.zen-mode"
+      return require("custom.custom-plugins.configs.zen-mode").options
     end,
   },
   {
@@ -225,9 +217,12 @@ local plugins = {
   {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
-    config = function()
-      require("custom.custom-plugins.configs.diffview").setup()
-    end,
+    opts = {
+      enhanced_diff_hl = true,
+      file_panel = {
+        listing_style = "list",
+      },
+    },
   },
   { "ThePrimeagen/harpoon" },
   -- {
@@ -242,31 +237,33 @@ local plugins = {
   { "szw/vim-maximizer", cmd = { "MaximizerToggle" } },
   {
     "nvim-pack/nvim-spectre",
-    config = function()
-      require("custom.custom-plugins.configs.others").nvim_spectre()
+    opts = function()
+      return require("custom.custom-plugins.configs.nvim-spectre").options
     end,
   },
   {
-    -- "<C-z>,"
     "wochap/emmet-vim",
     event = "VeryLazy",
     dependencies = { "wochap/cmp-emmet-vim" },
     init = function()
-      require("custom.custom-plugins.configs.others").emmet_vim()
+      g.user_emmet_leader_key = "<C-z>"
     end,
   },
   {
     "rhysd/conflict-marker.vim",
     event = "BufReadPost",
     init = function()
-      require("custom.custom-plugins.configs.others").conflict_marker()
+      -- Include text after begin and end markers
+      g.conflict_marker_begin = "^<<<<<<< .*$"
+      g.conflict_marker_end = "^>>>>>>> .*$"
     end,
   },
   {
     url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
-    config = function()
-      require("custom.custom-plugins.configs.others").rainbow_delimiters()
+    init = function()
+      require("custom.custom-plugins.configs.rainbow-delimeters").init()
     end,
+    config = function() end,
   },
   -- TODO: wait for nvim 0.10
   -- {
@@ -280,8 +277,8 @@ local plugins = {
   --   end,
   -- },
   { "mrjones2014/smart-splits.nvim" },
-  { "tpope/vim-abolish" }, -- Change word casing
-  { "tpope/vim-repeat" }, -- Repeat vim-abolish
+  { "tpope/vim-abolish", event = "VeryLazy" }, -- Change word casing
+  { "tpope/vim-repeat", event = "VeryLazy" }, -- Repeat vim-abolish
 
   -- LSP stuff
   {

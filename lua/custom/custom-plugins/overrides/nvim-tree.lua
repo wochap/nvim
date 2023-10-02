@@ -91,7 +91,7 @@ return {
   },
   renderer = {
     root_folder_label = table.concat { ":t:gs?$?", string.rep(" ", 1000), "?:gs?^??" },
-    group_empty = true,
+    group_empty = false,
     special_files = {},
     highlight_git = true,
     indent_markers = {
@@ -102,17 +102,11 @@ return {
         folder_arrow = false,
       },
       glyphs = {
-        default = "󰈚",
-        symlink = "",
         folder = {
-          arrow_open = "",
-          arrow_closed = "",
-          default = "",
-          empty = "",
-          empty_open = "",
-          open = "",
-          symlink = "",
-          symlink_open = "",
+          default = "",
+          empty = "",
+          empty_open = "",
+          open = "",
         },
       },
     },
