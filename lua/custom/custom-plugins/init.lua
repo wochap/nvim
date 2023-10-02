@@ -53,46 +53,44 @@ local plugins = {
         "rcarriga/cmp-dap",
       },
     },
-    opts = function()
-      return vim.tbl_deep_extend(
-        "force",
-        require "plugins.configs.cmp",
-        require("custom.custom-plugins.overrides.cmp").options
-      )
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.cmp").options)
     end,
     config = function(_, opts)
-      require("cmp").setup(opts)
       require("custom.custom-plugins.overrides.cmp").setup(opts)
     end,
   },
   {
     "windwp/nvim-autopairs",
-    opts = function()
-      return require("custom.custom-plugins.overrides.others").autopairs
-    end,
+    opts = {
+      -- Don't add pairs if it already has a close pair in the same line
+      enable_check_bracket_line = true,
+      -- Don't add pairs if the next char is alphanumeric
+      ignored_next_char = "[%w%.]",
+    },
   },
   {
     "L3MON4D3/LuaSnip",
-    opts = function()
-      return require("custom.custom-plugins.overrides.others").luasnip
-    end,
+    opts = {
+      -- Show snippets related to the language
+      -- in the current cursor position
+      ft_func = function()
+        return require("luasnip.extras.filetype_functions").from_pos_or_filetype()
+      end,
+    },
   },
   {
     "numToStr/Comment.nvim",
-    config = function(_, opts)
-      require("Comment").setup {
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, {
         pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-      }
+      })
     end,
   },
   {
     "nvim-tree/nvim-tree.lua",
-    opts = function()
-      return vim.tbl_deep_extend(
-        "force",
-        require "plugins.configs.nvimtree",
-        require "custom.custom-plugins.overrides.nvim-tree"
-      )
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, require "custom.custom-plugins.overrides.nvim-tree")
     end,
   },
   {
@@ -249,7 +247,7 @@ local plugins = {
     end,
   },
   {
-    -- <C-y>,
+    -- "<C-z>,"
     "wochap/emmet-vim",
     event = "VeryLazy",
     dependencies = { "wochap/cmp-emmet-vim" },

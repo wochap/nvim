@@ -1,10 +1,6 @@
 local M = {}
 
 M.luasnip = {
-  -- nvchad opts
-  history = true,
-  updateevents = "TextChanged,TextChangedI",
-
   -- Show snippets related to the language
   -- in the current cursor position
   ft_func = function()
@@ -30,15 +26,6 @@ M.colorizer = {
     sass = { enable = true, parsers = { "css" } }, -- Enable sass colors
     virtualtext = "■",
   },
-}
-
-M.autopairs = {
-  fast_wrap = {},
-  disable_filetype = { "TelescopePrompt", "vim" },
-  -- Don't add pairs if it already has a close pair in the same line
-  enable_check_bracket_line = true,
-  -- Don't add pairs if the next char is alphanumeric
-  ignored_next_char = "[%w%.]",
 }
 
 M.which_key = function()

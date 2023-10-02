@@ -82,6 +82,10 @@ M.disabled = {
     ["<leader>rh"] = "",
     ["<leader>ph"] = "",
     ["<leader>td"] = "",
+
+    -- tabufline
+    ["<tab>"] = "",
+    ["<S-tab>"] = "",
   },
   i = {
     -- go to  beginning and end

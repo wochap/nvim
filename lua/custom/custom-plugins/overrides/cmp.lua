@@ -32,35 +32,41 @@ M.options = {
     end,
   },
   mapping = {
-    ["<C-f>"] = nil,
     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
     ["<C-d>"] = cmp.mapping.scroll_docs(4),
     ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
     ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
-      elseif require("luasnip").jumpable(1) then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-next", true, true, true), "")
-      else
-        fallback()
-      end
-    end, {
-      "i",
-      "s",
-    }),
+    ["<C-e>"] = cmp.mapping.abort(),
+    ["<C-y>"] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = true,
+    },
+    ["<Tab>"] = {
+      i = function(fallback)
+        if require("luasnip").jumpable(1) then
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-next", true, true, true), "")
+        else
+          fallback()
+        end
+      end,
+      s = function(fallback)
+        require("luasnip").jump(1)
+      end,
+    },
     ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
-      elseif require("luasnip").jumpable(-1) then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-      else
-        fallback()
-      end
+      require("luasnip").jump(-1)
     end, {
       "i",
       "s",
     }),
+
+    -- remove mappings
+    ["<C-f>"] = function(fallback)
+      fallback()
+    end,
+    ["<CR>"] = function(fallback)
+      fallback()
+    end,
   },
   experimental = {
     ghost_text = false,
@@ -74,7 +80,7 @@ local cmdlineMapping = {
   ["<C-n>"] = {
     c = function(fallback)
       if cmp.visible() then
-        cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+        cmp.select_next_item { behavior = cmp.SelectBehavior.Insert }
       else
         cmp.complete()
       end
@@ -83,7 +89,7 @@ local cmdlineMapping = {
   ["<C-p>"] = {
     c = function(fallback)
       if cmp.visible() then
-        cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
+        cmp.select_prev_item { behavior = cmp.SelectBehavior.Insert }
       else
         cmp.complete()
       end
@@ -92,11 +98,11 @@ local cmdlineMapping = {
   ["<C-e>"] = {
     c = cmp.mapping.abort(),
   },
-  ["<CR>"] = { c = cmp.mapping.confirm {
+  ["<C-y>"] = { c = cmp.mapping.confirm {
     behavior = cmp.ConfirmBehavior.Insert,
     select = true,
   } },
-  ["<C-CR>"] = {
+  ["<C-S-y>"] = {
     c = function(fallback)
       if cmp.visible() then
         cmp.confirm({
@@ -110,25 +116,24 @@ local cmdlineMapping = {
   },
   ["<Tab>"] = {
     c = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
-      else
-        cmp.complete()
-      end
+      -- fallback()
     end,
   },
   ["<S-Tab>"] = {
     c = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
-      else
-        cmp.complete()
-      end
+      -- fallback()
     end,
   },
 }
 
 M.setup = function(opts)
+  cmp.setup(opts)
+  cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+    sources = {
+      { name = "dap" },
+    },
+  })
+
   cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmdlineMapping,
     sources = {
@@ -144,12 +149,6 @@ M.setup = function(opts)
       { name = "cmdline_history", max_item_count = 10 },
       { name = "path", max_item_count = 10 },
       { name = "nvim_lua", max_item_count = 10 },
-    },
-  })
-
-  cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-    sources = {
-      { name = "dap" },
     },
   })
 end
