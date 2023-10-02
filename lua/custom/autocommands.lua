@@ -1,23 +1,69 @@
-vim.cmd [[
-  augroup _general_settings
-    autocmd!
-    " map q to exit list buffers
-    autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR>
-    " highlight yanked text
-    autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 200})
-  augroup end
-]]
+local function augroup(name)
+  return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
+end
 
-vim.cmd [[
-  augroup _more_settings
-    autocmd!
-    autocmd FileType Trouble set nu
-  augroup end
-]]
+-- close some filetypes with <q>
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "close_with_q",
+  pattern = {
+    "PlenaryTestPopup",
+    "help",
+    "lspinfo",
+    "man",
+    "notify",
+    "qf",
+    "query",
+    "spectre_panel",
+    "startuptime",
+    "tsplayground",
+    "neotest-output",
+    "checkhealth",
+    "neotest-summary",
+    "neotest-output-panel",
+  },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+  end,
+})
+vim.api.nvim_create_autocmd({ "CmdwinEnter" }, {
+  group = augroup "close_with_q_cmd",
+  command = "nnoremap <buffer> q :q<CR>",
+})
 
-local tintGroup = vim.api.nvim_create_augroup("tintBufEnter", { clear = true })
+-- Highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = augroup "highlight_yank",
+  callback = function()
+    vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
+  end,
+})
+
+-- go to last loc when opening a buffer
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = augroup "last_loc",
+  callback = function()
+    local exclude = { "gitcommit" }
+    local buf = vim.api.nvim_get_current_buf()
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
+      return
+    end
+    local mark = vim.api.nvim_buf_get_mark(buf, '"')
+    local lcount = vim.api.nvim_buf_line_count(buf)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "show_numbers_trouble",
+  pattern = "Trouble",
+  command = "set nu",
+})
+
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  group = tintGroup,
+  group = augroup "tint_refresh",
   pattern = "*",
   callback = function()
     local ok, tint = pcall(require, "tint")
@@ -35,26 +81,27 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 })
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  group = augroup "set_vimenter",
   callback = function()
     vim.g.vimenter = true
   end,
 })
 
-local cmdWinGroup = vim.api.nvim_create_augroup("mapQCmdWinEnter", { clear = true })
-vim.api.nvim_create_autocmd({ "CmdwinEnter" }, { group = cmdWinGroup, command = "nnoremap <buffer> q :q<CR>" })
-
 -- Always edit files with swap
 vim.api.nvim_create_autocmd({ "SwapExists" }, {
+  group = augroup "always_edit_with_swap",
   pattern = "*",
   command = 'let v:swapchoice = "e"',
 })
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  group = augroup "nowrap_text_files",
   pattern = "*",
   command = "if &filetype == '' || expand('%:e') == 'norg' | set wrap | else | set nowrap | endif",
 })
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  group = augroup "load_peek_mappings",
   pattern = "*.md",
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
