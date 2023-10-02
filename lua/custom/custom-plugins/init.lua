@@ -288,9 +288,9 @@ local plugins = {
         "b0o/SchemaStore.nvim",
         version = false, -- last release is way too old
       },
-      "jose-elias-alvarez/typescript.nvim",
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "nvimtools/none-ls.nvim",
     },
     config = function()
       require "plugins.configs.lspconfig"
@@ -319,9 +319,6 @@ local plugins = {
       "mason.nvim",
       "jay-babu/mason-null-ls.nvim",
     },
-    init = function()
-      require("core.utils").lazy_load "none-ls.nvim"
-    end,
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.null-ls").options)
     end,
