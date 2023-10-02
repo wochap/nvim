@@ -28,7 +28,7 @@ local plugins = {
 
           serverOpts.on_attach = function(client, bufnr)
             -- Run nvchad's attach
-            serverOpts.on_attach(client, bufnr)
+            get_opts().on_attach(client, bufnr)
 
             if not client.server_capabilities.semanticTokensProvider then
               local semantic = client.config.capabilities.textDocument.semanticTokens
@@ -110,6 +110,13 @@ local plugins = {
           "goimports-reviser",
         })
       end
+    end,
+  },
+  {
+    "mason.nvim",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "gomodifytags", "impl", "delve" })
     end,
   },
 }
