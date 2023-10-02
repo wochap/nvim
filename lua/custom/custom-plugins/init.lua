@@ -25,13 +25,13 @@ local plugins = {
       },
     },
     opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, require "custom.plugins.overrides.treesitter")
+      return vim.tbl_deep_extend("force", opts, require "custom.custom-plugins.overrides.treesitter")
     end,
   },
   {
     "lewis6991/gitsigns.nvim",
     opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, require "custom.plugins.overrides.gitsigns")
+      return vim.tbl_deep_extend("force", opts, require "custom.custom-plugins.overrides.gitsigns")
     end,
   },
   {
@@ -57,24 +57,24 @@ local plugins = {
       return vim.tbl_deep_extend(
         "force",
         require "plugins.configs.cmp",
-        require("custom.plugins.overrides.cmp").options
+        require("custom.custom-plugins.overrides.cmp").options
       )
     end,
     config = function(_, opts)
       require("cmp").setup(opts)
-      require("custom.plugins.overrides.cmp").setup(opts)
+      require("custom.custom-plugins.overrides.cmp").setup(opts)
     end,
   },
   {
     "windwp/nvim-autopairs",
     opts = function()
-      return require("custom.plugins.overrides.others").autopairs
+      return require("custom.custom-plugins.overrides.others").autopairs
     end,
   },
   {
     "L3MON4D3/LuaSnip",
     opts = function()
-      return require("custom.plugins.overrides.others").luasnip
+      return require("custom.custom-plugins.overrides.others").luasnip
     end,
   },
   {
@@ -91,7 +91,7 @@ local plugins = {
       return vim.tbl_deep_extend(
         "force",
         require "plugins.configs.nvimtree",
-        require "custom.plugins.overrides.nvim-tree"
+        require "custom.custom-plugins.overrides.nvim-tree"
       )
     end,
   },
@@ -101,7 +101,7 @@ local plugins = {
       return vim.tbl_deep_extend(
         "force",
         require "plugins.configs.telescope",
-        require "custom.plugins.overrides.telescope"
+        require "custom.custom-plugins.overrides.telescope"
       )
     end,
   },
@@ -115,7 +115,7 @@ local plugins = {
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "whichkey")
       require("which-key").setup(opts)
-      require "custom.plugins.overrides.whichkey"
+      require "custom.custom-plugins.overrides.whichkey"
     end,
   },
   {
@@ -124,14 +124,14 @@ local plugins = {
       return vim.tbl_deep_extend(
         "force",
         require "plugins.configs.mason",
-        require("custom.plugins.overrides.others").mason
+        require("custom.custom-plugins.overrides.others").mason
       )
     end,
   },
   {
     "NvChad/nvim-colorizer.lua",
     opts = function()
-      return require("custom.plugins.overrides.others").colorizer
+      return require("custom.custom-plugins.overrides.others").colorizer
     end,
   },
 
@@ -141,7 +141,7 @@ local plugins = {
     version = "*",
     event = "VeryLazy",
     config = function()
-      require("custom.plugins.configs.mini").setup()
+      require("custom.custom-plugins.configs.mini").setup()
     end,
   },
   {
@@ -149,14 +149,14 @@ local plugins = {
     commit = "f23200c241b06866b561150fa0389d535a4b903d",
     build = "deno task --quiet build:fast",
     config = function()
-      require("custom.plugins.configs.peek").setup()
+      require("custom.custom-plugins.configs.peek").setup()
     end,
   },
   {
     "levouh/tint.nvim",
     event = "VeryLazy",
     config = function()
-      require("custom.plugins.configs.tint").setup()
+      require("custom.custom-plugins.configs.tint").setup()
     end,
   },
   {
@@ -184,14 +184,14 @@ local plugins = {
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require("custom.plugins.configs.todo-comments").setup()
+      require("custom.custom-plugins.configs.todo-comments").setup()
     end,
   },
   {
     "folke/trouble.nvim",
     cmd = { "TroubleToggle", "Trouble" },
     config = function()
-      require("custom.plugins.configs.others").trouble_nvim()
+      require("custom.custom-plugins.configs.others").trouble_nvim()
     end,
   },
   {
@@ -205,7 +205,7 @@ local plugins = {
     "folke/zen-mode.nvim",
     cmd = { "ZenMode" },
     opts = function()
-      return require "custom.plugins.configs.zen-mode"
+      return require "custom.custom-plugins.configs.zen-mode"
     end,
   },
   {
@@ -228,7 +228,7 @@ local plugins = {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
     config = function()
-      require("custom.plugins.configs.diffview").setup()
+      require("custom.custom-plugins.configs.diffview").setup()
     end,
   },
   { "ThePrimeagen/harpoon" },
@@ -238,14 +238,14 @@ local plugins = {
   --   build = ":Neorg sync-parsers",
   --   dependencies = { "nvim-neorg/neorg-telescope" },
   --   config = function()
-  --     require("custom.plugins.configs.neorg").setup()
+  --     require("custom.custom-plugins.configs.neorg").setup()
   --   end,
   -- },
   { "szw/vim-maximizer", cmd = { "MaximizerToggle" } },
   {
     "nvim-pack/nvim-spectre",
     config = function()
-      require("custom.plugins.configs.others").nvim_spectre()
+      require("custom.custom-plugins.configs.others").nvim_spectre()
     end,
   },
   {
@@ -254,20 +254,20 @@ local plugins = {
     event = "VeryLazy",
     dependencies = { "wochap/cmp-emmet-vim" },
     init = function()
-      require("custom.plugins.configs.others").emmet_vim()
+      require("custom.custom-plugins.configs.others").emmet_vim()
     end,
   },
   {
     "rhysd/conflict-marker.vim",
     event = "BufReadPost",
     init = function()
-      require("custom.plugins.configs.others").conflict_marker()
+      require("custom.custom-plugins.configs.others").conflict_marker()
     end,
   },
   {
     url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
     config = function()
-      require("custom.plugins.configs.others").rainbow_delimiters()
+      require("custom.custom-plugins.configs.others").rainbow_delimiters()
     end,
   },
   -- TODO: wait for nvim 0.10
@@ -295,13 +295,13 @@ local plugins = {
     init = nil,
     config = function()
       require "plugins.configs.lspconfig"
-      require "custom.plugins.configs.lspconfig"
+      require "custom.custom-plugins.configs.lspconfig"
     end,
   },
   {
     "nvimtools/none-ls.nvim",
     config = function()
-      require "custom.plugins.configs.null-ls"
+      require "custom.custom-plugins.configs.null-ls"
     end,
   },
   {
@@ -311,7 +311,7 @@ local plugins = {
       "neovim/nvim-lspconfig",
     },
     config = function()
-      require("custom.plugins.configs.typescript").setup()
+      require("custom.custom-plugins.configs.typescript").setup()
     end,
   },
   {
@@ -323,7 +323,7 @@ local plugins = {
       "jose-elias-alvarez/typescript.nvim",
     },
     config = function()
-      require("custom.plugins.configs.mason-lspconfig").setup()
+      require("custom.custom-plugins.configs.mason-lspconfig").setup()
     end,
   },
   {
@@ -334,7 +334,7 @@ local plugins = {
       "mfussenegger/nvim-dap",
     },
     config = function()
-      require("custom.plugins.configs.mason-nvim-dap").setup()
+      require("custom.custom-plugins.configs.mason-nvim-dap").setup()
     end,
   },
   {
@@ -347,7 +347,7 @@ local plugins = {
       "nvimtools/none-ls.nvim",
     },
     config = function()
-      require("custom.plugins.configs.mason-null-ls").setup()
+      require("custom.custom-plugins.configs.mason-null-ls").setup()
     end,
   },
 
@@ -369,7 +369,7 @@ local plugins = {
       },
     },
     config = function()
-      require("custom.plugins.configs.nvim-dap").setup()
+      require("custom.custom-plugins.configs.nvim-dap").setup()
     end,
   },
 
