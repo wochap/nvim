@@ -104,14 +104,12 @@ local cmdlineMapping = {
   } },
   ["<C-S-y>"] = {
     c = function(fallback)
-      if cmp.visible() then
-        cmp.confirm({
-          behavior = cmp.ConfirmBehavior.Insert,
-          select = true,
-        }, fallback)
-      else
-        fallback()
-      end
+      cmp.confirm({
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      }, function()
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "")
+      end)
     end,
   },
   ["<Tab>"] = {
