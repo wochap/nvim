@@ -1,6 +1,6 @@
 local M = {}
 
-M.setup = function()
+M.setup = function(opts)
   -- Load vscode launchjs
   require("dap.ext.vscode").load_launchjs()
 

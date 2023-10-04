@@ -174,7 +174,7 @@ local plugins = {
       highlight = {
         before = "", -- "fg" or "bg" or empty
         keyword = "fg", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
-        after = "fg", -- "fg" or "bg" or empty
+        after = "", -- "fg" or "bg" or empty
       },
     },
   },
@@ -185,6 +185,10 @@ local plugins = {
       use_diagnostic_signs = true,
       -- group = false,
     },
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "trouble")
+      require("trouble").setup(opts)
+    end,
   },
   {
     "folke/persistence.nvim",
@@ -352,8 +356,9 @@ local plugins = {
       "mason.nvim",
       "jay-babu/mason-nvim-dap.nvim",
     },
-    config = function()
-      require("custom.custom-plugins.configs.nvim-dap").setup()
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "dap")
+      require("custom.custom-plugins.configs.nvim-dap").setup(opts)
     end,
   },
   {
