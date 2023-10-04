@@ -83,6 +83,11 @@ autocmd("BufWritePost", {
     local app_name = vim.env.NVIM_APPNAME and vim.env.NVIM_APPNAME or "nvim"
     local module = string.gsub(fp, "^.*/" .. app_name .. "/lua/", ""):gsub("/", ".")
 
+    -- HACK: modules ending in .init never reload
+    if module:sub(-5) == ".init" then
+      module = module:gsub("%.init$", "")
+    end
+
     require("plenary.reload").reload_module "base46"
     require("plenary.reload").reload_module(module)
     require("plenary.reload").reload_module "custom.chadrc"

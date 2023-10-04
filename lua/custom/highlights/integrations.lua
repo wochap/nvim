@@ -155,12 +155,35 @@ local M = {
   -- blankline
   IndentBlanklineContextStart = { bg = "NONE" },
 
+  -- todo-comments
+  TodoBgFix = { fg = theme.base_30.black2, bg = theme.base_30.red, bold = true },
+  TodoBgHack = { fg = theme.base_30.black2, bg = theme.base_30.orange, bold = true },
+  TodoBgNote = { fg = theme.base_30.black2, bg = theme.base_30.white, bold = true },
+  TodoBgPerf = { fg = theme.base_30.black2, bg = theme.base_30.purple, bold = true },
+  TodoBgTest = { fg = theme.base_30.black2, bg = theme.base_30.purple, bold = true },
+  TodoBgTodo = { fg = theme.base_30.black2, bg = theme.base_30.blue, bold = true },
+  TodoBgWarn = { fg = theme.base_30.orange, bold = true },
+  TodoFgFix = { fg = theme.base_30.red },
+  TodoFgHack = { fg = theme.base_30.orange },
+  TodoFgNote = { fg = theme.base_30.white },
+  TodoFgPerf = { fg = theme.base_30.purple },
+  TodoFgTest = { fg = theme.base_30.purple },
+  TodoFgTodo = { fg = theme.base_30.orange },
+  TodoFgWarn = { fg = theme.base_30.orange },
+  TodoSignFix = { link = "TodoFgFix" },
+  TodoSignHack = { link = "TodoFgHack" },
+  TodoSignNote = { link = "TodoFgNote" },
+  TodoSignPerf = { link = "TodoFgPerf" },
+  TodoSignTest = { link = "TodoFgTest" },
+  TodoSignTodo = { link = "TodoFgTodo" },
+  TodoSignWarn = { link = "TodoFgWarn" },
+
   -- nvim
   WinSeparator = {
     -- fg = theme.base_30.darker_black,
     -- bg = theme.base_30.darker_black,
     fg = theme.base_30.statusline_bg,
-    bg = "NONE"
+    bg = "NONE",
   },
 }
 

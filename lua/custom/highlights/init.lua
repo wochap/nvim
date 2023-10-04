@@ -1,11 +1,15 @@
+-- HACK: save this file to trigger ReloadNvChad autocmd
+-- every time you modify any file in highlights folder
+
 local theme = require "custom.highlights.catppuccin-mocha"
 local integrations = require "custom.highlights.integrations"
 local syntaxCatppuccin = require "custom.highlights.syntax-catppuccin"
 local syntaxCustomCatppuccin = require "custom.highlights.syntax-custom-catppuccin"
 
-local hls = vim.tbl_deep_extend("force", {}, integrations, syntaxCatppuccin, syntaxCustomCatppuccin)
+local hls = vim.tbl_deep_extend("force", {}, syntaxCatppuccin, syntaxCustomCatppuccin, integrations)
 
 return {
+  theme = "catppuccin",
   theme_toggle = {},
   hl_add = hls,
   hl_override = hls,
@@ -18,7 +22,7 @@ return {
   cmp = {
     style = "flat_dark",
   },
-  extended_integrations = { "dap", "trouble", "todo" },
+  extended_integrations = { "dap", "trouble" },
   nvdash = {
     load_on_startup = true,
     buttons = {

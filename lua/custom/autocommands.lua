@@ -1,9 +1,10 @@
+local autocmd = vim.api.nvim_create_autocmd
 local function augroup(name)
   return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
 end
 
 -- close some filetypes with <q>
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   group = augroup "close_with_q",
   pattern = {
     "PlenaryTestPopup",
@@ -26,13 +27,13 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
-vim.api.nvim_create_autocmd({ "CmdwinEnter" }, {
+autocmd({ "CmdwinEnter" }, {
   group = augroup "close_with_q_cmd",
   command = "nnoremap <buffer> q :q<CR>",
 })
 
 -- Highlight on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
+autocmd("TextYankPost", {
   group = augroup "highlight_yank",
   callback = function()
     vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
@@ -40,7 +41,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- go to last loc when opening a buffer
-vim.api.nvim_create_autocmd("BufReadPost", {
+autocmd("BufReadPost", {
   group = augroup "last_loc",
   callback = function()
     local exclude = { "gitcommit" }
@@ -56,13 +57,13 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   group = augroup "show_numbers_trouble",
   pattern = "Trouble",
   command = "set nu",
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
+autocmd({ "BufEnter" }, {
   group = augroup "tint_refresh",
   pattern = "*",
   callback = function()
@@ -80,7 +81,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
+autocmd({ "VimEnter" }, {
   group = augroup "set_vimenter",
   callback = function()
     vim.g.vimenter = true
@@ -88,19 +89,19 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 })
 
 -- Always edit files with swap
-vim.api.nvim_create_autocmd({ "SwapExists" }, {
+autocmd({ "SwapExists" }, {
   group = augroup "always_edit_with_swap",
   pattern = "*",
   command = 'let v:swapchoice = "e"',
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
+autocmd({ "BufEnter" }, {
   group = augroup "nowrap_text_files",
   pattern = "*",
   command = "if &filetype == '' || expand('%:e') == 'norg' | set wrap | else | set nowrap | endif",
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
+autocmd({ "BufEnter" }, {
   group = augroup "load_peek_mappings",
   pattern = "*.md",
   callback = function()
