@@ -22,6 +22,8 @@ return {
   cmp = {
     style = "flat_dark",
   },
+  -- HACK: if you remove any item from here
+  -- make sure you also delete it in ~/.local/share/nvim/nvchad/base46
   extended_integrations = { "dap", "trouble" },
   nvdash = {
     load_on_startup = true,
