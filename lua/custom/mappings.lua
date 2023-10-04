@@ -311,13 +311,13 @@ M.telescope = {
 M.utils = {
   n = {
     ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", "close floating windows" },
-    ["<f2>"] = { "<cmd>lua require('base46').load_all_highlights()<CR>", "load custom theme without cache?" },
-    ["<f3>"] = { "<cmd>lua require'custom.utils.others'.printSyntaxInfo()<CR>", "print syntax info" },
-    ["<f4>"] = { "<cmd>lua require'custom.utils.others'.printBufInfo()<CR>", "print buffer info" },
+    ["<f2>"] = { "<cmd>lua require'custom.utils.others'.printSyntaxInfo()<CR>", "print syntax info" },
+    ["<f3>"] = { "<cmd>lua require'custom.utils.others'.printBufInfo()<CR>", "print buffer info" },
+    ["<f5>"] = { ":e %<CR>", "reload buffer" },
   },
   i = {
     ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", "close floating windows" },
-    ["<C-k>"] = { "<cmd>lua require'custom.utils.others'.expandSnippet()<CR>", "expand snippet" },
+    ["<C-k>"] = { "<cmd>lua require'luasnip'.expand()<CR>", "expand snippet" },
   },
   v = {
     ["R"] = { "\"zy:'<,'>s/<C-r>z/" },
