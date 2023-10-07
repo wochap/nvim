@@ -1,7 +1,8 @@
 local utils = require "custom.highlights.utils.init"
 local theme = require "custom.highlights.catppuccin-mocha"
 
-local tabuflineBg = theme.base_30.lightbg
+local nvimtreeBg = theme.base_30.black
+local tabuflineBg = theme.base_30.black
 local tabuflineFg = theme.base_30.grey
 local stModuleBg = theme.base_16.base02
 local stModuleFg = theme.base_30.white
@@ -17,6 +18,7 @@ local gitColors = {
   add = theme.base_30.green,
   change = theme.base_30.orange,
   info = theme.base_30.blue,
+  stage = theme.base_30.purple,
 }
 
 local M = {
@@ -46,18 +48,29 @@ local M = {
   ConflictMarkerSeparator = { fg = theme.base_16.base0B },
 
   -- NvimTree
-  NvimTreeRootFolder = { fg = theme.base_30.red },
-  NvimTreeSymlink = { fg = theme.base_30.white },
-  NvimTreeFolderName = { fg = theme.base_30.white },
-  NvimTreeFolderIcon = { fg = theme.base_30.blue },
   NvimTreeEmptyFolderName = { fg = theme.base_30.white },
-  NvimTreeOpenedFolderName = { fg = theme.base_30.white },
   NvimTreeExecFile = { fg = theme.base_30.white },
-  NvimTreeFileDirty = { fg = gitColors.change },
-  NvimTreeFileNew = { fg = gitColors.add },
-  NvimTreeFileDeleted = { fg = gitColors.delete },
-  NvimTreeIndentMarker = { fg = theme.base_30.line },
+  NvimTreeFolderIcon = { fg = theme.base_30.blue },
+  NvimTreeFolderName = { fg = theme.base_30.white },
   NvimTreeImageFile = { fg = theme.base_30.white },
+  NvimTreeIndentMarker = { fg = theme.base_30.line },
+  NvimTreeOpenedFolderName = { fg = theme.base_30.white },
+  NvimTreeRootFolder = { fg = theme.base_30.lavender },
+  NvimTreeSymlink = { fg = theme.base_30.white },
+
+  NvimTreeEndOfBuffer = { fg = nvimtreeBg },
+  NvimTreeNormal = { bg = nvimtreeBg },
+  NvimTreeNormalNC = { bg = nvimtreeBg },
+  NvimTreeWinSeparator = {
+    fg = theme.base_30.grey,
+    bg = nvimtreeBg,
+  },
+
+  NvimTreeGitDeleted = { fg = gitColors.delete },
+  NvimTreeGitDirty = { fg = gitColors.change },
+  NvimTreeGitIgnored = { fg = theme.base_30.grey_fg },
+  NvimTreeGitNew = { fg = gitColors.add },
+  NvimTreeGitStaged = { fg = gitColors.stage },
 
   -- NvimSpectre
   SpectreSearch = {
@@ -107,7 +120,7 @@ local M = {
     bg = stModuleBg,
   },
   St_relative_path = {
-    fg = theme.base_30.light_grey,
+    fg = utils.darken(stModuleFg, 0.667, stModuleBg),
     bg = stModuleBg,
   },
   St_gitIcons = {
@@ -141,6 +154,15 @@ local M = {
   },
   TbLineBufOffClose = {
     bg = tabuflineBg,
+  },
+  TbLineTabOn = {
+    bg = tabuflineBg,
+    fg = theme.base_30.white,
+    bold = false,
+  },
+  TbLineTabOff = {
+    bg = tabuflineBg,
+    fg = tabuflineFg,
   },
 
   -- cmp
@@ -180,9 +202,7 @@ local M = {
 
   -- nvim
   WinSeparator = {
-    -- fg = theme.base_30.darker_black,
-    -- bg = theme.base_30.darker_black,
-    fg = theme.base_30.statusline_bg,
+    fg = theme.base_30.grey,
     bg = "NONE",
   },
 }

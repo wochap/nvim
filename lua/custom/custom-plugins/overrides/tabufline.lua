@@ -15,15 +15,6 @@ return {
       return "%#" .. "Tbline" .. group1 .. group2 .. "#"
     end
 
-    local function getNvimTreeWidth()
-      for _, win in pairs(api.nvim_tabpage_list_wins(0)) do
-        if vim.bo[api.nvim_win_get_buf(win)].ft == "NvimTree" then
-          return api.nvim_win_get_width(win) + 1
-        end
-      end
-      return 0
-    end
-
     local function getBtnsWidth() -- close, theme toggle btn etc
       local width = 6
       if fn.tabpagenr "$" ~= 1 then
@@ -44,7 +35,7 @@ return {
 
         icon = (
           api.nvim_get_current_buf() == bufnr and new_hl(icon_hl, "TbLineBufOn") .. " " .. icon
-          or new_hl(icon_hl, "TbLineBufOff") .. " " .. icon
+          or "%#TbLineBufOff# " .. icon
         )
 
         -- check for same buffer names under different dirs
@@ -111,9 +102,13 @@ return {
       return name
     end
 
+    local function NvimTreeOverlay()
+      return ""
+    end
+
     local function bufferlist()
       local buffers = {} -- buffersults
-      local available_space = vim.o.columns - getNvimTreeWidth() - getBtnsWidth()
+      local available_space = vim.o.columns - getBtnsWidth()
       local current_buf = api.nvim_get_current_buf()
       local has_current = false -- have we seen current buffer yet?
 
@@ -147,18 +142,19 @@ return {
         end
 
         -- local new_tabtn = "%#TblineTabNewBtn#" .. "%@TbNewTab@  %X"
-        local tabstoggleBtn = "%@TbToggleTabs@ %#TBTabTitle# TABS %X"
+        -- local tabstoggleBtn = "%@TbToggleTabs@ %#TBTabTitle# TABS %X"
 
-        return vim.g.TbTabsToggled == 1 and tabstoggleBtn:gsub("()", { [36] = " " }) or tabstoggleBtn .. result
+        -- return vim.g.TbTabsToggled == 1 and tabstoggleBtn:gsub("()", { [36] = " " }) or tabstoggleBtn .. result
         -- or new_tabtn .. tabstoggleBtn .. result
+        return result
       end
 
       return ""
     end
 
+    modules[1] = NvimTreeOverlay()
     modules[2] = bufferlist()
     modules[3] = tablist()
     modules[4] = ""
   end,
 }
-

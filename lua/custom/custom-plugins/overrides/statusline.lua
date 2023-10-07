@@ -47,7 +47,7 @@ local function get_relative_path()
   local filename_str = vim.fn.expand "%:t"
 
   if string.len(filename_str) == 0 then
-    return " "
+    return ""
   end
 
   local filename = vim.api.nvim_buf_get_name(0)
@@ -55,20 +55,28 @@ local function get_relative_path()
 
   relative_path = string.sub(relative_path, 1, -1 + string.len(filename_str) * -1)
 
-  return " " .. relative_path
+  return relative_path
 end
 
 return {
   overriden_modules = function(modules)
     local fn = vim.fn
+    local api = vim.api
     local sep_l = ""
     local sep_l_b = ""
     local sep_r = ""
     local sep_r_b = ""
 
+    local function new_hl(group1, group2)
+      local fg = fn.synIDattr(fn.synIDtrans(fn.hlID(group1)), "fg#")
+      local bg = fn.synIDattr(fn.synIDtrans(fn.hlID(group2)), "bg#")
+      api.nvim_set_hl(0, "St_module" .. group1 .. group2, { fg = fg, bg = bg })
+      return "%#" .. "St_module" .. group1 .. group2 .. "#"
+    end
+
     local function mode()
       local m = vim.api.nvim_get_mode().mode
-      local current_mode = "%#" .. M.modes[m][2] .. "#" .. "  " .. M.modes[m][1]
+      local current_mode = "%#" .. M.modes[m][2] .. "#" .. " " .. M.modes[m][1]
       local mode_sep1 = "%#" .. M.modes[m][2] .. "Sep" .. "#" .. sep_l
 
       return current_mode .. " " .. mode_sep1
@@ -76,6 +84,7 @@ return {
 
     local function fileInfo()
       local icon = " 󰈚 "
+      local icon_hl = "DevIconDefault"
       local filename = (fn.expand "%" == "" and "Empty ") or fn.expand "%:t"
       local relative_path = ""
 
@@ -84,8 +93,9 @@ return {
         local devicons_present, devicons = pcall(require, "nvim-web-devicons")
 
         if devicons_present then
-          local ft_icon = devicons.get_icon(filename)
-          icon = (ft_icon ~= nil and " " .. ft_icon) or ""
+          local ft_icon, ft_icon_hl = devicons.get_icon(filename)
+          icon = (ft_icon ~= nil and " " .. ft_icon .. " ") or " "
+          icon_hl = (ft_icon_hl ~= nil and ft_icon_hl) or ""
         end
 
         filename = filename .. " "
@@ -93,7 +103,7 @@ return {
 
       return "%#ST_sep#"
         .. sep_l_b
-        .. "%#St_module#"
+        .. new_hl(icon_hl, "St_module")
         .. icon
         .. "%#St_relative_path#"
         .. relative_path

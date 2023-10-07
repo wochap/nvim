@@ -77,6 +77,9 @@ local function on_attach(bufnr)
 end
 
 return {
+  filters = {
+    custom = { "^.git$" },
+  },
   on_attach = on_attach,
   respect_buf_cwd = true,
   update_cwd = false,
@@ -90,16 +93,22 @@ return {
     ignore = false,
   },
   renderer = {
-    root_folder_label = table.concat { ":t:gs?$?", string.rep(" ", 1000), "?:gs?^??" },
+    root_folder_label = function(path)
+      local project = vim.fn.fnamemodify(path, ":t")
+      return string.upper(project)
+    end,
     group_empty = false,
     special_files = {},
     highlight_git = true,
-    indent_markers = {
-      enable = true,
-    },
     icons = {
       show = {
+        bookmarks = false,
+        diagnostics = false,
+        file = true,
+        folder = true,
         folder_arrow = false,
+        git = false,
+        modified = false,
       },
       glyphs = {
         folder = {
