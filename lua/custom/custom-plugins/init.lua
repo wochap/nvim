@@ -154,16 +154,9 @@ local plugins = {
   },
   {
     "kazhala/close-buffers.nvim",
-    opts = {
-      next_buffer_cmd = function(windows)
-        require("nvchad.tabufline").tabuflineNext()
-
-        local bufnr = vim.api.nvim_get_current_buf()
-        for _, window in ipairs(windows) do
-          vim.api.nvim_win_set_buf(window, bufnr)
-        end
-      end,
-    },
+    opts = function(_, opts)
+      return require("custom.custom-plugins.configs.close-buffers").options
+    end,
   },
   {
     "folke/todo-comments.nvim",
