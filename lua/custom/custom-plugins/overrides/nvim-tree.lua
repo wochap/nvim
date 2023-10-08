@@ -86,7 +86,7 @@ return {
   view = {
     number = true,
     relativenumber = true,
-    width = 35,
+    width = 40,
   },
   git = {
     enable = true,
