@@ -391,6 +391,10 @@ M.persistence = {
       "<cmd>lua require('persistence').load();require('base46').load_all_highlights()<CR>",
       "load last session",
     },
+    ["<leader>qs"] = {
+      "<cmd>lua require('persistence').save()<CR>",
+      "save session",
+    },
   },
 }
 
