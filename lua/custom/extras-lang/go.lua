@@ -1,5 +1,3 @@
-local get_opts = require("custom.custom-plugins.configs.mason-lspconfig").get_opts
-
 local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -24,6 +22,7 @@ local plugins = {
 
       if type(opts.handlers) == "table" then
         opts.handlers.gopls = function()
+          local get_opts = require("custom.custom-plugins.configs.mason-lspconfig").get_opts
           local serverOpts = get_opts()
 
           serverOpts.on_attach = function(client, bufnr)
