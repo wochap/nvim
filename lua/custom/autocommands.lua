@@ -3,6 +3,16 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
 end
 
+autocmd("FileType", {
+  group = augroup "nvr_as_git_editor",
+  pattern = {
+    "gitcommit",
+    "gitrebase",
+    "gitconfig",
+  },
+  command = "set bufhidden=wipe",
+})
+
 -- close some filetypes with <q>
 autocmd("FileType", {
   group = augroup "close_with_q",

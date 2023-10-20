@@ -44,7 +44,3 @@ g.terminal_color_13 = "#F5C2E7"
 g.terminal_color_14 = "#94E2D5"
 g.terminal_color_15 = "#A6ADC8"
 
--- Use nvim as git editor in lazygit
-if vim.fn.has "nvim" == 1 and vim.fn.executable "nvr" == 1 then
-  vim.env.GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
-end
