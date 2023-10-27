@@ -1,6 +1,6 @@
 local M = {}
 
-M.printSyntaxInfo = function()
+M.print_syntax_info = function()
   local line = vim.fn.line "."
   local col = vim.fn.col "."
 
@@ -21,7 +21,7 @@ M.printSyntaxInfo = function()
   print("lo<" .. syn_trans_name .. ">")
 end
 
-M.printBufInfo = function()
+M.print_buf_info = function()
   local winid = vim.api.nvim_get_current_win()
   local bufid = vim.api.nvim_win_get_buf(winid)
   local buftype = vim.api.nvim_buf_get_option(bufid, "buftype")

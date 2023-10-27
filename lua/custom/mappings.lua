@@ -390,9 +390,9 @@ M.custom_general = {
     ["]<Del>"] = { "m`:silent -g/\\m^\\s*$/d<CR>``:noh<CR>", "remove emply line down" },
     ["<leader>|"] = { "<C-w>v", "split window vertically" },
     ["<leader>_"] = { "<C-w>s", "split window horizontally" },
-    ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", "close floating windows" },
-    ["<f2>"] = { "<cmd>lua require'custom.utils.others'.printSyntaxInfo()<CR>", "print syntax info" },
-    ["<f3>"] = { "<cmd>lua require'custom.utils.others'.printBufInfo()<CR>", "print buffer info" },
+    ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.close_all_floating()<CR>", "close floating windows" },
+    ["<f2>"] = { "<cmd>lua require'custom.utils.others'.print_syntax_info()<CR>", "print syntax info" },
+    ["<f3>"] = { "<cmd>lua require'custom.utils.others'.print_buf_info()<CR>", "print buffer info" },
     ["<f5>"] = { ":e %<CR>", "reload buffer" },
   },
   i = {

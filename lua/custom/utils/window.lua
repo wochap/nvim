@@ -1,6 +1,6 @@
 local M = {}
 
-M.closeAllFloating = function()
+M.close_all_floating = function()
   local present, cmp = pcall(require, "cmp")
 
   if not present then
