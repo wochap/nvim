@@ -279,6 +279,12 @@ local plugins = {
 
   -- LSP stuff
   {
+    "j-hui/fidget.nvim",
+    tag = "legacy",
+    event = "LspAttach",
+    opts = {},
+  },
+  {
     "neovim/nvim-lspconfig",
     dependencies = {
       {

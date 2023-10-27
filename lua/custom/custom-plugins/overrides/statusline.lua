@@ -214,6 +214,7 @@ return {
     modules[1] = mode()
     modules[2] = fileInfo()
     modules[3] = git()
+    modules[5] = ""
     modules[7] = LSP_Diagnostics()
     modules[8] = LSP_status() or ""
     modules[9] = cwd()
