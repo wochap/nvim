@@ -326,7 +326,23 @@ M.utils = {
 
 M.close_buffers = {
   n = {
-    ["<leader>w"] = { "<cmd>lua require('close_buffers').delete({ type = 'this' })<CR>", "close buffer" },
+    ["<leader>w"] = {
+      function()
+        local bd = require("close_buffers").delete
+        if vim.bo.modified then
+          local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
+          if choice == 1 then -- Yes
+            vim.cmd.write()
+            bd { type = "this" }
+          elseif choice == 2 then -- No
+            bd { type = "this", force = true }
+          end
+        else
+          bd { type = "this" }
+        end
+      end,
+      "close buffer",
+    },
     ["<leader>W"] = {
       "<cmd>lua require('close_buffers').delete({ type = 'this', force = true })<CR>",
       "close buffer!",
