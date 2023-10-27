@@ -222,6 +222,7 @@ M.null_ls = {
   n = {
     ["<leader>lf"] = {
       function()
+        local bufnr = vim.api.nvim_get_current_buf()
         vim.lsp.buf.format {
           async = false,
           bufnr = bufnr,
@@ -230,12 +231,13 @@ M.null_ls = {
           end,
         }
       end,
-      "lsp formatting",
+      "format document",
     },
   },
   v = {
     ["<leader>lf"] = {
       function()
+        local bufnr = vim.api.nvim_get_current_buf()
         vim.lsp.buf.format {
           async = false,
           bufnr = bufnr,
@@ -244,7 +246,7 @@ M.null_ls = {
           end,
         }
       end,
-      "lsp formatting",
+      "format selection",
     },
   },
 }
@@ -253,10 +255,7 @@ M.nvimtree = {
   plugin = true,
 
   n = {
-    -- toggle
     ["<leader>b"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
-
-    -- focus
     ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
   },
 }
@@ -283,44 +282,6 @@ M.telescope = {
       "<cmd> Telescope marks <CR>",
       "find marks",
     },
-  },
-}
-
--- M.blankline = {
---   plugin = true,
---
---   n = {
---     ["gC"] = {
---       function()
---         local ok, start = require("indent_blankline.utils").get_current_context(
---           vim.g.indent_blankline_context_patterns,
---           vim.g.indent_blankline_use_treesitter_scope
---         )
---
---         if ok then
---           vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start, 0 })
---           vim.cmd [[normal! _]]
---         end
---       end,
---
---       "jump to current_context",
---     },
---   },
--- }
-
-M.utils = {
-  n = {
-    ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", "close floating windows" },
-    ["<f2>"] = { "<cmd>lua require'custom.utils.others'.printSyntaxInfo()<CR>", "print syntax info" },
-    ["<f3>"] = { "<cmd>lua require'custom.utils.others'.printBufInfo()<CR>", "print buffer info" },
-    ["<f5>"] = { ":e %<CR>", "reload buffer" },
-  },
-  i = {
-    ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", "close floating windows" },
-    ["<C-k>"] = { "<cmd>lua require'luasnip'.expand()<CR>", "expand snippet" },
-  },
-  v = {
-    ["R"] = { "\"zy:'<,'>s/<C-r>z/" },
   },
 }
 
@@ -365,12 +326,11 @@ M.close_buffers = {
 local function termcodes(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
-
 local exitTerminalMode = termcodes "<C-\\><C-N>"
 
 M.terminal = {
   t = {
-    ["<C-x>"] = { exitTerminalMode, "hide terminal" },
+    ["<C-x>"] = { exitTerminalMode, "exit terminal mode" },
     ["<C-S-x>"] = { exitTerminalMode .. "<C-w>q", "hide terminal" },
   },
 
@@ -430,12 +390,18 @@ M.custom_general = {
     ["]<Del>"] = { "m`:silent -g/\\m^\\s*$/d<CR>``:noh<CR>", "remove emply line down" },
     ["<leader>|"] = { "<C-w>v", "split window vertically" },
     ["<leader>_"] = { "<C-w>s", "split window horizontally" },
+    ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", "close floating windows" },
+    ["<f2>"] = { "<cmd>lua require'custom.utils.others'.printSyntaxInfo()<CR>", "print syntax info" },
+    ["<f3>"] = { "<cmd>lua require'custom.utils.others'.printBufInfo()<CR>", "print buffer info" },
+    ["<f5>"] = { ":e %<CR>", "reload buffer" },
   },
   i = {
     ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
     ["<C-S-s>"] = { "<Esc>:w! <CR>", "save buffer!" },
     ["<A-Down>"] = { "<Cmd>lua MiniMove.move_line('down')<CR>", "Move line down" },
     ["<A-Up>"] = { "<Cmd>lua MiniMove.move_line('up')<CR>", "Move line up" },
+    ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", "close floating windows" },
+    ["<C-k>"] = { "<cmd>lua require'luasnip'.expand()<CR>", "expand snippet" },
   },
   v = {
     ["<C-S-d>"] = { "zL", "scroll half screen to the right" },
@@ -572,52 +538,13 @@ M.gitsigns = {
     },
 
     -- Actions
-    ["<leader>gS"] = {
-      function()
-        require("gitsigns").stage_buffer()
-      end,
-      "stage buffer",
-    },
-    ["<leader>gs"] = {
-      function()
-        require("gitsigns").stage_hunk()
-      end,
-      "stage hunk",
-    },
-
-    ["<leader>gR"] = {
-      function()
-        require("gitsigns").reset_buffer()
-      end,
-      "reset buffer",
-    },
-    ["<leader>gr"] = {
-      function()
-        require("gitsigns").reset_hunk()
-      end,
-      "reset hunk",
-    },
-
-    ["<leader>gp"] = {
-      function()
-        require("gitsigns").preview_hunk()
-      end,
-      "preview hunk",
-    },
-
-    ["<leader>gb"] = {
-      function()
-        package.loaded.gitsigns.blame_line { full = true }
-      end,
-      "blame line",
-    },
-
-    ["<leader>gd"] = {
-      function()
-        require("gitsigns").toggle_deleted()
-      end,
-      "toggle deleted",
-    },
+    ["<leader>gS"] = { "<cmd>lua require('gitsigns').stage_buffer()<cr>", "stage buffer" },
+    ["<leader>gs"] = { "<cmd>lua require('gitsigns').stage_hunk()<cr>", "stage hunk" },
+    ["<leader>gR"] = { "<cmd>lua require('gitsigns').reset_buffer()<cr>", "reset buffer" },
+    ["<leader>gr"] = { "<cmd>lua require('gitsigns').reset_hunk()<cr>", "reset hunk" },
+    ["<leader>gp"] = { "<cmd>lua require('gitsigns').preview_hunk()<cr>", "preview hunk" },
+    ["<leader>gb"] = { "<cmd>lua require('gitsigns').blame_line({ full = true })<cr>", "blame line" },
+    ["<leader>gd"] = { "<cmd>lua require('gitsigns').toggle_deleted()<cr>", "toggle deleted" },
   },
 }
 
