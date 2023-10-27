@@ -521,7 +521,6 @@ M.dap = {
     ["<leader>d<Right>"] = { "<cmd>lua require'dap'.step_into()<CR>", "step into" },
     ["<leader>d<Down>"] = { "<cmd>lua require'dap'.step_over()<CR>", "step over" },
     ["<leader>d<Left>"] = { "<cmd>lua require'dap'.continue()<CR>", "continue" },
-    ["<leader>da"] = { "<cmd>lua require'custom.utils.debugHelper'.attach()<CR>", "attach" },
     ["<leader>dH"] = {
       "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
       "set breakpoint condition",
