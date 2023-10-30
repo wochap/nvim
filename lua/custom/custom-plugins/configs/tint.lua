@@ -9,8 +9,9 @@ M.options = {
     local bufname = vim.api.nvim_buf_get_name(bufid)
     local floating = vim.api.nvim_win_get_config(winid).relative ~= ""
     local isNvimTree = bufname:match "NvimTree_1$"
+    local isDap = bufname:match "%[dap%-repl%]$" or bufname:match "%/DAP .*$"
 
-    return buftype == "terminal" or floating or isNvimTree
+    return buftype == "terminal" or floating or isNvimTree or isDap
   end,
 }
 
