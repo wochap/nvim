@@ -430,6 +430,7 @@ M.lazy = {
     ["<leader>ps"] = { "<cmd>Lazy sync<cr>", "sync" },
     ["<leader>pS"] = { "<cmd>Lazy check<cr>", "check" },
     ["<leader>pu"] = { "<cmd>Lazy update<cr>", "update" },
+    ["<leader>pp"] = { "<cmd>Lazy profile<cr>", "update" },
     ["<leader>pl"] = { "<cmd>Lazy<cr>", "info" },
   },
 }
