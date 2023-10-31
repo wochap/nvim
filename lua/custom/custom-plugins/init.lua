@@ -291,7 +291,6 @@ local plugins = {
       },
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "nvimtools/none-ls.nvim",
     },
     config = function()
       dofile(vim.g.base46_cache .. "lsp")
@@ -316,6 +315,9 @@ local plugins = {
   -- Formatter
   {
     "nvimtools/none-ls.nvim",
+    init = function()
+      require("core.utils").lazy_load "none-ls.nvim"
+    end,
     dependencies = {
       "mason.nvim",
       "jay-babu/mason-null-ls.nvim",
