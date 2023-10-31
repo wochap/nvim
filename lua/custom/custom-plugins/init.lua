@@ -286,29 +286,22 @@ local plugins = {
     "neovim/nvim-lspconfig",
     dependencies = {
       {
-        "b0o/SchemaStore.nvim",
-        version = false, -- last release is way too old
+        "folke/neoconf.nvim",
+        cmd = "Neoconf",
+        config = function() end,
       },
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
     },
-    config = function()
+    opts = {
+      servers = {
+        bashls = {},
+      },
+      setup = {},
+    },
+    config = function(_, opts)
       dofile(vim.g.base46_cache .. "lsp")
-      require("custom.custom-plugins.configs.lspconfig").config()
-    end,
-  },
-  {
-    "jose-elias-alvarez/typescript.nvim",
-    lazy = true,
-    opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.typescript").options)
-    end,
-    config = function() end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.mason-lspconfig").options)
+      require("custom.custom-plugins.configs.lspconfig").config(opts)
     end,
   },
 
@@ -385,8 +378,13 @@ local plugins = {
     "LazyVim/LazyVim",
     config = function() end,
   },
+  { import = "custom.extras-lang.c" },
   { import = "custom.extras-lang.go" },
+  { import = "custom.extras-lang.json" },
   { import = "custom.extras-lang.lua" },
+  { import = "custom.extras-lang.nix" },
+  { import = "custom.extras-lang.web" },
+  { import = "custom.extras-lang.yaml" },
 }
 
 return plugins

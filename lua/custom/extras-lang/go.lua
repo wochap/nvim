@@ -1,6 +1,7 @@
 local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
+    optional = true,
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         "go",
@@ -10,39 +11,14 @@ local plugins = {
       })
     end,
   },
+
   {
-    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
     optional = true,
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, {
-          "gopls",
-        })
-      end
-
-      if type(opts.handlers) == "table" then
-        opts.handlers.gopls = function()
-          local get_opts = require("custom.utils.lsp").get_opts
-          local serverOpts = get_opts()
-
-          serverOpts.on_attach = function(client, bufnr)
-            -- Run nvchad's attach
-            get_opts().on_attach(client, bufnr)
-
-            if not client.server_capabilities.semanticTokensProvider then
-              local semantic = client.config.capabilities.textDocument.semanticTokens
-              client.server_capabilities.semanticTokensProvider = {
-                full = true,
-                legend = {
-                  tokenTypes = semantic.tokenTypes,
-                  tokenModifiers = semantic.tokenModifiers,
-                },
-                range = true,
-              }
-            end
-          end
-
-          serverOpts.settings = {
+    opts = {
+      servers = {
+        gopls = {
+          settings = {
             gopls = {
               gofumpt = true,
               codelenses = {
@@ -77,47 +53,65 @@ local plugins = {
               directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
               semanticTokens = true,
             },
-          }
-
-          require("lspconfig").gopls.setup(serverOpts)
-        end
-      end
-    end,
+          },
+        },
+      },
+      setup = {
+        gopls = function(_, opts)
+          -- workaround for gopls not supporting semanticTokensProvider
+          -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+          require("lazyvim.util").lsp.on_attach(function(client, _)
+            if client.name == "gopls" then
+              if not client.server_capabilities.semanticTokensProvider then
+                local semantic = client.config.capabilities.textDocument.semanticTokens
+                client.server_capabilities.semanticTokensProvider = {
+                  full = true,
+                  legend = {
+                    tokenTypes = semantic.tokenTypes,
+                    tokenModifiers = semantic.tokenModifiers,
+                  },
+                  range = true,
+                }
+              end
+            end
+          end)
+          -- end workaround
+        end,
+      },
+    },
   },
+
   {
     "nvimtools/none-ls.nvim",
     optional = true,
     opts = function(_, opts)
-      if type(opts.sources) == "table" then
-        local nls = require "null-ls"
-        vim.list_extend(opts.sources, {
-          nls.builtins.code_actions.gomodifytags,
-          nls.builtins.code_actions.impl,
-          nls.builtins.formatting.gofumpt,
-          nls.builtins.formatting.goimports_reviser,
-        })
-      end
+      local nls = require "null-ls"
+      vim.list_extend(opts.sources, {
+        nls.builtins.code_actions.gomodifytags,
+        nls.builtins.code_actions.impl,
+        nls.builtins.formatting.gofumpt,
+        nls.builtins.formatting.goimports_reviser,
+      })
     end,
   },
   {
     "jay-babu/mason-null-ls.nvim",
     optional = true,
     opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, {
-          "gofumpt",
-          "goimports-reviser",
-        })
-      end
+      vim.list_extend(opts.ensure_installed, {
+        "gofumpt",
+        "goimports-reviser",
+      })
     end,
   },
   {
     "mason.nvim",
+    optional = true,
     opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, { "gomodifytags", "impl" })
     end,
   },
+
   {
     "jay-babu/mason-nvim-dap.nvim",
     optional = true,
@@ -128,15 +122,11 @@ local plugins = {
       },
     },
     opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, {
-          "delve",
-        })
-      end
+      vim.list_extend(opts.ensure_installed, {
+        "delve",
+      })
 
-      if type(opts.handlers) == "table" then
-        opts.handlers.delve = function() end
-      end
+      opts.handlers.delve = function() end
     end,
   },
 }

@@ -34,19 +34,23 @@ nvchad_capabilities.textDocument.completion.completionItem = {
   },
 }
 
-M.on_attach = function(client, bufnr)
-  -- Run nvchad's attach
-  nvchad_on_attach(client, bufnr)
-
-  require("core.utils").load_mappings("dap", { buffer = bufnr })
-end
-
-M.capabilities = nvchad_capabilities
-
 M.get_opts = function()
+  local cmp_nvim_lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+
   local opts = {
-    on_attach = nvchad_on_attach,
-    capabilities = nvchad_capabilities,
+    on_attach = function(client, bufnr)
+      -- Run nvchad's attach
+      nvchad_on_attach(client, bufnr)
+
+      -- Fix formatting for null-ls
+      if client.name == "null-ls" then
+        client.server_capabilities.documentFormattingProvider = true
+        client.server_capabilities.documentRangeFormattingProvider = true
+      end
+
+      require("core.utils").load_mappings("dap", { buffer = bufnr })
+    end,
+    capabilities = vim.tbl_deep_extend("force", {}, cmp_nvim_lsp_capabilities, nvchad_capabilities),
     flags = {
       debounce_text_changes = 150,
     },

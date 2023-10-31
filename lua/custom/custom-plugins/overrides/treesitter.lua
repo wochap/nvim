@@ -27,22 +27,13 @@ M.options = {
 
   ensure_installed = {
     "bash",
-    "c",
-    "css",
     "dap_repl",
-    "graphql",
-    "html",
-    "javascript",
     "markdown",
     "markdown_inline",
-    "nix",
     "python",
     "query",
     "regex",
-    "svelte",
     "toml",
-    "tsx",
-    "typescript",
     "vim",
     "vimdoc",
     -- "norg"
