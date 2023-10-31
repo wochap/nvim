@@ -383,6 +383,7 @@ local plugins = {
   { import = "custom.extras-lang.json" },
   { import = "custom.extras-lang.lua" },
   { import = "custom.extras-lang.nix" },
+  { import = "custom.extras-lang.python" },
   { import = "custom.extras-lang.web" },
   { import = "custom.extras-lang.yaml" },
 }

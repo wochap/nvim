@@ -30,10 +30,8 @@ M.options = {
     "dap_repl",
     "markdown",
     "markdown_inline",
-    "python",
     "query",
     "regex",
-    "toml",
     "vim",
     "vimdoc",
     -- "norg"
