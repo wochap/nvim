@@ -313,16 +313,15 @@ local plugins = {
     end,
     dependencies = {
       "mason.nvim",
-      "jay-babu/mason-null-ls.nvim",
+      {
+        "jay-babu/mason-null-ls.nvim",
+        opts = function(_, opts)
+          return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.mason-null-ls").options)
+        end,
+      },
     },
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.null-ls").options)
-    end,
-  },
-  {
-    "jay-babu/mason-null-ls.nvim",
-    opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.mason-null-ls").options)
     end,
   },
 
