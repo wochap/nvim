@@ -400,7 +400,7 @@ M.custom_general = {
     ["<C-S-s>"] = { "<Esc>:w! <CR>", "save buffer!" },
     ["<A-Down>"] = { "<Cmd>lua MiniMove.move_line('down')<CR>", "Move line down" },
     ["<A-Up>"] = { "<Cmd>lua MiniMove.move_line('up')<CR>", "Move line up" },
-    ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.closeAllFloating()<CR>", "close floating windows" },
+    ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.close_all_floating()<CR>", "close floating windows" },
     ["<C-k>"] = { "<cmd>lua require'luasnip'.expand()<CR>", "expand snippet" },
   },
   v = {
