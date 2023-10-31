@@ -1,3 +1,5 @@
+local M = {}
+
 local function on_attach(bufnr)
   local api = require "nvim-tree.api"
 
@@ -76,7 +78,7 @@ local function on_attach(bufnr)
   vim.keymap.set("n", "<C-h>", api.node.open.horizontal, opts "Open: Horizontal Split")
 end
 
-return {
+M.options = {
   filters = {
     custom = { "^.git$" },
   },
@@ -121,3 +123,5 @@ return {
     },
   },
 }
+
+return M

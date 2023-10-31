@@ -1,5 +1,6 @@
-local wk = require "which-key"
 local M = {}
+
+local wk = require "which-key"
 
 M.setup = function()
   wk.register({

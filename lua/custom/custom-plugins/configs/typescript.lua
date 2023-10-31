@@ -1,12 +1,12 @@
-local capabilities = require("plugins.configs.lspconfig").capabilities
-local on_attach = require("custom.utils.lsp").on_attach
 local M = {}
 
+local opts = require("custom.utils.lsp").get_opts()
+
 M.options = {
-  server = {
+  server = vim.tbl_deep_extend("force", opts, {
     on_attach = function(client, bufnr)
       -- Run nvchad's attach
-      on_attach(client, bufnr)
+      opts.on_attach(client, bufnr)
 
       -- disable tsserver's inbuilt formatting
       -- since I use null-ls for formatting
@@ -17,10 +17,6 @@ M.options = {
 
       require("core.utils").load_mappings("lspconfig_tsserver", { buffer = bufnr })
     end,
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 150,
-    },
     settings = {
       typescript = {
         format = {
@@ -40,7 +36,7 @@ M.options = {
         completeFunctionCalls = true,
       },
     },
-  },
+  }),
 }
 
 return M

@@ -10,24 +10,19 @@ local plugins = {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    init = function() end,
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
       "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
-      {
-        "LiadOz/nvim-dap-repl-highlights",
-        config = function()
-          require("nvim-dap-repl-highlights").setup()
-        end,
-      },
     },
     opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, require "custom.custom-plugins.overrides.treesitter")
+      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.treesitter").options)
     end,
   },
   {
     "lewis6991/gitsigns.nvim",
     opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, require "custom.custom-plugins.overrides.gitsigns")
+      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.gitsigns").options)
     end,
   },
   {
@@ -86,7 +81,7 @@ local plugins = {
   {
     "nvim-tree/nvim-tree.lua",
     opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, require "custom.custom-plugins.overrides.nvim-tree")
+      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.nvim-tree").options)
     end,
   },
   {
@@ -160,8 +155,10 @@ local plugins = {
   },
   {
     "folke/todo-comments.nvim",
+    init = function()
+      require("core.utils").lazy_load "todo-comments.nvim"
+    end,
     cmd = { "TodoTrouble", "TodoTelescope" },
-    event = { "BufReadPost", "BufNewFile" },
     opts = {
       signs = false,
       highlight = {
@@ -199,12 +196,10 @@ local plugins = {
     "stevearc/dressing.nvim",
     lazy = true,
     init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
       vim.ui.select = function(...)
         require("lazy").load { plugins = { "dressing.nvim" } }
         return vim.ui.select(...)
       end
-      ---@diagnostic disable-next-line: duplicate-set-field
       vim.ui.input = function(...)
         require("lazy").load { plugins = { "dressing.nvim" } }
         return vim.ui.input(...)
@@ -231,7 +226,10 @@ local plugins = {
   --     require("custom.custom-plugins.configs.neorg").setup()
   --   end,
   -- },
-  { "szw/vim-maximizer", cmd = { "MaximizerToggle" } },
+  {
+    "szw/vim-maximizer",
+    cmd = { "MaximizerToggle" },
+  },
   {
     "nvim-pack/nvim-spectre",
     opts = function()
@@ -241,18 +239,18 @@ local plugins = {
   {
     "wochap/emmet-vim",
     event = "VeryLazy",
-    dependencies = { "wochap/cmp-emmet-vim" },
     init = function()
       g.user_emmet_leader_key = "<C-z>"
     end,
   },
   {
     "rhysd/conflict-marker.vim",
-    event = "BufReadPost",
     init = function()
       -- Include text after begin and end markers
       g.conflict_marker_begin = "^<<<<<<< .*$"
       g.conflict_marker_end = "^>>>>>>> .*$"
+
+      require("core.utils").lazy_load "conflict-marker.vim"
     end,
   },
   {
@@ -296,8 +294,8 @@ local plugins = {
       "nvimtools/none-ls.nvim",
     },
     config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.custom-plugins.configs.lspconfig"
+      dofile(vim.g.base46_cache .. "lsp")
+      require("custom.custom-plugins.configs.lspconfig").config()
     end,
   },
   {
@@ -335,6 +333,16 @@ local plugins = {
 
   -- Dap
   {
+    "LiadOz/nvim-dap-repl-highlights",
+    init = function()
+      require("core.utils").lazy_load "nvim-dap-repl-highlights"
+    end,
+    opts = {},
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
+  {
     "mfussenegger/nvim-dap",
     init = function()
       require("core.utils").lazy_load "nvim-dap"
@@ -342,15 +350,11 @@ local plugins = {
     dependencies = {
       {
         "rcarriga/nvim-dap-ui",
-        config = function()
-          require("dapui").setup()
-        end,
+        opts = {},
       },
       {
         "theHamsta/nvim-dap-virtual-text",
-        config = function()
-          require("nvim-dap-virtual-text").setup()
-        end,
+        opts = {},
       },
       "mason.nvim",
       "jay-babu/mason-nvim-dap.nvim",
@@ -380,6 +384,7 @@ local plugins = {
     config = function() end,
   },
   { import = "custom.extras-lang.go" },
+  { import = "custom.extras-lang.lua" },
 }
 
 return plugins

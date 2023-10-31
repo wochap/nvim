@@ -1,5 +1,4 @@
-local M = {}
-M.modes = {
+local modes = {
   ["n"] = { "NORMAL", "St_NormalMode" },
   ["no"] = { "NORMAL (no)", "St_NormalMode" },
   ["nov"] = { "NORMAL (nov)", "St_NormalMode" },
@@ -76,8 +75,8 @@ return {
 
     local function mode()
       local m = vim.api.nvim_get_mode().mode
-      local current_mode = "%#" .. M.modes[m][2] .. "#" .. " " .. M.modes[m][1]
-      local mode_sep1 = "%#" .. M.modes[m][2] .. "Sep" .. "#" .. sep_l
+      local current_mode = "%#" .. modes[m][2] .. "#" .. " " .. modes[m][1]
+      local mode_sep1 = "%#" .. modes[m][2] .. "Sep" .. "#" .. sep_l
 
       return current_mode .. " " .. mode_sep1
     end

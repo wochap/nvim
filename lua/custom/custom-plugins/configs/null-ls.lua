@@ -1,6 +1,7 @@
+local M = {}
+
 local null_ls = require "null-ls"
 local b = null_ls.builtins
-local M = {}
 
 M.options = {
   sources = {

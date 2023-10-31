@@ -1,4 +1,6 @@
-local options = {
+local M = {}
+
+M.options = {
   -- JoosepAlviste/nvim-ts-context-commentstring
   context_commentstring = {
     enable = true,
@@ -31,7 +33,6 @@ local options = {
     "graphql",
     "html",
     "javascript",
-    "lua",
     "markdown",
     "markdown_inline",
     "nix",
@@ -48,4 +49,4 @@ local options = {
   },
 }
 
-return options
+return M

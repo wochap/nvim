@@ -1,9 +1,7 @@
-local dap = require "dap"
 local M = {}
 
 local handlers = {
   function(config)
-    print(config.name)
     require("mason-nvim-dap").default_setup(config)
   end,
   js = function(config)
@@ -27,18 +25,18 @@ local handlers = {
 
     config.configurations = {
       {
+        name = "JS: Launch file",
         type = "pwa-node",
         request = "launch",
-        name = "JS: Launch file",
         program = "${file}",
         cwd = "${workspaceFolder}",
       },
 
       -- For this to work you need to make sure the node process is started with the `--inspect` flag.
       {
+        name = "JS: Attach to process",
         type = "pwa-node",
         request = "attach",
-        name = "JS: Attach to process",
         -- processId = require("dap.utils").pick_process,
         cwd = "${workspaceFolder}",
         sourceMaps = true,
@@ -70,8 +68,6 @@ local handlers = {
         protocol = "inspector",
         skipFiles = { "<node_internals>/**/*.js" },
       },
-    }
-    dap.configurations.javascript = vim.list_extend(dap.configurations.javascript or {}, {
       {
         name = "Node2: Launch file",
         type = "node2",
@@ -82,10 +78,8 @@ local handlers = {
         protocol = "inspector",
         console = "integratedTerminal",
       },
-    })
-    dap.configurations.typescript = vim.list_extend(dap.configurations.typescript or {}, {
       {
-        name = "Node2: Launch file",
+        name = "Node2: Launch file TS",
         type = "node2",
         request = "launch",
         cwd = vim.fn.getcwd(),
@@ -95,7 +89,7 @@ local handlers = {
         protocol = "inspector",
         console = "integratedTerminal",
       },
-    })
+    }
 
     require("mason-nvim-dap").default_setup(config)
   end,

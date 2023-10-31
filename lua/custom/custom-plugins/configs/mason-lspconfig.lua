@@ -1,19 +1,7 @@
-local on_attach = require("custom.utils.lsp").on_attach
-local capabilities = require("plugins.configs.lspconfig").capabilities
 local M = {}
 
-local function get_opts()
-  local opts = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 150,
-    },
-  }
-
-  return opts
-end
-
+local get_opts = require("custom.utils.lsp").get_opts
+local on_attach = get_opts().on_attach
 local handlers = {
   function(server_name)
     local opts = get_opts()
@@ -178,7 +166,5 @@ M.options = {
   automatic_installation = true,
   handlers = handlers,
 }
-
-M.get_opts = get_opts
 
 return M

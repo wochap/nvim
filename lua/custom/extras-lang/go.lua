@@ -22,7 +22,7 @@ local plugins = {
 
       if type(opts.handlers) == "table" then
         opts.handlers.gopls = function()
-          local get_opts = require("custom.custom-plugins.configs.mason-lspconfig").get_opts
+          local get_opts = require("custom.utils.lsp").get_opts
           local serverOpts = get_opts()
 
           serverOpts.on_attach = function(client, bufnr)

@@ -1,5 +1,4 @@
 return {
-  lazyload = false,
   overriden_modules = function(modules)
     local fn = vim.fn
     local api = vim.api

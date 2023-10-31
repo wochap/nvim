@@ -1,8 +1,7 @@
-local null_ls = require "null-ls"
-local b = null_ls.builtins
-
 local M = {}
 
+local null_ls = require "null-ls"
+local b = null_ls.builtins
 local handlers = {
   function(source_name, methods)
     require("mason-null-ls").default_setup(source_name, methods)
