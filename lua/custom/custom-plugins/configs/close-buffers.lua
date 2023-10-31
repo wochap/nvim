@@ -1,4 +1,5 @@
 local M = {}
+
 local function string_in_list(s, list)
   for _, v in ipairs(list) do
     if v == s then
