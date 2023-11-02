@@ -120,6 +120,74 @@ local plugins = {
   },
 
   {
+    "nvimtools/none-ls.nvim",
+    optional = true,
+    dependencies = {
+      {
+        "jay-babu/mason-null-ls.nvim",
+        optional = true,
+        opts = function(_, opts)
+          vim.list_extend(opts.ensure_installed, { "eslint_d", "prettierd" })
+        end,
+      },
+    },
+    opts = function(_, opts)
+      local null_ls = require "null-ls"
+      local b = null_ls.builtins
+
+      vim.list_extend(opts.sources, {
+        -- JS TS Vue CSS HTML JSON YAML Markdown GraphQL
+        b.formatting.prettierd.with {
+          prefer_local = false,
+          filetypes = {
+            "css",
+            "graphql",
+            "handlebars",
+            "html",
+            "javascript",
+            "javascriptreact",
+            "json",
+            "jsonc",
+            "less",
+            "markdown",
+            "markdown.mdx",
+            "scss",
+            "typescript",
+            "typescriptreact",
+            "vue",
+            "xhtml",
+            "yaml",
+          },
+          dynamic_command = function()
+            return "prettierd"
+          end,
+        },
+
+        -- JS
+        require "typescript.extensions.null-ls.code-actions",
+        b.code_actions.eslint_d,
+        b.formatting.eslint_d,
+        b.diagnostics.eslint_d.with {
+          prefer_local = false,
+          condition = function(utils)
+            return utils.root_has_file {
+              ".eslintrc",
+              ".eslintrc.js",
+              ".eslintrc.yaml",
+              ".eslintrc.yml",
+              ".eslintrc.json",
+            }
+          end,
+          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+          dynamic_command = function()
+            return "eslint_d"
+          end,
+        },
+      })
+    end,
+  },
+
+  {
     "mfussenegger/nvim-dap",
     optional = true,
     dependencies = {

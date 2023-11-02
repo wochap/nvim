@@ -315,9 +315,13 @@ local plugins = {
       "mason.nvim",
       {
         "jay-babu/mason-null-ls.nvim",
-        opts = function(_, opts)
-          return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.mason-null-ls").options)
-        end,
+        opts = {
+          automatic_installation = true,
+          handlers = {
+            function() end,
+          },
+          ensure_installed = { "shellcheck", "shfmt" },
+        },
       },
     },
     opts = function(_, opts)
