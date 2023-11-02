@@ -85,12 +85,14 @@ local plugins = {
     "nvimtools/none-ls.nvim",
     optional = true,
     opts = function(_, opts)
-      local nls = require "null-ls"
+      local null_ls = require "null-ls"
+      local b = null_ls.builtins
+
       vim.list_extend(opts.sources, {
-        nls.builtins.code_actions.gomodifytags,
-        nls.builtins.code_actions.impl,
-        nls.builtins.formatting.gofumpt,
-        nls.builtins.formatting.goimports_reviser,
+        b.code_actions.gomodifytags,
+        b.code_actions.impl,
+        b.formatting.gofumpt,
+        b.formatting.goimports_reviser,
       })
     end,
   },
@@ -98,10 +100,7 @@ local plugins = {
     "jay-babu/mason-null-ls.nvim",
     optional = true,
     opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, {
-        "gofumpt",
-        "goimports-reviser",
-      })
+      vim.list_extend(opts.ensure_installed, { "gofumpt", "goimports-reviser" })
     end,
   },
   {

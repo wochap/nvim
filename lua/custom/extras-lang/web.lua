@@ -49,10 +49,6 @@ local plugins = {
         },
         tsserver = {
           on_attach = function(client, bufnr)
-            -- disable tsserver's inbuilt formatting
-            -- since I use null-ls for formatting
-            client.server_capabilities.documentFormattingProvider = false
-
             -- enable document_highlight
             client.server_capabilities.document_highlight = true
 
