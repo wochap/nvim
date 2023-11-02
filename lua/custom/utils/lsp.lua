@@ -49,6 +49,11 @@ M.get_opts = function()
       end
 
       require("core.utils").load_mappings("dap", { buffer = bufnr })
+      local wk = require "which-key"
+      wk.register({
+        ["<leader>d"] = { name = "dap" },
+        ["<leader>l"] = { name = "lsp" },
+      }, { buffer = bufnr })
     end,
     capabilities = vim.tbl_deep_extend("force", {}, cmp_nvim_lsp_capabilities, nvchad_capabilities),
     flags = {

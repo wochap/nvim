@@ -113,21 +113,21 @@ local plugins = {
   },
 
   {
-    "jay-babu/mason-nvim-dap.nvim",
+    "mfussenegger/nvim-dap",
     optional = true,
     dependencies = {
+      {
+        "jay-babu/mason-nvim-dap.nvim",
+        optional = true,
+        opts = function(_, opts)
+          vim.list_extend(opts.ensure_installed, { "delve" })
+        end,
+      },
       {
         "leoluz/nvim-dap-go",
         config = true,
       },
     },
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, {
-        "delve",
-      })
-
-      opts.handlers.delve = function() end
-    end,
   },
 }
 

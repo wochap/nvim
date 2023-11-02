@@ -325,7 +325,7 @@ local plugins = {
     end,
   },
 
-  -- Dap
+  -- Debugger
   {
     "LiadOz/nvim-dap-repl-highlights",
     init = function()
@@ -344,24 +344,30 @@ local plugins = {
     dependencies = {
       {
         "rcarriga/nvim-dap-ui",
-        opts = {},
+        config = function(_, opts)
+          require("custom.custom-plugins.configs.nvim-dap-ui").setup(opts)
+        end,
       },
       {
         "theHamsta/nvim-dap-virtual-text",
         opts = {},
       },
       "mason.nvim",
-      "jay-babu/mason-nvim-dap.nvim",
+      {
+        "jay-babu/mason-nvim-dap.nvim",
+        cmd = { "DapInstall", "DapUninstall" },
+        opts = {
+          automatic_installation = true,
+          handlers = {
+            function() end,
+          },
+          ensure_installed = {},
+        },
+      },
     },
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "dap")
       require("custom.custom-plugins.configs.nvim-dap").setup(opts)
-    end,
-  },
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.mason-nvim-dap").options)
     end,
   },
 

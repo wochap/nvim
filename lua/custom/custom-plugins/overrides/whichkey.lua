@@ -4,14 +4,11 @@ local wk = require "which-key"
 
 M.setup = function()
   wk.register({
-    o = {
-      name = "neorg",
-    },
+    o = { name = "neorg" },
+    c = { name = "utils" },
     g = { name = "git" },
     f = { name = "find" },
-    d = { name = "dap" },
     h = { name = "harpon" },
-    l = { name = "lsp" },
     p = { name = "lazy" },
     q = { name = "quit" },
     t = { name = "todo" },
