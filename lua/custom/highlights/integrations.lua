@@ -1,7 +1,7 @@
 local utils = require "custom.highlights.utils.init"
 local theme = require "custom.highlights.catppuccin-mocha"
 
-local nvimtreeBg = theme.base_30.black
+local nvimtreeBg = theme.base_30.darker_black
 local tabuflineBg = theme.base_30.black
 local tabuflineFg = theme.base_30.grey
 local stModuleBg = theme.base_30.grey
@@ -62,7 +62,7 @@ local M = {
   NvimTreeNormal = { bg = nvimtreeBg },
   NvimTreeNormalNC = { bg = nvimtreeBg },
   NvimTreeWinSeparator = {
-    fg = theme.base_30.grey,
+    fg = nvimtreeBg,
     bg = nvimtreeBg,
   },
 
