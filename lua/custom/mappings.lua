@@ -152,11 +152,11 @@ M.lspconfig = {
     },
     ["gI"] = {
       function()
-        vim.lsp.buf.implementation()
+        require("telescope.builtin").lsp_implementations { reuse_win = true }
       end,
       "lsp implementation",
     },
-    ["gS"] = {
+    ["gk"] = {
       function()
         vim.lsp.buf.signature_help()
       end,
@@ -164,21 +164,23 @@ M.lspconfig = {
     },
     ["gd"] = {
       function()
-        vim.lsp.buf.definition()
+        require("telescope.builtin").lsp_definitions { reuse_win = true }
       end,
       "lsp definition",
     },
-    ["gt"] = {
+    ["gy"] = {
       function()
-        vim.lsp.buf.type_definition()
+        require("telescope.builtin").lsp_type_definitions { reuse_win = true }
       end,
       "lsp definition type",
     },
     ["<leader>lr"] = {
       function()
-        require("nvchad.renamer").open()
+        local inc_rename = require "inc_rename"
+        return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand "<cword>"
       end,
       "lsp rename",
+      opts = { expr = true },
     },
     ["<leader>la"] = {
       function()
@@ -186,8 +188,21 @@ M.lspconfig = {
       end,
       "lsp code_action",
     },
+    ["<leader>lA"] = {
+      function()
+        vim.lsp.buf.code_action {
+          context = {
+            only = {
+              "source",
+            },
+            diagnostics = {},
+          },
+        }
+      end,
+      "lsp code_action source",
+    },
     ["gr"] = {
-      "<cmd>TroubleToggle lsp_references<cr>",
+      "<cmd>Telescope lsp_references<cr>",
       "lsp references",
     },
     ["<leader>ld"] = {
@@ -196,6 +211,7 @@ M.lspconfig = {
       end,
       "floating diagnostic",
     },
+    ["<leader>li"] = { "<cmd>LspInfo<cr>", "lsp info" },
     ["[d"] = {
       function()
         vim.diagnostic.goto_prev()
@@ -207,6 +223,22 @@ M.lspconfig = {
         vim.diagnostic.goto_next()
       end,
       "next diagnostic",
+    },
+  },
+  v = {
+    ["<leader>la"] = {
+      function()
+        vim.lsp.buf.code_action()
+      end,
+      "lsp code_action",
+    },
+  },
+  i = {
+    ["<c-k>"] = {
+      function()
+        vim.lsp.buf.signature_help()
+      end,
+      "lsp signature_help",
     },
   },
 }

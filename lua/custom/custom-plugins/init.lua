@@ -309,6 +309,12 @@ local plugins = {
     opts = {},
   },
   {
+    "smjonas/inc-rename.nvim",
+    opts = {
+      input_buffer_type = "dressing",
+    },
+  },
+  {
     "neovim/nvim-lspconfig",
     dependencies = {
       {
