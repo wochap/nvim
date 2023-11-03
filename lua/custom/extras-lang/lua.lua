@@ -79,6 +79,9 @@ local plugins = {
               require("osv").run_this()
               dap.run = dap_run
             end
+            if conf.start_neovim_server then
+              require("osv").launch { port = 8086 }
+            end
             callback(adapter)
           end
 
@@ -88,6 +91,12 @@ local plugins = {
               type = "nlua",
               request = "attach",
               start_neovim = {},
+            },
+            {
+              name = "nlua: Start neovim server",
+              type = "nlua",
+              request = "attach",
+              start_neovim_server = {},
             },
             {
               name = "nlua: Attach to running Neovim instance (port = 8086)",
