@@ -21,6 +21,12 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter",
     init = function() end,
     dependencies = {
+      {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        config = function()
+          require("custom.custom-plugins.configs.treesitter-textobjects").setup()
+        end,
+      },
       "JoosepAlviste/nvim-ts-context-commentstring",
       "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
     },
