@@ -6,7 +6,41 @@ local plugins = {
   -- nvchad
   {
     "lukas-reineke/indent-blankline.nvim",
-    enabled = false,
+    opts = function()
+      return {
+        indent = {
+          char = "▎",
+          tab_char = "▎",
+        },
+        scope = { enabled = false },
+        exclude = {
+          filetypes = {
+            "",
+            "TelescopePrompt",
+            "TelescopeResults",
+            "Trouble",
+            "alpha",
+            "dashboard",
+            "help",
+            "lazy",
+            "lazyterm",
+            "lspinfo",
+            "mason",
+            "neo-tree",
+            "notify",
+            "nvcheatsheet",
+            "nvdash",
+            "terminal",
+            "toggleterm",
+            "trouble",
+          },
+          buftypes = {
+            "terminal",
+          },
+        },
+      }
+    end,
+    main = "ibl",
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -259,6 +293,47 @@ local plugins = {
       require("custom.custom-plugins.configs.rainbow-delimeters").init()
     end,
     config = function() end,
+  },
+  {
+    "kevinhwang91/nvim-ufo",
+    event = "VeryLazy",
+    dependencies = {
+      "kevinhwang91/promise-async",
+    },
+    config = function()
+      vim.o.foldcolumn = "1" -- '0' is not bad
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+
+      require("ufo").setup()
+    end,
+  },
+  {
+    "luukvbaal/statuscol.nvim",
+    event = "VeryLazy",
+    config = function()
+      local builtin = require "statuscol.builtin"
+      require("statuscol").setup {
+        segments = {
+          {
+            text = { "  ", builtin.lnumfunc, " " },
+            condition = { builtin.not_empty, true, builtin.not_empty },
+            click = "v:lua.ScLa",
+          },
+          {
+            text = { "%s" },
+            condition = { true },
+            click = "v:lua.ScSa",
+          },
+          {
+            text = { builtin.foldfunc, "  " },
+            condition = { true, builtin.not_empty },
+            click = "v:lua.ScFa",
+          },
+        },
+      }
+    end,
   },
   -- TODO: wait for nvim 0.10
   -- {

@@ -175,6 +175,8 @@ local M = {
   },
 
   -- blankline
+  IndentBlanklineSpaceChar = { bg = "NONE", fg = theme.base_30.grey },
+  IndentBlanklineChar = { bg = "NONE", fg = theme.base_30.grey },
   IndentBlanklineContextStart = { bg = "NONE" },
 
   -- todo-comments
@@ -204,6 +206,10 @@ local M = {
   WinSeparator = {
     fg = theme.base_30.grey,
     bg = "NONE",
+  },
+  FoldColumn = {
+    bg = theme.base_30.black,
+    fg = theme.base_30.grey,
   },
 }
 

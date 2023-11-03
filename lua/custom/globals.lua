@@ -6,6 +6,9 @@ opt.relativenumber = true
 opt.fillchars = {
   eob = " ",
   diff = "╱",
+  foldopen = "",
+  foldclose = "",
+  foldsep = " ",
 }
 opt.pastetoggle = "<F2>"
 opt.scrolloff = 4
@@ -43,4 +46,3 @@ g.terminal_color_12 = "#89B4FA"
 g.terminal_color_13 = "#F5C2E7"
 g.terminal_color_14 = "#94E2D5"
 g.terminal_color_15 = "#A6ADC8"
-

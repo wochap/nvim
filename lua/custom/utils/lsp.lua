@@ -36,6 +36,14 @@ nvchad_capabilities.textDocument.completion.completionItem = {
 
 M.get_opts = function()
   local cmp_nvim_lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+  local nvim_ufo_lsp_capabilities = {
+    textDocument = {
+      foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      },
+    },
+  }
 
   local opts = {
     on_attach = function(client, bufnr)
@@ -55,7 +63,13 @@ M.get_opts = function()
         ["<leader>l"] = { name = "lsp" },
       }, { buffer = bufnr })
     end,
-    capabilities = vim.tbl_deep_extend("force", {}, cmp_nvim_lsp_capabilities, nvchad_capabilities),
+    capabilities = vim.tbl_deep_extend(
+      "force",
+      {},
+      cmp_nvim_lsp_capabilities,
+      nvchad_capabilities,
+      nvim_ufo_lsp_capabilities
+    ),
     flags = {
       debounce_text_changes = 150,
     },
