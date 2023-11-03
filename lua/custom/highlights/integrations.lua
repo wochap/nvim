@@ -219,6 +219,9 @@ local M = {
     fg = theme.base_30.grey,
     bold = false,
   },
+  Visual = {
+    bg = theme.base03,
+  },
 }
 
 local colors = theme.base_30
