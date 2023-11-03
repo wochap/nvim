@@ -66,7 +66,8 @@ M.load_mappings = function(section, mapping_opt)
           -- merge default + user opts
           local opts = merge_tb("force", default_opts, mapping_info.opts or {})
 
-          mapping_info.opts, opts.mode = nil, nil
+          -- mapping_info.opts, opts.mode = nil, nil
+          opts.mode = nil
           opts.desc = mapping_info[2]
 
           vim.keymap.set(mode, keybind, mapping_info[1], opts)
