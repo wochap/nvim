@@ -179,6 +179,10 @@ local M = {
   IblScope = { bg = "NONE" },
   IblWhitespace = { bg = "NONE", fg = theme.base_30.grey },
 
+  -- ufo
+  UfoPreviewNormal = { bg = theme.base_30.darker_black },
+  Folded = { bg = "NONE" },
+
   -- todo-comments
   TodoBgFix = { fg = theme.base_30.black2, bg = theme.base_30.red, bold = true },
   TodoBgHack = { fg = theme.base_30.black2, bg = theme.base_30.orange, bold = true },

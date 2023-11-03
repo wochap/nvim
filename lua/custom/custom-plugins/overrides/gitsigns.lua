@@ -16,7 +16,7 @@ M.options = {
     },
     delete = {
       hl = "GitSignsDelete",
-      text = "󰍵",
+      text = "~",
       numhl = "GitSignsDeleteNr",
       linehl = "GitSignsDeleteLn",
     },
