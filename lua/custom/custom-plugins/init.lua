@@ -275,39 +275,15 @@ local plugins = {
     dependencies = {
       "kevinhwang91/promise-async",
     },
-    config = function()
-      vim.o.foldcolumn = "1" -- '0' is not bad
-      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-      vim.o.foldlevelstart = 99
-      vim.o.foldenable = true
-
-      require("ufo").setup()
+    config = function(_, opts)
+      require("custom.custom-plugins.configs.ufo").setup()
     end,
   },
   {
     "luukvbaal/statuscol.nvim",
     event = "VeryLazy",
-    config = function()
-      local builtin = require "statuscol.builtin"
-      require("statuscol").setup {
-        segments = {
-          {
-            text = { "  ", builtin.lnumfunc, " " },
-            condition = { builtin.not_empty, true, builtin.not_empty },
-            click = "v:lua.ScLa",
-          },
-          {
-            text = { "%s" },
-            condition = { true },
-            click = "v:lua.ScSa",
-          },
-          {
-            text = { builtin.foldfunc, "  " },
-            condition = { true, builtin.not_empty },
-            click = "v:lua.ScFa",
-          },
-        },
-      }
+    opts = function()
+      return require("custom.custom-plugins.configs.statuscol").options
     end,
   },
   -- TODO: wait for nvim 0.10

@@ -210,6 +210,7 @@ local M = {
   FoldColumn = {
     bg = theme.base_30.black,
     fg = theme.base_30.grey,
+    bold = false,
   },
 }
 

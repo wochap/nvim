@@ -1,3 +1,4 @@
+local constants = require "custom.utils.constants"
 local autocmd = vim.api.nvim_create_autocmd
 local function augroup(name)
   return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
@@ -117,6 +118,16 @@ autocmd({ "BufEnter" }, {
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
     require("core.utils").load_mappings("peek", { buffer = bufnr })
+  end,
+})
+
+autocmd("FileType", {
+  group = augroup "hide ufo folds",
+  pattern = constants.exclude_filetypes,
+  callback = function()
+    require("ufo").detach()
+    vim.opt_local.foldenable = false
+    vim.opt_local.foldcolumn = "0"
   end,
 })
 
