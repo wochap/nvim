@@ -52,7 +52,7 @@ M.setup = function()
       prefix = "",
     },
     sort = {
-      prefix = "gs",
+      prefix = "gss",
       reindent_linewise = false,
     },
   }
