@@ -6,39 +6,14 @@ local plugins = {
   -- nvchad
   {
     "lukas-reineke/indent-blankline.nvim",
+    version = false,
     opts = function()
-      return {
-        indent = {
-          char = "▎",
-          tab_char = "▎",
-        },
-        scope = { enabled = false },
-        exclude = {
-          filetypes = {
-            "",
-            "TelescopePrompt",
-            "TelescopeResults",
-            "Trouble",
-            "alpha",
-            "dashboard",
-            "help",
-            "lazy",
-            "lazyterm",
-            "lspinfo",
-            "mason",
-            "neo-tree",
-            "notify",
-            "nvcheatsheet",
-            "nvdash",
-            "terminal",
-            "toggleterm",
-            "trouble",
-          },
-          buftypes = {
-            "terminal",
-          },
-        },
-      }
+      return require("custom.custom-plugins.overrides.blankline").options
+    end,
+    config = function(_, opts)
+      require("core.utils").load_mappings "blankline"
+      dofile(vim.g.base46_cache .. "blankline")
+      require("ibl").setup(opts)
     end,
     main = "ibl",
   },

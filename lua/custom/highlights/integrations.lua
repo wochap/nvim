@@ -175,9 +175,9 @@ local M = {
   },
 
   -- blankline
-  IndentBlanklineSpaceChar = { bg = "NONE", fg = theme.base_30.grey },
-  IndentBlanklineChar = { bg = "NONE", fg = theme.base_30.grey },
-  IndentBlanklineContextStart = { bg = "NONE" },
+  IblIndent = { bg = "NONE", fg = theme.base_30.grey },
+  IblScope = { bg = "NONE" },
+  IblWhitespace = { bg = "NONE", fg = theme.base_30.grey },
 
   -- todo-comments
   TodoBgFix = { fg = theme.base_30.black2, bg = theme.base_30.red, bold = true },
