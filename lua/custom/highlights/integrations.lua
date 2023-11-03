@@ -22,12 +22,12 @@ local gitColors = {
 }
 
 local M = {
-  -- Git signs
+  -- gitsigns.nvim
   GitSignsAdd = { fg = gitColors.add },
   GitSignsChange = { fg = gitColors.change },
   GitSignsDelete = { fg = gitColors.delete },
 
-  -- Diffview
+  -- diffview.nvim
   DiffAdd = { bg = utils.darken(gitColors.add, 0.2, theme.base_16.base01) }, -- right diff add
   DiffChange = { bg = utils.darken(gitColors.change, 0.2, theme.base_16.base01) }, -- both diff change line
   DiffDelete = { bg = utils.darken(gitColors.delete, 0.2, theme.base_16.base01) }, -- right delete
@@ -39,7 +39,7 @@ local M = {
   -- DiffviewNormal = { link = "NvimTreeNormal" },
   -- DiffviewVertSplit = { link = "VertSplit" },
 
-  -- Conflict marker
+  -- conflict-marker.vim
   ConflictMarkerBegin = { bg = utils.darken(gitColors.add, 0.4, theme.base_16.base01) },
   ConflictMarkerOurs = { bg = utils.darken(gitColors.add, 0.2, theme.base_16.base01) },
   ConflictMarkerTheirs = { bg = utils.darken(gitColors.info, 0.2, theme.base_16.base01) },
@@ -47,7 +47,7 @@ local M = {
   ConflictMarkerCommonAncestorsHunk = { bg = theme.base_16.base01 },
   ConflictMarkerSeparator = { fg = theme.base_16.base0B },
 
-  -- NvimTree
+  -- nvim-tree.lua
   NvimTreeEmptyFolderName = { fg = theme.base_30.white },
   NvimTreeExecFile = { fg = theme.base_30.white },
   NvimTreeFolderIcon = { fg = theme.base_30.blue },
@@ -72,13 +72,13 @@ local M = {
   NvimTreeGitNew = { fg = gitColors.add },
   NvimTreeGitStaged = { fg = gitColors.stage },
 
-  -- NvimSpectre
+  -- nvim-spectre
   SpectreSearch = {
     bg = utils.darken(gitColors.delete, 0.2, theme.base_16.base01),
     undercurl = true,
   },
 
-  -- Diagnostics
+  -- diagnostics
   DiagnosticUnderlineError = { undercurl = true, sp = stateColors.error }, -- Used to underline "Error" diagnostics
   DiagnosticUnderlineWarn = { undercurl = true, sp = stateColors.warning }, -- Used to underline "Warning" diagnostics
   DiagnosticUnderlineInfo = { undercurl = true, sp = stateColors.info }, -- Used to underline "Information" diagnostics
@@ -133,7 +133,7 @@ local M = {
     bg = theme.base_30.statusline_bg,
   },
 
-  -- rainbow-delimiters
+  -- rainbow-delimiters.nvim
   rainbow1 = { fg = theme.base_30.red },
   rainbow2 = { fg = theme.base_30.orange },
   rainbow3 = { fg = theme.base_30.yellow },
@@ -165,7 +165,7 @@ local M = {
     fg = tabuflineFg,
   },
 
-  -- cmp
+  -- nvim-cmp
   CmpDoc = {
     bg = utils.darken(theme.base_16.base02, 0.54, theme.base_16.base00),
   },
@@ -174,16 +174,19 @@ local M = {
     bg = utils.darken(theme.base_16.base02, 0.54, theme.base_16.base00),
   },
 
-  -- blankline
+  -- indent-blankline.nvim
   IblIndent = { bg = "NONE", fg = theme.base_30.grey },
   IblScope = { bg = "NONE" },
   IblWhitespace = { bg = "NONE", fg = theme.base_30.grey },
 
-  -- ufo
+  -- nvim-ufo
   UfoPreviewNormal = { bg = theme.base_30.darker_black },
   Folded = { bg = "NONE" },
 
-  -- todo-comments
+  -- telescope.nvim
+  TelescopePromptNormal = { bg = theme.base_30.black2 },
+
+  -- todo-comments.nvim
   TodoBgFix = { fg = theme.base_30.black2, bg = theme.base_30.red, bold = true },
   TodoBgHack = { fg = theme.base_30.black2, bg = theme.base_30.orange, bold = true },
   TodoBgNote = { fg = theme.base_30.black2, bg = theme.base_30.teal, bold = true },
