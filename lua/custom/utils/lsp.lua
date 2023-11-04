@@ -56,7 +56,7 @@ M.get_opts = function()
         client.server_capabilities.documentRangeFormattingProvider = true
       end
 
-      require("core.utils").load_mappings("dap", { buffer = bufnr })
+      utils.load_mappings("dap", { buffer = bufnr })
       local wk = require "which-key"
       wk.register({
         ["<leader>d"] = { name = "dap" },

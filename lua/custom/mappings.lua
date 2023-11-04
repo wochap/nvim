@@ -161,12 +161,14 @@ M.lspconfig = {
         vim.lsp.buf.signature_help()
       end,
       "lsp signature_help",
+      has = "signatureHelp",
     },
     ["gd"] = {
       function()
         require("telescope.builtin").lsp_definitions { reuse_win = true }
       end,
       "lsp definition",
+      has = "definition",
     },
     ["gy"] = {
       function()
@@ -181,12 +183,14 @@ M.lspconfig = {
       end,
       "lsp rename",
       opts = { expr = true },
+      has = "rename",
     },
     ["<leader>la"] = {
       function()
         vim.lsp.buf.code_action()
       end,
       "lsp code_action",
+      has = "codeAction",
     },
     ["<leader>lA"] = {
       function()
@@ -200,6 +204,7 @@ M.lspconfig = {
         }
       end,
       "lsp code_action source",
+      has = "codeAction",
     },
     ["gr"] = {
       "<cmd>Telescope lsp_references<cr>",
@@ -231,6 +236,7 @@ M.lspconfig = {
         vim.lsp.buf.code_action()
       end,
       "lsp code_action",
+      has = "codeAction",
     },
   },
   i = {
@@ -239,6 +245,7 @@ M.lspconfig = {
         vim.lsp.buf.signature_help()
       end,
       "lsp signature_help",
+      has = "signatureHelp",
     },
   },
 }
@@ -247,7 +254,11 @@ M.lspconfig_tsserver = {
   plugin = true,
 
   n = {
-    ["<leader>lR"] = { "<cmd>TypescriptRenameFile<CR>", "lsp rename file" },
+    ["<leader>lR"] = {
+      "<cmd>TypescriptRenameFile<CR>",
+      "lsp rename file",
+      has = "rename",
+    },
   },
 }
 
