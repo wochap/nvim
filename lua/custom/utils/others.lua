@@ -27,12 +27,14 @@ M.print_buf_info = function()
   local buftype = vim.api.nvim_buf_get_option(bufid, "buftype")
   local bufname = vim.api.nvim_buf_get_name(bufid)
   local filetype = vim.bo.filetype
+  local floating = vim.api.nvim_win_get_config(winid).relative ~= ""
 
   print("winid " .. winid)
   print("bufid " .. bufid)
   print("buftype " .. buftype)
   print("bufname " .. bufname)
   print("filetype " .. filetype)
+  print("floating " .. (floating and "yes" or "no"))
 end
 
 return M
