@@ -1,6 +1,7 @@
 local opt = vim.opt
 local g = vim.g
 
+opt.smartindent = false -- fix indent of line starting with `#`
 opt.wrap = false
 opt.relativenumber = true
 opt.fillchars = {
