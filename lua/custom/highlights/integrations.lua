@@ -4,7 +4,7 @@ local theme = require "custom.highlights.catppuccin-mocha"
 local nvimtreeBg = theme.base_30.darker_black
 local tabuflineBg = theme.base_30.black
 local tabuflineFg = theme.base_30.grey
-local stModuleBg = theme.base_30.grey
+local stModuleBg = theme.base_16.base02
 local stModuleFg = theme.base_30.white
 local statusline_fg = theme.base_30.white
 local stateColors = {
@@ -223,20 +223,5 @@ local M = {
     bg = theme.base03,
   },
 }
-
-local colors = theme.base_30
-local function genModes_hl(modename, col)
-  M["St_" .. modename .. "Mode"] = { fg = colors.black, bg = colors[col], bold = true }
-  M["St_" .. modename .. "ModeSep"] = { fg = colors[col], bg = colors.statusline_bg }
-end
-genModes_hl("Normal", "nord_blue")
-genModes_hl("Visual", "cyan")
-genModes_hl("Insert", "dark_purple")
-genModes_hl("Terminal", "green")
-genModes_hl("NTerminal", "yellow")
-genModes_hl("Replace", "orange")
-genModes_hl("Confirm", "teal")
-genModes_hl("Command", "green")
-genModes_hl("Select", "blue")
 
 return M

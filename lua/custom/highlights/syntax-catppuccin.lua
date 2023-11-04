@@ -228,4 +228,18 @@ local M = {
   zshKSHFunction = { link = "Function" },
 }
 
+local function genModes_hl(modename, col)
+  M["St_" .. modename .. "Mode"] = { fg = theme.base_30.black, bg = theme.palette[col], bold = true }
+  M["St_" .. modename .. "ModeSep"] = { fg = theme.palette[col], bg = theme.base_30.statusline_bg }
+end
+genModes_hl("Normal", "lavender")
+genModes_hl("Visual", "flamingo")
+genModes_hl("Insert", "green")
+genModes_hl("Terminal", "green")
+genModes_hl("NTerminal", "lavender")
+genModes_hl("Replace", "maroon")
+genModes_hl("Confirm", "mauve")
+genModes_hl("Command", "peach")
+genModes_hl("Select", "maroon")
+
 return M
