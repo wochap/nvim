@@ -5,7 +5,7 @@ local constants = require "custom.utils.constants"
 M.options = {
   indent = {
     char = "▎",
-    tab_char = "▎",
+    tab_char = "»",
   },
   scope = { enabled = false },
   exclude = {
