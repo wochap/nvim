@@ -74,23 +74,23 @@ autocmd("FileType", {
   command = "set nu",
 })
 
-autocmd({ "BufEnter" }, {
-  group = augroup "tint_refresh",
-  pattern = "*",
-  callback = function()
-    local ok, tint = pcall(require, "tint")
-
-    if not ok then
-      return
-    end
-
-    if not vim.g.vimenter then
-      return
-    end
-
-    tint.refresh()
-  end,
-})
+-- autocmd({ "BufEnter" }, {
+--   group = augroup "tint_refresh",
+--   pattern = "*",
+--   callback = function()
+--     local ok, tint = pcall(require, "tint")
+--
+--     if not ok then
+--       return
+--     end
+--
+--     if not vim.g.vimenter then
+--       return
+--     end
+--
+--     tint.refresh()
+--   end,
+-- })
 
 autocmd({ "VimEnter" }, {
   group = augroup "set_vimenter",

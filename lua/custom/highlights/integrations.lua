@@ -26,6 +26,18 @@ local M = {
   GitSignsAdd = { fg = gitColors.add },
   GitSignsChange = { fg = gitColors.change },
   GitSignsDelete = { fg = gitColors.delete },
+  GitSignsAddPreview = { link = "DiffAdd" },
+  GitSignsDeletePreview = { link = "DiffDelete" },
+
+  -- nvim diff
+  -- diffAdded = { fg = gitColors.add },
+  -- diffRemoved = { fg = gitColors.delete },
+  -- diffChanged = { fg = gitColors.change },
+  -- diffOldFile = { fg = theme.palette.yellow },
+  -- diffNewFile = { fg = theme.palette.peach },
+  -- diffFile = { fg = theme.palette.blue },
+  -- diffLine = { fg = theme.palette.overlay0 },
+  -- diffIndexLine = { fg = theme.palette.teal },
 
   -- diffview.nvim
   DiffAdd = { bg = utils.darken(gitColors.add, 0.2, theme.base_16.base01) }, -- right diff add
@@ -34,8 +46,8 @@ local M = {
   DiffText = { bg = utils.brighten(utils.darken(gitColors.change, 0.2, theme.base_16.base01), 0.3) }, -- both diff change text
   DiffviewDiffAddAsDelete = { bg = utils.darken(gitColors.delete, 0.2, theme.base_16.base01) }, -- left diff delete
   DiffviewDiffDelete = { fg = theme.base_16.base03 }, -- both diff delete sign
-  DiffviewFilePanelCounter = { fg = theme.base_30.blue, bg = "NONE" },
-  DiffviewFilePanelTitle = { fg = theme.base_30.red, bg = "NONE" },
+  DiffviewFilePanelCounter = { fg = theme.base_30.red, bg = "NONE" },
+  DiffviewFilePanelTitle = { fg = theme.base_30.lavender, bg = "NONE" },
   -- DiffviewNormal = { link = "NvimTreeNormal" },
   -- DiffviewVertSplit = { link = "VertSplit" },
 
@@ -175,13 +187,14 @@ local M = {
   },
 
   -- indent-blankline.nvim
-  IblIndent = { bg = "NONE", fg = theme.base_30.grey },
+  IblIndent = { bg = "NONE", fg = theme.base_16.base02 },
   IblScope = { bg = "NONE" },
-  IblWhitespace = { bg = "NONE", fg = theme.base_30.grey },
+  IblWhitespace = { bg = "NONE", fg = theme.base_16.base02 },
 
   -- nvim-ufo
   UfoPreviewNormal = { bg = theme.base_30.darker_black },
-  Folded = { bg = "NONE" },
+  UfoFoldedEllipsis = { link = "Comment" },
+  FoldColumn = { link = "LineNr" },
 
   -- telescope.nvim
   TelescopePromptNormal = { bg = theme.base_30.black2 },
@@ -210,18 +223,7 @@ local M = {
   TodoSignWarn = { link = "TodoFgWarn" },
 
   -- nvim
-  WinSeparator = {
-    fg = theme.base_30.grey,
-    bg = "NONE",
-  },
-  FoldColumn = {
-    bg = theme.base_30.black,
-    fg = theme.base_30.grey,
-    bold = false,
-  },
-  Visual = {
-    bg = theme.base03,
-  },
+  WinSeparator = { link = "VertSplit" },
 }
 
 return M

@@ -45,7 +45,7 @@ M.setup = function()
         end
         curWidth = curWidth + chunkWidth
       end
-      table.insert(newVirtText, { suffix, "MoreMsg" })
+      table.insert(newVirtText, { suffix, "UfoFoldedEllipsis" })
       return newVirtText
     end,
   }

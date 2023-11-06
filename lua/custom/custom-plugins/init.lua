@@ -148,13 +148,13 @@ local plugins = {
       return require("custom.custom-plugins.configs.peek").options
     end,
   },
-  {
-    "levouh/tint.nvim",
-    event = "VeryLazy",
-    opts = function(_, opts)
-      return require("custom.custom-plugins.configs.tint").options
-    end,
-  },
+  -- {
+  --   "levouh/tint.nvim",
+  --   event = "VeryLazy",
+  --   opts = function(_, opts)
+  --     return require("custom.custom-plugins.configs.tint").options
+  --   end,
+  -- },
   {
     "kdheepak/lazygit.nvim",
     cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" },
