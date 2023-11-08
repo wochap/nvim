@@ -30,6 +30,10 @@ local M = {
   GitSignsDeletePreview = { link = "DiffDelete" },
 
   -- nvim diff
+  DiffAdd = { bg = utils.darken(gitColors.add, 0.2, theme.base_16.base01), fg = "NONE" },
+  DiffChange = { bg = utils.darken(gitColors.change, 0.2, theme.base_16.base01), fg = "NONE" },
+  DiffDelete = { bg = utils.darken(gitColors.delete, 0.2, theme.base_16.base01), fg = "NONE" },
+  DiffText = { bg = utils.brighten(utils.darken(gitColors.change, 0.2, theme.base_16.base01), 0.3), fg = "NONE" },
   -- diffAdded = { fg = gitColors.add },
   -- diffRemoved = { fg = gitColors.delete },
   -- diffChanged = { fg = gitColors.change },
@@ -40,12 +44,18 @@ local M = {
   -- diffIndexLine = { fg = theme.palette.teal },
 
   -- diffview.nvim
-  DiffAdd = { bg = utils.darken(gitColors.add, 0.2, theme.base_16.base01) }, -- right diff add
-  DiffChange = { bg = utils.darken(gitColors.change, 0.2, theme.base_16.base01) }, -- both diff change line
-  DiffDelete = { bg = utils.darken(gitColors.delete, 0.2, theme.base_16.base01) }, -- right delete
-  DiffText = { bg = utils.brighten(utils.darken(gitColors.change, 0.2, theme.base_16.base01), 0.3) }, -- both diff change text
-  DiffviewDiffAddAsDelete = { bg = utils.darken(gitColors.delete, 0.2, theme.base_16.base01) }, -- left diff delete
-  DiffviewDiffDelete = { fg = theme.base_16.base03 }, -- both diff delete sign
+  DiffviewDiffAdd = { link = "DiffAdd" }, -- right diff add
+  DiffviewDiffAddText = {
+    bg = utils.brighten(utils.darken(gitColors.add, 0.2, theme.base_16.base01), 0.1),
+    fg = "NONE",
+  }, -- right diff add text
+  DiffviewDiffDelete = { link = "DiffDelete" }, -- left diff delete
+  DiffviewDiffDeleteText = {
+    bg = utils.brighten(utils.darken(gitColors.delete, 0.2, theme.base_16.base01), 0.1),
+    fg = "NONE",
+  }, -- left diff delete text
+  DiffviewDiffDeleteSign = { fg = theme.base_30.grey }, -- both diff delete sign
+  DiffviewDiffAddAsDelete = { bg = theme.base_30.green }, -- TODO: investigate
   DiffviewFilePanelCounter = { fg = theme.base_30.red, bg = "NONE" },
   DiffviewFilePanelTitle = { fg = theme.base_30.lavender, bg = "NONE" },
   -- DiffviewNormal = { link = "NvimTreeNormal" },
