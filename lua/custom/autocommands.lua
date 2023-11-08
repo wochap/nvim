@@ -125,7 +125,11 @@ autocmd("FileType", {
   group = augroup "hide_ufo_folds",
   pattern = constants.exclude_filetypes,
   callback = function()
-    require("ufo").detach()
+    local has_ufo, ufo = pcall(require, "ufo")
+    if not has_ufo then
+      return
+    end
+    ufo.detach()
     vim.opt_local.foldenable = false
     vim.opt_local.foldcolumn = "0"
   end,
