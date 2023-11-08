@@ -120,6 +120,9 @@ local M = {
   DiagnosticVirtualTextInfo = { fg = stateColors.info }, -- Used for "Information" diagnostic virtual text
   DiagnosticVirtualTextHint = { fg = stateColors.hint }, -- Used for "Hint" diagnostic virtual text
 
+  -- nvim-lighbulb
+  LightBulbSign = { link = "DiagnosticWarn" },
+
   -- statusline
   St_lspInfo = {
     bg = theme.base_30.statusline_bg,

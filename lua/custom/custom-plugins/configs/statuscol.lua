@@ -17,7 +17,7 @@ M.options = {
       condition = { true },
     },
     {
-      sign = { name = { "Dap*" } },
+      sign = { name = { "Dap*" }, namespace = { "bulb*" } },
       click = "v:lua.ScSa",
     },
     {

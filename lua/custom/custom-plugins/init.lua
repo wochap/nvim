@@ -302,6 +302,20 @@ local plugins = {
 
   -- LSP stuff
   {
+    "kosayoda/nvim-lightbulb",
+    enabled = false,
+    event = "LspAttach",
+    opts = {
+      sign = {
+        text = " ",
+      },
+      autocmd = {
+        enabled = true,
+        updatetime = -1,
+      },
+    },
+  },
+  {
     "j-hui/fidget.nvim",
     tag = "legacy",
     event = "LspAttach",
