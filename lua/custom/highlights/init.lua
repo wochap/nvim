@@ -26,7 +26,7 @@ return {
   -- make sure you also delete it in ~/.local/share/nvim/nvchad/base46
   extended_integrations = { "dap", "trouble" },
   nvdash = {
-    load_on_startup = true,
+    load_on_startup = false,
     buttons = {
       { "󰈚  New buffer", "Spc f n", "enew" },
       { "  Find File", "Spc f f", "Telescope find_files" },
