@@ -381,6 +381,7 @@ local plugins = {
       require("core.utils").lazy_load "nvim-dap"
     end,
     dependencies = {
+      "ofirgall/goto-breakpoints.nvim",
       {
         "rcarriga/nvim-dap-ui",
         config = function(_, opts)

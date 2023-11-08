@@ -530,6 +530,18 @@ M.dap = {
   plugin = true,
 
   n = {
+    ["]h"] = {
+      function()
+        require("goto-breakpoints").next()
+      end,
+      "next breakpoint",
+    },
+    ["[h"] = {
+      function()
+        require("goto-breakpoints").prev()
+      end,
+      "prev breakpoint",
+    },
     ["<leader>d<Up>"] = { "<cmd>lua require'dap'.step_out()<CR>", "step out" },
     ["<leader>d<Right>"] = { "<cmd>lua require'dap'.step_into()<CR>", "step into" },
     ["<leader>d<Down>"] = { "<cmd>lua require'dap'.step_over()<CR>", "step over" },
