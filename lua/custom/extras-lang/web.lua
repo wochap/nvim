@@ -77,7 +77,8 @@ local plugins = {
       },
       setup = {
         tsserver = function(_, opts)
-          require("typescript").setup(opts)
+          require("typescript").setup { server = opts }
+          return true
         end,
         tailwindcss = function(_, opts)
           local tw = require "lspconfig.server_configurations.tailwindcss"
