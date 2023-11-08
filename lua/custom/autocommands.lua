@@ -122,7 +122,7 @@ autocmd({ "BufEnter" }, {
 })
 
 autocmd("FileType", {
-  group = augroup "hide ufo folds",
+  group = augroup "hide_ufo_folds",
   pattern = constants.exclude_filetypes,
   callback = function()
     require("ufo").detach()
