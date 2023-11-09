@@ -19,6 +19,7 @@ local gitColors = {
   change = theme.base_30.orange,
   info = theme.base_30.blue,
   stage = theme.base_30.purple,
+  ancestor = theme.base_30.white,
 }
 
 local M = {
@@ -61,13 +62,13 @@ local M = {
   -- DiffviewNormal = { link = "NvimTreeNormal" },
   -- DiffviewVertSplit = { link = "VertSplit" },
 
-  -- conflict-marker.vim
-  ConflictMarkerBegin = { bg = utils.darken(gitColors.add, 0.4, theme.base_16.base01) },
-  ConflictMarkerOurs = { bg = utils.darken(gitColors.add, 0.2, theme.base_16.base01) },
-  ConflictMarkerTheirs = { bg = utils.darken(gitColors.info, 0.2, theme.base_16.base01) },
-  ConflictMarkerEnd = { bg = utils.darken(gitColors.info, 0.4, theme.base_16.base01) },
-  ConflictMarkerCommonAncestorsHunk = { bg = theme.base_16.base01 },
-  ConflictMarkerSeparator = { fg = theme.base_16.base0B },
+  -- git-conflict.nvim
+  GitConflictCurrentLabel = { bg = utils.darken(gitColors.add, 0.4, theme.base_16.base01) },
+  GitConflictCurrent = { bg = utils.darken(gitColors.add, 0.2, theme.base_16.base01) },
+  GitConflictIncoming = { bg = utils.darken(gitColors.info, 0.2, theme.base_16.base01) },
+  GitConflictIncomingLabel = { bg = utils.darken(gitColors.info, 0.4, theme.base_16.base01) },
+  GitConflictAncestorLabel = { bg = utils.darken(gitColors.ancestor, 0.4, theme.base_16.base01) },
+  GitConflictAncestor = { bg = utils.darken(gitColors.ancestor, 0.2, theme.base_16.base01) },
 
   -- nvim-tree.lua
   NvimTreeEmptyFolderName = { fg = theme.base_30.white },

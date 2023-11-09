@@ -253,13 +253,14 @@ local plugins = {
     end,
   },
   {
-    "rhysd/conflict-marker.vim",
-    init = function()
-      -- Include text after begin and end markers
-      g.conflict_marker_begin = "^<<<<<<< .*$"
-      g.conflict_marker_end = "^>>>>>>> .*$"
-
-      require("core.utils").lazy_load "conflict-marker.vim"
+    "akinsho/git-conflict.nvim",
+    version = "*",
+    event = "VeryLazy",
+    opts = function()
+      return require("custom.custom-plugins.configs.git-conflict").options
+    end,
+    config = function(_, opts)
+      require("custom.custom-plugins.configs.git-conflict").setup(opts)
     end,
   },
   {
