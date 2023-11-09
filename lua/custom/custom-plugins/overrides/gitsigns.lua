@@ -27,6 +27,29 @@ M.options = {
       text = "▍",
     },
   },
+  _signs_staged_enable = true,
+  _signs_staged = {
+    add = {
+      hl = "GitSignsStagedAdd",
+      text = "▍",
+    },
+    change = {
+      hl = "GitSignsStagedChange",
+      text = "▍",
+    },
+    delete = {
+      hl = "GitSignsStagedDelete",
+      text = "",
+    },
+    changedelete = {
+      hl = "GitSignsStagedChange",
+      text = "▍",
+    },
+    topdelete = {
+      hl = "GitSignsStagedDelete",
+      text = "",
+    },
+  },
 }
 
 return M
