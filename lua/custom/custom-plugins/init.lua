@@ -292,6 +292,24 @@ local plugins = {
     event = "VeryLazy",
     opts = {},
   },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = function()
+      return require("custom.custom-plugins.configs.flash").keys
+    end,
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    optional = true,
+    opts = function(_, opts)
+      local flash = require("custom.utils.telescope").flash
+      opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
+        mappings = { n = { s = flash }, i = { ["<c-s>"] = flash } },
+      })
+    end,
+  }, -- integrate flash in telescope
   -- TODO: wait for nvim 0.10
   -- {
   --   "mikesmithgh/kitty-scrollback.nvim",

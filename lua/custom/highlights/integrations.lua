@@ -126,6 +126,13 @@ local M = {
   -- nvim-lighbulb
   LightBulbSign = { link = "DiagnosticWarn" },
 
+  -- flash.nvim
+  FlashBackdrop = { fg = theme.base_30.grey_fg },
+  FlashLabel = { fg = theme.base_30.green, bg = theme.base_30.black, bold = true },
+  FlashMatch = { fg = theme.base_30.lavender, bg = theme.base_30.black },
+  FlashCurrent = { fg = theme.base_30.peach, bg = theme.base_30.black },
+  FlashPrompt = { link = "NormalFloat" },
+
   -- statusline
   St_lspInfo = {
     bg = theme.base_30.statusline_bg,
