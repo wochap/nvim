@@ -4,6 +4,7 @@ local theme = require "custom.highlights.catppuccin-mocha"
 local nvimtreeBg = theme.base_30.darker_black
 local tabuflineBg = theme.base_30.black
 local tabuflineFg = theme.base_30.grey
+local tabuflineFgActive = theme.base_30.lavender
 local stModuleBg = theme.base_16.base02
 local stModuleFg = theme.base_30.white
 local statusline_fg = theme.base_30.white
@@ -176,6 +177,10 @@ local M = {
     bg = tabuflineBg,
     fg = tabuflineFg,
   },
+  TbLineBufOn = {
+    bg = tabuflineBg,
+    fg = tabuflineFgActive,
+  },
   TbLineBufOffModified = {
     bg = tabuflineBg,
   },
@@ -184,7 +189,7 @@ local M = {
   },
   TbLineTabOn = {
     bg = tabuflineBg,
-    fg = theme.base_30.white,
+    fg = tabuflineFgActive,
     bold = false,
   },
   TbLineTabOff = {
