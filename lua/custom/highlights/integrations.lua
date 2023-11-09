@@ -27,6 +27,8 @@ local M = {
   GitSignsAdd = { fg = gitColors.add },
   GitSignsChange = { fg = gitColors.change },
   GitSignsDelete = { fg = gitColors.delete },
+  GitSignsDeleteInline = { link = "DiffviewDiffDeleteText" },
+  GitSignsAddInline = { link = "DiffviewDiffAddText" },
   GitSignsAddPreview = { link = "DiffAdd" },
   GitSignsDeletePreview = { link = "DiffDelete" },
 
@@ -34,7 +36,7 @@ local M = {
   DiffAdd = { bg = utils.darken(gitColors.add, 0.2, theme.base_16.base01), fg = "NONE" },
   DiffChange = { bg = utils.darken(gitColors.change, 0.2, theme.base_16.base01), fg = "NONE" },
   DiffDelete = { bg = utils.darken(gitColors.delete, 0.2, theme.base_16.base01), fg = "NONE" },
-  DiffText = { bg = utils.brighten(utils.darken(gitColors.change, 0.2, theme.base_16.base01), 0.3), fg = "NONE" },
+  DiffText = { bg = utils.brighten(utils.darken(gitColors.change, 0.2, theme.base_16.base01), 0.15), fg = "NONE" },
   -- diffAdded = { fg = gitColors.add },
   -- diffRemoved = { fg = gitColors.delete },
   -- diffChanged = { fg = gitColors.change },
@@ -47,12 +49,12 @@ local M = {
   -- diffview.nvim
   DiffviewDiffAdd = { link = "DiffAdd" }, -- right diff add
   DiffviewDiffAddText = {
-    bg = utils.brighten(utils.darken(gitColors.add, 0.2, theme.base_16.base01), 0.1),
+    bg = utils.brighten(utils.darken(gitColors.add, 0.2, theme.base_16.base01), 0.15),
     fg = "NONE",
   }, -- right diff add text
   DiffviewDiffDelete = { link = "DiffDelete" }, -- left diff delete
   DiffviewDiffDeleteText = {
-    bg = utils.brighten(utils.darken(gitColors.delete, 0.2, theme.base_16.base01), 0.1),
+    bg = utils.brighten(utils.darken(gitColors.delete, 0.2, theme.base_16.base01), 0.15),
     fg = "NONE",
   }, -- left diff delete text
   DiffviewDiffDeleteSign = { fg = theme.base_30.grey }, -- both diff delete sign
