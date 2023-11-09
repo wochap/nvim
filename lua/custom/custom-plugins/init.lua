@@ -295,7 +295,9 @@ local plugins = {
   {
     "folke/flash.nvim",
     event = "VeryLazy",
-    opts = {},
+    opts = function()
+      return require("custom.custom-plugins.configs.flash").options
+    end,
     keys = function()
       return require("custom.custom-plugins.configs.flash").keys
     end,

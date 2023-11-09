@@ -43,4 +43,18 @@ M.keys = {
   },
 }
 
+M.options = {
+  modes = {
+    char = {
+      enabled = true,
+      jump_labels = true,
+      multi_line = false,
+    },
+  },
+  prompt = {
+    enabled = true,
+    prefix = { { " FLASH ", "FlashPromptMode" }, { " ", "FlashPromptModeSep" } },
+  },
+}
+
 return M

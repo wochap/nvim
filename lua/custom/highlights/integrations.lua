@@ -135,7 +135,9 @@ local M = {
   FlashLabel = { fg = theme.base_30.green, bg = theme.base_30.black, bold = true },
   FlashMatch = { fg = theme.base_30.lavender, bg = theme.base_30.black },
   FlashCurrent = { fg = theme.base_30.peach, bg = theme.base_30.black },
-  FlashPrompt = { link = "NormalFloat" },
+  FlashPrompt = { link = "Normal" },
+  FlashPromptMode = { link = "St_CommandMode" },
+  FlashPromptModeSep = { link = "St_CommandModeSep" },
 
   -- statusline
   St_lspInfo = {
