@@ -135,6 +135,17 @@ autocmd("FileType", {
   end,
 })
 
+autocmd("CmdlineLeave", {
+  group = augroup "turn_off_flash_search",
+  callback = function()
+    local has_flash, flash = pcall(require, "flash")
+    if not has_flash then
+      return
+    end
+    pcall(flash.toggle, false)
+  end,
+})
+
 -- vim.cmd [[
 --    " Protect large files from sourcing and other overhead.
 --    " Files become read only
