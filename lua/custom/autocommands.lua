@@ -129,7 +129,7 @@ autocmd("FileType", {
     if not has_ufo then
       return
     end
-    ufo.detach()
+    pcall(ufo.detach)
     vim.opt_local.foldenable = false
     vim.opt_local.foldcolumn = "0"
   end,
