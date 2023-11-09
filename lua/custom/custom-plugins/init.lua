@@ -287,6 +287,11 @@ local plugins = {
       return require("custom.custom-plugins.configs.statuscol").options
     end,
   },
+  {
+    "NMAC427/guess-indent.nvim",
+    event = "VeryLazy",
+    opts = {},
+  },
   -- TODO: wait for nvim 0.10
   -- {
   --   "mikesmithgh/kitty-scrollback.nvim",
