@@ -102,6 +102,19 @@ local plugins = {
   },
   {
     "nvim-telescope/telescope.nvim",
+    dependencies = {
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        enabled = vim.fn.executable "make" == 1,
+        config = function()
+          local Util = require "lazyvim.util"
+          Util.on_load("telescope.nvim", function()
+            require("telescope").load_extension "fzf"
+          end)
+        end,
+      },
+    },
     opts = {
       defaults = {
         file_ignore_patterns = { "node_modules", "%.git/", "%.lock$", "%-lock.json$", "%.direnv/" },
