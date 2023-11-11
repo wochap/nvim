@@ -4,6 +4,7 @@ local plugins = {
     optional = true,
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
+        "astro",
         "css",
         "graphql",
         "html",
@@ -11,6 +12,7 @@ local plugins = {
         "svelte",
         "tsx",
         "typescript",
+        "vue",
       })
     end,
   },
@@ -24,6 +26,7 @@ local plugins = {
         html = { filetypes = { "xhtml", "html" } },
         cssls = {},
         svelte = {},
+        astro = {},
         cssmodules_ls = {},
         emmet_language_server = {
           filetypes = {
@@ -74,6 +77,31 @@ local plugins = {
             },
           },
         },
+        volar = {
+          filetypes = { "vue" },
+          on_new_config = function(new_config, new_root_dir)
+            local util = require "lspconfig.util"
+            local function get_typescript_server_path(root_dir)
+              local homeDir = os.getenv "HOME"
+              local global_ts = homeDir .. "/.npm/lib/node_modules/typescript/lib"
+              -- Alternative location if installed as root:
+              -- local global_ts = '/usr/local/lib/node_modules/typescript/lib'
+              local found_ts = ""
+              local function check_dir(path)
+                found_ts = util.path.join(path, "node_modules", "typescript", "lib")
+                if util.path.exists(found_ts) then
+                  return path
+                end
+              end
+              if util.search_ancestors(root_dir, check_dir) then
+                return found_ts
+              else
+                return global_ts
+              end
+            end
+            new_config.init_options.typescript.tsdk = get_typescript_server_path(new_root_dir)
+          end,
+        },
       },
       setup = {
         tsserver = function(_, opts)
@@ -88,7 +116,6 @@ local plugins = {
           vim.list_extend(opts.filetypes, tw.default_config.filetypes)
 
           -- Remove excluded filetypes
-          --- @param ft string
           opts.filetypes = vim.tbl_filter(function(ft)
             return not vim.tbl_contains(opts.filetypes_exclude or {}, ft)
           end, opts.filetypes)
