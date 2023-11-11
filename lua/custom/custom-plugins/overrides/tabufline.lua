@@ -6,6 +6,7 @@ return {
     local isBufValid = function(bufnr)
       return vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buflisted
     end
+    local buffer_width = 24
 
     local function new_hl(group1, group2)
       local fg = fn.synIDattr(fn.synIDtrans(fn.hlID(group1)), "fg#")
@@ -24,81 +25,79 @@ return {
     end
 
     local function add_fileInfo(name, bufnr)
-      if devicons_present then
-        local icon, icon_hl = devicons.get_icon(name, string.match(name, "%a+$"))
-
-        if not icon then
-          icon = "󰈚"
-          icon_hl = "DevIconDefault"
-        end
-
-        icon = (
-          api.nvim_get_current_buf() == bufnr and new_hl(icon_hl, "TbLineBufOn") .. icon
-          or "%#TbLineBufOff#" .. icon
-        ) .. " "
-
-        -- check for same buffer names under different dirs
-        for _, value in ipairs(vim.t.bufs) do
-          if isBufValid(value) then
-            if name == fn.fnamemodify(api.nvim_buf_get_name(value), ":t") and value ~= bufnr then
-              local other = {}
-              for match in (vim.fs.normalize(api.nvim_buf_get_name(value)) .. "/"):gmatch("(.-)" .. "/") do
-                table.insert(other, match)
-              end
-
-              local current = {}
-              for match in (vim.fs.normalize(api.nvim_buf_get_name(bufnr)) .. "/"):gmatch("(.-)" .. "/") do
-                table.insert(current, match)
-              end
-
-              name = current[#current]
-
-              for i = #current - 1, 1, -1 do
-                local value_current = current[i]
-                local other_current = other[i]
-
-                if value_current ~= other_current then
-                  if (#current - i) < 2 then
-                    name = value_current .. "/" .. name
-                  else
-                    name = value_current .. "/../" .. name
-                  end
-                  break
-                end
-              end
-              break
-            end
-          end
-        end
-
-        local maxname_len = 16
-        name = (#name > maxname_len and string.sub(name, 1, 14) .. "..") or name
-
-        -- padding around bufname; 24 - #name - #icon
-        local padding = (24 - #name - 2) / 2
-        local strPadding = string.rep(" ", padding)
-        local nameHl = ""
-        local modifiedIndicator = "  "
-
-        name = (api.nvim_get_current_buf() == bufnr and "%#TbLineBufOn# " .. name) or ("%#TbLineBufOff# " .. name)
-        name = strPadding .. icon .. name
-
-        if bufnr == api.nvim_get_current_buf() then
-          if vim.bo[0].modified then
-            modifiedIndicator = "%%#TbLineBufOnModified# "
-          end
-          nameHl = "%#TbLineBufOn#"
-        else
-          if vim.bo[bufnr].modified then
-            modifiedIndicator = "%%#TbLineBufOffModified# "
-          end
-          nameHl = "%#TbLineBufOff#"
-        end
-
-        strPadding = strPadding:gsub("  ", modifiedIndicator, 1)
-
-        return nameHl .. name .. strPadding
+      if not devicons_present then
+        return ""
       end
+
+      local icon, icon_hl = devicons.get_icon(name, string.match(name, "%a+$"))
+
+      if not icon then
+        icon = "󰈚"
+        icon_hl = "DevIconDefault"
+      end
+
+      icon = (
+        api.nvim_get_current_buf() == bufnr and new_hl(icon_hl, "TbLineBufOn") .. icon
+        or "%#TbLineBufOff#" .. icon
+      ) .. " "
+
+      -- check for same buffer names under different dirs
+      for _, value in ipairs(vim.t.bufs) do
+        if isBufValid(value) then
+          if name == fn.fnamemodify(api.nvim_buf_get_name(value), ":t") and value ~= bufnr then
+            local other = {}
+            for match in (vim.fs.normalize(api.nvim_buf_get_name(value)) .. "/"):gmatch("(.-)" .. "/") do
+              table.insert(other, match)
+            end
+
+            local current = {}
+            for match in (vim.fs.normalize(api.nvim_buf_get_name(bufnr)) .. "/"):gmatch("(.-)" .. "/") do
+              table.insert(current, match)
+            end
+
+            name = current[#current]
+
+            for i = #current - 1, 1, -1 do
+              local value_current = current[i]
+              local other_current = other[i]
+
+              if value_current ~= other_current then
+                if (#current - i) < 2 then
+                  name = value_current .. "/" .. name
+                else
+                  name = value_current .. "/../" .. name
+                end
+                break
+              end
+            end
+            break
+          end
+        end
+      end
+
+      -- resize name
+      local maxname_len = 16
+      name = (#name > maxname_len and string.sub(name, 1, 14) .. "..") or name
+
+      -- padding around bufname = ( buffer_width - #name - #icon ) / 2
+      local padding = (buffer_width - #name - 2) / 2
+      local strPadding = string.rep(" ", padding)
+
+      local nameHl = (api.nvim_get_current_buf() == bufnr and "%#TbLineBufOn#") or "%#TbLineBufOff#"
+      name = strPadding .. icon .. nameHl .. " " .. name
+
+      -- add modified indicator
+      local modifiedIndicator = "  "
+      if bufnr == api.nvim_get_current_buf() then
+        if vim.bo[0].modified then
+          modifiedIndicator = "%%#TbLineBufOnModified# "
+        end
+      else
+        if vim.bo[bufnr].modified then
+          modifiedIndicator = "%%#TbLineBufOffModified# "
+        end
+      end
+      return nameHl .. name .. strPadding:gsub("  ", modifiedIndicator, 1)
     end
 
     local function styleBufferTab(nr)
@@ -113,10 +112,11 @@ return {
       local available_space = vim.o.columns - getBtnsWidth()
       local current_buf = api.nvim_get_current_buf()
       local has_current = false -- have we seen current buffer yet?
+      local helper = current_buf == vim.t.bufs[1] and 1 or 0 -- show first buf correctly
 
       for _, bufnr in ipairs(vim.t.bufs) do
         if isBufValid(bufnr) then
-          if ((#buffers + 0) * 24) > available_space then
+          if ((#buffers + helper) * buffer_width) > available_space then
             if has_current then
               break
             end
