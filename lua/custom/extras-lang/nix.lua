@@ -12,7 +12,7 @@ local plugins = {
     optional = true,
     opts = {
       servers = {
-        rnix = {},
+        nil_ls = {},
       },
     },
   },
@@ -28,6 +28,7 @@ local plugins = {
         b.code_actions.statix,
         b.formatting.nixfmt,
         b.diagnostics.statix,
+        b.diagnostics.deadnix,
       })
     end,
   },
