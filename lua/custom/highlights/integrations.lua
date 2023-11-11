@@ -188,6 +188,7 @@ local M = {
   },
   TbLineBufOffModified = {
     bg = tabuflineBg,
+    fg = tabuflineFg,
   },
   TbLineBufOffClose = {
     bg = tabuflineBg,
