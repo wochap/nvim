@@ -135,7 +135,7 @@ autocmd("FileType", {
   end,
 })
 
-autocmd("CmdlineLeave", {
+autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
   group = augroup "turn_off_flash_search",
   callback = function()
     local has_flash, flash = pcall(require, "flash")
