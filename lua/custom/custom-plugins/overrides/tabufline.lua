@@ -32,14 +32,14 @@ return {
       local icon, icon_hl = devicons.get_icon(name, string.match(name, "%a+$"))
 
       if not icon then
-        icon = "󰈚"
+        icon = "󰈚 "
         icon_hl = "DevIconDefault"
       end
 
       icon = (
         api.nvim_get_current_buf() == bufnr and new_hl(icon_hl, "TbLineBufOn") .. icon
         or "%#TbLineBufOff#" .. icon
-      ) .. " "
+      )
 
       -- check for same buffer names under different dirs
       for _, value in ipairs(vim.t.bufs) do
@@ -76,11 +76,11 @@ return {
       end
 
       -- resize name
-      local maxname_len = 16
+      local maxname_len = buffer_width - 8
       name = (#name > maxname_len and string.sub(name, 1, 14) .. "..") or name
 
       -- padding around bufname = ( buffer_width - #name - #icon ) / 2
-      local padding = (buffer_width - #name - 2) / 2
+      local padding = math.floor((buffer_width - #name - 2) / 2)
       local strPadding = string.rep(" ", padding)
 
       local nameHl = (api.nvim_get_current_buf() == bufnr and "%#TbLineBufOn#") or "%#TbLineBufOff#"
@@ -112,11 +112,10 @@ return {
       local available_space = vim.o.columns - getBtnsWidth()
       local current_buf = api.nvim_get_current_buf()
       local has_current = false -- have we seen current buffer yet?
-      local helper = current_buf == vim.t.bufs[1] and 1 or 0 -- show first buf correctly
 
       for _, bufnr in ipairs(vim.t.bufs) do
         if isBufValid(bufnr) then
-          if ((#buffers + helper) * buffer_width) > available_space then
+          if ((#buffers + 1) * buffer_width) > available_space then
             if has_current then
               break
             end
@@ -130,7 +129,8 @@ return {
       end
 
       vim.g.visibuffers = buffers
-      return table.concat(buffers) .. "%#TblineFill#" .. "%=" -- buffers + empty space
+      local spacing = getBtnsWidth() and ("%#TblineFill#" .. "%=") or ""
+      return table.concat(buffers) .. spacing -- buffers + empty space
     end
 
     local function tablist()
