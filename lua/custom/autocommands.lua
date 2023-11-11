@@ -158,6 +158,23 @@ autocmd({ "tabnew" }, {
   end,
 })
 
+-- TODO: only when inside terminal
+-- HACK: disable autoindent when pasting
+-- missing register ":.="
+local registers = '*+"-%/#abcdefghijklmnopqrstuvwxyz0123456789'
+for i = 1, #registers do
+  local register = registers:sub(i, i)
+
+  -- disable paste mode before pasting and
+  -- enable paste mode after pasting
+  vim.keymap.set("i", "<C-r>" .. register, function()
+    vim.o.paste = true
+    pcall(vim.cmd, 'normal! "' .. register .. "p")
+    -- vim.cmd('normal! "' .. register .. "p")
+    vim.o.paste = false
+  end, { expr = false, noremap = true })
+end
+
 -- vim.cmd [[
 --    " Protect large files from sourcing and other overhead.
 --    " Files become read only
