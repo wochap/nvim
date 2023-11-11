@@ -146,6 +146,18 @@ autocmd("CmdlineLeave", {
   end,
 })
 
+-- HACK: fix buffer not showing on tabnew
+-- https://github.com/NvChad/ui/blob/v2.0/lua/nvchad/tabufline/lazyload.lua
+autocmd({ "tabnew" }, {
+  callback = function(args)
+    vim.schedule(function()
+      if vim.t.bufs == nil then
+        vim.t.bufs = vim.api.nvim_get_current_buf() == args.buf and {} or { args.buf }
+      end
+    end)
+  end,
+})
+
 -- vim.cmd [[
 --    " Protect large files from sourcing and other overhead.
 --    " Files become read only
