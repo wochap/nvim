@@ -1,5 +1,6 @@
 local M = {}
 
+local is_bigfile = require("custom.utils.bigfile").is_bigfile
 local utils = require "core.utils"
 local nvchad_on_attach = function(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false
@@ -49,6 +50,10 @@ M.get_opts = function()
     on_attach = function(client, bufnr)
       -- Run nvchad's attach
       nvchad_on_attach(client, bufnr)
+
+      if is_bigfile(bufnr, 1) and client.supports_method "textDocument/semanticTokens" then
+        client.server_capabilities.semanticTokensProvider = nil
+      end
 
       -- Fix formatting for null-ls
       if client.name == "null-ls" then

@@ -13,6 +13,8 @@ return {
   theme_toggle = {},
   hl_add = hls,
   hl_override = hls,
+  -- disable lsp_semantic_tokens for better performance
+  -- https://github.com/neovim/neovim/issues/23026
   lsp_semantic_tokens = true,
   tabufline = require "custom.custom-plugins.overrides.tabufline",
   statusline = require "custom.custom-plugins.overrides.statusline",
