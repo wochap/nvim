@@ -115,7 +115,8 @@ return {
 
       for _, bufnr in ipairs(vim.t.bufs) do
         if isBufValid(bufnr) then
-          if ((#buffers + 1) * buffer_width) > available_space then
+          -- HACK: change 0 to 1 if dont want overflow
+          if ((#buffers + 0) * buffer_width) > available_space then
             if has_current then
               break
             end
