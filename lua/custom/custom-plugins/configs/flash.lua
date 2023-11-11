@@ -46,7 +46,7 @@ M.keys = {
 M.options = {
   modes = {
     char = {
-      enabled = true,
+      enabled = false,
       jump_labels = true,
       multi_line = false,
     },
