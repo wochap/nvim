@@ -38,4 +38,4 @@ Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirem
 - deadnix (required by [NullLS](https://github.com/nvimtools/none-ls.nvim))
 - nixfmt (required by [NullLS](https://github.com/nvimtools/none-ls.nvim))
 - statix (required by [NullLS](https://github.com/nvimtools/none-ls.nvim))
-- [ts-node](https://www.npmjs.com/package/ts-node) (required by [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap))
+- [ts-node](https://www.npmjs.com/package/ts-node) (required by [nvim-dap](https://github.com/mfussenegger/nvim-dap))
