@@ -27,6 +27,9 @@ M.options = {
     },
     documentation = { winhighlight = "Normal:CmpDoc" .. ",Search:None,IncSearch:None,CurSearch:None" },
   },
+  completion = {
+    completeopt = "menu,menuone,noinsert,noselect",
+  },
   formatting = {
     format = function(_, item)
       local icons = require "nvchad.icons.lspkind"
