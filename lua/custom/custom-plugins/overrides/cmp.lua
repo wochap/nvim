@@ -9,6 +9,14 @@ M.options = {
   enabled = function()
     return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
   end,
+  preselect = cmp.PreselectMode.None,
+  window = {
+    completion = {
+      winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel"
+        .. ",Search:None,IncSearch:None,CurSearch:None",
+    },
+    documentation = { winhighlight = "Normal:CmpDoc" .. ",Search:None,IncSearch:None,CurSearch:None" },
+  },
   formatting = {
     format = function(_, item)
       local icons = require "nvchad.icons.lspkind"
@@ -34,8 +42,20 @@ M.options = {
   mapping = {
     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
     ["<C-d>"] = cmp.mapping.scroll_docs(4),
-    ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
-    ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
+    ["<C-p>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
+      else
+        cmp.complete()
+      end
+    end,
+    ["<C-n>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+      else
+        cmp.complete()
+      end
+    end,
     ["<C-e>"] = cmp.mapping.abort(),
     ["<C-y>"] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Insert,
@@ -149,19 +169,6 @@ M.setup = function(opts)
       { name = "nvim_lua", max_item_count = 10 },
     },
   })
-
-  -- HACK: remove search highlights
-  cmp.event:on("menu_opened", function(args)
-    local win = args.window.entries_win.win
-
-    local status_ok, _ = pcall(vim.api.nvim_win_get_var, win, "winhl_updated")
-    if status_ok then
-      return -- window has already been processed
-    end
-
-    vim.api.nvim_win_set_option(win, "winhl", "Search:,IncSearch:,CurSearch:")
-    vim.api.nvim_win_set_var(win, "winhl_updated", true)
-  end)
 end
 
 return M
