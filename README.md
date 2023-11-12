@@ -1,6 +1,6 @@
 # NVIM
 
-[NVChad](https://github.com/NvChad/NvChad) plus custom config
+[NVChad](https://github.com/NvChad/NvChad) plus [LazyVim](https://github.com/LazyVim/LazyVim) plus my custom config
 
 ![](https://i.imgur.com/jsCnGLI.jpg)
 
@@ -15,57 +15,27 @@ $ nvim
 
 ## Troubleshooting
 
--  Anything Eslint related
+- Anything Eslint related
 
-   Run in nvim
+  Run in nvim
 
-   ```
-   :w
-   :e
-   ```
+  ```
+  :w
+  :e
+  ```
 
 ## Dependencies
 
--  [neovim nightly](https://github.com/neovim/neovim)
--  tree-sitter
+Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirements), Mason will install [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [null-ls](https://github.com/nvimtools/none-ls.nvim) and [nvim-dap](https://github.com/mfussenegger/nvim-dap) dependencies
 
-Required by [Telescope](https://github.com/nvim-telescope/telescope.nvim)
-
--  ripgrep
--  fd
-
-Required by [NullLS](https://github.com/nvimtools/none-ls.nvim)
-
--  localPkgs.customNodePackages."@fsouza/prettierd"
--  localPkgs.customNodePackages.markdownlint
--  localPkgs.customNodePackages.stylelint
--  lua51Packages.luacheck
--  nixfmt
--  nodePackages.eslint_d
--  python39Packages.pylint
--  shellcheck
--  shfmt
--  statix
--  stylua
-
-Required by [lspconfig](https://github.com/neovim/nvim-lspconfig)
-
--  clang-tools
--  rnix-lsp
--  flow
--  sumneko-lua-language-server
-
--  @tailwindcss/language-server
--  cssmodules-language-server
--  emmet-ls
--  bash-language-server
--  svelte-language-server
--  vscode-langservers-extracted
--  typescript
--  typescript-language-server
-
-Required by [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap)
-
--  [vscode-node-debug2](https://github.com/microsoft/vscode-node-debug2) on `~/dev/microsoft/vscode-node-debug2`
--  [vscode-chrome-debug](https://github.com/Microsoft/vscode-chrome-debug) on `~/dev/microsoft/vscode-chrome-debug`
--  ts-node
+- [neovim >= 0.9.1](https://github.com/neovim/neovim)
+- [neovim-remote](https://github.com/mhinz/neovim-remote)
+- [tree-sitter](https://github.com/tree-sitter/tree-sitter)
+- ripgrep (required by [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+  )
+- fd (required by [Telescope](https://github.com/nvim-telescope/telescope.nvim))
+- deno (required by [peek](https://github.com/toppair/peek.nvim))
+- deadnix (required by [NullLS](https://github.com/nvimtools/none-ls.nvim))
+- nixfmt (required by [NullLS](https://github.com/nvimtools/none-ls.nvim))
+- statix (required by [NullLS](https://github.com/nvimtools/none-ls.nvim))
+- [ts-node](https://www.npmjs.com/package/ts-node) (required by [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap))
