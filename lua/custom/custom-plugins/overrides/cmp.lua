@@ -7,6 +7,16 @@ local cmp_style = cmp_ui.style
 
 M.options = {
   enabled = function()
+    local cmp_ctx = require "cmp.config.context"
+    if
+      (vim.fn.reg_recording() ~= "")
+      or (vim.fn.reg_executing() ~= "")
+      or (cmp_ctx.in_treesitter_capture "comment" == true)
+      or (cmp_ctx.in_syntax_group "comment" == true)
+    then
+      return false
+    end
+
     return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
   end,
   preselect = cmp.PreselectMode.None,
