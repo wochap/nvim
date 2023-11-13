@@ -229,6 +229,7 @@ local M = {
   UfoPreviewNormal = { bg = theme.base_30.darker_black },
   UfoFoldedEllipsis = { link = "Comment" },
   FoldColumn = { link = "LineNr" },
+  Folded = { fg = "NONE" },
 
   -- telescope.nvim
   TelescopePromptNormal = { bg = theme.base_30.black2 },
