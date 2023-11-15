@@ -110,6 +110,7 @@ autocmd({ "BufEnter" }, {
   group = augroup "nowrap_text_files",
   pattern = "*",
   command = "if &filetype == '' || expand('%:e') == 'norg' | set wrap | else | set nowrap | endif",
+  -- TODO: vim.opt_local.wrap = true vim.opt_local.spell = true
 })
 
 autocmd({ "BufEnter" }, {
