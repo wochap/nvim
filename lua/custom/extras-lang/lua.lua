@@ -56,6 +56,7 @@ local plugins = {
     dependencies = {
       {
         "williamboman/mason.nvim",
+        optional = true,
         opts = function(_, opts)
           vim.list_extend(opts.ensure_installed, { "luacheck" })
         end,

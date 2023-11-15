@@ -82,33 +82,22 @@ local plugins = {
   },
 
   {
-    "nvimtools/none-ls.nvim",
+    "stevearc/conform.nvim",
     optional = true,
-    opts = function(_, opts)
-      local null_ls = require "null-ls"
-      local b = null_ls.builtins
-
-      vim.list_extend(opts.sources, {
-        b.code_actions.gomodifytags,
-        b.code_actions.impl,
-        b.formatting.gofumpt,
-        b.formatting.goimports_reviser,
-      })
-    end,
-  },
-  {
-    "jay-babu/mason-null-ls.nvim",
-    optional = true,
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { "gofumpt", "goimports-reviser" })
-    end,
-  },
-  {
-    "mason.nvim",
-    optional = true,
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { "gomodifytags", "impl" })
-    end,
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
+        optional = true,
+        opts = function(_, opts)
+          vim.list_extend(opts.ensure_installed, { "goimports", "gofumpt" })
+        end,
+      },
+    },
+    opts = {
+      formatters_by_ft = {
+        go = { "goimports", "gofumpt" },
+      },
+    },
   },
 
   {

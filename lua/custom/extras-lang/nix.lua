@@ -18,19 +18,40 @@ local plugins = {
   },
 
   {
-    "nvimtools/none-ls.nvim",
+    "stevearc/conform.nvim",
     optional = true,
-    opts = function(_, opts)
-      local null_ls = require "null-ls"
-      local b = null_ls.builtins
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
+        optional = true,
+        opts = function(_, opts)
+          vim.list_extend(opts.ensure_installed, { "nixfmt" })
+        end,
+      },
+    },
+    opts = {
+      formatters_by_ft = {
+        nix = { "nixfmt" },
+      },
+    },
+  },
 
-      vim.list_extend(opts.sources, {
-        b.code_actions.statix,
-        b.formatting.nixfmt,
-        b.diagnostics.statix,
-        b.diagnostics.deadnix,
-      })
-    end,
+  {
+    "mfussenegger/nvim-lint",
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
+        optional = true,
+        opts = function(_, opts)
+          vim.list_extend(opts.ensure_installed, { "statix", "deadnix" })
+        end,
+      },
+    },
+    opts = {
+      linters_by_ft = {
+        nix = { "statix", "deadnix" },
+      },
+    },
   },
 }
 

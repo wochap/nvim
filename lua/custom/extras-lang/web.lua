@@ -144,72 +144,39 @@ local plugins = {
   },
 
   {
-    "nvimtools/none-ls.nvim",
+    "stevearc/conform.nvim",
     optional = true,
     dependencies = {
       {
-        "jay-babu/mason-null-ls.nvim",
-        optional = true,
+        "williamboman/mason.nvim",
         opts = function(_, opts)
-          vim.list_extend(opts.ensure_installed, { "eslint_d", "prettierd" })
+          table.insert(opts.ensure_installed, "prettierd")
         end,
       },
     },
-    opts = function(_, opts)
-      local null_ls = require "null-ls"
-      local b = null_ls.builtins
-
-      vim.list_extend(opts.sources, {
-        -- JS TS Vue CSS HTML JSON YAML Markdown GraphQL
-        b.formatting.prettierd.with {
-          prefer_local = false,
-          filetypes = {
-            "css",
-            "graphql",
-            "handlebars",
-            "html",
-            "javascript",
-            "javascriptreact",
-            "json",
-            "jsonc",
-            "less",
-            "markdown",
-            "markdown.mdx",
-            "scss",
-            "typescript",
-            "typescriptreact",
-            "vue",
-            "xhtml",
-            "yaml",
-          },
-          dynamic_command = function()
-            return "prettierd"
-          end,
-        },
-
-        -- JS
-        require "typescript.extensions.null-ls.code-actions",
-        b.code_actions.eslint_d,
-        b.formatting.eslint_d,
-        b.diagnostics.eslint_d.with {
-          prefer_local = false,
-          condition = function(utils)
-            return utils.root_has_file {
-              ".eslintrc",
-              ".eslintrc.js",
-              ".eslintrc.yaml",
-              ".eslintrc.yml",
-              ".eslintrc.json",
-            }
-          end,
-          method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-          dynamic_command = function()
-            return "eslint_d"
-          end,
-        },
-      })
-    end,
+    opts = {
+      formatters_by_ft = {
+        ["javascript"] = { "prettierd" },
+        ["javascriptreact"] = { "prettierd" },
+        ["typescript"] = { "prettierd" },
+        ["typescriptreact"] = { "prettierd" },
+        ["vue"] = { "prettierd" },
+        ["css"] = { "prettierd" },
+        ["scss"] = { "prettierd" },
+        ["less"] = { "prettierd" },
+        ["html"] = { "prettierd" },
+        ["json"] = { "prettierd" },
+        ["jsonc"] = { "prettierd" },
+        ["yaml"] = { "prettierd" },
+        ["markdown"] = { "prettierd" },
+        ["markdown.mdx"] = { "prettierd" },
+        ["graphql"] = { "prettierd" },
+        ["handlebars"] = { "prettierd" },
+      },
+    },
   },
+
+  { import = "lazyvim.plugins.extras.linting.eslint" },
 
   {
     "mfussenegger/nvim-dap",
