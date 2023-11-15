@@ -381,6 +381,13 @@ local plugins = {
       "williamboman/mason-lspconfig.nvim",
     },
     opts = {
+      -- options for vim.lsp.buf.format
+      -- `bufnr` and `filter` is handled by the LazyVim formatter,
+      -- but can be also overridden when specified
+      format = {
+        formatting_options = nil,
+        timeout_ms = nil,
+      },
       servers = {
         bashls = {},
       },
@@ -393,28 +400,7 @@ local plugins = {
   },
 
   -- Formatter
-  {
-    "nvimtools/none-ls.nvim",
-    init = function()
-      require("core.utils").lazy_load "none-ls.nvim"
-    end,
-    dependencies = {
-      "mason.nvim",
-      {
-        "jay-babu/mason-null-ls.nvim",
-        opts = {
-          automatic_installation = true,
-          handlers = {
-            function() end,
-          },
-          ensure_installed = { "shellcheck", "shfmt" },
-        },
-      },
-    },
-    opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.null-ls").options)
-    end,
-  },
+  { import = "lazyvim.plugins.formatting" },
 
   -- Debugger
   {

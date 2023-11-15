@@ -173,7 +173,7 @@ return {
       if rawget(vim, "lsp") then
         local client_names = {}
         for _, client in ipairs(vim.lsp.get_active_clients()) do
-          if client.attached_buffers[vim.api.nvim_get_current_buf()] and client.name ~= "null-ls" then
+          if client.attached_buffers[vim.api.nvim_get_current_buf()] then
             table.insert(client_names, client.name)
           end
         end

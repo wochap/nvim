@@ -262,38 +262,12 @@ M.lspconfig_tsserver = {
   },
 }
 
-M.null_ls = {
-  plugin = true,
-
+M.conform = {
   n = {
-    ["<leader>lf"] = {
-      function()
-        local bufnr = vim.api.nvim_get_current_buf()
-        vim.lsp.buf.format {
-          async = false,
-          bufnr = bufnr,
-          filter = function(client)
-            return client.name == "null-ls"
-          end,
-        }
-      end,
-      "format document",
-    },
+    ["<leader>lf"] = { "<cmd>LazyFormat<CR>", "format document" },
   },
   v = {
-    ["<leader>lf"] = {
-      function()
-        local bufnr = vim.api.nvim_get_current_buf()
-        vim.lsp.buf.format {
-          async = false,
-          bufnr = bufnr,
-          filter = function(client)
-            return client.name == "null-ls"
-          end,
-        }
-      end,
-      "format selection",
-    },
+    ["<leader>lf"] = { "<cmd>LazyFormat<CR>", "format selection" },
   },
 }
 
