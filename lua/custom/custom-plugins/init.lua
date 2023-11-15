@@ -5,7 +5,9 @@ local plugins = {
 
   -- nvchad
   {
+    -- NOTE: it causes flickering when indenting lines
     "lukas-reineke/indent-blankline.nvim",
+    -- enabled = false,
     version = false,
     opts = function()
       return require("custom.custom-plugins.overrides.blankline").options
