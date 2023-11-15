@@ -135,9 +135,14 @@ local plugins = {
   },
   {
     "williamboman/mason.nvim",
+    build = ":MasonUpdate",
     opts = {
       ensure_installed = {}, -- not an option from mason.nvim
     },
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "mason")
+      require("custom.custom-plugins.overrides.mason").setup(opts)
+    end,
   },
   {
     "NvChad/nvim-colorizer.lua",
@@ -400,10 +405,26 @@ local plugins = {
   },
 
   -- Formatter, pull config from LazyVim
-  {
-    "LazyVim/LazyVim",
-  },
+  { "LazyVim/LazyVim" },
   { import = "lazyvim.plugins.formatting" },
+  {
+    "stevearc/conform.nvim",
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
+        opts = function(_, opts)
+          vim.list_extend(opts.ensure_installed, { "shfmt", "shellcheck" })
+        end,
+      },
+    },
+    opts = function(_, opts)
+      opts.formatters_by_ft = {
+        sh = { "shfmt" },
+      }
+      return opts
+    end,
+    keys = { { "<leader>cF", false } },
+  },
 
   -- Debugger
   {

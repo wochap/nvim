@@ -33,26 +33,20 @@ local plugins = {
   },
 
   {
-    "nvimtools/none-ls.nvim",
+    "stevearc/conform.nvim",
     optional = true,
     dependencies = {
       {
-        "jay-babu/mason-null-ls.nvim",
+        "williamboman/mason.nvim",
         optional = true,
         opts = function(_, opts)
           vim.list_extend(opts.ensure_installed, { "stylua", "luacheck" })
         end,
       },
     },
-    opts = function(_, opts)
-      local null_ls = require "null-ls"
-      local b = null_ls.builtins
-
-      vim.list_extend(opts.sources, {
-        b.formatting.stylua,
-        b.diagnostics.luacheck.with { extra_args = { "--globals vim" } },
-      })
-    end,
+    formatters_by_ft = {
+      lua = { "stylua" },
+    },
   },
 
   {

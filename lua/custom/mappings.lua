@@ -265,9 +265,21 @@ M.lspconfig_tsserver = {
 M.conform = {
   n = {
     ["<leader>lf"] = { "<cmd>LazyFormat<CR>", "format document" },
+    ["<leader>lF"] = {
+      function()
+        require("conform").format { formatters = { "injected" } }
+      end,
+      "format injected langs in document",
+    },
   },
   v = {
     ["<leader>lf"] = { "<cmd>LazyFormat<CR>", "format selection" },
+    ["<leader>lF"] = {
+      function()
+        require("conform").format { formatters = { "injected" } }
+      end,
+      "format injected langs in selection",
+    },
   },
 }
 
