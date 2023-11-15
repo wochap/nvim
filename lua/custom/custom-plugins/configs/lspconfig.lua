@@ -34,7 +34,7 @@ M.config = function(opts)
   end
 
   -- HACK: setup LazyVim autoformat
-  vim.g.autoformat = true
+  vim.g.autoformat = false
   Util.format.register(Util.lsp.formatter())
 
   -- HACK: run nvchad's attach and setup keymaps

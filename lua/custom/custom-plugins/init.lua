@@ -399,7 +399,10 @@ local plugins = {
     end,
   },
 
-  -- Formatter
+  -- Formatter, pull config from LazyVim
+  {
+    "LazyVim/LazyVim",
+  },
   { import = "lazyvim.plugins.formatting" },
 
   -- Debugger
