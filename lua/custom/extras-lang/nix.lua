@@ -20,15 +20,6 @@ local plugins = {
   {
     "stevearc/conform.nvim",
     optional = true,
-    dependencies = {
-      {
-        "williamboman/mason.nvim",
-        optional = true,
-        opts = function(_, opts)
-          vim.list_extend(opts.ensure_installed, { "nixfmt" })
-        end,
-      },
-    },
     opts = {
       formatters_by_ft = {
         nix = { "nixfmt" },
@@ -43,7 +34,7 @@ local plugins = {
         "williamboman/mason.nvim",
         optional = true,
         opts = function(_, opts)
-          vim.list_extend(opts.ensure_installed, { "statix", "deadnix" })
+          vim.list_extend(opts.ensure_installed, { "deadnix" })
         end,
       },
     },
