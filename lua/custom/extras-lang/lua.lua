@@ -40,12 +40,29 @@ local plugins = {
         "williamboman/mason.nvim",
         optional = true,
         opts = function(_, opts)
-          vim.list_extend(opts.ensure_installed, { "stylua", "luacheck" })
+          vim.list_extend(opts.ensure_installed, { "stylua" })
         end,
       },
     },
     formatters_by_ft = {
       lua = { "stylua" },
+    },
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
+        opts = function(_, opts)
+          vim.list_extend(opts.ensure_installed, { "luacheck" })
+        end,
+      },
+    },
+    opts = {
+      linters_by_ft = {
+        lua = { "luacheck" },
+      },
     },
   },
 

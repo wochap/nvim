@@ -413,7 +413,7 @@ local plugins = {
       {
         "williamboman/mason.nvim",
         opts = function(_, opts)
-          vim.list_extend(opts.ensure_installed, { "shfmt", "shellcheck" })
+          vim.list_extend(opts.ensure_installed, { "shfmt" })
         end,
       },
     },
@@ -424,6 +424,26 @@ local plugins = {
       return opts
     end,
     keys = { { "<leader>cF", false } },
+  },
+
+  -- Linter, pull config from LazyVim
+  { import = "lazyvim.plugins.linting" },
+  {
+    "mfussenegger/nvim-lint",
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
+        opts = function(_, opts)
+          vim.list_extend(opts.ensure_installed, { "shellcheck" })
+        end,
+      },
+    },
+    opts = function(_, opts)
+      opts.linters_by_ft = {
+        sh = { "shellcheck" },
+      }
+      return opts
+    end,
   },
 
   -- Debugger
