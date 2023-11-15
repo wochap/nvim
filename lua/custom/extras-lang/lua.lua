@@ -44,8 +44,10 @@ local plugins = {
         end,
       },
     },
-    formatters_by_ft = {
-      lua = { "stylua" },
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+      },
     },
   },
 
