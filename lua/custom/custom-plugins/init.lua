@@ -430,6 +430,10 @@ local plugins = {
   { import = "lazyvim.plugins.linting" },
   {
     "mfussenegger/nvim-lint",
+    event = false,
+    init = function()
+      require("core.utils").lazy_load "nvim-lint"
+    end,
     dependencies = {
       {
         "williamboman/mason.nvim",
