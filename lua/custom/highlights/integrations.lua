@@ -12,7 +12,7 @@ local stateColors = {
   error = theme.base_30.red,
   warning = theme.base_30.yellow,
   info = theme.base_30.blue,
-  hint = theme.base_30.teal,
+  hint = theme.base_30.purple,
 }
 local gitColors = {
   delete = theme.base_30.red,
