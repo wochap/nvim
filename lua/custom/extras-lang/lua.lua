@@ -65,6 +65,11 @@ local plugins = {
       linters_by_ft = {
         lua = { "luacheck" },
       },
+      linters = {
+        luacheck = {
+          args = { "--globals", "vim", "--formatter", "plain", "--codes", "--ranges", "-" },
+        },
+      },
     },
   },
 
