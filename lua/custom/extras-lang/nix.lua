@@ -31,7 +31,8 @@ local plugins = {
     "mfussenegger/nvim-lint",
     opts = {
       linters_by_ft = {
-        nix = { "statix", "deadnix" },
+        -- TODO: add deadnix
+        nix = { "statix", "nix" },
       },
     },
   },
