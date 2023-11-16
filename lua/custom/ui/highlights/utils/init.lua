@@ -1,4 +1,4 @@
-local hsluv = require "custom.highlights.utils.hsluv"
+local hsluv = require "custom.ui.highlights.utils.hsluv"
 
 local util = {}
 

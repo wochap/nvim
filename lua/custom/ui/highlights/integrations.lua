@@ -1,5 +1,5 @@
-local utils = require "custom.highlights.utils.init"
-local theme = require "custom.highlights.catppuccin-mocha"
+local utils = require "custom.ui.highlights.utils.init"
+local theme = require "custom.ui.highlights.catppuccin-mocha"
 
 local nvimtreeBg = theme.base_30.darker_black
 local tabuflineBg = theme.base_30.black
