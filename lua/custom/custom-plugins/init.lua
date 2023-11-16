@@ -374,35 +374,177 @@ local plugins = {
       input_buffer_type = "dressing",
     },
   },
+  { "LazyVim/LazyVim" },
+  { import = "lazyvim.plugins.lsp.init" },
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      {
-        "folke/neoconf.nvim",
-        cmd = "Neoconf",
-        config = function() end,
-      },
-      "mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-    },
+    event = false,
     opts = {
-      -- options for vim.lsp.buf.format
-      -- `bufnr` and `filter` is handled by the LazyVim formatter,
-      -- but can be also overridden when specified
-      format = {
-        formatting_options = nil,
-        timeout_ms = nil,
+      diagnostics = {
+        signs = false,
+        virtual_text = false,
+        float = {
+          border = "single",
+          format = function(diagnostic)
+            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
+          end,
+        },
       },
-      servers = {
-        bashls = {},
+      -- inlay_hints = {
+      --   enabled = true,
+      -- },
+      capabilities = {
+        textDocument = {
+          -- ufo capabilities
+          -- TODO: move to ufo config
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+          },
+          -- nvchad capabilities
+          completion = {
+            completionItem = {
+              documentationFormat = { "markdown", "plaintext" },
+              snippetSupport = true,
+              preselectSupport = true,
+              insertReplaceSupport = true,
+              labelDetailsSupport = true,
+              deprecatedSupport = true,
+              commitCharactersSupport = true,
+              tagSupport = { valueSet = { 1 } },
+              resolveSupport = {
+                properties = {
+                  "documentation",
+                  "detail",
+                  "additionalTextEdits",
+                },
+              },
+            },
+          },
+        },
       },
-      setup = {},
+      -- TODO: remove lua_ls
     },
     config = function(_, opts)
+      local find_spec = require "custom.utils.lazy"
+      local lazyvim_lsp_spec = require "lazyvim.plugins.lsp.init"
+      local lazyvim_lsp_lspconfig_config = find_spec(lazyvim_lsp_spec, "neovim/nvim-lspconfig")
+      lazyvim_lsp_lspconfig_config(_, opts)
+
+      -- nvchad config
       dofile(vim.g.base46_cache .. "lsp")
-      require("custom.custom-plugins.configs.lspconfig").config(opts)
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+        border = "single",
+      })
+      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+        border = "single",
+        focusable = false,
+        relative = "cursor",
+      })
+      -- Borders for LspInfo winodw
+      local win = require "lspconfig.ui.windows"
+      local _default_opts = win.default_opts
+      win.default_opts = function(options)
+        local opts = _default_opts(options)
+        opts.border = "single"
+        return opts
+      end
+
+      local Util = require "lazyvim.util"
+      Util.lsp.on_attach(function(client, bufnr)
+        -- nvchad onattach
+        local utils = require "core.utils"
+        if client.server_capabilities.signatureHelpProvider then
+          require("nvchad.signature").setup(client)
+        end
+        if not utils.load_config().ui.lsp_semantic_tokens and client.supports_method "textDocument/semanticTokens" then
+          client.server_capabilities.semanticTokensProvider = nil
+        end
+
+        -- disable semanticTokens in large files
+        local is_bigfile = require("custom.utils.bigfile").is_bigfile
+        if is_bigfile(bufnr, 1) and client.supports_method "textDocument/semanticTokens" then
+          client.server_capabilities.semanticTokensProvider = nil
+        end
+
+        utils.load_mappings("dap", { buffer = bufnr })
+        local wk = require "which-key"
+        wk.register({
+          ["<leader>d"] = { name = "dap" },
+          ["<leader>l"] = { name = "lsp" },
+        }, { buffer = bufnr })
+      end)
+
+      vim.g.autoformat = false
+
+      -- HACK: hide hint diagnostics
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, ...)
+        local client = vim.lsp.get_client_by_id(ctx.client_id)
+
+        if client and client.name == "tsserver" then
+          result.diagnostics = vim.tbl_filter(function(diagnostic)
+            return diagnostic.severity ~= vim.lsp.protocol.DiagnosticSeverity.Hint
+          end, result.diagnostics)
+        end
+
+        return vim.lsp.diagnostic.on_publish_diagnostics(nil, result, ctx, ...)
+      end
     end,
   },
+  {
+    "williamboman/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+    keys = false,
+    opts = function(_, opts)
+      local nvchad_opts = require "plugins.configs.mason"
+      return vim.tbl_deep_extend("force", nvchad_opts, {
+        ensure_installed = {},
+      })
+    end,
+    config = function(_, opts)
+      local find_spec = require "custom.utils.lazy"
+      local lazyvim_lsp_spec = require "lazyvim.plugins.lsp.init"
+      local lazyvim_lsp_mason_config = find_spec(lazyvim_lsp_spec, "williamboman/mason.nvim")
+      lazyvim_lsp_mason_config(_, opts)
+
+      -- run nvchad mason config
+      dofile(vim.g.base46_cache .. "mason")
+      vim.api.nvim_create_user_command("MasonInstallAll", function()
+        vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+      end, {})
+      vim.g.mason_binaries_list = opts.ensure_installed
+    end,
+  },
+
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   dependencies = {
+  --     {
+  --       "folke/neoconf.nvim",
+  --       cmd = "Neoconf",
+  --       config = function() end,
+  --     },
+  --     "mason.nvim",
+  --     "williamboman/mason-lspconfig.nvim",
+  --   },
+  --   opts = {
+  --     -- options for vim.lsp.buf.format
+  --     -- `bufnr` and `filter` is handled by the LazyVim formatter,
+  --     -- but can be also overridden when specified
+  --     format = {
+  --       formatting_options = nil,
+  --       timeout_ms = nil,
+  --     },
+  --     servers = {
+  --       bashls = {},
+  --     },
+  --     setup = {},
+  --   },
+  --   config = function(_, opts)
+  --     dofile(vim.g.base46_cache .. "lsp")
+  --     require("custom.custom-plugins.configs.lspconfig").config(opts)
+  --   end,
+  -- },
 
   -- Formatter, pull config from LazyVim
   { "LazyVim/LazyVim" },
