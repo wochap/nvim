@@ -1,4 +1,7 @@
 local g = vim.g
+-- local find_spec = require "custom.utils.lazy"
+-- local lazyvim_lsp_specs = require "custom.custom-plugins.external.lsp"
+-- local lazyvim_lsp_spec = find_spec(lazyvim_lsp_specs, "neovim/nvim-lspconfig")
 
 local plugins = {
   { "nvim-lua/popup.nvim" },
@@ -374,17 +377,77 @@ local plugins = {
       input_buffer_type = "dressing",
     },
   },
-  { "LazyVim/LazyVim" },
-  { import = "lazyvim.plugins.lsp.init" },
+  { "LazyVim/LazyVim", version = false },
+  { import = "custom.custom-plugins.external.lazyvim_plugins_lsp" },
   {
     "neovim/nvim-lspconfig",
     event = false,
+    init = function()
+      require("core.utils").lazy_load "nvim-lspconfig"
+
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      keys[#keys + 1] = { "<leader>cl", false }
+      -- keys[#keys + 1] = { "gd", false }
+      -- keys[#keys + 1] = { "gr", false }
+      -- keys[#keys + 1] = { "gD", false }
+      -- keys[#keys + 1] = { "gI", false }
+      -- keys[#keys + 1] = { "gy", false }
+      keys[#keys + 1] = { "K", false }
+      keys[#keys + 1] = { "gK", false }
+      -- keys[#keys + 1] = { "<c-k>", false }
+      keys[#keys + 1] = { "<leader>ca", false }
+      keys[#keys + 1] = { "<leader>cA", false }
+      keys[#keys + 1] = { "<leader>cr", false }
+
+      keys[#keys + 1] = { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" }
+      keys[#keys + 1] = {
+        "gh",
+        function()
+          local winid = require("ufo").peekFoldedLinesUnderCursor()
+          if not winid then
+            vim.lsp.buf.hover()
+          end
+        end,
+        desc = "Hover",
+      }
+      keys[#keys + 1] = { "gk", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" }
+      keys[#keys + 1] =
+        { "<leader>la", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" }
+      keys[#keys + 1] = {
+        "<leader>lA",
+        function()
+          vim.lsp.buf.code_action {
+            context = {
+              only = {
+                "source",
+              },
+              diagnostics = {},
+            },
+          }
+        end,
+        desc = "Source Action",
+        has = "codeAction",
+      }
+      keys[#keys + 1] = {
+        "<leader>lr",
+        function()
+          local inc_rename = require "inc_rename"
+          return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand "<cword>"
+        end,
+        expr = true,
+        desc = "Rename",
+        has = "rename",
+      }
+    end,
     opts = {
+      servers = {
+        bashls = {},
+      },
       diagnostics = {
         signs = false,
         virtual_text = false,
         float = {
-          border = "single",
+          border = "rounded",
           format = function(diagnostic)
             return string.format("%s (%s)", diagnostic.message, diagnostic.source)
           end,
@@ -426,12 +489,13 @@ local plugins = {
       -- TODO: remove lua_ls
     },
     config = function(_, opts)
-      local find_spec = require "custom.utils.lazy"
-      local lazyvim_lsp_spec = require "lazyvim.plugins.lsp.init"
-      local lazyvim_lsp_lspconfig_config = find_spec(lazyvim_lsp_spec, "neovim/nvim-lspconfig")
-      lazyvim_lsp_lspconfig_config(_, opts)
+      -- run lazyvim lsp config
+      local find_spec = require("custom.utils.lazy").find_spec
+      local lazyvim_lsp_specs = require "custom.custom-plugins.external.lazyvim_plugins_lsp"
+      local lazyvim_lsp_spec = find_spec(lazyvim_lsp_specs, "neovim/nvim-lspconfig")
+      lazyvim_lsp_spec.config(_, opts)
 
-      -- nvchad config
+      -- run nvchad lsp config
       dofile(vim.g.base46_cache .. "lsp")
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
         border = "single",
@@ -441,7 +505,6 @@ local plugins = {
         focusable = false,
         relative = "cursor",
       })
-      -- Borders for LspInfo winodw
       local win = require "lspconfig.ui.windows"
       local _default_opts = win.default_opts
       win.default_opts = function(options)
@@ -452,7 +515,7 @@ local plugins = {
 
       local Util = require "lazyvim.util"
       Util.lsp.on_attach(function(client, bufnr)
-        -- nvchad onattach
+        -- run nvchad on_attach
         local utils = require "core.utils"
         if client.server_capabilities.signatureHelpProvider then
           require("nvchad.signature").setup(client)
@@ -467,10 +530,8 @@ local plugins = {
           client.server_capabilities.semanticTokensProvider = nil
         end
 
-        utils.load_mappings("dap", { buffer = bufnr })
         local wk = require "which-key"
         wk.register({
-          ["<leader>d"] = { name = "dap" },
           ["<leader>l"] = { name = "lsp" },
         }, { buffer = bufnr })
       end)
@@ -494,18 +555,20 @@ local plugins = {
   {
     "williamboman/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-    keys = false,
+    keys = function()
+      return {}
+    end,
     opts = function(_, opts)
       local nvchad_opts = require "plugins.configs.mason"
-      return vim.tbl_deep_extend("force", nvchad_opts, {
-        ensure_installed = {},
-      })
+      nvchad_opts.ensure_installed = {}
+      return nvchad_opts
     end,
     config = function(_, opts)
-      local find_spec = require "custom.utils.lazy"
-      local lazyvim_lsp_spec = require "lazyvim.plugins.lsp.init"
-      local lazyvim_lsp_mason_config = find_spec(lazyvim_lsp_spec, "williamboman/mason.nvim")
-      lazyvim_lsp_mason_config(_, opts)
+      -- run lazyvim mason config
+      local find_spec = require("custom.utils.lazy").find_spec
+      local lazyvim_lsp_specs = require "custom.custom-plugins.external.lazyvim_plugins_lsp"
+      local lazyvim_mason_spec = find_spec(lazyvim_lsp_specs, "williamboman/mason.nvim")
+      lazyvim_mason_spec.config(_, opts)
 
       -- run nvchad mason config
       dofile(vim.g.base46_cache .. "mason")
@@ -515,36 +578,6 @@ local plugins = {
       vim.g.mason_binaries_list = opts.ensure_installed
     end,
   },
-
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   dependencies = {
-  --     {
-  --       "folke/neoconf.nvim",
-  --       cmd = "Neoconf",
-  --       config = function() end,
-  --     },
-  --     "mason.nvim",
-  --     "williamboman/mason-lspconfig.nvim",
-  --   },
-  --   opts = {
-  --     -- options for vim.lsp.buf.format
-  --     -- `bufnr` and `filter` is handled by the LazyVim formatter,
-  --     -- but can be also overridden when specified
-  --     format = {
-  --       formatting_options = nil,
-  --       timeout_ms = nil,
-  --     },
-  --     servers = {
-  --       bashls = {},
-  --     },
-  --     setup = {},
-  --   },
-  --   config = function(_, opts)
-  --     dofile(vim.g.base46_cache .. "lsp")
-  --     require("custom.custom-plugins.configs.lspconfig").config(opts)
-  --   end,
-  -- },
 
   -- Formatter, pull config from LazyVim
   { "LazyVim/LazyVim" },

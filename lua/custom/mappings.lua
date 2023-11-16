@@ -137,127 +137,26 @@ M.general = {
   },
 }
 
-M.lspconfig = {
-  plugin = true,
-
+M.diagnostic = {
   n = {
-    ["gh"] = {
-      function()
-        local winid = require("ufo").peekFoldedLinesUnderCursor()
-        if not winid then
-          vim.lsp.buf.hover()
-        end
-      end,
-      "lsp hover",
-    },
-    ["gI"] = {
-      function()
-        require("telescope.builtin").lsp_implementations { reuse_win = true }
-      end,
-      "lsp implementation",
-    },
-    ["gk"] = {
-      function()
-        vim.lsp.buf.signature_help()
-      end,
-      "lsp signature_help",
-      has = "signatureHelp",
-    },
-    ["gd"] = {
-      function()
-        require("telescope.builtin").lsp_definitions { reuse_win = true }
-      end,
-      "lsp definition",
-      has = "definition",
-    },
-    ["gy"] = {
-      function()
-        require("telescope.builtin").lsp_type_definitions { reuse_win = true }
-      end,
-      "lsp definition type",
-    },
-    ["<leader>lr"] = {
-      function()
-        local inc_rename = require "inc_rename"
-        return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand "<cword>"
-      end,
-      "lsp rename",
-      opts = { expr = true },
-      has = "rename",
-    },
-    ["<leader>la"] = {
-      function()
-        vim.lsp.buf.code_action()
-      end,
-      "lsp code_action",
-      has = "codeAction",
-    },
-    ["<leader>lA"] = {
-      function()
-        vim.lsp.buf.code_action {
-          context = {
-            only = {
-              "source",
-            },
-            diagnostics = {},
-          },
-        }
-      end,
-      "lsp code_action source",
-      has = "codeAction",
-    },
-    ["gr"] = {
-      "<cmd>Telescope lsp_references<cr>",
-      "lsp references",
-    },
     ["<leader>ld"] = {
       function()
-        vim.diagnostic.open_float()
+        vim.diagnostic.open_float { border = "rounded" }
       end,
       "floating diagnostic",
     },
-    ["<leader>li"] = { "<cmd>LspInfo<cr>", "lsp info" },
+    -- TODO: add mappings for error and warning movements
     ["[d"] = {
       function()
-        vim.diagnostic.goto_prev()
+        vim.diagnostic.goto_prev { float = { border = "rounded" } }
       end,
       "prev diagnostic",
     },
     ["]d"] = {
       function()
-        vim.diagnostic.goto_next()
+        vim.diagnostic.goto_next { float = { border = "rounded" } }
       end,
       "next diagnostic",
-    },
-  },
-  v = {
-    ["<leader>la"] = {
-      function()
-        vim.lsp.buf.code_action()
-      end,
-      "lsp code_action",
-      has = "codeAction",
-    },
-  },
-  i = {
-    ["<c-k>"] = {
-      function()
-        vim.lsp.buf.signature_help()
-      end,
-      "lsp signature_help",
-      has = "signatureHelp",
-    },
-  },
-}
-
-M.lspconfig_tsserver = {
-  plugin = true,
-
-  n = {
-    ["<leader>lR"] = {
-      "<cmd>TypescriptRenameFile<CR>",
-      "lsp rename file",
-      has = "rename",
     },
   },
 }
@@ -513,8 +412,6 @@ M.harpon = {
 }
 
 M.dap = {
-  plugin = true,
-
   n = {
     ["]h"] = {
       function()

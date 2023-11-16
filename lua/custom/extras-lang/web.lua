@@ -51,11 +51,16 @@ local plugins = {
           -- filetypes = {}
         },
         tsserver = {
+          keys = {
+            {
+              "<leader>lR",
+              "<cmd>TypescriptRenameFile<CR>",
+              desc = "lsp rename file",
+            },
+          },
           on_attach = function(client, bufnr)
             -- enable document_highlight
             client.server_capabilities.document_highlight = true
-
-            require("core.utils").load_mappings("lspconfig_tsserver", { buffer = bufnr })
           end,
           settings = {
             typescript = {
