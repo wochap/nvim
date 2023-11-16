@@ -48,6 +48,32 @@ local plugins = {
         tsserver = {
           keys = {
             {
+              "<leader>lo",
+              function()
+                vim.lsp.buf.code_action {
+                  apply = true,
+                  context = {
+                    only = { "source.organizeImports.ts" },
+                    diagnostics = {},
+                  },
+                }
+              end,
+              desc = "Organize Imports",
+            },
+            {
+              "<leader>lu",
+              function()
+                vim.lsp.buf.code_action {
+                  apply = true,
+                  context = {
+                    only = { "source.removeUnused.ts" },
+                    diagnostics = {},
+                  },
+                }
+              end,
+              desc = "Remove Unused Imports",
+            },
+            {
               "<leader>lR",
               "<cmd>TypescriptRenameFile<CR>",
               desc = "lsp rename file",
