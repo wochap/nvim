@@ -366,6 +366,8 @@ local plugins = {
       input_buffer_type = "dressing",
     },
   },
+
+  -- LSP, pull config from LazyVim
   { "LazyVim/LazyVim", version = false },
   { import = "custom.custom-plugins.external.lazyvim_plugins_lsp" },
   {
@@ -478,6 +480,8 @@ local plugins = {
       -- TODO: remove lua_ls
     },
     config = function(_, opts)
+      local Util = require "lazyvim.util"
+
       -- run lazyvim lsp config
       local find_spec = require("custom.utils.lazy").find_spec
       local lazyvim_lsp_specs = require "custom.custom-plugins.external.lazyvim_plugins_lsp"
@@ -501,10 +505,7 @@ local plugins = {
         opts.border = "single"
         return opts
       end
-
-      local Util = require "lazyvim.util"
       Util.lsp.on_attach(function(client, bufnr)
-        -- run nvchad on_attach
         local utils = require "core.utils"
         if client.server_capabilities.signatureHelpProvider then
           require("nvchad.signature").setup(client)
@@ -512,19 +513,17 @@ local plugins = {
         if not utils.load_config().ui.lsp_semantic_tokens and client.supports_method "textDocument/semanticTokens" then
           client.server_capabilities.semanticTokensProvider = nil
         end
+      end)
 
+      Util.lsp.on_attach(function(client, bufnr)
         -- disable semanticTokens in large files
         local is_bigfile = require("custom.utils.bigfile").is_bigfile
         if is_bigfile(bufnr, 1) and client.supports_method "textDocument/semanticTokens" then
           client.server_capabilities.semanticTokensProvider = nil
         end
-
-        local wk = require "which-key"
-        wk.register({
-          ["<leader>l"] = { name = "lsp" },
-        }, { buffer = bufnr })
       end)
 
+      -- disable LazyVim autoformat on save
       vim.g.autoformat = false
 
       -- HACK: hide hint diagnostics

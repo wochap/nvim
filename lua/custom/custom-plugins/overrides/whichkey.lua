@@ -9,6 +9,7 @@ M.setup = function()
     g = { name = "git" },
     f = { name = "find" },
     d = { name = "dap" },
+    l = { name = "lsp" },
     h = { name = "harpon" },
     p = { name = "lazy" },
     q = { name = "quit" },
