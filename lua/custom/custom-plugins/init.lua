@@ -137,17 +137,6 @@ local plugins = {
     end,
   },
   {
-    "williamboman/mason.nvim",
-    build = ":MasonUpdate",
-    opts = {
-      ensure_installed = {}, -- not an option from mason.nvim
-    },
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "mason")
-      require("custom.custom-plugins.overrides.mason").setup(opts)
-    end,
-  },
-  {
     "NvChad/nvim-colorizer.lua",
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.colorizer").options)
