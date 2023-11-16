@@ -24,9 +24,6 @@ opt.cursorcolumn = true
 -- opt.guicursor = "n-v-c-sm:hor20-Cursor,i-ci-ve:ver25,r-cr-o:hor20"
 opt.guifont = "Iosevka NF:h10:#e-antialias"
 
--- LazyVim conform config
-vim.o.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
-
 vim.cmd [[
   " set linespace=13
 ]]

@@ -169,16 +169,6 @@ autocmd({ "tabnew" }, {
   end,
 })
 
--- HACK: setup LazyVim format
-vim.api.nvim_create_autocmd("User", {
-  group = augroup("LazyVim", { clear = true }),
-  pattern = "VeryLazy",
-  callback = function()
-    local Util = require "lazyvim.util"
-    Util.format.setup()
-  end,
-})
-
 -- TODO: only when inside terminal
 -- HACK: disable autoindent when pasting
 -- missing register ":.="
