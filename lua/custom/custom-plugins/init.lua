@@ -503,12 +503,12 @@ local plugins = {
   },
   { import = "custom.extras-lang.c" },
   { import = "custom.extras-lang.go" },
-  { import = "custom.extras-lang.json" },
   { import = "custom.extras-lang.lua" },
   { import = "custom.extras-lang.nix" },
   { import = "custom.extras-lang.python" },
   { import = "custom.extras-lang.web" },
-  { import = "custom.extras-lang.yaml" },
+  { import = "lazyvim.plugins.extras.lang.json" },
+  { import = "lazyvim.plugins.extras.lang.yaml" },
 }
 
 return plugins
