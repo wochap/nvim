@@ -1,7 +1,4 @@
 local g = vim.g
--- local find_spec = require "custom.utils.lazy"
--- local lazyvim_lsp_specs = require "custom.custom-plugins.external.lsp"
--- local lazyvim_lsp_spec = find_spec(lazyvim_lsp_specs, "neovim/nvim-lspconfig")
 
 local plugins = {
   { "nvim-lua/popup.nvim" },
