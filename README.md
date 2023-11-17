@@ -26,7 +26,7 @@ $ nvim
 
 ## Dependencies
 
-Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirements), Mason will install [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [null-ls](https://github.com/nvimtools/none-ls.nvim) and [nvim-dap](https://github.com/mfussenegger/nvim-dap) dependencies
+Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirements), Mason will install [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [conform.nvim](https://github.com/stevearc/conform.nvim), [nvim-lint](https://github.com/mfussenegger/nvim-lint) and [nvim-dap](https://github.com/mfussenegger/nvim-dap) dependencies
 
 - [neovim >= 0.9.1](https://github.com/neovim/neovim)
 - [neovim-remote](https://github.com/mhinz/neovim-remote)
@@ -35,7 +35,6 @@ Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirem
   )
 - fd (required by [telescope](https://github.com/nvim-telescope/telescope.nvim))
 - deno (required by [peek](https://github.com/toppair/peek.nvim))
-- deadnix (required by [null-ls](https://github.com/nvimtools/none-ls.nvim))
-- nixfmt (required by [null-ls](https://github.com/nvimtools/none-ls.nvim))
-- statix (required by [null-ls](https://github.com/nvimtools/none-ls.nvim))
+- nixfmt (required by [conform.nvim](https://github.com/stevearc/conform.nvim))
+- statix (required by [nvim-lint](https://github.com/mfussenegger/nvim-lint))
 - [ts-node](https://www.npmjs.com/package/ts-node) (required by [nvim-dap](https://github.com/mfussenegger/nvim-dap))
