@@ -135,9 +135,14 @@ local plugins = {
   },
   {
     "williamboman/mason.nvim",
+    build = ":MasonUpdate",
     opts = {
       ensure_installed = {}, -- not an option from mason.nvim
     },
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "mason")
+      require("custom.custom-plugins.overrides.mason").setup(opts)
+    end,
   },
   {
     "NvChad/nvim-colorizer.lua",
@@ -381,6 +386,13 @@ local plugins = {
       "williamboman/mason-lspconfig.nvim",
     },
     opts = {
+      -- options for vim.lsp.buf.format
+      -- `bufnr` and `filter` is handled by the LazyVim formatter,
+      -- but can be also overridden when specified
+      format = {
+        formatting_options = nil,
+        timeout_ms = nil,
+      },
       servers = {
         bashls = {},
       },
@@ -392,27 +404,49 @@ local plugins = {
     end,
   },
 
-  -- Formatter
+  -- Formatter, pull config from LazyVim
+  { "LazyVim/LazyVim" },
+  { import = "lazyvim.plugins.formatting" },
   {
-    "nvimtools/none-ls.nvim",
-    init = function()
-      require("core.utils").lazy_load "none-ls.nvim"
-    end,
+    "stevearc/conform.nvim",
     dependencies = {
-      "mason.nvim",
       {
-        "jay-babu/mason-null-ls.nvim",
-        opts = {
-          automatic_installation = true,
-          handlers = {
-            function() end,
-          },
-          ensure_installed = { "shellcheck", "shfmt" },
-        },
+        "williamboman/mason.nvim",
+        opts = function(_, opts)
+          vim.list_extend(opts.ensure_installed, { "shfmt" })
+        end,
       },
     },
     opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.configs.null-ls").options)
+      opts.formatters_by_ft = {
+        sh = { "shfmt" },
+      }
+      return opts
+    end,
+    keys = { { "<leader>cF", false } },
+  },
+
+  -- Linter, pull config from LazyVim
+  { import = "lazyvim.plugins.linting" },
+  {
+    "mfussenegger/nvim-lint",
+    event = false,
+    init = function()
+      require("core.utils").lazy_load "nvim-lint"
+    end,
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
+        opts = function(_, opts)
+          vim.list_extend(opts.ensure_installed, { "shellcheck" })
+        end,
+      },
+    },
+    opts = function(_, opts)
+      opts.linters_by_ft = {
+        sh = { "shellcheck" },
+      }
+      return opts
     end,
   },
 

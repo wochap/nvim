@@ -14,6 +14,16 @@ autocmd("FileType", {
   command = "set bufhidden=wipe",
 })
 
+-- resize splits if window got resized
+autocmd({ "VimResized" }, {
+  group = augroup "resize_splits",
+  callback = function()
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd "tabdo wincmd ="
+    vim.cmd("tabnext " .. current_tab)
+  end,
+})
+
 -- close some filetypes with <q>
 autocmd("FileType", {
   group = augroup "close_with_q",
@@ -110,6 +120,7 @@ autocmd({ "BufEnter" }, {
   group = augroup "nowrap_text_files",
   pattern = "*",
   command = "if &filetype == '' || expand('%:e') == 'norg' | set wrap | else | set nowrap | endif",
+  -- TODO: vim.opt_local.wrap = true vim.opt_local.spell = true
 })
 
 autocmd({ "BufEnter" }, {
@@ -155,6 +166,16 @@ autocmd({ "tabnew" }, {
         vim.t.bufs = vim.api.nvim_get_current_buf() == args.buf and {} or { args.buf }
       end
     end)
+  end,
+})
+
+-- HACK: setup LazyVim format
+vim.api.nvim_create_autocmd("User", {
+  group = augroup("LazyVim", { clear = true }),
+  pattern = "VeryLazy",
+  callback = function()
+    local Util = require "lazyvim.util"
+    Util.format.setup()
   end,
 })
 

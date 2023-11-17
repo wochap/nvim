@@ -33,6 +33,10 @@ M.config = function(opts)
     return vim.lsp.diagnostic.on_publish_diagnostics(nil, result, ctx, ...)
   end
 
+  -- HACK: setup LazyVim autoformat
+  vim.g.autoformat = false
+  Util.format.register(Util.lsp.formatter())
+
   -- HACK: run nvchad's attach and setup keymaps
   Util.lsp.on_attach(function(client, bufnr)
     local on_attach = require("custom.utils.lsp").get_opts().on_attach

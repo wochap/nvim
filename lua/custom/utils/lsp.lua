@@ -3,8 +3,9 @@ local M = {}
 local is_bigfile = require("custom.utils.bigfile").is_bigfile
 local utils = require "core.utils"
 local nvchad_on_attach = function(client, bufnr)
-  client.server_capabilities.documentFormattingProvider = false
-  client.server_capabilities.documentRangeFormattingProvider = false
+  -- HACK: LazyVim will manage that for us
+  -- client.server_capabilities.documentFormattingProvider = false
+  -- client.server_capabilities.documentRangeFormattingProvider = false
 
   utils.load_mappings("lspconfig", { buffer = bufnr })
 
@@ -51,14 +52,9 @@ M.get_opts = function()
       -- Run nvchad's attach
       nvchad_on_attach(client, bufnr)
 
+      -- disable semanticTokens in large files
       if is_bigfile(bufnr, 1) and client.supports_method "textDocument/semanticTokens" then
         client.server_capabilities.semanticTokensProvider = nil
-      end
-
-      -- Fix formatting for null-ls
-      if client.name == "null-ls" then
-        client.server_capabilities.documentFormattingProvider = true
-        client.server_capabilities.documentRangeFormattingProvider = true
       end
 
       utils.load_mappings("dap", { buffer = bufnr })

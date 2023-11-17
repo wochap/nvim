@@ -29,25 +29,40 @@ local plugins = {
   },
 
   {
-    "nvimtools/none-ls.nvim",
+    "stevearc/conform.nvim",
     optional = true,
     dependencies = {
       {
-        "jay-babu/mason-null-ls.nvim",
+        "williamboman/mason.nvim",
+        optional = true,
+        opts = function(_, opts)
+          vim.list_extend(opts.ensure_installed, { "black" })
+        end,
+      },
+    },
+    opts = {
+      formatters_by_ft = {
+        python = { "black" },
+      },
+    },
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
         optional = true,
         opts = function(_, opts)
           vim.list_extend(opts.ensure_installed, { "pylint" })
         end,
       },
     },
-    opts = function(_, opts)
-      local null_ls = require "null-ls"
-      local b = null_ls.builtins
-
-      vim.list_extend(opts.sources, {
-        b.diagnostics.pylint,
-      })
-    end,
+    opts = {
+      linters_by_ft = {
+        python = { "pylint" },
+      },
+    },
   },
 }
 

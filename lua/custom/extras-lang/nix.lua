@@ -18,19 +18,23 @@ local plugins = {
   },
 
   {
-    "nvimtools/none-ls.nvim",
+    "stevearc/conform.nvim",
     optional = true,
-    opts = function(_, opts)
-      local null_ls = require "null-ls"
-      local b = null_ls.builtins
+    opts = {
+      formatters_by_ft = {
+        nix = { "nixfmt" },
+      },
+    },
+  },
 
-      vim.list_extend(opts.sources, {
-        b.code_actions.statix,
-        b.formatting.nixfmt,
-        b.diagnostics.statix,
-        b.diagnostics.deadnix,
-      })
-    end,
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters_by_ft = {
+        -- TODO: add deadnix
+        nix = { "statix", "nix" },
+      },
+    },
   },
 }
 

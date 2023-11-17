@@ -262,37 +262,23 @@ M.lspconfig_tsserver = {
   },
 }
 
-M.null_ls = {
-  plugin = true,
-
+M.conform = {
   n = {
-    ["<leader>lf"] = {
+    ["<leader>lf"] = { "<cmd>LazyFormat<CR>", "format document" },
+    ["<leader>lF"] = {
       function()
-        local bufnr = vim.api.nvim_get_current_buf()
-        vim.lsp.buf.format {
-          async = false,
-          bufnr = bufnr,
-          filter = function(client)
-            return client.name == "null-ls"
-          end,
-        }
+        require("conform").format { formatters = { "injected" } }
       end,
-      "format document",
+      "format injected langs in document",
     },
   },
   v = {
-    ["<leader>lf"] = {
+    ["<leader>lf"] = { "<cmd>LazyFormat<CR>", "format selection" },
+    ["<leader>lF"] = {
       function()
-        local bufnr = vim.api.nvim_get_current_buf()
-        vim.lsp.buf.format {
-          async = false,
-          bufnr = bufnr,
-          filter = function(client)
-            return client.name == "null-ls"
-          end,
-        }
+        require("conform").format { formatters = { "injected" } }
       end,
-      "format selection",
+      "format injected langs in selection",
     },
   },
 }
