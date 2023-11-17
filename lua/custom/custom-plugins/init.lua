@@ -134,17 +134,6 @@ local plugins = {
     end,
   },
   {
-    "williamboman/mason.nvim",
-    build = ":MasonUpdate",
-    opts = {
-      ensure_installed = {}, -- not an option from mason.nvim
-    },
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "mason")
-      require("custom.custom-plugins.overrides.mason").setup(opts)
-    end,
-  },
-  {
     "NvChad/nvim-colorizer.lua",
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.colorizer").options)
@@ -374,33 +363,36 @@ local plugins = {
       input_buffer_type = "dressing",
     },
   },
+
+  -- LSP, pull config from LazyVim
+  { "LazyVim/LazyVim", version = false },
+  { import = "custom.custom-plugins.external.lazyvim_plugins_lsp" },
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      {
-        "folke/neoconf.nvim",
-        cmd = "Neoconf",
-        config = function() end,
-      },
-      "mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-    },
-    opts = {
-      -- options for vim.lsp.buf.format
-      -- `bufnr` and `filter` is handled by the LazyVim formatter,
-      -- but can be also overridden when specified
-      format = {
-        formatting_options = nil,
-        timeout_ms = nil,
-      },
-      servers = {
-        bashls = {},
-      },
-      setup = {},
-    },
+    event = false,
+    init = function()
+      require("custom.custom-plugins.overrides.lspconfig").init()
+    end,
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.lspconfig").options)
+    end,
     config = function(_, opts)
-      dofile(vim.g.base46_cache .. "lsp")
-      require("custom.custom-plugins.configs.lspconfig").config(opts)
+      require("custom.custom-plugins.overrides.lspconfig").setup(_, opts)
+    end,
+  },
+  {
+    "williamboman/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+    keys = function()
+      return {}
+    end,
+    opts = function(_, opts)
+      local nvchad_opts = require "plugins.configs.mason"
+      nvchad_opts.ensure_installed = {}
+      return nvchad_opts
+    end,
+    config = function(_, opts)
+      require("custom.custom-plugins.overrides.mason").setup(opts)
     end,
   },
 

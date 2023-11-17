@@ -51,12 +51,13 @@ local plugins = {
           -- filetypes = {}
         },
         tsserver = {
-          on_attach = function(client, bufnr)
-            -- enable document_highlight
-            client.server_capabilities.document_highlight = true
-
-            require("core.utils").load_mappings("lspconfig_tsserver", { buffer = bufnr })
-          end,
+          keys = {
+            {
+              "<leader>lR",
+              "<cmd>TypescriptRenameFile<CR>",
+              desc = "lsp rename file",
+            },
+          },
           settings = {
             typescript = {
               format = {
@@ -105,6 +106,13 @@ local plugins = {
       },
       setup = {
         tsserver = function(_, opts)
+          require("lazyvim.util").lsp.on_attach(function(client, _)
+            if client.name == "tsserver" then
+              -- enable document_highlight
+              client.server_capabilities.document_highlight = true
+            end
+          end)
+
           require("typescript").setup { server = opts }
           return true
         end,
