@@ -60,9 +60,6 @@ M.init = function()
 end
 
 M.options = {
-  servers = {
-    bashls = {},
-  },
   diagnostics = {
     signs = false,
     virtual_text = false,
@@ -106,7 +103,6 @@ M.options = {
       },
     },
   },
-  -- TODO: remove lua_ls
 }
 
 M.setup = function(_, opts)

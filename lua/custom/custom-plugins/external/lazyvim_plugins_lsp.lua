@@ -1,3 +1,7 @@
+-- HACK: can't do `{ import = "lazyvim.plugins.lsp.init" },` or `{ import = "lazyvim.plugins.lsp" },`
+-- they result in errors, keep in sync with:
+-- source: https://github.com/LazyVim/LazyVim/blob/5b89bc8/lua/lazyvim/plugins/lsp/init.lua
+
 local Util = require "lazyvim.util"
 
 return {
