@@ -11,7 +11,11 @@ local plugins = {
     "neovim/nvim-lspconfig",
     optional = true,
     dependencies = {
-      { "folke/neodev.nvim", opts = {} },
+      {
+        "folke/neodev.nvim",
+        enabled = true,
+        opts = {},
+      },
     },
     opts = {
       servers = {

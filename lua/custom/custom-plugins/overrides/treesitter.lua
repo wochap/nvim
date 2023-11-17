@@ -36,7 +36,6 @@ M.options = {
   },
 
   ensure_installed = {
-    "bash",
     "dap_repl",
     "git_config",
     "markdown",

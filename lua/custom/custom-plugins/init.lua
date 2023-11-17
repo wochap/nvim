@@ -365,8 +365,16 @@ local plugins = {
   },
 
   -- LSP, pull config from LazyVim
+  -- https://www.lazyvim.org/plugins/lsp
+  -- the following opts for nvim-lspconfig are managed by LazyVim:
+  -- diagnostics, inlay_hints, capabilities, format, servers and setup
+  -- LazyVim adds keymaps to buffers with LSP clients attached
+  -- LazyVim installs any LSP server with Mason
+  -- LazyVim installs neoconf
+  -- NvChad lspconfig keymaps are ignored
   { "LazyVim/LazyVim", version = false },
   { import = "custom.custom-plugins.external.lazyvim_plugins_lsp" },
+  { "folke/neodev.nvim", enabled = false }, -- disable neodev.nvim added by LazyVim
   {
     "neovim/nvim-lspconfig",
     event = false,
@@ -374,6 +382,7 @@ local plugins = {
       require("custom.custom-plugins.overrides.lspconfig").init()
     end,
     opts = function(_, opts)
+      opts.servers = {} -- remove lua_ls added by LazyVim
       return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.lspconfig").options)
     end,
     config = function(_, opts)
@@ -387,6 +396,7 @@ local plugins = {
       return {}
     end,
     opts = function(_, opts)
+      -- remove stylua and shfmt added by LazyVim
       local nvchad_opts = require "plugins.configs.mason"
       nvchad_opts.ensure_installed = {}
       return nvchad_opts
@@ -397,28 +407,22 @@ local plugins = {
   },
 
   -- Formatter, pull config from LazyVim
+  -- https://www.lazyvim.org/plugins/formatting
   { "LazyVim/LazyVim" },
   { import = "lazyvim.plugins.formatting" },
   {
     "stevearc/conform.nvim",
-    dependencies = {
-      {
-        "williamboman/mason.nvim",
-        opts = function(_, opts)
-          vim.list_extend(opts.ensure_installed, { "shfmt" })
-        end,
-      },
-    },
+    keys = { { "<leader>cF", false } },
     opts = function(_, opts)
-      opts.formatters_by_ft = {
-        sh = { "shfmt" },
-      }
+      opts.formatters_by_ft = {} -- remove lua, fish and sh added by LazyVim
       return opts
     end,
-    keys = { { "<leader>cF", false } },
   },
 
   -- Linter, pull config from LazyVim
+  -- https://www.lazyvim.org/plugins/linting
+  -- the following opts for nvim-lint are managed by LazyVim:
+  -- linters
   { import = "lazyvim.plugins.linting" },
   {
     "mfussenegger/nvim-lint",
@@ -426,18 +430,8 @@ local plugins = {
     init = function()
       require("core.utils").lazy_load "nvim-lint"
     end,
-    dependencies = {
-      {
-        "williamboman/mason.nvim",
-        opts = function(_, opts)
-          vim.list_extend(opts.ensure_installed, { "shellcheck" })
-        end,
-      },
-    },
     opts = function(_, opts)
-      opts.linters_by_ft = {
-        sh = { "shellcheck" },
-      }
+      opts.linters_by_ft = {} -- remove fish added by LazyVim
       return opts
     end,
   },
@@ -507,6 +501,7 @@ local plugins = {
   { import = "custom.extras-lang.nix" },
   { import = "custom.extras-lang.python" },
   { import = "custom.extras-lang.web" },
+  { import = "custom.extras-lang.shell" },
   { import = "lazyvim.plugins.extras.lang.json" },
   { import = "lazyvim.plugins.extras.lang.yaml" },
 }
