@@ -119,7 +119,7 @@ autocmd({ "SwapExists" }, {
 autocmd({ "BufEnter" }, {
   group = augroup "nowrap_text_files",
   pattern = "*",
-  command = "if &filetype == '' || expand('%:e') == 'norg' | set wrap | else | set nowrap | endif",
+  command = "if &filetype == '' || expand('%:e') == 'norg' || &filetype == 'markdown' | set wrap | else | set nowrap | endif",
   -- TODO: vim.opt_local.wrap = true vim.opt_local.spell = true
 })
 
