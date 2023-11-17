@@ -38,3 +38,4 @@ Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirem
 - nixfmt (required by [conform.nvim](https://github.com/stevearc/conform.nvim))
 - statix (required by [nvim-lint](https://github.com/mfussenegger/nvim-lint))
 - [ts-node](https://www.npmjs.com/package/ts-node) (required by [nvim-dap](https://github.com/mfussenegger/nvim-dap))
+- [typescript](https://www.npmjs.com/package/typescript) (required by [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig))
