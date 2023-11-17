@@ -28,7 +28,7 @@ $ nvim
 
 Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirements), Mason will install [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [conform.nvim](https://github.com/stevearc/conform.nvim), [nvim-lint](https://github.com/mfussenegger/nvim-lint) and [nvim-dap](https://github.com/mfussenegger/nvim-dap) dependencies
 
-- [neovim >= 0.9.1](https://github.com/neovim/neovim)
+- [neovim >= 0.9.4](https://github.com/neovim/neovim)
 - [neovim-remote](https://github.com/mhinz/neovim-remote)
 - [tree-sitter](https://github.com/tree-sitter/tree-sitter)
 - ripgrep (required by [telescope](https://github.com/nvim-telescope/telescope.nvim)
