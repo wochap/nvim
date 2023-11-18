@@ -372,7 +372,12 @@ local plugins = {
   -- LazyVim installs any LSP server with Mason
   -- LazyVim installs neoconf
   -- NvChad lspconfig keymaps are ignored
-  { "LazyVim/LazyVim", version = false },
+  {
+    "LazyVim/LazyVim",
+    version = false,
+    commit = "68ff818a5bb7549f90b05e412b76fe448f605ffb",
+    config = function() end,
+  },
   { import = "custom.custom-plugins.external.lazyvim_plugins_lsp" },
   { "folke/neodev.nvim", enabled = false }, -- disable neodev.nvim added by LazyVim
   {
@@ -423,6 +428,7 @@ local plugins = {
   -- https://www.lazyvim.org/plugins/linting
   -- the following opts for nvim-lint are managed by LazyVim:
   -- linters
+  { "LazyVim/LazyVim" },
   { import = "lazyvim.plugins.linting" },
   {
     "mfussenegger/nvim-lint",
@@ -491,10 +497,7 @@ local plugins = {
   },
 
   -- Extras
-  {
-    "LazyVim/LazyVim",
-    config = function() end,
-  },
+  { "LazyVim/LazyVim" },
   { import = "custom.extras-lang.c" },
   { import = "custom.extras-lang.go" },
   { import = "custom.extras-lang.lua" },
