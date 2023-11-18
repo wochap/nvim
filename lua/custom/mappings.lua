@@ -325,6 +325,7 @@ M.custom_general = {
     ["<f2>"] = { "<cmd>lua require'custom.utils.others'.print_syntax_info()<CR>", "print syntax info" },
     ["<f3>"] = { "<cmd>lua require'custom.utils.others'.print_buf_info()<CR>", "print buffer info" },
     ["<f5>"] = { ":e %<CR>", "reload buffer" },
+    ["<leader>cd"] = { "<cmd>lua require('osv').launch({ port = 8086 })<cr>", "start nvim server" },
   },
   i = {
     ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
@@ -502,6 +503,29 @@ M.peek = {
 M.zenmode = {
   n = {
     ["<leader>z"] = { "<cmd>ZenMode<CR>", "toggle ZenMode" },
+  },
+}
+
+M.ufo = {
+  n = {
+    ["zR"] = {
+      function()
+        require("ufo").openAllFolds()
+      end,
+      "ufo open all folds",
+    },
+    ["zM"] = {
+      function()
+        require("ufo").closeAllFolds()
+      end,
+      "ufo open all folds",
+    },
+    ["zm"] = {
+      function()
+        require("ufo").closeFoldsWith()
+      end,
+      "ufo close folds with",
+    },
   },
 }
 

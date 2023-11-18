@@ -454,27 +454,4 @@ M.gitsigns = {
   },
 }
 
-M.ufo = {
-  n = {
-    ["zR"] = {
-      function()
-        require("ufo").openAllFolds()
-      end,
-      "ufo open all folds",
-    },
-    ["zM"] = {
-      function()
-        require("ufo").closeAllFolds()
-      end,
-      "ufo open all folds",
-    },
-    ["zm"] = {
-      function()
-        require("ufo").closeFoldsWith()
-      end,
-      "ufo close folds with",
-    },
-  },
-}
-
 return M
