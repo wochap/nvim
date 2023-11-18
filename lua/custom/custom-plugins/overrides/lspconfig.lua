@@ -141,6 +141,16 @@ M.setup = function(_, opts)
     end
   end)
 
+  -- disable typescript-tools if project use deno
+  -- source: https://github.com/LazyVim/LazyVim/blob/5b89bc8/lua/lazyvim/plugins/lsp/init.lua:197
+  if Util.lsp.get_config "denols" and Util.lsp.get_config "typescript-tools" then
+    local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
+    Util.lsp.disable("typescript-tools", is_deno)
+    Util.lsp.disable("denols", function(root_dir)
+      return not is_deno(root_dir)
+    end)
+  end
+
   Util.lsp.on_attach(function(client, bufnr)
     -- disable semanticTokens in large files
     local is_bigfile = require("custom.utils.bigfile").is_bigfile
