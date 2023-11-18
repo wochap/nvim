@@ -20,7 +20,7 @@ local plugins = {
     end,
   },
 
-  { "jose-elias-alvarez/typescript.nvim" },
+  { "pmizio/typescript-tools.nvim" },
   {
     "neovim/nvim-lspconfig",
     optional = true,
@@ -45,41 +45,18 @@ local plugins = {
             showSuggestionsAsSnippets = true,
           },
         },
-        tsserver = {
+        ["typescript-tools"] = {
+          mason = false,
           keys = {
-            {
-              "<leader>lo",
-              function()
-                vim.lsp.buf.code_action {
-                  apply = true,
-                  context = {
-                    only = { "source.organizeImports.ts" },
-                    diagnostics = {},
-                  },
-                }
-              end,
-              desc = "Organize Imports",
-            },
-            {
-              "<leader>lu",
-              function()
-                vim.lsp.buf.code_action {
-                  apply = true,
-                  context = {
-                    only = { "source.removeUnused.ts" },
-                    diagnostics = {},
-                  },
-                }
-              end,
-              desc = "Remove Unused Imports",
-            },
-            {
-              "<leader>lR",
-              "<cmd>TypescriptRenameFile<CR>",
-              desc = "lsp rename file",
-            },
+            { "<leader>lo", "<cmd>TSToolsOrganizeImports<cr>", desc = "Organize Imports" },
+            { "<leader>lu", "<cmd>TSToolsRemoveUnusedImports<cr>", desc = "Remove Unused Imports" },
+            { "<leader>lR", "<cmd>TSToolsRenameFile<cr>", desc = "Rename File" },
+            { "<leader>ls", "<cmd>TSToolsSortImports<cr>", desc = "Sort Imports" },
+            { "<leader>lm", "<cmd>TSToolsAddMissingImports<cr>", desc = "Add Missing Imports" },
+            { "gd", "<cmd>TSToolsGoToSourceDefinition<cr>", desc = "Goto Source Definition" },
           },
           settings = {
+            -- tsserver settings
             typescript = {
               format = {
                 indentSize = vim.o.shiftwidth,
@@ -96,6 +73,11 @@ local plugins = {
             },
             completions = {
               completeFunctionCalls = true,
+            },
+
+            -- typescript-tools settings
+            tsserver_plugins = {
+              "@styled/typescript-styled-plugin",
             },
           },
         },
@@ -126,15 +108,13 @@ local plugins = {
         },
       },
       setup = {
-        tsserver = function(_, opts)
-          require("lazyvim.util").lsp.on_attach(function(client, _)
-            if client.name == "tsserver" then
-              -- enable document_highlight
-              client.server_capabilities.document_highlight = true
-            end
-          end)
-
-          require("typescript").setup { server = opts }
+        tsserver = function()
+          -- typescript-tools.nvim will handle tsserver
+          -- NOTE: typescript-tools.nvim will not spawn a tsserver client, it will spawn typescript-tools client
+          return true
+        end,
+        ["typescript-tools"] = function(_, opts)
+          require("typescript-tools").setup(opts)
           return true
         end,
       },
