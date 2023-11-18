@@ -13,14 +13,14 @@ M.init = function()
   -- keys[#keys + 1] = { "gy", false }
   keys[#keys + 1] = { "K", false }
   keys[#keys + 1] = { "gK", false }
-  -- keys[#keys + 1] = { "<c-k>", false }
-  keys[#keys + 1] = { "<leader>ca", false }
+  keys[#keys + 1] = { "<c-k>", false, mode = "i" }
+  keys[#keys + 1] = { "<leader>ca", false, mode = { "n", "v" } }
   keys[#keys + 1] = { "<leader>cA", false }
   keys[#keys + 1] = { "<leader>cr", false }
 
   keys[#keys + 1] = { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" }
   keys[#keys + 1] = {
-    "gh",
+    "gH",
     function()
       local winid = require("ufo").peekFoldedLinesUnderCursor()
       if not winid then
@@ -29,7 +29,8 @@ M.init = function()
     end,
     desc = "Hover",
   }
-  keys[#keys + 1] = { "gk", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" }
+  keys[#keys + 1] = { "gh", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" }
+  keys[#keys + 1] = { "<c-h>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" }
   keys[#keys + 1] =
     { "<leader>la", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" }
   keys[#keys + 1] = {
