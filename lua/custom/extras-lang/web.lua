@@ -33,13 +33,21 @@ local plugins = {
         cssmodules_ls = {},
         emmet_language_server = {
           filetypes = {
+            "astro",
+            "css",
+            "eruby",
             "html",
             "xhtml",
             "xml",
-            "css",
+            "htmldjango",
+            "javascriptreact",
+            "less",
+            "pug",
             "sass",
             "scss",
-            "less",
+            "svelte",
+            "typescriptreact",
+            "vue",
           },
           init_options = {
             showSuggestionsAsSnippets = true,
