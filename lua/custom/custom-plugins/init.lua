@@ -448,6 +448,7 @@ local plugins = {
     init = function()
       require("core.utils").lazy_load "nvim-dap-repl-highlights"
     end,
+    build = ":TSInstall dap_repl",
     opts = {},
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
