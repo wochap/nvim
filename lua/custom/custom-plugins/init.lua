@@ -332,7 +332,19 @@ local plugins = {
   --     require("kitty-scrollback").setup()
   --   end,
   -- },
-  { "mrjones2014/smart-splits.nvim" },
+  {
+    "mrjones2014/smart-splits.nvim",
+    opts = {
+      at_edge = "stop",
+    },
+  },
+  {
+    "ten3roberts/window-picker.nvim",
+    cmd = { "WindowSwap", "WindowPick" },
+    opts = {
+      swap_shift = false,
+    },
+  },
   { "tpope/vim-abolish", event = "VeryLazy" }, -- Change word casing
   { "tpope/vim-repeat", event = "VeryLazy" }, -- Repeat vim-abolish
 

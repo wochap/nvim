@@ -76,6 +76,10 @@ local M = {
   GitConflictAncestorLabel = { bg = utils.darken(gitColors.ancestor, 0.4, theme.base_16.base01) },
   GitConflictAncestor = { bg = utils.darken(gitColors.ancestor, 0.2, theme.base_16.base01) },
 
+  -- window-picker.nvim
+  WindowPicker = { fg = theme.base_30.red, bg = theme.base_30.black2 },
+  WindowPickerSwap = { link = "WindowPicker" },
+
   -- nvim-tree.lua
   NvimTreeEmptyFolderName = { fg = theme.base_30.white },
   NvimTreeExecFile = { fg = theme.base_30.white },

@@ -128,10 +128,11 @@ M.tabufline = {
 
 M.general = {
   n = {
-    ["<C-Left>"] = { "<cmd> lua require('smart-splits').move_cursor_left() <CR>", "window left" },
-    ["<C-Right>"] = { "<cmd> lua require('smart-splits').move_cursor_right() <CR>", "window right" },
-    ["<C-Down>"] = { "<cmd> lua require('smart-splits').move_cursor_down() <CR>", "window down" },
-    ["<C-Up>"] = { "<cmd> lua require('smart-splits').move_cursor_up() <CR>", "window up" },
+    -- focus window in direction
+    ["<C-Left>"] = { "<cmd>lua require('smart-splits').move_cursor_left()<cr>" },
+    ["<C-Right>"] = { "<cmd>lua require('smart-splits').move_cursor_right()<cr>" },
+    ["<C-Down>"] = { "<cmd>lua require('smart-splits').move_cursor_down()<cr>" },
+    ["<C-Up>"] = { "<cmd>lua require('smart-splits').move_cursor_up()<cr>" },
 
     ["<C-y>"] = { "<cmd> %y+ <CR>", "copy whole file" },
   },
@@ -307,13 +308,30 @@ M.persistence = {
 
 M.custom_general = {
   n = {
+    -- resize window in direction
+    ["<C-S-A-Left>"] = { "<cmd>lua require('smart-splits').resize_left()<cr>" },
+    ["<C-S-A-Right>"] = { "<cmd>lua require('smart-splits').resize_right()<cr>" },
+    ["<C-S-A-Down>"] = { "<cmd>lua require('smart-splits').resize_down()<cr>" },
+    ["<C-S-A-Up>"] = { "<cmd>lua require('smart-splits').resize_up()<cr>" },
+
+    -- swap window in direction
+    ["<C-S-Left>"] = { "<cmd>lua require('smart-splits').swap_buf_left()<cr>" },
+    ["<C-S-Right>"] = { "<cmd>lua require('smart-splits').swap_buf_right()<cr>" },
+    ["<C-S-Down>"] = { "<cmd>lua require('smart-splits').swap_buf_down()<cr>" },
+    ["<C-S-Up>"] = { "<cmd>lua require('smart-splits').swap_buf_up()<cr>" },
+
+    ["<C-F4>"] = { "<cmd>WindowPick<cr>", "focus visible window" },
+    ["<F28>"] = { "<cmd>WindowPick<cr>", "focus visible window" }, -- HACK: maps C-F4 in terminal linux
+    ["<C-S-F4>"] = { "<cmd>WindowSwap<cr>", "swap with window" },
+    ["<F40>"] = { "<cmd>WindowSwap<cr>", "swap with window" }, -- HACK: maps C-S-F4 in terminal linux
+
     ["<C-S-s>"] = { "<Esc>:w! <CR>", "save buffer!" },
     ["<C-S-d>"] = { "zL", "scroll half screen to the right" },
     ["<C-S-u>"] = { "zH", "scroll half screen to the left" },
     ["<leader>qa"] = { "<cmd>qa <CR>", "exit" },
     ["<leader>q!"] = { "<cmd>qa! <CR>", "exit!" },
-    ["<C-S-A-Down>"] = { '"zyy"zp', "clone line down" },
-    ["<C-S-A-Up>"] = { '"zyy"zP', "clone line up" },
+    -- ["<C-S-A-Down>"] = { '"zyy"zp', "clone line down" },
+    -- ["<C-S-A-Up>"] = { '"zyy"zP', "clone line up" },
     ["gV"] = { "`[v`]", "select last yanked/changed text" },
     ["[<Space>"] = { ":set paste<CR>m`O<Esc>``:set nopaste<CR>", "add empty line up" },
     ["]<Space>"] = { ":set paste<CR>m`o<Esc>``:set nopaste<CR>", "add empty line down" },
