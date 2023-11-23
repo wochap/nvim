@@ -6,11 +6,11 @@ M.init = function()
   -- overwrite LazyVim lsp mappings
   local keys = require("lazyvim.plugins.lsp.keymaps").get()
   keys[#keys + 1] = { "<leader>cl", false }
-  -- keys[#keys + 1] = { "gd", false }
+  keys[#keys + 1] = { "gd", false }
   -- keys[#keys + 1] = { "gr", false }
   -- keys[#keys + 1] = { "gD", false }
-  -- keys[#keys + 1] = { "gI", false }
-  -- keys[#keys + 1] = { "gy", false }
+  keys[#keys + 1] = { "gI", false }
+  keys[#keys + 1] = { "gy", false }
   keys[#keys + 1] = { "K", false }
   keys[#keys + 1] = { "gK", false }
   keys[#keys + 1] = { "<c-k>", false, mode = "i" }
@@ -19,6 +19,28 @@ M.init = function()
   keys[#keys + 1] = { "<leader>cr", false }
 
   keys[#keys + 1] = { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" }
+  keys[#keys + 1] = {
+    "gd",
+    function()
+      require("telescope.builtin").lsp_definitions { reuse_win = false }
+    end,
+    desc = "Goto Definition",
+    has = "definition",
+  }
+  keys[#keys + 1] = {
+    "gI",
+    function()
+      require("telescope.builtin").lsp_implementations { reuse_win = false }
+    end,
+    desc = "Goto Implementation",
+  }
+  keys[#keys + 1] = {
+    "gy",
+    function()
+      require("telescope.builtin").lsp_type_definitions { reuse_win = false }
+    end,
+    desc = "Goto T[y]pe Definition",
+  }
   keys[#keys + 1] = {
     "gH",
     function()
