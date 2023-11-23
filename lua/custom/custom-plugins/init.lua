@@ -281,7 +281,7 @@ local plugins = {
   },
   {
     "kevinhwang91/nvim-ufo",
-    event = "VeryLazy",
+    lazy = false,
     dependencies = {
       "kevinhwang91/promise-async",
     },
@@ -291,7 +291,7 @@ local plugins = {
   },
   {
     "luukvbaal/statuscol.nvim",
-    event = "VeryLazy",
+    lazy = false,
     opts = function()
       return require("custom.custom-plugins.configs.statuscol").options
     end,
