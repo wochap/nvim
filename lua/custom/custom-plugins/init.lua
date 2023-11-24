@@ -121,6 +121,11 @@ local plugins = {
       defaults = {
         file_ignore_patterns = { "node_modules", "%.git/", "%.lock$", "%-lock.json$", "%.direnv/" },
       },
+      pickers = {
+        oldfiles = {
+          cwd_only = true,
+        },
+      },
     },
   },
   {

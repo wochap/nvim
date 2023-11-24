@@ -200,6 +200,7 @@ M.telescope = {
     ["<leader>fw"] = { "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>", "find word" },
     ["<leader>fy"] = { "<cmd>lua require'custom.utils.telescope'.symbols()<CR>", "find symbols" },
     ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "find old files" },
+    ["<leader>fg"] = { "<cmd> Telescope git_status <CR>", "find changed files" },
 
     -- find
     ["<leader>ff"] = {
