@@ -518,6 +518,7 @@ local plugins = {
   { import = "custom.extras-lang.python" },
   { import = "custom.extras-lang.web" },
   { import = "custom.extras-lang.shell" },
+  { import = "custom.extras-lang.zig" },
   { import = "lazyvim.plugins.extras.lang.json" },
   { import = "lazyvim.plugins.extras.lang.yaml" },
 }
