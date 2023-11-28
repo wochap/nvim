@@ -196,6 +196,8 @@ M.telescope = {
   plugin = true,
 
   n = {
+    ["<leader>cf"] = { "<cmd>Telescope filetypes<cr>", "change filetype" },
+
     ["<leader>fs"] = { "<cmd>lua require('spectre').open()<CR>", "find word spectre" },
     ["<leader>fw"] = { "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>", "find word" },
     ["<leader>fy"] = { "<cmd>lua require'custom.utils.telescope'.symbols()<CR>", "find symbols" },
