@@ -144,17 +144,33 @@ local M = {
   FlashPromptModeSep = { link = "St_CommandModeSep" },
 
   -- statusline
-  St_lspInfo = {
+  St_gitAdd = {
     bg = theme.base_30.statusline_bg,
     fg = gitColors.add,
   },
-  St_lspWarning = {
+  St_gitChange = {
     bg = theme.base_30.statusline_bg,
     fg = gitColors.change,
   },
-  St_lspError = {
+  St_gitDelete = {
     bg = theme.base_30.statusline_bg,
     fg = gitColors.delete,
+  },
+  St_lspInfo = {
+    bg = theme.base_30.statusline_bg,
+    fg = stateColors.info,
+  },
+  St_lspWarning = {
+    bg = theme.base_30.statusline_bg,
+    fg = stateColors.warning,
+  },
+  St_lspError = {
+    bg = theme.base_30.statusline_bg,
+    fg = stateColors.error,
+  },
+  St_lspHints = {
+    bg = theme.base_30.statusline_bg,
+    fg = stateColors.hint,
   },
   ST_sep = {
     fg = stModuleBg,
