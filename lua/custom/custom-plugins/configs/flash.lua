@@ -44,6 +44,9 @@ M.keys = {
 }
 
 M.options = {
+  search = {
+    multi_window = false,
+  },
   modes = {
     char = {
       enabled = false,
