@@ -323,6 +323,8 @@ M.custom_general = {
     ["<C-S-Down>"] = { "<cmd>lua require('smart-splits').swap_buf_down()<cr>" },
     ["<C-S-Up>"] = { "<cmd>lua require('smart-splits').swap_buf_up()<cr>" },
 
+    ["<C-w>x"] = { "<C-w>s", "Split window horizontally" },
+
     ["<C-F4>"] = { "<cmd>WindowPick<cr>", "focus visible window" },
     ["<F28>"] = { "<cmd>WindowPick<cr>", "focus visible window" }, -- HACK: maps C-F4 in terminal linux
     ["<C-S-F4>"] = { "<cmd>WindowSwap<cr>", "swap with window" },
