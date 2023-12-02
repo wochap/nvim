@@ -123,7 +123,8 @@ return {
       local changed = (git_status.changed and git_status.changed ~= 0)
           and ("%#St_gitChange#  " .. git_status.changed)
         or ""
-      local removed = (git_status.removed and git_status.removed ~= 0) and ("%#St_gitDelete#  " .. git_status.removed)
+      local removed = (git_status.removed and git_status.removed ~= 0)
+          and ("%#St_gitDelete#  " .. git_status.removed)
         or ""
 
       return added .. changed .. removed
@@ -169,6 +170,18 @@ return {
       return ""
     end
 
+    local function fileType()
+      if not vim.tbl_contains({ "", "nowrite" }, vim.bo.bt) and not vim.fn.bufname():match "^Scratch %d+$" then
+        return ""
+      end
+
+      if vim.bo.ft ~= "" then
+        return "%#St_fileType#  " .. vim.bo.ft .. "  "
+      end
+
+      return ""
+    end
+
     function LSP_status()
       if rawget(vim, "lsp") then
         local client_names = {}
@@ -178,7 +191,7 @@ return {
           end
         end
         if next(client_names) == nil then
-          return ""
+          return fileType()
         end
         if #client_names > 1 then
           return "%#St_LspStatus# 󰄭 " .. #client_names .. " LSP  "
@@ -186,7 +199,7 @@ return {
         return "%#St_LspStatus# 󰄭  " .. client_names[1] .. "  "
       end
 
-      return ""
+      return fileType()
     end
 
     local function location()
@@ -210,12 +223,22 @@ return {
       return left_sep .. " " .. text .. " "
     end
 
+    local function indentInfo()
+      if vim.bo.expandtab then
+        return "%#St_IndentInfo#spaces:" .. vim.bo.shiftwidth .. "  "
+      else
+        return "%#St_IndentInfo#tabs:" .. vim.bo.tabstop .. "  "
+      end
+    end
+
     modules[1] = mode()
     modules[2] = fileInfo()
     modules[3] = git()
+    modules[4] = "%="
     modules[5] = ""
-    modules[7] = LSP_Diagnostics()
-    modules[8] = LSP_status() or ""
+    modules[6] = LSP_Diagnostics()
+    modules[7] = LSP_status() or ""
+    modules[8] = indentInfo()
     modules[9] = cwd()
     modules[10] = cursor_position()
   end,

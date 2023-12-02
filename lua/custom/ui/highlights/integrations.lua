@@ -193,6 +193,14 @@ local M = {
     fg = statusline_fg,
     bg = theme.base_30.statusline_bg,
   },
+  St_IndentInfo = {
+    fg = statusline_fg,
+    bg = theme.base_30.statusline_bg,
+  },
+  St_fileType = {
+    fg = statusline_fg,
+    bg = theme.base_30.statusline_bg,
+  },
 
   -- tabufline
   TblineFill = {
