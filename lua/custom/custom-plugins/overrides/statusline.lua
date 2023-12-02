@@ -84,10 +84,10 @@ return {
     local function fileInfo()
       local icon = " 󰈚 "
       local icon_hl = "DevIconDefault"
-      local filename = (fn.expand "%" == "" and "Empty ") or fn.expand "%:t"
+      local filename = (fn.expand "%" == "" and "No Name ") or fn.expand "%:t"
       local relative_path = ""
 
-      if filename ~= "Empty " then
+      if filename ~= "No Name " then
         relative_path = get_relative_path()
         local devicons_present, devicons = pcall(require, "nvim-web-devicons")
 
