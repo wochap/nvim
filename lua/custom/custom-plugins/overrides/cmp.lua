@@ -53,6 +53,7 @@ M.options = {
     end,
   },
   mapping = {
+    -- TODO: add C-f and C-b mappings to scroll options
     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
     ["<C-d>"] = cmp.mapping.scroll_docs(4),
     ["<C-p>"] = function(fallback)
