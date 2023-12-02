@@ -231,6 +231,12 @@ local M = {
     fg = tabuflineFg,
   },
 
+  -- incline.nvim
+  InclineNormalNC = {
+    fg = tabuflineFg,
+    bg = nvimtreeBg,
+  },
+
   -- rainbow-delimiters.nvim
   rainbow1 = { fg = theme.base_30.red },
   rainbow2 = { fg = theme.base_30.orange },

@@ -233,6 +233,13 @@ local plugins = {
     end,
   },
   {
+    "b0o/incline.nvim",
+    event = "VeryLazy",
+    opts = function()
+      return require("custom.custom-plugins.configs.incline").options
+    end,
+  },
+  {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
     opts = function()
