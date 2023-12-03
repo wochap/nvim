@@ -10,6 +10,14 @@ M.keys = {
     desc = "Flash",
   },
   {
+    "<A-s>",
+    mode = { "n", "x", "o" },
+    function()
+      require("flash").jump { continue = true }
+    end,
+    desc = "Flash",
+  },
+  {
     "S",
     mode = { "n", "o", "x" },
     function()
@@ -34,7 +42,7 @@ M.keys = {
     desc = "Treesitter Search",
   },
   {
-    "<c-s>",
+    "<C-s>",
     mode = { "c" },
     function()
       require("flash").toggle()
