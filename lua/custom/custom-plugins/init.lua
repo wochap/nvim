@@ -1,4 +1,5 @@
 local g = vim.g
+local leet_arg = "leetcode.nvim"
 
 local plugins = {
   { "nvim-lua/popup.nvim" },
@@ -312,6 +313,20 @@ local plugins = {
     "NMAC427/guess-indent.nvim",
     event = "VeryLazy",
     opts = {},
+  },
+  {
+    "kawre/leetcode.nvim",
+    lazy = leet_arg ~= vim.fn.argv()[1],
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    opts = {
+      lang = "javascript",
+      description = {
+        position = "right",
+        width = "50%",
+      },
+    },
   },
   {
     "folke/flash.nvim",
