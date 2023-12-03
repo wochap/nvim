@@ -323,8 +323,14 @@ local plugins = {
     opts = {
       lang = "javascript",
       description = {
-        position = "right",
         width = "50%",
+      },
+      hooks = {
+        LeetEnter = {
+          function()
+            require("core.utils").load_mappings "leetcode"
+          end,
+        },
       },
     },
   },

@@ -27,6 +27,7 @@ M.exclude_filetypes = {
   "terminal",
   "toggleterm",
   "trouble",
+  "leetcode.nvim",
 }
 
 M.exclude_buftypes = {
