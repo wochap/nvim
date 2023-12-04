@@ -1,8 +1,6 @@
 local M = {}
 
 M.init = function()
-  require("core.utils").lazy_load "nvim-lspconfig"
-
   -- overwrite LazyVim lsp mappings
   local keys = require("lazyvim.plugins.lsp.keymaps").get()
   keys[#keys + 1] = { "<leader>cl", false }
@@ -133,7 +131,7 @@ M.setup = function(_, opts)
 
   -- run LazyVim lsp config
   local find_spec = require("custom.utils.lazy").find_spec
-  local lazyvim_lsp_specs = require "custom.custom-plugins.external.lazyvim_plugins_lsp"
+  local lazyvim_lsp_specs = require "lazyvim.plugins.lsp.init"
   local lazyvim_lsp_spec = find_spec(lazyvim_lsp_specs, "neovim/nvim-lspconfig")
   lazyvim_lsp_spec.config(_, opts)
 

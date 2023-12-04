@@ -4,12 +4,18 @@ local leet_arg = "leetcode.nvim"
 local plugins = {
   { "nvim-lua/popup.nvim" },
 
-  -- nvchad
+  -- LazyVim
+  { "LazyVim/LazyVim" },
+  { import = "custom.lazyvim_init" },
+
+  -- NvChad
   {
     -- NOTE: it causes flickering when indenting lines
     "lukas-reineke/indent-blankline.nvim",
     -- enabled = false,
     version = false,
+    event = "LazyFile",
+    init = function() end,
     opts = function()
       return require("custom.custom-plugins.overrides.blankline").options
     end,
@@ -148,12 +154,19 @@ local plugins = {
   },
   {
     "NvChad/nvim-colorizer.lua",
+    event = "LazyFile",
+    init = function() end,
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.colorizer").options)
     end,
   },
 
   -- custom
+  {
+    "windwp/nvim-ts-autotag",
+    event = "LazyFile",
+    opts = {},
+  },
   {
     "echasnovski/mini.nvim",
     version = "*",
@@ -193,9 +206,7 @@ local plugins = {
   },
   {
     "folke/todo-comments.nvim",
-    init = function()
-      require("core.utils").lazy_load "todo-comments.nvim"
-    end,
+    event = "LazyFile",
     cmd = { "TodoTrouble", "TodoTelescope" },
     opts = {
       signs = false,
@@ -424,17 +435,9 @@ local plugins = {
   -- LazyVim installs any LSP server with Mason
   -- LazyVim installs neoconf
   -- NvChad lspconfig keymaps are ignored
-  {
-    "LazyVim/LazyVim",
-    version = false,
-    commit = "68ff818a5bb7549f90b05e412b76fe448f605ffb",
-    config = function() end,
-  },
-  { import = "custom.custom-plugins.external.lazyvim_plugins_lsp" },
   { "folke/neodev.nvim", enabled = false }, -- disable neodev.nvim added by LazyVim
   {
     "neovim/nvim-lspconfig",
-    event = false,
     init = function()
       require("custom.custom-plugins.overrides.lspconfig").init()
     end,
@@ -484,10 +487,6 @@ local plugins = {
   { import = "lazyvim.plugins.linting" },
   {
     "mfussenegger/nvim-lint",
-    event = false,
-    init = function()
-      require("core.utils").lazy_load "nvim-lint"
-    end,
     opts = function(_, opts)
       opts.linters_by_ft = {} -- remove fish added by LazyVim
       return opts
@@ -497,9 +496,7 @@ local plugins = {
   -- Debugger
   {
     "LiadOz/nvim-dap-repl-highlights",
-    init = function()
-      require("core.utils").lazy_load "nvim-dap-repl-highlights"
-    end,
+    event = { "LazyFile", "VeryLazy" },
     build = ":TSInstall dap_repl",
     opts = {},
     dependencies = {
