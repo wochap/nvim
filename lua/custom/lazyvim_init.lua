@@ -17,8 +17,7 @@ autocmd("User", {
 -- LazyVim code to add LazyFile event to specs
 require("lazyvim.util.plugin").lazy_file()
 
-local lsp_specs = require "lazyvim.plugins.lsp.init"
-return vim.list_extend({
+local core_specs = {
   {
     "folke/lazy.nvim",
     version = "*",
@@ -33,4 +32,9 @@ return vim.list_extend({
     config = function() end,
     cond = true,
   },
-}, lsp_specs)
+}
+-- HACK: can't do `{ import = "lazyvim.plugins.lsp.init" },` or `{ import = "lazyvim.plugins.lsp" },`
+-- in `lua/custom/custom-plugins/init.lua`, they result in errors
+local lsp_specs = require "lazyvim.plugins.lsp.init"
+
+return vim.list_extend(core_specs, lsp_specs)
