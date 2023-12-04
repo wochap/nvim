@@ -135,15 +135,24 @@ M.setup = function(_, opts)
   local lazyvim_lsp_spec = find_spec(lazyvim_lsp_specs, "neovim/nvim-lspconfig")
   lazyvim_lsp_spec.config(_, opts)
 
-  -- run NvChad lsp config
+  -- run custom NvChad lsp config
   dofile(vim.g.base46_cache .. "lsp")
+  -- code copied from https://github.com/NvChad/ui/blob/v2.0/lua/nvchad/lsp.lua start
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "single",
+    focusable = true,
+    relative = "cursor",
+    anchor_bias = "auto",
+    max_width = 100,
+    max_height = 20,
   })
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
     border = "single",
-    focusable = false,
+    focusable = true,
     relative = "cursor",
+    anchor_bias = "auto",
+    max_width = 100,
+    max_height = 20,
   })
   local win = require "lspconfig.ui.windows"
   local _default_opts = win.default_opts
@@ -152,6 +161,7 @@ M.setup = function(_, opts)
     opts.border = "single"
     return opts
   end
+  -- code copied from https://github.com/NvChad/ui/blob/v2.0/lua/nvchad/lsp.lua end
   Util.lsp.on_attach(function(client, bufnr)
     local utils = require "core.utils"
     if client.server_capabilities.signatureHelpProvider then
@@ -184,17 +194,17 @@ M.setup = function(_, opts)
   vim.g.autoformat = false
 
   -- HACK: hide hint diagnostics
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, ...)
-    local client = vim.lsp.get_client_by_id(ctx.client_id)
-
-    if client and client.name == "tsserver" then
-      result.diagnostics = vim.tbl_filter(function(diagnostic)
-        return diagnostic.severity ~= vim.lsp.protocol.DiagnosticSeverity.Hint
-      end, result.diagnostics)
-    end
-
-    return vim.lsp.diagnostic.on_publish_diagnostics(nil, result, ctx, ...)
-  end
+  -- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, ...)
+  --   local client = vim.lsp.get_client_by_id(ctx.client_id)
+  --
+  --   if client and client.name == "tsserver" then
+  --     result.diagnostics = vim.tbl_filter(function(diagnostic)
+  --       return diagnostic.severity ~= vim.lsp.protocol.DiagnosticSeverity.Hint
+  --     end, result.diagnostics)
+  --   end
+  --
+  --   return vim.lsp.diagnostic.on_publish_diagnostics(nil, result, ctx, ...)
+  -- end
 end
 
 return M
