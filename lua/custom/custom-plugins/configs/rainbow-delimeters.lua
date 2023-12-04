@@ -13,7 +13,7 @@ M.init = function()
       "rainbow5",
       "rainbow6",
     },
-    whitelist = { "javascript", "lua" },
+    whitelist = { "javascript" },
   }
 end
 
