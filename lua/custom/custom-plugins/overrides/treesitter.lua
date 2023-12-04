@@ -1,12 +1,6 @@
 local M = {}
 
 M.options = {
-  -- JoosepAlviste/nvim-ts-context-commentstring
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
-
   textobjects = {
     move = {
       enable = true,

@@ -30,7 +30,6 @@ local plugins = {
           require("custom.custom-plugins.configs.treesitter-textobjects").setup()
         end,
       },
-      "JoosepAlviste/nvim-ts-context-commentstring",
       "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
     },
     opts = function(_, opts)
@@ -87,6 +86,12 @@ local plugins = {
       ft_func = function()
         return require("luasnip.extras.filetype_functions").from_pos_or_filetype()
       end,
+    },
+  },
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    opts = {
+      enable_autocmd = false,
     },
   },
   {
