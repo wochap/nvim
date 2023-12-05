@@ -142,20 +142,20 @@ M.diagnostic = {
   n = {
     ["<leader>ld"] = {
       function()
-        vim.diagnostic.open_float { border = "rounded" }
+        vim.diagnostic.open_float()
       end,
       "floating diagnostic",
     },
     -- TODO: add mappings for error and warning movements
     ["[d"] = {
       function()
-        vim.diagnostic.goto_prev { float = { border = "rounded" } }
+        vim.diagnostic.goto_prev()
       end,
       "prev diagnostic",
     },
     ["]d"] = {
       function()
-        vim.diagnostic.goto_next { float = { border = "rounded" } }
+        vim.diagnostic.goto_next()
       end,
       "next diagnostic",
     },
@@ -367,9 +367,9 @@ M.custom_general = {
     ["<C-S-A-Up>"] = { '"zy`["zP', "clone line down" },
     ["g<C-a>"] = { ":s/\\([^ ]\\) \\{2,\\}/\\1 /g<CR>", "Unalign" },
   },
-  s = {
-    ["c"] = { '<C-o>"_c', "change selected text" },
-  },
+  -- s = {
+  --   ["c"] = { '<C-o>"_c', "change selected text" },
+  -- },
 }
 
 M.maximizer_toggle = {
