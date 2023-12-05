@@ -136,37 +136,13 @@ M.setup = function(_, opts)
   lazyvim_lsp_spec.config(_, opts)
 
   -- run custom NvChad lsp config
+  -- source: https://github.com/NvChad/ui/blob/v2.0/lua/nvchad/lsp.lua
+  -- NOTE: folke/noice.nvim replace signature/hover windows completely
+  -- NOTE: folke/noice.nvim automatically show signature help when typing
+  -- NOTE: folke/noice.nvim allows us to add keymappings to scroll signature/hover windows
   dofile(vim.g.base46_cache .. "lsp")
-  -- code copied from https://github.com/NvChad/ui/blob/v2.0/lua/nvchad/lsp.lua start
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "single",
-    focusable = true,
-    relative = "cursor",
-    anchor_bias = "auto",
-    max_width = 100,
-    max_height = 20,
-  })
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "single",
-    focusable = true,
-    relative = "cursor",
-    anchor_bias = "auto",
-    max_width = 100,
-    max_height = 20,
-  })
-  local win = require "lspconfig.ui.windows"
-  local _default_opts = win.default_opts
-  win.default_opts = function(options)
-    local opts = _default_opts(options)
-    opts.border = "single"
-    return opts
-  end
-  -- code copied from https://github.com/NvChad/ui/blob/v2.0/lua/nvchad/lsp.lua end
-  Util.lsp.on_attach(function(client, bufnr)
+  Util.lsp.on_attach(function(client)
     local utils = require "core.utils"
-    if client.server_capabilities.signatureHelpProvider then
-      require("nvchad.signature").setup(client)
-    end
     if not utils.load_config().ui.lsp_semantic_tokens and client.supports_method "textDocument/semanticTokens" then
       client.server_capabilities.semanticTokensProvider = nil
     end
