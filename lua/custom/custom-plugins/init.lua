@@ -10,6 +10,10 @@ local plugins = {
 
   -- NvChad
   {
+    "NvChad/base46",
+    url = "https://github.com/wochap/base46.git",
+  },
+  {
     -- NOTE: it causes flickering when indenting lines
     "lukas-reineke/indent-blankline.nvim",
     -- enabled = false,
@@ -40,6 +44,9 @@ local plugins = {
     },
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.treesitter").options)
+    end,
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
   {

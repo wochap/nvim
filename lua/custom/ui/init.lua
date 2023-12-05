@@ -27,6 +27,7 @@ return {
   -- HACK: if you remove any item from here
   -- make sure you also delete it in ~/.local/share/nvim/nvchad/base46
   extended_integrations = { "dap", "trouble" },
+  exclude_integrations = { "syntax", "treesitter" },
   nvdash = {
     load_on_startup = false,
     buttons = {
