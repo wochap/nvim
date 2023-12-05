@@ -25,7 +25,6 @@ local plugins = {
     end,
     config = function(_, opts)
       require("core.utils").load_mappings "blankline"
-      dofile(vim.g.base46_cache .. "blankline")
       require("ibl").setup(opts)
     end,
     main = "ibl",
