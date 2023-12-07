@@ -28,7 +28,7 @@ M.options = {
 
       if devicons_present then
         local ft_icon, _ = devicons.get_icon(filename)
-        icon = (ft_icon ~= nil and ft_icon .. " ") or ""
+        icon = (ft_icon ~= nil and ft_icon .. " ") or icon
       end
     end
 

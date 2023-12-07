@@ -93,8 +93,8 @@ return {
 
         if devicons_present then
           local ft_icon, ft_icon_hl = devicons.get_icon(filename)
-          icon = (ft_icon ~= nil and " " .. ft_icon .. " ") or " "
-          icon_hl = (ft_icon_hl ~= nil and ft_icon_hl) or ""
+          icon = (ft_icon ~= nil and " " .. ft_icon .. " ") or icon
+          icon_hl = (ft_icon_hl ~= nil and ft_icon_hl) or icon_hl
         end
 
         filename = filename .. " "
