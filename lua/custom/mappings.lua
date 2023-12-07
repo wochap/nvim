@@ -205,6 +205,7 @@ M.telescope = {
     ["<leader>fg"] = { "<cmd> Telescope git_status <CR>", "find changed files" },
 
     -- find
+    ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "find buffers" },
     ["<leader>ff"] = {
       "<cmd> Telescope find_files find_command=fd,--fixed-strings,--type,f follow=true hidden=true <CR>",
       "find files",
