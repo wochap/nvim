@@ -71,6 +71,22 @@ M.options = {
       end
     end,
     ["<C-e>"] = cmp.mapping.abort(),
+    ["<Up>"] = function(fallback)
+      cmp.abort()
+      fallback()
+    end,
+    ["<Down>"] = function(fallback)
+      cmp.abort()
+      fallback()
+    end,
+    ["<Left>"] = function(fallback)
+      cmp.abort()
+      fallback()
+    end,
+    ["<Right>"] = function(fallback)
+      cmp.abort()
+      fallback()
+    end,
     ["<C-y>"] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
