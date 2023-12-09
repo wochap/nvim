@@ -4,8 +4,12 @@ local function live_grep(state, actions)
   local builtin = require "telescope.builtin"
   local prompt_title = "Live Grep"
 
-  if state.match_case or state.match_word then
+  if state.match_case or state.match_word or state.fixed_strings then
     prompt_title = prompt_title .. " "
+  end
+
+  if state.fixed_strings then
+    prompt_title = prompt_title .. "[S]"
   end
 
   if state.match_case then
@@ -43,22 +47,24 @@ local function live_grep(state, actions)
         index = index + 1
       end
 
+      if state.fixed_strings then
+        args[index] = "--fixed-strings"
+        index = index + 1
+      end
+
       args[index] = "--hidden"
       index = index + 1
 
+      -- NOTE: doesn't work with --json
       args[index] = "--trim"
       index = index + 1
 
-      -- TODO: add shortcut to disable
-      args[index] = "--fixed-strings"
-      index = index + 1
-
+      -- NOTE: doesn't work with --json
       -- args[index] = "--vimgrep"
       -- index = index + 1
 
-      return args
-      -- return { "-g", glob, "--word-regexp", "--case-sensitive", "--hidden" }
       -- --glob-case-insensitive
+      return args
     end,
     attach_mappings = function(_, map)
       map("i", "<A-g>", actions.glob_filter)
@@ -74,8 +80,8 @@ end
 
 local function reload(state, prompt_bufnr, actions)
   -- save prompt value
-  local action_state = require "telescope.actions.state"
-  local picker = action_state.get_current_picker(prompt_bufnr)
+  local actions_state = require "telescope.actions.state"
+  local picker = actions_state.get_current_picker(prompt_bufnr)
   local prompt = picker:_get_prompt()
   state.prompt = prompt
 
@@ -86,11 +92,20 @@ local function reload(state, prompt_bufnr, actions)
   end)
 end
 
+local function create_toggle(state, actions, key)
+  return function(prompt_bufnr)
+    state[key] = not state[key]
+
+    reload(state, prompt_bufnr, actions)
+  end
+end
+
 M.live_grep = function()
   local actions = {}
   local state = {
     match_case = false,
     match_word = false,
+    fixed_strings = true,
     glob = "",
     prompt = "",
   }
@@ -102,18 +117,9 @@ M.live_grep = function()
 
     reload(state, prompt_bufnr, actions)
   end
-
-  actions.toggle_match_case = function(prompt_bufnr)
-    state.match_case = not state.match_case
-
-    reload(state, prompt_bufnr, actions)
-  end
-
-  actions.toggle_match_word = function(prompt_bufnr)
-    state.match_word = not state.match_word
-
-    reload(state, prompt_bufnr, actions)
-  end
+  actions.toggle_match_case = create_toggle(state, actions, "match_case")
+  actions.toggle_match_word = create_toggle(state, actions, "match_word")
+  actions.toggle_fixed_strings = create_toggle(state, actions, "fixed_strings")
 
   live_grep(state, actions)
 end
