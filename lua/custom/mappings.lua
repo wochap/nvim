@@ -350,6 +350,7 @@ M.custom_general = {
     ["<f3>"] = { "<cmd>lua require'custom.utils.others'.print_buf_info()<CR>", "print buffer info" },
     ["<f5>"] = { ":e %<CR>", "reload buffer" },
     ["<leader>cd"] = { "<cmd>lua require('osv').launch({ port = 8086 })<cr>", "start nvim server" },
+    ["<leader>cD"] = { "<cmd>lua require('osv').stop()<cr>", "stop nvim server" },
   },
   i = {
     ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
