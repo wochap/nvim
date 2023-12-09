@@ -1,6 +1,7 @@
 local M = {}
 
 M.exclude_filetypes = {
+  "DiffviewFiles",
   "DiffviewFileHistory",
   "NvimTree",
   "TelescopePrompt",
