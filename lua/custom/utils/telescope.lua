@@ -149,6 +149,7 @@ M.flash = function(prompt_bufnr)
     label = { after = { 0, 0 } },
     search = {
       mode = "search",
+      multi_window = true,
       exclude = {
         function(win)
           return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "TelescopeResults"
