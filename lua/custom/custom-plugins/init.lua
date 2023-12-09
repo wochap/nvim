@@ -125,7 +125,6 @@ local plugins = {
   {
     "nvim-telescope/telescope.nvim",
     url = "https://github.com/wochap/telescope.nvim",
-    commit = "a537f5b820298e6309cb0f273d4d2c095883d6c7",
     dependencies = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
