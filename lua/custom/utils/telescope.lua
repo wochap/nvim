@@ -73,6 +73,7 @@ local function live_grep(state, actions)
       map("n", "<A-g>", actions.glob_filter)
       map("n", "<A-w>", actions.toggle_match_word)
       map("n", "<A-c>", actions.toggle_match_case)
+      map("n", "<A-s>", actions.toggle_fixed_strings)
       return true
     end,
   }
