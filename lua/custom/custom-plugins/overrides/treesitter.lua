@@ -30,7 +30,6 @@ M.options = {
   },
 
   ensure_installed = {
-    "dap_repl",
     "git_config",
     "markdown",
     "markdown_inline",
@@ -39,6 +38,7 @@ M.options = {
     "regex",
     "vim",
     "vimdoc",
+    -- "dap_repl",
     -- "norg"
   },
 }

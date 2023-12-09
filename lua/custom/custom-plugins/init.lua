@@ -125,6 +125,7 @@ local plugins = {
   {
     "nvim-telescope/telescope.nvim",
     url = "https://github.com/wochap/telescope.nvim",
+    event = { "LazyFile", "VeryLazy" },
     dependencies = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -137,6 +138,7 @@ local plugins = {
           end)
         end,
       },
+      "LiadOz/nvim-dap-repl-highlights",
     },
     opts = {
       defaults = {
@@ -578,12 +580,8 @@ local plugins = {
   -- Debugger
   {
     "LiadOz/nvim-dap-repl-highlights",
-    event = { "LazyFile", "VeryLazy" },
     build = ":TSInstall dap_repl",
     opts = {},
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
   },
   {
     "mfussenegger/nvim-dap",
