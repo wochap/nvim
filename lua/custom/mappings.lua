@@ -382,13 +382,13 @@ M.maximizer_toggle = {
 
 M.lazy = {
   n = {
-    ["<leader>pc"] = { "<cmd>Lazy restore<cr>", "restore" },
-    ["<leader>pi"] = { "<cmd>Lazy install<cr>", "install" },
-    ["<leader>ps"] = { "<cmd>Lazy sync<cr>", "sync" },
-    ["<leader>pS"] = { "<cmd>Lazy check<cr>", "check" },
-    ["<leader>pu"] = { "<cmd>Lazy update<cr>", "update" },
-    ["<leader>pp"] = { "<cmd>Lazy profile<cr>", "update" },
-    ["<leader>pl"] = { "<cmd>Lazy<cr>", "info" },
+    ["<leader>pR"] = { "<cmd>Lazy restore<cr>", "restore" },
+    ["<leader>pI"] = { "<cmd>Lazy install<cr>", "install" },
+    ["<leader>pS"] = { "<cmd>Lazy sync<cr>", "sync" },
+    ["<leader>pC"] = { "<cmd>Lazy check<cr>", "check" },
+    ["<leader>pU"] = { "<cmd>Lazy update<cr>", "update" },
+    ["<leader>pP"] = { "<cmd>Lazy profile<cr>", "profile" },
+    ["<leader>pi"] = { "<cmd>Lazy<cr>", "info" },
   },
 }
 
