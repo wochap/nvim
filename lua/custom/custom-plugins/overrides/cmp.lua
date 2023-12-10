@@ -5,6 +5,21 @@ local defaults = require "cmp.config.default"()
 local cmp_ui = require("core.utils").load_config().ui.cmp
 local cmp_style = cmp_ui.style
 
+local function select_prev_item(fallback)
+  if cmp.visible() then
+    cmp.select_prev_item { behavior = cmp.SelectBehavior.Insert }
+  else
+    cmp.complete()
+  end
+end
+local function select_next_item(fallback)
+  if cmp.visible() then
+    cmp.select_next_item { behavior = cmp.SelectBehavior.Insert }
+  else
+    cmp.complete()
+  end
+end
+
 M.options = {
   enabled = function()
     local cmp_ctx = require "cmp.config.context"
@@ -56,20 +71,8 @@ M.options = {
     -- TODO: add C-f and C-b mappings to scroll options
     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
     ["<C-d>"] = cmp.mapping.scroll_docs(4),
-    ["<C-p>"] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item { behavior = cmp.SelectBehavior.Insert }
-      else
-        cmp.complete()
-      end
-    end,
-    ["<C-n>"] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item { behavior = cmp.SelectBehavior.Insert }
-      else
-        cmp.complete()
-      end
-    end,
+    ["<C-n>"] = select_next_item,
+    ["<C-p>"] = select_prev_item,
     ["<C-e>"] = cmp.mapping.abort(),
     ["<Up>"] = function(fallback)
       cmp.abort()
@@ -128,22 +131,10 @@ M.options = {
 local cmdlineMapping = {
   ["<C-Space>"] = { c = cmp.mapping.complete() },
   ["<C-n>"] = {
-    c = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item { behavior = cmp.SelectBehavior.Insert }
-      else
-        cmp.complete()
-      end
-    end,
+    c = select_next_item,
   },
   ["<C-p>"] = {
-    c = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item { behavior = cmp.SelectBehavior.Insert }
-      else
-        cmp.complete()
-      end
-    end,
+    c = select_prev_item,
   },
   ["<C-e>"] = {
     c = cmp.mapping.abort(),
@@ -163,14 +154,10 @@ local cmdlineMapping = {
     end,
   },
   ["<Tab>"] = {
-    c = function(fallback)
-      -- fallback()
-    end,
+    c = select_next_item,
   },
   ["<S-Tab>"] = {
-    c = function(fallback)
-      -- fallback()
-    end,
+    c = select_prev_item,
   },
 }
 
