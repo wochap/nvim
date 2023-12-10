@@ -359,6 +359,13 @@ M.custom_general = {
     ["<A-Up>"] = { "<Cmd>lua MiniMove.move_line('up')<CR>", "Move line up" },
     ["<C-e>"] = { "<cmd>lua require'custom.utils.window'.close_all_floating()<CR>", "close floating windows" },
     ["<C-k>"] = { "<cmd>lua require'luasnip'.expand()<CR>", "expand snippet" },
+
+    ["<A-b>"] = { "<C-o>b", "move backward one word" },
+    ["<A-S-b>"] = { "<C-o>B", "move backward one entire word" },
+    ["<A-f>"] = { "<C-o>w", "move forward one word" },
+    ["<A-S-f>"] = { "<C-o>W", "move forward one entire word" },
+    ["<A-BS>"] = { "<C-o>db", "delete backward-word" },
+    ["<A-S-BS>"] = { "<C-o>dB", "delete the entire backward-word" },
   },
   v = {
     ["<C-S-d>"] = { "zL", "scroll half screen to the right" },
