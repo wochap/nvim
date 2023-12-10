@@ -111,6 +111,14 @@ local M = {
     undercurl = true,
   },
 
+  -- vim-illuminate
+  IlluminatedWordText = { bg = utils.darken(theme.base_16.base03, 0.7, theme.base_16.base00) },
+  IlluminatedWordRead = { bg = utils.darken(theme.base_16.base03, 0.7, theme.base_16.base00) },
+  IlluminatedWordWrite = {
+    bg = utils.darken(theme.base_16.base03, 0.7, theme.base_16.base00),
+    standout = true,
+  },
+
   -- diagnostics
   DiagnosticUnderlineError = { undercurl = true, sp = stateColors.error }, -- Used to underline "Error" diagnostics
   DiagnosticUnderlineWarn = { undercurl = true, sp = stateColors.warning }, -- Used to underline "Warning" diagnostics
