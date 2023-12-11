@@ -113,7 +113,7 @@ local M = {
 
   -- vim-illuminate
   -- IlluminatedWordText = { bg = utils.darken(theme.base_16.base03, 0.7, theme.base_16.base00) },
-  IlluminatedWordText = { bg = "NONE" },
+  IlluminatedWordText = { bg = "NONE", underline = false },
   IlluminatedWordRead = { link = "IlluminatedWordText" },
   IlluminatedWordWrite = { link = "IlluminatedWordText" },
 
