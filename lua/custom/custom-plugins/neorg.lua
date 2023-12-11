@@ -5,40 +5,58 @@ local function keybinds_hook(keybinds)
 
   keybinds.map_event_to_mode("norg", {
     n = {
-      { "tu", "core.qol.todo_items.todo.task_undone", "mark undone", desc = "mark undone" },
-      { "tp", "core.qol.todo_items.todo.task_pending" },
-      { "td", "core.qol.todo_items.todo.task_done" },
-      { "th", "core.qol.todo_items.todo.task_on_hold" },
-      { "tc", "core.qol.todo_items.todo.task_cancelled" },
-      { "tr", "core.qol.todo_items.todo.task_recurring" },
-      { "ti", "core.qol.todo_items.todo.task_important" },
-      { "<A-Space>", "core.qol.todo_items.todo.task_cycle" },
-      { leader .. "n", "core.dirman.new.note" },
-      { leader .. "t", ":Neorg journal today" },
-      { leader .. "T", ":Neorg journal tomorrow" },
+      { ">.", "core.promo.promote", opts = { desc = "promote object (non-recursively)" } },
+      { "<,", "core.promo.demote", opts = { desc = "demote object (non-recursively)" } },
+      { ">>", "core.promo.promote", "nested", opts = { desc = "promote object (recursively)" } },
+      { "<<", "core.promo.demote", "nested", opts = { desc = "demote object (recursively)" } },
+
+      { "tu", "core.qol.todo_items.todo.task_undone", opts = { desc = "mark undone" } },
+      { "tp", "core.qol.todo_items.todo.task_pending", opts = { desc = "mark pending" } },
+      { "td", "core.qol.todo_items.todo.task_done", opts = { desc = "mark done" } },
+      { "th", "core.qol.todo_items.todo.task_on_hold", opts = { desc = "mark on hold" } },
+      { "tc", "core.qol.todo_items.todo.task_cancelled", opts = { desc = "mark cacelled" } },
+      { "tr", "core.qol.todo_items.todo.task_recurring", opts = { desc = "mark recurring" } },
+      { "ti", "core.qol.todo_items.todo.task_important", opts = { desc = "mark important" } },
+      { "<A-Space>", "core.qol.todo_items.todo.task_cycle", opts = { desc = "cycle" } },
+
+      { leader .. "t", "<cmd>Neorg journal today<cr>", opts = { desc = "journal today" } },
+      { leader .. "T", "<cmd>Neorg journal tomorrow<cr>", opts = { desc = "journal tomorrow" } },
+      { leader .. "jt", "<cmd>Neorg journal toc open<cr>", opts = { desc = "journal toc open" } },
+      { leader .. "jT", "<cmd>Neorg journal toc update<cr>", opts = { desc = "journal to update" } },
+
+      { leader .. "n", "core.dirman.new.note", opts = { desc = "new note" } },
+      { leader .. "d", "core.tempus.insert-date", opts = { desc = "insert Date" } },
+      { "gl", "core.esupports.hop.hop-link", opts = { desc = "jump to Link" } },
+      { "]h", "core.integrations.treesitter.next.heading", opts = { desc = "move to next heading" } },
+      {
+        "[h",
+        "core.integrations.treesitter.previous.heading",
+        opts = { desc = "Move to Previous Heading" },
+      },
+      { "]l", "core.integrations.treesitter.next.link", opts = { desc = "move to next link" } },
+      {
+        "[l",
+        "core.integrations.treesitter.previous.link",
+        opts = { desc = "Move to Previous Link" },
+      },
+    },
+
+    i = {
+      { "<A-d>", "core.tempus.insert-date-insert-mode", opts = { desc = "insert date" } },
     },
   }, {
     silent = true,
     noremap = true,
   })
 
-  local ok, wk = pcall(require, "which-key")
-  if not ok then
-    return
-  end
-  wk.register {
-    ["tu"] = "mark undone",
-    ["tp"] = "mark pending",
-    ["td"] = "mark done",
-    ["th"] = "mark on hold",
-    ["tc"] = "mark cacelled",
-    ["tr"] = "mark recurring",
-    ["ti"] = "mark important",
-
-    [leader .. "n"] = "new note",
-    [leader .. "t"] = "journal today",
-    [leader .. "T"] = "journal tomorrow",
-  }
+  keybinds.map_event_to_mode("all", {
+    n = {
+      { leader .. "o", ":Neorg toc", opts = { desc = "open table of contents" } },
+    },
+  }, {
+    silent = true,
+    noremap = true,
+  })
 end
 
 return {
