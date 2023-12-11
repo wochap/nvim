@@ -113,9 +113,11 @@ local M = {
 
   -- vim-illuminate
   -- IlluminatedWordText = { bg = utils.darken(theme.base_16.base03, 0.7, theme.base_16.base00) },
-  IlluminatedWordText = { bg = "NONE", underline = false },
-  IlluminatedWordRead = { link = "IlluminatedWordText" },
-  IlluminatedWordWrite = { link = "IlluminatedWordText" },
+  IlluminatedWord = { bg = "NONE", underline = false },
+  IlluminatedCurWord = { link = "IlluminatedWord" },
+  IlluminatedWordText = { link = "IlluminatedWord" },
+  IlluminatedWordRead = { link = "IlluminatedWord" },
+  IlluminatedWordWrite = { link = "IlluminatedWord" },
 
   -- diagnostics
   DiagnosticUnderlineError = { undercurl = true, sp = stateColors.error }, -- Used to underline "Error" diagnostics
