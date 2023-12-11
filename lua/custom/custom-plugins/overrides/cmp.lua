@@ -75,19 +75,19 @@ M.options = {
     ["<C-p>"] = select_prev_item,
     ["<C-e>"] = cmp.mapping.abort(),
     ["<Up>"] = function(fallback)
-      cmp.abort()
+      cmp.close()
       fallback()
     end,
     ["<Down>"] = function(fallback)
-      cmp.abort()
+      cmp.close()
       fallback()
     end,
     ["<Left>"] = function(fallback)
-      cmp.abort()
+      cmp.close()
       fallback()
     end,
     ["<Right>"] = function(fallback)
-      cmp.abort()
+      cmp.close()
       fallback()
     end,
     ["<C-y>"] = cmp.mapping.confirm {
