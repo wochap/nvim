@@ -1,5 +1,9 @@
 local g = vim.g
 local leet_arg = "leetcode.nvim"
+local kitty_arg = "kitty-scrollback"
+local in_leetcode = leet_arg == vim.fn.argv()[1]
+local in_kittyscrollback = kitty_arg == vim.fn.argv()[1]
+local theme = require "custom.ui.highlights.catppuccin-mocha"
 
 local plugins = {
   { "nvim-lua/popup.nvim" },
@@ -398,6 +402,7 @@ local plugins = {
   },
   {
     "kevinhwang91/nvim-ufo",
+    enabled = not in_kittyscrollback and not in_leetcode,
     lazy = false,
     dependencies = {
       "kevinhwang91/promise-async",
@@ -408,6 +413,7 @@ local plugins = {
   },
   {
     "luukvbaal/statuscol.nvim",
+    enabled = not in_kittyscrollback and not in_leetcode,
     lazy = false,
     opts = function()
       return require("custom.custom-plugins.configs.statuscol").options
@@ -420,7 +426,7 @@ local plugins = {
   },
   {
     "kawre/leetcode.nvim",
-    lazy = leet_arg ~= vim.fn.argv()[1],
+    lazy = not in_leetcode,
     dependencies = {
       "MunifTanjim/nui.nvim",
     },
@@ -452,23 +458,80 @@ local plugins = {
     "nvim-telescope/telescope.nvim",
     optional = true,
     opts = function(_, opts)
+      -- integrate flash in telescope
       local flash = require("custom.utils.telescope").flash
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
         mappings = { n = { s = flash }, i = { ["<c-s>"] = flash } },
       })
     end,
-  }, -- integrate flash in telescope
-  -- TODO: wait for nvim 0.10
-  -- {
-  --   "mikesmithgh/kitty-scrollback.nvim",
-  --   enabled = true,
-  --   lazy = true,
-  --   cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
-  --   version = "^1.0.0", -- pin major version, include fixes and features that do not have breaking changes
-  --   config = function()
-  --     require("kitty-scrollback").setup()
-  --   end,
-  -- },
+  },
+  {
+    "mikesmithgh/kitty-scrollback.nvim",
+    lazy = not in_kittyscrollback,
+    cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
+    commit = "8c36b74723049521cbcc5361c7477cb69c02812f",
+    opts = {
+      callbacks = {
+        after_setup = function()
+          local ksb_api = require "kitty-scrollback.api"
+          vim.opt_local.signcolumn = "no"
+          vim.keymap.set("n", "q", ksb_api.close_or_quit_all, {})
+          vim.keymap.del("n", "g?")
+          vim.keymap.set("n", "<esc>", ":noh<CR>", {})
+        end,
+      },
+      highlight_overrides = {
+        KittyScrollbackNvimSpinner = {
+          bg = theme.base_30.darker_black,
+          fg = theme.base_30.lavender,
+        },
+        KittyScrollbackNvimNormal = {
+          bg = theme.base_30.darker_black,
+          fg = theme.base_30.lavender,
+        },
+        KittyScrollbackNvimPasteWinNormal = {
+          bg = theme.base_30.darker_black,
+        },
+        KittyScrollbackNvimPasteWinFloatBorder = {
+          bg = theme.base_30.darker_black,
+          fg = theme.base_30.darker_black,
+        },
+      },
+      keymaps_enabled = true,
+      status_window = {
+        enabled = true,
+        style_simple = true,
+      },
+      paste_window = {
+        hide_footer = true,
+        winopts_overrides = function(winopts)
+          return vim.tbl_deep_extend("force", {}, {
+            anchor = "NW",
+            border = "rounded",
+            col = 0,
+            focusable = true,
+            height = math.floor(vim.o.lines / 2.5),
+            relative = "editor",
+            row = vim.o.lines,
+            style = "minimal",
+            width = vim.o.columns,
+            zindex = 40,
+          })
+        end,
+        footer_winopts_overrides = function(winopts)
+          return winopts
+        end,
+      },
+      visual_selection_highlight_mode = "nvim",
+    },
+    config = function(_, opts)
+      require("kitty-scrollback").setup {
+        global = function()
+          return opts
+        end,
+      }
+    end,
+  },
   {
     "mrjones2014/smart-splits.nvim",
     opts = {
