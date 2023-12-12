@@ -112,12 +112,13 @@ M.options = {
       "i",
       "s",
     }),
+    ["<CR>"] = function(fallback)
+      cmp.close()
+      fallback()
+    end,
 
     -- remove mappings
     ["<C-f>"] = function(fallback)
-      fallback()
-    end,
-    ["<CR>"] = function(fallback)
       fallback()
     end,
   },
