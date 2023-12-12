@@ -1,8 +1,8 @@
 local M = {}
 
 M.exclude_filetypes = {
-  "DiffviewFiles",
   "DiffviewFileHistory",
+  "DiffviewFiles",
   "NvimTree",
   "TelescopePrompt",
   "TelescopeResults",
@@ -18,6 +18,7 @@ M.exclude_filetypes = {
   "help",
   "lazy",
   "lazyterm",
+  "leetcode.nvim",
   "lspinfo",
   "mason",
   "neo-tree",
@@ -28,7 +29,6 @@ M.exclude_filetypes = {
   "terminal",
   "toggleterm",
   "trouble",
-  "leetcode.nvim",
 }
 
 M.exclude_buftypes = {
