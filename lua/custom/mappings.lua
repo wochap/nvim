@@ -364,8 +364,10 @@ M.custom_general = {
     ["<A-S-b>"] = { "<C-o>B", "move backward one entire word" },
     ["<A-f>"] = { "<C-o>w", "move forward one word" },
     ["<A-S-f>"] = { "<C-o>W", "move forward one entire word" },
-    ["<A-BS>"] = { "<C-o>db", "delete backward-word" },
-    ["<A-S-BS>"] = { "<C-o>dB", "delete the entire backward-word" },
+    ["<A-BS>"] = { "<Esc>cb<Del>", "delete backward-word" },
+    ["<A-S-BS>"] = { "<Esc>cB<Del>", "delete the entire backward-word" },
+    ["<S-CR>"] = { "<CR><Esc>kA", "" },
+    ["<C-r>"] = { "<C-r><C-o>", "" },
   },
   v = {
     ["<C-S-d>"] = { "zL", "scroll half screen to the right" },
