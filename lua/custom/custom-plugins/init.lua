@@ -3,7 +3,6 @@ local leet_arg = "leetcode.nvim"
 local kitty_arg = "kitty-scrollback"
 local in_leetcode = leet_arg == vim.fn.argv()[1]
 local in_kittyscrollback = kitty_arg == vim.fn.argv()[1]
-local theme = require "custom.ui.highlights.catppuccin-mocha"
 
 local plugins = {
   { "nvim-lua/popup.nvim" },
@@ -158,6 +157,10 @@ local plugins = {
   },
   {
     "folke/which-key.nvim",
+    event = "VeryLazy",
+    keys = false,
+    init = false,
+    cmd = false,
     config = function(_, opts)
       vim.o.timeout = true
       vim.o.timeoutlen = 300
@@ -470,60 +473,9 @@ local plugins = {
     lazy = not in_kittyscrollback,
     cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
     commit = "8c36b74723049521cbcc5361c7477cb69c02812f",
-    opts = {
-      callbacks = {
-        after_setup = function()
-          local ksb_api = require "kitty-scrollback.api"
-          vim.opt_local.signcolumn = "no"
-          vim.keymap.set("n", "q", ksb_api.close_or_quit_all, {})
-          vim.keymap.del("n", "g?")
-          vim.keymap.set("n", "<esc>", ":noh<CR>", {})
-        end,
-      },
-      highlight_overrides = {
-        KittyScrollbackNvimSpinner = {
-          bg = theme.base_30.darker_black,
-          fg = theme.base_30.lavender,
-        },
-        KittyScrollbackNvimNormal = {
-          bg = theme.base_30.darker_black,
-          fg = theme.base_30.lavender,
-        },
-        KittyScrollbackNvimPasteWinNormal = {
-          bg = theme.base_30.darker_black,
-        },
-        KittyScrollbackNvimPasteWinFloatBorder = {
-          bg = theme.base_30.darker_black,
-          fg = theme.base_30.darker_black,
-        },
-      },
-      keymaps_enabled = true,
-      status_window = {
-        enabled = true,
-        style_simple = true,
-      },
-      paste_window = {
-        hide_footer = true,
-        winopts_overrides = function(winopts)
-          return vim.tbl_deep_extend("force", {}, {
-            anchor = "NW",
-            border = "rounded",
-            col = 0,
-            focusable = true,
-            height = math.floor(vim.o.lines / 2.5),
-            relative = "editor",
-            row = vim.o.lines,
-            style = "minimal",
-            width = vim.o.columns,
-            zindex = 40,
-          })
-        end,
-        footer_winopts_overrides = function(winopts)
-          return winopts
-        end,
-      },
-      visual_selection_highlight_mode = "nvim",
-    },
+    opts = function()
+      return require("custom.custom-plugins.configs.kitty-scrollback").options
+    end,
     config = function(_, opts)
       require("kitty-scrollback").setup {
         global = function()
