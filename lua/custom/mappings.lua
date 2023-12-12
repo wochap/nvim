@@ -351,6 +351,10 @@ M.custom_general = {
     ["<f5>"] = { ":e %<CR>", "reload buffer" },
     ["<leader>cd"] = { "<cmd>lua require('osv').launch({ port = 8086 })<cr>", "start nvim server" },
     ["<leader>cD"] = { "<cmd>lua require('osv').stop()<cr>", "stop nvim server" },
+
+    -- Scroll one line at the time, keeping cursor position
+    ["<C-k>"] = { "4<C-y>", "" },
+    ["<C-j>"] = { "4<C-e>", "" },
   },
   i = {
     ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
