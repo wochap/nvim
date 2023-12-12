@@ -141,6 +141,15 @@ autocmd("FileType", {
   end,
 })
 
+autocmd("FileType", {
+  group = augroup "reset_signcolumn_on_statuscol_excluded_filetypes",
+  pattern = constants.exclude_filetypes,
+  callback = function()
+    -- HACK: statuscol doesn't reset signcolumn
+    vim.opt_local.signcolumn = "yes"
+  end,
+})
+
 autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
   group = augroup "turn_off_flash_search",
   callback = function()
