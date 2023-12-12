@@ -1,4 +1,4 @@
-local neorg_arg = "neorg"
+local in_neorg = require("custom.utils.constants").in_neorg
 
 local function keybinds_hook(keybinds)
   local leader = keybinds.leader
@@ -63,7 +63,7 @@ return {
   {
     "nvim-neorg/neorg",
     commit = "baaf13a3145534144b795ad37db22bfffd2ad343",
-    lazy = neorg_arg ~= vim.fn.argv()[1],
+    lazy = not in_neorg,
     build = ":Neorg sync-parsers",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()

@@ -35,4 +35,7 @@ M.exclude_buftypes = {
   "terminal",
 }
 
+local neorg_arg = "neorg"
+M.in_neorg = neorg_arg == vim.fn.argv()[1]
+
 return M

@@ -3,6 +3,7 @@ local leet_arg = "leetcode.nvim"
 local kitty_arg = "kitty-scrollback"
 local in_leetcode = leet_arg == vim.fn.argv()[1]
 local in_kittyscrollback = kitty_arg == vim.fn.argv()[1]
+local in_neorg = require("custom.utils.constants").in_neorg
 
 local plugins = {
   { "nvim-lua/popup.nvim" },
@@ -405,7 +406,7 @@ local plugins = {
   },
   {
     "kevinhwang91/nvim-ufo",
-    enabled = not in_kittyscrollback and not in_leetcode,
+    enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
     lazy = false,
     dependencies = {
       "kevinhwang91/promise-async",
@@ -416,7 +417,7 @@ local plugins = {
   },
   {
     "luukvbaal/statuscol.nvim",
-    enabled = not in_kittyscrollback and not in_leetcode,
+    enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
     lazy = false,
     opts = function()
       return require("custom.custom-plugins.configs.statuscol").options
