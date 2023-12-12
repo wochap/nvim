@@ -1,3 +1,4 @@
+local utils = require "custom.utils"
 local constants = require "custom.utils.constants"
 local autocmd = vim.api.nvim_create_autocmd
 local function augroup(name)
@@ -136,13 +137,7 @@ autocmd("FileType", {
   group = augroup "hide_ufo_folds",
   pattern = constants.exclude_filetypes,
   callback = function()
-    local has_ufo, ufo = pcall(require, "ufo")
-    if not has_ufo then
-      return
-    end
-    pcall(ufo.detach)
-    vim.opt_local.foldenable = false
-    vim.opt_local.foldcolumn = "0"
+    utils.disable_ufo()
   end,
 })
 

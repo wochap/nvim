@@ -1,5 +1,7 @@
 local M = {}
 
+local utils = require "custom.utils"
+
 M.options = {
   window = {
     backdrop = 1,
@@ -8,6 +10,10 @@ M.options = {
     options = {
       cursorline = false,
       cursorcolumn = false,
+      number = false,
+      relativenumber = false,
+      signcolumn = "no",
+      foldcolumn = "0",
     },
   },
   plugins = {
@@ -22,10 +28,29 @@ M.options = {
   },
   on_open = function()
     vim.cmd "IBLDisable"
-    vim.opt_local.foldcolumn = "0"
+    utils.disable_ufo()
+    utils.disable_statuscol()
+
+    -- TODO: disable inline.nvim
+    -- local incline_ok, incline = pcall(require, "incline")
+    -- if incline_ok then
+    --   local on = incline.is_enabled()
+    --   if on then
+    --     incline.disable()
+    --   end
+    -- end
   end,
   on_close = function()
     vim.cmd "IBLEnable"
+
+    -- TODO: enable inline.nvim
+    -- local incline_ok, incline = pcall(require, "incline")
+    -- if incline_ok then
+    --   local on = incline.is_enabled()
+    --   if not on then
+    --     incline.enable()
+    --   end
+    -- end
   end,
 }
 
