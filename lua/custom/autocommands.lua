@@ -125,13 +125,13 @@ autocmd("FileType", {
 })
 
 -- autocmd({ "SwapExists" }, {
---   group = augroup("always_edit_with_swap"),
+--   group = custom_augroup("always_edit_with_swap"),
 --   pattern = "*",
 --   command = 'let v:swapchoice = "e"',
 -- })
 
 autocmd({ "BufEnter" }, {
-  group = augroup "load_peek_mappings",
+  group = custom_augroup "load_peek_mappings",
   pattern = "*.md",
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
@@ -148,7 +148,7 @@ autocmd({ "BufEnter" }, {
 })
 
 autocmd("FileType", {
-  group = augroup "hide_ufo_folds",
+  group = custom_augroup "hide_ufo_folds",
   pattern = constants.exclude_filetypes,
   callback = function()
     utils.disable_ufo()
@@ -157,7 +157,7 @@ autocmd("FileType", {
 
 -- HACK: statuscol doesn't reset signcolumn
 autocmd("FileType", {
-  group = augroup "reset_signcolumn_on_statuscol_excluded_filetypes",
+  group = custom_augroup "reset_signcolumn_on_statuscol_excluded_filetypes",
   pattern = constants.exclude_filetypes,
   callback = function()
     vim.opt_local.signcolumn = "yes"
@@ -165,7 +165,7 @@ autocmd("FileType", {
 })
 
 autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
-  group = augroup "turn_off_flash_search",
+  group = custom_augroup "turn_off_flash_search",
   callback = function()
     local has_flash, flash = pcall(require, "flash")
     if not has_flash then
@@ -178,7 +178,7 @@ autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
 -- HACK: fix buffer not showing on tabnew
 -- https://github.com/NvChad/ui/blob/v2.0/lua/nvchad/tabufline/lazyload.lua
 autocmd({ "tabnew" }, {
-  group = augroup "nvchad_tabufline_fixes",
+  group = custom_augroup "nvchad_tabufline_fixes",
   callback = function(args)
     vim.schedule(function()
       if vim.t and vim.t.bufs == nil then
