@@ -53,7 +53,7 @@ end
 
 M.load_mappings = function(section, mapping_opt)
   vim.schedule(function()
-    local lazyvim_lsp_utils = require "lazyvim.plugins.lsp.keymaps"
+    local lazyvim_lsp_utils_ok, lazyvim_lsp_utils = pcall(require, "lazyvim.plugins.lsp.keymaps")
 
     local function set_section_map(section_values)
       if section_values.plugin then
@@ -75,7 +75,7 @@ M.load_mappings = function(section, mapping_opt)
           if
             not default_opts.buffer
             or not mapping_info.has
-            or lazyvim_lsp_utils.has(default_opts.buffer, mapping_info.has)
+            or (lazyvim_lsp_utils_ok and lazyvim_lsp_utils.has(default_opts.buffer, mapping_info.has))
           then
             vim.keymap.set(mode, keybind, mapping_info[1], opts)
           end
