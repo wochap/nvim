@@ -1,12 +1,56 @@
-local utils = require "custom.utils"
-local constants = require "custom.utils.constants"
+local utils = require("custom.utils")
+local constants = require("custom.utils.constants")
 local autocmd = vim.api.nvim_create_autocmd
 local function augroup(name)
+  return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
+end
+local function custom_augroup(name)
   return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
 end
 
+-- Check if we need to reload the file when it changed
+autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = augroup("checktime"),
+  command = "checktime",
+})
+
+-- Highlight on yank
+autocmd("TextYankPost", {
+  group = augroup("highlight_yank"),
+  callback = function()
+    vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
+  end,
+})
+
+-- resize splits if window got resized
+autocmd({ "VimResized" }, {
+  group = augroup("resize_splits"),
+  callback = function()
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd("tabdo wincmd =")
+    vim.cmd("tabnext " .. current_tab)
+  end,
+})
+
+-- go to last loc when opening a buffer
+autocmd("BufReadPost", {
+  group = augroup("last_loc"),
+  callback = function()
+    local exclude = { "gitcommit" }
+    local buf = vim.api.nvim_get_current_buf()
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
+      return
+    end
+    local mark = vim.api.nvim_buf_get_mark(buf, '"')
+    local lcount = vim.api.nvim_buf_line_count(buf)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+})
+
 autocmd("FileType", {
-  group = augroup "nvr_as_git_editor",
+  group = augroup("nvr_as_git_editor"),
   pattern = {
     "gitcommit",
     "gitrebase",
@@ -15,19 +59,9 @@ autocmd("FileType", {
   command = "set bufhidden=wipe",
 })
 
--- resize splits if window got resized
-autocmd({ "VimResized" }, {
-  group = augroup "resize_splits",
-  callback = function()
-    local current_tab = vim.fn.tabpagenr()
-    vim.cmd "tabdo wincmd ="
-    vim.cmd("tabnext " .. current_tab)
-  end,
-})
-
 -- close some filetypes with <q>
 autocmd("FileType", {
-  group = augroup "close_with_q",
+  group = augroup("close_with_q"),
   pattern = {
     "PlenaryTestPopup",
     "help",
@@ -49,109 +83,89 @@ autocmd("FileType", {
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
-autocmd({ "CmdwinEnter" }, {
-  group = augroup "close_with_q_cmd",
-  command = "nnoremap <buffer> q :q<CR>",
-})
 
--- Highlight on yank
-autocmd("TextYankPost", {
-  group = augroup "highlight_yank",
+-- wrap and check for spell in text filetypes
+autocmd("FileType", {
+  group = augroup("wrap_spell"),
+  pattern = { "gitcommit", "markdown", "norg", "" },
   callback = function()
-    vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
   end,
 })
 
--- go to last loc when opening a buffer
-autocmd("BufReadPost", {
-  group = augroup "last_loc",
-  callback = function()
-    local exclude = { "gitcommit" }
-    local buf = vim.api.nvim_get_current_buf()
-    if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
+-- Auto create dir when saving a file, in case some intermediate directory does not exist
+autocmd({ "BufWritePre" }, {
+  group = augroup("auto_create_dir"),
+  callback = function(event)
+    if event.match:match("^%w%w+://") then
       return
     end
-    local mark = vim.api.nvim_buf_get_mark(buf, '"')
-    local lcount = vim.api.nvim_buf_line_count(buf)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
-    end
+    local file = vim.loop.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
 
-autocmd("FileType", {
-  group = augroup "show_numbers_trouble",
-  pattern = "Trouble",
-  command = "set nu",
-})
-
--- autocmd({ "BufEnter" }, {
---   group = augroup "tint_refresh",
---   pattern = "*",
---   callback = function()
---     local ok, tint = pcall(require, "tint")
---
---     if not ok then
---       return
---     end
---
---     if not vim.g.vimenter then
---       return
---     end
---
---     tint.refresh()
---   end,
--- })
-
 autocmd({ "VimEnter" }, {
-  group = augroup "set_vimenter",
+  group = augroup("set_vimenter"),
   callback = function()
     vim.g.vimenter = true
   end,
 })
 
--- Always edit files with swap
-autocmd({ "SwapExists" }, {
-  group = augroup "always_edit_with_swap",
-  pattern = "*",
-  command = 'let v:swapchoice = "e"',
+autocmd({ "CmdwinEnter" }, {
+  group = custom_augroup("close_with_q_cmd"),
+  command = "nnoremap <buffer> q :q<CR>",
 })
 
-autocmd({ "BufEnter" }, {
-  group = augroup "nowrap_text_files",
-  pattern = "*",
-  command = "if &filetype == '' || expand('%:e') == 'norg' || &filetype == 'markdown' || &filetype == 'gitcommit' | set wrap | else | set nowrap | endif",
-  -- TODO: vim.opt_local.wrap = true vim.opt_local.spell = true
+autocmd("FileType", {
+  group = custom_augroup("show_numbers_trouble"),
+  pattern = "Trouble",
+  command = "set nu",
 })
 
+-- autocmd({ "SwapExists" }, {
+--   group = augroup("always_edit_with_swap"),
+--   pattern = "*",
+--   command = 'let v:swapchoice = "e"',
+-- })
+
 autocmd({ "BufEnter" }, {
-  group = augroup "load_peek_mappings",
+  group = augroup("load_peek_mappings"),
   pattern = "*.md",
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
-    require("core.utils").load_mappings("peek", { buffer = bufnr })
+
+    vim.keymap.set("n", "<leader>fm", "<cmd>lua require('peek').open()<CR>", {
+      desc = "open markdown previewer",
+      buffer = bufnr,
+    })
+    vim.keymap.set("n", "<leader>fM", "<cmd>lua require('peek').close()<CR>", {
+      desc = "close markdown previewer",
+      buffer = bufnr,
+    })
   end,
 })
 
 autocmd("FileType", {
-  group = augroup "hide_ufo_folds",
+  group = augroup("hide_ufo_folds"),
   pattern = constants.exclude_filetypes,
   callback = function()
     utils.disable_ufo()
   end,
 })
 
+-- HACK: statuscol doesn't reset signcolumn
 autocmd("FileType", {
-  group = augroup "reset_signcolumn_on_statuscol_excluded_filetypes",
+  group = augroup("reset_signcolumn_on_statuscol_excluded_filetypes"),
   pattern = constants.exclude_filetypes,
   callback = function()
-    -- HACK: statuscol doesn't reset signcolumn
     vim.opt_local.signcolumn = "yes"
   end,
 })
 
 autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
-  group = augroup "turn_off_flash_search",
+  group = augroup("turn_off_flash_search"),
   callback = function()
     local has_flash, flash = pcall(require, "flash")
     if not has_flash then
@@ -164,6 +178,7 @@ autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
 -- HACK: fix buffer not showing on tabnew
 -- https://github.com/NvChad/ui/blob/v2.0/lua/nvchad/tabufline/lazyload.lua
 autocmd({ "tabnew" }, {
+  group = augroup("nvchad_tabufline_fixes"),
   callback = function(args)
     vim.schedule(function()
       if vim.t.bufs == nil then
@@ -172,23 +187,3 @@ autocmd({ "tabnew" }, {
     end)
   end,
 })
-
--- vim.cmd [[
---    " Protect large files from sourcing and other overhead.
---    " Files become read only
---    if !exists("my_auto_commands_loaded")
---    let my_auto_commands_loaded = 1
---       " Large files are > 10M
---       " Set options:
---       " eventignore+=FileType (no syntax highlighting etc
---       " assumes FileType always on)
---       " noswapfile (save copy of file)
---       " bufhidden=unload (save memory when other file is viewed)
---       " buftype=nowrite (file is read-only)
---       " undolevels=-1 (no undo possible)
---       let g:LargeFile = 1024 * 1024 * 10
---       augroup LargeFile
---          autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
---       augroup END
---    endif
--- ]]
