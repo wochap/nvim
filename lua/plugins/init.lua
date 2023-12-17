@@ -96,13 +96,18 @@ local default_plugins = {
       vim.api.nvim_create_autocmd({ "BufRead" }, {
         group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
         callback = function()
-          vim.fn.system("git -C " .. '"' .. vim.fn.expand "%:p:h" .. '"' .. " rev-parse")
-          if vim.v.shell_error == 0 then
-            vim.api.nvim_del_augroup_by_name "GitSignsLazyLoad"
-            vim.schedule(function()
-              require("lazy").load { plugins = { "gitsigns.nvim" } }
-            end)
-          end
+          vim.fn.jobstart({"git", "-C", vim.loop.cwd(), "rev-parse"},
+            {
+              on_exit = function(_, return_code)
+                if return_code == 0 then
+                  vim.api.nvim_del_augroup_by_name "GitSignsLazyLoad"
+                  vim.schedule(function()
+                    require("lazy").load { plugins = { "gitsigns.nvim" } }
+                  end)
+                end
+              end
+            }
+          )
         end,
       })
     end,
@@ -118,7 +123,7 @@ local default_plugins = {
   -- lsp stuff
   {
     "williamboman/mason.nvim",
-    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
     opts = function()
       return require "plugins.configs.mason"
     end,
@@ -229,7 +234,7 @@ local default_plugins = {
 
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = "nvim-treesitter/nvim-treesitter",
+    dependencies = { "nvim-treesitter/nvim-treesitter", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
     cmd = "Telescope",
     init = function()
       require("core.utils").load_mappings "telescope"
@@ -252,7 +257,7 @@ local default_plugins = {
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
-    keys = { "<leader>", "<c-r>", '"', "'", "`", "c", "v", "g" },
+    keys = { "<leader>", "<c-r>", "<c-w>", '"', "'", "`", "c", "v", "g" },
     init = function()
       require("core.utils").load_mappings "whichkey"
     end,

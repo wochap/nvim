@@ -53,8 +53,6 @@ end
 
 M.load_mappings = function(section, mapping_opt)
   vim.schedule(function()
-    local lazyvim_lsp_utils_ok, lazyvim_lsp_utils = pcall(require, "lazyvim.plugins.lsp.keymaps")
-
     local function set_section_map(section_values)
       if section_values.plugin then
         return
@@ -68,17 +66,10 @@ M.load_mappings = function(section, mapping_opt)
           -- merge default + user opts
           local opts = merge_tb("force", default_opts, mapping_info.opts or {})
 
-          -- mapping_info.opts, opts.mode = nil, nil
-          opts.mode = nil
+          mapping_info.opts, opts.mode = nil, nil
           opts.desc = mapping_info[2]
 
-          if
-            not default_opts.buffer
-            or not mapping_info.has
-            or (lazyvim_lsp_utils_ok and lazyvim_lsp_utils.has(default_opts.buffer, mapping_info.has))
-          then
-            vim.keymap.set(mode, keybind, mapping_info[1], opts)
-          end
+          vim.keymap.set(mode, keybind, mapping_info[1], opts)
         end
       end
     end
