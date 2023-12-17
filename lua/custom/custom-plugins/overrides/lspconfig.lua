@@ -130,9 +130,9 @@ M.setup = function(_, opts)
   local Util = require "lazyvim.util"
 
   -- run LazyVim lsp config
-  local find_spec = require("custom.utils.lazy").find_spec
+  local find_lazy_spec = require("custom.utils").find_lazy_spec
   local lazyvim_lsp_specs = require "lazyvim.plugins.lsp.init"
-  local lazyvim_lsp_spec = find_spec(lazyvim_lsp_specs, "neovim/nvim-lspconfig")
+  local lazyvim_lsp_spec = find_lazy_spec(lazyvim_lsp_specs, "neovim/nvim-lspconfig")
   lazyvim_lsp_spec.config(_, opts)
 
   -- run custom NvChad lsp config
@@ -160,7 +160,7 @@ M.setup = function(_, opts)
 
   Util.lsp.on_attach(function(client, bufnr)
     -- disable semanticTokens in large files
-    local is_bigfile = require("custom.utils.bigfile").is_bigfile
+    local is_bigfile = require("custom.utils").is_bigfile
     if is_bigfile(bufnr, 1) and client.supports_method "textDocument/semanticTokens" then
       client.server_capabilities.semanticTokensProvider = nil
     end
