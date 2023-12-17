@@ -7,16 +7,10 @@ local plugins = {
     end,
   },
 
+  { "folke/neodev.nvim", enabled = true },
   {
     "neovim/nvim-lspconfig",
     optional = true,
-    dependencies = {
-      {
-        "folke/neodev.nvim",
-        enabled = true,
-        opts = {},
-      },
-    },
     opts = {
       servers = {
         lua_ls = {
