@@ -1,5 +1,5 @@
-local utils = require("custom.utils")
-local constants = require("custom.utils.constants")
+local utils = require "custom.utils"
+local constants = require "custom.utils.constants"
 local autocmd = vim.api.nvim_create_autocmd
 local function augroup(name)
   return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
@@ -10,31 +10,31 @@ end
 
 -- Check if we need to reload the file when it changed
 autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = augroup("checktime"),
+  group = augroup "checktime",
   command = "checktime",
 })
 
 -- Highlight on yank
 autocmd("TextYankPost", {
-  group = augroup("highlight_yank"),
+  group = augroup "highlight_yank",
   callback = function()
-    vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
+    vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
   end,
 })
 
 -- resize splits if window got resized
 autocmd({ "VimResized" }, {
-  group = augroup("resize_splits"),
+  group = augroup "resize_splits",
   callback = function()
     local current_tab = vim.fn.tabpagenr()
-    vim.cmd("tabdo wincmd =")
+    vim.cmd "tabdo wincmd ="
     vim.cmd("tabnext " .. current_tab)
   end,
 })
 
 -- go to last loc when opening a buffer
 autocmd("BufReadPost", {
-  group = augroup("last_loc"),
+  group = augroup "last_loc",
   callback = function()
     local exclude = { "gitcommit" }
     local buf = vim.api.nvim_get_current_buf()
@@ -50,7 +50,7 @@ autocmd("BufReadPost", {
 })
 
 autocmd("FileType", {
-  group = augroup("nvr_as_git_editor"),
+  group = augroup "nvr_as_git_editor",
   pattern = {
     "gitcommit",
     "gitrebase",
@@ -61,7 +61,7 @@ autocmd("FileType", {
 
 -- close some filetypes with <q>
 autocmd("FileType", {
-  group = augroup("close_with_q"),
+  group = augroup "close_with_q",
   pattern = {
     "PlenaryTestPopup",
     "help",
@@ -86,7 +86,7 @@ autocmd("FileType", {
 
 -- wrap and check for spell in text filetypes
 autocmd("FileType", {
-  group = augroup("wrap_spell"),
+  group = augroup "wrap_spell",
   pattern = { "gitcommit", "markdown", "norg", "" },
   callback = function()
     vim.opt_local.wrap = true
@@ -96,9 +96,9 @@ autocmd("FileType", {
 
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
 autocmd({ "BufWritePre" }, {
-  group = augroup("auto_create_dir"),
+  group = augroup "auto_create_dir",
   callback = function(event)
-    if event.match:match("^%w%w+://") then
+    if event.match:match "^%w%w+://" then
       return
     end
     local file = vim.loop.fs_realpath(event.match) or event.match
@@ -107,19 +107,19 @@ autocmd({ "BufWritePre" }, {
 })
 
 autocmd({ "VimEnter" }, {
-  group = augroup("set_vimenter"),
+  group = augroup "set_vimenter",
   callback = function()
     vim.g.vimenter = true
   end,
 })
 
 autocmd({ "CmdwinEnter" }, {
-  group = custom_augroup("close_with_q_cmd"),
+  group = custom_augroup "close_with_q_cmd",
   command = "nnoremap <buffer> q :q<CR>",
 })
 
 autocmd("FileType", {
-  group = custom_augroup("show_numbers_trouble"),
+  group = custom_augroup "show_numbers_trouble",
   pattern = "Trouble",
   command = "set nu",
 })
@@ -131,7 +131,7 @@ autocmd("FileType", {
 -- })
 
 autocmd({ "BufEnter" }, {
-  group = augroup("load_peek_mappings"),
+  group = augroup "load_peek_mappings",
   pattern = "*.md",
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
@@ -148,7 +148,7 @@ autocmd({ "BufEnter" }, {
 })
 
 autocmd("FileType", {
-  group = augroup("hide_ufo_folds"),
+  group = augroup "hide_ufo_folds",
   pattern = constants.exclude_filetypes,
   callback = function()
     utils.disable_ufo()
@@ -157,7 +157,7 @@ autocmd("FileType", {
 
 -- HACK: statuscol doesn't reset signcolumn
 autocmd("FileType", {
-  group = augroup("reset_signcolumn_on_statuscol_excluded_filetypes"),
+  group = augroup "reset_signcolumn_on_statuscol_excluded_filetypes",
   pattern = constants.exclude_filetypes,
   callback = function()
     vim.opt_local.signcolumn = "yes"
@@ -165,7 +165,7 @@ autocmd("FileType", {
 })
 
 autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
-  group = augroup("turn_off_flash_search"),
+  group = augroup "turn_off_flash_search",
   callback = function()
     local has_flash, flash = pcall(require, "flash")
     if not has_flash then
@@ -178,10 +178,10 @@ autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
 -- HACK: fix buffer not showing on tabnew
 -- https://github.com/NvChad/ui/blob/v2.0/lua/nvchad/tabufline/lazyload.lua
 autocmd({ "tabnew" }, {
-  group = augroup("nvchad_tabufline_fixes"),
+  group = augroup "nvchad_tabufline_fixes",
   callback = function(args)
     vim.schedule(function()
-      if vim.t.bufs == nil then
+      if vim.t and vim.t.bufs == nil then
         vim.t.bufs = vim.api.nvim_get_current_buf() == args.buf and {} or { args.buf }
       end
     end)
