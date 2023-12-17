@@ -105,6 +105,14 @@ local M = {
   NvimTreeGitNew = { fg = gitColors.add },
   NvimTreeGitStaged = { fg = gitColors.stage },
 
+  -- oil.nvim
+  OilMtime = { fg = "#8383A9" },
+  OilSize = { fg = "#87FF87" },
+  OilRead = { fg = theme.base_16.base0E },
+  OilWrite = { fg = "#FD86D5" },
+  OilExecute = { fg = theme.base_16.base0C },
+  OilHyphen = { fg = theme.base_16.base08 },
+
   -- nvim-spectre
   SpectreSearch = {
     bg = utils.darken(gitColors.delete, 0.2, theme.base_16.base01),

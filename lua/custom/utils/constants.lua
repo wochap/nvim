@@ -25,6 +25,7 @@ M.exclude_filetypes = {
   "notify",
   "nvcheatsheet",
   "nvdash",
+  "oil",
   "qf",
   "terminal",
   "toggleterm",
