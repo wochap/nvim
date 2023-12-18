@@ -40,9 +40,9 @@ M.options = {
   window = {
     completion = {
       winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel"
-        .. ",Search:None,IncSearch:None,CurSearch:None",
+        .. ",Search:None",
     },
-    documentation = { winhighlight = "Normal:CmpDoc" .. ",Search:None,IncSearch:None,CurSearch:None" },
+    documentation = { winhighlight = "Normal:CmpDoc" .. ",Search:None" },
   },
   completion = {
     completeopt = "menu,menuone,noinsert,noselect",

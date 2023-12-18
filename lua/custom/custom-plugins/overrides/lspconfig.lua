@@ -140,7 +140,6 @@ M.setup = function(_, opts)
   -- NOTE: folke/noice.nvim replace signature/hover windows completely
   -- NOTE: folke/noice.nvim automatically show signature help when typing
   -- NOTE: folke/noice.nvim allows us to add keymappings to scroll signature/hover windows
-  dofile(vim.g.base46_cache .. "lsp")
   Util.lsp.on_attach(function(client)
     local utils = require "core.utils"
     if not utils.load_config().ui.lsp_semantic_tokens and client.supports_method "textDocument/semanticTokens" then

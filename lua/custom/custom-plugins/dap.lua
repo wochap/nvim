@@ -46,8 +46,6 @@ return {
       },
     },
     config = function(_, opts)
-      dofile(vim.g.base46_cache .. "dap")
-
       -- Load vscode launchjs
       local filetypes = require "mason-nvim-dap.mappings.filetypes"
       require("dap.ext.vscode").load_launchjs(nil, filetypes)

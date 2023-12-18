@@ -27,7 +27,21 @@ return {
   -- HACK: if you remove any item from here
   -- make sure you also delete it in ~/.local/share/nvim/nvchad/base46
   extended_integrations = { "dap", "trouble" },
-  exclude_integrations = { "syntax", "treesitter", "blankline" },
+  exclude_integrations = {
+    "lsp",
+    "mason",
+    "blankline",
+    "dap",
+    "defaults",
+    "git",
+    "nvchad_updater",
+    "nvdash",
+    "syntax",
+    "telescope",
+    "treesitter",
+    "trouble",
+    "whichkey",
+  },
   nvdash = {
     load_on_startup = false,
     buttons = {

@@ -28,4 +28,6 @@ return {
   { import = "custom.custom-plugins.extras-lang.zig" },
   { import = "lazyvim.plugins.extras.lang.json" },
   { import = "lazyvim.plugins.extras.lang.yaml" },
+
+  { import = "custom.custom-plugins.colorscheme" },
 }

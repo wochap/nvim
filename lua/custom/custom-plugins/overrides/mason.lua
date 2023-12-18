@@ -8,7 +8,6 @@ M.setup = function(opts)
   lazyvim_mason_spec.config(_, opts)
 
   -- run NvChad mason config
-  dofile(vim.g.base46_cache .. "mason")
   vim.api.nvim_create_user_command("MasonInstallAll", function()
     vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
   end, {})
