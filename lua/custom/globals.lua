@@ -1,33 +1,6 @@
 local opt = vim.opt
 local g = vim.g
 
-opt.smartindent = false -- fix indent of line starting with `#`
-opt.wrap = false
-opt.relativenumber = true
-opt.fillchars = {
-  eob = " ",
-  diff = "╱",
-  foldopen = "",
-  foldclose = "",
-  foldsep = " ",
-}
-opt.pastetoggle = "<F2>"
-opt.scrolloff = 4
-opt.sidescrolloff = 4
-opt.list = true
-opt.compatible = false
-opt.listchars:append "tab:» "
-opt.listchars:append "trail: "
-opt.pumheight = 15
-opt.cursorcolumn = true
--- set cursor style to underline
--- opt.guicursor = "n-v-c-sm:hor20-Cursor,i-ci-ve:ver25,r-cr-o:hor20"
-opt.guifont = "Iosevka NF:h10:#e-antialias"
-
-vim.cmd [[
-  " set linespace=13
-]]
-
 g.matchup_matchparen_offscreen = { method = "popup" }
 
 g.terminal_color_0 = "#45475A"
@@ -48,19 +21,29 @@ g.terminal_color_13 = "#F5C2E7"
 g.terminal_color_14 = "#94E2D5"
 g.terminal_color_15 = "#A6ADC8"
 
--- HACK: disable autoindent when pasting
--- make <C-r> work like <C-r><C-o>
--- https://neovim.io/doc/user/insert.html#i_CTRL-R_CTRL-O
--- missing register ":.="
-local registers = '*+"-%/#abcdefghijklmnopqrstuvwxyz0123456789'
-for i = 1, #registers do
-  local register = registers:sub(i, i)
+opt.compatible = false
+opt.cursorcolumn = true
+opt.fillchars = {
+  eob = " ",
+  diff = "╱",
+  foldopen = "",
+  foldclose = "",
+  foldsep = " ",
+}
+opt.list = true
+opt.listchars:append "tab:» "
+opt.listchars:append "trail: "
+opt.pumheight = 15
+opt.relativenumber = true
+opt.scrolloff = 4
+opt.sidescrolloff = 4
+opt.smartindent = false -- fix indent of line starting with `#`
+opt.wrap = false
 
-  vim.keymap.set("i", "<C-r>" .. register, function()
-    -- disable paste mode before pasting and
-    vim.o.paste = true
-    pcall(vim.cmd, 'normal! "' .. register .. "p")
-    -- enable paste mode after pasting
-    vim.o.paste = false
-  end, { expr = false, noremap = true })
-end
+-- set cursor style to underline
+-- opt.guicursor = "n-v-c-sm:hor20-Cursor,i-ci-ve:ver25,r-cr-o:hor20"
+opt.guifont = "Iosevka NF:h10:#e-antialias"
+
+vim.cmd [[
+  " set linespace=13
+]]

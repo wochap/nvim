@@ -604,4 +604,21 @@ M.leetcode = {
   },
 }
 
+-- HACK: disable autoindent when pasting
+-- make <C-r> work like <C-r><C-o>
+-- https://neovim.io/doc/user/insert.html#i_CTRL-R_CTRL-O
+-- missing register ":.="
+local registers = '*+"-%/#abcdefghijklmnopqrstuvwxyz0123456789'
+for i = 1, #registers do
+  local register = registers:sub(i, i)
+
+  vim.keymap.set("i", "<C-r>" .. register, function()
+    -- disable paste mode before pasting and
+    vim.o.paste = true
+    pcall(vim.cmd, 'normal! "' .. register .. "p")
+    -- enable paste mode after pasting
+    vim.o.paste = false
+  end, { expr = false, noremap = true })
+end
+
 return M
