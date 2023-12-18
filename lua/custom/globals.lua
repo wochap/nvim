@@ -38,7 +38,12 @@ opt.relativenumber = true
 opt.scrolloff = 4
 opt.sidescrolloff = 4
 opt.smartindent = false -- fix indent of line starting with `#`
+opt.splitkeep = "screen"
 opt.wrap = false
+
+if vim.fn.has "nvim-0.10" == 1 then
+  opt.smoothscroll = true
+end
 
 -- set cursor style to underline
 -- opt.guicursor = "n-v-c-sm:hor20-Cursor,i-ci-ve:ver25,r-cr-o:hor20"
