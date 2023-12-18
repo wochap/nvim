@@ -210,13 +210,6 @@ local plugins = {
       return require("custom.custom-plugins.configs.peek").options
     end,
   },
-  -- {
-  --   "levouh/tint.nvim",
-  --   event = "VeryLazy",
-  --   opts = function(_, opts)
-  --     return require("custom.custom-plugins.configs.tint").options
-  --   end,
-  -- },
   {
     "kdheepak/lazygit.nvim",
     cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" },
@@ -278,82 +271,6 @@ local plugins = {
     end,
   },
   {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
-    opts = {
-      cmdline = {
-        enabled = false,
-      },
-      messages = {
-        enabled = false,
-      },
-      popupmenu = {
-        enabled = false,
-      },
-      notify = {
-        enabled = false,
-      },
-      lsp = {
-        progress = {
-          enabled = false,
-        },
-        message = {
-          enabled = false,
-        },
-        hover = {
-          enabled = true,
-        },
-        signature = {
-          enabled = true,
-          -- automatically show signature help when typing
-          auto_open = {
-            enabled = true,
-          },
-          opts = {
-            -- TODO: add max_height and max_width, noice doesn't support them yet
-            -- TODO: add border, noice doesn't position the window correctly with border enabled
-          },
-        },
-        override = {
-          -- better highlighting for lsp signature/hover windows
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
-        },
-      },
-    },
-    keys = {
-      -- scroll signature/hover windows
-      {
-        "<c-u>",
-        function()
-          if not require("noice.lsp").scroll(-4) then
-            return "<c-u>"
-          end
-        end,
-        silent = true,
-        expr = true,
-        desc = "Scroll backward",
-        mode = { "i", "n", "s" },
-      },
-      {
-        "<c-d>",
-        function()
-          if not require("noice.lsp").scroll(4) then
-            return "<c-d>"
-          end
-        end,
-        silent = true,
-        expr = true,
-        desc = "Scroll forward",
-        mode = { "i", "n", "s" },
-      },
-    },
-  },
-  {
     "b0o/incline.nvim",
     event = "VeryLazy",
     opts = function()
@@ -368,15 +285,6 @@ local plugins = {
     end,
   },
   { "ThePrimeagen/harpoon" },
-  -- {
-  --   "nvim-neorg/neorg",
-  --   lazy = false,
-  --   build = ":Neorg sync-parsers",
-  --   dependencies = { "nvim-neorg/neorg-telescope" },
-  --   config = function()
-  --     require("custom.custom-plugins.configs.neorg").setup()
-  --   end,
-  -- },
   {
     "szw/vim-maximizer",
     cmd = { "MaximizerToggle" },
@@ -509,105 +417,6 @@ local plugins = {
   { "tpope/vim-abolish", event = "VeryLazy" }, -- Change word casing
   { "tpope/vim-repeat", event = "VeryLazy" }, -- Repeat vim-abolish
 
-  -- LSP stuff
-  {
-    "kosayoda/nvim-lightbulb",
-    enabled = false,
-    event = "LspAttach",
-    opts = {
-      sign = {
-        text = " ",
-      },
-      autocmd = {
-        enabled = true,
-        updatetime = -1,
-      },
-    },
-  },
-  {
-    "j-hui/fidget.nvim",
-    tag = "legacy",
-    event = "LspAttach",
-    opts = {},
-  },
-  {
-    "smjonas/inc-rename.nvim",
-    opts = {
-      input_buffer_type = "dressing",
-    },
-  },
-  {
-    "RRethy/vim-illuminate",
-    event = "LazyFile",
-    opts = {
-      delay = 200,
-      under_cursor = false,
-      large_file_cutoff = 2000,
-      large_file_overrides = {
-        providers = { "lsp" },
-      },
-    },
-    config = function(_, opts)
-      require("illuminate").configure(opts)
-    end,
-    keys = {
-      {
-        "]]",
-        function()
-          require("illuminate").goto_next_reference(false)
-        end,
-        desc = "Next Reference",
-      },
-      {
-        "[[",
-        function()
-          require("illuminate").goto_prev_reference(false)
-        end,
-        desc = "Prev Reference",
-      },
-    },
-  },
-
-  -- LSP, pull config from LazyVim
-  -- https://www.lazyvim.org/plugins/lsp
-  -- the following opts for nvim-lspconfig are managed by LazyVim:
-  -- diagnostics, inlay_hints, capabilities, format, servers and setup
-  -- LazyVim adds keymaps to buffers with LSP clients attached
-  -- LazyVim installs any LSP server with Mason
-  -- LazyVim installs neoconf
-  -- NvChad lspconfig keymaps are ignored
-  -- NOTE: `lazyvim.plugins.lsp.init` is imported in `lua/custom/lazyvim_init.lua`
-  { "folke/neodev.nvim", enabled = false }, -- disable neodev.nvim added by LazyVim
-  {
-    "neovim/nvim-lspconfig",
-    init = function()
-      require("custom.custom-plugins.overrides.lspconfig").init()
-    end,
-    opts = function(_, opts)
-      opts.servers = {} -- remove lua_ls added by LazyVim
-      return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.lspconfig").options)
-    end,
-    config = function(_, opts)
-      require("custom.custom-plugins.overrides.lspconfig").setup(_, opts)
-    end,
-  },
-  {
-    "williamboman/mason.nvim",
-    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-    keys = function()
-      return {}
-    end,
-    opts = function(_, opts)
-      -- remove stylua and shfmt added by LazyVim
-      local nvchad_opts = require "plugins.configs.mason"
-      nvchad_opts.ensure_installed = {}
-      return nvchad_opts
-    end,
-    config = function(_, opts)
-      require("custom.custom-plugins.overrides.mason").setup(opts)
-    end,
-  },
-
   -- Formatter, pull config from LazyVim
   -- https://www.lazyvim.org/plugins/formatting
   { import = "lazyvim.plugins.formatting" },
@@ -680,16 +489,16 @@ local plugins = {
   },
 
   -- Extras
-  { import = "custom.extras-lang.c" },
-  { import = "custom.extras-lang.go" },
+  -- { import = "custom.extras-lang.c" },
+  -- { import = "custom.extras-lang.go" },
   { import = "custom.extras-lang.lua" },
-  { import = "custom.extras-lang.nix" },
-  { import = "custom.extras-lang.python" },
-  { import = "custom.extras-lang.web" },
-  { import = "custom.extras-lang.shell" },
-  { import = "custom.extras-lang.zig" },
-  { import = "lazyvim.plugins.extras.lang.json" },
-  { import = "lazyvim.plugins.extras.lang.yaml" },
+  -- { import = "custom.extras-lang.nix" },
+  -- { import = "custom.extras-lang.python" },
+  -- { import = "custom.extras-lang.web" },
+  -- { import = "custom.extras-lang.shell" },
+  -- { import = "custom.extras-lang.zig" },
+  -- { import = "lazyvim.plugins.extras.lang.json" },
+  -- { import = "lazyvim.plugins.extras.lang.yaml" },
 }
 
 return plugins
