@@ -2,6 +2,8 @@ return {
   {
     "NvChad/base46",
     url = "https://github.com/wochap/base46.git",
+    branch = false,
+    commit = "ba6145984857b9e4baaf7cb1401af3ad5b71c5b6",
   },
   {
     -- NOTE: it causes flickering when indenting lines

@@ -124,11 +124,11 @@ autocmd("FileType", {
   command = "set nu",
 })
 
--- autocmd({ "SwapExists" }, {
---   group = custom_augroup("always_edit_with_swap"),
---   pattern = "*",
---   command = 'let v:swapchoice = "e"',
--- })
+autocmd({ "SwapExists" }, {
+  group = custom_augroup("always_edit_with_swap"),
+  pattern = "*",
+  command = 'let v:swapchoice = "e"',
+})
 
 autocmd({ "BufEnter" }, {
   group = custom_augroup "load_peek_mappings",
