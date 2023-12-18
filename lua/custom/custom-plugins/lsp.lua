@@ -43,7 +43,6 @@ return vim.list_extend(vim.deepcopy(lsp_specs), {
     end,
   },
 
-  -- LSP plugins
   {
     "folke/noice.nvim",
     event = "VeryLazy",
