@@ -28,6 +28,8 @@ $ nvim
 
 * `init.lua`
   - import `custom/keymaps.lua`
+* `lua/core/init.lua`
+  - fix ReloadNvChad autocmd to correctly reload modules
 
 ## Requirements
 
