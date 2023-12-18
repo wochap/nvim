@@ -126,18 +126,6 @@ M.tabufline = {
   },
 }
 
-M.general = {
-  n = {
-    -- focus window in direction
-    ["<C-Left>"] = { "<cmd>lua require('smart-splits').move_cursor_left()<cr>" },
-    ["<C-Right>"] = { "<cmd>lua require('smart-splits').move_cursor_right()<cr>" },
-    ["<C-Down>"] = { "<cmd>lua require('smart-splits').move_cursor_down()<cr>" },
-    ["<C-Up>"] = { "<cmd>lua require('smart-splits').move_cursor_up()<cr>" },
-
-    ["<C-y>"] = { "<cmd> %y+ <CR>", "copy whole file" },
-  },
-}
-
 M.diagnostic = {
   n = {
     ["<leader>ld"] = {
@@ -259,21 +247,8 @@ M.close_buffers = {
   },
 }
 
-local function termcodes(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-local exitTerminalMode = termcodes "<C-\\><C-N>"
-
 M.terminal = {
-  t = {
-    ["<C-x>"] = { exitTerminalMode, "exit terminal mode" },
-    ["<C-S-x>"] = { exitTerminalMode .. "<C-w>q", "hide terminal" },
-  },
-
   n = {
-    -- pick a hidden term
-    ["<leader>Tt"] = { "<cmd> Telescope terms <CR>", "pick hidden term" },
-
     -- new
     ["<leader>T_"] = {
       function()
@@ -310,100 +285,9 @@ M.persistence = {
   },
 }
 
-M.custom_general = {
-  n = {
-    -- resize window in direction
-    ["<C-S-A-Left>"] = { "<cmd>lua require('smart-splits').resize_left()<cr>" },
-    ["<C-S-A-Right>"] = { "<cmd>lua require('smart-splits').resize_right()<cr>" },
-    ["<C-S-A-Down>"] = { "<cmd>lua require('smart-splits').resize_down()<cr>" },
-    ["<C-S-A-Up>"] = { "<cmd>lua require('smart-splits').resize_up()<cr>" },
-
-    -- swap window in direction
-    ["<C-S-Left>"] = { "<cmd>lua require('smart-splits').swap_buf_left()<cr>" },
-    ["<C-S-Right>"] = { "<cmd>lua require('smart-splits').swap_buf_right()<cr>" },
-    ["<C-S-Down>"] = { "<cmd>lua require('smart-splits').swap_buf_down()<cr>" },
-    ["<C-S-Up>"] = { "<cmd>lua require('smart-splits').swap_buf_up()<cr>" },
-
-    ["<C-w>x"] = { "<C-w>s", "Split window horizontally" },
-
-    ["<C-F4>"] = { "<cmd>WindowPick<cr>", "focus visible window" },
-    ["<F28>"] = { "<cmd>WindowPick<cr>", "focus visible window" }, -- HACK: maps C-F4 in terminal linux
-    ["<C-S-F4>"] = { "<cmd>WindowSwap<cr>", "swap with window" },
-    ["<F40>"] = { "<cmd>WindowSwap<cr>", "swap with window" }, -- HACK: maps C-S-F4 in terminal linux
-
-    ["<C-S-s>"] = { "<Esc>:w! <CR>", "save buffer!" },
-    ["<C-S-d>"] = { "zL", "scroll half screen to the right" },
-    ["<C-S-u>"] = { "zH", "scroll half screen to the left" },
-    ["<leader>qq"] = { "<cmd>qa <CR>", "exit" },
-    ["<leader>q!"] = { "<cmd>qa! <CR>", "exit!" },
-    -- ["<C-S-A-Down>"] = { '"zyy"zp', "clone line down" },
-    -- ["<C-S-A-Up>"] = { '"zyy"zP', "clone line up" },
-    ["gV"] = { "`[v`]", "select last yanked/changed text" },
-    ["[<Space>"] = { ":set paste<CR>m`O<Esc>``:set nopaste<CR>", "add empty line up" },
-    ["]<Space>"] = { ":set paste<CR>m`o<Esc>``:set nopaste<CR>", "add empty line down" },
-    ["[<Del>"] = { "m`:silent +g/\\m^\\s*$/d<CR>``:noh<CR>", "remove emply line up" },
-    ["]<Del>"] = { "m`:silent -g/\\m^\\s*$/d<CR>``:noh<CR>", "remove emply line down" },
-    ["<leader>|"] = { "<C-w>v", "split window vertically" },
-    ["<leader>_"] = { "<C-w>s", "split window horizontally" },
-    ["<C-e>"] = { "<cmd>lua require'custom.utils'.close_all_floating()<CR>", "close floating windows" },
-    ["<f2>"] = { "<cmd>lua require'custom.utils'.print_syntax_info()<CR>", "print syntax info" },
-    ["<f3>"] = { "<cmd>lua require'custom.utils'.print_buf_info()<CR>", "print buffer info" },
-    ["<f5>"] = { ":e %<CR>", "reload buffer" },
-    ["<leader>cd"] = { "<cmd>lua require('osv').launch({ port = 8086 })<cr>", "start nvim server" },
-    ["<leader>cD"] = { "<cmd>lua require('osv').stop()<cr>", "stop nvim server" },
-
-    -- Scroll one line at the time, keeping cursor position
-    ["<C-k>"] = { "4<C-y>", "" },
-    ["<C-j>"] = { "4<C-e>", "" },
-  },
-  i = {
-    ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
-    ["<C-S-s>"] = { "<Esc>:w! <CR>", "save buffer!" },
-    ["<A-Down>"] = { "<Cmd>lua MiniMove.move_line('down')<CR>", "Move line down" },
-    ["<A-Up>"] = { "<Cmd>lua MiniMove.move_line('up')<CR>", "Move line up" },
-    ["<C-e>"] = { "<cmd>lua require'custom.utils'.close_all_floating()<CR>", "close floating windows" },
-    ["<C-k>"] = { "<cmd>lua require'luasnip'.expand()<CR>", "expand snippet" },
-
-    ["<A-Left>"] = { "<C-o>b", "move backward one word" },
-    ["<A-S-Left>"] = { "<C-o>B", "move backward one entire word" },
-    ["<A-Right>"] = { "<C-o>w", "move forward one word" },
-    ["<A-S-Right>"] = { "<C-o>W", "move forward one entire word" },
-    ["<A-e>"] = { "<C-o>e", "" },
-    ["<A-S-e>"] = { "<C-o>E", "" },
-    ["<A-BS>"] = { "<Esc>cb<Del>", "delete backward-word" },
-    ["<A-S-BS>"] = { "<Esc>cB<Del>", "delete the entire backward-word" },
-    ["<A-Del>"] = { "<Esc>cw", "" },
-    ["<A-S-Del>"] = { "<Esc>cW", "" },
-  },
-  v = {
-    ["<C-S-d>"] = { "zL", "scroll half screen to the right" },
-    ["<C-S-u>"] = { "zH", "scroll half screen to the left" },
-    ["<C-s>"] = { "<Esc>:w <CR>", "save buffer" },
-    ["<C-S-s>"] = { "<Esc>:w! <CR>", "save buffer!" },
-    ["<C-S-A-Down>"] = { '"zy`]"zp', "clone line down" },
-    ["<C-S-A-Up>"] = { '"zy`["zP', "clone line down" },
-    ["g<C-a>"] = { ":s/\\([^ ]\\) \\{2,\\}/\\1 /g<CR>", "Unalign" },
-  },
-  -- s = {
-  --   ["c"] = { '<C-o>"_c', "change selected text" },
-  -- },
-}
-
 M.maximizer_toggle = {
   n = {
     ["<leader>m"] = { "<cmd>MaximizerToggle!<CR>", "max window" },
-  },
-}
-
-M.lazy = {
-  n = {
-    ["<leader>pR"] = { "<cmd>Lazy restore<cr>", "restore" },
-    ["<leader>pI"] = { "<cmd>Lazy install<cr>", "install" },
-    ["<leader>pS"] = { "<cmd>Lazy sync<cr>", "sync" },
-    ["<leader>pC"] = { "<cmd>Lazy check<cr>", "check" },
-    ["<leader>pU"] = { "<cmd>Lazy update<cr>", "update" },
-    ["<leader>pP"] = { "<cmd>Lazy profile<cr>", "profile" },
-    ["<leader>pi"] = { "<cmd>Lazy<cr>", "info" },
   },
 }
 
@@ -603,22 +487,5 @@ M.leetcode = {
     },
   },
 }
-
--- HACK: disable autoindent when pasting
--- make <C-r> work like <C-r><C-o>
--- https://neovim.io/doc/user/insert.html#i_CTRL-R_CTRL-O
--- missing register ":.="
-local registers = '*+"-%/#abcdefghijklmnopqrstuvwxyz0123456789'
-for i = 1, #registers do
-  local register = registers:sub(i, i)
-
-  vim.keymap.set("i", "<C-r>" .. register, function()
-    -- disable paste mode before pasting and
-    vim.o.paste = true
-    pcall(vim.cmd, 'normal! "' .. register .. "p")
-    -- enable paste mode after pasting
-    vim.o.paste = false
-  end, { expr = false, noremap = true })
-end
 
 return M

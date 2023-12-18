@@ -2,6 +2,9 @@ local map = function(mode, lhs, rhs, desc, opts)
   if type(desc) == "table" then
     opts = desc
   end
+  if not desc then
+    desc = ""
+  end
   if not opts then
     opts = {}
   end
@@ -50,20 +53,19 @@ map("n", "<leader>_", "<C-w>s", "split window horizontally")
 -- terminal
 map("t", "<C-x>", exitTerminalMode, "exit terminal mode")
 map("t", "<C-S-x>", exitTerminalMode .. "<C-w>q", "hide terminal")
+map("n", "<leader>Tt", "<cmd> Telescope terms <CR>", "pick hidden term")
 -- map({ "n", "t" }, "<A-i>", lazyterm, "terminal (root dir)")
 -- map({ "n", "t" }, "<A-S-i>", function()
 --   Util.terminal()
 -- end, "terminal (cwd)")
 
 -- scrolling
-map("n", "<C-S-d>", "zL", "scroll half screen to the right")
-map("n", "<C-S-u>", "zH", "scroll half screen to the left")
+map({ "n", "v" }, "<C-S-d>", "zL", "scroll half screen to the right")
+map({ "n", "v" }, "<C-S-u>", "zH", "scroll half screen to the left")
 map("n", "<C-k>", "4<C-y>", "scroll up keeping cursor position")
 map("n", "<C-j>", "4<C-e>", "scroll down keeping cursor position")
-map("v", "<C-S-d>", "zL", "scroll half screen to the right")
-map("v", "<C-S-u>", "zH", "scroll half screen to the left")
 
--- nvim dev
+-- debug nvim config
 map("n", "<f2>", "<cmd>lua require'custom.utils.others'.print_syntax_info()<CR>", "print syntax info")
 map("n", "<f3>", "<cmd>lua require'custom.utils.others'.print_buf_info()<CR>", "print buffer info")
 map("n", "<leader>cd", "<cmd>lua require('osv').launch({ port = 8086 })<cr>", "start nvim server")
@@ -81,9 +83,11 @@ map("i", "<A-S-BS>", "<Esc>cB<Del>", "delete the entire backward-word")
 map("i", "<A-Del>", "<Esc>cw", "")
 map("i", "<A-S-Del>", "<Esc>cW", "")
 map("v", "g<C-a>", ":s/\\([^ ]\\) \\{2,\\}/\\1 /g<CR>", "Unalign")
-map("i", "<C-k>", "<cmd>lua require'luasnip'.expand()<CR>", "expand snippet")
-map("v", "<C-S-A-Down>", '"zy`]"zp', "clone line down")
-map("v", "<C-S-A-Up>", '"zy`["zP', "clone line down")
+map("i", "<C-k>", "<cmd>lua require'luasnip'.expand()<CR>", "expand snippet") -- TODO: also add it to cmp keymaps
+map("i", "<C-S-A-Down>", '<C-o>mz<Esc>"zyy"zp`zi<Down>', "clone line down")
+map("v", "<C-S-A-Down>", '<Esc>mz"zyy"zp`z<Down>', "clone line down")
+map("i", "<C-S-A-Up>", '<C-o>mz<Esc>"zyy"zP`zi<Up>', "clone line up")
+map("v", "<C-S-A-Up>", '<Esc>mz"zyy"zP`z<Up>', "clone line up")
 
 -- movement
 map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", "", { expr = true, silent = true })
@@ -113,3 +117,20 @@ map("n", "<leader>pC", "<cmd>Lazy check<cr>", "check")
 map("n", "<leader>pU", "<cmd>Lazy update<cr>", "update")
 map("n", "<leader>pP", "<cmd>Lazy profile<cr>", "profile")
 map("n", "<leader>pi", "<cmd>Lazy<cr>", "info")
+
+-- HACK: disable autoindent when pasting
+-- make <C-r> work like <C-r><C-o>
+-- https://neovim.io/doc/user/insert.html#i_CTRL-R_CTRL-O
+-- missing register ":.="
+local registers = '*+"-%/#abcdefghijklmnopqrstuvwxyz0123456789'
+for i = 1, #registers do
+  local register = registers:sub(i, i)
+
+  vim.keymap.set("i", "<C-r>" .. register, function()
+    -- disable paste mode before pasting and
+    vim.o.paste = true
+    pcall(vim.cmd, 'normal! "' .. register .. "p")
+    -- enable paste mode after pasting
+    vim.o.paste = false
+  end, { expr = false, noremap = true })
+end
