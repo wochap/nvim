@@ -8,6 +8,12 @@ end
 
 require("core.utils").load_mappings()
 
+local custom_keymaps_path = vim.api.nvim_get_runtime_file("lua/custom/keymaps.lua", false)[1]
+
+if custom_keymaps_path then
+  dofile(custom_keymaps_path)
+end
+
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
 -- bootstrap lazy.nvim!

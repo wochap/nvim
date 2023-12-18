@@ -24,6 +24,11 @@ $ nvim
   :e
   ```
 
+## Changes made to nvchad core
+
+* `init.lua`
+  - import `custom/keymaps.lua`
+
 ## Requirements
 
 Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirements), Mason will install [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [conform.nvim](https://github.com/stevearc/conform.nvim), [nvim-lint](https://github.com/mfussenegger/nvim-lint) and [nvim-dap](https://github.com/mfussenegger/nvim-dap) dependencies
