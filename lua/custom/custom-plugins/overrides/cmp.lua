@@ -1,9 +1,11 @@
 local M = {}
 
+local defer = require "custom.utils.defer"
 local cmp = require "cmp"
 local defaults = require "cmp.config.default"()
 local cmp_ui = require("core.utils").load_config().ui.cmp
 local cmp_style = cmp_ui.style
+local cmp_close_tl = defer.throttle_leading(cmp.close, 250)
 
 local function select_prev_item(fallback)
   if cmp.visible() then
@@ -75,19 +77,19 @@ M.options = {
     ["<C-p>"] = select_prev_item,
     ["<C-e>"] = cmp.mapping.abort(),
     ["<Up>"] = function(fallback)
-      cmp.close()
+      cmp_close_tl()
       fallback()
     end,
     ["<Down>"] = function(fallback)
-      cmp.close()
+      cmp_close_tl()
       fallback()
     end,
     ["<Left>"] = function(fallback)
-      cmp.close()
+      cmp_close_tl()
       fallback()
     end,
     ["<Right>"] = function(fallback)
-      cmp.close()
+      cmp_close_tl()
       fallback()
     end,
     ["<C-y>"] = cmp.mapping.confirm {
@@ -113,7 +115,7 @@ M.options = {
       "s",
     }),
     ["<CR>"] = function(fallback)
-      cmp.close()
+      cmp_close_tl()
       fallback()
     end,
 
