@@ -147,13 +147,17 @@ autocmd({ "BufEnter" }, {
   end,
 })
 
-autocmd("FileType", {
-  group = custom_augroup "hide_ufo_folds",
-  pattern = constants.exclude_filetypes,
-  callback = function()
-    utils.disable_ufo()
-  end,
-})
+-- HACK: don't setup this autocmd until lazy.nvim is installed
+-- otherwise it will throw a bunch of errors
+if constants.lazyPathExists then
+  autocmd("FileType", {
+    group = custom_augroup "hide_ufo_folds",
+    pattern = constants.exclude_filetypes,
+    callback = function()
+      utils.disable_ufo()
+    end,
+  })
+end
 
 -- HACK: statuscol doesn't reset signcolumn
 autocmd("FileType", {

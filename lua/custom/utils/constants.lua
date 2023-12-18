@@ -39,4 +39,7 @@ M.exclude_buftypes = {
 local neorg_arg = "neorg"
 M.in_neorg = neorg_arg == vim.fn.argv()[1]
 
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+M.lazyPathExists = vim.loop.fs_stat(lazypath)
+
 return M
