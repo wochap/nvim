@@ -159,10 +159,19 @@ M.setup = function(_, opts)
   end
 
   Util.lsp.on_attach(function(client, bufnr)
+    local utils = require "core.utils"
+    local is_semantic_tokens_enabled = utils.load_config().ui.lsp_semantic_tokens
+
+    -- -- disable treesitter if server suppoerts semantic tokens
+    -- if is_semantic_tokens_enabled and client.supports_method "textDocument/semanticTokens" then
+    --   vim.treesitter.stop(bufnr)
+    -- end
+
     -- disable semanticTokens in large files
     local is_bigfile = require("custom.utils").is_bigfile
-    if is_bigfile(bufnr, 1) and client.supports_method "textDocument/semanticTokens" then
+    if is_bigfile(bufnr, 1) and is_semantic_tokens_enabled and client.supports_method "textDocument/semanticTokens" then
       client.server_capabilities.semanticTokensProvider = nil
+      -- vim.treesitter.start(bufnr)
     end
   end)
 
