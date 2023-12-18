@@ -8,7 +8,6 @@ return {
     opts = function()
       return require("custom.custom-plugins.configs.oil").options
     end,
-    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
     "windwp/nvim-ts-autotag",

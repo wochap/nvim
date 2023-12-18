@@ -65,7 +65,6 @@ return {
     commit = "baaf13a3145534144b795ad37db22bfffd2ad343",
     lazy = not in_neorg,
     build = ":Neorg sync-parsers",
-    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("neorg").setup {
         load = {

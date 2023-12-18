@@ -15,4 +15,6 @@ return {
   -- library used by other plugins
   { "nvim-lua/plenary.nvim" },
   { "nvim-lua/popup.nvim" },
+  { "nvim-tree/nvim-web-devicons" },
+  { "MunifTanjim/nui.nvim" },
 }

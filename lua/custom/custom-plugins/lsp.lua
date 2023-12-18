@@ -46,9 +46,6 @@ return vim.list_extend(vim.deepcopy(lsp_specs), {
   {
     "folke/noice.nvim",
     event = "VeryLazy",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
     opts = function()
       return require("custom.custom-plugins.configs.noice").options
     end,
