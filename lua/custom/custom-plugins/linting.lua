@@ -1,4 +1,5 @@
-return { -- Linter, pull config from LazyVim
+return {
+  -- Linter, pull config from LazyVim
   -- https://www.lazyvim.org/plugins/linting
   -- the following opts for nvim-lint are managed by LazyVim:
   -- linters

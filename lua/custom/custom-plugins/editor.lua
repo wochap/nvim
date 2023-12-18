@@ -1,4 +1,3 @@
-local g = vim.g
 local in_kittyscrollback = require("custom.utils.constants").in_kittyscrollback
 
 return {
@@ -7,19 +6,6 @@ return {
     cmd = { "Oil" },
     opts = function()
       return require("custom.custom-plugins.configs.oil").options
-    end,
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    event = "LazyFile",
-    opts = {},
-  },
-  {
-    "echasnovski/mini.nvim",
-    version = "*",
-    event = "VeryLazy",
-    config = function()
-      require("custom.custom-plugins.configs.mini").setup()
     end,
   },
   {
@@ -88,29 +74,6 @@ return {
     end,
   },
   {
-    "wochap/emmet-vim",
-    event = "VeryLazy",
-    init = function()
-      g.user_emmet_leader_key = "<C-z>"
-    end,
-  },
-  {
-    "akinsho/git-conflict.nvim",
-    version = "*",
-    event = "VeryLazy",
-    opts = function()
-      return require("custom.custom-plugins.configs.git-conflict").options
-    end,
-    config = function(_, opts)
-      require("custom.custom-plugins.configs.git-conflict").setup(opts)
-    end,
-  },
-  {
-    "NMAC427/guess-indent.nvim",
-    event = "VeryLazy",
-    opts = {},
-  },
-  {
     "folke/flash.nvim",
     event = "VeryLazy",
     opts = function()
@@ -130,6 +93,22 @@ return {
         mappings = { n = { s = flash }, i = { ["<c-s>"] = flash } },
       })
     end,
+  },
+  {
+    "akinsho/git-conflict.nvim",
+    version = "*",
+    event = "VeryLazy",
+    opts = function()
+      return require("custom.custom-plugins.configs.git-conflict").options
+    end,
+    config = function(_, opts)
+      require("custom.custom-plugins.configs.git-conflict").setup(opts)
+    end,
+  },
+  {
+    "NMAC427/guess-indent.nvim",
+    event = "VeryLazy",
+    opts = {},
   },
   {
     "mikesmithgh/kitty-scrollback.nvim",
@@ -159,14 +138,5 @@ return {
     opts = {
       swap_shift = false,
     },
-  },
-  { "tpope/vim-abolish", event = "VeryLazy" }, -- Change word casing
-  { "tpope/vim-repeat", event = "VeryLazy" }, -- Repeat vim-abolish
-
-  -- Lang
-  {
-    "fladson/vim-kitty",
-    event = "VeryLazy",
-    ft = "kitty",
   },
 }

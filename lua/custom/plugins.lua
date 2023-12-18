@@ -15,7 +15,8 @@ return {
   { import = "custom.custom-plugins.leetcode" },
   { import = "custom.custom-plugins.ui" },
   { import = "custom.custom-plugins.util" },
-  { import = "custom.custom-plugins.others" },
+  { import = "custom.custom-plugins.editor" },
+  { import = "custom.custom-plugins.coding" },
 
   -- { import = "custom.custom-plugins.extras-lang.c" },
   -- { import = "custom.custom-plugins.extras-lang.go" },

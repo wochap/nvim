@@ -1,4 +1,4 @@
--- code necessary to integrate LazyVim in NvChad
+-- code necessary to integrate LazyVim (lsp, formmattings and linting) in NvChad
 
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
