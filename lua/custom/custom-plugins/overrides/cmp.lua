@@ -39,8 +39,7 @@ M.options = {
   preselect = cmp.PreselectMode.None,
   window = {
     completion = {
-      winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel"
-        .. ",Search:None",
+      winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel" .. ",Search:None",
     },
     documentation = { winhighlight = "Normal:CmpDoc" .. ",Search:None" },
   },
@@ -76,6 +75,9 @@ M.options = {
     ["<C-n>"] = select_next_item,
     ["<C-p>"] = select_prev_item,
     ["<C-e>"] = cmp.mapping.abort(),
+    ["<C-k>"] = function()
+      require("luasnip").expand()
+    end,
     ["<Up>"] = function(fallback)
       cmp_close_tl()
       fallback()
@@ -124,6 +126,13 @@ M.options = {
       fallback()
     end,
   },
+  sources = cmp.config.sources({
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
+    { name = "path" },
+  }, {
+    { name = "buffer" },
+  }),
   experimental = {
     ghost_text = false,
     native_menu = false,
