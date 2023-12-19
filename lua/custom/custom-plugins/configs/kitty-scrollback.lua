@@ -1,6 +1,6 @@
 local M = {}
 
-local theme = require "custom.ui.highlights.catppuccin-mocha"
+local theme = require "custom.ui.highlights.themes.catppuccin-mocha"
 
 M.options = {
   callbacks = {
