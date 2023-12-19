@@ -1,9 +1,19 @@
 return {
   {
     "NvChad/base46",
-    url = "https://github.com/wochap/base46.git",
+    lazy = false,
     branch = false,
-    commit = "ba6145984857b9e4baaf7cb1401af3ad5b71c5b6",
+    url = "https://github.com/wochap/base46.git",
+    commit = "e557b6ecd12520d23207e30cbd6a6f3bc9cedb5f",
+    config = function()
+      if not vim.loop.fs_stat(vim.g.base46_cache) then
+        return
+      end
+      -- Force nvchad theme load
+      for _, file in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+        dofile(vim.g.base46_cache .. file)
+      end
+    end,
   },
   {
     -- NOTE: it causes flickering when indenting lines
@@ -44,6 +54,9 @@ return {
     "lewis6991/gitsigns.nvim",
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.gitsigns").options)
+    end,
+    config = function(_, opts)
+      require("gitsigns").setup(opts)
     end,
   },
   {
@@ -113,6 +126,9 @@ return {
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.nvim-tree").options)
     end,
+    config = function(_, opts)
+      require("nvim-tree").setup(opts)
+    end,
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -143,6 +159,15 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      local telescope = require "telescope"
+      telescope.setup(opts)
+
+      -- load extensions
+      for _, ext in ipairs(opts.extensions_list) do
+        telescope.load_extension(ext)
+      end
+    end,
   },
   {
     "folke/which-key.nvim",
@@ -153,7 +178,6 @@ return {
     config = function(_, opts)
       vim.o.timeout = true
       vim.o.timeoutlen = 300
-      dofile(vim.g.base46_cache .. "whichkey")
       require("which-key").setup(opts)
       require("custom.custom-plugins.overrides.whichkey").setup()
     end,
