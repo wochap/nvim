@@ -52,6 +52,8 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
+    event = { "LazyFile" },
+    init = function() end,
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.gitsigns").options)
     end,
