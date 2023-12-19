@@ -196,7 +196,7 @@ local getNvchadHl = function(mocha)
 
   -- statusline
   local function genModes_hl(modename, col)
-    result["St_" .. modename .. "Mode"] = { fg = mocha.base, bg = mocha[col], bold = true }
+    result["St_" .. modename .. "Mode"] = { fg = mocha.base, bg = mocha[col], style = { "bold" } }
     result["St_" .. modename .. "ModeSep"] = { fg = mocha[col], bg = statusline_bg }
   end
   genModes_hl("Normal", "lavender")
