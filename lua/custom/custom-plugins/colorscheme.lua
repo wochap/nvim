@@ -12,6 +12,7 @@ local getColors = function(palette)
       change = palette.peach,
       info = palette.blue,
       ancestor = palette.text,
+      stage = palette.mauve,
     },
   }
 end
