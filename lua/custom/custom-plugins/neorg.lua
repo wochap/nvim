@@ -95,7 +95,7 @@ return {
             config = {
               workspaces = {
                 home = "~/Sync/neorg",
-                journal = "~/Sync/journal",
+                vtm = "~/Sync/vtm",
                 -- gtd = "~/Sync/gtd",
               },
               default_workspace = "home",
