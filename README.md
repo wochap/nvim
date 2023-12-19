@@ -28,11 +28,11 @@ $ nvim
 
 * `init.lua`
   - import `custom/keymaps.lua`
-  - prevent cached defaults hl groups being loaded
+  - prevent loading of cached defaults highlight groups
 * `lua/core/init.lua`
   - fix ReloadNvChad autocmd to correctly reload modules
 * `lua/plugins/configs/cmp.lua`
-  - prevent cached cmp hl groups being loaded
+  - prevent loading of cached cmp highlight groups
 
 ## Requirements
 
