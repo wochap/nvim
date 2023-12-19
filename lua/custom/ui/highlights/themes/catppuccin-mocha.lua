@@ -1,5 +1,5 @@
 local utils = require "custom.ui.highlights.utils.init"
-local catppuccin_nvchad = require "custom.ui.highlights.catppuccin-nvchad"
+local catppuccin_nvchad = require "custom.ui.highlights.themes.catppuccin-nvchad"
 
 local M = {}
 

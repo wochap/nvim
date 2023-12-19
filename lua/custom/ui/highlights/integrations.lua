@@ -1,5 +1,5 @@
 local utils = require "custom.ui.highlights.utils.init"
-local theme = require "custom.ui.highlights.catppuccin-mocha"
+local theme = require "custom.ui.highlights.themes.catppuccin-mocha"
 local mocha = theme.palette
 local tabuflineBg = mocha.base
 local tabuflineFg = mocha.surface1

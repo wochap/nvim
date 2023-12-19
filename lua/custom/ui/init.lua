@@ -1,7 +1,7 @@
 -- HACK: save this file to trigger ReloadNvChad autocmd
 -- every time you modify any file in highlights folder
 
-local theme = require "custom.ui.highlights.catppuccin-mocha"
+local theme = require "custom.ui.highlights.themes.catppuccin-mocha"
 local integrations = require "custom.ui.highlights.integrations"
 
 local hls = vim.tbl_deep_extend("force", {}, integrations)
