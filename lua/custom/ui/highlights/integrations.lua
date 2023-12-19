@@ -36,7 +36,6 @@ local M = {
   },
 
   -- nvim-cmp
-  PmenuSel = { bg = mocha.green, fg = mocha.base },
   CmpDoc = {
     bg = utils.darken(mocha.surface0, 0.54, mocha.base),
   },

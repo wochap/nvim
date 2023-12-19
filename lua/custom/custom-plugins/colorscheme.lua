@@ -52,6 +52,7 @@ local getOverridesHl = function(mocha)
     NvimTreeGitIgnored = { fg = mocha.surface1_fg },
     NvimTreeGitNew = { fg = gitColors.add },
     NvimTreeGitStaged = { fg = gitColors.stage },
+    NvimTreeWindowPicker = { link = "WindowPicker" },
 
     -- gitsigns.nvim
     GitSignsAdd = { fg = gitColors.add },
@@ -109,6 +110,10 @@ local getOverridesHl = function(mocha)
     DiagnosticInfo = { fg = stateColors.info }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticHint = { fg = stateColors.hint }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticUnnecessary = { fg = utils.darken(mocha.text, 0.667, mocha.base), link = nil },
+    DiagnosticFloatingError = { fg = stateColors.error }, -- Used to color "Error" diagnostic messages in diagnostics float
+    DiagnosticFloatingWarn = { fg = stateColors.warning }, -- Used to color "Warn" diagnostic messages in diagnostics float
+    DiagnosticFloatingInfo = { fg = stateColors.info }, -- Used to color "Info" diagnostic messages in diagnostics float
+    DiagnosticFloatingHint = { fg = stateColors.hint }, -- Used to color "Hint" diagnostic messages in diagnostics float
   }
 end
 
@@ -145,7 +150,7 @@ local getExtraHl = function(mocha)
     ["@text.uri.markdown_inline"] = { fg = mocha.blue },
 
     -- window-picker.nvim
-    WindowPicker = { fg = mocha.red, bg = utils.darken(mocha.surface0, 0.64, mocha.base) },
+    WindowPicker = { fg = mocha.red, bg = utils.darken(mocha.surface0, 0.64, mocha.base), style = { "bold" } },
     WindowPickerSwap = { link = "WindowPicker" },
 
     -- oil.nvim
@@ -182,9 +187,6 @@ local getNvchadHl = function(mocha)
   local utils = require "custom.ui.highlights.utils.init"
   local gitColors = getColors(mocha).git
   local stateColors = getColors(mocha).state
-  local tabuflineBg = mocha.base
-  local tabuflineFg = mocha.surface1
-  local tabuflineFgActive = mocha.lavender
   local stModuleBg = mocha.surface0
   local stModuleFg = mocha.text
   local statusline_bg = mocha.base
@@ -266,6 +268,9 @@ local getNvchadHl = function(mocha)
       fg = statusline_fg,
       bg = statusline_bg,
     },
+
+    -- nvim-cmp
+    PmenuSel = { bg = mocha.green, fg = mocha.base },
   })
 end
 
