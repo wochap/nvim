@@ -1,9 +1,19 @@
 return {
   {
     "NvChad/base46",
+    lazy = false,
     branch = false,
     url = "https://github.com/wochap/base46.git",
-    commit = "ba6145984857b9e4baaf7cb1401af3ad5b71c5b6",
+    commit = "e557b6ecd12520d23207e30cbd6a6f3bc9cedb5f",
+    config = function()
+      if not vim.loop.fs_stat(vim.g.base46_cache) then
+        return
+      end
+      -- Force nvchad theme load
+      for _, file in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+        dofile(vim.g.base46_cache .. file)
+      end
+    end,
   },
   {
     -- NOTE: it causes flickering when indenting lines
@@ -115,6 +125,9 @@ return {
     "nvim-tree/nvim-tree.lua",
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, require("custom.custom-plugins.overrides.nvim-tree").options)
+    end,
+    config = function(_, opts)
+      require("nvim-tree").setup(opts)
     end,
   },
   {

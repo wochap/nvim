@@ -3,10 +3,8 @@
 
 local theme = require "custom.ui.highlights.catppuccin-mocha"
 local integrations = require "custom.ui.highlights.integrations"
-local syntaxCatppuccin = require "custom.ui.highlights.syntax-catppuccin"
-local syntaxCustomCatppuccin = require "custom.ui.highlights.syntax-custom-catppuccin"
 
-local hls = vim.tbl_deep_extend("force", {}, syntaxCatppuccin, syntaxCustomCatppuccin, integrations)
+local hls = vim.tbl_deep_extend("force", {}, integrations)
 
 return {
   theme = "catppuccin",
@@ -15,7 +13,8 @@ return {
   hl_override = hls,
   -- disable lsp_semantic_tokens for better performance
   -- https://github.com/neovim/neovim/issues/23026
-  lsp_semantic_tokens = true,
+  -- NOTE: make sure to disable treesitter on buffers with semantic tokens to better performance
+  lsp_semantic_tokens = false,
   tabufline = require "custom.custom-plugins.overrides.tabufline",
   statusline = require "custom.custom-plugins.overrides.statusline",
   changed_themes = {
@@ -26,20 +25,20 @@ return {
   },
   -- HACK: if you remove any item from here
   -- make sure you also delete it in ~/.local/share/nvim/nvchad/base46
-  extended_integrations = { "dap", "trouble" },
+  extended_integrations = {},
   exclude_integrations = {
-    "lsp",
-    "mason",
     "blankline",
-    "dap",
     "defaults",
     "git",
+    "lsp",
+    "mason",
     "nvchad_updater",
     "nvdash",
+    "nvimtree",
+    "statusline",
     "syntax",
     "telescope",
     "treesitter",
-    "trouble",
     "whichkey",
   },
   nvdash = {
@@ -54,4 +53,3 @@ return {
     },
   },
 }
-
