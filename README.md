@@ -1,6 +1,6 @@
 # NVIM
 
-[NVChad](https://github.com/NvChad/NvChad) plus [LazyVim](https://github.com/LazyVim/LazyVim) plus my custom config
+[NVChad](https://github.com/NvChad/NvChad) + [LazyVim](https://github.com/LazyVim/LazyVim) plus my custom config
 
 ![](https://i.imgur.com/jsCnGLI.jpg)
 
