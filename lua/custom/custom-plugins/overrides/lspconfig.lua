@@ -157,6 +157,16 @@ M.setup = function(_, opts)
     end)
   end
 
+  -- HACK: add `.volar` file at the root of your vue project to enable volar "Take Over Mode"
+  -- disable typescript-tools if project has `.volar` file at the root
+  if Util.lsp.get_config "volar" and Util.lsp.get_config "typescript-tools" then
+    local is_vue = require("lspconfig.util").root_pattern ".volar"
+    Util.lsp.disable("typescript-tools", is_vue)
+    Util.lsp.disable("volar", function(root_dir)
+      return not is_vue(root_dir)
+    end)
+  end
+
   Util.lsp.on_attach(function(client, bufnr)
     local utils = require "core.utils"
     local is_semantic_tokens_enabled = utils.load_config().ui.lsp_semantic_tokens

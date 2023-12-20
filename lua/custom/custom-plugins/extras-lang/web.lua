@@ -90,7 +90,17 @@ local plugins = {
           },
         },
         volar = {
-          filetypes = { "vue" },
+          filetypes = {
+            "javascript",
+            "javascript.jsx",
+            "javascriptreact",
+            "json",
+            "typescript",
+            "typescript.tsx",
+            "typescriptreact",
+            "vue",
+          },
+          -- filetypes = { "vue" },
           on_new_config = function(new_config, new_root_dir)
             local util = require "lspconfig.util"
             local function get_typescript_server_path(root_dir)
