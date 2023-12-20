@@ -20,6 +20,41 @@ local exitTerminalMode = termcodes "<C-\\><C-N>"
 -- local lazyterm = function()
 --   Util.terminal(nil, { cwd = Util.root() })
 -- end
+local runExpr = function(expr)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(expr, true, false, true), "n", true)
+end
+-- TODO: refactor getCloneLineFn
+local getCloneLineFn = function(direction)
+  return function()
+    if vim.api.nvim_get_mode().mode == "v" then
+      vim.cmd "normal! V"
+    end
+    local mode = vim.api.nvim_get_mode().mode
+    if mode == "V" then
+      vim.cmd 'normal! mz"zy'
+      local start_line = vim.fn.line "'<"
+      local end_line = vim.fn.line "'>"
+      local num_lines = end_line - start_line + 1
+      if direction == "down" then
+        vim.cmd('normal! `]"zp`z' .. num_lines .. "j")
+      elseif direction == "up" then
+        vim.cmd('normal! `]"zP`z' .. num_lines .. "k")
+      end
+    elseif mode == "i" then
+      if direction == "down" then
+        runExpr '<C-o>mz<Esc>"zyy"zp`zi<Down>'
+      elseif direction == "up" then
+        runExpr '<C-o>mz<Esc>"zyy"zP`zi<Up>'
+      end
+    elseif mode == "n" then
+      if direction == "down" then
+        runExpr 'mz"zyy"zp`z<Down>'
+      elseif direction == "up" then
+        runExpr 'mz"zyy"zP`z<Up>'
+      end
+    end
+  end
+end
 
 -- focus windows
 map("n", "<C-Left>", "<cmd>lua require('smart-splits').move_cursor_left()<cr>")
@@ -84,10 +119,10 @@ map("i", "<A-Del>", "<Esc>cw", "")
 map("i", "<A-S-Del>", "<Esc>cW", "")
 map("v", "g<C-a>", ":s/\\([^ ]\\) \\{2,\\}/\\1 /g<CR>", "Unalign")
 map("i", "<C-k>", "<cmd>lua require'luasnip'.expand()<CR>", "expand snippet") -- TODO: also add it to cmp keymaps
-map("i", "<C-S-A-Down>", '<C-o>mz<Esc>"zyy"zp`zi<Down>', "clone line down")
-map("v", "<C-S-A-Down>", '<Esc>mz"zyy"zp`z<Down>', "clone line down")
-map("i", "<C-S-A-Up>", '<C-o>mz<Esc>"zyy"zP`zi<Up>', "clone line up")
-map("v", "<C-S-A-Up>", '<Esc>mz"zyy"zP`z<Up>', "clone line up")
+map({ "n", "i" }, "<S-A-Down>", getCloneLineFn "down", "clone line down")
+map("x", "<S-A-Down>", getCloneLineFn "down", "clone line down")
+map({ "n", "i" }, "<S-A-Up>", getCloneLineFn "up", "clone line up")
+map("x", "<S-A-Up>", getCloneLineFn "up", "clone line up")
 
 -- movement
 map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", "", { expr = true, silent = true })
