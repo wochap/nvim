@@ -3,6 +3,14 @@ local plugins = {
   { import = "lazyvim.plugins.extras.linting.eslint" },
 
   {
+    "L3MON4D3/LuaSnip",
+    dependencies = {
+      -- "rafamadriz/friendly-snippets",
+      "sdras/vue-vscode-snippets",
+    },
+  },
+
+  {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
     opts = function(_, opts)

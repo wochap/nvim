@@ -87,6 +87,7 @@
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
   "vim-startuptime": { "branch": "master", "commit": "454b3de856b7bd298700de33d79774ca9b9e3875" },
   "vscode-es7-javascript-react-snippets": { "branch": "master", "commit": "35f95503386f1f5afba04a325097ea75c4dd124e" },
+  "vue-vscode-snippets": { "branch": "main", "commit": "69c744b2a4898d0009b0c552efa74c491d4e7e3f" },
   "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" },
   "window-picker.nvim": { "branch": "main", "commit": "2fe9e4001beeeee9562ddb21b0ad46ab2463bc5b" },
   "zen-mode.nvim": { "branch": "main", "commit": "50e2e2a36cc97847d9ab3b1a3555ba2ef6839b50" }
