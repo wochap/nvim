@@ -108,6 +108,8 @@ return {
               journal_folder = "journal",
             },
           },
+
+          ["core.export"] = {},
         },
       }
     end,
