@@ -128,6 +128,7 @@ return {
   {
     "mrjones2014/smart-splits.nvim",
     opts = {
+      cursor_follows_swapped_bufs = true,
       at_edge = "stop",
     },
   },
