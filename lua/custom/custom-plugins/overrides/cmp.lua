@@ -5,7 +5,17 @@ local cmp = require "cmp"
 local defaults = require "cmp.config.default"()
 local cmp_ui = require("core.utils").load_config().ui.cmp
 local cmp_style = cmp_ui.style
-local cmp_close_tl = defer.throttle_leading(cmp.close, 250)
+local async_cmp_close = function()
+  vim.schedule(function()
+    -- HACK: we don't use cmp.close because that is a sync operation
+    if cmp.core.view:visible() then
+      local release = cmp.core:suspend()
+      cmp.core.view:close()
+      vim.schedule(release)
+    end
+  end)
+end
+local cmp_close_tl = defer.throttle_leading(async_cmp_close, 100)
 
 local function select_prev_item(fallback)
   if cmp.visible() then
