@@ -109,6 +109,13 @@ local plugins = {
             "vue",
           },
           -- filetypes = { "vue" },
+          capabilities = {
+            workspace = {
+              didChangeWatchedFiles = {
+                dynamicRegistration = true,
+              },
+            },
+          },
           on_new_config = function(new_config, new_root_dir)
             local util = require "lspconfig.util"
             local function get_typescript_server_path(root_dir)
