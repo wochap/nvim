@@ -137,11 +137,11 @@ M.options = {
     end,
   },
   sources = cmp.config.sources({
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
+    { name = "nvim_lsp", max_item_count = 20 },
+    { name = "luasnip", max_item_count = 10 },
     { name = "path" },
   }, {
-    { name = "buffer" },
+    { name = "buffer", max_item_count = 10 },
   }),
   experimental = {
     ghost_text = false,
