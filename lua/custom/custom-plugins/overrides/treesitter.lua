@@ -17,6 +17,7 @@ M.options = {
 
   highlight = { -- Be sure to enable highlights if you haven't!
     enable = true,
+    additional_vim_regex_highlighting = false,
   },
 
   incremental_selection = {
