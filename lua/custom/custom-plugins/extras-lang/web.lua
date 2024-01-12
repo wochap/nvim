@@ -108,7 +108,6 @@ local plugins = {
             "typescriptreact",
             "vue",
           },
-          -- filetypes = { "vue" },
           capabilities = {
             workspace = {
               didChangeWatchedFiles = {
