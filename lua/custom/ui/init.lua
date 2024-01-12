@@ -14,7 +14,7 @@ return {
   -- disable lsp_semantic_tokens for better performance
   -- https://github.com/neovim/neovim/issues/23026
   -- NOTE: make sure to disable treesitter on buffers with semantic tokens to better performance
-  lsp_semantic_tokens = false,
+  lsp_semantic_tokens = true,
   tabufline = require "custom.custom-plugins.overrides.tabufline",
   statusline = require "custom.custom-plugins.overrides.statusline",
   changed_themes = {
