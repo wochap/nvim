@@ -19,7 +19,27 @@ return {
       vim.g.user_emmet_leader_key = "<C-z>"
     end,
   },
-  { "tpope/vim-abolish", event = "VeryLazy" }, -- Change word casing
+  {
+    "johmsalas/text-case.nvim",
+    lazy = false,
+    opts = {
+      prefix = "gt",
+      enabled_methods = {
+        "to_snake_case",
+        "to_dash_case",
+        "to_constant_case",
+        "to_camel_case",
+        "to_pascal_case",
+      },
+    },
+    config = function(_, opts)
+      require("textcase").setup(opts)
+      require("telescope").load_extension "textcase"
+    end,
+    keys = {
+      { "gt.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "Telescope" },
+    },
+  },
   { "tpope/vim-repeat", event = "VeryLazy" }, -- Repeat vim-abolish
   {
     "fladson/vim-kitty",
