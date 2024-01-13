@@ -15,6 +15,10 @@ $ nvim
 
 ## Troubleshooting
 
+- Theme looking weird
+
+  Delete `~/.local/share/nvim/lazy/base46` and delete everything inside `~/.local/share/nvim/base46` except cmp, devicons nvcheatsheet tbline
+
 - Anything Eslint related
 
   Run in nvim
