@@ -13,6 +13,10 @@ $ git remote add nvchad https://github.com/NvChad/NvChad.git
 $ nvim
 ```
 
+### Vue projects
+
+Create a file `.volar` in the root of your project to enable volar and volar "Take over mode"
+
 ## Troubleshooting
 
 - Theme looking weird
@@ -30,12 +34,12 @@ $ nvim
 
 ## Changes made to nvchad core
 
-* `init.lua`
+- `init.lua`
   - import `custom/keymaps.lua`
   - prevent loading of cached defaults highlight groups
-* `lua/core/init.lua`
+- `lua/core/init.lua`
   - fix ReloadNvChad autocmd to correctly reload modules
-* `lua/plugins/configs/cmp.lua`
+- `lua/plugins/configs/cmp.lua`
   - prevent loading of cached cmp highlight groups
 
 ## Requirements
