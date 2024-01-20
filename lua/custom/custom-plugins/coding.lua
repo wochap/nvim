@@ -35,6 +35,16 @@ return {
     config = function(_, opts)
       require("textcase").setup(opts)
       require("telescope").load_extension "textcase"
+
+      require("lazyvim.util").on_load("which-key.nvim", function()
+        require("which-key").register({
+          ["gt"] = {
+            name = "Text case",
+          },
+        }, {
+          mode = "x",
+        })
+      end)
     end,
     keys = {
       { "gt.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "Telescope" },
