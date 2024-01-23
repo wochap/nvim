@@ -39,7 +39,8 @@ opt.scrolloff = 4
 opt.sidescrolloff = 4
 opt.smartindent = false -- fix indent of line starting with `#`
 opt.splitkeep = "screen"
-opt.wrap = false
+-- PERF: horizontal scrolling is laggy with large lines because of regex highlighting
+opt.wrap = true
 
 if vim.fn.has "nvim-0.10" == 1 then
   opt.smoothscroll = true
