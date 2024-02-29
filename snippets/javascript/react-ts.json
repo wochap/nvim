@@ -1,0 +1,7 @@
+{
+  "reactFunctionComponent": {
+    "prefix": "rfc",
+    "body": "import React from 'react'\n\nexport const ${TM_FILENAME_BASE} = (props : {}) => {\n\treturn (\n\t\t<div>\n\t\t\t$0\n\t\t</div>\n\t)\n}",
+    "description": "Creates a React functional component without PropTypes"
+  }
+}

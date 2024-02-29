@@ -1,0 +1,22 @@
+{
+  "@import": {
+    "prefix": "imp",
+    "body": "@import '${0:filename}';"
+  },
+  "@mixin": {
+    "prefix": "mix",
+    "body": "@mixin ${1:name} {\n  $0\n}"
+  },
+  "@include": {
+    "prefix": "inc",
+    "body": "@include ${0:mixin};"
+  },
+  "@keyframes": {
+    "prefix": "key",
+    "body": "@keyframes ${1:name} {\n  $0\n}"
+  },
+  "@media": {
+    "prefix": "med",
+    "body": "@media screen and (${1:max-width: 300px}) {\n  $0\n}"
+  }
+}

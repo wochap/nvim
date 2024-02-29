@@ -1,6 +1,8 @@
 local opt = vim.opt
 local g = vim.g
 
+g.vscode_snippets_path = vim.fn.stdpath("config") .. "/snippets"
+
 g.matchup_matchparen_offscreen = { method = "popup" }
 
 g.terminal_color_0 = "#45475A"

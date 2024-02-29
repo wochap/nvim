@@ -62,15 +62,6 @@ return {
     end,
   },
   {
-    "rafamadriz/friendly-snippets",
-    dependencies = {
-      {
-        "nicoache1/vscode-es7-javascript-react-snippets",
-        build = "yarn install --frozen-lockfile && yarn compile",
-      },
-    },
-  },
-  {
     "hrsh7th/nvim-cmp",
     event = { "CmdlineEnter", "InsertEnter" },
     version = false, -- last release is way too old
@@ -87,6 +78,10 @@ return {
     config = function(_, opts)
       require("custom.custom-plugins.overrides.cmp").setup(opts)
     end,
+  },
+  {
+    "rafamadriz/friendly-snippets",
+    enabled = false,
   },
   {
     "windwp/nvim-autopairs",
