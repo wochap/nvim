@@ -151,16 +151,25 @@ return {
       },
       "LiadOz/nvim-dap-repl-highlights",
     },
-    opts = {
-      defaults = {
-        file_ignore_patterns = { "node_modules", "%.git/", "%.lock$", "%-lock.json$", "%.direnv/" },
-      },
-      pickers = {
-        oldfiles = {
-          cwd_only = true,
+    opts = function(_, opts)
+      local actions = require "telescope.actions"
+      return vim.tbl_deep_extend("force", opts, {
+        defaults = {
+          file_ignore_patterns = { "node_modules", "%.git/", "%.lock$", "%-lock.json$", "%.direnv/" },
+          mappings = {
+            i = {
+              ["<C-Down>"] = actions.cycle_history_next,
+              ["<C-Up>"] = actions.cycle_history_prev,
+            },
+          },
         },
-      },
-    },
+        pickers = {
+          oldfiles = {
+            cwd_only = true,
+          },
+        },
+      })
+    end,
     config = function(_, opts)
       local telescope = require "telescope"
       telescope.setup(opts)
