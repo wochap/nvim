@@ -1,9 +1,2 @@
-plugin
-spell
-sessions
-ftplugin
-syntax
-coc-settings.json
-.luarc.json
-lazy-lock.json
-after
+*.log
+

@@ -1,6 +1,6 @@
 # NVIM
 
-[NVChad](https://github.com/NvChad/NvChad) + [LazyVim](https://github.com/LazyVim/LazyVim) plus my custom config
+The perfect blazingly fast Neovim configuration for myself, combining the aesthetics of NvChad with the LSP and formatter configurations from LazyVim.
 
 ![](https://i.imgur.com/jsCnGLI.jpg)
 
@@ -8,8 +8,6 @@
 
 ```sh
 $ git clone git@github.com:wochap/nvim.git ~/.config/nvim
-$ cd ~/.config/nvim
-$ git remote add nvchad https://github.com/NvChad/NvChad.git
 $ nvim
 ```
 
@@ -18,10 +16,6 @@ $ nvim
 Create a file `.volar` in the root of your project to enable volar and volar "Take over mode"
 
 ## Troubleshooting
-
-- Theme looking weird
-
-  Delete `~/.local/share/nvim/lazy/base46` and delete everything inside `~/.local/share/nvim/base46` except cmp, devicons nvcheatsheet tbline
 
 - Anything Eslint related
 
@@ -32,15 +26,7 @@ Create a file `.volar` in the root of your project to enable volar and volar "Ta
   :e
   ```
 
-## Changes made to nvchad core
-
-- `init.lua`
-  - import `custom/keymaps.lua`
-  - prevent loading of cached defaults highlight groups
-- `lua/core/init.lua`
-  - fix ReloadNvChad autocmd to correctly reload modules
-- `lua/plugins/configs/cmp.lua`
-  - prevent loading of cached cmp highlight groups
+  If that didn't work, kill all eslint processes
 
 ## Requirements
 
