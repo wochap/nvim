@@ -302,7 +302,6 @@ return {
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     opts = {
       ensure_installed = {}, -- not an option from mason.nvim
-      PATH = "skip",
       ui = {
         icons = {
           package_pending = " ",
