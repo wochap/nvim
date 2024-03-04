@@ -202,6 +202,13 @@ return {
   -- library used by other plugins
   { "nvim-lua/plenary.nvim" },
   { "nvim-lua/popup.nvim" },
-  { "nvim-tree/nvim-web-devicons" },
+  {
+    "nvim-tree/nvim-web-devicons",
+    opts = function()
+      return {
+        override = require("custom.utils.icons").devicons,
+      }
+    end,
+  },
   { "MunifTanjim/nui.nvim" },
 }
