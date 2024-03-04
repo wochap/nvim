@@ -1,5 +1,3 @@
-local lazyCoreUtils = require "lazy.core.util"
-
 local M = {}
 
 M.format = function(opts)
@@ -29,6 +27,7 @@ M.get_clients = function(opts)
 end
 
 M.formatter = function(opts)
+  local lazyCoreUtils = require "lazy.core.util"
   opts = opts or {}
   local filter = opts.filter or {}
   filter = type(filter) == "string" and { name = filter } or filter

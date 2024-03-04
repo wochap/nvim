@@ -1,5 +1,3 @@
-local lazyCoreUtils = require "lazy.core.util"
-
 local M = {}
 
 M.formatters = {}
@@ -26,6 +24,7 @@ function M.resolve(buf)
 end
 
 function M.format(opts)
+  local lazyCoreUtils = require "lazy.core.util"
   opts = opts or {}
   local buf = opts.buf or vim.api.nvim_get_current_buf()
 
