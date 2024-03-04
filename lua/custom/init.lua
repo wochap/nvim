@@ -1,16 +1,17 @@
+local utils = require "custom.utils"
+
 require "custom.options"
 
--- lazy load lua/custom/plugins/*
+-- lazy load ./plugins/*
 require "custom.lazy"
 
--- lazy load autocmds, keymaps
+-- lazy load ./autocmds.lua, ./keymaps.lua, ./commands.lua
 local lazy_autocmds = vim.fn.argc(-1) == 0
 if not lazy_autocmds then
   require "custom.autocmds"
 end
-local group = vim.api.nvim_create_augroup("LazyVim", { clear = true })
-vim.api.nvim_create_autocmd("User", {
-  group = group,
+utils.autocmd("User", {
+  group = utils.augroup "load_core",
   pattern = "VeryLazy",
   callback = function()
     if lazy_autocmds then
