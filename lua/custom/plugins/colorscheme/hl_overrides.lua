@@ -186,8 +186,8 @@ local getOverridesHl = function(mocha)
 
     -- flash.nvim
     FlashPrompt = { link = "Normal" },
-    FlashPromptMode = { link = "St_CommandMode" },
-    FlashPromptModeSep = { link = "St_CommandModeSep" },
+    FlashPromptMode = { bg = mocha.peach, fg = mocha.base, style = { "bold" } },
+    FlashPromptModeSep = { fg = mocha.peach },
 
     -- nvim-tree.lua
     NvimTreeEmptyFolderName = { fg = mocha.text },
