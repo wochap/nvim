@@ -1,5 +1,6 @@
 local lspUtils = require "custom.utils.lsp"
 local formatUtils = require "custom.utils.format"
+local lspKeymapsUtils = require "custom.plugins.lsp.keymaps"
 
 return {
   {
@@ -18,124 +19,13 @@ return {
       "williamboman/mason-lspconfig.nvim",
     },
     keys = {
+      -- NOTE: more keys in ./keymaps.lua
       {
         "<leader>li",
         "<cmd>LspInfo<cr>",
         desc = "Lsp Info",
       },
     },
-    init = function()
-      local keys = require("custom.plugins.lsp.keymaps").get()
-      keys[#keys + 1] = {
-        "gr",
-        "<cmd>Telescope lsp_references<cr>",
-        desc = "References",
-      }
-      keys[#keys + 1] = {
-        "gD",
-        vim.lsp.buf.declaration,
-        desc = "Goto Declaration",
-      }
-      keys[#keys + 1] = {
-        "gd",
-        function()
-          require("telescope.builtin").lsp_definitions { reuse_win = false }
-        end,
-        desc = "Goto Definition",
-        has = "definition",
-      }
-      keys[#keys + 1] = {
-        "gI",
-        function()
-          require("telescope.builtin").lsp_implementations { reuse_win = false }
-        end,
-        desc = "Goto Implementation",
-      }
-      keys[#keys + 1] = {
-        "gy",
-        function()
-          require("telescope.builtin").lsp_type_definitions { reuse_win = false }
-        end,
-        desc = "Goto T[y]pe Definition",
-      }
-      keys[#keys + 1] = {
-        "gH",
-        function()
-          local winid = require("ufo").peekFoldedLinesUnderCursor()
-          if not winid then
-            vim.lsp.buf.hover()
-          end
-        end,
-        desc = "Hover",
-      }
-      keys[#keys + 1] = {
-        "gh",
-        vim.lsp.buf.signature_help,
-        desc = "Signature Help",
-        has = "signatureHelp",
-      }
-      keys[#keys + 1] = {
-        "<c-h>",
-        vim.lsp.buf.signature_help,
-        mode = "i",
-        desc = "Signature Help",
-        has = "signatureHelp",
-      }
-      keys[#keys + 1] = {
-        "<leader>la",
-        vim.lsp.buf.code_action,
-        desc = "Code Action",
-        mode = { "n", "v" },
-        has = "codeAction",
-      }
-      keys[#keys + 1] = {
-        "<leader>lA",
-        function()
-          vim.lsp.buf.code_action {
-            context = {
-              only = {
-                "source",
-              },
-              diagnostics = {},
-            },
-          }
-        end,
-        desc = "Source Action",
-        has = "codeAction",
-      }
-      keys[#keys + 1] = {
-        "<leader>lr",
-        function()
-          local inc_rename = require "inc_rename"
-          return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand "<cword>"
-        end,
-        expr = true,
-        desc = "Rename",
-        has = "rename",
-      }
-      keys[#keys + 1] = {
-        "<leader>ld",
-        function()
-          vim.diagnostic.open_float()
-        end,
-        "floating diagnostic",
-      }
-      -- TODO: add mappings for error and warning movements
-      keys[#keys + 1] = {
-        "[d",
-        function()
-          vim.diagnostic.goto_prev()
-        end,
-        "prev diagnostic",
-      }
-      keys[#keys + 1] = {
-        "]d",
-        function()
-          vim.diagnostic.goto_next()
-        end,
-        "next diagnostic",
-      }
-    end,
     opts = {
       -- add any global capabilities here
       capabilities = {
@@ -206,7 +96,7 @@ return {
 
       -- setup keymaps
       lspUtils.on_attach(function(client, buffer)
-        require("custom.plugins.lsp.keymaps").on_attach(client, buffer)
+        lspKeymapsUtils.on_attach(client, buffer)
       end)
       local register_capability = vim.lsp.handlers["client/registerCapability"]
       ---@diagnostic disable-next-line: duplicate-set-field
@@ -216,7 +106,7 @@ return {
         ---@type lsp.Client
         local client = vim.lsp.get_client_by_id(client_id)
         local buffer = vim.api.nvim_get_current_buf()
-        require("custom.plugins.lsp.keymaps").on_attach(client, buffer)
+        lspKeymapsUtils.on_attach(client, buffer)
         return ret
       end
 

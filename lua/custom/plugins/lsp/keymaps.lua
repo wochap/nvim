@@ -9,7 +9,117 @@ M.get = function()
   if M._keys then
     return M._keys
   end
-  M._keys = {}
+  M._keys = {
+    {
+      "gr",
+      "<cmd>Telescope lsp_references<cr>",
+      desc = "References",
+    },
+    {
+      "gD",
+      vim.lsp.buf.declaration,
+      desc = "Goto Declaration",
+    },
+    {
+      "gd",
+      function()
+        require("telescope.builtin").lsp_definitions { reuse_win = false }
+      end,
+      desc = "Goto Definition",
+      has = "definition",
+    },
+    {
+      "gI",
+      function()
+        require("telescope.builtin").lsp_implementations { reuse_win = false }
+      end,
+      desc = "Goto Implementation",
+    },
+    {
+      "gy",
+      function()
+        require("telescope.builtin").lsp_type_definitions { reuse_win = false }
+      end,
+      desc = "Goto T[y]pe Definition",
+    },
+    {
+      "gH",
+      function()
+        local winid = require("ufo").peekFoldedLinesUnderCursor()
+        if not winid then
+          vim.lsp.buf.hover()
+        end
+      end,
+      desc = "Hover",
+    },
+    {
+      "gh",
+      vim.lsp.buf.signature_help,
+      desc = "Signature Help",
+      has = "signatureHelp",
+    },
+    {
+      "<c-h>",
+      vim.lsp.buf.signature_help,
+      mode = "i",
+      desc = "Signature Help",
+      has = "signatureHelp",
+    },
+    {
+      "<leader>la",
+      vim.lsp.buf.code_action,
+      desc = "Code Action",
+      mode = { "n", "v" },
+      has = "codeAction",
+    },
+    {
+      "<leader>lA",
+      function()
+        vim.lsp.buf.code_action {
+          context = {
+            only = {
+              "source",
+            },
+            diagnostics = {},
+          },
+        }
+      end,
+      desc = "Source Action",
+      has = "codeAction",
+    },
+    {
+      "<leader>lr",
+      function()
+        local inc_rename = require "inc_rename"
+        return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand "<cword>"
+      end,
+      expr = true,
+      desc = "Rename",
+      has = "rename",
+    },
+    {
+      "<leader>ld",
+      function()
+        vim.diagnostic.open_float()
+      end,
+      "floating diagnostic",
+    },
+    -- TODO: add mappings for error and warning movements
+    {
+      "[d",
+      function()
+        vim.diagnostic.goto_prev()
+      end,
+      "prev diagnostic",
+    },
+    {
+      "]d",
+      function()
+        vim.diagnostic.goto_next()
+      end,
+      "next diagnostic",
+    },
+  }
   return M._keys
 end
 
