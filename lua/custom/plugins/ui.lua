@@ -262,6 +262,7 @@ return {
       },
     },
     init = function()
+      vim.o.tabline = " "
       vim.opt.termguicolors = true
 
       -- Fix bufferline when restoring a session
@@ -277,6 +278,8 @@ return {
       lazyUtils.on_load("catppuccin", function()
         local bufferline = require "bufferline"
         local mocha = require("catppuccin.palettes").get_palette "mocha"
+        local bufferlineBg = mocha.mantle
+        local bufferlineFg = mocha.surface1
         bufferline.setup(vim.tbl_deep_extend("force", {}, opts, {
           options = {
             themable = true,
@@ -292,12 +295,16 @@ return {
             indicator = {
               style = "none",
             },
+            left_trunc_marker = "❮",
+            right_trunc_marker = "❯",
             show_buffer_close_icons = false,
             show_close_icon = false,
+            color_icons = true,
             get_element_icon = function(element)
-              local icon, hl = require("nvim-web-devicons").get_icon(element.path)
+              local icon, hl = require("nvim-web-devicons").get_icon(vim.fn.fnamemodify(element.path, ":t"), nil, {
+                default = true,
+              })
               if vim.api.nvim_get_current_buf() == vim.fn.bufnr(element.path) then
-                print(element.path)
                 return icon, hl
               end
               return icon, "DevIconDimmed"
@@ -311,58 +318,62 @@ return {
             custom = {
               mocha = {
                 background = {
-                  bg = mocha.base,
-                  fg = mocha.surface1,
+                  bg = bufferlineBg,
+                  fg = bufferlineFg,
                 },
                 fill = {
-                  bg = mocha.base,
+                  bg = bufferlineBg,
                 },
                 tab = {
-                  bg = mocha.base,
-                  fg = mocha.surface1,
+                  bg = bufferlineBg,
+                  fg = bufferlineFg,
                 },
                 tab_selected = {
-                  bg = mocha.base,
+                  bg = bufferlineBg,
                   fg = mocha.lavender,
                 },
                 tab_separator = {
-                  bg = mocha.base,
+                  bg = bufferlineBg,
                 },
                 tab_separator_selected = {
-                  bg = mocha.base,
+                  bg = bufferlineBg,
                 },
                 buffer_visible = {
-                  bg = mocha.base,
-                  fg = mocha.surface1,
+                  bg = bufferlineBg,
+                  fg = bufferlineFg,
                 },
                 buffer_selected = {
                   fg = mocha.lavender,
                 },
                 numbers = {
-                  bg = mocha.base,
-                  fg = mocha.surface1,
+                  bg = bufferlineBg,
+                  fg = bufferlineFg,
                 },
                 numbers_visible = {
-                  bg = mocha.base,
-                  fg = mocha.surface1,
+                  bg = bufferlineBg,
+                  fg = bufferlineFg,
                 },
                 numbers_selected = {
                   bg = mocha.base,
                   fg = mocha.lavender,
                 },
                 modified = {
-                  bg = mocha.base,
-                  fg = mocha.surface1,
+                  bg = bufferlineBg,
+                  fg = bufferlineFg,
                 },
                 modified_visible = {
-                  bg = mocha.base,
-                  fg = mocha.surface1,
+                  bg = bufferlineBg,
+                  fg = bufferlineFg,
                 },
                 modified_selected = {
                   fg = mocha.green,
                 },
                 indicator_visible = {
-                  bg = mocha.base,
+                  bg = bufferlineBg,
+                },
+                trunc_marker = {
+                  bg = bufferlineBg,
+                  fg = bufferlineFg,
                 },
               },
             },
