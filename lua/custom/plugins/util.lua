@@ -151,7 +151,12 @@ return {
     keys = {
       {
         "<leader>fk",
-        "<cmd>lua require('close_buffers').delete({ type = 'other' })<CR>",
+        function()
+          require("close_buffers").delete { type = "other" }
+          vim.schedule(function()
+            pcall(nvim_bufferline)
+          end)
+        end,
         desc = "close other buffers",
       },
     },
