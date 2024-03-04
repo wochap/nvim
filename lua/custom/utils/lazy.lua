@@ -101,6 +101,24 @@ M.on_load = function(name, fn)
   end
 end
 
+M.opts = function(name)
+  local plugin = require("lazy.core.config").plugins[name]
+  if not plugin then
+    return {}
+  end
+  local Plugin = require "lazy.core.plugin"
+  return Plugin.values(plugin, "opts", false)
+end
+
+M.on_very_lazy = function(fn)
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "VeryLazy",
+    callback = function()
+      fn()
+    end,
+  })
+end
+
 M.load_mappings = function()
   local map = keymapsUtils.map
   map("n", "<leader>pR", "<cmd>Lazy restore<cr>", "restore")
