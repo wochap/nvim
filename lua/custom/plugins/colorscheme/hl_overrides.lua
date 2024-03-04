@@ -85,8 +85,10 @@ local getExtraHl = function(mocha)
       undercurl = true,
     },
 
-    -- nvim-web-devicons
+    -- bufferline.nvim
     DevIconDimmed = { fg = mocha.surface1 },
+
+    -- nvim-web-devicons
     DevIconDefault = { fg = mocha.red },
     DevIconc = { fg = mocha.blue },
     DevIconcss = { fg = mocha.blue },
