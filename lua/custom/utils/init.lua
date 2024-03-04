@@ -49,4 +49,12 @@ M.augroup = function(name)
   return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
 end
 
+M.remove_str_from_list = function(list, str)
+  for i, value in ipairs(list) do
+    if value == str then
+      table.remove(list, i)
+    end
+  end
+end
+
 return M
