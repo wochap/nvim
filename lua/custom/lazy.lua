@@ -2,6 +2,8 @@ local lazyUtils = require "custom.utils.lazy"
 
 -- Install `lazy.nvim` plugin manager
 lazyUtils.install()
+
+-- Load `lazy.nvim` keymaps
 lazyUtils.load_mappings()
 
 -- Add LazyFile event
@@ -10,6 +12,7 @@ lazyUtils.lazy_file()
 -- Configure and install plugins
 require("lazy").setup {
   spec = {
+    -- Necessary to import extras from LazyVim
     {
       "LazyVim/LazyVim",
       version = false,
