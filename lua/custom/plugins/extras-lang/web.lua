@@ -56,12 +56,36 @@ return {
         ["typescript-tools"] = {
           mason = false,
           keys = {
-            { "<leader>lo", "<cmd>TSToolsOrganizeImports<cr>", desc = "Organize Imports" },
-            { "<leader>lu", "<cmd>TSToolsRemoveUnusedImports<cr>", desc = "Remove Unused Imports" },
-            { "<leader>lR", "<cmd>TSToolsRenameFile<cr>", desc = "Rename File" },
-            { "<leader>ls", "<cmd>TSToolsSortImports<cr>", desc = "Sort Imports" },
-            { "<leader>lm", "<cmd>TSToolsAddMissingImports<cr>", desc = "Add Missing Imports" },
-            { "gd", "<cmd>TSToolsGoToSourceDefinition<cr>", desc = "Goto Source Definition" },
+            {
+              "<leader>lo",
+              "<cmd>TSToolsOrganizeImports<cr>",
+              desc = "Organize Imports",
+            },
+            {
+              "<leader>lu",
+              "<cmd>TSToolsRemoveUnusedImports<cr>",
+              desc = "Remove Unused Imports",
+            },
+            {
+              "<leader>lR",
+              "<cmd>TSToolsRenameFile<cr>",
+              desc = "Rename File",
+            },
+            {
+              "<leader>ls",
+              "<cmd>TSToolsSortImports<cr>",
+              desc = "Sort Imports",
+            },
+            {
+              "<leader>lm",
+              "<cmd>TSToolsAddMissingImports<cr>",
+              desc = "Add Missing Imports",
+            },
+            {
+              "gd",
+              "<cmd>TSToolsGoToSourceDefinition<cr>",
+              desc = "Goto Source Definition",
+            },
           },
           settings = {
             -- tsserver settings
@@ -103,6 +127,7 @@ return {
           capabilities = {
             workspace = {
               didChangeWatchedFiles = {
+                -- PERF: this reduces greatly the performance
                 dynamicRegistration = true,
               },
             },
