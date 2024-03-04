@@ -10,7 +10,16 @@ lazyUtils.lazy_file()
 -- Configure and install plugins
 require("lazy").setup {
   spec = {
+    {
+      "LazyVim/LazyVim",
+      version = false,
+      commit = "68ff818a5bb7549f90b05e412b76fe448f605ffb",
+      priority = 10000,
+      config = function() end,
+    },
+
     { import = "custom.plugins" },
+    { import = "custom.plugins.extras-lang" },
   },
   defaults = {
     lazy = true,
