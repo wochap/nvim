@@ -20,8 +20,8 @@ map("n", "<C-k>", "4<C-y>", "scroll up keeping cursor position")
 map("n", "<C-j>", "4<C-e>", "scroll down keeping cursor position")
 
 -- debug nvim config
-map("n", "<f2>", "<cmd>lua require'custom.utils'.print_syntax_info()<CR>", "print syntax info")
-map("n", "<f3>", "<cmd>lua require'custom.utils'.print_buf_info()<CR>", "print buffer info")
+map("n", "<f2>", keymapsUtils.print_syntax_info, "print syntax info")
+map("n", "<f3>", keymapsUtils.print_buf_info, "print buffer info")
 map("n", "<leader>cd", "<cmd>lua require('osv').launch({ port = 8086 })<cr>", "start nvim server")
 map("n", "<leader>cD", "<cmd>lua require('osv').stop()<cr>", "stop nvim server")
 
@@ -59,7 +59,7 @@ map({ "n", "i", "v" }, "<C-S-s>", "<Esc>:w! <CR>", "save buffer!")
 map("n", "<leader>qq", "<cmd>qa <CR>", "exit")
 map("n", "<leader>q!", "<cmd>qa! <CR>", "exit!")
 map("n", "gV", "`[v`]", "select last yanked/changed text")
-map({ "n", "i" }, "<C-e>", "<cmd>lua require'custom.utils'.close_all_floating()<CR>", "close floating windows")
+map({ "n", "i" }, "<C-e>", keymapsUtils.close_all_floating, "close floating windows")
 map("n", "<f5>", ":e %<CR>", "reload buffer")
 
 -- HACK: disable autoindent when pasting
