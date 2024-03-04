@@ -43,4 +43,10 @@ M.disable_statuscol = function()
   vim.api.nvim_set_option_value("stc", "", { scope = "local" })
 end
 
+M.autocmd = vim.api.nvim_create_autocmd
+
+M.augroup = function(name)
+  return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
+end
+
 return M
