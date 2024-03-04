@@ -4,6 +4,9 @@ local map = keymapsUtils.map
 -- clear highlights of search
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+-- create new buffer
+map("n", "<Leader>fn", "<cmd>enew<CR>", "new buffer")
+
 -- windows
 map("n", "<C-w>x", "<C-w>s", "Split window horizontally")
 map("n", "<leader>|", "<C-w>v", "split window vertically")
