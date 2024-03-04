@@ -557,6 +557,8 @@ return {
   -- integrate flash in telescope
   {
     "nvim-telescope/telescope.nvim",
+    url = "https://github.com/wochap/telescope.nvim.git",
+    commit = "726dfed63e65131c60d10a3ac3f83b35b771aa83",
     optional = true,
     opts = function(_, opts)
       local flash = require("custom.utils.telescope").flash
