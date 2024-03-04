@@ -30,6 +30,7 @@ M.exclude_filetypes = {
   "terminal",
   "toggleterm",
   "trouble",
+  "vim",
 }
 
 M.exclude_buftypes = {
