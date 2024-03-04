@@ -7,6 +7,10 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- create new buffer
 map("n", "<Leader>fn", "<cmd>enew<CR>", "new buffer")
 
+-- tabs
+map("n", "<S-Up>", "<cmd>tabprevious<CR>", "goto next tab")
+map("n", "<S-Down>", "<cmd>tabnext<CR> ", "goto prev tab")
+
 -- windows
 map("n", "<C-w>x", "<C-w>s", "Split window horizontally")
 map("n", "<leader>|", "<C-w>v", "split window vertically")

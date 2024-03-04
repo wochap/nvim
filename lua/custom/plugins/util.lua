@@ -115,68 +115,47 @@ return {
   },
 
   {
-    "kazhala/close-buffers.nvim",
+    "echasnovski/mini.bufremove",
     keys = {
       {
         "<leader>w",
         function()
-          local bd = require("close_buffers").delete
+          local bd = require("mini.bufremove").delete
           if vim.bo.modified then
             local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
             if choice == 1 then -- Yes
               vim.cmd.write()
-              bd { type = "this" }
+              bd(0)
             elseif choice == 2 then -- No
-              bd { type = "this", force = true }
+              bd(0, true)
             end
           else
-            bd { type = "this" }
+            bd(0)
           end
         end,
         desc = "close buffer",
       },
       {
         "<leader>W",
-        "<cmd>lua require('close_buffers').delete({ type = 'this', force = true })<CR>",
+        function()
+          require("mini.bufremove").delete(0, true)
+        end,
         desc = "close buffer!",
       },
+    },
+    opts = {},
+  },
+
+  {
+    "kazhala/close-buffers.nvim",
+    keys = {
       {
         "<leader>fk",
         "<cmd>lua require('close_buffers').delete({ type = 'other' })<CR>",
         desc = "close other buffers",
       },
-      {
-        "<leader>fK",
-        "<cmd>lua require('close_buffers').delete({ type = 'other', force = true })<CR>",
-        desc = "close other buffers!",
-      },
     },
-    opts = {
-      next_buffer_cmd = function(windows)
-        local tabufline = require "nvchad.tabufline"
-        local bufs = tabufline.bufilter() or {}
-        local alt_bufname = vim.fn.getreg "#"
-        local alt_bufnr = vim.fn.bufnr(alt_bufname)
-        tabufline.tabuflineNext()
-        local function string_in_list(s, list)
-          for _, v in ipairs(list) do
-            if v == s then
-              return true
-            end
-          end
-          return false
-        end
-
-        if string_in_list(alt_bufnr, bufs) then
-          vim.cmd("b " .. alt_bufnr)
-        end
-
-        local bufnr = vim.api.nvim_get_current_buf()
-        for _, window in ipairs(windows) do
-          vim.api.nvim_win_set_buf(window, bufnr)
-        end
-      end,
-    },
+    opts = {},
   },
 
   {

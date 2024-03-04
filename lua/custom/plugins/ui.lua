@@ -1,4 +1,5 @@
 local utils = require "custom.utils"
+local lazyUtils = require "custom.utils.lazy"
 local constants = require "custom.utils.constants"
 local in_neorg = require("custom.utils.constants").in_neorg
 local in_leetcode = require("custom.utils.constants").in_leetcode
@@ -242,6 +243,139 @@ return {
           },
         },
       }
+    end,
+  },
+
+  {
+    "akinsho/bufferline.nvim",
+    version = "*",
+    event = "VeryLazy",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    keys = {
+      {
+        "<leader>fK",
+        "<Cmd>BufferLineCloseOthers<CR>",
+        desc = "close other buffers!",
+      },
+      {
+        "<S-Right>",
+        "<cmd>BufferLineCycleNext<cr>",
+        desc = "goto next buffer",
+      },
+      {
+        "<S-Left>",
+        "<cmd>BufferLineCyclePrev<cr>",
+        desc = "goto prev buffer",
+      },
+    },
+    init = function()
+      vim.opt.termguicolors = true
+
+      -- Fix bufferline when restoring a session
+      vim.api.nvim_create_autocmd("BufAdd", {
+        callback = function()
+          vim.schedule(function()
+            pcall(nvim_bufferline)
+          end)
+        end,
+      })
+    end,
+    config = function(_, opts)
+      lazyUtils.on_load("catppuccin", function()
+        local bufferline = require "bufferline"
+        local mocha = require("catppuccin.palettes").get_palette "mocha"
+        bufferline.setup(vim.tbl_deep_extend("force", {}, opts, {
+          options = {
+            themable = true,
+            numbers = function(_opts)
+              return string.format("%s", _opts.raise(_opts.ordinal))
+            end,
+            close_command = function(n)
+              require("mini.bufremove").delete(n, false)
+            end,
+            right_mouse_command = function(n)
+              require("mini.bufremove").delete(n, false)
+            end,
+            indicator = {
+              style = "none",
+            },
+            show_buffer_close_icons = false,
+            show_close_icon = false,
+            get_element_icon = function(element)
+              local icon, hl = require("nvim-web-devicons").get_icon(element.path)
+              if vim.api.nvim_get_current_buf() == vim.fn.bufnr(element.path) then
+                print(element.path)
+                return icon, hl
+              end
+              return icon, "DevIconDimmed"
+            end,
+            separator_style = { "", "" },
+            always_show_bufferline = true,
+            hover = { enabled = false },
+          },
+          highlights = require("catppuccin.groups.integrations.bufferline").get {
+            styles = {},
+            custom = {
+              mocha = {
+                background = {
+                  bg = mocha.base,
+                  fg = mocha.surface1,
+                },
+                fill = {
+                  bg = mocha.base,
+                },
+                tab = {
+                  bg = mocha.base,
+                  fg = mocha.surface1,
+                },
+                tab_selected = {
+                  bg = mocha.base,
+                  fg = mocha.lavender,
+                },
+                tab_separator = {
+                  bg = mocha.base,
+                },
+                tab_separator_selected = {
+                  bg = mocha.base,
+                },
+                buffer_visible = {
+                  bg = mocha.base,
+                  fg = mocha.surface1,
+                },
+                buffer_selected = {
+                  fg = mocha.lavender,
+                },
+                numbers = {
+                  bg = mocha.base,
+                  fg = mocha.surface1,
+                },
+                numbers_visible = {
+                  bg = mocha.base,
+                  fg = mocha.surface1,
+                },
+                numbers_selected = {
+                  bg = mocha.base,
+                  fg = mocha.lavender,
+                },
+                modified = {
+                  bg = mocha.base,
+                  fg = mocha.surface1,
+                },
+                modified_visible = {
+                  bg = mocha.base,
+                  fg = mocha.surface1,
+                },
+                modified_selected = {
+                  fg = mocha.green,
+                },
+                indicator_visible = {
+                  bg = mocha.base,
+                },
+              },
+            },
+          },
+        }))
+      end)
     end,
   },
 
