@@ -105,7 +105,7 @@ return {
   {
     "windwp/nvim-ts-autotag",
     event = "InsertEnter",
-    config = function(_, opts)
+    config = function()
       lazyUtils.on_load("nvim-treesitter", function()
         require("nvim-ts-autotag").setup()
       end)

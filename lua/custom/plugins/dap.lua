@@ -133,7 +133,7 @@ return {
         desc = "open dapui",
       },
     },
-    config = function(_, opts)
+    config = function()
       -- Load vscode launchjs
       local filetypes = require "mason-nvim-dap.mappings.filetypes"
       require("dap.ext.vscode").load_launchjs(nil, filetypes)
