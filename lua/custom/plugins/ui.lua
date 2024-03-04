@@ -252,12 +252,18 @@ return {
       },
       {
         "<S-Right>",
-        "<cmd>BufferLineCycleNext<cr>",
+        function()
+          local bufferline = require "bufferline"
+          pcall(bufferline.cycle, 1)
+        end,
         desc = "goto next buffer",
       },
       {
         "<S-Left>",
-        "<cmd>BufferLineCyclePrev<cr>",
+        function()
+          local bufferline = require "bufferline"
+          pcall(bufferline.cycle, -1)
+        end,
         desc = "goto prev buffer",
       },
     },
