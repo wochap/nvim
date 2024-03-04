@@ -305,6 +305,7 @@ return {
                 default = true,
               })
               if vim.api.nvim_get_current_buf() == vim.fn.bufnr(element.path) then
+                -- FIXME: newly created buffers enter always to this if
                 return icon, hl
               end
               return icon, "DevIconDimmed"
