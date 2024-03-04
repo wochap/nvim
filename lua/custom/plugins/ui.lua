@@ -1,5 +1,6 @@
 local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
+local lualineUtils = require "custom.utils.lualine"
 local constants = require "custom.utils.constants"
 local in_neorg = require("custom.utils.constants").in_neorg
 local in_leetcode = require("custom.utils.constants").in_leetcode
@@ -376,6 +377,81 @@ return {
           },
         }))
       end)
+    end,
+  },
+
+  {
+    "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.g.lualine_laststatus = vim.o.laststatus
+      vim.o.statusline = " "
+    end,
+    opts = function()
+      -- PERF: we don't need this lualine require madness 🤷
+      local lualine_require = require "lualine_require"
+      lualine_require.require = require
+
+      vim.o.laststatus = vim.g.lualine_laststatus
+      return {
+        options = {
+          theme = "catppuccin",
+          globalstatus = true,
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
+        },
+        sections = {
+          lualine_a = {
+            {
+              "mode",
+              separator = { right = lualineUtils.separators.l },
+            },
+          },
+          lualine_b = {
+            lualineUtils.empty,
+            lualineUtils.filetypeIcon,
+            {
+              "filename",
+              file_status = false,
+              path = 1,
+              separator = { right = lualineUtils.separators.l },
+            },
+          },
+          lualine_c = {
+            {
+              "branch",
+              icon = "",
+              padding = { left = 2, right = 1 },
+            },
+            {
+              "diff",
+              symbols = { added = " ", modified = " ", removed = " " },
+            },
+          },
+
+          lualine_x = {
+            {
+              "diagnostics",
+              symbols = { error = "󰅚 ", warn = " ", info = " ", hint = "󰛩 " },
+            },
+            lualineUtils.lspOrFiletype,
+            lualineUtils.indent,
+          },
+          lualine_y = {
+            lualineUtils.dirname,
+          },
+          lualine_z = {
+            lualineUtils.empty,
+            {
+              "location",
+              separator = { left = lualineUtils.separators.r_b },
+              padding = { left = 1, right = 0 },
+            },
+            "progress",
+          },
+        },
+        extensions = {},
+      }
     end,
   },
 
