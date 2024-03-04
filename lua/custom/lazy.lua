@@ -26,7 +26,7 @@ require("lazy").setup {
     version = false,
   },
   install = { colorscheme = { "catppuccin", "habamax" } },
-  checker = { enabled = true },
+  checker = { enabled = true, notify = false },
   change_detection = { enabled = false },
   performance = {
     rtp = {
