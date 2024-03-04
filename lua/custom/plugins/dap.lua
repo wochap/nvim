@@ -2,16 +2,13 @@
 return {
   {
     "LiadOz/nvim-dap-repl-highlights",
-    opts = {},
   },
   {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
-    opts = {
-      ensure_installed = {
-        "dap_repl",
-      },
-    },
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, { "dap_repl" })
+    end,
   },
 
   {

@@ -5,6 +5,7 @@ local cmpUtils = require "custom.utils.cmp"
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    version = false, -- last release is way too old and doesn't work on Windows
     event = { "LazyFile", "VeryLazy" },
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
@@ -91,10 +92,15 @@ return {
         "regex",
         "vim",
         "vimdoc",
-        -- "dap_repl",
         -- "norg"
       },
     },
+    config = function(_, opts)
+      -- TODO: move to dap file
+      require("nvim-dap-repl-highlights").setup()
+
+      require("nvim-treesitter.configs").setup(opts)
+    end,
   },
   {
     "windwp/nvim-ts-autotag",
