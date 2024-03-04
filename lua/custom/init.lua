@@ -17,5 +17,6 @@ vim.api.nvim_create_autocmd("User", {
       require "custom.autocmds"
     end
     require "custom.keymaps"
+    require "custom.commands"
   end,
 })
