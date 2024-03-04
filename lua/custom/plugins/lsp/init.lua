@@ -30,12 +30,6 @@ return {
       -- add any global capabilities here
       capabilities = {
         textDocument = {
-          -- ufo capabilities
-          -- TODO: move to ufo config
-          foldingRange = {
-            dynamicRegistration = false,
-            lineFoldingOnly = true,
-          },
           completion = {
             completionItem = {
               documentationFormat = { "markdown", "plaintext" },

@@ -167,6 +167,20 @@ return {
       end,
     },
   },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      -- nvim-ufo capabilities
+      capabilities = {
+        textDocument = {
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+          },
+        },
+      },
+    },
+  },
 
   {
     "luukvbaal/statuscol.nvim",
