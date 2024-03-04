@@ -504,7 +504,7 @@ return {
         sorting = defaults.sorting,
       }
     end,
-    config = function(opts)
+    config = function(_, opts)
       local cmp = require "cmp"
       local cmdlineMapping = {
         ["<C-Space>"] = { c = cmp.mapping.complete() },

@@ -582,7 +582,7 @@ return {
         prev = "[c",
       },
     },
-    config = function(opts)
+    config = function(_, opts)
       vim.api.nvim_create_autocmd("User", {
         pattern = "GitConflictDetected",
         callback = function(event)
