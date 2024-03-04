@@ -1,6 +1,14 @@
 local lspUtils = require "custom.utils.lsp"
 local lazyUtils = require "custom.utils.lazy"
 
+local diagnostic_goto = function(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    go { severity = severity }
+  end
+end
+
 local M = {}
 
 M._keys = nil
@@ -107,17 +115,23 @@ M.get = function()
     -- TODO: add mappings for error and warning movements
     {
       "[d",
-      function()
-        vim.diagnostic.goto_prev()
-      end,
+      diagnostic_goto(false),
       "prev diagnostic",
     },
     {
       "]d",
-      function()
-        vim.diagnostic.goto_next()
-      end,
+      diagnostic_goto(true),
       "next diagnostic",
+    },
+    {
+      "[e",
+      diagnostic_goto(false, "ERROR"),
+      "prev diagnostic error",
+    },
+    {
+      "]e",
+      diagnostic_goto(true, "ERROR"),
+      "next diagnostic error",
     },
   }
   return M._keys
