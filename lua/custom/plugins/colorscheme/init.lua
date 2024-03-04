@@ -32,7 +32,13 @@ return {
         types = {},
         operators = {},
       },
-      color_overrides = {},
+      color_overrides = {
+        mocha = {
+          dark_purple = "#c7a0dc",
+          sun = "#ffe9b6",
+          vibrant_green = "#b6f4be",
+        },
+      },
       highlight_overrides = highlight_overrides,
       integrations = {
         -- disable enabled by default

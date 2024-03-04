@@ -22,7 +22,7 @@ local getExtraHl = function(mocha)
   local gitColors = getColors(mocha).git
 
   return {
-    lessCssAttribute = { fg = mocha.white, link = nil },
+    lessCssAttribute = { fg = mocha.text, link = nil },
 
     zshCommands = { fg = mocha.blue },
     zshDeref = { fg = mocha.red },
@@ -84,6 +84,42 @@ local getExtraHl = function(mocha)
       bg = colorschemeUtils.darken(gitColors.delete, 0.2, mocha.mantle),
       undercurl = true,
     },
+
+    -- nvim-web-devicons
+    DevIconDefault = { fg = mocha.red },
+    DevIconc = { fg = mocha.blue },
+    DevIconcss = { fg = mocha.blue },
+    DevIcondeb = { fg = mocha.teal },
+    DevIconDockerfile = { fg = mocha.teal },
+    DevIconhtml = { fg = mocha.maroon },
+    DevIconjpeg = { fg = mocha.dark_purple },
+    DevIconjpg = { fg = mocha.dark_purple },
+    DevIconjs = { fg = mocha.sun },
+    DevIconkt = { fg = mocha.peach },
+    DevIconlock = { fg = mocha.red },
+    DevIconlua = { fg = mocha.blue },
+    DevIconmp3 = { fg = mocha.text },
+    DevIconmp4 = { fg = mocha.text },
+    DevIconout = { fg = mocha.text },
+    DevIconpng = { fg = mocha.dark_purple },
+    DevIconpy = { fg = mocha.teal },
+    DevIcontoml = { fg = mocha.blue },
+    DevIconts = { fg = mocha.teal },
+    DevIconttf = { fg = mocha.text },
+    DevIconrb = { fg = mocha.pink },
+    DevIconrpm = { fg = mocha.peach },
+    DevIconvue = { fg = mocha.vibrant_green },
+    DevIconwoff = { fg = mocha.text },
+    DevIconwoff2 = { fg = mocha.text },
+    DevIconxz = { fg = mocha.sun },
+    DevIconzip = { fg = mocha.sun },
+    DevIconZig = { fg = mocha.peach },
+    DevIconMd = { fg = mocha.blue },
+    DevIconTSX = { fg = mocha.blue },
+    DevIconJSX = { fg = mocha.blue },
+    DevIconSvelte = { fg = mocha.red },
+    DevIconJava = { fg = mocha.peach },
+    DevIconDart = { fg = mocha.teal },
   }
 end
 
@@ -134,7 +170,7 @@ local getOverridesHl = function(mocha)
     GitSignsAddPreview = { link = "DiffAdd" },
     GitSignsDeletePreview = { link = "DiffDelete" },
 
-    -- nvim diff
+    -- nvim git diff
     DiffAdd = { bg = colorschemeUtils.darken(gitColors.add, 0.2, mocha.mantle), fg = "NONE" },
     DiffChange = { bg = colorschemeUtils.darken(gitColors.change, 0.2, mocha.mantle), fg = "NONE" },
     DiffDelete = { bg = colorschemeUtils.darken(gitColors.delete, 0.2, mocha.mantle), fg = "NONE" },
