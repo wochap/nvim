@@ -21,3 +21,5 @@ utils.autocmd("User", {
     require "custom.commands"
   end,
 })
+
+vim.cmd.colorscheme "catppuccin"

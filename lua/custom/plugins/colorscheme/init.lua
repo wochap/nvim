@@ -3,7 +3,6 @@ local highlight_overrides = require "custom.plugins.colorscheme.hl_overrides"
 return {
   {
     "catppuccin/nvim",
-    lazy = false,
     name = "catppuccin",
     priority = 1000,
     opts = {
@@ -80,9 +79,5 @@ return {
         which_key = true,
       },
     },
-    config = function(_, opts)
-      require("catppuccin").setup(opts)
-      vim.cmd.colorscheme "catppuccin"
-    end,
   },
 }
