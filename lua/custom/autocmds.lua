@@ -103,7 +103,7 @@ utils.autocmd({ "BufWritePre" }, {
 })
 
 utils.autocmd({ "SwapExists" }, {
-  group = utils.augroup "always_edit_with_swap",
+  group = utils.augroup "always_recover_files_with_swap",
   pattern = "*",
-  command = 'let v:swapchoice = "e"',
+  command = 'let v:swapchoice = "r"',
 })
