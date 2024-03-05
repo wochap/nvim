@@ -583,14 +583,11 @@ return {
       vim.api.nvim_create_autocmd("User", {
         pattern = "GitConflictDetected",
         callback = function(event)
-          local has_wk, wk = pcall(require, "which-key")
-          if not has_wk then
-            return
-          end
-
-          wk.register({
-            ["<leader>gc"] = { name = "git conflict" },
-          }, { buffer = event.buf })
+          lazyUtils.on_load("which-key.nvim", function()
+            require("which-key").register({
+              ["<leader>gc"] = { name = "git conflict" },
+            }, { buffer = event.buf })
+          end)
         end,
       })
 
