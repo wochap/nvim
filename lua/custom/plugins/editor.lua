@@ -265,10 +265,30 @@ return {
         pattern = "Trouble",
         command = "set nu",
       })
+      utils.autocmd("FileType", {
+        group = utils.augroup "hijack_quickfix_and_location_list",
+        pattern = "qf",
+        callback = function()
+          local trouble = require "trouble"
+          if vim.fn.getloclist(0, { filewinid = 1 }).filewinid ~= 0 then
+            vim.defer_fn(function()
+              vim.cmd.lclose()
+              trouble.open "loclist"
+            end, 0)
+          else
+            vim.defer_fn(function()
+              vim.cmd.cclose()
+              trouble.open "quickfix"
+            end, 0)
+          end
+        end,
+      })
     end,
     opts = {
       use_diagnostic_signs = true,
-      -- group = false,
+      group = false,
+      padding = false,
+      indent_lines = false,
     },
   },
   {

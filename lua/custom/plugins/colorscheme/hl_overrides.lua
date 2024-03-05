@@ -189,6 +189,9 @@ local getOverridesHl = function(mocha)
     FlashPromptMode = { bg = mocha.peach, fg = mocha.base, style = { "bold" } },
     FlashPromptModeSep = { fg = mocha.peach },
 
+    -- trouble.nvim
+    TroubleNormal = { bg = mocha.base },
+
     -- nvim-tree.lua
     NvimTreeEmptyFolderName = { fg = mocha.text },
     NvimTreeExecFile = { fg = mocha.text },
