@@ -205,9 +205,6 @@ return {
         virtualtext = "■",
       },
     },
-    config = function(_, opts)
-      require("colorizer").setup(opts)
-    end,
   },
 
   -- library used by other plugins

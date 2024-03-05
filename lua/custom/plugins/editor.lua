@@ -262,9 +262,6 @@ return {
       use_diagnostic_signs = true,
       -- group = false,
     },
-    config = function(_, opts)
-      require("trouble").setup(opts)
-    end,
   },
 
   {
