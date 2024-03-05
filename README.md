@@ -1,6 +1,6 @@
 # NVIM
 
-The perfect blazingly fast Neovim configuration for myself, combining the aesthetics of NvChad with the LSP, formatter and lint configurations from LazyVim.
+The perfect blazingly fast Neovim configuration for myself, combining the aesthetics of [NvChad](https://github.com/NvChad/NvChad) with the LSP, formatter and lint configurations from [LazyVim](https://github.com/LazyVim/LazyVim).
 
 ![](https://i.imgur.com/MrlK5Xg.jpg)
 
