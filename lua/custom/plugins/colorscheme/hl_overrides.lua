@@ -277,6 +277,11 @@ local getOverridesHl = function(mocha)
       bg = mocha.mantle,
       fg = mocha.mantle,
     },
+
+    -- nvim status bar
+    StatusLine = {
+      bg = mocha.base,
+    },
   }
 end
 

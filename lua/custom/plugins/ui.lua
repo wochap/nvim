@@ -274,7 +274,7 @@ return {
       local bufferline = require "bufferline"
       lazyUtils.on_load("catppuccin", function()
         local mocha = require("catppuccin.palettes").get_palette "mocha"
-        local bufferlineBg = mocha.mantle
+        local bufferlineBg = mocha.base
         local bufferlineFg = mocha.surface1
         bufferline.setup(vim.tbl_deep_extend("force", {}, opts, {
           options = {
@@ -395,7 +395,6 @@ return {
       vim.o.laststatus = vim.g.lualine_laststatus
       return {
         options = {
-          theme = "catppuccin",
           globalstatus = true,
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
@@ -410,10 +409,12 @@ return {
           lualine_b = {
             lualineUtils.empty,
             lualineUtils.filetypeIcon,
+            lualineUtils.relativePath,
             {
               "filename",
               file_status = false,
-              path = 1,
+              path = 0,
+              padding = { left = 0, right = 1 },
               separator = { right = lualineUtils.separators.l },
             },
           },
@@ -463,6 +464,50 @@ return {
         },
         extensions = {},
       }
+    end,
+    config = function(_, opts)
+      local lualine = require "lualine"
+      lazyUtils.on_load("catppuccin", function()
+        local mocha = require("catppuccin.palettes").get_palette "mocha"
+        local lualineBg = mocha.base
+        local lualineFg = mocha.text
+        local lualineComponentBg = mocha.surface0
+        local lualineComponentFg = mocha.text
+        opts.options.theme = {
+          normal = {
+            a = { bg = mocha.blue, fg = mocha.base, gui = "bold" },
+            b = { bg = lualineComponentBg, fg = lualineComponentFg },
+            c = { bg = lualineBg, fg = lualineFg },
+            z = { bg = lualineComponentBg, fg = lualineComponentFg },
+          },
+          insert = {
+            a = { bg = mocha.green, fg = mocha.base, gui = "bold" },
+            z = { bg = lualineComponentBg, fg = lualineComponentFg },
+          },
+          terminal = {
+            a = { bg = mocha.green, fg = mocha.base, gui = "bold" },
+            z = { bg = lualineComponentBg, fg = lualineComponentFg },
+          },
+          command = {
+            a = { bg = mocha.peach, fg = mocha.base, gui = "bold" },
+            z = { bg = lualineComponentBg, fg = lualineComponentFg },
+          },
+          visual = {
+            a = { bg = mocha.mauve, fg = mocha.base, gui = "bold" },
+            z = { bg = lualineComponentBg, fg = lualineComponentFg },
+          },
+          replace = {
+            a = { bg = mocha.red, fg = mocha.base, gui = "bold" },
+            z = { bg = lualineComponentBg, fg = lualineComponentFg },
+          },
+          inactive = {
+            a = { bg = lualineBg, fg = mocha.blue },
+            b = { bg = lualineBg, fg = mocha.surface1, gui = "bold" },
+            c = { bg = lualineBg, fg = mocha.overlay0 },
+          },
+        }
+        lualine.setup(opts)
+      end)
     end,
   },
 

@@ -1,3 +1,5 @@
+local colorschemeUtils = require "custom.utils.colorscheme"
+
 local fg = function(name)
   local hl = vim.api.nvim_get_hl(0, { name = name })
   local _fg = hl and (hl.fg or hl.foreground)
@@ -36,9 +38,27 @@ M.filetypeIcon = {
     })
     return fg(hl)
   end,
-  padding = { left = 1, right = 0 },
+  padding = { left = 1, right = 1 },
   separator = { left = M.separators.l_b },
   draw_empty = true,
+}
+
+M.relativePath = {
+  function()
+    local filename_str = vim.fn.expand "%:t"
+    if string.len(filename_str) == 0 then
+      return ""
+    end
+    local filename = vim.api.nvim_buf_get_name(0)
+    local relative_path = vim.fn.fnamemodify(filename, ":~:.")
+    relative_path = string.sub(relative_path, 1, -1 + string.len(filename_str) * -1)
+    return relative_path
+  end,
+  color = function()
+    local C = require("catppuccin.palettes").get_palette "mocha"
+    return { fg = colorschemeUtils.darken(C.text, 0.667, C.surface0) }
+  end,
+  padding = { left = 0 },
 }
 
 local function fileType()
