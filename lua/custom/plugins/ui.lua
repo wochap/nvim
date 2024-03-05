@@ -53,16 +53,16 @@ return {
       },
       render = function(props)
         local bufnr = props.buf
-        local modified_indicator = "  "
+        local modified_indicator = " "
         local bufname = vim.api.nvim_buf_get_name(props.buf)
         local filename = bufname ~= "" and vim.fn.fnamemodify(bufname, ":t") or "[No Name]"
         local icon, _ = require("nvim-web-devicons").get_icon(filename, nil, {
           default = true,
         })
         if vim.api.nvim_get_option_value("modified", { buf = bufnr }) then
-          modified_indicator = " "
+          modified_indicator = "  "
         end
-        return { { icon .. " " }, { filename }, { modified_indicator } }
+        return { { " " .. icon .. " " }, { filename }, { modified_indicator } }
       end,
     },
   },
