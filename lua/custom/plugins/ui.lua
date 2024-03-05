@@ -34,8 +34,9 @@ return {
 
   {
     "b0o/incline.nvim",
+    enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
     event = "VeryLazy",
-    dependencies = "nvim-tree/nvim-web-devicons",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       ignore = {
         filetypes = constants.exclude_filetypes,
@@ -69,7 +70,7 @@ return {
   {
     "kevinhwang91/nvim-ufo",
     enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
-    lazy = false,
+    event = "VeryLazy",
     dependencies = {
       "kevinhwang91/promise-async",
     },
@@ -179,7 +180,7 @@ return {
   {
     "luukvbaal/statuscol.nvim",
     enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
-    lazy = false,
+    event = "VeryLazy",
     init = function()
       -- HACK: statuscol doesn't reset signcolumn
       utils.autocmd("FileType", {
@@ -243,7 +244,7 @@ return {
     "akinsho/bufferline.nvim",
     version = "*",
     event = "VeryLazy",
-    dependencies = "nvim-tree/nvim-web-devicons",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       {
         "<leader>fK",
@@ -467,7 +468,6 @@ return {
 
   {
     "fladson/vim-kitty",
-    event = { "LazyFile", "VeryLazy" },
     ft = "kitty",
   },
 }
