@@ -855,6 +855,7 @@ return {
           text = "",
         },
       },
+      attach_to_untracked = true,
       on_attach = function(bufnr)
         local map = keymapsUtils.map
         map("n", "]g", function()
