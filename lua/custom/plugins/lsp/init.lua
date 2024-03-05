@@ -190,6 +190,15 @@ return {
       end
     end,
   },
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = {
+      defaults = {
+        ["<leader>l"] = { name = "lsp" },
+      },
+    },
+  },
 
   {
     "williamboman/mason.nvim",

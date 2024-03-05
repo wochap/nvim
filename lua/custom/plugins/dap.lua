@@ -156,4 +156,13 @@ return {
       vim.fn.sign_define("DapLogPoint", { text = ".>", texthl = "DiagnosticError", linehl = "", numhl = "" })
     end,
   },
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = {
+      defaults = {
+        ["<leader>d"] = { name = "dap" },
+      },
+    },
+  },
 }

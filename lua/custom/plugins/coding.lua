@@ -130,6 +130,15 @@ return {
       },
     },
   },
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = {
+      defaults = {
+        ["gs"] = { name = "surround" },
+      },
+    },
+  },
 
   {
     "echasnovski/mini.bracketed",
@@ -238,6 +247,7 @@ return {
     end,
     config = function()
       lazyUtils.on_load("which-key.nvim", function()
+        local wk = require "which-key"
         local i = {
           [" "] = "Whitespace",
           ['"'] = 'Balanced "',
@@ -272,7 +282,7 @@ return {
           i[key] = vim.tbl_extend("force", { name = "Inside " .. name .. " textobject" }, ic)
           a[key] = vim.tbl_extend("force", { name = "Around " .. name .. " textobject" }, ac)
         end
-        require("which-key").register {
+        wk.register {
           mode = { "o", "x" },
           i = i,
           a = a,
@@ -315,16 +325,6 @@ return {
 
       lazyUtils.on_load("telescope.nvim", function()
         require("telescope").load_extension "textcase"
-      end)
-
-      lazyUtils.on_load("which-key.nvim", function()
-        require("which-key").register({
-          ["gt"] = {
-            name = "Text case",
-          },
-        }, {
-          mode = "x",
-        })
       end)
     end,
   },
@@ -655,23 +655,21 @@ return {
     init = function()
       vim.opt.timeout = true
     end,
+    opts = {
+      -- NOTE: defaults is not part of which-key
+      defaults = {
+        mode = { "n", "v" },
+        ["<leader>c"] = { name = "misc" },
+        ["<leader>f"] = { name = "files" },
+        ["<leader>g"] = { name = "git" },
+        ["<leader>p"] = { name = "lazy" },
+        ["<leader>q"] = { name = "quit" },
+      },
+    },
     config = function(_, opts)
       local wk = require "which-key"
       wk.setup(opts)
-      wk.register({
-        o = { name = "neorg" },
-        c = { name = "misc" },
-        g = { name = "git" },
-        f = { name = "files" },
-        d = { name = "dap" },
-        l = { name = "lsp" },
-        h = { name = "harpon" },
-        p = { name = "lazy" },
-        q = { name = "quit" },
-        t = { name = "todo" },
-        T = { name = "terminal" },
-        x = { name = "trouble" },
-      }, { prefix = "<leader>" })
+      wk.register(opts.defaults)
     end,
   },
 }

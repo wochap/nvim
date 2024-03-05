@@ -205,6 +205,15 @@ return {
       },
     },
   },
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = {
+      defaults = {
+        ["<leader>t"] = { name = "todo" },
+      },
+    },
+  },
 
   {
     "folke/trouble.nvim",
@@ -261,6 +270,15 @@ return {
     opts = {
       use_diagnostic_signs = true,
       -- group = false,
+    },
+  },
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = {
+      defaults = {
+        ["<leader>x"] = { name = "trouble" },
+      },
     },
   },
 
@@ -596,7 +614,8 @@ return {
         pattern = "GitConflictDetected",
         callback = function(event)
           lazyUtils.on_load("which-key.nvim", function()
-            require("which-key").register({
+            local wk = require "which-key"
+            wk.register({
               ["<leader>gc"] = { name = "git conflict" },
             }, { buffer = event.buf })
           end)
