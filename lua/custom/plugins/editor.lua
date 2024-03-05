@@ -484,6 +484,18 @@ return {
   {
     "folke/flash.nvim",
     event = "VeryLazy",
+    init = function()
+      utils.autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
+        group = utils.augroup "turn_off_flash_search",
+        callback = function()
+          local has_flash, flash = pcall(require, "flash")
+          if not has_flash then
+            return
+          end
+          pcall(flash.toggle, false)
+        end,
+      })
+    end,
     keys = {
       {
         "s",
