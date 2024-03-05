@@ -23,6 +23,8 @@ require("lazy").setup {
 
     { import = "custom.plugins" },
     { import = "custom.plugins.extras-lang" },
+    { import = "lazyvim.plugins.extras.lang.json" },
+    { import = "lazyvim.plugins.extras.lang.yaml" },
   },
   defaults = {
     lazy = true,
