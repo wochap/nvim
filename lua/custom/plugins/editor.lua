@@ -99,8 +99,6 @@ return {
       },
       view = {
         preserve_window_proportions = true,
-        number = true,
-        relativenumber = true,
         width = 40,
       },
       git = {
