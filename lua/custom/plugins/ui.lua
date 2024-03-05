@@ -426,6 +426,17 @@ return {
             {
               "diff",
               symbols = { added = " ", modified = " ", removed = " " },
+              source = function()
+                if not vim.b.gitsigns_head or vim.b.gitsigns_git_status or vim.o.columns < 120 then
+                  return nil
+                end
+                local git_status = vim.b.gitsigns_status_dict
+                return {
+                  added = git_status.added,
+                  modified = git_status.changed,
+                  removed = git_status.removed,
+                }
+              end,
             },
           },
 
