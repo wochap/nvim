@@ -180,7 +180,7 @@ return {
   {
     "luukvbaal/statuscol.nvim",
     enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
-    event = "VeryLazy",
+    lazy = false,
     init = function()
       -- HACK: statuscol doesn't reset signcolumn
       utils.autocmd("FileType", {
@@ -262,7 +262,7 @@ return {
       vim.opt.termguicolors = true
 
       -- Fix bufferline when restoring a session
-      vim.api.nvim_create_autocmd("BufAdd", {
+      utils.autocmd("BufAdd", {
         callback = function()
           vim.schedule(function()
             pcall(nvim_bufferline)
@@ -271,8 +271,8 @@ return {
       })
     end,
     config = function(_, opts)
+      local bufferline = require "bufferline"
       lazyUtils.on_load("catppuccin", function()
-        local bufferline = require "bufferline"
         local mocha = require("catppuccin.palettes").get_palette "mocha"
         local bufferlineBg = mocha.mantle
         local bufferlineFg = mocha.surface1

@@ -69,6 +69,7 @@ return {
 
   {
     "nvim-tree/nvim-tree.lua",
+    event = "VeryLazy",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     keys = {
       {
@@ -362,7 +363,7 @@ return {
     "nvim-telescope/telescope.nvim",
     url = "https://github.com/wochap/telescope.nvim.git",
     commit = "726dfed63e65131c60d10a3ac3f83b35b771aa83",
-    event = { "LazyFile", "VeryLazy" },
+    event = "VeryLazy",
     dependencies = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",

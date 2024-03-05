@@ -6,7 +6,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     version = false, -- last release is way too old and doesn't work on Windows
-    event = { "LazyFile", "VeryLazy" },
+    lazy = false,
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     dependencies = {
@@ -293,7 +293,7 @@ return {
 
   {
     "wochap/emmet-vim",
-    event = "LazyFile",
+    event = "InsertEnter",
     init = function()
       vim.g.user_emmet_leader_key = "<C-z>"
     end,
@@ -570,7 +570,7 @@ return {
 
   {
     "windwp/nvim-autopairs",
-    event = "LazyFile",
+    event = "InsertEnter",
     opts = {
       fast_wrap = {},
       disable_filetype = { "TelescopePrompt", "vim" },
