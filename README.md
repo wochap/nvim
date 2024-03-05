@@ -2,7 +2,7 @@
 
 The perfect blazingly fast Neovim configuration for myself, combining the aesthetics of NvChad with the LSP and formatter configurations from LazyVim.
 
-![](https://i.imgur.com/jsCnGLI.jpg)
+![](https://i.imgur.com/MrlK5Xg.jpg)
 
 ## Getting started
 
