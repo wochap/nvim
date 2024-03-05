@@ -1,27 +1,21 @@
 # NVIM
 
-[NVChad](https://github.com/NvChad/NvChad) + [LazyVim](https://github.com/LazyVim/LazyVim) plus my custom config
+The perfect blazingly fast Neovim configuration for myself, combining the aesthetics of [NvChad](https://github.com/NvChad/NvChad) with the LSP, formatter and lint configurations from [LazyVim](https://github.com/LazyVim/LazyVim).
 
-![](https://i.imgur.com/jsCnGLI.jpg)
+![](https://i.imgur.com/MrlK5Xg.jpg)
 
 ## Getting started
 
 ```sh
 $ git clone git@github.com:wochap/nvim.git ~/.config/nvim
-$ cd ~/.config/nvim
-$ git remote add nvchad https://github.com/NvChad/NvChad.git
 $ nvim
 ```
 
 ### Vue projects
 
-Create a file `.volar` in the root of your project to enable volar and volar "Take over mode"
+Create a file `.volar` in the root of your project to disable typescript-tools and enable tsserver, only tsserver can use @vue/typescript-plugin for now...
 
 ## Troubleshooting
-
-- Theme looking weird
-
-  Delete `~/.local/share/nvim/lazy/base46` and delete everything inside `~/.local/share/nvim/base46` except cmp, devicons nvcheatsheet tbline
 
 - Anything Eslint related
 
@@ -32,15 +26,7 @@ Create a file `.volar` in the root of your project to enable volar and volar "Ta
   :e
   ```
 
-## Changes made to nvchad core
-
-- `init.lua`
-  - import `custom/keymaps.lua`
-  - prevent loading of cached defaults highlight groups
-- `lua/core/init.lua`
-  - fix ReloadNvChad autocmd to correctly reload modules
-- `lua/plugins/configs/cmp.lua`
-  - prevent loading of cached cmp highlight groups
+  If that didn't work, kill all eslint processes
 
 ## Requirements
 
@@ -58,4 +44,4 @@ Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirem
 - statix (required by [nvim-lint](https://github.com/mfussenegger/nvim-lint))
 - [ts-node](https://www.npmjs.com/package/ts-node) (required by [nvim-dap](https://github.com/mfussenegger/nvim-dap))
 - [typescript](https://www.npmjs.com/package/typescript) (required by [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig))
-- [@styled/typescript-styled-plugin](https://www.npmjs.com/package/@styled/typescript-styled-plugin) (required by [typescript-tools.nvim](https://github.com/pmizio/typescript-tools.nvim#-styled-components-support))
+- [@vue/typescript-plugin](https://www.npmjs.com/package/@vue/typescript-plugin) (required by [typescript-tools.nvim](https://www.npmjs.com/package/@vue/typescript-plugin) and [tsserver](https://github.com/typescript-language-server/typescript-language-server))
