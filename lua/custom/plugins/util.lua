@@ -3,14 +3,6 @@ local keymapsUtils = require "custom.utils.keymaps"
 
 return {
   {
-    "dstein64/vim-startuptime",
-    cmd = "StartupTime",
-    config = function()
-      vim.g.startuptime_tries = 10
-    end,
-  },
-
-  {
     "folke/persistence.nvim",
     event = "BufReadPre", -- this will only start session saving when an actual file was opened
     keys = {
@@ -166,12 +158,36 @@ return {
   {
     "ThePrimeagen/harpoon",
     keys = {
-      { "<leader>hs", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", desc = "toggle quick menu files" },
-      { "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<CR>", desc = "add file" },
-      { "<leader>hp", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", desc = "go to file 1" },
-      { "<leader>hf", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", desc = "go to file 2" },
-      { "<leader>hw", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", desc = "go to file 3" },
-      { "<leader>hq", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", desc = "go to file 4" },
+      {
+        "<leader>hs",
+        "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>",
+        desc = "toggle quick menu files",
+      },
+      {
+        "<leader>ha",
+        "<cmd>lua require('harpoon.mark').add_file()<CR>",
+        desc = "add file",
+      },
+      {
+        "<leader>hp",
+        "<cmd>lua require('harpoon.ui').nav_file(1)<CR>",
+        desc = "go to file 1",
+      },
+      {
+        "<leader>hf",
+        "<cmd>lua require('harpoon.ui').nav_file(2)<CR>",
+        desc = "go to file 2",
+      },
+      {
+        "<leader>hw",
+        "<cmd>lua require('harpoon.ui').nav_file(3)<CR>",
+        desc = "go to file 3",
+      },
+      {
+        "<leader>hq",
+        "<cmd>lua require('harpoon.ui').nav_file(4)<CR>",
+        desc = "go to file 4",
+      },
     },
   },
 
@@ -179,7 +195,11 @@ return {
     "szw/vim-maximizer",
     cmd = { "MaximizerToggle" },
     keys = {
-      { "<leader>m", "<cmd>MaximizerToggle!<CR>", desc = "max window" },
+      {
+        "<leader>m",
+        "<cmd>MaximizerToggle!<CR>",
+        desc = "max window",
+      },
     },
   },
 
