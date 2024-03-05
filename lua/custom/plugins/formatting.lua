@@ -28,7 +28,7 @@ return {
       vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 
       utils.autocmd("User", {
-        group = utils.augroup("install_formatter", { clear = true }),
+        group = utils.augroup "install_formatter",
         pattern = "VeryLazy",
         callback = function()
           formatUtils.setup()
