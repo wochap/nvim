@@ -32,6 +32,7 @@ return {
       },
     },
     opts = {
+      -- NOTE: nvim-lspconfig doesn't have the option `capabilities`
       -- add any global capabilities here
       capabilities = {
         textDocument = {
@@ -56,6 +57,7 @@ return {
           },
         },
       },
+      -- NOTE: nvim-lspconfig doesn't have the option `servers`
       -- LSP Server Settings
       servers = {
         -- example to setup with lua_ls
@@ -73,6 +75,7 @@ return {
         --   },
         -- },
       },
+      -- NOTE: nvim-lspconfig doesn't have the option `setup`
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
       setup = {

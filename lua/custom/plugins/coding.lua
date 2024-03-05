@@ -656,7 +656,7 @@ return {
       vim.opt.timeout = true
     end,
     opts = {
-      -- NOTE: defaults is not part of which-key
+      -- NOTE: which-key.nvim doesn't have the option `defaults`
       defaults = {
         mode = { "n", "v" },
         ["<leader>c"] = { name = "misc" },
