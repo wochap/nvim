@@ -110,6 +110,12 @@ return {
         update_in_insert = false,
         virtual_text = false,
         severity_sort = true,
+        float = {
+          border = "rounded",
+          format = function(diagnostic)
+            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
+          end,
+        },
       }
 
       -- setup opts.servers and opts.setup
