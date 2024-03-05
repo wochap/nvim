@@ -175,7 +175,7 @@ local getOverridesHl = function(mocha)
   return {
     -- syntax
     ["@variable"] = { link = "Variable" },
-    PreProc = { link = "Comment" },
+    -- PreProc = { link = "Comment" },
     Todo = { fg = mocha.blue, bg = mocha.base },
     Error = { fg = mocha.red, bg = "NONE" }, -- (preferred) any erroneous construct
 
