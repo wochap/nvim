@@ -53,7 +53,38 @@ return {
             showSuggestionsAsSnippets = true,
           },
         },
+        tsserver = {
+          filetypes = {
+            "javascript",
+            "javascript.jsx",
+            "javascriptreact",
+            "json",
+            "typescript",
+            "typescript.tsx",
+            "typescriptreact",
+            "vue",
+          },
+          init_options = {
+            plugins = {
+              {
+                name = "@vue/typescript-plugin",
+                location = vim.fn.expand "$HOME/.npm-packages/lib/node_modules/@vue/typescript-plugin",
+                languages = { "javascript", "typescript", "vue" },
+              },
+            },
+          },
+        },
         ["typescript-tools"] = {
+          filetypes = {
+            "javascript",
+            "javascript.jsx",
+            "javascriptreact",
+            "json",
+            "typescript",
+            "typescript.tsx",
+            "typescriptreact",
+            "vue",
+          },
           mason = false,
           keys = {
             {
@@ -109,21 +140,13 @@ return {
 
             -- typescript-tools settings
             tsserver_plugins = {
-              "@styled/typescript-styled-plugin",
+              -- FIXME: find a way to pass location and languages like in tsserver config
+              "@vue/typescript-plugin",
             },
           },
         },
         volar = {
-          filetypes = {
-            "javascript",
-            "javascript.jsx",
-            "javascriptreact",
-            "json",
-            "typescript",
-            "typescript.tsx",
-            "typescriptreact",
-            "vue",
-          },
+          filetypes = { "vue" },
           capabilities = {
             workspace = {
               didChangeWatchedFiles = {
@@ -162,11 +185,7 @@ return {
         },
       },
       setup = {
-        tsserver = function()
-          -- typescript-tools.nvim will handle tsserver
-          -- NOTE: typescript-tools.nvim will not spawn a tsserver client, it will spawn typescript-tools client
-          return true
-        end,
+        -- NOTE: typescript-tools.nvim will not spawn a tsserver client, it will spawn typescript-tools client
         ["typescript-tools"] = function(_, opts)
           require("typescript-tools").setup(opts)
           return true

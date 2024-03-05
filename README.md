@@ -13,7 +13,7 @@ $ nvim
 
 ### Vue projects
 
-Create a file `.volar` in the root of your project to enable volar and volar "Take over mode"
+Create a file `.volar` in the root of your project to disable typescript-tools and enable tsserver, only tsserver can use @vue/typescript-plugin for now...
 
 ## Troubleshooting
 
@@ -44,4 +44,4 @@ Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirem
 - statix (required by [nvim-lint](https://github.com/mfussenegger/nvim-lint))
 - [ts-node](https://www.npmjs.com/package/ts-node) (required by [nvim-dap](https://github.com/mfussenegger/nvim-dap))
 - [typescript](https://www.npmjs.com/package/typescript) (required by [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig))
-- [@styled/typescript-styled-plugin](https://www.npmjs.com/package/@styled/typescript-styled-plugin) (required by [typescript-tools.nvim](https://github.com/pmizio/typescript-tools.nvim#-styled-components-support))
+- [@vue/typescript-plugin](https://www.npmjs.com/package/@vue/typescript-plugin) (required by [typescript-tools.nvim](https://www.npmjs.com/package/@vue/typescript-plugin))

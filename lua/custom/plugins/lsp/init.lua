@@ -25,6 +25,11 @@ return {
         "<cmd>LspInfo<cr>",
         desc = "Lsp Info",
       },
+      {
+        "<leader>ll",
+        "<cmd>LspLog<cr>",
+        desc = "Lsp Log",
+      },
     },
     opts = {
       -- add any global capabilities here
@@ -97,7 +102,6 @@ return {
       vim.lsp.handlers["client/registerCapability"] = function(err, res, ctx)
         local ret = register_capability(err, res, ctx)
         local client_id = ctx.client_id
-        ---@type lsp.Client
         local client = vim.lsp.get_client_by_id(client_id)
         local buffer = vim.api.nvim_get_current_buf()
         lspKeymapsUtils.on_attach(client, buffer)
@@ -175,12 +179,12 @@ return {
         end)
       end
 
-      -- HACK: add `.volar` file at the root of your vue project to enable volar "Take Over Mode"
       -- disable typescript-tools if project has `.volar` file at the root
-      if lspUtils.get_config "volar" and lspUtils.get_config "typescript-tools" then
+      -- disable tsserver if project doesn't have `.volar` file at the root
+      if lspUtils.get_config "volar" and lspUtils.get_config "typescript-tools" and lspUtils.get_config "tsserver" then
         local is_vue = require("lspconfig.util").root_pattern ".volar"
         lspUtils.disable("typescript-tools", is_vue)
-        lspUtils.disable("volar", function(root_dir)
+        lspUtils.disable("tsserver", function(root_dir)
           return not is_vue(root_dir)
         end)
       end
