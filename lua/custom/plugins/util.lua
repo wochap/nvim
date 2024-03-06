@@ -244,6 +244,32 @@ return {
     end,
   },
 
+  {
+    "NvChad/nvterm",
+    keys = {
+      {
+        "<A-i>",
+        function()
+          require("nvterm.terminal").toggle "float"
+        end,
+        desc = "Toggle floating term",
+        mode = { "n", "t" },
+      },
+    },
+    opts = {
+      terminals = {
+        type_opts = {
+          float = {
+            row = 0.1,
+            col = 0.1,
+            width = 0.8,
+            height = 0.8,
+          },
+        },
+      },
+    },
+  },
+
   -- library used by other plugins
   { "nvim-lua/plenary.nvim" },
   { "nvim-lua/popup.nvim" },
