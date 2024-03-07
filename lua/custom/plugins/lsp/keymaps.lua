@@ -110,28 +110,28 @@ M.get = function()
       function()
         vim.diagnostic.open_float()
       end,
-      "floating diagnostic",
+      desc = "floating diagnostic",
     },
     -- TODO: add mappings for error and warning movements
     {
       "[d",
       diagnostic_goto(false),
-      "prev diagnostic",
+      desc = "prev diagnostic",
     },
     {
       "]d",
       diagnostic_goto(true),
-      "next diagnostic",
+      desc = "next diagnostic",
     },
     {
       "[e",
       diagnostic_goto(false, "ERROR"),
-      "prev diagnostic error",
+      desc = "prev diagnostic error",
     },
     {
       "]e",
       diagnostic_goto(true, "ERROR"),
-      "next diagnostic error",
+      desc = "next diagnostic error",
     },
   }
   return M._keys
