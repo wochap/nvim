@@ -823,7 +823,7 @@ return {
     cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
     commit = "8c36b74723049521cbcc5361c7477cb69c02812f",
     opts = function()
-      local theme = require("catppuccin.palettes").get_palette "mocha"
+      local mocha = require("catppuccin.palettes").get_palette "mocha"
       return {
         callbacks = {
           after_setup = function()
@@ -836,19 +836,19 @@ return {
         },
         highlight_overrides = {
           KittyScrollbackNvimSpinner = {
-            bg = theme.mantle,
-            fg = theme.lavender,
+            bg = mocha.mantle,
+            fg = mocha.lavender,
           },
           KittyScrollbackNvimNormal = {
-            bg = theme.mantle,
-            fg = theme.lavender,
+            bg = mocha.mantle,
+            fg = mocha.lavender,
           },
           KittyScrollbackNvimPasteWinNormal = {
-            bg = theme.mantle,
+            bg = mocha.mantle,
           },
           KittyScrollbackNvimPasteWinFloatBorder = {
-            bg = theme.mantle,
-            fg = theme.mantle,
+            bg = mocha.mantle,
+            fg = mocha.mantle,
           },
         },
         keymaps_enabled = true,
