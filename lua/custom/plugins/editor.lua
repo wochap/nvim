@@ -69,7 +69,6 @@ return {
 
   {
     "nvim-tree/nvim-tree.lua",
-    enabled = false,
     event = "VeryLazy",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     keys = {
@@ -157,6 +156,7 @@ return {
 
   {
     "nvim-neo-tree/neo-tree.nvim",
+    enabled = false,
     branch = "v3.x",
     cmd = "Neotree",
     dependencies = {
@@ -258,8 +258,8 @@ return {
           ["<C-v>"] = "split_with_window_picker",
           ["<C-x>"] = "vsplit_with_window_picker",
           ["<BS>"] = "close_node",
-          ["z"] = "close_all_nodes",
-          ["Z"] = "expand_all_nodes",
+          ["zC"] = "close_all_nodes",
+          ["zO"] = "expand_all_nodes",
           ["<C-r>"] = "refresh",
           ["a"] = "add",
           ["d"] = "delete",
