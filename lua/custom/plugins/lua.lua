@@ -3,6 +3,7 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
     opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, { "lua" })
     end,
   },
@@ -42,6 +43,7 @@ local plugins = {
         "williamboman/mason.nvim",
         optional = true,
         opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
           vim.list_extend(opts.ensure_installed, { "stylua" })
         end,
       },
@@ -60,6 +62,7 @@ local plugins = {
         "williamboman/mason.nvim",
         optional = true,
         opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
           vim.list_extend(opts.ensure_installed, { "luacheck" })
         end,
       },

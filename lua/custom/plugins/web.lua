@@ -6,6 +6,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
     opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         "astro",
         "css",
@@ -178,7 +179,9 @@ return {
     dependencies = {
       {
         "williamboman/mason.nvim",
+        optional = true,
         opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
           vim.list_extend(opts.ensure_installed, { "prettierd", "xmlformatter" })
         end,
       },
@@ -214,6 +217,7 @@ return {
         "jay-babu/mason-nvim-dap.nvim",
         optional = true,
         opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
           vim.list_extend(opts.ensure_installed, { "chrome", "js", "node2" })
         end,
       },
