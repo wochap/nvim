@@ -1,0 +1,15 @@
+{
+  "require": {
+    "prefix": "req",
+    "body": ["require(\"${1:module}\")"],
+    "description": "Require module"
+  },
+  "function": {
+    "prefix": "fn",
+    "body": ["function ${1:name}($2)", "\t${0:-- code}", "end"]
+  },
+  "anonymous function": {
+    "prefix": "afn",
+    "body": ["function($1)", "\t${0:-- code}", "end"]
+  }
+}

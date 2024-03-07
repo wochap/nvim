@@ -54,6 +54,10 @@
           "blade"
         ],
         "path": "./html.json"
+      },
+      {
+        "language": "lua",
+        "path": "./lua.json"
       }
     ]
   }
