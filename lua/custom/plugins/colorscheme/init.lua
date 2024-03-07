@@ -52,6 +52,7 @@ return {
         },
 
         -- enable the ones we'll use
+        fidget = true,
         flash = true,
         gitsigns = true,
         indent_blankline = { enabled = true },
