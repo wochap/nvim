@@ -278,7 +278,10 @@ local getOverridesHl = function(mocha)
     DiagnosticFloatingInfo = { fg = stateColors.info }, -- Used to color "Info" diagnostic messages in diagnostics float
     DiagnosticFloatingHint = { fg = stateColors.hint }, -- Used to color "Hint" diagnostic messages in diagnostics float
 
-    -- nvim float window borders
+    -- nvim float windows
+    NormalFloat = {
+      bg = mocha.mantle,
+    },
     FloatBorder = {
       bg = mocha.mantle,
       fg = mocha.mantle,
