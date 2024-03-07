@@ -1,4 +1,5 @@
 local keymapsUtils = require "custom.utils.keymaps"
+local terminalUtils = require "custom.utils.terminal"
 local map = keymapsUtils.map
 
 -- clear highlights of search
@@ -19,6 +20,13 @@ map("n", "<leader>_", "<C-w>s", "split window horizontally")
 -- terminal
 map("t", "<C-x>", keymapsUtils.exitTerminalMode, "exit terminal mode")
 map("t", "<C-S-x>", keymapsUtils.exitTerminalMode .. "<C-w>q", "hide terminal")
+map({ "n", "t" }, "<A-S-i>", function()
+  terminalUtils.toggle(nil, {
+    cwd = vim.loop.cwd(),
+    size = { width = 0.8, height = 0.8 },
+    border = "single",
+  })
+end, "toggle floating term")
 
 -- scrolling
 map({ "n", "v" }, "<C-S-d>", "zL", "scroll half screen to the right")
