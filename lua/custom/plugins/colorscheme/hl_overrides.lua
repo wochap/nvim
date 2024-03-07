@@ -208,6 +208,12 @@ local getOverridesHl = function(mocha)
     NvimTreeGitStaged = { fg = gitColors.stage },
     NvimTreeWindowPicker = { link = "WindowPicker" },
 
+    -- neo-tree.nvim
+    NeoTreeDirectoryName = { fg = mocha.text },
+    NeoTreeGitUntracked = { fg = gitColors.add },
+    NeoTreeVertSplit = { fg = mocha.mantle, bg = mocha.mantle },
+    NeoTreeWinSeparator = { link = "NeoTreeVertSplit" },
+
     -- gitsigns.nvim
     GitSignsAdd = { fg = gitColors.add },
     GitSignsChange = { fg = gitColors.change },

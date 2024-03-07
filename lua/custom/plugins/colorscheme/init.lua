@@ -71,6 +71,7 @@ return {
         neotest = true,
         noice = true,
         nvimtree = true,
+        neotree = true,
         semantic_tokens = true,
         telescope = {
           enabled = true,
