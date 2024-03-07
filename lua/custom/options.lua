@@ -56,7 +56,7 @@ vim.opt.fillchars = {
 }
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = "split"
+vim.opt.inccommand = "nosplit"
 
 -- Show which line/column your cursor is on
 vim.opt.cursorline = true
