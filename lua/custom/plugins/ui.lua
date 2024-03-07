@@ -270,112 +270,113 @@ return {
         end,
       })
     end,
+    opts = {
+      options = {
+        themable = true,
+        numbers = function(_opts)
+          return string.format("%s", _opts.raise(_opts.ordinal))
+        end,
+        close_command = function(n)
+          require("mini.bufremove").delete(n, false)
+        end,
+        right_mouse_command = function(n)
+          require("mini.bufremove").delete(n, false)
+        end,
+        indicator = {
+          style = "none",
+        },
+        left_trunc_marker = "❮",
+        right_trunc_marker = "❯",
+        show_buffer_close_icons = false,
+        show_close_icon = false,
+        color_icons = true,
+        get_element_icon = function(element)
+          local icon, hl = require("nvim-web-devicons").get_icon(vim.fn.fnamemodify(element.path, ":t"), nil, {
+            default = true,
+          })
+          if vim.api.nvim_get_current_buf() == vim.fn.bufnr(element.path) then
+            -- FIXME: newly created buffers enter always to this if
+            return icon, hl
+          end
+          return icon, "DevIconDimmed"
+        end,
+        separator_style = { "", "" },
+        always_show_bufferline = true,
+        hover = { enabled = false },
+      },
+    },
     config = function(_, opts)
       local bufferline = require "bufferline"
       lazyUtils.on_load("catppuccin", function()
         local mocha = require("catppuccin.palettes").get_palette "mocha"
         local bufferlineBg = mocha.base
         local bufferlineFg = mocha.surface1
-        bufferline.setup(vim.tbl_deep_extend("force", {}, opts, {
-          options = {
-            themable = true,
-            numbers = function(_opts)
-              return string.format("%s", _opts.raise(_opts.ordinal))
-            end,
-            close_command = function(n)
-              require("mini.bufremove").delete(n, false)
-            end,
-            right_mouse_command = function(n)
-              require("mini.bufremove").delete(n, false)
-            end,
-            indicator = {
-              style = "none",
-            },
-            left_trunc_marker = "❮",
-            right_trunc_marker = "❯",
-            show_buffer_close_icons = false,
-            show_close_icon = false,
-            color_icons = true,
-            get_element_icon = function(element)
-              local icon, hl = require("nvim-web-devicons").get_icon(vim.fn.fnamemodify(element.path, ":t"), nil, {
-                default = true,
-              })
-              if vim.api.nvim_get_current_buf() == vim.fn.bufnr(element.path) then
-                -- FIXME: newly created buffers enter always to this if
-                return icon, hl
-              end
-              return icon, "DevIconDimmed"
-            end,
-            separator_style = { "", "" },
-            always_show_bufferline = true,
-            hover = { enabled = false },
-          },
-          highlights = require("catppuccin.groups.integrations.bufferline").get {
-            styles = {},
-            custom = {
-              mocha = {
-                background = {
-                  bg = bufferlineBg,
-                  fg = bufferlineFg,
-                },
-                fill = {
-                  bg = bufferlineBg,
-                },
-                tab = {
-                  bg = bufferlineBg,
-                  fg = bufferlineFg,
-                },
-                tab_selected = {
-                  bg = bufferlineBg,
-                  fg = mocha.lavender,
-                },
-                tab_separator = {
-                  bg = bufferlineBg,
-                },
-                tab_separator_selected = {
-                  bg = bufferlineBg,
-                },
-                buffer_visible = {
-                  bg = bufferlineBg,
-                  fg = bufferlineFg,
-                },
-                buffer_selected = {
-                  fg = mocha.lavender,
-                },
-                numbers = {
-                  bg = bufferlineBg,
-                  fg = bufferlineFg,
-                },
-                numbers_visible = {
-                  bg = bufferlineBg,
-                  fg = bufferlineFg,
-                },
-                numbers_selected = {
-                  bg = mocha.base,
-                  fg = mocha.lavender,
-                },
-                modified = {
-                  bg = bufferlineBg,
-                  fg = bufferlineFg,
-                },
-                modified_visible = {
-                  bg = bufferlineBg,
-                  fg = bufferlineFg,
-                },
-                modified_selected = {
-                  fg = mocha.green,
-                },
-                indicator_visible = {
-                  bg = bufferlineBg,
-                },
-                trunc_marker = {
-                  bg = bufferlineBg,
-                  fg = bufferlineFg,
-                },
+        opts.highlights = require("catppuccin.groups.integrations.bufferline").get {
+          styles = {},
+          custom = {
+            mocha = {
+              background = {
+                bg = bufferlineBg,
+                fg = bufferlineFg,
+              },
+              fill = {
+                bg = bufferlineBg,
+              },
+              tab = {
+                bg = bufferlineBg,
+                fg = bufferlineFg,
+              },
+              tab_selected = {
+                bg = bufferlineBg,
+                fg = mocha.lavender,
+              },
+              tab_separator = {
+                bg = bufferlineBg,
+              },
+              tab_separator_selected = {
+                bg = bufferlineBg,
+              },
+              buffer_visible = {
+                bg = bufferlineBg,
+                fg = bufferlineFg,
+              },
+              buffer_selected = {
+                fg = mocha.lavender,
+              },
+              numbers = {
+                bg = bufferlineBg,
+                fg = bufferlineFg,
+              },
+              numbers_visible = {
+                bg = bufferlineBg,
+                fg = bufferlineFg,
+              },
+              numbers_selected = {
+                bg = mocha.base,
+                fg = mocha.lavender,
+              },
+              modified = {
+                bg = bufferlineBg,
+                fg = bufferlineFg,
+              },
+              modified_visible = {
+                bg = bufferlineBg,
+                fg = bufferlineFg,
+              },
+              modified_selected = {
+                fg = mocha.green,
+              },
+              indicator_visible = {
+                bg = bufferlineBg,
+              },
+              trunc_marker = {
+                bg = bufferlineBg,
+                fg = bufferlineFg,
               },
             },
           },
-        }))
+        }
+        bufferline.setup(opts)
       end)
     end,
   },
@@ -384,87 +385,79 @@ return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     init = function()
-      vim.g.lualine_laststatus = vim.o.laststatus
       vim.o.statusline = " "
     end,
-    opts = function()
-      -- PERF: we don't need this lualine require madness 🤷
-      local lualine_require = require "lualine_require"
-      lualine_require.require = require
-
-      vim.o.laststatus = vim.g.lualine_laststatus
-      return {
-        options = {
-          globalstatus = true,
-          component_separators = { left = "", right = "" },
-          section_separators = { left = "", right = "" },
-        },
-        sections = {
-          lualine_a = {
-            {
-              "mode",
-              separator = { right = lualineUtils.separators.l },
-            },
-          },
-          lualine_b = {
-            lualineUtils.empty,
-            lualineUtils.filetypeIcon,
-            lualineUtils.relativePath,
-            {
-              "filename",
-              file_status = false,
-              path = 0,
-              padding = { left = 0, right = 1 },
-              separator = { right = lualineUtils.separators.l },
-            },
-          },
-          lualine_c = {
-            {
-              "branch",
-              icon = "",
-              padding = { left = 2, right = 1 },
-            },
-            {
-              "diff",
-              symbols = { added = " ", modified = " ", removed = " " },
-              source = function()
-                if not vim.b.gitsigns_head or vim.b.gitsigns_git_status or vim.o.columns < 120 then
-                  return nil
-                end
-                local git_status = vim.b.gitsigns_status_dict
-                return {
-                  added = git_status.added,
-                  modified = git_status.changed,
-                  removed = git_status.removed,
-                }
-              end,
-            },
-          },
-
-          lualine_x = {
-            {
-              "diagnostics",
-              symbols = { error = "󰅚 ", warn = " ", info = " ", hint = "󰛩 " },
-            },
-            lualineUtils.lspOrFiletype,
-            lualineUtils.indent,
-          },
-          lualine_y = {
-            lualineUtils.dirname,
-          },
-          lualine_z = {
-            lualineUtils.empty,
-            {
-              "location",
-              separator = { left = lualineUtils.separators.r_b },
-              padding = { left = 1, right = 0 },
-            },
-            "progress",
+    opts = {
+      options = {
+        globalstatus = true,
+        component_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
+      },
+      sections = {
+        lualine_a = {
+          {
+            "mode",
+            separator = { right = lualineUtils.separators.l },
           },
         },
-        extensions = {},
-      }
-    end,
+        lualine_b = {
+          lualineUtils.empty,
+          lualineUtils.filetypeIcon,
+          lualineUtils.relativePath,
+          {
+            "filename",
+            file_status = false,
+            path = 0,
+            padding = { left = 0, right = 1 },
+            separator = { right = lualineUtils.separators.l },
+          },
+        },
+        lualine_c = {
+          {
+            "branch",
+            icon = "",
+            padding = { left = 2, right = 1 },
+          },
+          {
+            "diff",
+            symbols = { added = " ", modified = " ", removed = " " },
+            source = function()
+              if not vim.b.gitsigns_head or vim.b.gitsigns_git_status or vim.o.columns < 120 then
+                return nil
+              end
+              local git_status = vim.b.gitsigns_status_dict
+              return {
+                added = git_status.added,
+                modified = git_status.changed,
+                removed = git_status.removed,
+              }
+            end,
+          },
+        },
+
+        lualine_x = {
+          {
+            "diagnostics",
+            symbols = { error = "󰅚 ", warn = " ", info = " ", hint = "󰛩 " },
+          },
+          lualineUtils.lspOrFiletype,
+          lualineUtils.indent,
+        },
+        lualine_y = {
+          lualineUtils.dirname,
+        },
+        lualine_z = {
+          lualineUtils.empty,
+          {
+            "location",
+            separator = { left = lualineUtils.separators.r_b },
+            padding = { left = 1, right = 0 },
+          },
+          "progress",
+        },
+      },
+      extensions = {},
+    },
     config = function(_, opts)
       local lualine = require "lualine"
       lazyUtils.on_load("catppuccin", function()
