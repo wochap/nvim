@@ -1,4 +1,5 @@
 local utils = require "custom.utils"
+local iconsUtils = require "custom.utils.icons"
 local keymapsUtils = require "custom.utils.keymaps"
 
 return {
@@ -275,11 +276,9 @@ return {
   { "nvim-lua/popup.nvim" },
   {
     "nvim-tree/nvim-web-devicons",
-    opts = function()
-      return {
-        override = require("custom.utils.icons").devicons,
-      }
-    end,
+    opts = {
+      override = iconsUtils.devicons,
+    },
   },
   { "MunifTanjim/nui.nvim" },
 }
