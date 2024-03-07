@@ -984,19 +984,6 @@ return {
     opts = {
       swap_shift = false,
     },
-    -- config = function(_, opts)
-    --   local picker = require "window-picker"
-    --   picker.setup(opts)
-    --   picker.pick_window = function()
-    --     return picker.select({ hl = "WindowPicker", prompt = "Pick window: " }, function(winid)
-    --       if not winid then
-    --         return nil
-    --       else
-    --         return winid
-    --       end
-    --     end)
-    --   end
-    -- end,
   },
 
   {
