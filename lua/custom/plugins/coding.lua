@@ -413,7 +413,7 @@ return {
             border = cmpUtils.border "CmpBorder",
             side_padding = 1,
             winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel,Search:None",
-            scrollbar = false,
+            scrollbar = true,
           },
           documentation = {
             border = cmpUtils.border "CmpDocBorder",
