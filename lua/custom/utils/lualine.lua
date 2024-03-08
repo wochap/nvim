@@ -105,7 +105,7 @@ M.indent = {
 
 M.dirname = {
   function()
-    return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+    return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
   end,
   icon = "󰉖",
   separator = { left = M.separators.r_b, right = M.separators.r },

@@ -109,10 +109,7 @@ return {
         enable = true,
       },
       renderer = {
-        root_folder_label = function(path)
-          local project = vim.fn.fnamemodify(path, ":t")
-          return string.upper(project)
-        end,
+        root_folder_label = false,
         group_empty = false,
         special_files = {},
         highlight_git = true,
