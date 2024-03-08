@@ -1,6 +1,7 @@
 local utils = require "custom.utils"
 
 require "custom.options"
+require "custom.globals"
 
 -- lazy load ./plugins/*
 require "custom.lazy"

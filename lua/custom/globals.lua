@@ -1,3 +1,7 @@
+-- disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.g.terminal_color_0 = "#45475A"
 vim.g.terminal_color_1 = "#F38BA8"
 vim.g.terminal_color_2 = "#A6E3A1"
