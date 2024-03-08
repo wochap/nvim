@@ -207,6 +207,10 @@ local getOverridesHl = function(mocha)
     NvimTreeGitNew = { fg = gitColors.add },
     NvimTreeGitStaged = { fg = gitColors.stage },
     NvimTreeWindowPicker = { link = "WindowPicker" },
+    NvimTreeGitStagedIcon = { fg = gitColors.add },
+    NvimTreeGitFileStagedHL = { link = "NvimTreeGitStaged" },
+    NvimTreeGitDirtyIcon = { fg = gitColors.delete },
+    NvimTreeGitFileDirtyHL = { link = "NvimTreeGitDirty" },
 
     -- neo-tree.nvim
     NeoTreeDirectoryName = { fg = mocha.text },

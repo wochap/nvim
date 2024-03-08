@@ -69,6 +69,7 @@ return {
 
   {
     "nvim-tree/nvim-tree.lua",
+    -- enabled = false,
     event = "VeryLazy",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     keys = {
@@ -104,28 +105,37 @@ return {
       git = {
         enable = true,
         ignore = false,
+        show_on_dirs = true,
+        show_on_open_dirs = false,
       },
       filesystem_watchers = {
         enable = true,
+      },
+      modified = {
+        enable = true,
+        show_on_dirs = true,
+        show_on_open_dirs = false,
       },
       renderer = {
         root_folder_label = false,
         group_empty = false,
         special_files = {},
-        highlight_git = true,
+        highlight_git = "name",
         icons = {
+          git_placement = "after",
           show = {
             bookmarks = false,
             diagnostics = false,
             file = true,
             folder = true,
             folder_arrow = false,
-            git = false,
-            modified = false,
+            git = true,
+            modified = true,
           },
           glyphs = {
             default = "󰈚",
             symlink = "",
+            modified = "",
             folder = {
               default = "",
               empty = "",
@@ -137,13 +147,13 @@ return {
               arrow_closed = "",
             },
             git = {
-              unstaged = "✗",
-              staged = "✓",
-              unmerged = "",
-              renamed = "➜",
-              untracked = "★",
-              deleted = "",
-              ignored = "◌",
+              unstaged = "󰄱",
+              staged = "",
+              unmerged = "",
+              renamed = "󰁕",
+              untracked = "",
+              deleted = "",
+              ignored = "",
             },
           },
         },
