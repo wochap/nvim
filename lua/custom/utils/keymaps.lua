@@ -15,7 +15,7 @@ M.close_all_floating = function()
     local _, config = pcall(vim.api.nvim_win_get_config, win)
     if config and config.relative ~= "" then
       local ok, _ = pcall(vim.api.nvim_win_close, win, false)
-      vim.notify("closing window:" .. (not ok and " failed" or ""), win)
+      vim.notify("closing window:" .. (not ok and " failed" or "") .. win)
     end
   end
 end
