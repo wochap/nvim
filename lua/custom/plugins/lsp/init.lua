@@ -297,6 +297,10 @@ return {
         },
         hover = {
           enabled = true,
+          opts = {
+            -- TODO: add border, noice doesn't position the window correctly with border enabled
+            -- border = "single",
+          },
         },
         signature = {
           enabled = true,
@@ -307,6 +311,7 @@ return {
           opts = {
             -- TODO: add max_height and max_width, noice doesn't support them yet
             -- TODO: add border, noice doesn't position the window correctly with border enabled
+            -- border = "single",
           },
         },
         override = {
