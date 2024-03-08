@@ -35,6 +35,7 @@ M.exclude_filetypes = {
 
 M.exclude_buftypes = {
   "terminal",
+  "nofile",
 }
 
 local neorg_arg = "neorg"
