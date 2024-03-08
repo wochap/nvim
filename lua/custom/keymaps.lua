@@ -20,7 +20,7 @@ map("n", "<leader>_", "<C-w>s", "split window horizontally")
 -- terminal
 map("t", "<C-x>", keymapsUtils.exitTerminalMode, "exit terminal mode")
 map("t", "<C-S-x>", keymapsUtils.exitTerminalMode .. "<C-w>q", "hide terminal")
-map({ "n", "t" }, "<A-S-i>", function()
+map({ "n", "t" }, "<A-i>", function()
   terminalUtils.toggle(nil, {
     cwd = vim.loop.cwd(),
     size = { width = 0.8, height = 0.8 },
