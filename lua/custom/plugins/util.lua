@@ -245,6 +245,19 @@ return {
     end,
   },
 
+  {
+    "ariel-frischer/bmessages.nvim",
+    cmd = { "Bmessages", "Bmessagesvs", "Bmessagessp", "BmessagesEdit" },
+    keys = {
+      {
+        "<leader>cm",
+        "<cmd>Bmessages<CR>",
+        desc = "open messages",
+      },
+    },
+    opts = {},
+  },
+
   -- library used by other plugins
   { "nvim-lua/plenary.nvim" },
   { "nvim-lua/popup.nvim" },
