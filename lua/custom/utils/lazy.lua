@@ -101,6 +101,11 @@ M.on_load = function(name, fn)
   end
 end
 
+M.has_load = function(name)
+  local Config = require "lazy.core.config"
+  return Config.plugins[name] and Config.plugins[name]._.loaded
+end
+
 M.opts = function(name)
   local plugin = require("lazy.core.config").plugins[name]
   if not plugin then

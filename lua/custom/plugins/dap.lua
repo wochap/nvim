@@ -1,3 +1,5 @@
+local lazyUtils = require "custom.utils.lazy"
+
 -- Debugger
 return {
   {
@@ -7,6 +9,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
     opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, { "dap_repl" })
     end,
   },
@@ -70,6 +73,8 @@ return {
           ensure_installed = {},
         },
       },
+
+      "rcarriga/cmp-dap",
     },
     keys = {
       {
@@ -154,6 +159,15 @@ return {
         { text = "󰁕 ", texthl = "DiagnosticWarn", linehl = "DapStoppedLine", numhl = "" }
       )
       vim.fn.sign_define("DapLogPoint", { text = ".>", texthl = "DiagnosticError", linehl = "", numhl = "" })
+
+      lazyUtils.on_load("nvim-cmp", function()
+        local cmp = require "cmp"
+        cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+          sources = {
+            { name = "dap" },
+          },
+        })
+      end)
     end,
   },
   {

@@ -372,15 +372,12 @@ return {
       },
 
       -- cmp sources plugins
-      {
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-cmdline",
-        "rcarriga/cmp-dap",
-      },
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
     },
     opts = function()
       local cmp = require "cmp"
@@ -397,7 +394,15 @@ return {
             return false
           end
 
-          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+          local has_cmp_dap_load = lazyUtils.has_load "cmp-dap"
+          if has_cmp_dap_load then
+            local cmp_dap = require "cmp_dap"
+            if cmp_dap.is_dap_buffer() then
+              return true
+            end
+          end
+
+          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
         end,
         preselect = cmp.PreselectMode.None,
         completion = {
@@ -542,12 +547,6 @@ return {
       }
 
       cmp.setup(opts)
-      cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-        sources = {
-          { name = "dap" },
-        },
-      })
-
       cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmdlineMapping,
         sources = {
