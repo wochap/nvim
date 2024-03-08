@@ -79,6 +79,7 @@ vim.opt.softtabstop = 2
 -- disable nvim intro
 vim.opt.shortmess:append "sI"
 
+-- enable 24-bit colour
 vim.opt.termguicolors = true
 
 vim.opt.compatible = false
