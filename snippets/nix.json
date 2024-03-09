@@ -1,0 +1,34 @@
+{
+  "module": {
+    "prefix": "mo",
+    "body": [
+      "{ config, pkgs, lib, ... }:",
+      "",
+      "let cfg = config._custom.programs.${1:module};",
+      "in {",
+      "\toptions._custom.programs.${2:module}.enable = lib.mkEnableOption { };",
+      "",
+      "\tconfig = lib.mkIf cfg.enable {",
+      "\t\t${3:# code}",
+      "\t};",
+      "}"
+    ]
+  },
+  "home-manager module": {
+    "prefix": "hmo",
+    "body": [
+      "{ config, pkgs, lib, ... }:",
+      "",
+      "let cfg = config._custom.programs.${1:module};",
+      "in {",
+      "\toptions._custom.programs.${2:module}.enable = lib.mkEnableOption { };",
+      "",
+      "\tconfig = lib.mkIf cfg.enable {",
+      "\t\t_custom.hm = {",
+      "\t\t\t${3:# code}",
+      "\t\t};",
+      "\t};",
+      "}"
+    ]
+  }
+}
