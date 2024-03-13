@@ -1,4 +1,5 @@
 local utils = require "custom.utils"
+local colorschemeUtils = require "custom.utils.colorscheme"
 local lazyUtils = require "custom.utils.lazy"
 local lualineUtils = require "custom.utils.lualine"
 local constants = require "custom.utils.constants"
@@ -342,6 +343,18 @@ return {
               },
               buffer_selected = {
                 fg = mocha.lavender,
+              },
+              duplicate_selected = {
+                bg = bufferlineBg,
+                fg = mocha.lavender,
+              },
+              duplicate_visible = {
+                bg = bufferlineBg,
+                fg = bufferlineFg,
+              },
+              duplicate = {
+                bg = bufferlineBg,
+                fg = bufferlineFg,
               },
               numbers = {
                 bg = bufferlineBg,
