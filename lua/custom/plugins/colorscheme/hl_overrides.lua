@@ -66,12 +66,9 @@ local getExtraHl = function(mocha)
     OilHyphen = { fg = mocha.red },
 
     -- vim-illuminate
-    -- IlluminatedWordText = { bg = utils.darken(mocha.surface1, 0.7, mocha.base) },
-    IlluminatedWord = { bg = "NONE", underline = false },
-    IlluminatedCurWord = { link = "IlluminatedWord" },
-    IlluminatedWordText = { link = "IlluminatedWord" },
-    IlluminatedWordRead = { link = "IlluminatedWord" },
-    IlluminatedWordWrite = { link = "IlluminatedWord" },
+    IlluminatedWordText = { bg = colorschemeUtils.darken(mocha.surface1, 0.7, mocha.base), underline = false },
+    IlluminatedWordRead = { link = "IlluminatedWordText" },
+    IlluminatedWordWrite = { link = "IlluminatedWordText" },
 
     -- incline.nvim
     InclineNormalNC = {
