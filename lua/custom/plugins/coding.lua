@@ -1,12 +1,13 @@
 local lazyUtils = require "custom.utils.lazy"
 local iconsUtils = require "custom.utils.icons"
 local cmpUtils = require "custom.utils.cmp"
+local in_kittyscrollback = require("custom.utils.constants").in_kittyscrollback
 
 return {
   {
     "nvim-treesitter/nvim-treesitter",
     version = false, -- last release is way too old and doesn't work on Windows
-    lazy = false,
+    lazy = in_kittyscrollback,
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     dependencies = {

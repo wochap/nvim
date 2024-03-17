@@ -2,7 +2,6 @@ local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
 local nvimtreeUtils = require "custom.utils.nvimtree"
 local keymapsUtils = require "custom.utils.keymaps"
-local in_kittyscrollback = require("custom.utils.constants").in_kittyscrollback
 
 return {
   {
@@ -822,77 +821,6 @@ return {
     "NMAC427/guess-indent.nvim",
     event = "VeryLazy",
     opts = {},
-  },
-
-  {
-    "mikesmithgh/kitty-scrollback.nvim",
-    lazy = not in_kittyscrollback,
-    cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
-    commit = "8c36b74723049521cbcc5361c7477cb69c02812f",
-    opts = function()
-      local mocha = require("catppuccin.palettes").get_palette "mocha"
-      return {
-        callbacks = {
-          after_setup = function()
-            local ksb_api = require "kitty-scrollback.api"
-            vim.opt_local.signcolumn = "no"
-            vim.keymap.set("n", "q", ksb_api.close_or_quit_all, {})
-            vim.keymap.del("n", "g?")
-            vim.keymap.set("n", "<esc>", ":noh<CR>", {})
-          end,
-        },
-        highlight_overrides = {
-          KittyScrollbackNvimSpinner = {
-            bg = mocha.mantle,
-            fg = mocha.lavender,
-          },
-          KittyScrollbackNvimNormal = {
-            bg = mocha.mantle,
-            fg = mocha.lavender,
-          },
-          KittyScrollbackNvimPasteWinNormal = {
-            bg = mocha.mantle,
-          },
-          KittyScrollbackNvimPasteWinFloatBorder = {
-            bg = mocha.mantle,
-            fg = mocha.mantle,
-          },
-        },
-        keymaps_enabled = true,
-        status_window = {
-          enabled = true,
-          style_simple = true,
-        },
-        paste_window = {
-          hide_footer = true,
-          winopts_overrides = function(winopts)
-            return vim.tbl_deep_extend("force", {}, {
-              anchor = "NW",
-              border = "rounded",
-              col = 0,
-              focusable = true,
-              height = math.floor(vim.o.lines / 2.5),
-              relative = "editor",
-              row = vim.o.lines,
-              style = "minimal",
-              width = vim.o.columns,
-              zindex = 40,
-            })
-          end,
-          footer_winopts_overrides = function(winopts)
-            return winopts
-          end,
-        },
-        visual_selection_highlight_mode = "nvim",
-      }
-    end,
-    config = function(_, opts)
-      require("kitty-scrollback").setup {
-        global = function()
-          return opts
-        end,
-      }
-    end,
   },
 
   {
