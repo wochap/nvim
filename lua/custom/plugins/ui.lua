@@ -1,5 +1,4 @@
 local utils = require "custom.utils"
-local colorschemeUtils = require "custom.utils.colorscheme"
 local lazyUtils = require "custom.utils.lazy"
 local lualineUtils = require "custom.utils.lualine"
 local constants = require "custom.utils.constants"
@@ -232,6 +231,7 @@ return {
 
   {
     "akinsho/bufferline.nvim",
+    enabled = not in_kittyscrollback,
     version = "*",
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -396,6 +396,7 @@ return {
 
   {
     "nvim-lualine/lualine.nvim",
+    enabled = not in_kittyscrollback,
     event = "VeryLazy",
     init = function()
       vim.o.statusline = " "
