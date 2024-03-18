@@ -68,6 +68,9 @@ return {
             warnings = { "undercurl" },
             information = { "undercurl" },
           },
+          inlay_hints = {
+            background = false,
+          },
         },
         neotest = true,
         noice = true,

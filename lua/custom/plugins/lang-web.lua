@@ -65,6 +65,17 @@ return {
             "vue",
           },
           init_options = {
+            preferences = {
+              importModuleSpecifierPreference = "non-relative",
+
+              includeInlayEnumMemberValueHints = true,
+              includeInlayFunctionLikeReturnTypeHints = false,
+              includeInlayFunctionParameterTypeHints = false,
+              includeInlayParameterNameHints = "all",
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayPropertyDeclarationTypeHints = false,
+              includeInlayVariableTypeHints = false,
+            },
             plugins = {
               {
                 name = "@vue/typescript-plugin",

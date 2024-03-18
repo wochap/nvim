@@ -106,13 +106,31 @@ M.get = function()
       has = "rename",
     },
     {
+      "<leader>lh",
+      function()
+        local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+        if type(ih) == "function" then
+          ih(nil, nil)
+        elseif type(ih) == "table" and ih.enable then
+          ih.enable(nil, not ih.is_enabled(nil))
+        end
+      end,
+      desc = "Toggle inlay hints in current buffer",
+      has = "inlayHint",
+    },
+    {
+      "<leader>lR",
+      "<cmd>LspLensToggle<CR>",
+      desc = "Toggle inlay hints references",
+      has = "inlayHint",
+    },
+    {
       "<leader>ld",
       function()
         vim.diagnostic.open_float()
       end,
       desc = "floating diagnostic",
     },
-    -- TODO: add mappings for error and warning movements
     {
       "[d",
       diagnostic_goto(false),
