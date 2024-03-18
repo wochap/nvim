@@ -17,6 +17,7 @@ return {
         after_setup = function()
           local ksb_api = require "kitty-scrollback.api"
           vim.opt.signcolumn = "no"
+          vim.opt.cmdheight = 1
           vim.keymap.set("n", "Q", ksb_api.quit_all, {})
           vim.keymap.set("n", "q", ksb_api.close_or_quit_all, {})
           vim.keymap.set("n", "<esc>", ":noh<CR>", {})
@@ -50,6 +51,7 @@ return {
       local ks = require "kitty-scrollback"
       lazyUtils.on_load("catppuccin", function()
         local mocha = require("catppuccin.palettes").get_palette "mocha"
+        vim.api.nvim_set_hl(0, "MsgArea", { fg = mocha.peach })
         opts.highlight_overrides = {
           KittyScrollbackNvimStatusWinNormal = {
             bg = mocha.surface0,
