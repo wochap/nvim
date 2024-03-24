@@ -55,7 +55,9 @@ return {
         fidget = true,
         flash = true,
         gitsigns = true,
-        indent_blankline = { enabled = true },
+        indent_blankline = {
+          enabled = true,
+        },
         lsp_trouble = true,
         markdown = true,
         mason = true,
