@@ -509,27 +509,21 @@ return {
             a = { bg = mocha.blue, fg = mocha.base, gui = "bold" },
             b = { bg = lualineComponentBg, fg = lualineComponentFg },
             c = { bg = lualineBg, fg = lualineFg },
-            z = { bg = lualineComponentBg, fg = lualineComponentFg },
           },
           insert = {
             a = { bg = mocha.green, fg = mocha.base, gui = "bold" },
-            z = { bg = lualineComponentBg, fg = lualineComponentFg },
           },
           terminal = {
             a = { bg = mocha.green, fg = mocha.base, gui = "bold" },
-            z = { bg = lualineComponentBg, fg = lualineComponentFg },
           },
           command = {
             a = { bg = mocha.peach, fg = mocha.base, gui = "bold" },
-            z = { bg = lualineComponentBg, fg = lualineComponentFg },
           },
           visual = {
             a = { bg = mocha.mauve, fg = mocha.base, gui = "bold" },
-            z = { bg = lualineComponentBg, fg = lualineComponentFg },
           },
           replace = {
             a = { bg = mocha.red, fg = mocha.base, gui = "bold" },
-            z = { bg = lualineComponentBg, fg = lualineComponentFg },
           },
           inactive = {
             a = { bg = lualineBg, fg = mocha.blue },
