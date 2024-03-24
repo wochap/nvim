@@ -637,6 +637,14 @@ return {
   },
 
   {
+    "monkoose/matchparen.nvim",
+    event = "LazyFile",
+    opts = {
+      debounce_time = 100,
+    },
+  },
+
+  {
     "NMAC427/guess-indent.nvim",
     event = "VeryLazy",
     opts = {},
