@@ -1,3 +1,4 @@
+local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
 local iconsUtils = require "custom.utils.icons"
 local cmpUtils = require "custom.utils.cmp"
@@ -58,8 +59,12 @@ return {
       },
     },
     init = function()
-      -- PERF: nvim syntax slow down nvim
-      vim.cmd "syntax off"
+      -- PERF: disable nvim syntax plugin, which causes lag when scrolling
+      -- treesitter enables it everytime you open a new file
+      utils.autocmd({ "BufReadPost" }, {
+        group = utils.augroup "disable_nvim_syntax",
+        command = "syntax off",
+      })
     end,
     opts = {
       textobjects = {
@@ -74,9 +79,8 @@ return {
       indent = {
         enable = true,
       },
-      highlight = { -- Be sure to enable highlights if you haven't!
+      highlight = {
         enable = true,
-        use_languagetree = true,
         additional_vim_regex_highlighting = false,
       },
       incremental_selection = {

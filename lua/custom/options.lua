@@ -89,8 +89,8 @@ vim.opt.pumheight = 15
 
 vim.opt.splitkeep = "screen"
 
--- PERF: horizontal scrolling is laggy with large lines because of regex highlighting
-vim.opt.wrap = true
+-- NOTE: horizontal scrolling can be laggy with large horizontal lines because of regex highlighting
+vim.opt.wrap = false
 
 if vim.fn.has "nvim-0.10" == 1 then
   vim.opt.smoothscroll = true
