@@ -76,6 +76,20 @@ map("n", "<leader>q!", "<cmd>qa! <CR>", "exit!")
 map("n", "gV", "`[v`]", "select last yanked/changed text")
 map({ "n", "i" }, "<C-e>", keymapsUtils.close_all_floating, "close floating windows")
 map("n", "<f5>", ":e %<CR>", "reload buffer")
+map("n", "<leader>cps", function()
+  vim.cmd [[
+		:profile start /tmp/nvim-profile.log
+		:profile func *
+		:profile file *
+	]]
+end, "Profile Start")
+
+map("n", "<leader>cpe", function()
+  vim.cmd [[
+		:profile stop
+		:e /tmp/nvim-profile.log
+	]]
+end, "Profile End")
 
 -- HACK: disable autoindent when pasting
 -- make <C-r> work like <C-r><C-o>
