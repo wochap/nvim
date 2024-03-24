@@ -543,6 +543,25 @@ return {
   },
 
   {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    event = "LazyFile",
+    opts = {
+      debounce = 50,
+      indent = {
+        char = "▎",
+        tab_char = "▎",
+      },
+      scope = {
+        enabled = false,
+      },
+      exclude = {
+        filetypes = constants.exclude_filetypes,
+      },
+    },
+  },
+
+  {
     "fladson/vim-kitty",
     ft = "kitty",
   },
