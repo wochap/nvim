@@ -57,6 +57,10 @@ return {
         end,
       },
     },
+    init = function()
+      -- PERF: nvim syntax slow down nvim
+      vim.cmd "syntax off"
+    end,
     opts = {
       textobjects = {
         move = {
