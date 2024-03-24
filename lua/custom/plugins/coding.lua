@@ -141,27 +141,6 @@ return {
     },
   },
 
-  {
-    "echasnovski/mini.bracketed",
-    event = "VeryLazy",
-    opts = {
-      buffer = { suffix = "" },
-      comment = { suffix = "" },
-      conflict = { suffix = "" },
-      diagnostic = { suffix = "" },
-      file = { suffix = "" },
-      indent = { suffix = "" },
-      jump = { suffix = "j" },
-      location = { suffix = "l" },
-      oldfile = { suffix = "o" },
-      quickfix = { suffix = "q" },
-      treesitter = { suffix = "s" },
-      undo = { suffix = "" },
-      window = { suffix = "" },
-      yank = { suffix = "" },
-    },
-  },
-
   -- https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-align.md
   -- ga or gA
   {
@@ -647,5 +626,11 @@ return {
         pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
       }
     end,
+  },
+
+  {
+    "NMAC427/guess-indent.nvim",
+    event = "VeryLazy",
+    opts = {},
   },
 }

@@ -108,6 +108,27 @@ return {
   },
 
   {
+    "echasnovski/mini.bracketed",
+    event = "VeryLazy",
+    opts = {
+      buffer = { suffix = "" },
+      comment = { suffix = "" },
+      conflict = { suffix = "" },
+      diagnostic = { suffix = "" },
+      file = { suffix = "" },
+      indent = { suffix = "" },
+      jump = { suffix = "j" },
+      location = { suffix = "l" },
+      oldfile = { suffix = "o" },
+      quickfix = { suffix = "q" },
+      treesitter = { suffix = "s" },
+      undo = { suffix = "" },
+      window = { suffix = "" },
+      yank = { suffix = "" },
+    },
+  },
+
+  {
     "echasnovski/mini.bufremove",
     keys = {
       {
@@ -224,6 +245,104 @@ return {
       },
     },
     opts = {},
+  },
+
+  {
+    "mrjones2014/smart-splits.nvim",
+    keys = {
+      -- focus windows
+      {
+        "<C-Left>",
+        "<cmd>lua require('smart-splits').move_cursor_left()<cr>",
+      },
+      {
+        "<C-Right>",
+        "<cmd>lua require('smart-splits').move_cursor_right()<cr>",
+      },
+      {
+        "<C-Down>",
+        "<cmd>lua require('smart-splits').move_cursor_down()<cr>",
+      },
+      {
+        "<C-Up>",
+        "<cmd>lua require('smart-splits').move_cursor_up()<cr>",
+      },
+
+      -- resize windows
+      {
+        "<C-S-A-Left>",
+        "<cmd>lua require('smart-splits').resize_left()<cr>",
+      },
+      {
+        "<C-S-A-Right>",
+        "<cmd>lua require('smart-splits').resize_right()<cr>",
+      },
+      {
+        "<C-S-A-Down>",
+        "<cmd>lua require('smart-splits').resize_down()<cr>",
+      },
+      {
+        "<C-S-A-Up>",
+        "<cmd>lua require('smart-splits').resize_up()<cr>",
+      },
+
+      -- swap windows
+      {
+        "<C-S-Left>",
+        "<cmd>lua require('smart-splits').swap_buf_left()<cr>",
+      },
+      {
+        "<C-S-Right>",
+        "<cmd>lua require('smart-splits').swap_buf_right()<cr>",
+      },
+      {
+        "<C-S-Down>",
+        "<cmd>lua require('smart-splits').swap_buf_down()<cr>",
+      },
+      {
+        "<C-S-Up>",
+        "<cmd>lua require('smart-splits').swap_buf_up()<cr>",
+      },
+    },
+    opts = {
+      cursor_follows_swapped_bufs = true,
+      at_edge = "stop",
+    },
+  },
+
+  {
+    "ten3roberts/window-picker.nvim",
+    cmd = { "WindowSwap", "WindowPick" },
+    keys = {
+      -- focus windows
+      {
+        "<C-F4>",
+        "<cmd>WindowPick<cr>",
+        "focus visible window",
+      },
+      {
+        -- HACK: F28 maps C-F4 in terminal linux
+        "<F28>",
+        "<cmd>WindowPick<cr>",
+        "focus visible window",
+      },
+
+      -- swap windows
+      {
+        "<C-S-F4>",
+        "<cmd>WindowSwap<cr>",
+        "swap with window",
+      },
+      {
+        -- HACK: F40 maps C-S-F4 in terminal linux
+        "<F40>",
+        "<cmd>WindowSwap<cr>",
+        "swap with window",
+      },
+    },
+    opts = {
+      swap_shift = false,
+    },
   },
 
   -- library used by other plugins
