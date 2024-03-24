@@ -33,6 +33,30 @@ return {
   },
 
   {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.opt.timeout = true
+    end,
+    opts = {
+      -- NOTE: which-key.nvim doesn't have the option `defaults`
+      defaults = {
+        mode = { "n", "v" },
+        ["<leader>c"] = { name = "misc" },
+        ["<leader>f"] = { name = "files" },
+        ["<leader>g"] = { name = "git" },
+        ["<leader>p"] = { name = "lazy" },
+        ["<leader>q"] = { name = "quit" },
+      },
+    },
+    config = function(_, opts)
+      local wk = require "which-key"
+      wk.setup(opts)
+      wk.register(opts.defaults)
+    end,
+  },
+
+  {
     "b0o/incline.nvim",
     enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
     event = "VeryLazy",
