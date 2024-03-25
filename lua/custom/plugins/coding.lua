@@ -101,6 +101,7 @@ return {
         "regex",
         "vim",
         "vimdoc",
+        "diff",
         -- "norg"
       },
     },
@@ -109,6 +110,8 @@ return {
       require("nvim-dap-repl-highlights").setup()
 
       require("nvim-treesitter.configs").setup(opts)
+
+      vim.treesitter.language.register("bash", "zsh")
     end,
   },
   {
