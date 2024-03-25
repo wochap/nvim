@@ -3,9 +3,7 @@ local highlight_overrides = require "custom.plugins.colorscheme.hl_overrides"
 return {
   {
     "catppuccin/nvim",
-    lazy = false,
     name = "catppuccin",
-    priority = 1000,
     opts = {
       transparent_background = false, -- disables setting the background color.
       show_end_of_buffer = false, -- shows the '~' characters after the end of buffers

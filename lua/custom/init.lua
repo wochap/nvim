@@ -23,4 +23,7 @@ utils.autocmd("User", {
   end,
 })
 
+local lazyCoreUtils = require "lazy.core.util"
+lazyCoreUtils.track "colorscheme"
 vim.cmd.colorscheme "catppuccin"
+lazyCoreUtils.track()
