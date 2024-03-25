@@ -56,6 +56,5 @@ Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirem
 - If you need autoformatting on save, create an autocmd that calls `conform.nvim`.
 - Formatting, linting, and LSP config are the same as in Lazyvim, so feel free to import extras from Lazyvim, and add LSP servers in the same manner you did in Lazyvim.
 - If you use a different theme than catppuccino, replace the plugin spec in `lua/custom/plugins/colorscheme/init.lua`. Also, update the configurations for lualine, bufferline, and lazy.nvim.
-- To reduce startup time, lazily load `nvim-treesitter/nvim-treesitter` on "LazyFile" or "VeryLazy". However, this may cause the code to momentarily appear without correct colors for a few milliseconds. The nvim startuptime on my computer is approximately 30ms, and with `nvim-treesitter/nvim-treesitter` lazily loaded, it is around 25ms.
 
 Lastly read all lua files 😅, starting from `lua/custom/init.lua`

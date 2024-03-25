@@ -2,13 +2,12 @@ local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
 local iconsUtils = require "custom.utils.icons"
 local cmpUtils = require "custom.utils.cmp"
-local in_kittyscrollback = require("custom.utils.constants").in_kittyscrollback
 
 return {
   {
     "nvim-treesitter/nvim-treesitter",
     version = false, -- last release is way too old and doesn't work on Windows
-    lazy = in_kittyscrollback,
+    event = { "LazyFile", "VeryLazy" },
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     dependencies = {
@@ -58,13 +57,21 @@ return {
         end,
       },
     },
-    init = function()
+    init = function(plugin)
       -- PERF: disable nvim syntax plugin, which causes lag when scrolling
       -- treesitter enables it everytime you open a new file
       utils.autocmd({ "BufReadPost" }, {
         group = utils.augroup "disable_nvim_syntax",
         command = "syntax off",
       })
+
+      -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
+      -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
+      -- no longer trigger the **nvim-treesitter** module to be loaded in time.
+      -- Luckily, the only things that those plugins need are the custom queries, which we make available
+      -- during startup.
+      require("lazy.core.loader").add_to_rtp(plugin)
+      require "nvim-treesitter.query_predicates"
     end,
     opts = {
       textobjects = {
