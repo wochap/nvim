@@ -1,4 +1,4 @@
-local plugins = {
+return {
   { import = "lazyvim.plugins.extras.lang.go" },
 
   {
@@ -38,5 +38,3 @@ local plugins = {
     end,
   },
 }
-
-return plugins

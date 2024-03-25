@@ -1,4 +1,4 @@
-local plugins = {
+return {
   { import = "lazyvim.plugins.extras.lang.python" },
 
   {
@@ -56,5 +56,3 @@ local plugins = {
     },
   },
 }
-
-return plugins
