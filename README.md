@@ -12,6 +12,8 @@ $ git clone git@github.com:wochap/nvim.git ~/.config/nvim
 $ nvim
 ```
 
+**IMPORTANT:** I disabled nvim syntax which caused severe lag in my system, you can re enable commenting the autocmd `disable_nvim_syntax` in `lua/custom/plugins/coding.lua:64`, alternatively, you can install the Treesitter parser for the specified language.
+
 ### Vue projects
 
 Create a file `.volar` in the root of your project to disable typescript-tools and enable tsserver, only tsserver can use @vue/typescript-plugin for now...
