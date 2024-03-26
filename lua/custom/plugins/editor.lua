@@ -606,7 +606,7 @@ return {
       },
       {
         "<leader>fa",
-        "<cmd>Telescope find_files find_command=fd,--fixed-strings,--type,f follow=true hidden=true no_ignore=true <CR>",
+        "<cmd>Telescope find_files find_command=fd,--fixed-strings,--type,f,--exclude,node_modules follow=true hidden=true no_ignore=true <CR>",
         desc = "find files!",
       },
       {
@@ -646,7 +646,7 @@ return {
             preview_cutoff = 120,
           },
           file_sorter = sorters.get_fuzzy_file,
-          file_ignore_patterns = { "node_modules", "%.git/", "%.lock$", "%-lock.json$", "%.direnv/" },
+          file_ignore_patterns = { "%.git/", "%.lock$", "%-lock.json$", "%.direnv/" },
           generic_sorter = sorters.get_generic_fuzzy_sorter,
           path_display = { "truncate" },
           winblend = 0,
