@@ -126,16 +126,16 @@ return {
       }
 
       -- enable inlay hints
-      lspUtils.on_attach(function(client, buffer)
-        if client.supports_method "textDocument/inlayHint" then
-          local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-          if type(ih) == "function" then
-            ih(buffer, true)
-          elseif type(ih) == "table" and ih.enable then
-            ih.enable(buffer, true)
-          end
-        end
-      end)
+      -- lspUtils.on_attach(function(client, buffer)
+      --   if client.supports_method "textDocument/inlayHint" then
+      --     local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+      --     if type(ih) == "function" then
+      --       ih(buffer, true)
+      --     elseif type(ih) == "table" and ih.enable then
+      --       ih.enable(buffer, true)
+      --     end
+      --   end
+      -- end)
 
       -- setup opts.servers and opts.setup
       local servers = opts.servers
