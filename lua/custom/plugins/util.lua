@@ -56,14 +56,12 @@ return {
         gitsigns = { enabled = true }, -- disables git signs
       },
       on_open = function()
-        -- vim.cmd "IBLDisable"
+        vim.cmd "IBLDisable"
         utils.disable_ufo()
         utils.disable_statuscol()
-        -- TODO: disable inline.nvim
       end,
       on_close = function()
-        -- vim.cmd "IBLEnable"
-        -- TODO: enable inline.nvim
+        vim.cmd "IBLEnable"
       end,
     },
   },
