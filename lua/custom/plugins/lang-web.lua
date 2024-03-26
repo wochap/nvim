@@ -160,7 +160,7 @@ return {
           capabilities = {
             workspace = {
               didChangeWatchedFiles = {
-                -- PERF: this reduces greatly the performance
+                -- NOTE: `dynamicRegistration: true` reduces greatly the performance on nvim < 0.10.0
                 dynamicRegistration = true,
               },
             },
