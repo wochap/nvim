@@ -190,6 +190,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    optional = true,
     opts = {
       -- nvim-ufo capabilities
       capabilities = {
