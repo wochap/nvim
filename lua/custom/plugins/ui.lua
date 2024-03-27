@@ -45,6 +45,7 @@ return {
         mode = { "n", "v" },
         ["<leader>c"] = { name = "misc" },
         ["<leader>cp"] = { name = "profile" },
+        ["<leader>cP"] = { name = "syntax profile" },
         ["<leader>f"] = { name = "files" },
         ["<leader>g"] = { name = "git" },
         ["<leader>p"] = { name = "lazy" },

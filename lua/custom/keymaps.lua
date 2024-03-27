@@ -83,13 +83,14 @@ map("n", "<leader>cps", function()
 		:profile file *
 	]]
 end, "Profile Start")
-
 map("n", "<leader>cpe", function()
   vim.cmd [[
 		:profile stop
 		:e /tmp/nvim-profile.log
 	]]
 end, "Profile End")
+map("n", "<leader>cPs", "<cmd>syntime on<CR>", "Profile Syntax Start")
+map("n", "<leader>cPe", "<cmd>syntime report<CR>", "Profile Syntax End")
 
 -- HACK: disable autoindent when pasting
 -- make <C-r> work like <C-r><C-o>
