@@ -1,6 +1,7 @@
 local lspUtils = require "custom.utils.lsp"
 local formatUtils = require "custom.utils.format"
 local lspKeymapsUtils = require "custom.plugins.lsp.keymaps"
+local constants = require "custom.utils.constants"
 
 return {
   {
@@ -124,6 +125,10 @@ return {
           end,
         },
       }
+      for name, icon in pairs(constants.diagnostic_icons) do
+        name = "DiagnosticSign" .. name
+        vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
+      end
 
       -- enable inlay hints
       -- lspUtils.on_attach(function(client, buffer)

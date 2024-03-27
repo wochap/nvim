@@ -481,7 +481,12 @@ return {
         lualine_x = {
           {
             "diagnostics",
-            symbols = { error = "󰅚 ", warn = " ", info = " ", hint = "󰛩 " },
+            symbols = {
+              error = constants.diagnostic_icons.Error,
+              warn = constants.diagnostic_icons.Warn,
+              info = constants.diagnostic_icons.Info,
+              hint = constants.diagnostic_icons.Hint,
+            },
           },
           lualineUtils.lspOrFiletype,
           lualineUtils.indent,
