@@ -275,6 +275,9 @@ return {
           ["p"] = "paste_from_clipboard",
           ["q"] = "close_window",
           ["?"] = "show_help",
+          ["o"] = function(state)
+            require("lazy.util").open(state.tree:get_node().path, { system = true })
+          end,
           ["y"] = function(state)
             local node = state.tree:get_node()
             local filename = node.name
