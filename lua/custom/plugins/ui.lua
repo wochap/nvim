@@ -245,7 +245,7 @@ return {
             click = "v:lua.ScLa",
           },
           {
-            sign = { namespace = { "gitsign*" }, colwidth = 1 },
+            sign = { namespace = { "gitsign*" }, colwidth = 1, wrap = true },
             click = "v:lua.ScSa",
           },
           {
