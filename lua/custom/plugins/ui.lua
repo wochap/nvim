@@ -585,7 +585,7 @@ return {
       },
       lsp = {
         progress = {
-          enabled = false,
+          enabled = true,
         },
         message = {
           enabled = false,
@@ -616,14 +616,15 @@ return {
           ["cmp.entry.get_documentation"] = true,
         },
       },
+      views = {
+        -- fix lsp progress covering lualine
+        mini = {
+          position = {
+            row = -2,
+          },
+        },
+      },
     },
-  },
-
-  {
-    "j-hui/fidget.nvim",
-    tag = "v1.4.0",
-    event = "LspAttach",
-    opts = {},
   },
 
   {
