@@ -851,6 +851,9 @@ return {
           text = "▍",
         },
       },
+      preview_config = {
+        row = 1,
+      },
       _signs_staged_enable = true,
       _signs_staged = {
         add = {
