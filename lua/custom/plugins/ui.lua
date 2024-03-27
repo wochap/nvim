@@ -623,6 +623,27 @@ return {
             row = -2,
           },
         },
+        -- add padding to lsp doc|signature windows
+        -- fix position of lsp doc|signature windows
+        hover = {
+          size = {
+            max_width = 90,
+          },
+          anchor = "NW",
+          border = {
+            style = "none",
+            padding = {
+              top = 1,
+              bottom = 1,
+              left = 1,
+              right = 1,
+            },
+          },
+          position = {
+            row = 2,
+            col = 0,
+          },
+        },
       },
     },
   },
