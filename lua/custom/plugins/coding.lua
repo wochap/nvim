@@ -115,7 +115,9 @@ return {
         },
       }
     end,
-    config = function()
+    config = function(_, opts)
+      require("mini.ai").setup(opts)
+
       lazyUtils.on_load("which-key.nvim", function()
         local wk = require "which-key"
         local i = {
