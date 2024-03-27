@@ -12,7 +12,7 @@ $ git clone git@github.com:wochap/nvim.git ~/.config/nvim
 $ nvim
 ```
 
-**IMPORTANT:** I disabled nvim syntax which caused severe lag in my system, you can re enable commenting the autocmd `disable_nvim_syntax` in `lua/custom/plugins/coding.lua:64`, alternatively, you can install the Treesitter parser for the specified language.
+**IMPORTANT:** I disabled nvim builtin syntax which caused severe lag on my system, re enable it commenting out the line `lua/custom/init.lua:6`. Alternatively, you can install the Treesitter parser for the specified language or enable syntax for that specified filetype in the current buffer with `:set syntax=<filetype>`.
 
 ### Vue projects
 
@@ -35,7 +35,7 @@ Create a file `.volar` in the root of your project to disable typescript-tools a
 
 Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirements), Mason will install [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [conform.nvim](https://github.com/stevearc/conform.nvim), [nvim-lint](https://github.com/mfussenegger/nvim-lint) and [nvim-dap](https://github.com/mfussenegger/nvim-dap) dependencies
 
-- [neovim >= 0.9.4](https://github.com/neovim/neovim)
+- [neovim >= 0.10.0](https://github.com/neovim/neovim)
 - [neovim-remote](https://github.com/mhinz/neovim-remote)
 - [kitty](https://sw.kovidgoyal.net/kitty) (recommended)
 - [tree-sitter](https://github.com/tree-sitter/tree-sitter)

@@ -56,13 +56,6 @@ return {
       },
     },
     init = function(plugin)
-      -- PERF: disable nvim syntax plugin, which causes lag when scrolling
-      -- treesitter enables it everytime you open a new file
-      utils.autocmd({ "BufReadPost" }, {
-        group = utils.augroup "disable_nvim_syntax",
-        command = "syntax off",
-      })
-
       -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
       -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
       -- no longer trigger the **nvim-treesitter** module to be loaded in time.

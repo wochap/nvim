@@ -1,5 +1,10 @@
 local utils = require "custom.utils"
 
+-- PERF: disable nvim syntax, which causes severe lag
+-- however you can still enable it per buffer with a
+-- FileType autocmd that calls `:set syntax=<filetype>`
+vim.cmd.syntax "manual"
+
 require "custom.options"
 require "custom.globals"
 

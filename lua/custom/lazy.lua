@@ -54,7 +54,6 @@ require("lazy").setup {
         "rrhelper",
         "spellfile_plugin",
         "synmenu",
-        "syntax",
         "tar",
         "tarPlugin",
         "tohtml",
