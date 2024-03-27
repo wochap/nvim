@@ -1,14 +1,19 @@
 local M = {}
 
 M.close_all_floating = function()
-  local present, cmp = pcall(require, "cmp")
-
-  if not present then
+  local cmp = require "cmp"
+  if cmp.visible() then
     return
   end
 
-  if cmp.visible() then
-    return
+  local nldocs = require "noice.lsp.docs"
+  local signature = nldocs.get "signature"
+  local hover = nldocs.get "hover"
+  if signature then
+    nldocs.hide(signature)
+  end
+  if hover then
+    nldocs.hide(hover)
   end
 
   for _, win in ipairs(vim.api.nvim_list_wins()) do
