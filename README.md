@@ -20,6 +20,10 @@ Create a file `.volar` in the root of your project to disable typescript-tools a
 
 ## Troubleshooting
 
+- Lag
+
+  Try disabling `statuscol.nvim` plugin
+
 - Anything Eslint related
 
   Run in nvim
