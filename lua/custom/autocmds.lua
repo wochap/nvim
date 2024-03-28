@@ -107,3 +107,9 @@ utils.autocmd({ "SwapExists" }, {
   pattern = "*",
   command = 'let v:swapchoice = "e"',
 })
+
+utils.autocmd("FileType", {
+  pattern = "conf",
+  group = utils.augroup "enable_conf_syntax",
+  command = "set syntax=conf",
+})
