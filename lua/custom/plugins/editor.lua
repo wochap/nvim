@@ -555,7 +555,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     url = "https://github.com/wochap/telescope.nvim.git",
-    commit = "726dfed63e65131c60d10a3ac3f83b35b771aa83",
+    commit = "37372a53bf792e5bbb1bb8704c78d865d996cb3c",
     event = "VeryLazy",
     dependencies = {
       {
