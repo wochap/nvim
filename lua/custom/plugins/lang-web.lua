@@ -28,7 +28,29 @@ return {
     opts = {
       servers = {
         html = { filetypes = { "xhtml", "html" } },
-        cssls = {},
+        cssls = {
+          provideFormatter = false,
+          capabilities = {
+            textDocument = {
+              completion = {
+                completionItem = {
+                  snippetSupport = true,
+                },
+              },
+            },
+          },
+          settings = {
+            css = {
+              validate = false,
+            },
+            less = {
+              validate = false,
+            },
+            scss = {
+              validate = false,
+            },
+          },
+        },
         svelte = {},
         astro = {},
         cssmodules_ls = {},
