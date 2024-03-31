@@ -117,6 +117,7 @@ return {
         underline = true,
         update_in_insert = false,
         virtual_text = false,
+        signs = false, -- PERF: a lot of signs causes lag
         severity_sort = true,
         float = {
           border = "single",
