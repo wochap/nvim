@@ -848,7 +848,7 @@ return {
         },
         untracked = {
           hl = "GitSignsAdd",
-          text = "▍",
+          text = "", -- PERF: a lot of signs with statuscol.nvim causes lag
         },
       },
       preview_config = {
