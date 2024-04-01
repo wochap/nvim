@@ -305,6 +305,11 @@ return {
             winhighlight = "Normal:CmpDoc,Search:None",
           },
         },
+        view = {
+          entries = {
+            follow_cursor = true,
+          },
+        },
         snippet = {
           expand = function(args)
             local has_luasnipt, luasnip = pcall(require, "luasnip")
@@ -321,7 +326,10 @@ return {
             item.kind = string.format("%s %s", icon, item.kind)
             -- limit str length
             if string.len(item.abbr) > 60 then
-              item.abbr = string.format("%s...", string.sub(item.abbr, 1, 60))
+              item.abbr = string.format("%s…", string.sub(item.abbr, 1, 60))
+            end
+            if item.menu and string.len(item.menu) > 20 then
+              item.menu = string.format("%s… ", string.sub(item.abbr, 1, 20))
             end
             return item
           end,
