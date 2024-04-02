@@ -2,6 +2,7 @@ local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
 local nvimtreeUtils = require "custom.utils.nvimtree"
 local keymapsUtils = require "custom.utils.keymaps"
+local in_leetcode = require("custom.utils.constants").in_leetcode
 
 return {
   {
@@ -71,15 +72,15 @@ return {
     -- enabled = false,
     event = "VeryLazy",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-    keys = {
+    keys = (in_leetcode and {}) or {
       {
         "<leader>b",
-        "<cmd> NvimTreeToggle <CR>",
+        "<cmd>NvimTreeToggle<CR>",
         desc = "toggle nvimtree",
       },
       {
         "<leader>e",
-        "<cmd> NvimTreeFocus <CR>",
+        "<cmd>NvimTreeFocus<CR>",
         desc = "focus nvimtree",
       },
     },
