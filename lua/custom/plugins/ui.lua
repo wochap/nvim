@@ -315,6 +315,7 @@ return {
         indicator = {
           style = "none",
         },
+        modified_icon = "",
         left_trunc_marker = "❮",
         right_trunc_marker = "❯",
         show_buffer_close_icons = false,
