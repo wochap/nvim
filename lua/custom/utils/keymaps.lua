@@ -97,7 +97,7 @@ M.getCloneLineFn = function(direction)
       if direction == "down" then
         vim.cmd('normal! `]"zp`z' .. num_lines .. "j")
       elseif direction == "up" then
-        vim.cmd('normal! `]"zP`z' .. num_lines .. "k")
+        vim.cmd('normal! `["zP`z' .. num_lines .. "k")
       end
     elseif mode == "i" then
       if direction == "down" then
