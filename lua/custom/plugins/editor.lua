@@ -618,6 +618,11 @@ return {
         "<cmd>Telescope marks<CR>",
         desc = "find marks",
       },
+      {
+        "<leader>fp",
+        "<cmd>lua require'custom.utils.telescope'.projects()<CR>",
+        desc = "change project",
+      },
     },
     opts = function()
       local actions = require "telescope.actions"

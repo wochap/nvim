@@ -163,4 +163,57 @@ M.flash = function(prompt_bufnr)
   }
 end
 
+M.projects = function()
+  local pickers = require "telescope.pickers"
+  local entry_display = require "telescope.pickers.entry_display"
+  local finders = require "telescope.finders"
+  local utils = require "telescope.utils"
+  local conf = require("telescope.config").values
+  local actions = require "telescope.actions"
+  local action_state = require "telescope.actions.state"
+
+  local opts = {}
+  local displayer = entry_display.create {
+    separator = " ",
+    items = {
+      { width = 1 },
+      { remaining = true },
+    },
+  }
+  local display = function(entry)
+    return displayer {
+      { "", "NvimTreeFolderIcon" },
+      entry.value,
+    }
+  end
+
+  pickers
+    .new(opts, {
+      prompt_title = "Projects",
+      finder = finders.new_table {
+        results = utils.get_os_command_output { vim.o.shell, "-i", "-c", "projects" },
+        entry_maker = function(entry)
+          return {
+            value = entry,
+            ordinal = entry,
+            display = display,
+          }
+        end,
+      },
+      sorter = conf.generic_sorter(opts),
+      -- TODO: change title of previewer
+      previewer = conf.file_previewer(opts),
+      attach_mappings = function(prompt_bufnr)
+        actions.select_default:replace(function()
+          local selection = action_state.get_selected_entry()
+          vim.cmd.tcd(selection.value)
+          actions.close(prompt_bufnr)
+        end)
+
+        return true
+      end,
+    })
+    :find()
+end
+
 return M
