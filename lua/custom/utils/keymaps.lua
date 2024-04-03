@@ -141,9 +141,9 @@ M.insertPaste = function(regname)
     paste(regname, "v", ((in_end_of_line and "gp") or "gP"))
   else
     if in_end_of_line then
-      runExpr('<C-o>"'.. regname ..'p')
+      runExpr('<C-o>"' .. regname .. "p")
     else
-      runExpr('<C-o>"'.. regname ..'P')
+      runExpr('<C-o>"' .. regname .. "P")
     end
   end
 end
