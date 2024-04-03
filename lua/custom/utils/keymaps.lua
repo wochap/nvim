@@ -115,14 +115,6 @@ M.getCloneLineFn = function(direction)
   end
 end
 
-local function remove_last_newline(str)
-  if string.sub(str, -1) == "\n" then
-    return string.sub(str, 1, -2)
-  else
-    return str
-  end
-end
-
 -- source: https://vim.fandom.com/wiki/Unconditional_linewise_or_characterwise_paste
 local function paste(regname, pasteType, pastecmd)
   local reg_type = vim.fn.getregtype(regname)
@@ -167,23 +159,7 @@ M.paste = function()
     paste("+", "v", "gP")
     runExpr "i<BS><Esc>"
   elseif mode == "i" then
-    local register_content = vim.fn.getreg "+"
-    local is_multiline = string.find(register_content, "\n") ~= nil
-
-    local cursor = vim.api.nvim_win_get_cursor(0)
-    local line_content = vim.api.nvim_get_current_line()
-    local in_end_of_line = cursor[2] == #line_content
-
-    if is_multiline then
-      -- Paste charwise
-      paste("+", "v", ((in_end_of_line and "gp") or "gP"))
-    else
-      if in_end_of_line then
-        runExpr '<C-o>"+p'
-      else
-        runExpr '<C-o>"+P'
-      end
-    end
+    M.insertPaste "+"
   elseif mode == "c" then
     -- Paste first line of register
     local reg_type = vim.fn.getregtype "+"
