@@ -115,4 +115,87 @@ M.getCloneLineFn = function(direction)
   end
 end
 
+local function remove_last_newline(str)
+  if string.sub(str, -1) == "\n" then
+    return string.sub(str, 1, -2)
+  else
+    return str
+  end
+end
+
+-- source: https://vim.fandom.com/wiki/Unconditional_linewise_or_characterwise_paste
+local function paste(regname, pasteType, pastecmd)
+  local reg_type = vim.fn.getregtype(regname)
+  vim.fn.setreg(regname, vim.fn.getreg(regname), pasteType)
+  vim.api.nvim_command('normal! "' .. regname .. pastecmd)
+  vim.fn.setreg(regname, vim.fn.getreg(regname), reg_type)
+end
+
+local function get_first_line(str)
+  local newline_index = string.find(str, "\n") or #str + 1
+  return string.sub(str, 1, newline_index - 1)
+end
+
+M.insertPaste = function(regname)
+  local register_content = vim.fn.getreg(regname)
+  local is_multiline = string.find(register_content, "\n") ~= nil
+
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local line_content = vim.api.nvim_get_current_line()
+  local in_end_of_line = cursor[2] == #line_content
+
+  if is_multiline then
+    -- Paste charwise
+    paste(regname, "v", ((in_end_of_line and "gp") or "gP"))
+  else
+    if in_end_of_line then
+      runExpr '<C-o>"+p'
+    else
+      runExpr '<C-o>"+P'
+    end
+  end
+end
+
+-- Simulate terminal paste
+M.paste = function()
+  local mode = vim.api.nvim_get_mode().mode
+  if mode == "n" then
+    paste("+", "v", "gp")
+  elseif mode == "v" then
+    paste("+", "v", "gP")
+  elseif mode == "V" then
+    paste("+", "v", "gP")
+    runExpr "i<BS><Esc>"
+  elseif mode == "i" then
+    local register_content = vim.fn.getreg "+"
+    local is_multiline = string.find(register_content, "\n") ~= nil
+
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local line_content = vim.api.nvim_get_current_line()
+    local in_end_of_line = cursor[2] == #line_content
+
+    if is_multiline then
+      -- Paste charwise
+      paste("+", "v", ((in_end_of_line and "gp") or "gP"))
+    else
+      if in_end_of_line then
+        runExpr '<C-o>"+p'
+      else
+        runExpr '<C-o>"+P'
+      end
+    end
+  elseif mode == "c" then
+    -- Paste first line of register
+    local reg_type = vim.fn.getregtype "+"
+    local reg_content = vim.fn.getreg "+"
+    vim.fn.setreg("+", get_first_line(reg_content), reg_type)
+    runExpr "<C-r>+"
+    vim.defer_fn(function()
+      vim.fn.setreg("+", reg_content, reg_type)
+    end, 0)
+  elseif mode == "t" then
+    runExpr '<C-\\><C-N>"+pi'
+  end
+end
+
 return M

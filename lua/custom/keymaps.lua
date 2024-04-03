@@ -92,19 +92,18 @@ end, "Profile End")
 map("n", "<leader>cPs", "<cmd>syntime on<CR>", "Profile Syntax Start")
 map("n", "<leader>cPe", "<cmd>syntime report<CR>", "Profile Syntax End")
 
--- HACK: disable autoindent when pasting
--- make <C-r> work like <C-r><C-o>
--- https://neovim.io/doc/user/insert.html#i_CTRL-R_CTRL-O
+-- better insert register pasting
+-- disables autoindent
 -- missing register ":.="
 local registers = '*+"-%/#abcdefghijklmnopqrstuvwxyz0123456789'
 for i = 1, #registers do
   local register = registers:sub(i, i)
 
-  vim.keymap.set("i", "<C-r>" .. register, function()
-    -- disable paste mode before pasting and
-    vim.o.paste = true
-    pcall(vim.cmd, 'normal! "' .. register .. "p")
-    -- enable paste mode after pasting
-    vim.o.paste = false
-  end, { expr = false, noremap = true })
+  map("i", "<C-r>" .. register, function()
+    keymapsUtils.insertPaste(register)
+  end, nil, { expr = false, noremap = true })
+end
+
+if vim.g.neovide then
+  map({ "n", "v", "i", "c", "t" }, "<C-S-v>", keymapsUtils.paste, nil, { noremap = true })
 end
