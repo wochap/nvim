@@ -18,3 +18,10 @@ vim.g.terminal_color_12 = "#89B4FA"
 vim.g.terminal_color_13 = "#F5C2E7"
 vim.g.terminal_color_14 = "#94E2D5"
 vim.g.terminal_color_15 = "#A6ADC8"
+
+if vim.g.neovide then
+  vim.g.neovide_hide_mouse_when_typing = true
+  vim.g.neovide_floating_shadow = false
+  vim.g.neovide_floating_blur_amount_x = 0
+  vim.g.neovide_floating_blur_amount_y = 0
+end
