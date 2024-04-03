@@ -4,7 +4,7 @@ return {
   {
     "kawre/leetcode.nvim",
     lazy = not in_leetcode,
-    keys = {
+    keys = (not in_leetcode and {}) or {
       {
         "<leader>e",
         "<cmd>Leet menu<cr>",
