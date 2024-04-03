@@ -669,6 +669,7 @@ return {
               ["<C-Down>"] = actions.cycle_history_next,
               ["<C-Up>"] = actions.cycle_history_prev,
               ["<esc>"] = actions.close,
+              ["<C-S-v>"] = keymapsUtils.commandPaste,
             },
           },
           pickers = {

@@ -148,6 +148,17 @@ M.insertPaste = function(regname)
   end
 end
 
+M.commandPaste = function()
+  -- Paste first line of register
+  local reg_type = vim.fn.getregtype "+"
+  local reg_content = vim.fn.getreg "+"
+  vim.fn.setreg("+", get_first_line(reg_content), reg_type)
+  runExpr "<C-r>+"
+  vim.defer_fn(function()
+    vim.fn.setreg("+", reg_content, reg_type)
+  end, 0)
+end
+
 -- Simulate terminal paste
 M.paste = function()
   local mode = vim.api.nvim_get_mode().mode
@@ -161,14 +172,7 @@ M.paste = function()
   elseif mode == "i" then
     M.insertPaste "+"
   elseif mode == "c" then
-    -- Paste first line of register
-    local reg_type = vim.fn.getregtype "+"
-    local reg_content = vim.fn.getreg "+"
-    vim.fn.setreg("+", get_first_line(reg_content), reg_type)
-    runExpr "<C-r>+"
-    vim.defer_fn(function()
-      vim.fn.setreg("+", reg_content, reg_type)
-    end, 0)
+    M.commandPaste()
   elseif mode == "t" then
     runExpr '<C-\\><C-N>"+pi'
   end
