@@ -73,8 +73,8 @@ M.on_attach = function(bufnr)
   vim.keymap.set("n", "r", api.fs.rename, opts "Rename")
   vim.keymap.set("n", "<C-r>", api.tree.reload, opts "Refresh")
   vim.keymap.set("n", "?", api.tree.toggle_help, opts "Help")
-  vim.keymap.set("n", "[g", api.node.navigate.git.prev, opts "Prev Git")
-  vim.keymap.set("n", "]g", api.node.navigate.git.next, opts "Next Git")
+  vim.keymap.set("n", "[g", api.node.navigate.git.prev_skip_gitignored, opts "Prev Git")
+  vim.keymap.set("n", "]g", api.node.navigate.git.next_skip_gitignored, opts "Next Git")
   vim.keymap.set("n", "o", api.node.run.system, opts "Run System")
 end
 
