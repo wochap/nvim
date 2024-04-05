@@ -124,6 +124,21 @@ return {
       filesystem_watchers = {
         enable = true,
       },
+      actions = {
+        open_file = {
+          window_picker = {
+            exclude = {
+              filetype = {
+                "notify",
+                "packer",
+                "qf",
+                "fugitive",
+                "fugitiveblame",
+              },
+            },
+          },
+        },
+      },
       modified = {
         enable = true,
         show_on_dirs = true,
