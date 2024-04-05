@@ -57,4 +57,12 @@ M.remove_str_from_list = function(list, str)
   end
 end
 
+M.get_buffer_root_path = function()
+  local root_path = vim.fn.finddir(".git", ".;")
+  if root_path == "" then
+    root_path = vim.fn.findfile("package.json", ".;")
+  end
+  return vim.fn.fnamemodify(root_path, ":h")
+end
+
 return M

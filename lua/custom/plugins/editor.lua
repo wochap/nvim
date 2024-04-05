@@ -79,6 +79,19 @@ return {
         desc = "toggle nvimtree",
       },
       {
+        "<leader>B",
+        function()
+          local api = require "nvim-tree.api"
+          api.tree.toggle {
+            find_file = false,
+            focus = true,
+            path = utils.get_buffer_root_path(),
+            update_root = false,
+          }
+        end,
+        desc = "toggle nvimtree (relative root dir)",
+      },
+      {
         "<leader>e",
         "<cmd>NvimTreeFocus<CR>",
         desc = "focus nvimtree",
@@ -90,7 +103,7 @@ return {
         custom = { "^.git$" },
       },
       on_attach = nvimtreeUtils.on_attach,
-      respect_buf_cwd = true,
+      respect_buf_cwd = false,
       update_cwd = false,
       disable_netrw = true,
       hijack_cursor = true,
