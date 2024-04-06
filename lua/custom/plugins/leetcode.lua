@@ -4,11 +4,12 @@ return {
   {
     "kawre/leetcode.nvim",
     lazy = not in_leetcode,
+    priority = 1,
     keys = (not in_leetcode and {}) or {
       {
         "<leader>e",
         "<cmd>Leet menu<cr>",
-        desc = "opens menu dashboard",
+        desc = "focus dashboard",
       },
       {
         "<leader>b",
@@ -18,42 +19,42 @@ return {
       {
         "<leader>Ld",
         "<cmd>Leet daily<cr>",
-        desc = "opens the question of today",
+        desc = "opens question of today",
       },
       {
         "<leader>Lc",
         "<cmd>Leet console<cr>",
-        desc = "opens console pop-up for currently opened question",
+        desc = "opens question console",
       },
       {
         "<leader>Li",
         "<cmd>Leet info<cr>",
-        desc = "opens a pop-up containing information about the currently opened question",
-      },
-      {
-        "<leader>fb",
-        "<cmd>Leet tabs<cr>",
-        desc = "opens a picker with all currently opened question tabs",
+        desc = "opens question information",
       },
       {
         "<leader>Ll",
         "<cmd>Leet lang<cr>",
-        desc = "opens a picker to change the language of the current question",
+        desc = "change question language",
       },
       {
         "<leader>Lr",
         "<cmd>Leet run<cr>",
-        desc = "run currently opened question",
+        desc = "run question",
       },
       {
         "<leader>Ls",
         "<cmd>Leet submit<cr>",
-        desc = "submit currently opened question",
+        desc = "submit question",
       },
       {
         "<leader>ff",
         "<cmd>Leet list<cr>",
-        desc = "opens a problemlist picker",
+        desc = "opens problemlist",
+      },
+      {
+        "<leader>fb",
+        "<cmd>Leet tabs<cr>",
+        desc = "opens question tabs",
       },
     },
     opts = {
