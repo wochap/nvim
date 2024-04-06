@@ -598,60 +598,61 @@ return {
         end,
       },
     },
-    keys = {
-      {
-        "<leader>cf",
-        "<cmd>Telescope filetypes<cr>",
-        desc = "change filetype",
-      },
+    keys = (in_leetcode and {})
+      or {
+        {
+          "<leader>cf",
+          "<cmd>Telescope filetypes<cr>",
+          desc = "change filetype",
+        },
 
-      -- find
-      {
-        "<leader>fw",
-        "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>",
-        desc = "find word",
+        -- find
+        {
+          "<leader>fw",
+          "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>",
+          desc = "find word",
+        },
+        {
+          "<leader>fy",
+          "<cmd>lua require'custom.utils.telescope'.symbols()<CR>",
+          desc = "find symbols",
+        },
+        {
+          "<leader>fo",
+          "<cmd>Telescope oldfiles<CR>",
+          desc = "find old files",
+        },
+        {
+          "<leader>fg",
+          "<cmd>Telescope git_status<CR>",
+          desc = "find changed files",
+        },
+        {
+          "<leader>fb",
+          "<cmd>Telescope buffers sort_mru=true sort_lastused=true <CR>",
+          desc = "find buffers",
+        },
+        {
+          "<leader>ff",
+          "<cmd>Telescope find_files find_command=fd,--fixed-strings,--type,f follow=true hidden=true <CR>",
+          desc = "find files",
+        },
+        {
+          "<leader>fa",
+          "<cmd>Telescope find_files find_command=fd,--fixed-strings,--type,f,--exclude,node_modules follow=true hidden=true no_ignore=true <CR>",
+          desc = "find files!",
+        },
+        {
+          "<leader>fx",
+          "<cmd>Telescope marks<CR>",
+          desc = "find marks",
+        },
+        {
+          "<leader>fp",
+          "<cmd>lua require'custom.utils.telescope'.projects()<CR>",
+          desc = "change project",
+        },
       },
-      {
-        "<leader>fy",
-        "<cmd>lua require'custom.utils.telescope'.symbols()<CR>",
-        desc = "find symbols",
-      },
-      {
-        "<leader>fo",
-        "<cmd>Telescope oldfiles<CR>",
-        desc = "find old files",
-      },
-      {
-        "<leader>fg",
-        "<cmd>Telescope git_status<CR>",
-        desc = "find changed files",
-      },
-      {
-        "<leader>fb",
-        "<cmd>Telescope buffers sort_mru=true sort_lastused=true <CR>",
-        desc = "find buffers",
-      },
-      {
-        "<leader>ff",
-        "<cmd>Telescope find_files find_command=fd,--fixed-strings,--type,f follow=true hidden=true <CR>",
-        desc = "find files",
-      },
-      {
-        "<leader>fa",
-        "<cmd>Telescope find_files find_command=fd,--fixed-strings,--type,f,--exclude,node_modules follow=true hidden=true no_ignore=true <CR>",
-        desc = "find files!",
-      },
-      {
-        "<leader>fx",
-        "<cmd>Telescope marks<CR>",
-        desc = "find marks",
-      },
-      {
-        "<leader>fp",
-        "<cmd>lua require'custom.utils.telescope'.projects()<CR>",
-        desc = "change project",
-      },
-    },
     opts = function()
       local actions = require "telescope.actions"
       local sorters = require "telescope.sorters"
