@@ -100,8 +100,11 @@ for i = 1, #registers do
   local register = registers:sub(i, i)
 
   map("i", "<C-r>" .. register, function()
-    keymapsUtils.insertPaste(register)
-  end, nil, { expr = false, noremap = true })
+    if vim.fn.reg_recording() then
+      return "<C-r>" .. register
+    end
+    return "<cmd>lua require('custom.utils.keymaps').insertPaste(" .. register .. ")<CR>"
+  end, nil, { expr = true, noremap = false })
 end
 
 if vim.g.neovide then
