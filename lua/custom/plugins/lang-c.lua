@@ -28,6 +28,7 @@ return {
               desc = "Switch Source/Header (C/C++)",
             },
           },
+          mason = false,
         },
       },
     },
