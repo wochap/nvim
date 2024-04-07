@@ -353,4 +353,5 @@ return {
     },
   },
   { "MunifTanjim/nui.nvim" },
+  { "nvim-neotest/nvim-nio" },
 }

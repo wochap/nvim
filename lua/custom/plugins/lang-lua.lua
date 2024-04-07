@@ -14,7 +14,12 @@ return {
     dependencies = {
       {
         "folke/neodev.nvim",
-        opts = {},
+        opts = {
+          library = {
+            plugins = { "nvim-dap-ui" },
+            types = true,
+          },
+        },
       },
     },
     opts = {

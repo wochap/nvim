@@ -17,6 +17,8 @@ return {
   {
     "mfussenegger/nvim-dap",
     dependencies = {
+      "nvim-neotest/nvim-nio",
+
       {
         "ofirgall/goto-breakpoints.nvim",
         keys = {
