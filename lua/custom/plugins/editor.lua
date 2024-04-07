@@ -113,7 +113,11 @@ return {
       },
       view = {
         preserve_window_proportions = true,
-        width = 40,
+        width = {
+          min = 40,
+          padding = 2,
+        },
+        signcolumn = "no",
       },
       git = {
         enable = true,
@@ -156,7 +160,7 @@ return {
             diagnostics = false,
             file = true,
             folder = true,
-            folder_arrow = false,
+            folder_arrow = true,
             git = true,
             modified = true,
           },
@@ -171,8 +175,8 @@ return {
               open = "",
               symlink = "",
               symlink_open = "",
-              arrow_open = "",
-              arrow_closed = "",
+              arrow_open = " ",
+              arrow_closed = " ",
             },
             git = {
               unstaged = "󰄱",
