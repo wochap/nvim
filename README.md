@@ -35,6 +35,10 @@ Create a file `.volar` in the root of your project to disable typescript-tools a
 
   If that didn't work, kill all eslint processes
 
+- Python LSP/Linters installed by Mason stopped working
+
+  Uninstall them and install them again
+
 ## Requirements
 
 Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirements), Mason will install [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [conform.nvim](https://github.com/stevearc/conform.nvim), [nvim-lint](https://github.com/mfussenegger/nvim-lint) and [nvim-dap](https://github.com/mfussenegger/nvim-dap) dependencies
