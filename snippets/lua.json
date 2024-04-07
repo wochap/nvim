@@ -6,10 +6,10 @@
   },
   "function": {
     "prefix": "fn",
-    "body": ["function ${1:name}($2)", "\t${0:-- code}", "end"]
+    "body": ["function ${1:name}($2)", "\t${3:-- code}", "end$0"]
   },
   "anonymous function": {
     "prefix": "afn",
-    "body": ["function($1)", "\t${0:-- code}", "end"]
+    "body": ["function($1)", "\t${2:-- code}", "end$0"]
   }
 }
