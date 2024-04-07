@@ -474,6 +474,15 @@ return {
         command = "set nu",
       })
       utils.autocmd("FileType", {
+        group = utils.augroup "focus_first_item",
+        pattern = "Trouble",
+        callback = function()
+          vim.defer_fn(function()
+            pcall(vim.api.nvim_win_set_cursor, 0, { 1, 1 })
+          end, 0)
+        end,
+      })
+      utils.autocmd("FileType", {
         group = utils.augroup "hijack_quickfix_and_location_list",
         pattern = "qf",
         callback = function()
@@ -497,6 +506,7 @@ return {
       group = false,
       padding = false,
       indent_lines = false,
+      auto_jump = {},
     },
   },
   {
