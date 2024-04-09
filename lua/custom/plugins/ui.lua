@@ -276,6 +276,19 @@ return {
         end,
         desc = "goto prev buffer",
       },
+      {
+        "ft",
+        function()
+          -- local state = require "bufferline.state"
+          local ui = require "bufferline.ui"
+          -- for _, item in ipairs(state.visible_components) do
+          --   _G.___bufferline_private.handle_close(item.id)
+          -- end
+          vim.cmd "tabclose"
+          ui.refresh()
+        end,
+        desc = "close tab",
+      },
     },
     init = function()
       vim.o.tabline = " "
