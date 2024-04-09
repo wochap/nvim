@@ -228,6 +228,9 @@ local getOverridesHl = function(mocha)
     TelescopeResultsTitle = { fg = mocha.mantle, bg = mocha.lavender },
     TelescopeSelection = { fg = mocha.text, bg = mocha.surface0 },
 
+    -- which-key.nvim
+    WhichKey = { bg = "NONE", fg = mocha.text },
+
     -- neo-tree.nvim
     NeoTreeDirectoryName = { fg = mocha.text },
     NeoTreeGitUntracked = { fg = gitColors.add },
