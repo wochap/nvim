@@ -469,14 +469,12 @@ return {
     },
     init = function()
       utils.autocmd("FileType", {
-        group = utils.augroup "show_numbers_trouble",
-        pattern = "Trouble",
-        command = "set nu",
-      })
-      utils.autocmd("FileType", {
-        group = utils.augroup "focus_first_item",
+        group = utils.augroup "trouble_better_ux",
         pattern = "Trouble",
         callback = function()
+          vim.opt_local.number = true
+          vim.opt_local.relativenumber = true
+          vim.opt_local.signcolumn = "yes"
           vim.defer_fn(function()
             pcall(vim.api.nvim_win_set_cursor, 0, { 1, 1 })
           end, 0)
