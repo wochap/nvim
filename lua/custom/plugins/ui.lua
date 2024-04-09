@@ -210,16 +210,6 @@ return {
     "luukvbaal/statuscol.nvim",
     enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
     lazy = false,
-    init = function()
-      -- HACK: statuscol doesn't reset signcolumn
-      utils.autocmd("FileType", {
-        group = utils.augroup "reset_signcolumn_on_statuscol_excluded_filetypes",
-        pattern = constants.exclude_filetypes,
-        callback = function()
-          vim.opt_local.signcolumn = "yes"
-        end,
-      })
-    end,
     opts = function()
       local builtin = require "statuscol.builtin"
       return {
