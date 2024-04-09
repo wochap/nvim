@@ -334,13 +334,24 @@ return {
         separator_style = { "", "" },
         always_show_bufferline = true,
         hover = { enabled = false },
+        offsets = constants.transparent_background and {
+          {
+            padding = 1,
+            filetype = "NvimTree",
+            text = function()
+              return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+            end,
+            highlight = "BufferLineOffset",
+            separator = false,
+          },
+        } or {},
       },
     },
     config = function(_, opts)
       local bufferline = require "bufferline"
       lazyUtils.on_load("catppuccin", function()
         local mocha = require("catppuccin.palettes").get_palette "mocha"
-        local bufferlineBg = mocha.base
+        local bufferlineBg = "NONE"
         local bufferlineFg = mocha.surface1
         opts.highlights = require("catppuccin.groups.integrations.bufferline").get {
           styles = {},
@@ -395,7 +406,7 @@ return {
                 fg = bufferlineFg,
               },
               numbers_selected = {
-                bg = mocha.base,
+                bg = bufferlineBg,
                 fg = mocha.lavender,
               },
               modified = {
@@ -511,7 +522,7 @@ return {
       local lualine = require "lualine"
       lazyUtils.on_load("catppuccin", function()
         local mocha = require("catppuccin.palettes").get_palette "mocha"
-        local lualineBg = mocha.base
+        local lualineBg = "NONE"
         local lualineFg = mocha.text
         local lualineComponentBg = mocha.surface0
         local lualineComponentFg = mocha.text
@@ -650,7 +661,13 @@ return {
     "j-hui/fidget.nvim",
     tag = "v1.4.0",
     event = "LspAttach",
-    opts = {},
+    opts = {
+      notification = {
+        window = {
+          winblend = 0,
+        },
+      },
+    },
   },
 
   {

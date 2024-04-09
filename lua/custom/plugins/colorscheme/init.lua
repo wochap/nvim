@@ -1,11 +1,12 @@
 local highlight_overrides = require "custom.plugins.colorscheme.hl_overrides"
+local constants = require "custom.utils.constants"
 
 return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
     opts = {
-      transparent_background = false, -- disables setting the background color.
+      transparent_background = constants.transparent_background, -- disables setting the background color.
       show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
       term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
       dim_inactive = {

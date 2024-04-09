@@ -1,3 +1,5 @@
+local constants = require "custom.utils.constants"
+
 local getColors = function(palette)
   return {
     state = {
@@ -83,6 +85,7 @@ local getExtraHl = function(mocha)
     },
 
     -- bufferline.nvim
+    BufferLineOffset = { bg = mocha.mantle, fg = mocha.lavender },
     DevIconDimmed = { fg = mocha.surface1 },
 
     -- nvim-web-devicons
@@ -190,6 +193,11 @@ local getOverridesHl = function(mocha)
     TroubleNormal = { bg = mocha.base },
 
     -- nvim-tree.lua
+    NvimTreeNormal = { bg = mocha.mantle },
+    NvimTreeWinSeparator = {
+      fg = constants.transparent_background and mocha.mantle or mocha.base,
+      bg = constants.transparent_background and mocha.mantle or mocha.base,
+    },
     NvimTreeEmptyFolderName = { fg = mocha.text },
     NvimTreeExecFile = { fg = mocha.text },
     NvimTreeFolderIcon = { fg = mocha.blue },
@@ -208,6 +216,17 @@ local getOverridesHl = function(mocha)
     NvimTreeGitFileStagedHL = { link = "NvimTreeGitStaged" },
     NvimTreeGitDirtyIcon = { fg = gitColors.delete },
     NvimTreeGitFileDirtyHL = { link = "NvimTreeGitDirty" },
+
+    -- telescope.nvim
+    TelescopeBorder = { fg = mocha.mantle, bg = mocha.mantle },
+    TelescopeNormal = { bg = mocha.mantle },
+    TelescopePromptBorder = { fg = mocha.surface0, bg = mocha.surface0 },
+    TelescopePromptNormal = { bg = mocha.surface0 },
+    TelescopePromptPrefix = { bg = mocha.surface0 },
+    TelescopePreviewTitle = { fg = mocha.base, bg = mocha.green },
+    TelescopePromptTitle = { fg = mocha.base, bg = mocha.red },
+    TelescopeResultsTitle = { fg = mocha.mantle, bg = mocha.lavender },
+    TelescopeSelection = { fg = mocha.text, bg = mocha.surface0 },
 
     -- neo-tree.nvim
     NeoTreeDirectoryName = { fg = mocha.text },
@@ -281,6 +300,10 @@ local getOverridesHl = function(mocha)
     DiagnosticFloatingHint = { fg = stateColors.hint }, -- Used to color "Hint" diagnostic messages in diagnostics float
 
     -- nvim float windows
+    FloatTitle = {
+      bg = mocha.mantle,
+      fg = mocha.subtext0,
+    },
     NormalFloat = {
       bg = mocha.mantle,
     },

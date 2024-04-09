@@ -1,3 +1,5 @@
+local constants = require("custom.utils.constants")
+
 -- Set <space> as the leader key
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = " "
@@ -60,7 +62,7 @@ vim.opt.inccommand = "nosplit"
 
 -- Show which line/column your cursor is on
 vim.opt.cursorline = true
-vim.opt.cursorcolumn = true
+vim.opt.cursorcolumn = not constants.transparent_background
 
 -- Minimal number of screen lines to keep above, below, left and right before the cursor.
 vim.opt.scrolloff = 4
