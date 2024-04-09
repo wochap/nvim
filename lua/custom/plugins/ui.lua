@@ -364,9 +364,11 @@ return {
               },
               tab_separator = {
                 bg = bufferlineBg,
+                fg = mocha.base,
               },
               tab_separator_selected = {
                 bg = bufferlineBg,
+                fg = mocha.base,
               },
               buffer_visible = {
                 bg = bufferlineBg,
