@@ -53,7 +53,8 @@ M.get = function()
     {
       "gH",
       function()
-        local winid = require("ufo").peekFoldedLinesUnderCursor()
+        local has_ufo, ufo = pcall(require, "ufo")
+        local winid = has_ufo and ufo.peekFoldedLinesUnderCursor() or nil
         if not winid then
           vim.lsp.buf.hover()
         end
