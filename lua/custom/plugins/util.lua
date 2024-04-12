@@ -1,6 +1,7 @@
 local utils = require "custom.utils"
 local iconsUtils = require "custom.utils.icons"
 local keymapsUtils = require "custom.utils.keymaps"
+local windowPickerUtils = require "custom.utils.window-picker"
 
 return {
   {
@@ -309,37 +310,58 @@ return {
   },
 
   {
-    "ten3roberts/window-picker.nvim",
-    cmd = { "WindowSwap", "WindowPick" },
+    "s1n7ax/nvim-window-picker",
+    name = "window-picker",
     keys = {
       -- focus windows
       {
         "<C-F4>",
-        "<cmd>WindowPick<cr>",
+        windowPickerUtils.window_pick,
         "focus visible window",
       },
       {
         -- HACK: F28 maps C-F4 in terminal linux
         "<F28>",
-        "<cmd>WindowPick<cr>",
+        windowPickerUtils.window_pick,
         "focus visible window",
       },
 
       -- swap windows
       {
         "<C-S-F4>",
-        "<cmd>WindowSwap<cr>",
+        windowPickerUtils.window_swap,
         "swap with window",
       },
       {
         -- HACK: F40 maps C-S-F4 in terminal linux
         "<F40>",
-        "<cmd>WindowSwap<cr>",
+        windowPickerUtils.window_swap,
         "swap with window",
       },
     },
     opts = {
-      swap_shift = false,
+      hint = "floating-big-letter",
+      selection_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+      picker_config = {
+        statusline_winbar_picker = {
+          use_winbar = "always",
+        },
+      },
+      filter_rules = {
+        bo = {
+          filetype = {
+            "qf",
+            "notify",
+            "neo-tree",
+            "incline",
+            "NvimTree",
+          },
+          buftype = {
+            "terminal",
+            "nofile",
+          },
+        },
+      },
     },
   },
 

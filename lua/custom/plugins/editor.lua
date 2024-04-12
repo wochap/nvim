@@ -131,15 +131,9 @@ return {
       actions = {
         open_file = {
           window_picker = {
-            exclude = {
-              filetype = {
-                "notify",
-                "packer",
-                "qf",
-                "fugitive",
-                "fugitiveblame",
-              },
-            },
+            picker = function()
+              return require("window-picker").pick_window()
+            end,
           },
         },
       },
@@ -198,9 +192,6 @@ return {
     enabled = false,
     branch = "v3.x",
     cmd = "Neotree",
-    dependencies = {
-      "ten3roberts/window-picker.nvim",
-    },
     keys = {
       {
         "<leader>b",
@@ -224,24 +215,6 @@ return {
           require "neo-tree"
         end
       end
-
-      -- replace s1n7ax/nvim-window-picker with ten3roberts/window-picker.nvim
-      lazyUtils.on_load("window-picker.nvim", function()
-        local wp = require "window-picker"
-        wp.pick_window = function()
-          return wp.select({
-            include_cur = false,
-            hl = "WindowPicker",
-            prompt = "Pick window: ",
-          }, function(winid)
-            if not winid then
-              return nil
-            else
-              return winid
-            end
-          end)
-        end
-      end)
     end,
     opts = {
       sources = {

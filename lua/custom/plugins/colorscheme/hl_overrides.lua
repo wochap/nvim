@@ -51,14 +51,6 @@ local getExtraHl = function(mocha)
     ["@text.strong.markdown_inline"] = { fg = mocha.red },
     ["@text.uri.markdown_inline"] = { fg = mocha.blue },
 
-    -- window-picker.nvim
-    WindowPicker = {
-      fg = mocha.red,
-      bg = colorschemeUtils.darken(mocha.surface0, 0.64, mocha.base),
-      style = { "bold" },
-    },
-    WindowPickerSwap = { link = "WindowPicker" },
-
     -- oil.nvim
     OilMtime = { fg = "#8383A9" },
     OilSize = { fg = "#87FF87" },
@@ -211,7 +203,6 @@ local getOverridesHl = function(mocha)
     NvimTreeGitIgnored = { fg = mocha.surface1_fg },
     NvimTreeGitNew = { fg = gitColors.add },
     NvimTreeGitStaged = { fg = gitColors.stage },
-    NvimTreeWindowPicker = { link = "WindowPicker" },
     NvimTreeGitStagedIcon = { fg = gitColors.add },
     NvimTreeGitFileStagedHL = { link = "NvimTreeGitStaged" },
     NvimTreeGitDirtyIcon = { fg = gitColors.delete },

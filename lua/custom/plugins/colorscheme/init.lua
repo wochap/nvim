@@ -51,6 +51,7 @@ return {
         },
 
         -- enable the ones we'll use
+        window_picker = true,
         fidget = true,
         flash = true,
         gitsigns = true,
