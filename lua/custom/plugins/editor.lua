@@ -267,8 +267,8 @@ return {
       window = {
         mappings = {
           ["<CR>"] = "open_with_window_picker",
-          ["<C-v>"] = "split_with_window_picker",
-          ["<C-x>"] = "vsplit_with_window_picker",
+          ["<C-v>"] = "vsplit_with_window_picker",
+          ["<C-x>"] = "split_with_window_picker",
           ["<BS>"] = "close_node",
           ["zC"] = "close_all_nodes",
           ["zO"] = "expand_all_nodes",
