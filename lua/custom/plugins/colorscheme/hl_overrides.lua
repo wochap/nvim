@@ -22,8 +22,29 @@ end
 local getExtraHl = function(mocha)
   local colorschemeUtils = require "custom.utils.colorscheme"
   local gitColors = getColors(mocha).git
+  local stateColors = getColors(mocha).state
+  local result = {}
 
-  return {
+  -- custom statusline
+  local st_module_bg = mocha.surface0
+  local st_module_fg = mocha.text
+  local st_bg = "NONE"
+  local st_fg = mocha.text
+  local function gen_modes_hl(mode, color)
+    result["St" .. mode .. "Mode"] = { fg = mocha.base, bg = mocha[color], bold = true }
+    result["St" .. mode .. "ModeSep"] = { fg = mocha[color], bg = st_bg }
+  end
+  gen_modes_hl("Normal", "blue")
+  gen_modes_hl("Visual", "mauve")
+  gen_modes_hl("Insert", "green")
+  gen_modes_hl("Terminal", "green")
+  gen_modes_hl("Nterminal", "blue")
+  gen_modes_hl("Replace", "red")
+  gen_modes_hl("Confirm", "blue")
+  gen_modes_hl("Command", "peach")
+  gen_modes_hl("Select", "mauve")
+
+  return vim.tbl_deep_extend("force", result, {
     lessCssAttribute = { fg = mocha.text, link = nil },
 
     zshCommands = { fg = mocha.blue },
@@ -50,6 +71,19 @@ local getExtraHl = function(mocha)
     ["@text.reference.markdown_inline"] = { fg = mocha.lavender },
     ["@text.strong.markdown_inline"] = { fg = mocha.red },
     ["@text.uri.markdown_inline"] = { fg = mocha.blue },
+
+    -- custom statusline
+    StRelativePath = { fg = colorschemeUtils.darken(mocha.text, 0.667, mocha.surface0) },
+    StModule = { bg = st_module_bg, fg = st_module_fg },
+    StModuleAlt = { bg = st_bg, fg = st_fg },
+    StModuleSep = { bg = st_bg, fg = st_module_bg },
+    StGitAdd = { fg = gitColors.add },
+    StGitChange = { fg = gitColors.change },
+    StGitDelete = { fg = gitColors.delete },
+    StErrors = { fg = stateColors.error },
+    StWarnings = { fg = stateColors.warning },
+    StHints = { fg = stateColors.hint },
+    StInfos = { fg = stateColors.info },
 
     -- oil.nvim
     OilMtime = { fg = "#8383A9" },
@@ -156,7 +190,7 @@ local getExtraHl = function(mocha)
       bg = colorschemeUtils.darken(mocha.surface0, 0.54, mocha.base),
     },
     CmpDoc = { bg = colorschemeUtils.darken(mocha.surface0, 0.54, mocha.base) },
-  }
+  })
 end
 
 local getOverridesHl = function(mocha)

@@ -442,7 +442,8 @@ return {
 
   {
     "nvim-lualine/lualine.nvim",
-    enabled = not in_kittyscrollback,
+    -- enabled = not in_kittyscrollback,
+    enabled = false,
     event = "VeryLazy",
     init = function()
       vim.o.statusline = " "

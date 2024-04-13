@@ -1,4 +1,4 @@
-local constants = require("custom.utils.constants")
+local constants = require "custom.utils.constants"
 
 -- Set <space> as the leader key
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -15,6 +15,9 @@ vim.opt.mouse = "a"
 
 -- global statusline
 vim.opt.laststatus = 3
+if not constants.in_kittyscrollback then
+  vim.opt.statusline = "%!v:lua.require('custom.utils.statusline').statusline()"
+end
 
 -- global bufferline
 vim.opt.showtabline = 2
