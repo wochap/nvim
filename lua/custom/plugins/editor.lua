@@ -132,7 +132,11 @@ return {
         open_file = {
           window_picker = {
             picker = function()
-              return require("window-picker").pick_window()
+              local winid = require("window-picker").pick_window()
+              if not winid then
+                return -1
+              end
+              return winid
             end,
           },
         },
