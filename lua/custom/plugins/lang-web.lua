@@ -13,6 +13,7 @@ return {
         "graphql",
         "html",
         "javascript",
+        "scss",
         "svelte",
         "tsx",
         "typescript",
