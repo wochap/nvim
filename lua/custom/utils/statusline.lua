@@ -2,7 +2,7 @@ local constants = require "custom.utils.constants"
 
 local fn = vim.fn
 local api = vim.api
-local breakpoint = 120
+local breakpoint = 100
 local separators = {
   l = "",
   l_b = "",
@@ -84,6 +84,9 @@ local function filetype_icon()
 end
 
 local function relative_path()
+  if vim.o.columns < breakpoint then
+    return ""
+  end
   local filename_str = vim.fn.expand "%:t"
   if string.len(filename_str) == 0 then
     return ""
