@@ -87,6 +87,7 @@ utils.autocmd("FileType", {
   pattern = { "gitcommit", "markdown", "norg", "" },
   callback = function()
     vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
   end,
 })
 
