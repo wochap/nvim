@@ -115,6 +115,7 @@ return {
         preserve_window_proportions = true,
         width = {
           min = 40,
+          max = 40,
           padding = 2,
         },
         signcolumn = "no",
