@@ -84,6 +84,7 @@ local getExtraHl = function(mocha)
     StWarnings = { fg = stateColors.warning },
     StHints = { fg = stateColors.hint },
     StInfos = { fg = stateColors.info },
+    StEmptySpace = { bg = "NONE" },
 
     -- oil.nvim
     OilMtime = { fg = "#8383A9" },
