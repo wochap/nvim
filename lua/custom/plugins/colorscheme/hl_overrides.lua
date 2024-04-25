@@ -329,22 +329,22 @@ local getOverridesHl = function(mocha)
     DiagnosticFloatingHint = { fg = stateColors.hint }, -- Used to color "Hint" diagnostic messages in diagnostics float
 
     -- nvim float windows
-    FloatTitle = {
-      bg = mocha.mantle,
-      fg = mocha.subtext0,
-    },
-    NormalFloat = {
-      bg = mocha.mantle,
-    },
-    FloatBorder = {
-      bg = mocha.mantle,
-      fg = mocha.mantle,
-    },
+    FloatTitle = { bg = mocha.mantle, fg = mocha.subtext0 },
+    NormalFloat = { bg = mocha.mantle },
+    FloatBorder = { bg = mocha.mantle, fg = mocha.mantle },
+
+    -- nvim separators
+    WinSeparator = { fg = mocha.crust },
+    VertSplit = { fg = mocha.crust },
 
     -- nvim status bar
-    StatusLine = {
-      bg = mocha.base,
-    },
+    StatusLine = { bg = mocha.base },
+
+    -- nvim cursor
+    -- Cursor = {
+    --   bg = "NONE",
+    --   fg = mocha.green,
+    -- },
   }
 end
 
