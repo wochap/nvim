@@ -77,7 +77,11 @@ local function mode()
 end
 
 local function filetype_icon()
-  local icon, hl = require("nvim-web-devicons").get_icon(vim.fn.expand "%:t", nil, {
+  local has_nwd, nwd = pcall(require, "nvim-web-devicons")
+  if not has_nwd then
+    return ""
+  end
+  local icon, hl = nwd.get_icon(vim.fn.expand "%:t", nil, {
     default = true,
   })
   return hl_merge(hl, "StModule") .. icon .. " "
