@@ -102,8 +102,23 @@ local function filename()
   return filename
 end
 
+local branch_cache = {}
 local function git_branch()
   if not vim.b.gitsigns_head or vim.b.gitsigns_git_status then
+    local cwd = vim.loop.cwd()
+    if branch_cache[cwd] and branch_cache[cwd] ~= "" then
+      local branch_name = " " .. branch_cache[cwd]
+      return hl_str "StModuleAlt" .. branch_name
+    end
+    if branch_cache[cwd] ~= "" then
+      local output = vim.fn.systemlist "git rev-parse --abbrev-ref HEAD 2>/dev/null"
+      branch_cache[cwd] = #output > 0 and output[1] or ""
+      if branch_cache[cwd] == "" then
+        return ""
+      end
+      local branch_name = " " .. branch_cache[cwd]
+      return hl_str "StModuleAlt" .. branch_name
+    end
     return ""
   end
   local git_status = vim.b.gitsigns_status_dict
