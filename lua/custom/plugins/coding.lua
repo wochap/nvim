@@ -312,8 +312,8 @@ return {
         },
         snippet = {
           expand = function(args)
-            local has_luasnipt, luasnip = pcall(require, "luasnip")
-            if not has_luasnipt then
+            local has_luasnip, luasnip = pcall(require, "luasnip")
+            if not has_luasnip then
               return
             end
             luasnip.lsp_expand(args.body)
