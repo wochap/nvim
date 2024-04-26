@@ -58,7 +58,7 @@ return {
       },
     },
     opts = {
-      lang = "javascript",
+      lang = "cpp",
       description = {
         width = "50%",
       },
