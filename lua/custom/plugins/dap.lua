@@ -4,6 +4,7 @@ local lazyUtils = require "custom.utils.lazy"
 return {
   {
     "LiadOz/nvim-dap-repl-highlights",
+    event = { "LazyFile", "VeryLazy" },
   },
   {
     "nvim-treesitter/nvim-treesitter",

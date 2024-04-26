@@ -107,14 +107,13 @@ return {
       })
     end,
     config = function(_, opts)
-      local has_ndrh, ndrh = pcall(require, "nvim-dap-repl-highlights")
-      if has_ndrh then
-        ndrh.setup()
-      end
+      lazyUtils.on_load("nvim-dap-repl-highlights", function()
+        require("nvim-dap-repl-highlights").setup()
 
-      require("nvim-treesitter.configs").setup(opts)
+        require("nvim-treesitter.configs").setup(opts)
 
-      vim.treesitter.language.register("bash", "zsh")
+        vim.treesitter.language.register("bash", "zsh")
+      end)
     end,
   },
 
