@@ -50,9 +50,6 @@ M.in_leetcode = leet_arg == vim.fn.argv()[1]
 local kitty_arg = "kitty-scrollback"
 M.in_kittyscrollback = kitty_arg == vim.fn.argv()[1]
 
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-M.lazyPathExists = vim.loop.fs_stat(lazypath)
-
 -- M.transparent_background = not vim.g.neovide
 M.transparent_background = false
 

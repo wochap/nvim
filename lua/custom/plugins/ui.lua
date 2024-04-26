@@ -131,17 +131,13 @@ return {
       vim.opt.foldlevelstart = 99
       vim.opt.foldenable = true
 
-      -- HACK: don't setup this autocmd until lazy.nvim is installed
-      -- otherwise it will throw a bunch of errors
-      if constants.lazyPathExists then
-        utils.autocmd("FileType", {
-          group = utils.augroup "hide_ufo_folds",
-          pattern = constants.exclude_filetypes,
-          callback = function()
-            utils.disable_ufo()
-          end,
-        })
-      end
+      utils.autocmd("FileType", {
+        group = utils.augroup "hide_ufo_folds",
+        pattern = constants.exclude_filetypes,
+        callback = function()
+          utils.disable_ufo()
+        end,
+      })
     end,
     opts = {
       open_fold_hl_timeout = 400,
