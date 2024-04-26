@@ -107,8 +107,10 @@ return {
       })
     end,
     config = function(_, opts)
-      -- TODO: move to dap file
-      require("nvim-dap-repl-highlights").setup()
+      local has_ndrh, ndrh = pcall(require, "nvim-dap-repl-highlights")
+      if has_ndrh then
+        ndrh.setup()
+      end
 
       require("nvim-treesitter.configs").setup(opts)
 
