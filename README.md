@@ -10,8 +10,8 @@ The perfect blazingly fast Neovim configuration for myself, combining the aesthe
 ```sh
 $ git clone git@github.com:wochap/nvim.git ~/.config/nvim
 $ nvim
-# Wait for lazy.nvim to finish and restart nvim
-# NOTE: errors on the first time opening nvim with this config are expected
+# wait for lazy.nvim to finish and restart nvim
+# enter nvim and repeat once more
 ```
 
 **IMPORTANT:** I disabled nvim builtin syntax which caused severe lag on my system, re enable it commenting out the line `lua/custom/init.lua:6`. Alternatively, you can install the Treesitter parser for the specified language or enable syntax for that specified filetype in the current buffer with `:set syntax=<filetype>`.

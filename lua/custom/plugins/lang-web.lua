@@ -1,6 +1,14 @@
+local constants = require "custom.utils.constants"
+
 return {
-  { import = "lazyvim.plugins.extras.lang.tailwind" },
-  { import = "lazyvim.plugins.extras.linting.eslint" },
+  {
+    enabled = not constants.first_install,
+    import = "lazyvim.plugins.extras.lang.tailwind",
+  },
+  {
+    enabled = not constants.first_install,
+    import = "lazyvim.plugins.extras.linting.eslint",
+  },
 
   {
     "nvim-treesitter/nvim-treesitter",

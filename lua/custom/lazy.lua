@@ -1,3 +1,4 @@
+local constants = require "custom.utils.constants"
 local lazyUtils = require "custom.utils.lazy"
 
 -- Install `lazy.nvim` plugin manager
@@ -22,8 +23,14 @@ require("lazy").setup {
     },
 
     { import = "custom.plugins" },
-    { import = "lazyvim.plugins.extras.lang.json" },
-    { import = "lazyvim.plugins.extras.lang.yaml" },
+    {
+      enabled = not constants.first_install,
+      import = "lazyvim.plugins.extras.lang.json",
+    },
+    {
+      enabled = not constants.first_install,
+      import = "lazyvim.plugins.extras.lang.yaml",
+    },
   },
   defaults = {
     lazy = true,

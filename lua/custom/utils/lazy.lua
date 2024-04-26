@@ -1,10 +1,13 @@
 local keymapsUtils = require "custom.utils.keymaps"
+local constants = require "custom.utils.constants"
 
 local M = {}
 
 M.install = function()
   local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
   if not vim.loop.fs_stat(lazypath) then
+    constants.first_install = true
+
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
     vim.fn.system { "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath }
   end

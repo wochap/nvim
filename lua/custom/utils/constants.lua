@@ -56,4 +56,9 @@ M.lazyPathExists = vim.loop.fs_stat(lazypath)
 -- M.transparent_background = not vim.g.neovide
 M.transparent_background = false
 
+-- HACK: this variable is used to prevent importing
+-- specs from lazyvim on the first install
+-- otherwise, we end up with a bunch of errors
+M.first_install = false
+
 return M

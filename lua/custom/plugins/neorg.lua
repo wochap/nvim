@@ -1,3 +1,4 @@
+local constants = require "custom.utils.constants"
 local in_neorg = require("custom.utils.constants").in_neorg
 
 local function keybinds_hook(keybinds)
@@ -62,6 +63,7 @@ end
 return {
   {
     "nvim-neorg/neorg",
+    enabled = not constants.first_install,
     commit = "baaf13a3145534144b795ad37db22bfffd2ad343",
     lazy = not in_neorg,
     build = ":Neorg sync-parsers",
