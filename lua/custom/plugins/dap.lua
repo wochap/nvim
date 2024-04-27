@@ -68,7 +68,7 @@ return {
       {
         "jay-babu/mason-nvim-dap.nvim",
         cmd = { "DapInstall", "DapUninstall" },
-        opts = function()
+        opts = function(_, opts)
           return {
             ensure_installed = opts.ensure_installed or {},
             automatic_installation = true,
