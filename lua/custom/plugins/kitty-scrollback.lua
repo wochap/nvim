@@ -74,4 +74,16 @@ return {
       end)
     end,
   },
+
+  {
+    "fladson/vim-kitty",
+    ft = "kitty",
+    init = function()
+      utils.autocmd("FileType", {
+        pattern = "kitty",
+        group = utils.augroup "enable_kitty_syntax",
+        command = "set syntax=kitty",
+      })
+    end,
+  },
 }
