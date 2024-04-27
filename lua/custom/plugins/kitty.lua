@@ -1,3 +1,4 @@
+local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
 local in_kittyscrollback = require("custom.utils.constants").in_kittyscrollback
 
