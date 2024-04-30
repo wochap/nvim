@@ -108,6 +108,18 @@ for i = 1, #registers do
   end, nil, { expr = true, noremap = false })
 end
 
+-- fast macros execution
+registers = "abcdefghijklmnopqrstuvwxyz"
+for i = 1, #registers do
+  local register = registers:sub(i, i)
+
+  map("n", "@" .. register, function()
+    vim.opt.lazyredraw = true
+    vim.cmd.normal { "@" .. register, bang = true }
+    vim.opt.lazyredraw = false
+  end, nil, { noremap = true })
+end
+
 if vim.g.neovide then
   map({ "n", "v", "i", "c", "t" }, "<C-S-v>", keymapsUtils.paste, nil, { noremap = true })
 end
