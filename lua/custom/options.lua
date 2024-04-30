@@ -92,6 +92,7 @@ vim.opt.compatible = false
 -- max items in autocomplete menu
 vim.opt.pumheight = 15
 
+-- don't scroll after splitting
 vim.opt.splitkeep = "screen"
 
 -- NOTE: horizontal scrolling can be laggy with large horizontal lines because of regex highlighting
