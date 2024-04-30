@@ -95,6 +95,9 @@ vim.opt.pumheight = 15
 -- don't scroll after splitting
 vim.opt.splitkeep = "screen"
 
+-- fast macros execution
+vim.opt.lazyredraw = true
+
 -- NOTE: horizontal scrolling can be laggy with large horizontal lines because of regex highlighting
 vim.opt.wrap = false
 
