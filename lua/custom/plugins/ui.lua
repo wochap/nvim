@@ -23,12 +23,7 @@ return {
     end,
     opts = {
       input = {
-        -- not cover the word being renamed
-        override = function(conf)
-          conf.col = -1
-          conf.row = 0
-          return conf
-        end,
+        title_pos = "center",
       },
     },
   },

@@ -112,10 +112,11 @@ return {
         enable = true,
       },
       view = {
-        preserve_window_proportions = true,
+        side = "right",
+        preserve_window_proportions = false,
         width = {
-          min = 40,
-          max = 40,
+          min = 50,
+          max = 50,
           padding = 2,
         },
         signcolumn = "no",

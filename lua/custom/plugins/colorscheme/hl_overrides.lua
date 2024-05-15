@@ -1,5 +1,3 @@
-local constants = require "custom.utils.constants"
-
 local getColors = function(palette)
   return {
     state = {
@@ -16,6 +14,13 @@ local getColors = function(palette)
       ancestor = palette.text,
       stage = palette.mauve,
     },
+    float = {
+      bg = palette.mantle,
+    },
+    separator = {
+      bg = "NONE",
+      fg = palette.mantle,
+    },
   }
 end
 
@@ -23,6 +28,7 @@ local getExtraHl = function(mocha)
   local colorschemeUtils = require "custom.utils.colorscheme"
   local gitColors = getColors(mocha).git
   local stateColors = getColors(mocha).state
+  local floatColors = getColors(mocha).float
   local result = {}
 
   -- custom statusline
@@ -182,15 +188,15 @@ local getExtraHl = function(mocha)
     CmpItemAbbr = { fg = mocha.text },
     CmpItemAbbrMatch = { fg = mocha.blue, bold = true },
     CmpSel = { link = "PmenuSel", bold = true },
-    CmpPmenu = {
-      bg = mocha.mantle,
+    CmpPmenu = { bg = floatColors.bg },
+    CmpBorder = { fg = floatColors.bg, bg = floatColors.bg },
+    CmpDoc = {
+      bg = colorschemeUtils.darken(mocha.surface0, 0.54, mocha.base),
     },
-    CmpBorder = { fg = mocha.mantle, bg = mocha.mantle },
     CmpDocBorder = {
       fg = colorschemeUtils.darken(mocha.surface0, 0.54, mocha.base),
       bg = colorschemeUtils.darken(mocha.surface0, 0.54, mocha.base),
     },
-    CmpDoc = { bg = colorschemeUtils.darken(mocha.surface0, 0.54, mocha.base) },
   })
 end
 
@@ -198,6 +204,8 @@ local getOverridesHl = function(mocha)
   local colorschemeUtils = require "custom.utils.colorscheme"
   local gitColors = getColors(mocha).git
   local stateColors = getColors(mocha).state
+  local floatColors = getColors(mocha).float
+  local separatorColors = getColors(mocha).separator
 
   return {
     -- syntax
@@ -220,11 +228,8 @@ local getOverridesHl = function(mocha)
     TroubleNormal = { bg = mocha.base },
 
     -- nvim-tree.lua
-    NvimTreeNormal = { bg = mocha.mantle },
-    NvimTreeWinSeparator = {
-      fg = constants.transparent_background and mocha.mantle or mocha.base,
-      bg = constants.transparent_background and mocha.mantle or mocha.base,
-    },
+    NvimTreeNormal = { bg = mocha.base },
+    NvimTreeWinSeparator = separatorColors,
     NvimTreeEmptyFolderName = { fg = mocha.text },
     NvimTreeExecFile = { fg = mocha.text },
     NvimTreeFolderIcon = { fg = mocha.blue },
@@ -244,13 +249,13 @@ local getOverridesHl = function(mocha)
     NvimTreeGitFileDirtyHL = { link = "NvimTreeGitDirty" },
 
     -- telescope.nvim
-    TelescopeBorder = { fg = mocha.mantle, bg = mocha.mantle },
-    TelescopeNormal = { bg = mocha.mantle },
+    TelescopeBorder = { fg = floatColors.bg, bg = floatColors.bg },
+    TelescopeNormal = { bg = floatColors.bg },
     TelescopePromptBorder = { fg = mocha.surface0, bg = mocha.surface0 },
     TelescopePromptNormal = { bg = mocha.surface0 },
     TelescopePromptPrefix = { bg = mocha.surface0 },
-    TelescopePreviewTitle = { fg = mocha.base, bg = mocha.green },
     TelescopePromptTitle = { fg = mocha.base, bg = mocha.red },
+    TelescopePreviewTitle = { fg = mocha.base, bg = mocha.green },
     TelescopeResultsTitle = { fg = mocha.mantle, bg = mocha.lavender },
     TelescopeSelection = { fg = mocha.text, bg = mocha.surface0 },
 
@@ -329,13 +334,13 @@ local getOverridesHl = function(mocha)
     DiagnosticFloatingHint = { fg = stateColors.hint }, -- Used to color "Hint" diagnostic messages in diagnostics float
 
     -- nvim float windows
-    FloatTitle = { bg = mocha.mantle, fg = mocha.subtext0 },
-    NormalFloat = { bg = mocha.mantle },
-    FloatBorder = { bg = mocha.mantle, fg = mocha.mantle },
+    FloatTitle = { bg = floatColors.bg, fg = mocha.surface1 },
+    NormalFloat = { bg = floatColors.bg },
+    FloatBorder = { bg = floatColors.bg, fg = floatColors.bg },
 
     -- nvim separators
-    WinSeparator = { fg = mocha.crust },
-    VertSplit = { fg = mocha.crust },
+    WinSeparator = separatorColors,
+    VertSplit = separatorColors,
 
     -- nvim status bar
     StatusLine = { bg = mocha.base },
