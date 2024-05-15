@@ -63,7 +63,6 @@ M.on_attach = function(bufnr)
   -- END_DEFAULT_ON_ATTACH
 
   vim.keymap.set("n", "-", api.tree.change_root_to_node, opts "CD")
-  vim.keymap.set("n", "i", api.node.show_info_popup, opts "Info")
   vim.keymap.set("n", "!", api.node.run.cmd, opts "Run Command")
   vim.keymap.set("n", "<A-Up>", api.tree.change_root_to_parent, opts "Up")
   vim.keymap.set("n", "zO", api.tree.expand_all, opts "Expand All")
