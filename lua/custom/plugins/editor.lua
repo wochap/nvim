@@ -573,9 +573,8 @@ return {
   },
 
   {
-    "nvim-telescope/telescope.nvim",
-    url = "https://github.com/wochap/telescope.nvim.git",
-    commit = "37372a53bf792e5bbb1bb8704c78d865d996cb3c",
+    "wochap/telescope.nvim",
+    branch = "feat/vimgrep--json-may-2024",
     event = "VeryLazy",
     dependencies = {
       {
@@ -677,7 +676,7 @@ return {
           file_sorter = sorters.get_fuzzy_file,
           file_ignore_patterns = { "%.git/", "%.lock$", "%-lock.json$", "%.direnv/" },
           generic_sorter = sorters.get_generic_fuzzy_sorter,
-          path_display = { "truncate" },
+          path_display = { "truncate", "filename_first" },
           winblend = 0,
           border = {},
           set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
@@ -805,9 +804,7 @@ return {
   },
   -- integrate flash in telescope
   {
-    "nvim-telescope/telescope.nvim",
-    url = "https://github.com/wochap/telescope.nvim.git",
-    commit = "726dfed63e65131c60d10a3ac3f83b35b771aa83",
+    "wochap/telescope.nvim",
     optional = true,
     opts = function(_, opts)
       local flash = require("custom.utils.telescope").flash
