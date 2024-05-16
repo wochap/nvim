@@ -68,6 +68,9 @@ return {
         only_win = true,
       },
       window = {
+        overlap = {
+          borders = true,
+        },
         zindex = 10,
         margin = {
           horizontal = 0,
@@ -703,8 +706,7 @@ return {
         -- Available methods are false / true / "normal" / "lsp" / "both"
         -- True is same as normal
         tailwind = false, -- Enable tailwind colors
-        -- parsers can contain values used in |user_default_options|
-        sass = { enable = true, parsers = { "css" } }, -- Enable sass colors
+        sass = { enable = false }, -- Enable sass colors
         virtualtext = "■",
       },
     },
