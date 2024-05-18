@@ -90,6 +90,7 @@ return {
         },
         indent = {
           enable = true,
+          disable = { "yaml" },
         },
         highlight = {
           enable = true,
