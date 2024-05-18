@@ -45,7 +45,7 @@ Create a file `.volar` in the root of your project to disable typescript-tools a
 
 Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirements), Mason will install [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [conform.nvim](https://github.com/stevearc/conform.nvim), [nvim-lint](https://github.com/mfussenegger/nvim-lint) and [nvim-dap](https://github.com/mfussenegger/nvim-dap) dependencies
 
-- [neovim >= 0.10.0](https://github.com/neovim/neovim)
+- [neovim = 0.10.0](https://github.com/neovim/neovim)
 - [neovim-remote](https://github.com/mhinz/neovim-remote)
 - [kitty](https://sw.kovidgoyal.net/kitty) (recommended)
 - [tree-sitter](https://github.com/tree-sitter/tree-sitter)

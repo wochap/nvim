@@ -245,7 +245,7 @@ return {
   {
     "akinsho/bufferline.nvim",
     enabled = not in_kittyscrollback,
-    version = "*",
+    branch = "main",
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
