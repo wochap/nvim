@@ -134,10 +134,16 @@ return {
         open_file = {
           window_picker = {
             picker = function()
-              local winid = require("window-picker").pick_window()
-              if not winid then
+              local Filter = require "window-picker.filters.default-window-filter"
+              local filter = Filter:new()
+              local all_windows = vim.api.nvim_tabpage_list_wins(0)
+              local fwindows = filter:filter_windows(all_windows)
+
+              if #fwindows <= 1 then
                 return -1
               end
+
+              local winid = require("window-picker").pick_window()
               return winid
             end,
           },
@@ -681,14 +687,16 @@ return {
           border = {},
           set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
           mappings = {
-            n = {
-              ["q"] = actions.close,
-            },
             i = {
               ["<C-Down>"] = actions.cycle_history_next,
               ["<C-Up>"] = actions.cycle_history_prev,
               ["<esc>"] = actions.close,
               ["<C-S-v>"] = keymapsUtils.commandPaste,
+              ["<CR>"] = function(prompt_bufnr)
+                local action_set = require "telescope.actions.set"
+                action_set.edit(prompt_bufnr, "Pick")
+              end,
+              ["<S-CR>"] = actions.select_default,
             },
           },
           pickers = {

@@ -24,7 +24,6 @@ M.window_swap = function()
   local cur_bufnr = api.nvim_win_get_buf(cur_winid)
   local target_bufnr = api.nvim_win_get_buf(winid)
 
-
   api.nvim_win_set_buf(cur_winid, target_bufnr)
   api.nvim_win_set_buf(winid, cur_bufnr)
 
