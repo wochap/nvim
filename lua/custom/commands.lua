@@ -3,7 +3,7 @@ vim.api.nvim_create_user_command("LazyHealth", function()
   vim.cmd [[checkhealth]]
 end, { desc = "Load all plugins and run :checkhealth" })
 
-vim.api.nvim_create_user_command("Pick", function(e)
+vim.api.nvim_create_user_command("WindowPicker", function(e)
   local Filter = require "window-picker.filters.default-window-filter"
   local filter = Filter:new()
   local all_windows = vim.api.nvim_tabpage_list_wins(0)

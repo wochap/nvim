@@ -139,7 +139,7 @@ return {
               local all_windows = vim.api.nvim_tabpage_list_wins(0)
               local fwindows = filter:filter_windows(all_windows)
 
-              if #fwindows <= 1 then
+              if #fwindows < 1 then
                 return -1
               end
 
@@ -692,11 +692,11 @@ return {
               ["<C-Up>"] = actions.cycle_history_prev,
               ["<esc>"] = actions.close,
               ["<C-S-v>"] = keymapsUtils.commandPaste,
-              ["<CR>"] = function(prompt_bufnr)
+              ["<CR>"] = actions.select_default,
+              ["<S-CR>"] = function(prompt_bufnr)
                 local action_set = require "telescope.actions.set"
-                action_set.edit(prompt_bufnr, "Pick")
+                action_set.edit(prompt_bufnr, "WindowPicker")
               end,
-              ["<S-CR>"] = actions.select_default,
             },
           },
           pickers = {
