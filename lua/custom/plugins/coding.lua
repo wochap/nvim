@@ -177,14 +177,6 @@ return {
   },
 
   {
-    "wochap/emmet-vim",
-    event = "InsertEnter",
-    init = function()
-      vim.g.user_emmet_leader_key = "<C-z>"
-    end,
-  },
-
-  {
     "johmsalas/text-case.nvim",
     event = { "LazyFile", "VeryLazy" },
     keys = {
