@@ -356,6 +356,11 @@ return {
         "<cmd>LazyGit<CR>",
         desc = "open lazygit",
       },
+      {
+        "<leader>gL",
+        "<cmd>LazyGitCurrentFile<CR>",
+        desc = "open lazygit (relative root dir)",
+      },
     },
     init = function()
       vim.g.lazygit_floating_window_scaling_factor = 1 -- scaling factor for floating window
