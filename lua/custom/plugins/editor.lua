@@ -115,8 +115,8 @@ return {
         side = "right",
         preserve_window_proportions = false,
         width = {
-          min = 50,
-          max = 50,
+          min = 49,
+          max = 49,
           padding = 2,
         },
         signcolumn = "no",
