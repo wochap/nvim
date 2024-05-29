@@ -704,6 +704,13 @@ return {
               cwd_only = true,
             },
           },
+          preview = {
+            filesize_limit = 0.5,
+            highlight_limit = 0.5,
+            filetype_hook = function(filepath, _, _)
+              return not utils.is_minfile(filepath)
+            end,
+          },
         },
 
         extensions_list = { "fzf" },
