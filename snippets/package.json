@@ -14,11 +14,17 @@
         "path": "./javascript/javascript.json"
       },
       {
-        "language": "typescriptreact",
+        "language": [
+          "typescript",
+          "typescriptreact"
+        ],
         "path": "./javascript/react-ts.json"
       },
       {
-        "language": "javascriptreact",
+        "language": [
+          "javascript",
+          "javascriptreact"
+        ],
         "path": "./javascript/react.json"
       },
       {
@@ -29,7 +35,9 @@
         "path": "./javascript/typescript.json"
       },
       {
-        "language": "vue",
+        "language": [
+          "vue"
+        ],
         "path": "./javascript/vue.json"
       },
       {
@@ -56,11 +64,15 @@
         "path": "./html.json"
       },
       {
-        "language": "lua",
+        "language": [
+          "lua"
+        ],
         "path": "./lua.json"
       },
       {
-        "language": "nix",
+        "language": [
+          "nix"
+        ],
         "path": "./nix.json"
       }
     ]

@@ -234,7 +234,7 @@ return {
         },
         config = function(_, opts)
           require("luasnip").config.set_config(opts)
-          require("luasnip.loaders.from_vscode").lazy_load { paths = vim.fn.stdpath "config" .. "/snippets" }
+          require("luasnip.loaders.from_vscode").load { paths = vim.fn.stdpath "config" .. "/snippets" }
           vim.api.nvim_create_autocmd("InsertLeave", {
             callback = function()
               if
