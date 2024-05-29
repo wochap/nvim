@@ -98,6 +98,19 @@ local function relative_path()
   local filename = vim.api.nvim_buf_get_name(0)
   local relative_path = vim.fn.fnamemodify(filename, ":~:.")
   relative_path = string.sub(relative_path, 1, -1 + string.len(filename_str) * -1)
+
+  if string.len(relative_path) > 60 then
+    local parts = {}
+    for part in string.gmatch(relative_path, "[^/]+") do
+      table.insert(parts, part)
+    end
+    if #parts > 2 then
+      local first_folder = parts[1]
+      local last_folder = parts[#parts]
+      relative_path = first_folder .. "/…/" .. last_folder .. "/"
+    end
+  end
+
   return hl_merge("StRelativePath", "StModule") .. relative_path
 end
 
