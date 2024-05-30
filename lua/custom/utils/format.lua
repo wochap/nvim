@@ -1,33 +1,22 @@
 local M = {}
 
-M.formatters = {}
-
 M.register = function(formatter)
-  M.formatters[#M.formatters + 1] = formatter
-  table.sort(M.formatters, function(a, b)
-    return a.priority > b.priority
-  end)
+  local lazyvimFormatUtils = require "lazyvim.util.format"
+  lazyvimFormatUtils.register(formatter)
 end
 
-function M.resolve(buf)
-  buf = buf or vim.api.nvim_get_current_buf()
-  local have_primary = false
-  return vim.tbl_map(function(formatter)
-    local sources = formatter.sources(buf)
-    local active = #sources > 0 and (not formatter.primary or not have_primary)
-    have_primary = have_primary or (active and formatter.primary) or false
-    return setmetatable({
-      active = active,
-      resolved = sources,
-    }, { __index = formatter })
-  end, M.formatters)
+M.resolve = function(buf)
+  local lazyvimFormatUtils = require "lazyvim.util.format"
+  return lazyvimFormatUtils.resolve(buf)
 end
 
-function M.format(opts)
+M.format = function(opts)
   local lazyCoreUtils = require "lazy.core.util"
   opts = opts or {}
   local buf = opts.buf or vim.api.nvim_get_current_buf()
-
+  if not (opts and opts.force) then
+    return
+  end
   local done = false
   for _, formatter in ipairs(M.resolve(buf)) do
     if formatter.active then
@@ -37,13 +26,13 @@ function M.format(opts)
       end, { msg = "Formatter `" .. formatter.name .. "` failed" })
     end
   end
-
   if not done and opts and opts.force then
     lazyCoreUtils.warn("No formatter available", { title = "Conform" })
   end
 end
 
 M.info = function(buf)
+  local lazyCoreUtils = require "lazy.core.util"
   buf = buf or vim.api.nvim_get_current_buf()
   local lines = {
     "# Status",
@@ -61,6 +50,7 @@ M.info = function(buf)
   if not have then
     lines[#lines + 1] = "\n***No formatters available for this buffer.***"
   end
+  lazyCoreUtils.info(table.concat(lines, "\n"), { title = "CustomFormat" })
 end
 
 M.setup = function()
