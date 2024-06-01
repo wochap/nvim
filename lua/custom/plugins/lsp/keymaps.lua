@@ -120,7 +120,7 @@ M.get = function()
       has = "inlayHint",
     },
     {
-      "<leader>lR",
+      "<leader>lH",
       "<cmd>LspLensToggle<CR>",
       desc = "Toggle inlay hints references",
       has = "inlayHint",
