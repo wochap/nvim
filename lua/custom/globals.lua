@@ -25,3 +25,6 @@ if vim.g.neovide then
   vim.g.neovide_floating_blur_amount_x = 0
   vim.g.neovide_floating_blur_amount_y = 0
 end
+
+vim.g.foot = os.getenv "TERM" == "foot"
+vim.g.kitty = os.getenv "TERM" == "xterm-kitty"
