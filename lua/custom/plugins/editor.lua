@@ -251,6 +251,7 @@ return {
 
   {
     "folke/trouble.nvim",
+    tag = "v2.10.0",
     cmd = { "TroubleToggle", "Trouble" },
     keys = {
       {
@@ -279,18 +280,13 @@ return {
         desc = "toggle quicklist",
       },
       {
-        "gr",
-        "<cmd>TroubleToggle lsp_references<cr>",
-        desc = "toggle references",
-      },
-      {
         "[x",
-        "<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>",
+        "<cmd>lua require('trouble').previous({ jump = true })<CR>",
         desc = "go to prev troublelist item",
       },
       {
         "]x",
-        "<cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>",
+        "<cmd>lua require('trouble').next({ jump = true })<CR>",
         desc = "go to next troublelist item",
       },
     },
@@ -332,6 +328,7 @@ return {
       padding = false,
       indent_lines = false,
       auto_jump = {},
+      multiline = false,
     },
   },
   {
