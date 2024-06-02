@@ -475,8 +475,7 @@ return {
       fast_wrap = {},
       disable_filetype = { "TelescopePrompt", "spectre_panel", "vim" },
       check_ts = true,
-      -- Don't add pairs if the next char is alphanumeric
-      ignored_next_char = "[%w%.<\"(]",
+      map_bs = false,
     },
     config = function(_, opts)
       require("nvim-autopairs").setup(opts)
