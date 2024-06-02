@@ -268,7 +268,7 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
     },
-    opts = function()
+    opts = function(_, opts)
       local cmp = require "cmp"
       local defaults = require "cmp.config.default"()
       return {
@@ -325,7 +325,11 @@ return {
         },
         formatting = {
           fields = { "abbr", "kind", "menu" },
-          format = function(_, item)
+          format = function(entry, item)
+            if opts and opts.formatting and opts.formatting.format then
+              opts.formatting.format(entry, item)
+            end
+
             local icon = " " .. iconsUtils.lspkind[item.kind] .. " "
             item.kind = string.format("%s %s", icon, item.kind)
             -- limit str length
