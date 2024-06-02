@@ -8,6 +8,13 @@ return {
   {
     "stevearc/oil.nvim",
     cmd = { "Oil" },
+    keys = {
+      {
+        "<leader>o",
+        "<cmd>Oil<CR>",
+        desc = "open Oil",
+      },
+    },
     opts = {
       columns = {
         {
