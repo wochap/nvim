@@ -250,51 +250,6 @@ return {
   },
 
   {
-    "folke/todo-comments.nvim",
-    event = "LazyFile",
-    cmd = { "TodoTrouble", "TodoTelescope" },
-    keys = {
-      {
-        "<leader>tl",
-        "<cmd>TodoQuickFix<cr>",
-        desc = "show in loclist",
-      },
-      {
-        "<leader>tq",
-        "<cmd>TodoLocList<cr>",
-        desc = "show in quicklist",
-      },
-      {
-        "[t",
-        "<cmd>lua require('todo-comments').jump_prev({keywords = { 'TODO', 'HACK', 'FIX' }})<CR>",
-        desc = "go to prev todo|hack|fix comment",
-      },
-      {
-        "]t",
-        "<cmd>lua require('todo-comments').jump_next({keywords = { 'TODO', 'HACK', 'FIX' }})<CR>",
-        desc = "go to next todo|hack|fix comment",
-      },
-    },
-    opts = {
-      signs = false,
-      highlight = {
-        before = "", -- "fg" or "bg" or empty
-        keyword = "fg", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
-        after = "", -- "fg" or "bg" or empty
-      },
-    },
-  },
-  {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      defaults = {
-        ["<leader>t"] = { name = "todo" },
-      },
-    },
-  },
-
-  {
     "folke/trouble.nvim",
     cmd = { "TroubleToggle", "Trouble" },
     keys = {
