@@ -205,6 +205,29 @@ return {
       },
     },
   },
+  {
+    "antosha417/nvim-lsp-file-operations",
+    event = "LspAttach",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    opts = {
+      operations = {
+        willRenameFiles = true,
+        didRenameFiles = true,
+        willCreateFiles = false,
+        didCreateFiles = false,
+        willDeleteFiles = false,
+        didDeleteFiles = false,
+      },
+      timeout_ms = 1000,
+    },
+    config = function(_, opts)
+      lazyUtils.on_load("nvim-tree.lua", function()
+        require("lsp-file-operations").setup(opts)
+      end)
+    end,
+  },
 
   {
     "nvim-neo-tree/neo-tree.nvim",
