@@ -34,6 +34,10 @@ vim.opt.breakindent = true
 -- Save undo history
 vim.opt.undofile = true
 
+-- Don't store backup while overwriting the file
+vim.opt.backup = false
+vim.opt.writebackup = false
+
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -51,7 +55,7 @@ vim.opt.splitbelow = true
 
 -- Sets how neovim will display certain whitespace in the editor.
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = { tab = "» ", extends = "…", precedes = "…", trail = "·", nbsp = "␣" }
 vim.opt.fillchars = {
   eob = " ",
   diff = "╱",
@@ -81,8 +85,17 @@ vim.opt.smartindent = false -- fix indent of line starting with `#`
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 
+-- Allow going past the end of line in visual block mode
+vim.opt.virtualedit = "block"
+
+-- Don't autoformat comments
+vim.opt.formatoptions = "qjl1"
+
 -- disable nvim intro
 vim.opt.shortmess:append "sI"
+
+-- Reduce command line messages
+vim.opt.shortmess:append "WcC"
 
 -- enable 24-bit colour
 vim.opt.termguicolors = true

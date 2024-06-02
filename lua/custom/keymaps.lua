@@ -68,6 +68,10 @@ map("i", "<A-S-Right>", "<C-o>W", "move forward one entire word")
 map("i", "<A-e>", "<C-o>e", "")
 map("i", "<A-S-e>", "<C-o>E", "")
 
+-- toggling
+map("n", [[\]] .. "s", "<cmd>setlocal spell!<CR>", "Toggle 'spell'")
+map("n", [[\]] .. "w", "<cmd>setlocal wrap!<CR>", "Toggle 'wrap'")
+
 -- misc
 map("n", "<C-y>", "<cmd> %y+ <CR>", "copy whole file")
 map({ "n", "i", "v" }, "<C-s>", "<Esc>:w <CR>", "save buffer")
