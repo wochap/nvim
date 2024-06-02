@@ -495,37 +495,8 @@ return {
   },
   {
     "numToStr/Comment.nvim",
+    event = "LazyFile",
     keys = {
-      {
-        "gcc",
-        desc = "Comment toggle current line",
-        mode = "n",
-      },
-      {
-        "gc",
-        desc = "Comment toggle linewise",
-        mode = { "n", "o" },
-      },
-      {
-        "gc",
-        desc = "Comment toggle linewise (visual)",
-        mode = "x",
-      },
-      {
-        "gbc",
-        desc = "Comment toggle current block",
-        mode = "n",
-      },
-      {
-        "gb",
-        desc = "Comment toggle blockwise",
-        mode = { "n", "o" },
-      },
-      {
-        "gb",
-        desc = "Comment toggle blockwise (visual)",
-        mode = "x",
-      },
       {
         "<leader>/",
         function()
@@ -535,7 +506,10 @@ return {
       },
       {
         "<leader>/",
-        "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+        function()
+          vim.cmd "normal! <Esc>"
+          require("Comment.api").toggle.linewise(vim.fn.visualmode())
+        end,
         desc = "Toggle comment",
         mode = "v",
       },
