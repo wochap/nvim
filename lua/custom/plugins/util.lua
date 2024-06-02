@@ -312,7 +312,7 @@ return {
   },
 
   {
-    "s1n7ax/nvim-window-picker",
+    "wochap/nvim-window-picker",
     name = "window-picker",
     keys = {
       -- focus windows

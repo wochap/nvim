@@ -4,9 +4,9 @@ local api = vim.api
 local fn = vim.fn
 
 M.window_pick = function()
-  local winid = require("window-picker").pick_window()
+  local ok, winid = pcall(require("window-picker").pick_window)
 
-  if not winid then
+  if not ok or not winid then
     return
   end
 
@@ -14,9 +14,9 @@ M.window_pick = function()
 end
 
 M.window_swap = function()
-  local winid = require("window-picker").pick_window()
+  local ok, winid = pcall(require("window-picker").pick_window)
 
-  if not winid then
+  if not ok or not winid then
     return
   end
 

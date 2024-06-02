@@ -141,16 +141,12 @@ return {
         open_file = {
           window_picker = {
             picker = function()
-              local Filter = require "window-picker.filters.default-window-filter"
-              local filter = Filter:new()
-              local all_windows = vim.api.nvim_tabpage_list_wins(0)
-              local fwindows = filter:filter_windows(all_windows)
+              local ok, winid = pcall(require("window-picker").pick_window)
 
-              if #fwindows < 1 then
+              if not ok then
                 return -1
               end
 
-              local winid = require("window-picker").pick_window()
               return winid
             end,
           },
