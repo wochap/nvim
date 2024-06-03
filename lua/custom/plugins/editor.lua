@@ -460,7 +460,7 @@ return {
         },
         {
           "<leader>fb",
-          "<cmd>Telescope buffers sort_mru=true sort_lastused=true <CR>",
+          "<cmd>Telescope buffers sort_mru=true ignore_current_buffer=true <CR>",
           desc = "find buffers",
         },
         {
