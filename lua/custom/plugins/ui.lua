@@ -250,11 +250,6 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       {
-        "<leader>fK",
-        "<Cmd>BufferLineCloseOthers<CR>",
-        desc = "close other buffers!",
-      },
-      {
         "<S-Right>",
         function()
           local bufferline = require "bufferline"

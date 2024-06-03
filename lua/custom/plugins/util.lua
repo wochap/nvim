@@ -2,6 +2,7 @@ local utils = require "custom.utils"
 local iconsUtils = require "custom.utils.icons"
 local keymapsUtils = require "custom.utils.keymaps"
 local windowPickerUtils = require "custom.utils.window-picker"
+local constants = require "custom.utils.constants"
 
 return {
   {
@@ -166,15 +167,21 @@ return {
       {
         "<leader>fk",
         function()
-          require("close_buffers").delete { type = "other" }
-          vim.schedule(function()
-            pcall(nvim_bufferline)
-          end)
+          require("close_buffers").delete { type = "hidden" }
         end,
         desc = "close other buffers",
       },
+      {
+        "<leader>fK",
+        function()
+          require("close_buffers").delete { type = "hidden", force = true }
+        end,
+        desc = "close other buffers!",
+      },
     },
-    opts = {},
+    opts = {
+      filetype_ignore = constants.exclude_filetypes,
+    },
   },
 
   {
