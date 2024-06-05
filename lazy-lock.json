@@ -25,6 +25,7 @@
   "goto-breakpoints.nvim": { "branch": "master", "commit": "d14776899eda4023667b246e5c53c14a7c41f88e" },
   "guess-indent.nvim": { "branch": "main", "commit": "b8ae749fce17aa4c267eec80a6984130b94f80b2" },
   "harpoon": { "branch": "master", "commit": "ccae1b9bec717ae284906b0bf83d720e59d12b91" },
+  "highlight-undo.nvim": { "branch": "main", "commit": "1ea1c79372d7d93c88fd97543880927b7635e3d2" },
   "inc-rename.nvim": { "branch": "main", "commit": "367c6eb3bff6f401d5308b6e50cb68dcf543920d" },
   "incline.nvim": { "branch": "main", "commit": "16fc9c073e3ea4175b66ad94375df6d73fc114c0" },
   "indent-blankline.nvim": { "branch": "master", "commit": "d98f537c3492e87b6dc6c2e3f66ac517528f406f" },
