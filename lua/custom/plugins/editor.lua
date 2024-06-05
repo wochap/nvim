@@ -224,6 +224,20 @@ return {
       end)
     end,
   },
+  {
+    "neovim/nvim-lspconfig",
+    optional = true,
+    opts = {
+      capabilities = {
+        workspace = {
+          fileOperations = {
+            didRename = true,
+            willRename = true,
+          },
+        },
+      },
+    },
+  },
 
   {
     "kdheepak/lazygit.nvim",
