@@ -17,9 +17,13 @@ require("lazy").setup {
     {
       "LazyVim/LazyVim",
       version = false,
-      commit = "68ff818a5bb7549f90b05e412b76fe448f605ffb",
+      commit = "987bd2207f7f2f7f72f65b0e7e811ec04c03aa32",
       priority = 10000,
-      config = function() end,
+      config = function()
+        _G.lazyvim_docs = false
+        -- required by lazyvim extras using `LazyVim.extras.wants`
+        _G.LazyVim = require "lazyvim.util"
+      end,
     },
 
     { import = "custom.plugins" },
