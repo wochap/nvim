@@ -27,6 +27,7 @@ M.get = function()
       "gD",
       vim.lsp.buf.declaration,
       desc = "Goto Declaration",
+      has = "declaration",
     },
     {
       "gd",
