@@ -506,10 +506,7 @@ return {
       },
       {
         "<leader>/",
-        function()
-          vim.cmd "normal! <Esc>"
-          require("Comment.api").toggle.linewise(vim.fn.visualmode())
-        end,
+        "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
         desc = "Toggle comment",
         mode = "v",
       },
