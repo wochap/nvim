@@ -709,4 +709,19 @@ return {
       },
     },
   },
+
+  {
+    "tzachar/highlight-undo.nvim",
+    event = "LazyFile",
+    opts = {
+      duration = 200,
+      undo = {
+        hlgroup = "Visual",
+      },
+      redo = {
+        hlgroup = "Visual",
+      },
+      highlight_for_count = true,
+    },
+  },
 }
