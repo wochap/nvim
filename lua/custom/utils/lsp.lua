@@ -81,4 +81,8 @@ M.toggle_inlay_hints = function(buf, value)
   return require("lazyvim.util.toggle").inlay_hints(buf, value)
 end
 
+M.get_pkg_path = function(pkg, path, opts)
+  return require("lazyvim.util").get_pkg_path(pkg, path, opts)
+end
+
 return M

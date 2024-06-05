@@ -189,15 +189,6 @@ return {
       if have_mason then
         mlsp.setup { ensure_installed = ensure_installed, handlers = { setup } }
       end
-      -- disable typescript-tools if project has `.volar` file at the root
-      -- disable tsserver if project doesn't have `.volar` file at the root
-      if lspUtils.get_config "volar" and lspUtils.get_config "typescript-tools" and lspUtils.get_config "tsserver" then
-        local is_vue = require("lspconfig.util").root_pattern ".volar"
-        lspUtils.disable("typescript-tools", is_vue)
-        lspUtils.disable("tsserver", function(root_dir)
-          return not is_vue(root_dir)
-        end)
-      end
     end,
   },
   {

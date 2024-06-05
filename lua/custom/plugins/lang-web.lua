@@ -1,4 +1,5 @@
 local constants = require "custom.utils.constants"
+local lspUtils = require "custom.utils.lsp"
 
 return {
   {
@@ -31,7 +32,13 @@ return {
     end,
   },
 
-  { "pmizio/typescript-tools.nvim" },
+  {
+    "yioneko/nvim-vtsls",
+    opts = {},
+    config = function(_, opts)
+      require("vtsls").config(opts)
+    end,
+  },
   {
     "neovim/nvim-lspconfig",
     optional = true,
@@ -86,104 +93,106 @@ return {
             showSuggestionsAsSnippets = true,
           },
         },
-        tsserver = {
+        vtsls = {
           filetypes = {
             "javascript",
-            "javascript.jsx",
             "javascriptreact",
+            "javascript.jsx",
             "typescript",
-            "typescript.tsx",
             "typescriptreact",
+            "typescript.tsx",
             "vue",
           },
-          init_options = {
-            preferences = {
-              importModuleSpecifierPreference = "non-relative",
-
-              includeInlayEnumMemberValueHints = true,
-              includeInlayFunctionLikeReturnTypeHints = false,
-              includeInlayFunctionParameterTypeHints = false,
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayPropertyDeclarationTypeHints = false,
-              includeInlayVariableTypeHints = false,
-            },
-            plugins = {
-              {
-                name = "@vue/typescript-plugin",
-                location = vim.fn.expand "$HOME/.npm-packages/lib/node_modules/@vue/typescript-plugin",
-                languages = { "javascript", "typescript", "vue" },
-              },
-            },
-          },
-        },
-        ["typescript-tools"] = {
-          filetypes = {
-            "javascript",
-            "javascript.jsx",
-            "javascriptreact",
-            "typescript",
-            "typescript.tsx",
-            "typescriptreact",
-            "vue",
-          },
-          mason = false,
           keys = {
             {
+              "gS",
+              function()
+                require("vtsls").commands.goto_source_definition(0)
+              end,
+              desc = "Goto Source Definition",
+            },
+            {
+              "gR",
+              function()
+                require("vtsls").commands.file_references(0)
+              end,
+              desc = "File References",
+            },
+            {
               "<leader>lo",
-              "<cmd>TSToolsOrganizeImports<cr>",
+              function()
+                require("vtsls").commands.organize_imports(0)
+              end,
               desc = "Organize Imports",
             },
             {
-              "<leader>lu",
-              "<cmd>TSToolsRemoveUnusedImports<cr>",
-              desc = "Remove Unused Imports",
-            },
-            {
-              "<leader>lR",
-              "<cmd>TSToolsRenameFile<cr>",
-              desc = "Rename File",
-            },
-            {
-              "<leader>ls",
-              "<cmd>TSToolsSortImports<cr>",
-              desc = "Sort Imports",
-            },
-            {
               "<leader>lm",
-              "<cmd>TSToolsAddMissingImports<cr>",
-              desc = "Add Missing Imports",
+              function()
+                require("vtsls").commands.add_missing_imports(0)
+              end,
+              desc = "Add missing imports",
             },
             {
-              "gd",
-              "<cmd>TSToolsGoToSourceDefinition<cr>",
-              desc = "Goto Source Definition",
+              "<leader>lu",
+              function()
+                require("vtsls").commands.remove_unused_imports(0)
+              end,
+              desc = "Remove unused imports",
+            },
+            {
+              "<leader>lD",
+              function()
+                require("vtsls").commands.fix_all(0)
+              end,
+              desc = "Fix all diagnostics",
+            },
+            {
+              "<leader>lT",
+              function()
+                require("vtsls").commands.select_ts_version(0)
+              end,
+              desc = "Select TS workspace version",
             },
           },
           settings = {
-            -- tsserver settings
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                },
+              },
+              tsserver = {
+                globalPlugins = {
+                  {
+                    name = "@vue/typescript-plugin",
+                    location = lspUtils.get_pkg_path("vue-language-server", "/node_modules/@vue/language-server"),
+                    languages = { "vue" },
+                    configNamespace = "typescript",
+                    enableForWorkspaceTypeScriptVersions = true,
+                  },
+                },
+              },
+            },
             typescript = {
               format = {
                 indentSize = vim.o.shiftwidth,
                 convertTabsToSpaces = vim.o.expandtab,
                 tabSize = vim.o.tabstop,
               },
-            },
-            javascript = {
-              format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
+              preferences = { importModuleSpecifier = "non-relative" },
+              updateImportsOnFileMove = { enabled = "always" },
+              suggest = { completeFunctionCalls = true },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = false },
+                parameterNames = { enabled = "all" },
+                parameterTypes = { enabled = false },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = false },
               },
-            },
-            completions = {
-              completeFunctionCalls = true,
-            },
-
-            -- typescript-tools settings
-            tsserver_plugins = {
-              -- FIXME: find a way to pass location and languages like in tsserver config
-              "@vue/typescript-plugin",
             },
           },
         },
@@ -205,10 +214,10 @@ return {
         },
       },
       setup = {
-        -- NOTE: typescript-tools.nvim will not spawn a tsserver client, it will spawn typescript-tools client
-        ["typescript-tools"] = function(_, opts)
-          require("typescript-tools").setup(opts)
-          return true
+        vtsls = function(_, opts)
+          -- copy typescript settings to javascript
+          opts.settings.javascript =
+            vim.tbl_deep_extend("force", {}, opts.settings.typescript, opts.settings.javascript or {})
         end,
       },
     },
