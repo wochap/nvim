@@ -311,14 +311,25 @@ return {
     "VidocqH/lsp-lens.nvim",
     event = "LazyFile",
     opts = {
-      enable = false,
+      enable = true,
       include_declaration = false,
       sections = {
         definition = false,
         references = true,
-        implementation = false,
+        implements = false,
         git_authors = false,
       },
     },
+    config = function(_, opts)
+      require("lsp-lens").setup(opts)
+
+      -- override lsp_lens augroup, update its event list
+      local lens = require "lsp-lens.lens-util"
+      local augroup = vim.api.nvim_create_augroup("lsp_lens", { clear = true })
+      vim.api.nvim_create_autocmd({ "LspAttach", "InsertLeave", "CursorHold", "BufEnter" }, {
+        group = augroup,
+        callback = lens.procedure,
+      })
+    end,
   },
 }
