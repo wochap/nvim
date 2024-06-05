@@ -107,23 +107,34 @@ M.get = function()
       has = "rename",
     },
     {
-      "<leader>lh",
+      "<leader>lr",
       function()
-        local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-        if type(ih) == "function" then
-          ih(nil, nil)
-        elseif type(ih) == "table" and ih.enable then
-          ih.enable(nil, not ih.is_enabled(nil))
-        end
+        local inc_rename = require "inc_rename"
+        return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand "<cword>"
       end,
-      desc = "Toggle inlay hints in current buffer",
+      expr = true,
+      desc = "Rename",
+      has = "rename",
+    },
+    {
+      "<leader>lR",
+      function()
+        require("lazyvim.util.lsp").rename_file()
+      end,
+      desc = "Rename file",
+      has = { "workspace/didRenameFiles", "workspace/willRenameFiles" },
+    },
+    {
+      [[\]] .. "h",
+      lspUtils.toggle_inlay_hints,
+      desc = "Toggle 'inlay hints'",
       has = "inlayHint",
     },
     {
-      "<leader>lH",
+      [[\]] .. "c",
       "<cmd>LspLensToggle<CR>",
-      desc = "Toggle inlay hints references",
-      has = "inlayHint",
+      desc = "Toggle 'codelens'",
+      has = "codeLens",
     },
     {
       "<leader>ld",
@@ -157,14 +168,7 @@ M.get = function()
 end
 
 function M.has(buffer, method)
-  method = method:find "/" and method or "textDocument/" .. method
-  local clients = lspUtils.get_clients { bufnr = buffer }
-  for _, client in ipairs(clients) do
-    if client.supports_method(method) then
-      return true
-    end
-  end
-  return false
+  return require("lazyvim.plugins.lsp.keymaps").has(buffer, method)
 end
 
 function M.resolve(buffer)
