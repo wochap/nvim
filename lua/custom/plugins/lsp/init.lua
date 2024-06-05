@@ -189,17 +189,6 @@ return {
       if have_mason then
         mlsp.setup { ensure_installed = ensure_installed, handlers = { setup } }
       end
-
-      -- disable typescript-tools if project use deno
-      -- source: https://github.com/LazyVim/LazyVim/blob/5b89bc8/lua/lazyvim/plugins/lsp/init.lua:197
-      if lspUtils.get_config "denols" and lspUtils.get_config "typescript-tools" then
-        local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
-        lspUtils.disable("typescript-tools", is_deno)
-        lspUtils.disable("denols", function(root_dir)
-          return not is_deno(root_dir)
-        end)
-      end
-
       -- disable typescript-tools if project has `.volar` file at the root
       -- disable tsserver if project doesn't have `.volar` file at the root
       if lspUtils.get_config "volar" and lspUtils.get_config "typescript-tools" and lspUtils.get_config "tsserver" then
