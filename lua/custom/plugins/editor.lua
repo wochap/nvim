@@ -663,6 +663,9 @@ return {
       prompt = {
         enabled = true,
         prefix = { { " FLASH ", "FlashPromptMode" }, { " ", "FlashPromptModeSep" } },
+        win_config = {
+          row = -2,
+        },
       },
     },
   },
