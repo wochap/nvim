@@ -4,14 +4,22 @@ vim.api.nvim_create_user_command("LazyHealth", function()
 end, { desc = "Load all plugins and run :checkhealth" })
 
 vim.api.nvim_create_user_command("WindowPicker", function(e)
+  local file = e.fargs[1]
+  if file == nil then
+    return
+  end
+
+  -- unquote file string, lazyvim send it quoted
+  if vim.startswith(file, '"') and vim.endswith(file, '"') then
+    file = file:sub(2, -2)
+  end
+
   local ok, winid = pcall(require("window-picker").pick_window, {
     include_current_win = true,
   })
 
   if not ok then
-    if e.fargs[1] ~= nil then
-      vim.cmd("e " .. e.fargs[1])
-    end
+    vim.cmd("edit " .. file)
     return
   end
 
@@ -20,7 +28,5 @@ vim.api.nvim_create_user_command("WindowPicker", function(e)
   end
 
   vim.api.nvim_set_current_win(winid)
-  if e.fargs[1] ~= nil then
-    vim.cmd("e " .. e.fargs[1])
-  end
+  vim.cmd("edit " .. file)
 end, { nargs = "?", complete = "file" })
