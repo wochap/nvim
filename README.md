@@ -22,10 +22,6 @@ $ nvim
 
 **IMPORTANT:** I disabled nvim builtin syntax which caused severe lag on my system, re enable it commenting out the line `lua/custom/init.lua:6`. Alternatively, you can install the Treesitter parser for the specified language or enable syntax for that specified filetype in the current buffer with `:set syntax=<filetype>`.
 
-### Vue projects
-
-Create a file `.volar` in the root of your project to disable typescript-tools and enable tsserver, only tsserver can use @vue/typescript-plugin for now...
-
 ## Troubleshooting
 
 - Lag
@@ -64,7 +60,6 @@ Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirem
 - statix (required by [nvim-lint](https://github.com/mfussenegger/nvim-lint))
 - [ts-node](https://www.npmjs.com/package/ts-node) (required by [nvim-dap](https://github.com/mfussenegger/nvim-dap))
 - [typescript](https://www.npmjs.com/package/typescript) (required by [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig))
-- [@vue/typescript-plugin](https://www.npmjs.com/package/@vue/typescript-plugin) (required by [typescript-tools.nvim](https://www.npmjs.com/package/@vue/typescript-plugin) and [tsserver](https://github.com/typescript-language-server/typescript-language-server))
 - [marksman](https://github.com/artempyanykh/marksman) (required by [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig))
 
 ## Tips to learn to use this nvim config
