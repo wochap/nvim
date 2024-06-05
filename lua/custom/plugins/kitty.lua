@@ -5,13 +5,14 @@ local in_kittyscrollback = require("custom.utils.constants").in_kittyscrollback
 return {
   {
     "mikesmithgh/kitty-scrollback.nvim",
-    enabled = in_kittyscrollback,
     event = { "User KittyScrollbackLaunch" },
     cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
     commit = "af95c02d558216202639609a56123fed9d8fb193",
     init = function()
-      vim.opt.showtabline = 0
-      vim.opt.laststatus = 0
+      if in_kittyscrollback then
+        vim.opt.showtabline = 0
+        vim.opt.laststatus = 0
+      end
     end,
     opts = {
       callbacks = {
