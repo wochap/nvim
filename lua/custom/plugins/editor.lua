@@ -120,10 +120,10 @@ return {
       },
       view = {
         side = "right",
-        preserve_window_proportions = false,
+        preserve_window_proportions = true,
         width = {
-          min = 49,
-          max = 49,
+          min = 50,
+          max = 50,
           padding = 2,
         },
         signcolumn = "no",
@@ -200,6 +200,17 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      require("nvim-tree").setup(opts)
+      local api = require "nvim-tree.api"
+      local Event = api.events.Event
+      api.events.subscribe(Event.TreeOpen, function()
+        vim.cmd ":wincmd ="
+      end)
+      api.events.subscribe(Event.TreeClose, function()
+        vim.cmd ":wincmd ="
+      end)
+    end,
   },
   {
     "antosha417/nvim-lsp-file-operations",
