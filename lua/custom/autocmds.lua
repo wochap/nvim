@@ -114,6 +114,14 @@ utils.autocmd({ "SwapExists" }, {
   command = 'let v:swapchoice = "e"',
 })
 
+utils.autocmd({ "FileType" }, {
+  group = utils.augroup "enable_editorconfig_syntax",
+  pattern = { "editorconfig" },
+  callback = function()
+    vim.opt_local.syntax = "editorconfig"
+  end,
+})
+
 utils.autocmd("FileType", {
   pattern = "conf",
   group = utils.augroup "enable_conf_syntax",
