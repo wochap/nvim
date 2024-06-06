@@ -113,7 +113,7 @@ M.live_grep = function()
   }
 
   actions.glob_filter = function(prompt_bufnr)
-    local glob = vim.fn.input "Enter glob filter: "
+    local glob = vim.fn.input("Enter glob filter: ", state.glob)
     vim.api.nvim_command "normal :esc<CR>"
     state.glob = glob
 
