@@ -118,3 +118,7 @@ end
 -- set cursor style to underline
 -- opt.guicursor = "n-v-c-sm:hor20-Cursor,i-ci-ve:ver25,r-cr-o:hor20"
 vim.opt.guifont = "Iosevka NF:h10:#e-antialias"
+
+-- PERF: stop highlighting large lines
+-- only works with syntax builtin nvim plugin
+vim.opt.synmaxcol = 500
