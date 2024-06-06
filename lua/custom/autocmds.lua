@@ -28,7 +28,7 @@ utils.autocmd({ "VimResized" }, {
 utils.autocmd("BufReadPost", {
   group = utils.augroup "last_loc",
   callback = function()
-    local exclude = { "gitcommit", "Trouble" }
+    local exclude = { "gitcommit", "gitrebase", "Trouble" }
     local buf = vim.api.nvim_get_current_buf()
     if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
       return
@@ -89,7 +89,7 @@ utils.autocmd({ "CmdwinEnter" }, {
 -- Wrap text filetypes
 utils.autocmd("FileType", {
   group = utils.augroup "wrap_text",
-  pattern = { "gitcommit", "markdown", "norg", "" },
+  pattern = { "gitcommit", "gitrebase", "markdown", "norg", "" },
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.linebreak = true
