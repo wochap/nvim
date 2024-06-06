@@ -123,7 +123,10 @@ utils.autocmd({ "FileType" }, {
 })
 
 utils.autocmd("FileType", {
-  pattern = "conf",
-  group = utils.augroup "enable_conf_syntax",
-  command = "set syntax=conf",
+  pattern = { "gitsendemail", "conf" },
+  group = utils.augroup "enable_filetypes_syntax",
+  callback = function()
+    vim.opt_local.syntax = vim.bo.filetype
+  end,
 })
+
