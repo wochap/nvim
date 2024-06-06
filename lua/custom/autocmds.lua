@@ -48,7 +48,9 @@ utils.autocmd("FileType", {
     "gitrebase",
     "gitconfig",
   },
-  command = "set bufhidden=wipe",
+  callback = function()
+    vim.opt_local.bufhidden = "wipe"
+  end,
 })
 
 -- Close some filetypes with <q>
@@ -56,6 +58,9 @@ utils.autocmd("FileType", {
 utils.autocmd("FileType", {
   group = utils.augroup "close_with_q",
   pattern = {
+    "gitcommit",
+    "gitrebase",
+    "gitconfig",
     "PlenaryTestPopup",
     "help",
     "lspinfo",
