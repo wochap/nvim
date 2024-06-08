@@ -1,3 +1,5 @@
+local constants = require "custom.utils.constants"
+
 -- disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -26,5 +28,5 @@ if vim.g.neovide then
   vim.g.neovide_floating_blur_amount_y = 0
 end
 
-vim.g.foot = os.getenv "TERM" == "foot"
-vim.g.kitty = os.getenv "TERM" == "xterm-kitty"
+vim.g.foot = constants.in_foot
+vim.g.kitty = constants.in_kitty

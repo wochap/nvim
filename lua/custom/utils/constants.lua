@@ -41,6 +41,10 @@ M.exclude_buftypes = {
   "nofile",
 }
 
+M.in_foot = os.getenv "TERM" == "foot"
+
+M.in_kitty = os.getenv "TERM" == "xterm-kitty"
+
 local neorg_arg = "neorg"
 M.in_neorg = neorg_arg == vim.fn.argv()[1]
 
