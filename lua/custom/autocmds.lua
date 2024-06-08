@@ -114,16 +114,8 @@ utils.autocmd({ "SwapExists" }, {
   command = 'let v:swapchoice = "e"',
 })
 
-utils.autocmd({ "FileType" }, {
-  group = utils.augroup "enable_editorconfig_syntax",
-  pattern = { "editorconfig" },
-  callback = function()
-    vim.opt_local.syntax = "editorconfig"
-  end,
-})
-
 utils.autocmd("FileType", {
-  pattern = { "gitsendemail", "conf" },
+  pattern = { "gitsendemail", "conf", "editorconfig" },
   group = utils.augroup "enable_filetypes_syntax",
   callback = function()
     vim.opt_local.syntax = vim.bo.filetype
