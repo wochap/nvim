@@ -685,6 +685,18 @@ return {
   },
 
   {
+    "mcauley-penney/visual-whitespace.nvim",
+    event = "LazyFile",
+    opts = {
+      highlight = { link = "VisualWhitespace" },
+      space_char = "·",
+      tab_char = "»",
+      nl_char = "",
+      cr_char = "",
+    },
+  },
+
+  {
     "brenoprata10/nvim-highlight-colors",
     commit = "e0f614a8980c8ce35caa43c0affb5cac3fb344d0",
     event = "VeryLazy",

@@ -100,6 +100,12 @@ local getExtraHl = function(mocha)
     OilExecute = { fg = mocha.teal },
     OilHyphen = { fg = mocha.red },
 
+    -- visual-whitespace.nvim
+    VisualWhitespace = {
+      bg = mocha.surface1, -- same as Visual
+      fg = mocha.overlay0, -- same as NonText
+    },
+
     -- vim-illuminate
     IlluminatedWordText = { bg = colorschemeUtils.darken(mocha.surface1, 0.7, mocha.base), underline = false },
     IlluminatedWordRead = { link = "IlluminatedWordText" },

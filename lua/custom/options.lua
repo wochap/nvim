@@ -54,8 +54,15 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 -- Sets how neovim will display certain whitespace in the editor.
+-- NOTE: sync with mcauley-penney/visual-whitespace.nvim opts
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", extends = "…", precedes = "…", trail = "·", nbsp = "␣" }
+vim.opt.listchars = {
+  tab = "» ",
+  extends = "…",
+  precedes = "…",
+  trail = "·",
+  nbsp = "␣",
+}
 vim.opt.fillchars = {
   eob = " ",
   diff = "╱",
