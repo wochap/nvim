@@ -302,12 +302,12 @@ return {
       },
       {
         "[x",
-        "<cmd>lua require('trouble').previous({ jump = true })<CR>",
+        "<cmd>lua require('trouble').previous({ jump = true, skip_groups = true })<CR>",
         desc = "go to prev troublelist item",
       },
       {
         "]x",
-        "<cmd>lua require('trouble').next({ jump = true })<CR>",
+        "<cmd>lua require('trouble').next({ jump = true, skip_groups = true })<CR>",
         desc = "go to next troublelist item",
       },
     },
@@ -345,11 +345,13 @@ return {
     end,
     opts = {
       use_diagnostic_signs = true,
-      group = false,
+      group = true,
       padding = false,
       indent_lines = false,
       auto_jump = {},
       multiline = false,
+      fold_open = "",
+      fold_closed = "",
     },
   },
   {
