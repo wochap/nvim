@@ -55,6 +55,7 @@ map("x", "<S-A-Down>", keymapsUtils.getCloneLineFn "down", "clone line down")
 map({ "n", "i" }, "<S-A-Up>", keymapsUtils.getCloneLineFn "up", "clone line up")
 map("x", "<S-A-Up>", keymapsUtils.getCloneLineFn "up", "clone line up")
 map("s", "<BS>", "<C-o>c")
+map("n", "K", "kJ", "Join with prev line")
 
 -- Allow moving the cursor through wrapped lines with <Up> and <Down>
 map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", nil, { expr = true, silent = true })
