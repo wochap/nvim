@@ -54,7 +54,7 @@ return {
         ["<CR>"] = "actions.select",
         ["<C-t>"] = "actions.select_tab",
         ["<C-p>"] = "actions.preview",
-        ["q"] = "actions.close",
+        ["<Esc>"] = "actions.close",
         ["-"] = "actions.parent",
         ["_"] = "actions.open_cwd",
         ["`"] = "actions.cd",
