@@ -373,12 +373,32 @@ return {
         "<cmd>DiffviewFileHistory %<CR>",
         desc = "open current file history",
       },
+      {
+        "<leader>gd",
+        "<cmd>DiffviewOpen<CR>",
+        desc = "open merge tool",
+      },
     },
     opts = {
       enhanced_diff_hl = false,
       show_help_hints = false,
+      view = {
+        default = {
+          disable_diagnostics = true,
+        },
+        merge_tool = {
+          layout = "diff4_mixed",
+        },
+        file_history = {
+          disable_diagnostics = true,
+        },
+      },
       file_panel = {
         listing_style = "list",
+        win_config = {
+          position = "right",
+          width = 50,
+        },
       },
       file_history_panel = {
         log_options = {
@@ -394,25 +414,202 @@ return {
           vim.opt_local.wrap = false
         end,
         diff_buf_win_enter = function(bufnr, winid, ctx)
-          if ctx.layout_name:match "^diff2" then
+          if ctx.layout_name == "diff2_horizontal" then
+            if ctx.layout_name:match "^diff2" then
+              if ctx.symbol == "a" then
+                vim.opt_local.winhl = table.concat({
+                  "DiffAdd:DiffviewDiffAddAsDelete",
+                  "DiffDelete:DiffviewDiffDeleteSign",
+                  "DiffChange:DiffviewDiffDelete",
+                  "DiffText:DiffviewDiffDeleteText",
+                }, ",")
+              elseif ctx.symbol == "b" then
+                vim.opt_local.winhl = table.concat({
+                  "DiffDelete:DiffviewDiffDeleteSign",
+                  "DiffChange:DiffviewDiffAdd",
+                  "DiffText:DiffviewDiffAddText",
+                }, ",")
+              end
+            end
+          end
+
+          if ctx.layout_name == "diff4_mixed" then
             if ctx.symbol == "a" then
+              vim.opt_local.winhl = table.concat({
+                "DiffDelete:DiffviewDiffDeleteSign",
+                "DiffChange:DiffviewDiffAdd",
+                "DiffText:DiffviewDiffAddText",
+              }, ",")
+            -- NOTE: b is local
+            elseif ctx.symbol == "b" then
+              vim.opt_local.winhl = table.concat({
+                "DiffAdd:None",
+                "DiffDelete:None",
+                "DiffChange:None",
+                "DiffText:None",
+              }, ",")
+            elseif ctx.symbol == "c" then
+              vim.opt_local.winhl = table.concat({
+                "DiffDelete:DiffviewDiffDeleteSign",
+                "DiffChange:DiffviewDiffAdd",
+                "DiffText:DiffviewDiffAddText",
+              }, ",")
+            -- NOTE: d is base
+            elseif ctx.symbol == "d" then
               vim.opt_local.winhl = table.concat({
                 "DiffAdd:DiffviewDiffAddAsDelete",
                 "DiffDelete:DiffviewDiffDeleteSign",
                 "DiffChange:DiffviewDiffDelete",
                 "DiffText:DiffviewDiffDeleteText",
               }, ",")
-            elseif ctx.symbol == "b" then
-              vim.opt_local.winhl = table.concat({
-                "DiffDelete:DiffviewDiffDeleteSign",
-                "DiffChange:DiffviewDiffAdd",
-                "DiffText:DiffviewDiffAddText",
-              }, ",")
             end
           end
         end,
       },
     },
+    config = function(_, opts)
+      local actions = require "diffview.actions"
+      opts.keymaps = {
+        view = {
+          { "n", "[x", false },
+          { "n", "]x", false },
+          {
+            "n",
+            "[c",
+            actions.prev_conflict,
+            { desc = "In the merge-tool: jump to the previous conflict" },
+          },
+          {
+            "n",
+            "]c",
+            actions.next_conflict,
+            { desc = "In the merge-tool: jump to the next conflict" },
+          },
+
+          { "n", "<leader>co", false },
+          { "n", "<leader>ct", false },
+          { "n", "<leader>cb", false },
+          { "n", "<leader>ca", false },
+          { "n", "dx", false },
+          { "n", "<leader>cO", false },
+          { "n", "<leader>cT", false },
+          { "n", "<leader>cB", false },
+          { "n", "<leader>cA", false },
+          { "n", "dX", false },
+          {
+            "n",
+            "<leader>gco",
+            actions.conflict_choose "ours",
+            { desc = "Choose the OURS version of a conflict" },
+          },
+          {
+            "n",
+            "<leader>gct",
+            actions.conflict_choose "theirs",
+            { desc = "Choose the THEIRS version of a conflict" },
+          },
+          {
+            "n",
+            "<leader>gcb",
+            actions.conflict_choose "base",
+            { desc = "Choose the BASE version of a conflict" },
+          },
+          {
+            "n",
+            "<leader>gca",
+            actions.conflict_choose "all",
+            { desc = "Choose all the versions of a conflict" },
+          },
+          {
+            "n",
+            "dc",
+            actions.conflict_choose "none",
+            { desc = "Delete the conflict region" },
+          },
+          {
+            "n",
+            "<leader>gcO",
+            actions.conflict_choose_all "ours",
+            { desc = "Choose the OURS version of a conflict for the whole file" },
+          },
+          {
+            "n",
+            "<leader>gcT",
+            actions.conflict_choose_all "theirs",
+            { desc = "Choose the THEIRS version of a conflict for the whole file" },
+          },
+          {
+            "n",
+            "<leader>gcB",
+            actions.conflict_choose_all "base",
+            { desc = "Choose the BASE version of a conflict for the whole file" },
+          },
+          {
+            "n",
+            "<leader>gcA",
+            actions.conflict_choose_all "all",
+            { desc = "Choose all the versions of a conflict for the whole file" },
+          },
+          {
+            "n",
+            "dC",
+            actions.conflict_choose_all "none",
+            { desc = "Delete the conflict region for the whole file" },
+          },
+        },
+        file_panel = {
+          { "n", "gf", false },
+          {
+            "n",
+            "e",
+            actions.goto_file_edit,
+            { desc = "Open the file in the previous tabpage" },
+          },
+
+          { "n", "[x", false },
+          { "n", "]x", false },
+          { "n", "[c", actions.prev_conflict, { desc = "Go to the previous conflict" } },
+          { "n", "]c", actions.next_conflict, { desc = "Go to the next conflict" } },
+
+          { "n", "<leader>cO", false },
+          { "n", "<leader>cT", false },
+          { "n", "<leader>cB", false },
+          { "n", "<leader>cA", false },
+          { "n", "dX", false },
+          {
+            "n",
+            "<leader>gcO",
+            actions.conflict_choose_all "ours",
+            { desc = "Choose the OURS version of a conflict for the whole file" },
+          },
+          {
+            "n",
+            "<leader>gcT",
+            actions.conflict_choose_all "theirs",
+            { desc = "Choose the THEIRS version of a conflict for the whole file" },
+          },
+          {
+            "n",
+            "<leader>gcB",
+            actions.conflict_choose_all "base",
+            { desc = "Choose the BASE version of a conflict for the whole file" },
+          },
+          {
+            "n",
+            "<leader>gcA",
+            actions.conflict_choose_all "all",
+            { desc = "Choose all the versions of a conflict for the whole file" },
+          },
+          {
+            "n",
+            "dC",
+            actions.conflict_choose_all "none",
+            { desc = "Delete the conflict region for the whole file" },
+          },
+        },
+      }
+      require("diffview").setup(opts)
+    end,
   },
 
   {
@@ -816,7 +1013,7 @@ return {
         )
         map(
           "n",
-          "<leader>gd",
+          "<leader>gD",
           "<cmd>lua require('gitsigns').toggle_deleted()<cr>",
           "toggle deleted",
           { buffer = bufnr }
