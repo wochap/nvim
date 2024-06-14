@@ -42,6 +42,46 @@ return {
 
       {
         "rcarriga/nvim-dap-ui",
+        opts = {
+          layouts = {
+            {
+              elements = {
+                {
+                  id = "scopes",
+                  size = 0.25,
+                },
+                {
+                  id = "breakpoints",
+                  size = 0.25,
+                },
+                {
+                  id = "stacks",
+                  size = 0.25,
+                },
+                {
+                  id = "watches",
+                  size = 0.25,
+                },
+              },
+              position = "right",
+              size = 50,
+            },
+            {
+              elements = {
+                {
+                  id = "repl",
+                  size = 0.5,
+                },
+                {
+                  id = "console",
+                  size = 0.5,
+                },
+              },
+              position = "bottom",
+              size = 10,
+            },
+          },
+        },
         config = function(_, opts)
           local dap = require "dap"
           local dapui = require "dapui"
@@ -60,7 +100,9 @@ return {
 
       {
         "theHamsta/nvim-dap-virtual-text",
-        opts = {},
+        opts = {
+          virt_text_pos = "eol",
+        },
       },
 
       "mason.nvim",
