@@ -3,5 +3,31 @@
     "prefix": "rfc",
     "body": "const ${TM_FILENAME_BASE} = () => {\n\treturn (\n\t\t<div>\n\t\t\t$0\n\t\t</div>\n\t)\n}\n\nexport default ${TM_FILENAME_BASE}",
     "description": "Creates a React function component without PropTypes"
+  },
+  "reactFunctionComponentSE": {
+    "prefix": "rfcse",
+    "body": [
+      "import React from 'react'",
+      "import classNames from 'classnames'",
+      "import PropTypes from 'prop-types'",
+      "import { withStyles } from '@material-ui/core/styles'",
+      "",
+      "const ${TM_FILENAME_BASE} = ({ classes }) => {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t)",
+      "}",
+      "",
+      "${TM_FILENAME_BASE}.propTypes = {",
+      "\tclasses: PropTypes.object",
+      "}",
+      "",
+      "const styles = ({ palette, spacing }) => ({})",
+      "",
+      "export default withStyles(styles)(${TM_FILENAME_BASE})"
+    ],
+    "description": "Creates a React function component without PropTypes"
   }
 }
