@@ -223,43 +223,6 @@ return {
     event = { "CmdlineEnter", "InsertEnter" },
     version = false, -- last release is way too old
     dependencies = {
-      {
-        "L3MON4D3/LuaSnip",
-        version = "v2.*",
-        build = "make install_jsregexp",
-        keys = {
-          {
-            "<C-k>",
-            "<cmd>lua require'luasnip'.expand()<CR>",
-            desc = "expand snippet",
-            mode = "i",
-          },
-        },
-        opts = {
-          history = true,
-          updateevents = "TextChanged,TextChangedI",
-          -- Show snippets related to the language
-          -- in the current cursor position
-          ft_func = function()
-            return require("luasnip.extras.filetype_functions").from_pos_or_filetype()
-          end,
-        },
-        config = function(_, opts)
-          require("luasnip").config.set_config(opts)
-          require("luasnip.loaders.from_vscode").load { paths = vim.fn.stdpath "config" .. "/snippets" }
-          vim.api.nvim_create_autocmd("InsertLeave", {
-            callback = function()
-              if
-                require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-                and not require("luasnip").session.jump_active
-              then
-                require("luasnip").unlink_current()
-              end
-            end,
-          })
-        end,
-      },
-
       -- cmp sources plugins
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lua",
@@ -464,6 +427,54 @@ return {
           { name = "path", max_item_count = 10 },
           { name = "nvim_lua", max_item_count = 10 },
         },
+      })
+    end,
+  },
+
+  {
+    "L3MON4D3/LuaSnip",
+    event = { "InsertEnter" },
+    version = "v2.*",
+    build = "make install_jsregexp",
+    dependencies = {
+      {
+        "carbonid1/EmmetJSS",
+        config = function()
+          local plugin_path = vim.fn.stdpath "data" .. "/lazy/EmmetJSS"
+          require("luasnip.loaders.from_vscode").load { paths = plugin_path }
+        end,
+      },
+    },
+    keys = {
+      {
+        "<C-k>",
+        "<cmd>lua require'luasnip'.expand()<CR>",
+        desc = "expand snippet",
+        mode = "i",
+      },
+    },
+    opts = {
+      history = true,
+      updateevents = "TextChanged,TextChangedI",
+      -- Show snippets related to the language
+      -- in the current cursor position
+      ft_func = function()
+        return require("luasnip.extras.filetype_functions").from_pos_or_filetype()
+      end,
+    },
+    config = function(_, opts)
+      local luasnip = require "luasnip"
+      luasnip.config.set_config(opts)
+      require("luasnip.loaders.from_vscode").load { paths = vim.fn.stdpath "config" .. "/snippets" }
+      vim.api.nvim_create_autocmd("InsertLeave", {
+        callback = function()
+          if
+            luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
+            and not require("luasnip").session.jump_active
+          then
+            luasnip.unlink_current()
+          end
+        end,
       })
     end,
   },

@@ -1,5 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
+  "EmmetJSS": { "branch": "master", "commit": "252ae74ca42aa2b6d0414c19757c22ddbce36d29" },
   "LazyVim": { "branch": "main", "commit": "987bd2207f7f2f7f72f65b0e7e811ec04c03aa32" },
   "LuaSnip": { "branch": "master", "commit": "03c8e67eb7293c404845b3982db895d59c0d1538" },
   "SchemaStore.nvim": { "branch": "main", "commit": "d9fd6651b47b68bfc1b952f81a0fdded3cb205b2" },
