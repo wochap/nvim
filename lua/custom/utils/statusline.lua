@@ -159,6 +159,11 @@ local function git_diff()
   return added .. changed .. removed
 end
 
+local function maximize_status()
+  -- requires declancm/maximize.nvim
+  return hl_str "StMaximize" .. (vim.t.maximized and " zoom" or "")
+end
+
 local function diagnostics()
   if not rawget(vim, "lsp") then
     return ""
@@ -237,6 +242,9 @@ end
 local M = {}
 
 M.statusline = function()
+  local maximize_status_str = maximize_status()
+  local diagnostics_str = diagnostics()
+  print(diagnostics_str)
   local modules = {
     mode(),
     hl_str "StModuleSep"
@@ -252,8 +260,9 @@ M.statusline = function()
       .. separators.l,
     empty_space(2) .. git_branch() .. empty_space(1) .. git_diff(),
     "%=",
-    diagnostics(),
-    empty_space(1) .. lsp_or_filetype(),
+    (#maximize_status_str > 0 and maximize_status_str .. empty_space(2) or ""),
+    (#diagnostics_str > 0 and diagnostics_str .. empty_space(1) or ""),
+    lsp_or_filetype(),
     empty_space(2) .. indent(),
     empty_space(2)
       .. hl_str "StModuleSep"

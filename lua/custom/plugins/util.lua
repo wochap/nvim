@@ -230,12 +230,13 @@ return {
   },
 
   {
-    "szw/vim-maximizer",
-    cmd = { "MaximizerToggle" },
+    "declancm/maximize.nvim",
     keys = {
       {
         "<leader>m",
-        "<cmd>MaximizerToggle!<CR>",
+        function()
+          require("maximize").toggle()
+        end,
         desc = "max window",
       },
     },

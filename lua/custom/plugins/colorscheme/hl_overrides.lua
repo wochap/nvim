@@ -91,6 +91,7 @@ local getExtraHl = function(mocha)
     StHints = { fg = stateColors.hint },
     StInfos = { fg = stateColors.info },
     StEmptySpace = { bg = "NONE" },
+    StMaximize = { fg = mocha.blue },
 
     -- oil.nvim
     OilMtime = { fg = "#8383A9" },
