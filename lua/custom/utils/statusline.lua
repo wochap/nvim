@@ -244,7 +244,6 @@ local M = {}
 M.statusline = function()
   local maximize_status_str = maximize_status()
   local diagnostics_str = diagnostics()
-  print(diagnostics_str)
   local modules = {
     mode(),
     hl_str "StModuleSep"
