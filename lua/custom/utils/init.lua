@@ -29,9 +29,22 @@ M.is_bigfile = function(bufnr, mb)
   return true
 end
 
+local function has_long_line(bufnr)
+  -- get the first 10 lines
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, 10, false)
+  local max_line_length = 0
+  for _, line in ipairs(lines) do
+    if #line > max_line_length then
+      max_line_length = #line
+    end
+  end
+  return max_line_length > 300
+end
+
 local pattern = "%.min%.[a-zA-Z]*$"
-M.is_minfile = function(filename)
-  return filename:match(pattern)
+M.is_minfile = function(bufnr)
+  local filename = vim.api.nvim_buf_get_name(bufnr)
+  return filename:match(pattern) or has_long_line(bufnr)
 end
 
 M.disable_ufo = function()

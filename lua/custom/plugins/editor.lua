@@ -766,8 +766,8 @@ return {
           preview = {
             filesize_limit = 0.5,
             highlight_limit = 0.5,
-            filetype_hook = function(filepath, _, _)
-              return not utils.is_minfile(filepath)
+            filetype_hook = function(_, bufnr)
+              return not utils.is_minfile(bufnr)
             end,
           },
         },
