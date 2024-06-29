@@ -249,6 +249,7 @@ return {
     "smjonas/inc-rename.nvim",
     opts = {
       input_buffer_type = "dressing",
+      preview_empty_name = true,
     },
   },
 
