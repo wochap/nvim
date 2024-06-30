@@ -283,12 +283,12 @@ return {
       {
         "<leader>xw",
         "<cmd>TroubleToggle workspace_diagnostics<cr>",
-        desc = "show project diagnostics",
+        desc = "toggle project diagnostics",
       },
       {
         "<leader>xf",
         "<cmd>TroubleToggle document_diagnostics<cr>",
-        desc = "show file diagnostic",
+        desc = "toggle file diagnostic",
       },
       {
         "<leader>xl",
