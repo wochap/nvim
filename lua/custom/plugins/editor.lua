@@ -886,6 +886,7 @@ return {
         next = "]c",
         prev = "[c",
       },
+      disable_diagnostics = true,
     },
     config = function(_, opts)
       vim.api.nvim_create_autocmd("User", {
