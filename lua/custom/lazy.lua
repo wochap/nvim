@@ -40,6 +40,9 @@ require("lazy").setup {
     lazy = true,
     version = false,
   },
+  dev = {
+    path = vim.fn.stdpath "config" .. "/lua",
+  },
   install = { colorscheme = { "catppuccin", "habamax" } },
   checker = { enabled = true, notify = false },
   change_detection = { enabled = false },
