@@ -710,12 +710,11 @@ return {
       },
     opts = function()
       local actions = require "telescope.actions"
-      local sorters = require "telescope.sorters"
       return {
         defaults = {
           vimgrep_arguments = {
             "rg",
-            "-L",
+            "-L", -- Follow symlinks
             "--color=never",
             "--no-heading",
             "--with-filename",
@@ -726,25 +725,31 @@ return {
           prompt_prefix = "   ",
           selection_caret = "  ",
           entry_prefix = "  ",
+          get_selection_window = function()
+            local ok, winid = pcall(require("window-picker").pick_window, {
+              include_current_win = true,
+            })
+            if not ok then
+              return 0
+            end
+            if not winid then
+              return 0
+            end
+            return winid
+          end,
           sorting_strategy = "ascending",
-          layout_strategy = "horizontal",
           layout_config = {
             horizontal = {
               prompt_position = "top",
               preview_width = 0.55,
-              results_width = 0.8,
             },
-            width = 0.87,
-            height = 0.80,
-            preview_cutoff = 120,
+            width = 0.9,
+            height = 0.9,
           },
-          file_sorter = sorters.get_fuzzy_file,
           file_ignore_patterns = { "%.git/", "%.lock$", "%-lock.json$", "%.direnv/" },
-          generic_sorter = sorters.get_generic_fuzzy_sorter,
           path_display = { "truncate", "filename_first" },
           winblend = 0,
           border = {},
-          set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
           mappings = {
             i = {
               ["<C-Down>"] = actions.cycle_history_next,
@@ -752,10 +757,6 @@ return {
               ["<esc>"] = actions.close,
               ["<C-S-v>"] = keymapsUtils.commandPaste,
               ["<CR>"] = actions.select_default,
-              ["<S-CR>"] = function(prompt_bufnr)
-                local action_set = require "telescope.actions.set"
-                action_set.edit(prompt_bufnr, "WindowPicker")
-              end,
             },
           },
           pickers = {
@@ -771,26 +772,7 @@ return {
             end,
           },
         },
-
-        extensions_list = { "fzf" },
-        extensions = {
-          fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-          },
-        },
       }
-    end,
-    config = function(_, opts)
-      local telescope = require "telescope"
-      telescope.setup(opts)
-
-      -- load extensions
-      for _, ext in ipairs(opts.extensions_list) do
-        telescope.load_extension(ext)
-      end
     end,
   },
 
