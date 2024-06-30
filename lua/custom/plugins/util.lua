@@ -240,6 +240,9 @@ return {
         desc = "max window",
       },
     },
+    opts = {
+      aerial = { enable = false },
+    },
   },
 
   {
