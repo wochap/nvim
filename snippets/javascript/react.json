@@ -1,4 +1,8 @@
 {
+  "PropTypes": {
+    "prefix": "PT",
+    "body": "PropTypes"
+  },
   "reactFunctionComponent": {
     "prefix": "rfc",
     "body": "const ${TM_FILENAME_BASE} = () => {\n\treturn (\n\t\t<div>\n\t\t\t$0\n\t\t</div>\n\t)\n}\n\nexport default ${TM_FILENAME_BASE}",
