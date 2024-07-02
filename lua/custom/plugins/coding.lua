@@ -415,8 +415,8 @@ return {
       cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmdlineMapping,
         sources = {
-          { name = "buffer", max_item_count = 10 },
           { name = "cmdline_history", max_item_count = 10 },
+          { name = "buffer", max_item_count = 10 },
         },
       })
 
