@@ -352,6 +352,14 @@ local getOverridesHl = function(mocha)
     -- nvim status bar
     StatusLine = { bg = mocha.base },
 
+    LspInlayHint = {
+      fg = mocha.surface1,
+      bg = colorschemeUtils.darken(mocha.mantle, 0.5, mocha.base),
+    },
+    LspLens = {
+      link = "LspInlayHint",
+    },
+
     -- nvim cursor
     -- Cursor = {
     --   bg = "NONE",

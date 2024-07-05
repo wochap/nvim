@@ -135,13 +135,13 @@ return {
       end
 
       -- enable inlay hints
-      -- lspUtils.on_attach(function(client, buffer)
-      --   if client.supports_method "textDocument/inlayHint" then
-      --     if vim.api.nvim_buf_is_valid(buffer) and vim.bo[buffer].buftype == "" then
-      --       lspUtils.toggle_inlay_hints(buffer, true)
-      --     end
-      --   end
-      -- end)
+      lspUtils.on_attach(function(client, buffer)
+        if client.supports_method "textDocument/inlayHint" then
+          if vim.api.nvim_buf_is_valid(buffer) and vim.bo[buffer].buftype == "" then
+            lspUtils.toggle_inlay_hints(buffer, true)
+          end
+        end
+      end)
 
       -- setup opts.servers and opts.setup
       local servers = opts.servers
@@ -286,14 +286,16 @@ return {
   },
 
   {
-    "VidocqH/lsp-lens.nvim",
+    "wochap/lsp-lens.nvim",
     event = "LazyFile",
     opts = {
       enable = true,
       include_declaration = false,
       sections = {
         definition = false,
-        references = true,
+        references = function(count)
+          return "  " .. count .. " "
+        end,
         implements = false,
         git_authors = false,
       },
@@ -309,5 +311,17 @@ return {
         callback = lens.procedure,
       })
     end,
+  },
+
+  {
+    "chrisgrieser/nvim-lsp-endhints",
+    event = "LspAttach",
+    opts = {
+      icons = {
+        type = " ",
+        parameter = " ",
+      },
+      autoEnableHints = false,
+    },
   },
 }
