@@ -58,12 +58,12 @@ return {
         gitsigns = { enabled = true }, -- disables git signs
       },
       on_open = function()
-        vim.cmd "IBLDisable"
+        -- TODO: disable indentmini.nvim
         utils.disable_ufo()
         utils.disable_statuscol()
       end,
       on_close = function()
-        vim.cmd "IBLEnable"
+        -- TODO: enable indentmini.nvim
       end,
     },
   },
