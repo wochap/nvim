@@ -417,16 +417,15 @@ return {
           if ctx.layout_name == "diff2_horizontal" then
             if ctx.symbol == "a" then
               vim.opt_local.winhl = table.concat({
-                "DiffAdd:DiffviewDiffAddAsDelete",
                 "DiffDelete:DiffviewDiffDeleteSign",
-                "DiffChange:DiffviewDiffDelete",
-                "DiffText:DiffviewDiffDeleteText",
+                "DiffChange:GitSignsDeletePreview",
+                "DiffText:GitSignsDeleteInline",
               }, ",")
             elseif ctx.symbol == "b" then
               vim.opt_local.winhl = table.concat({
                 "DiffDelete:DiffviewDiffDeleteSign",
-                "DiffChange:DiffviewDiffAdd",
-                "DiffText:DiffviewDiffAddText",
+                "DiffChange:GitSignsAddPreview",
+                "DiffText:GitSignsAddInline",
               }, ",")
             end
           end
@@ -435,8 +434,8 @@ return {
             if ctx.symbol == "a" then
               vim.opt_local.winhl = table.concat({
                 "DiffDelete:DiffviewDiffDeleteSign",
-                "DiffChange:DiffviewDiffAdd",
-                "DiffText:DiffviewDiffAddText",
+                "DiffChange:GitSignsAddPreview",
+                "DiffText:GitSignsAddInline",
               }, ",")
             -- NOTE: b is local
             elseif ctx.symbol == "b" then
@@ -449,16 +448,15 @@ return {
             elseif ctx.symbol == "c" then
               vim.opt_local.winhl = table.concat({
                 "DiffDelete:DiffviewDiffDeleteSign",
-                "DiffChange:DiffviewDiffAdd",
-                "DiffText:DiffviewDiffAddText",
+                "DiffChange:GitSignsAddPreview",
+                "DiffText:GitSignsAddInline",
               }, ",")
             -- NOTE: d is base
             elseif ctx.symbol == "d" then
               vim.opt_local.winhl = table.concat({
-                "DiffAdd:DiffviewDiffAddAsDelete",
                 "DiffDelete:DiffviewDiffDeleteSign",
-                "DiffChange:DiffviewDiffDelete",
-                "DiffText:DiffviewDiffDeleteText",
+                "DiffChange:GitSignsDeletePreview",
+                "DiffText:GitSignsDeleteInline",
               }, ",")
             end
           end
@@ -932,56 +930,47 @@ return {
     opts = {
       signs = {
         add = {
-          hl = "GitSignsAdd",
           text = "▍",
         },
         change = {
-          hl = "GitSignsChange",
           text = "▍",
         },
         delete = {
-          hl = "GitSignsDelete",
           text = "",
         },
         changedelete = {
-          hl = "GitSignsChange",
           text = "▍",
         },
         topdelete = {
-          hl = "GitSignsDelete",
           text = "",
         },
         untracked = {
-          hl = "GitSignsAdd",
           text = "", -- PERF: a lot of signs with statuscol.nvim causes lag
         },
       },
       preview_config = {
         row = 1,
       },
-      _signs_staged_enable = true,
-      _signs_staged = {
+      max_file_length = 9999,
+      signs_staged_enable = true,
+      signs_staged = {
         add = {
-          hl = "GitSignsStagedAdd",
           text = "▍",
         },
         change = {
-          hl = "GitSignsStagedChange",
           text = "▍",
         },
         delete = {
-          hl = "GitSignsStagedDelete",
           text = "",
         },
         changedelete = {
-          hl = "GitSignsStagedChange",
           text = "▍",
         },
         topdelete = {
-          hl = "GitSignsStagedDelete",
           text = "",
         },
       },
+      word_diff = true,
       attach_to_untracked = true,
       on_attach = function(bufnr)
         local map = keymapsUtils.map

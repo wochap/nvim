@@ -284,8 +284,15 @@ local getOverridesHl = function(mocha)
     GitSignsAdd = { fg = gitColors.add },
     GitSignsChange = { fg = gitColors.change },
     GitSignsDelete = { fg = gitColors.delete },
-    GitSignsDeleteInline = { link = "DiffviewDiffDeleteText" },
-    GitSignsAddInline = { link = "DiffviewDiffAddText" },
+    GitSignsAddInline = {
+      bg = colorschemeUtils.brighten(colorschemeUtils.darken(gitColors.add, 0.2, mocha.mantle), 0.15),
+      fg = "NONE",
+    },
+    GitSignsDeleteInline = {
+      bg = colorschemeUtils.brighten(colorschemeUtils.darken(gitColors.delete, 0.2, mocha.mantle), 0.15),
+      fg = "NONE",
+    },
+    GitSignsChangeInline = { link = "DiffText" },
     GitSignsAddPreview = { link = "DiffAdd" },
     GitSignsDeletePreview = { link = "DiffDelete" },
 
@@ -299,18 +306,7 @@ local getOverridesHl = function(mocha)
     },
 
     -- diffview.nvim
-    DiffviewDiffAdd = { link = "DiffAdd" }, -- right diff add
-    DiffviewDiffAddText = {
-      bg = colorschemeUtils.brighten(colorschemeUtils.darken(gitColors.add, 0.2, mocha.mantle), 0.15),
-      fg = "NONE",
-    }, -- right diff add text
-    DiffviewDiffDelete = { link = "DiffDelete" }, -- left diff delete
-    DiffviewDiffDeleteText = {
-      bg = colorschemeUtils.brighten(colorschemeUtils.darken(gitColors.delete, 0.2, mocha.mantle), 0.15),
-      fg = "NONE",
-    }, -- left diff delete text
     DiffviewDiffDeleteSign = { fg = mocha.surface1 }, -- both diff delete sign
-    DiffviewDiffAddAsDelete = { bg = mocha.green }, -- TODO: investigate
     DiffviewFilePanelCounter = { fg = mocha.red, bg = "NONE" },
     DiffviewFilePanelTitle = { fg = mocha.lavender, bg = "NONE" },
     -- DiffviewNormal = { link = "NvimTreeNormal" },
