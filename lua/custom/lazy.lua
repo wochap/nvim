@@ -13,6 +13,10 @@ lazyUtils.lazy_file()
 -- Configure and install plugins
 require("lazy").setup {
   spec = {
+    {
+      "folke/lazy.nvim",
+      version = "*",
+    },
     -- Necessary to import extras from LazyVim
     {
       "LazyVim/LazyVim",
