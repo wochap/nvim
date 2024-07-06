@@ -1,4 +1,5 @@
 local constants = require "custom.utils.constants"
+local lspUtils = require "custom.utils.lsp"
 
 local fn = vim.fn
 local api = vim.api
@@ -199,7 +200,7 @@ end
 local function lsp_or_filetype()
   if rawget(vim, "lsp") then
     local client_names = {}
-    for _, client in ipairs(vim.lsp.get_active_clients()) do
+    for _, client in ipairs(lspUtils.get_clients()) do
       if client.attached_buffers[vim.api.nvim_get_current_buf()] then
         table.insert(client_names, client.name)
       end
