@@ -88,6 +88,7 @@ return {
           dapui.setup(opts)
           dap.listeners.after.event_initialized["dapui_config"] = function()
             dapui.open {}
+            vim.cmd "wincmd ="
           end
           dap.listeners.before.event_terminated["dapui_config"] = function()
             dapui.close {}
@@ -181,7 +182,10 @@ return {
       },
       {
         "<leader>du",
-        "<cmd>lua require'dapui'.toggle({ reset = true })<CR>",
+        function()
+          require("dapui").toggle { reset = true }
+          vim.cmd "wincmd ="
+        end,
         desc = "open dapui",
       },
     },
