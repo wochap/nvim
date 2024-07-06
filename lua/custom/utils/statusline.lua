@@ -191,7 +191,7 @@ local function fileType()
     return ""
   end
   if vim.bo.ft ~= "" then
-    return "  " .. vim.bo.ft
+    return " " .. vim.bo.ft
   end
   return ""
 end
@@ -208,18 +208,18 @@ local function lsp_or_filetype()
       return fileType()
     end
     if #client_names > 1 then
-      return "󰄭 " .. #client_names .. " LSP"
+      return " " .. #client_names
     end
-    return "󰄭  " .. client_names[1]
+    return " " .. client_names[1]
   end
   return fileType()
 end
 
 local function indent()
   if vim.bo.expandtab then
-    return "spaces:" .. vim.bo.shiftwidth
+    return "␣:" .. vim.bo.shiftwidth
   else
-    return "tabs:" .. vim.bo.tabstop
+    return "»:" .. vim.bo.tabstop
   end
 end
 
