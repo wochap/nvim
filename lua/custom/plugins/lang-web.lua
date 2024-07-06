@@ -198,6 +198,11 @@ return {
         },
         volar = {
           filetypes = { "vue" },
+          init_options = {
+            vue = {
+              hybridMode = true,
+            },
+          },
           capabilities = {
             workspace = {
               didChangeWatchedFiles = {
