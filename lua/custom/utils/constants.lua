@@ -7,6 +7,7 @@ M.diagnostic_icons = {
   Hint = "󰛩 ",
 }
 
+-- NOTE: you can't exclude empty filetypes
 M.exclude_filetypes = {
   "DiffviewFileHistory",
   "DiffviewFiles",
