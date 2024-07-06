@@ -415,21 +415,19 @@ return {
         end,
         diff_buf_win_enter = function(bufnr, winid, ctx)
           if ctx.layout_name == "diff2_horizontal" then
-            if ctx.layout_name:match "^diff2" then
-              if ctx.symbol == "a" then
-                vim.opt_local.winhl = table.concat({
-                  "DiffAdd:DiffviewDiffAddAsDelete",
-                  "DiffDelete:DiffviewDiffDeleteSign",
-                  "DiffChange:DiffviewDiffDelete",
-                  "DiffText:DiffviewDiffDeleteText",
-                }, ",")
-              elseif ctx.symbol == "b" then
-                vim.opt_local.winhl = table.concat({
-                  "DiffDelete:DiffviewDiffDeleteSign",
-                  "DiffChange:DiffviewDiffAdd",
-                  "DiffText:DiffviewDiffAddText",
-                }, ",")
-              end
+            if ctx.symbol == "a" then
+              vim.opt_local.winhl = table.concat({
+                "DiffAdd:DiffviewDiffAddAsDelete",
+                "DiffDelete:DiffviewDiffDeleteSign",
+                "DiffChange:DiffviewDiffDelete",
+                "DiffText:DiffviewDiffDeleteText",
+              }, ",")
+            elseif ctx.symbol == "b" then
+              vim.opt_local.winhl = table.concat({
+                "DiffDelete:DiffviewDiffDeleteSign",
+                "DiffChange:DiffviewDiffAdd",
+                "DiffText:DiffviewDiffAddText",
+              }, ",")
             end
           end
 
