@@ -208,9 +208,9 @@ local function lsp_or_filetype()
       return fileType()
     end
     if #client_names > 1 then
-      return " " .. #client_names
+      return hl_str "StLsp" .. " " .. #client_names
     end
-    return " " .. client_names[1]
+    return hl_str "StLsp" .. " " .. client_names[1]
   end
   return fileType()
 end
@@ -265,8 +265,8 @@ M.statusline = function()
     "%=",
     (#maximize_status_str > 0 and maximize_status_str .. empty_space(2) or ""),
     (#diagnostics_str > 0 and diagnostics_str .. empty_space(1) or ""),
-    lsp_or_filetype(),
-    empty_space(2) .. indent(),
+    hl_str "StModuleAlt" .. lsp_or_filetype(),
+    empty_space(2) .. hl_str "StModuleAlt" .. indent(),
     empty_space(2)
       .. hl_str "StModuleSep"
       .. separators.r_b

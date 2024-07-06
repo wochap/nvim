@@ -35,7 +35,7 @@ local getExtraHl = function(mocha)
   local st_module_bg = mocha.surface0
   local st_module_fg = mocha.text
   local st_bg = "NONE"
-  local st_fg = mocha.text
+  local st_fg = mocha.surface1
   local function gen_modes_hl(mode, color)
     result["St" .. mode .. "Mode"] = { fg = mocha.base, bg = mocha[color], bold = true }
     result["St" .. mode .. "ModeSep"] = { fg = mocha[color], bg = st_bg }
@@ -92,6 +92,7 @@ local getExtraHl = function(mocha)
     StInfos = { fg = stateColors.info },
     StEmptySpace = { bg = "NONE" },
     StMaximize = { fg = mocha.blue },
+    StLsp = { fg = mocha.maroon },
 
     -- oil.nvim
     OilMtime = { fg = "#8383A9" },
