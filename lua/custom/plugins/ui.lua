@@ -666,21 +666,11 @@ return {
   },
 
   {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
+    "nvimdev/indentmini.nvim",
     event = "LazyFile",
     opts = {
-      debounce = 50,
-      indent = {
-        char = constants.in_kitty and "▎" or "▏",
-        tab_char = constants.in_kitty and "▎" or "▏",
-      },
-      scope = {
-        enabled = false,
-      },
-      exclude = {
-        filetypes = constants.exclude_filetypes,
-      },
+      char = constants.in_kitty and "▎" or "▏",
+      exclude = constants.exclude_filetypes,
     },
   },
 
