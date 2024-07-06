@@ -179,6 +179,7 @@ return {
           end
           curWidth = curWidth + chunkWidth
         end
+        table.insert(newVirtText, { " " })
         table.insert(newVirtText, { suffix, "UfoFoldedEllipsis" })
         return newVirtText
       end,

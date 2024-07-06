@@ -1,3 +1,4 @@
+local utils = require "custom.utils"
 local lspUtils = require "custom.utils.lsp"
 local lazyUtils = require "custom.utils.lazy"
 
@@ -56,6 +57,10 @@ M.get = function()
       function()
         local has_ufo, ufo = pcall(require, "ufo")
         local winid = has_ufo and ufo.peekFoldedLinesUnderCursor() or nil
+        if winid then
+          -- remove left padding
+          utils.disable_statuscol(winid)
+        end
         if not winid then
           vim.lsp.buf.hover()
         end

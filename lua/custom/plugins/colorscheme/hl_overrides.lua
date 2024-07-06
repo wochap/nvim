@@ -226,9 +226,10 @@ local getOverridesHl = function(mocha)
     Error = { fg = mocha.red, bg = "NONE" }, -- (preferred) any erroneous construct
 
     -- ufo
+    FoldColumn = { bg = "NONE" }, -- sign column
+    Folded = { bg = "NONE" }, -- folded line
     UfoPreviewNormal = { bg = mocha.mantle },
-    UfoFoldedEllipsis = { link = "Comment" },
-    FoldColumn = { link = "LineNr" },
+    UfoFoldedEllipsis = { link = "LspInlayHint" },
 
     -- flash.nvim
     FlashPrompt = { link = "Normal" },

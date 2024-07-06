@@ -57,8 +57,8 @@ M.disable_ufo = function()
   vim.opt_local.foldcolumn = "0"
 end
 
-M.disable_statuscol = function()
-  vim.api.nvim_set_option_value("stc", "", { scope = "local" })
+M.disable_statuscol = function(winid)
+  vim.api.nvim_set_option_value("stc", "", { scope = "local", win = winid })
 end
 
 M.autocmd = vim.api.nvim_create_autocmd
