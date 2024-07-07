@@ -369,6 +369,11 @@ local getOverridesHl = function(mocha)
       link = "LspInlayHint",
     },
 
+    -- nvim recording macro msg
+    ModeMsg = {
+      fg = mocha.peach,
+    },
+
     -- nvim cursor
     -- Cursor = {
     --   bg = "NONE",
