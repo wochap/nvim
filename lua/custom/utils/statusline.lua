@@ -187,6 +187,35 @@ local function diagnostics()
   return errors .. warnings .. hints .. infos
 end
 
+local function searchcount()
+  if vim.v.hlsearch == 0 then
+    return ""
+  end
+
+  local ok, result = pcall(vim.fn.searchcount, { maxcount = 999, timeout = 500 })
+  if not ok or next(result) == nil then
+    return ""
+  end
+
+  local denominator = math.min(result.total, result.maxcount)
+  return string.format("[%d/%d]", result.current, denominator)
+end
+
+local function selectioncount()
+  local mode = vim.fn.mode(true)
+  local line_start, col_start = vim.fn.line "v", vim.fn.col "v"
+  local line_end, col_end = vim.fn.line ".", vim.fn.col "."
+  if mode:match "" then
+    return string.format("%dx%d", math.abs(line_start - line_end) + 1, math.abs(col_start - col_end) + 1)
+  elseif mode:match "V" or line_start ~= line_end then
+    return math.abs(line_start - line_end) + 1
+  elseif mode:match "v" then
+    return math.abs(col_start - col_end) + 1
+  else
+    return ""
+  end
+end
+
 local function fileType()
   if not vim.tbl_contains({ "", "nowrite" }, vim.bo.bt) and not vim.fn.bufname():match "^Scratch %d+$" then
     return ""
@@ -249,6 +278,8 @@ local M = {}
 M.statusline = function()
   local maximize_status_str = maximize_status()
   local diagnostics_str = diagnostics()
+  local searchcount_str = searchcount()
+  local selectioncount_str = selectioncount()
   local modules = {
     mode(),
     hl_str "StModuleSep"
@@ -264,6 +295,8 @@ M.statusline = function()
       .. separators.l,
     empty_space(2) .. git_branch() .. empty_space(1) .. git_diff(),
     "%=",
+    (#searchcount_str > 0 and searchcount_str .. empty_space(2) or ""),
+    (#selectioncount_str > 0 and selectioncount_str .. empty_space(2) or ""),
     (#maximize_status_str > 0 and maximize_status_str .. empty_space(2) or ""),
     (#diagnostics_str > 0 and diagnostics_str .. empty_space(1) or ""),
     hl_str "StModuleAlt" .. lsp_or_filetype(),
