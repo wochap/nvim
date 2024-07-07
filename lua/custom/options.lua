@@ -101,6 +101,9 @@ vim.opt.formatoptions = "qjl1"
 -- disable nvim intro
 vim.opt.shortmess:append "sI"
 
+-- disable search count
+vim.opt.shortmess:append "S"
+
 -- Reduce command line messages
 vim.opt.shortmess:append "WcC"
 
