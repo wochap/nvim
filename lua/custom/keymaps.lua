@@ -14,8 +14,6 @@ map("n", "<S-Down>", "<cmd>tabnext<CR> ", "goto prev tab")
 
 -- windows
 map("n", "<C-w>x", "<C-w>s", "Split window horizontally")
-map("n", "<leader>|", "<C-w>v", "split window vertically")
-map("n", "<leader>_", "<C-w>s", "split window horizontally")
 
 -- terminal
 map("t", "<C-x>", keymapsUtils.exitTerminalMode, "exit terminal mode")
@@ -50,18 +48,16 @@ map("i", "<A-S-BS>", '<Esc>"zcB<Del>', "delete the entire backward-word")
 -- map("i", "<A-Del>", '<Esc>"zcw', "delete forward-word")
 -- map("i", "<A-S-Del>", '<Esc>"zcW', "delete the entire forward-word")
 map("v", "g<C-a>", ":s/\\([^ ]\\) \\{2,\\}/\\1 /g<CR>:nohlsearch<CR>", "Unalign")
-map({ "n", "i" }, "<S-A-Down>", keymapsUtils.getCloneLineFn "down", "clone line down")
-map("x", "<S-A-Down>", keymapsUtils.getCloneLineFn "down", "clone line down")
-map({ "n", "i" }, "<S-A-Up>", keymapsUtils.getCloneLineFn "up", "clone line up")
-map("x", "<S-A-Up>", keymapsUtils.getCloneLineFn "up", "clone line up")
-map("s", "<BS>", "<C-o>c")
+map({ "n", "i", "x" }, "<S-A-Down>", keymapsUtils.getCloneLineFn "down", "clone line down")
+map({ "n", "i", "x" }, "<S-A-Up>", keymapsUtils.getCloneLineFn "up", "clone line up")
+map("s", "<BS>", "<C-o>c", "delete selection")
 map("n", "K", "kJ", "Join with prev line")
 
 -- Allow moving the cursor through wrapped lines with <Up> and <Down>
 map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", nil, { expr = true, silent = true })
 map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", nil, { expr = true, silent = true })
 
--- movement
+-- editing movement
 map("i", "<A-Left>", "<C-o>b", "move backward one word")
 map("i", "<A-S-Left>", "<C-o>B", "move backward one entire word")
 map("i", "<A-Right>", "<C-o>w", "move forward one word")
@@ -72,6 +68,10 @@ map("i", "<A-S-e>", "<C-o>E", "")
 -- toggling
 map("n", [[\]] .. "s", "<cmd>setlocal spell!<CR>", "Toggle 'spell'")
 map("n", [[\]] .. "w", "<cmd>setlocal wrap!<CR>", "Toggle 'wrap'")
+map("n", [[\]] .. "C", function()
+  local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
+  keymapsUtils.toggleLocalOpt("conceallevel", { 0, conceallevel })
+end, "Toggle Conceal")
 
 -- misc
 map("n", "<C-y>", "<cmd> %y+ <CR>", "copy whole file")
@@ -80,27 +80,29 @@ map({ "n", "i", "v" }, "<C-S-s>", "<Esc>:w! <CR>", "save buffer!")
 map("n", "<leader>qq", "<cmd>qa <CR>", "exit")
 map("n", "<leader>q!", "<cmd>qa! <CR>", "exit!")
 map("n", "gV", "`[v`]", "select last yanked/changed text")
-map({ "n", "i" }, "<C-e>", keymapsUtils.close_all_floating, "close floating windows")
+map({ "n", "i", "x" }, "<C-e>", keymapsUtils.close_all_floating, "close floating windows")
 map("n", "<f5>", ":e %<CR>", "reload buffer")
 map("n", "<leader>cps", function()
   vim.cmd [[
-		:profile start /tmp/nvim-profile.log
-		:profile func *
-		:profile file *
-	]]
+    :profile start /tmp/nvim-profile.log
+    :profile func *
+    :profile file *
+  ]]
 end, "Profile Start")
 map("n", "<leader>cpe", function()
   vim.cmd [[
-		:profile stop
-		:e /tmp/nvim-profile.log
-	]]
+    :profile stop
+    :e /tmp/nvim-profile.log
+  ]]
 end, "Profile End")
 map("n", "<leader>cPs", "<cmd>syntime on<CR>", "Profile Syntax Start")
 map("n", "<leader>cPe", "<cmd>syntime report<CR>", "Profile Syntax End")
+-- https://vim.fandom.com/wiki/Super_retab
+map("n", "<leader>ct", "<cmd>retab!<CR>", "format leading spacing in whole file")
 
 -- better insert register pasting
--- disables autoindent
--- missing register ":.="
+-- disables autoindent before pasting
+-- NOTE: missing register ":.="
 local registers = '*+"-%/#abcdefghijklmnopqrstuvwxyz0123456789'
 for i = 1, #registers do
   local register = registers:sub(i, i)
@@ -125,6 +127,7 @@ for i = 1, #registers do
   end, nil, { noremap = true })
 end
 
+-- enable terminal like copy and paste in neovide
 if vim.g.neovide then
   map({ "n", "v", "i", "c", "t" }, "<C-S-v>", keymapsUtils.paste, nil, { noremap = true })
 end
