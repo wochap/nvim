@@ -91,7 +91,7 @@
   "statuscol.nvim": { "branch": "main", "commit": "d6f7f5437c5404d958b88bb73e0721b1c0e09223" },
   "tailwindcss-colorizer-cmp.nvim": { "branch": "main", "commit": "3d3cd95e4a4135c250faf83dd5ed61b8e5502b86" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "cf48d4dfce44e0b9a2e19a008d6ec6ea6f01a83b" },
-  "telescope.nvim": { "branch": "feat/vimgrep--json-may-2024", "commit": "52d2c3d32fd404f534eb20525e24e4f8e090b541" },
+  "telescope.nvim": { "branch": "feat/vimgrep--json-jul-2024", "commit": "c5e397f487cf0b4720f1ceb70412669b2e54cdcf" },
   "text-case.nvim": { "branch": "main", "commit": "ec9925b27dd54809653cc766b8673acd979a888e" },
   "trouble.nvim": { "branch": "main", "commit": "f1168feada93c0154ede4d1fe9183bf69bac54ea" },
   "venv-selector.nvim": { "branch": "main", "commit": "f16c25bf16ac6e8bbdbcc9e9b3a1a00729d00c99" },

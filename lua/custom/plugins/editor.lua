@@ -635,7 +635,7 @@ return {
 
   {
     "wochap/telescope.nvim",
-    branch = "feat/vimgrep--json-may-2024",
+    branch = "feat/vimgrep--json-jul-2024",
     event = "VeryLazy",
     dependencies = {
       {
