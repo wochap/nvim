@@ -220,6 +220,9 @@ return {
       },
       setup = {
         vtsls = function(_, opts)
+          -- set default server config, recommended by yioneko/nvim-vtsls
+          require("lspconfig.configs").vtsls = require("vtsls").lspconfig
+
           -- copy typescript settings to javascript
           opts.settings.javascript =
             vim.tbl_deep_extend("force", {}, opts.settings.typescript, opts.settings.javascript or {})
