@@ -314,6 +314,8 @@ local function lsp()
 
     return hl_str "StLsp" .. " " .. client_names[1]
   end
+
+  return ""
 end
 
 local function lsp_or_filetype_module()
