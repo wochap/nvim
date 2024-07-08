@@ -11,6 +11,7 @@ map("n", "<Leader>fn", "<cmd>enew<CR>", "new buffer")
 -- tabs
 map("n", "<S-Up>", "<cmd>tabprevious<CR>", "goto next tab")
 map("n", "<S-Down>", "<cmd>tabnext<CR> ", "goto prev tab")
+map("n", "<leader>ft", "<cmd>tabnew<CR> ", "new tab")
 
 -- windows
 map("n", "<C-w>x", "<C-w>s", "Split window horizontally")

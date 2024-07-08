@@ -266,7 +266,7 @@ return {
         desc = "goto prev buffer",
       },
       {
-        "ft",
+        "<leader>fT",
         function()
           -- local state = require "bufferline.state"
           local ui = require "bufferline.ui"
