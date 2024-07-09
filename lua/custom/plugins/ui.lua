@@ -243,7 +243,7 @@ return {
   },
 
   {
-    "akinsho/bufferline.nvim",
+    "wochap/bufferline.nvim",
     enabled = not in_kittyscrollback,
     branch = "main",
     event = "VeryLazy",
@@ -317,8 +317,7 @@ return {
           local icon, hl = require("nvim-web-devicons").get_icon(vim.fn.fnamemodify(element.path, ":t"), nil, {
             default = true,
           })
-          if vim.api.nvim_get_current_buf() == vim.fn.bufnr(element.path) then
-            -- FIXME: newly created buffers enter always to this if
+          if vim.api.nvim_get_current_buf() == element.id then
             return icon, hl
           end
           return icon, "DevIconDimmed"
