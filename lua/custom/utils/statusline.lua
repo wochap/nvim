@@ -347,6 +347,9 @@ local function dirname_module()
     .. separators.r_b
     .. hl_str "StModule"
     .. " "
+    .. hl_merge("StFolder", "StModule")
+    .. " "
+    .. hl_str "StModule"
     .. dirname
     .. " "
     .. hl_str "StModuleSep"

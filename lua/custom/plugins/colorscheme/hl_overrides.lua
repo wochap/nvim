@@ -94,6 +94,7 @@ local getExtraHl = function(mocha)
     StMaximize = { fg = mocha.blue },
     StLsp = { fg = mocha.maroon },
     StSearchCount = { fg = mocha.teal },
+    StFolder = { fg = mocha.blue },
 
     -- oil.nvim
     OilMtime = { fg = "#8383A9" },
