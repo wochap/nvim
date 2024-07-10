@@ -1015,4 +1015,44 @@ return {
       end,
     },
   },
+
+  {
+    "michaelb/sniprun",
+    cmd = { "SnipRun", "SnipRunOperator" },
+    build = "sh install.sh",
+    keys = {
+      {
+        "<leader>sr",
+        "<Plug>SnipRun",
+        desc = "run code",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>sR",
+        "<Plug>SnipRunOperator",
+        desc = "run code with nvim operator",
+      },
+      {
+        "<leader>sc",
+        "<cmd>SnipClose<CR>",
+        desc = "clear virtualtext",
+      },
+    },
+    opts = {
+      display = {
+        "VirtualText",
+      },
+    },
+    config = function(_, opts)
+      local sniprun = require "sniprun"
+      lazyUtils.on_load("catppuccin", function()
+        local mocha = require("catppuccin.palettes").get_palette "mocha"
+        opts.snipruncolors = {
+          SniprunVirtualTextOk = { bg = "NONE", fg = mocha.surface1, ctermbg = "NONE", ctermfg = "Blue" },
+          SniprunVirtualTextErr = { bg = "NONE", fg = mocha.red, ctermbg = "NONE", ctermfg = "Red" },
+        }
+        sniprun.setup(opts)
+      end)
+    end,
+  },
 }
