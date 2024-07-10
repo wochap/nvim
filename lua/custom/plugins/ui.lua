@@ -533,7 +533,7 @@ return {
     opts = {
       notification = {
         window = {
-          winblend = 0,
+          winblend = 100,
         },
       },
       integration = {
