@@ -15,6 +15,7 @@ map("n", "<leader>ft", "<cmd>tabnew<CR> ", "new tab")
 
 -- windows
 map("n", "<C-w>x", "<C-w>s", "Split window horizontally")
+map("n", "<C-`>", "<C-w>p", "Focus prev window")
 
 -- terminal
 map("t", "<C-x>", keymapsUtils.exitTerminalMode, "exit terminal mode")
