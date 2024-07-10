@@ -10,7 +10,7 @@ return {
     cmd = { "Oil" },
     keys = {
       {
-        "<leader>o",
+        "<leader>fo",
         "<cmd>Oil<CR>",
         desc = "open Oil",
       },
@@ -670,7 +670,7 @@ return {
           desc = "find symbols",
         },
         {
-          "<leader>fo",
+          "<leader>fO",
           "<cmd>Telescope oldfiles<CR>",
           desc = "find old files",
         },
