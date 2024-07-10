@@ -429,7 +429,7 @@ return {
   },
 
   {
-    "folke/noice.nvim",
+    "wochap/noice.nvim",
     event = "VeryLazy",
     keys = {
       -- scroll signature/hover windows
@@ -508,7 +508,6 @@ return {
           size = {
             max_width = 90,
           },
-          anchor = "NW",
           border = {
             style = "none",
             padding = {
@@ -519,7 +518,7 @@ return {
             },
           },
           position = {
-            row = 2,
+            row = 1,
             col = 0,
           },
         },
