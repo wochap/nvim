@@ -82,7 +82,7 @@ map({ "n", "i", "v" }, "<C-S-s>", "<Esc>:w! <CR>", "save buffer!")
 map("n", "<leader>qq", "<cmd>qa <CR>", "exit")
 map("n", "<leader>q!", "<cmd>qa! <CR>", "exit!")
 map("n", "gV", "`[v`]", "select last yanked/changed text")
-map({ "n", "i", "x" }, "<C-e>", keymapsUtils.close_all_floating, "close floating windows")
+map({ "n", "i", "v", "s" }, "<C-e>", keymapsUtils.close_all_floating, "close floating windows")
 map("n", "<f5>", ":e %<CR>", "reload buffer")
 map("n", "<leader>cps", function()
   vim.cmd [[
