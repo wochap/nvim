@@ -319,9 +319,10 @@ return {
           vim.opt_local.number = true
           vim.opt_local.relativenumber = true
           vim.opt_local.signcolumn = "yes"
-          vim.defer_fn(function()
-            pcall(vim.api.nvim_win_set_cursor, 0, { 1, 1 })
-          end, 0)
+          -- put cursor in second line
+          -- vim.defer_fn(function()
+          --   pcall(vim.api.nvim_win_set_cursor, 0, { 1, 1 })
+          -- end, 0)
         end,
       })
       utils.autocmd("FileType", {
