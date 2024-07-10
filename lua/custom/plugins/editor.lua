@@ -635,8 +635,7 @@ return {
   },
 
   {
-    "wochap/telescope.nvim",
-    branch = "feat/vimgrep--json-jul-2024",
+    "nvim-telescope/telescope.nvim",
     event = "VeryLazy",
     dependencies = {
       {
@@ -720,8 +719,8 @@ return {
             "--smart-case",
           },
           prompt_prefix = "   ",
-          selection_caret = "  ",
-          entry_prefix = "  ",
+          selection_caret = " ",
+          entry_prefix = " ",
           get_selection_window = function()
             local ok, winid = pcall(require("window-picker").pick_window, {
               include_current_win = true,
@@ -883,7 +882,7 @@ return {
   },
   -- integrate flash in telescope
   {
-    "wochap/telescope.nvim",
+    "nvim-telescope/telescope.nvim",
     optional = true,
     opts = function(_, opts)
       local flash = require("custom.utils.telescope").flash
