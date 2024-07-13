@@ -126,20 +126,28 @@ M.live_grep = function()
   live_grep(state, actions)
 end
 
-M.symbols = function()
+local symbols = {
+  "Class",
+  "Function",
+  "Method",
+  "Constructor",
+  "Interface",
+  "Module",
+  "Struct",
+  "Trait",
+  "Field",
+  "Property",
+}
+
+M.document_symbols = function()
   require("telescope.builtin").lsp_document_symbols {
-    symbols = {
-      "Class",
-      "Function",
-      "Method",
-      "Constructor",
-      "Interface",
-      "Module",
-      "Struct",
-      "Trait",
-      "Field",
-      "Property",
-    },
+    symbols = symbols,
+  }
+end
+
+M.workspace_symbols = function()
+  require("telescope.builtin").lsp_workspace_symbols {
+    symbols = symbols,
   }
 end
 

@@ -664,8 +664,13 @@ return {
       },
       {
         "<leader>fy",
-        "<cmd>lua require'custom.utils.telescope'.symbols()<CR>",
-        desc = "find symbols",
+        "<cmd>lua require'custom.utils.telescope'.document_symbols()<CR>",
+        desc = "find file symbols",
+      },
+      {
+        "<leader>fY",
+        "<cmd>lua require'custom.utils.telescope'.workspace_symbols()<CR>",
+        desc = "find project symbols",
       },
       {
         "<leader>fO",
