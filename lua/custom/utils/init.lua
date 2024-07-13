@@ -33,8 +33,11 @@ end
 
 local function has_long_line(bufnr)
   -- get the first 10 lines
-  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, 10, false)
+  local lines_count = vim.api.nvim_buf_line_count(bufnr)
+  local lines_start = vim.api.nvim_buf_get_lines(bufnr, 0, 10, false)
+  local lines_end = vim.api.nvim_buf_get_lines(bufnr, lines_count > 10 and lines_count - 9 or 0, lines_count, false)
   local max_line_length = 0
+  local lines = vim.tbl_extend("force", {}, lines_start, lines_end)
   for _, line in ipairs(lines) do
     if #line > max_line_length then
       max_line_length = #line
@@ -44,7 +47,7 @@ local function has_long_line(bufnr)
 end
 
 local fn_pattern = "%.min%.[a-zA-Z]*$"
-local ft_patterns = { "gitcommit", "gitrebase", "markdown", "norg", "" }
+local ft_patterns = { "gitcommit", "gitrebase", "markdown", "norg" }
 M.is_minfile = function(bufnr)
   local filename = vim.api.nvim_buf_get_name(bufnr)
   local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
