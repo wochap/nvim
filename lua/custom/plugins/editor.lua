@@ -640,8 +640,8 @@ return {
     dependencies = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        enabled = vim.fn.executable "make" == 1,
+        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+        enabled = vim.fn.executable "cmake" == 1,
         config = function()
           lazyUtils.on_load("telescope.nvim", function()
             require("telescope").load_extension "fzf"
@@ -649,61 +649,99 @@ return {
         end,
       },
     },
-    keys = (in_leetcode and {})
-      or {
-        {
-          "<leader>cf",
-          "<cmd>Telescope filetypes<cr>",
-          desc = "change filetype",
-        },
-
-        -- find
-        {
-          "<leader>fw",
-          "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>",
-          desc = "find word",
-        },
-        {
-          "<leader>fy",
-          "<cmd>lua require'custom.utils.telescope'.symbols()<CR>",
-          desc = "find symbols",
-        },
-        {
-          "<leader>fO",
-          "<cmd>Telescope oldfiles<CR>",
-          desc = "find old files",
-        },
-        {
-          "<leader>fg",
-          "<cmd>Telescope git_status<CR>",
-          desc = "find changed files",
-        },
-        {
-          "<leader>fb",
-          "<cmd>Telescope buffers sort_mru=true ignore_current_buffer=true <CR>",
-          desc = "find buffers",
-        },
-        {
-          "<leader>ff",
-          "<cmd>Telescope find_files find_command=fd,--fixed-strings,--type,f follow=true hidden=true <CR>",
-          desc = "find files",
-        },
-        {
-          "<leader>fa",
-          "<cmd>Telescope find_files find_command=fd,--fixed-strings,--type,f,--exclude,node_modules follow=true hidden=true no_ignore=true <CR>",
-          desc = "find files!",
-        },
-        {
-          "<leader>fx",
-          "<cmd>Telescope marks<CR>",
-          desc = "find marks",
-        },
-        {
-          "<leader>fp",
-          "<cmd>lua require'custom.utils.telescope'.projects()<CR>",
-          desc = "change project",
-        },
+    keys = (in_leetcode and {}) or {
+      {
+        "<leader>cf",
+        "<cmd>Telescope filetypes<cr>",
+        desc = "change filetype",
       },
+
+      -- find
+      {
+        "<leader>fw",
+        "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>",
+        desc = "find word",
+      },
+      {
+        "<leader>fy",
+        "<cmd>lua require'custom.utils.telescope'.symbols()<CR>",
+        desc = "find symbols",
+      },
+      {
+        "<leader>fO",
+        "<cmd>Telescope oldfiles<CR>",
+        desc = "find old files",
+      },
+      {
+        "<leader>fg",
+        "<cmd>Telescope git_status<CR>",
+        desc = "find changed files",
+      },
+      {
+        "<leader>fb",
+        "<cmd>Telescope buffers sort_mru=true ignore_current_buffer=true <CR>",
+        desc = "find buffers",
+      },
+      {
+        "<leader>ff",
+        function()
+          require("telescope.builtin").git_files {
+            show_untracked = true,
+            recurse_submodules = false,
+          }
+        end,
+        desc = "find files (git ls-files)",
+      },
+      {
+        "<leader>fF",
+        function()
+          require("telescope.builtin").find_files {
+            find_command = {
+              "fd",
+              "--fixed-strings",
+              "--type",
+              "f",
+            },
+            follow = true,
+            hidden = false,
+          }
+        end,
+        desc = "find files (fd)",
+      },
+      {
+        "<leader>fa",
+        function()
+          require("telescope.builtin").find_files {
+            find_command = {
+              "fd",
+              "--fixed-strings",
+              "--type",
+              "f",
+              "--exclude",
+              "node_modules",
+              "--exclude",
+              "_node_modules",
+              "--exclude",
+              "__node_modules",
+            },
+            follow = true,
+            hidden = true,
+            no_ignore = true,
+          }
+        end,
+        desc = "find files!",
+      },
+      {
+        "<leader>fx",
+        "<cmd>Telescope marks<CR>",
+        desc = "find marks",
+      },
+      {
+        "<leader>fp",
+        "<cmd>lua require'custom.utils.telescope'.projects()<CR>",
+        desc = "change project",
+      },
+    },
     opts = function()
       local actions = require "telescope.actions"
       return {
@@ -742,8 +780,17 @@ return {
             width = 0.9,
             height = 0.9,
           },
+          -- NOTE: We don't ignore node_modules here
+          -- because we use Telescope to find references,
+          -- and sometimes references are in node_modules.
           file_ignore_patterns = { "%.git/", "%.lock$", "%-lock.json$", "%.direnv/" },
-          path_display = { "truncate", "filename_first" },
+          -- NOTE: path_display might have a negative performance impact
+          path_display = {
+            filename_first = {
+              reverse_directories = true,
+            },
+            truncate = 1,
+          },
           winblend = 0,
           border = {},
           mappings = {
