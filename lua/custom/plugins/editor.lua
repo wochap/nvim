@@ -703,7 +703,7 @@ return {
               "f",
             },
             follow = true,
-            hidden = false,
+            hidden = true,
           }
         end,
         desc = "find files (fd)",
