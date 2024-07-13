@@ -1,3 +1,5 @@
+local langUtils = require "custom.utils.lang"
+
 local M = {}
 
 local function get_buf_size_in_mb(bufnr)
@@ -41,10 +43,12 @@ local function has_long_line(bufnr)
   return max_line_length > 300
 end
 
-local pattern = "%.min%.[a-zA-Z]*$"
+local fn_pattern = "%.min%.[a-zA-Z]*$"
+local ft_patterns = { "gitcommit", "gitrebase", "markdown", "norg", "" }
 M.is_minfile = function(bufnr)
   local filename = vim.api.nvim_buf_get_name(bufnr)
-  return filename:match(pattern) or has_long_line(bufnr)
+  local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+  return filename:match(fn_pattern) or (not langUtils.matchesAnyRegex(filetype, ft_patterns) and has_long_line(bufnr))
 end
 
 M.disable_ufo = function()
