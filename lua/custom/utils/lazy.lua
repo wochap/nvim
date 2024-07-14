@@ -14,117 +14,20 @@ M.install = function()
   vim.opt.rtp:prepend(lazypath)
 end
 
-M.use_lazy_file = true
-M.lazy_file_events = { "BufReadPost", "BufNewFile", "BufWritePre" }
-
--- Properly load file based plugins without blocking the UI
-M.lazy_file = function()
-  M.use_lazy_file = M.use_lazy_file and vim.fn.argc(-1) > 0
-
-  -- Add support for the LazyFile event
-  local Event = require "lazy.core.handler.event"
-
-  if M.use_lazy_file then
-    -- We'll handle delayed execution of events ourselves
-    Event.mappings.LazyFile = { id = "LazyFile", event = "User", pattern = "LazyFile" }
-    Event.mappings["User LazyFile"] = Event.mappings.LazyFile
-  else
-    -- Don't delay execution of LazyFile events, but let lazy know about the mapping
-    Event.mappings.LazyFile = { id = "LazyFile", event = { "BufReadPost", "BufNewFile", "BufWritePre" } }
-    Event.mappings["User LazyFile"] = Event.mappings.LazyFile
-    return
-  end
-
-  local events = {} ---@type {event: string, buf: number, data?: any}[]
-
-  local done = false
-  local function load()
-    if #events == 0 or done then
-      return
-    end
-    done = true
-    vim.api.nvim_del_augroup_by_name "lazy_file"
-
-    ---@type table<string,string[]>
-    local skips = {}
-    for _, event in ipairs(events) do
-      skips[event.event] = skips[event.event] or Event.get_augroups(event.event)
-    end
-
-    vim.api.nvim_exec_autocmds("User", { pattern = "LazyFile", modeline = false })
-    for _, event in ipairs(events) do
-      if vim.api.nvim_buf_is_valid(event.buf) then
-        Event.trigger {
-          event = event.event,
-          exclude = skips[event.event],
-          data = event.data,
-          buf = event.buf,
-        }
-        if vim.bo[event.buf].filetype then
-          Event.trigger {
-            event = "FileType",
-            buf = event.buf,
-          }
-        end
-      end
-    end
-    vim.api.nvim_exec_autocmds("CursorMoved", { modeline = false })
-    events = {}
-  end
-
-  -- schedule wrap so that nested autocmds are executed
-  -- and the UI can continue rendering without blocking
-  load = vim.schedule_wrap(load)
-
-  vim.api.nvim_create_autocmd(M.lazy_file_events, {
-    group = vim.api.nvim_create_augroup("lazy_file", { clear = true }),
-    callback = function(event)
-      table.insert(events, event)
-      load()
-    end,
-  })
+M.on_load = function(...)
+  require("lazyvim.util").on_load(...)
 end
 
----@param name string
----@param fn fun(name:string)
-M.on_load = function(name, fn)
-  local Config = require "lazy.core.config"
-  if Config.plugins[name] and Config.plugins[name]._.loaded then
-    fn(name)
-  else
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "LazyLoad",
-      callback = function(event)
-        if event.data == name then
-          fn(name)
-          return true
-        end
-      end,
-    })
-  end
+M.has_load = function(...)
+  return require("lazyvim.util").is_loaded(...)
 end
 
-M.has_load = function(name)
-  local Config = require "lazy.core.config"
-  return Config.plugins[name] and Config.plugins[name]._.loaded
+M.opts = function(...)
+  return require("lazyvim.util").opts(...)
 end
 
-M.opts = function(name)
-  local plugin = require("lazy.core.config").plugins[name]
-  if not plugin then
-    return {}
-  end
-  local Plugin = require "lazy.core.plugin"
-  return Plugin.values(plugin, "opts", false)
-end
-
-M.on_very_lazy = function(fn)
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "VeryLazy",
-    callback = function()
-      fn()
-    end,
-  })
+M.on_very_lazy = function(...)
+  require("lazyvim.util").on_very_lazy(...)
 end
 
 M.load_mappings = function()

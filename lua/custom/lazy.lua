@@ -1,5 +1,6 @@
 local constants = require "custom.utils.constants"
 local lazyUtils = require "custom.utils.lazy"
+local lazyvimUtils = require "custom.utils.lazyvim"
 
 -- Install `lazy.nvim` plugin manager
 lazyUtils.install()
@@ -7,8 +8,8 @@ lazyUtils.install()
 -- Load `lazy.nvim` keymaps
 lazyUtils.load_mappings()
 
--- Add LazyFile event
-lazyUtils.lazy_file()
+-- Load `LazyVim` if possible
+lazyvimUtils.load()
 
 -- Configure and install plugins
 require("lazy").setup {
@@ -25,9 +26,7 @@ require("lazy").setup {
       commit = "e80ed322a79a8b9857c6ab0ad76545654917ddcb",
       priority = 10000,
       config = function()
-        _G.lazyvim_docs = false
-        -- required by lazyvim extras using `LazyVim.extras.wants`
-        _G.LazyVim = require "lazyvim.util"
+        lazyvimUtils.setup()
       end,
     },
 
