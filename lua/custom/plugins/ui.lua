@@ -33,23 +33,41 @@ return {
     init = function()
       vim.opt.timeout = true
     end,
-    opts = {
-      -- NOTE: which-key.nvim doesn't have the option `defaults`
-      defaults = {
-        mode = { "n", "v" },
-        ["<leader>c"] = { name = "misc" },
-        ["<leader>cp"] = { name = "profile" },
-        ["<leader>cP"] = { name = "syntax profile" },
-        ["<leader>f"] = { name = "files" },
-        ["<leader>g"] = { name = "git" },
-        ["<leader>p"] = { name = "lazy" },
-        ["<leader>q"] = { name = "quit" },
-      },
-    },
-    config = function(_, opts)
-      local wk = require "which-key"
-      wk.setup(opts)
-      wk.register(opts.defaults)
+    opts = function(_, opts)
+      opts.spec = opts.spec or {}
+      vim.list_extend(opts.spec, {
+        {
+          mode = { "n", "v" },
+          { "<leader>c", group = "misc" },
+          { "<leader>cp", group = "profile" },
+          { "<leader>cP", group = "syntax profile" },
+          { "<leader>f", group = "files" },
+          { "<leader>g", group = "git" },
+          { "<leader>p", group = "lazy" },
+          { "<leader>q", group = "quit" },
+        },
+      })
+      return {
+        spec = opts.spec,
+        preset = "modern",
+        layout = {
+          align = "left",
+          -- TOFIX: spacing also gets added in the first column
+          spacing = 0,
+        },
+        win = {
+          no_overlap = false,
+          title = false,
+          padding = { 0, 1 },
+          wo = {
+            winhighlight = "Normal:WhichKeyNormal,FloatBorder:WhichKeyBorder,FloatTitle:WhichKeyTitle",
+          },
+        },
+        icons = {
+          -- disable icons
+          rules = false,
+        },
+      }
     end,
   },
 

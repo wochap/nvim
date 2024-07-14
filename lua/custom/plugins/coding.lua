@@ -24,11 +24,10 @@ return {
   {
     "folke/which-key.nvim",
     optional = true,
-    opts = {
-      defaults = {
-        ["gs"] = { name = "surround" },
-      },
-    },
+    opts = function(_, opts)
+      opts.spec = opts.spec or {}
+      vim.list_extend(opts.spec, { { "gs", group = "surround" } })
+    end,
   },
 
   -- https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-align.md

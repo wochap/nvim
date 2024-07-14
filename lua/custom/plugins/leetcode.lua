@@ -67,10 +67,9 @@ return {
   {
     "folke/which-key.nvim",
     optional = true,
-    opts = {
-      defaults = {
-        ["<leader>L"] = { name = "leetcode" },
-      },
-    },
+    opts = function(_, opts)
+      opts.spec = opts.spec or {}
+      vim.list_extend(opts.spec, { { "<leader>L", group = "leetcode" } })
+    end,
   },
 }

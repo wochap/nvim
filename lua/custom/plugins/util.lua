@@ -222,11 +222,10 @@ return {
   {
     "folke/which-key.nvim",
     optional = true,
-    opts = {
-      defaults = {
-        ["<leader>h"] = { name = "harpon" },
-      },
-    },
+    opts = function(_, opts)
+      opts.spec = opts.spec or {}
+      vim.list_extend(opts.spec, { { "<leader>h", group = "harpon" } })
+    end,
   },
 
   {

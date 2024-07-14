@@ -358,11 +358,10 @@ return {
   {
     "folke/which-key.nvim",
     optional = true,
-    opts = {
-      defaults = {
-        ["<leader>x"] = { name = "trouble" },
-      },
-    },
+    opts = function(_, opts)
+      opts.spec = opts.spec or {}
+      vim.list_extend(opts.spec, { { "<leader>x", group = "trouble" } })
+    end,
   },
 
   {
@@ -1104,6 +1103,14 @@ return {
         }
         sniprun.setup(opts)
       end)
+    end,
+  },
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.spec = opts.spec or {}
+      vim.list_extend(opts.spec, { { "<leader>s", group = "sniprun" } })
     end,
   },
 }
