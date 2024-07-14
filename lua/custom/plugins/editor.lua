@@ -947,6 +947,14 @@ return {
     "akinsho/git-conflict.nvim",
     version = "*",
     event = "VeryLazy",
+    cmd = "GitConflictListQf",
+    keys = {
+      {
+        "<leader>xg",
+        "<cmd>GitConflictListQf<cr>",
+        desc = "toggle project git conflicts",
+      },
+    },
     opts = {
       default_mappings = {
         ours = "<leader>gco",
