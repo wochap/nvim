@@ -258,7 +258,7 @@ return {
         end,
         preselect = cmp.PreselectMode.None,
         completion = {
-          completeopt = "menu,menuone,noinsert,noselect",
+          completeopt = "menu,menuone,noinsert,noselect,fuzzy",
         },
         window = {
           completion = {
