@@ -1,7 +1,7 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
   "EmmetJSS": { "branch": "master", "commit": "252ae74ca42aa2b6d0414c19757c22ddbce36d29" },
-  "LazyVim": { "branch": "main", "commit": "987bd2207f7f2f7f72f65b0e7e811ec04c03aa32" },
+  "LazyVim": { "branch": "main", "commit": "e80ed322a79a8b9857c6ab0ad76545654917ddcb" },
   "LuaSnip": { "branch": "master", "commit": "03c8e67eb7293c404845b3982db895d59c0d1538" },
   "SchemaStore.nvim": { "branch": "main", "commit": "82db29c48789e6b61bd2ba78df8ffd7bf66470d9" },
   "bmessages.nvim": { "branch": "main", "commit": "cad159ee584932d1a631ca7c5a2e6e58d3e9981e" },
@@ -48,6 +48,7 @@
   "mini.bracketed": { "branch": "main", "commit": "abbaf7711dffabf7db180c6d61deb4a321b2a2cd" },
   "mini.bufremove": { "branch": "main", "commit": "1ee294a97e091d3cf967974df622c0d887890dc2" },
   "mini.hipatterns": { "branch": "main", "commit": "aa68eb143ce77a57b6416fb4bd71ee0adba5a517" },
+  "mini.icons": { "branch": "main", "commit": "9d9d21868841ce0a26fb2b8ef0eba7021055145c" },
   "mini.move": { "branch": "main", "commit": "cde3747eec9bb3941296e6fa1d874e0da5a10256" },
   "mini.operators": { "branch": "main", "commit": "7d30c0bc5baaa1f0d3a63dd18b35c8581bc164f4" },
   "mini.surround": { "branch": "main", "commit": "57caca9525cec0ea771a67326b0ee637d056078a" },
@@ -85,6 +86,7 @@
   "persistence.nvim": { "branch": "main", "commit": "1e7d01fc7f465af6c935361918bb5406cec736f9" },
   "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
   "popup.nvim": { "branch": "master", "commit": "b7404d35d5d3548a82149238289fa71f7f6de4ac" },
+  "promise-async": { "branch": "main", "commit": "28c1d5a295eb5310afa2523d4ae9aa41ec5a9de2" },
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "b29da4a6061a88270e875b38367d82c04c856128" },
   "smart-splits.nvim": { "branch": "master", "commit": "95833675cd92538bf9cded1d2d58d1fc271c5428" },
   "sniprun": { "branch": "master", "commit": "30991d81ecfb947a2c54f879b194d4ed23225d91" },
@@ -94,11 +96,11 @@
   "telescope.nvim": { "branch": "master", "commit": "bfcc7d5c6f12209139f175e6123a7b7de6d9c18a" },
   "text-case.nvim": { "branch": "main", "commit": "d6122bcf12ebca7751af4a2e082dec6ed5e95386" },
   "trouble.nvim": { "branch": "main", "commit": "f1168feada93c0154ede4d1fe9183bf69bac54ea" },
-  "venv-selector.nvim": { "branch": "main", "commit": "f16c25bf16ac6e8bbdbcc9e9b3a1a00729d00c99" },
+  "venv-selector.nvim": { "branch": "regexp", "commit": "f16c25bf16ac6e8bbdbcc9e9b3a1a00729d00c99" },
   "vim-illuminate": { "branch": "master", "commit": "5eeb7951fc630682c322e88a9bbdae5c224ff0aa" },
   "vim-kitty": { "branch": "main", "commit": "9cc594a634308aa3bfaf3da5b5e741da1c0144c1" },
   "visual-whitespace.nvim": { "branch": "main", "commit": "e22d8508a0236f274dde39775ee127c85d30c0c0" },
-  "which-key.nvim": { "branch": "main", "commit": "d36f722f114dfdafc8098496e9b5dcbd9f8fc3e8" },
+  "which-key.nvim": { "branch": "main", "commit": "f0e99d48f33193526fe66e699174670d5856b6b8" },
   "window-picker": { "branch": "main", "commit": "d59dac8be030f79a99f81b464589442bab33b953" },
   "zen-mode.nvim": { "branch": "main", "commit": "2694c5a2bc4dc26c7a9e74b9e2b812920c90a830" }
 }

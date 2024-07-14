@@ -128,49 +128,7 @@ return {
       require("mini.ai").setup(opts)
 
       lazyUtils.on_load("which-key.nvim", function()
-        local wk = require "which-key"
-        local i = {
-          [" "] = "Whitespace",
-          ['"'] = 'Balanced "',
-          ["'"] = "Balanced '",
-          ["`"] = "Balanced `",
-          ["("] = "Balanced (",
-          [")"] = "Balanced ) including white-space",
-          [">"] = "Balanced > including white-space",
-          ["<lt>"] = "Balanced <",
-          ["]"] = "Balanced ] including white-space",
-          ["["] = "Balanced [",
-          ["}"] = "Balanced } including white-space",
-          ["{"] = "Balanced {",
-          ["?"] = "User Prompt",
-          _ = "Underscore",
-          a = "Argument",
-          b = "Balanced ), ], }",
-          c = "Class",
-          f = "Function",
-          g = "Entire file",
-          o = "Block, conditional, loop",
-          q = "Quote `, \", '",
-          t = "Tag",
-          u = "Use/call function & method",
-          U = "Use/call without dot in name",
-        }
-        local a = vim.deepcopy(i)
-        for k, v in pairs(a) do
-          a[k] = v:gsub(" including.*", "")
-        end
-
-        local ic = vim.deepcopy(i)
-        local ac = vim.deepcopy(a)
-        for key, name in pairs { n = "Next", l = "Last" } do
-          i[key] = vim.tbl_extend("force", { name = "Inside " .. name .. " textobject" }, ic)
-          a[key] = vim.tbl_extend("force", { name = "Around " .. name .. " textobject" }, ac)
-        end
-        wk.register {
-          mode = { "o", "x" },
-          i = i,
-          a = a,
-        }
+        require("lazyvim.util.mini").ai_whichkey()
       end)
     end,
   },

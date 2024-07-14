@@ -20,8 +20,9 @@ require("lazy").setup {
     -- Necessary to import extras from LazyVim
     {
       "LazyVim/LazyVim",
+      lazy = false,
       version = false,
-      commit = "987bd2207f7f2f7f72f65b0e7e811ec04c03aa32",
+      commit = "e80ed322a79a8b9857c6ab0ad76545654917ddcb",
       priority = 10000,
       config = function()
         _G.lazyvim_docs = false
