@@ -956,6 +956,9 @@ return {
         prev = "[c",
       },
       disable_diagnostics = true,
+      list_opener = function()
+        require("trouble").open "quickfix"
+      end,
     },
     config = function(_, opts)
       vim.api.nvim_create_autocmd("User", {
