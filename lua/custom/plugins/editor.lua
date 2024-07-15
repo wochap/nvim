@@ -689,29 +689,16 @@ return {
       {
         "<leader>ff",
         function()
-          require("telescope.builtin").git_files {
-            show_untracked = true,
-            recurse_submodules = false,
-          }
+          local ok, _ = pcall(require("custom.utils-plugins.telescope").find_files_git)
+          if not ok then
+            require("custom.utils-plugins.telescope").find_files_fd()
+          end
         end,
         desc = "find files (git ls-files)",
       },
       {
         "<leader>fF",
-        function()
-          require("telescope.builtin").find_files {
-            find_command = {
-              "fd",
-              "--type",
-              "f",
-              "--fixed-strings",
-              "--color",
-              "never",
-            },
-            follow = true,
-            hidden = true,
-          }
-        end,
+        "<cmd>lua require'custom.utils-plugins.telescope'.find_files_fd()<CR>",
         desc = "find files (fd)",
       },
       {

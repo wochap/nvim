@@ -126,6 +126,28 @@ M.live_grep = function()
   live_grep(state, actions)
 end
 
+M.find_files_git = function()
+  require("telescope.builtin").git_files {
+    show_untracked = true,
+    recurse_submodules = false,
+  }
+end
+
+M.find_files_fd = function()
+  require("telescope.builtin").find_files {
+    find_command = {
+      "fd",
+      "--type",
+      "f",
+      "--fixed-strings",
+      "--color",
+      "never",
+    },
+    follow = true,
+    hidden = true,
+  }
+end
+
 local symbols = {
   "Class",
   "Function",
