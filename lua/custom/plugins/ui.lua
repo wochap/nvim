@@ -59,9 +59,10 @@ return {
           no_overlap = false,
           title = false,
           padding = { 0, 1 },
-          wo = {
-            winhighlight = "Normal:WhichKeyNormal,FloatBorder:WhichKeyBorder,FloatTitle:WhichKeyTitle",
-          },
+          -- TODO: make it work
+          -- wo = {
+          --   winhighlight = "Normal:WhichKeyNormal,FloatBorder:WhichKeyBorder,FloatTitle:WhichKeyTitle,Search:None",
+          -- },
         },
         icons = {
           -- disable icons
