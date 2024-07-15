@@ -1,6 +1,6 @@
 local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
-local nvimtreeUtils = require "custom.utils.nvimtree"
+local nvimtreeUtils = require "custom.utils-plugins.nvimtree"
 local keymapsUtils = require "custom.utils.keymaps"
 local in_leetcode = require("custom.utils.constants").in_leetcode
 
@@ -658,17 +658,17 @@ return {
       -- find
       {
         "<leader>fw",
-        "<cmd>lua require'custom.utils.telescope'.live_grep()<CR>",
+        "<cmd>lua require'custom.utils-plugins.telescope'.live_grep()<CR>",
         desc = "find word",
       },
       {
         "<leader>fy",
-        "<cmd>lua require'custom.utils.telescope'.document_symbols()<CR>",
+        "<cmd>lua require'custom.utils-plugins.telescope'.document_symbols()<CR>",
         desc = "find file symbols",
       },
       {
         "<leader>fY",
-        "<cmd>lua require'custom.utils.telescope'.workspace_symbols()<CR>",
+        "<cmd>lua require'custom.utils-plugins.telescope'.workspace_symbols()<CR>",
         desc = "find project symbols",
       },
       {
@@ -742,7 +742,7 @@ return {
       },
       {
         "<leader>fp",
-        "<cmd>lua require'custom.utils.telescope'.projects()<CR>",
+        "<cmd>lua require'custom.utils-plugins.telescope'.projects()<CR>",
         desc = "change project",
       },
     },
@@ -936,7 +936,7 @@ return {
     "nvim-telescope/telescope.nvim",
     optional = true,
     opts = function(_, opts)
-      local flash = require("custom.utils.telescope").flash
+      local flash = require("custom.utils-plugins.telescope").flash
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
         mappings = { n = { s = flash }, i = { ["<c-s>"] = flash } },
       })

@@ -1,6 +1,6 @@
 local lazyUtils = require "custom.utils.lazy"
 local iconsUtils = require "custom.utils.icons"
-local cmpUtils = require "custom.utils.cmp"
+local cmpUtils = require "custom.utils-plugins.cmp"
 
 return {
   {

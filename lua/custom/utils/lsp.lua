@@ -1,81 +1,35 @@
 local M = {}
 
-M.format = function(opts)
-  opts = vim.tbl_deep_extend("force", {}, opts or {}, {
-    formatting_options = nil,
-    timeout_ms = nil,
-    formatters = {},
-    lsp_fallback = true,
-  })
-
-  local has_conform, conform = pcall(require, "conform")
-  if not has_conform then
-    return
-  end
-  conform.format(opts)
+M.format = function(...)
+  require("lazyvim.util.lsp").format(...)
 end
 
-M.get_clients = function(opts)
-  return require("lazyvim.util.lsp").get_clients(opts)
+M.get_clients = function(...)
+  return require("lazyvim.util.lsp").get_clients(...)
 end
 
-M.formatter = function(opts)
-  local lazyCoreUtils = require "lazy.core.util"
-  opts = opts or {}
-  local filter = opts.filter or {}
-  filter = type(filter) == "string" and { name = filter } or filter
-  local ret = {
-    name = "LSP",
-    primary = true,
-    priority = 1,
-    format = function(buf)
-      M.format(lazyCoreUtils.merge(filter, { bufnr = buf }))
-    end,
-    sources = function(buf)
-      local clients = M.get_clients(lazyCoreUtils.merge(filter, { bufnr = buf }))
-      local ret = vim.tbl_filter(function(client)
-        return client.supports_method "textDocument/formatting" or client.supports_method "textDocument/rangeFormatting"
-      end, clients)
-      return vim.tbl_map(function(client)
-        return client.name
-      end, ret)
-    end,
-  }
-  return lazyCoreUtils.merge(ret, opts)
+M.formatter = function(...)
+  return require("lazyvim.util.lsp").formatter(...)
 end
 
-M.on_attach = function(on_attach)
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-      local buffer = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      on_attach(client, buffer)
-    end,
-  })
+M.on_attach = function(...)
+  return require("lazyvim.util.lsp").on_attach(...)
 end
 
-M.get_config = function(server)
-  local configs = require "lspconfig.configs"
-  return rawget(configs, server)
+M.get_config = function(...)
+  return require("lazyvim.util.lsp").get_config(...)
 end
 
-M.disable = function(server, cond)
-  local util = require "lspconfig.util"
-  local def = M.get_config(server)
-  ---@diagnostic disable-next-line: undefined-field
-  def.document_config.on_new_config = util.add_hook_before(def.document_config.on_new_config, function(config, root_dir)
-    if cond(root_dir, config) then
-      config.enabled = false
-    end
-  end)
+M.disable = function(...)
+  require("lazyvim.util.lsp").disable(...)
 end
 
-M.toggle_inlay_hints = function(buf, value)
-  return require("lazyvim.util.toggle").inlay_hints(buf, value)
+M.toggle_inlay_hints = function(...)
+  return require("lazyvim.util.toggle").inlay_hints(...)
 end
 
-M.get_pkg_path = function(pkg, path, opts)
-  return require("lazyvim.util").get_pkg_path(pkg, path, opts)
+M.get_pkg_path = function(...)
+  return require("lazyvim.util").get_pkg_path(...)
 end
 
 return M

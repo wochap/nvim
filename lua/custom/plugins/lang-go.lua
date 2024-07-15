@@ -1,4 +1,5 @@
 local constants = require "custom.utils.constants"
+local langUtils = require "custom.utils.lang"
 
 return {
   {
@@ -37,10 +38,9 @@ return {
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
-      local remove_str_from_list = require("custom.utils").remove_str_from_list
       opts.ensure_installed = opts.ensure_installed or {}
-      remove_str_from_list(opts.ensure_installed, "gomodifytags")
-      remove_str_from_list(opts.ensure_installed, "impl")
+      langUtils.remove_str_from_list(opts.ensure_installed, "gomodifytags")
+      langUtils.remove_str_from_list(opts.ensure_installed, "impl")
     end,
   },
 }

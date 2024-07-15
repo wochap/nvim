@@ -11,7 +11,7 @@ return {
     keys = {
       {
         "<leader>lf",
-        "<cmd>CustomFormat<CR>",
+        "<cmd>LazyFormat<CR>",
         desc = "format document/selection",
         mode = { "n", "v" },
       },
@@ -57,11 +57,13 @@ return {
       end)
     end,
     opts = {
-      -- Nvim will use these options when formatting with the conform.nvim formatter
+      -- NOTE: conform.nvim doesn't have the option `format`
+      -- options for conform.format
       format = {
         timeout_ms = 3000,
         async = false, -- not recommended to change
         quiet = false, -- not recommended to change
+        lsp_format = "fallback", -- not recommended to change
       },
       formatters_by_ft = {},
       -- The options you set here will be merged with the builtin formatters.

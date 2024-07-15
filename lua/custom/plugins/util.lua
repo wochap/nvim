@@ -1,7 +1,7 @@
 local utils = require "custom.utils"
 local iconsUtils = require "custom.utils.icons"
 local keymapsUtils = require "custom.utils.keymaps"
-local windowPickerUtils = require "custom.utils.window-picker"
+local windowPickerUtils = require "custom.utils-plugins.window-picker"
 local constants = require "custom.utils.constants"
 
 return {
