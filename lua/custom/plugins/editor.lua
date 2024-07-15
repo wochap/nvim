@@ -702,9 +702,11 @@ return {
           require("telescope.builtin").find_files {
             find_command = {
               "fd",
-              "--fixed-strings",
               "--type",
               "f",
+              "--fixed-strings",
+              "--color",
+              "never",
             },
             follow = true,
             hidden = true,
@@ -718,9 +720,11 @@ return {
           require("telescope.builtin").find_files {
             find_command = {
               "fd",
-              "--fixed-strings",
               "--type",
               "f",
+              "--fixed-strings",
+              "--color",
+              "never",
               "--exclude",
               "node_modules",
               "--exclude",
