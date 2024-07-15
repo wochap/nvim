@@ -108,12 +108,6 @@ utils.autocmd({ "BufWritePre" }, {
   end,
 })
 
-utils.autocmd({ "SwapExists" }, {
-  group = utils.augroup "always_recover_files_with_swap",
-  pattern = "*",
-  command = 'let v:swapchoice = "e"',
-})
-
 utils.autocmd("FileType", {
   pattern = { "gitsendemail", "conf", "editorconfig" },
   group = utils.augroup "enable_filetypes_syntax",
@@ -121,4 +115,3 @@ utils.autocmd("FileType", {
     vim.opt_local.syntax = vim.bo.filetype
   end,
 })
-

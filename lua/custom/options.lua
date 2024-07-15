@@ -121,6 +121,9 @@ vim.opt.splitkeep = "screen"
 -- NOTE: horizontal scrolling can be laggy with large horizontal lines because of regex highlighting
 vim.opt.wrap = false
 
+-- disable swapfiles
+vim.opt.swapfile = false
+
 if vim.fn.has "nvim-0.10" == 1 then
   vim.opt.smoothscroll = true
 end
