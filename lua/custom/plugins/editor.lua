@@ -963,9 +963,10 @@ return {
         callback = function(event)
           lazyUtils.on_load("which-key.nvim", function()
             local wk = require "which-key"
-            wk.register({
-              ["<leader>gc"] = { name = "git conflict" },
-            }, { buffer = event.buf })
+            wk.add {
+              buffer = event.buf,
+              { "<leader>gc", group = "git conflict" },
+            }
           end)
         end,
       })
