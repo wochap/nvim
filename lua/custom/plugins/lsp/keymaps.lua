@@ -19,21 +19,12 @@ M.get = function()
     return M._keys
   end
   M._keys = {
-    {
-      "gr",
-      "<cmd>Telescope lsp_references<cr>",
-      desc = "References",
-    },
-    {
-      "gD",
-      vim.lsp.buf.declaration,
-      desc = "Goto Declaration",
-      has = "declaration",
-    },
+    { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References", nowait = true },
+    { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration", has = "declaration" },
     {
       "gd",
       function()
-        require("telescope.builtin").lsp_definitions { reuse_win = false }
+        require("telescope.builtin").lsp_definitions { reuse_win = true }
       end,
       desc = "Goto Definition",
       has = "definition",
@@ -41,14 +32,14 @@ M.get = function()
     {
       "gI",
       function()
-        require("telescope.builtin").lsp_implementations { reuse_win = false }
+        require("telescope.builtin").lsp_implementations { reuse_win = true }
       end,
       desc = "Goto Implementation",
     },
     {
       "gy",
       function()
-        require("telescope.builtin").lsp_type_definitions { reuse_win = false }
+        require("telescope.builtin").lsp_type_definitions { reuse_win = true }
       end,
       desc = "Goto T[y]pe Definition",
     },
@@ -67,50 +58,16 @@ M.get = function()
       end,
       desc = "Hover",
     },
-    {
-      "gh",
-      vim.lsp.buf.signature_help,
-      desc = "Signature Help",
-      has = "signatureHelp",
-    },
-    {
-      "<c-h>",
-      vim.lsp.buf.signature_help,
-      mode = "i",
-      desc = "Signature Help",
-      has = "signatureHelp",
-    },
-    {
-      "<leader>la",
-      vim.lsp.buf.code_action,
-      desc = "Code Action",
-      mode = { "n", "v" },
-      has = "codeAction",
-    },
+    { "gh", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
+    { "<c-h>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
+    { "<leader>la", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
     {
       "<leader>lA",
       function()
-        vim.lsp.buf.code_action {
-          context = {
-            only = {
-              "source",
-            },
-            diagnostics = {},
-          },
-        }
+        require("lazyvim.util.lsp").action.source()
       end,
       desc = "Source Action",
       has = "codeAction",
-    },
-    {
-      "<leader>lr",
-      function()
-        local inc_rename = require "inc_rename"
-        return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand "<cword>"
-      end,
-      expr = true,
-      desc = "Rename",
-      has = "rename",
     },
     {
       "<leader>lr",
@@ -142,39 +99,17 @@ M.get = function()
       desc = "Toggle 'codelens'",
       has = "codeLens",
     },
-    {
-      "<leader>ld",
-      function()
-        vim.diagnostic.open_float()
-      end,
-      desc = "floating diagnostic",
-    },
-    {
-      "[d",
-      diagnostic_goto(false),
-      desc = "prev diagnostic",
-    },
-    {
-      "]d",
-      diagnostic_goto(true),
-      desc = "next diagnostic",
-    },
-    {
-      "[e",
-      diagnostic_goto(false, "ERROR"),
-      desc = "prev diagnostic error",
-    },
-    {
-      "]e",
-      diagnostic_goto(true, "ERROR"),
-      desc = "next diagnostic error",
-    },
+    { "<leader>ld", vim.diagnostic.open_float, desc = "floating diagnostic" },
+    { "[d", diagnostic_goto(false), desc = "prev diagnostic" },
+    { "]d", diagnostic_goto(true), desc = "next diagnostic" },
+    { "[e", diagnostic_goto(false, "ERROR"), desc = "prev diagnostic error" },
+    { "]e", diagnostic_goto(true, "ERROR"), desc = "next diagnostic error" },
   }
   return M._keys
 end
 
-function M.has(buffer, method)
-  return require("lazyvim.plugins.lsp.keymaps").has(buffer, method)
+function M.has(...)
+  return require("lazyvim.plugins.lsp.keymaps").has(...)
 end
 
 function M.resolve(buffer)
@@ -197,8 +132,12 @@ function M.on_attach(_, buffer)
   local keymaps = M.resolve(buffer)
 
   for _, keys in pairs(keymaps) do
-    if not keys.has or M.has(buffer, keys.has) then
+    local has = not keys.has or M.has(buffer, keys.has)
+    local cond = not (keys.cond == false or ((type(keys.cond) == "function") and not keys.cond()))
+
+    if has and cond then
       local opts = Keys.opts(keys)
+      opts.cond = nil
       opts.has = nil
       opts.silent = opts.silent ~= false
       opts.buffer = buffer
