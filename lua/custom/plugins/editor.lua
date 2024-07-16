@@ -370,7 +370,7 @@ return {
     keys = {
       {
         "<leader>gf",
-        "<cmd>DiffviewFileHistory %<CR>",
+        "<cmd>DiffviewFileHistory --no-merges %<CR>",
         desc = "open current file history",
       },
       {
