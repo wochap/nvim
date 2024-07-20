@@ -68,6 +68,11 @@ return {
           -- disable icons
           rules = false,
         },
+        plugins = {
+          -- NOTE: register keymaps conflict with the which-key registers plugin
+          -- additionally, there's a bug: <C-r> + register prints twice when executing macros
+          registers = false,
+        },
       }
     end,
   },
