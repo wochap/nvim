@@ -584,7 +584,7 @@ return {
     opts = {
       highlight = { link = "VisualWhitespace" },
       space_char = "·",
-      tab_char = "»",
+      tab_char = "󰌒",
       nl_char = "",
       cr_char = "",
     },

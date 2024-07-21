@@ -57,11 +57,11 @@ vim.opt.splitbelow = true
 -- NOTE: sync with mcauley-penney/visual-whitespace.nvim opts
 vim.opt.list = true
 vim.opt.listchars = {
-  tab = "» ",
+  tab = "󰌒 ",
   extends = "…",
   precedes = "…",
   trail = "·",
-  nbsp = "␣",
+  nbsp = "󱁐",
 }
 vim.opt.fillchars = {
   eob = " ",

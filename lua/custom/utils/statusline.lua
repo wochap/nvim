@@ -332,9 +332,9 @@ local function indent_module()
   local str = ""
 
   if vim.bo.expandtab then
-    str = "␣:" .. vim.bo.shiftwidth
+    str = vim.bo.shiftwidth .. ":󱁐"
   else
-    str = "»:" .. vim.bo.tabstop
+    str = vim.bo.tabstop .. ":󰌒"
   end
 
   return hl_str "StModuleAlt" .. str
