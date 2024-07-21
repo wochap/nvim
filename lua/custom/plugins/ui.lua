@@ -640,7 +640,7 @@ return {
       file = {
         [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
         ["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
-        ["README.md"] = { glyph = "", hl = "MiniIconsYellow" },
+        ["README.md"] = { glyph = "󰍔", hl = "MiniIconsGrey" },
         ["robots.txt"] = { glyph = "󰚩", hl = "MiniIconsGrey" },
       },
       extension = {
