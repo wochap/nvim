@@ -380,12 +380,6 @@ return {
   -- library used by other plugins
   { "nvim-lua/plenary.nvim" },
   { "nvim-lua/popup.nvim" },
-  {
-    "nvim-tree/nvim-web-devicons",
-    opts = {
-      override = iconsUtils.devicons,
-    },
-  },
   { "MunifTanjim/nui.nvim" },
   { "nvim-neotest/nvim-nio" },
 }

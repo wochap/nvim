@@ -81,7 +81,6 @@ return {
     "b0o/incline.nvim",
     enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
     event = "VeryLazy",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       ignore = {
         filetypes = constants.exclude_filetypes,
@@ -271,7 +270,6 @@ return {
     enabled = not in_kittyscrollback,
     branch = "main",
     event = "VeryLazy",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       {
         "<S-Right>",
@@ -631,5 +629,35 @@ return {
       },
       highlight_for_count = true,
     },
+  },
+
+  {
+    "echasnovski/mini.icons",
+    opts = {
+      default = {
+        file = { glyph = "󰈤", hl = "MiniIconsRed" },
+      },
+      file = {
+        [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
+        ["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
+        ["README.md"] = { glyph = "", hl = "MiniIconsYellow" },
+        ["robots.txt"] = { glyph = "󰚩", hl = "MiniIconsGrey" },
+      },
+      extension = {
+        lock = { glyph = "󰌾", hl = "MiniIconsGrey" },
+        ttf = { glyph = "", hl = "MiniIconsGrey" },
+        woff = { glyph = "", hl = "MiniIconsGrey" },
+        woff2 = { glyph = "", hl = "MiniIconsGrey" },
+      },
+      filetype = {
+        dotenv = { glyph = "", hl = "MiniIconsYellow" },
+      },
+    },
+    init = function()
+      package.preload["nvim-web-devicons"] = function()
+        require("mini.icons").mock_nvim_web_devicons()
+        return package.loaded["nvim-web-devicons"]
+      end
+    end,
   },
 }
