@@ -1,4 +1,5 @@
 local constants = require "custom.utils.constants"
+local utils = require "custom.utils"
 
 -- Set <space> as the leader key
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
