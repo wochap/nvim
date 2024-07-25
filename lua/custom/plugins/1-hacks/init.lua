@@ -26,4 +26,16 @@ return {
     optional = true,
     opts_extend = { "sources" },
   },
+
+  {
+    "mfussenegger/nvim-dap",
+    optional = true,
+    dependencies = {
+      {
+        "jay-babu/mason-nvim-dap.nvim",
+        optional = true,
+        opts_extend = { "ensure_installed" },
+      },
+    },
+  },
 }

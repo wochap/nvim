@@ -110,15 +110,14 @@ return {
       {
         "jay-babu/mason-nvim-dap.nvim",
         cmd = { "DapInstall", "DapUninstall" },
-        opts = function(_, opts)
-          return {
-            ensure_installed = opts.ensure_installed or {},
-            automatic_installation = true,
-            handlers = {
-              function() end,
-            },
-          }
-        end,
+        opts_extend = { "ensure_installed" },
+        opts = {
+          ensure_installed = {},
+          automatic_installation = true,
+          handlers = {
+            function() end,
+          },
+        },
       },
 
       "rcarriga/cmp-dap",
