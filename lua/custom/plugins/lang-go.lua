@@ -37,6 +37,7 @@ return {
   },
   {
     "williamboman/mason.nvim",
+    optional = true,
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       langUtils.remove_str_from_list(opts.ensure_installed, "gomodifytags")
