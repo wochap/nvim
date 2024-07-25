@@ -25,8 +25,15 @@ vim.opt.showtabline = 2
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
 
--- Sync clipboard between OS and Neovim.
-vim.opt.clipboard = "unnamedplus"
+-- Defer clipboard because xsel and pbcopy can be slow
+utils.autocmd("User", {
+  group = utils.augroup "load_clipboard",
+  pattern = "VeryLazy",
+  callback = function()
+    -- Sync clipboard between OS and Neovim.
+    vim.opt.clipboard = "unnamedplus"
+  end,
+})
 
 -- Enable break indent, long lines will continue visually indented
 vim.opt.breakindent = true
