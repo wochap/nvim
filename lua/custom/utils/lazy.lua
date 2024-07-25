@@ -32,14 +32,7 @@ end
 
 M.load_mappings = function()
   local map = keymapsUtils.map
-  map("n", "<leader>LR", "<cmd>Lazy restore<cr>", "restore")
-  map("n", "<leader>LI", "<cmd>Lazy install<cr>", "install")
-  map("n", "<leader>LS", "<cmd>Lazy sync<cr>", "sync")
-  map("n", "<leader>LC", "<cmd>Lazy check<cr>", "check")
-  map("n", "<leader>LU", "<cmd>Lazy update<cr>", "update")
-  map("n", "<leader>LP", "<cmd>Lazy profile<cr>", "profile")
-  map("n", "<leader>LH", "<cmd>Lazy<cr>", "info")
-  map("n", "<leader>Li", "<cmd>Lazy<cr>", "info")
+  map("n", "<leader>L", "<cmd>Lazy<cr>", "lazy")
 end
 
 return M
