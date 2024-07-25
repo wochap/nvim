@@ -209,19 +209,19 @@ return {
   {
     "williamboman/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-    opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, {
-        ensure_installed = opts.ensure_installed or {}, -- not an option from mason.nvim
-        ui = {
-          icons = {
-            package_pending = " ",
-            package_installed = "󰄳 ",
-            package_uninstalled = " 󰚌",
-          },
+    opts_extend = { "ensure_installed" },
+    opts = {
+      -- NOTE: mason.nvim doesn't have the option `ensure_installed`
+      ensure_installed = {},
+      ui = {
+        icons = {
+          package_pending = " ",
+          package_installed = "󰄳 ",
+          package_uninstalled = " 󰚌",
         },
-        max_concurrent_installers = 10,
-      })
-    end,
+      },
+      max_concurrent_installers = 10,
+    },
     config = function(_, opts)
       require("mason").setup(opts)
       local mr = require "mason-registry"
