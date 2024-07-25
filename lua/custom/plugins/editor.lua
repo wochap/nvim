@@ -736,104 +736,109 @@ return {
         desc = "change project",
       },
     },
-    opts = function()
-      local actions = require "telescope.actions"
-      return {
-        defaults = {
-          vimgrep_arguments = {
-            "rg",
-            "-L", -- Follow symlinks
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
+    opts = {
+      defaults = {
+        vimgrep_arguments = {
+          "rg",
+          "-L", -- Follow symlinks
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+        },
+        prompt_prefix = "   ",
+        selection_caret = " ",
+        entry_prefix = " ",
+        get_selection_window = function()
+          local ok, winid = pcall(require("window-picker").pick_window, {
+            include_current_win = true,
+          })
+          if not ok then
+            return 0
+          end
+          if not winid then
+            return 0
+          end
+          return winid
+        end,
+        sorting_strategy = "ascending",
+        layout_config = {
+          horizontal = {
+            prompt_position = "top",
+            preview_width = 0.55,
           },
-          prompt_prefix = "   ",
-          selection_caret = " ",
-          entry_prefix = " ",
-          get_selection_window = function()
-            local ok, winid = pcall(require("window-picker").pick_window, {
-              include_current_win = true,
-            })
-            if not ok then
-              return 0
-            end
-            if not winid then
-              return 0
-            end
-            return winid
-          end,
-          sorting_strategy = "ascending",
-          layout_config = {
-            horizontal = {
-              prompt_position = "top",
-              preview_width = 0.55,
-            },
-            width = 0.9,
-            height = 0.9,
+          width = 0.9,
+          height = 0.9,
+        },
+        -- NOTE: We don't ignore node_modules here
+        -- because we use Telescope to find references,
+        -- and sometimes references are in node_modules.
+        file_ignore_patterns = { "%.git/", "%.lock$", "%-lock.json$", "%.direnv/" },
+        -- NOTE: path_display might have a negative performance impact
+        path_display = {
+          filename_first = {
+            reverse_directories = true,
           },
-          -- NOTE: We don't ignore node_modules here
-          -- because we use Telescope to find references,
-          -- and sometimes references are in node_modules.
-          file_ignore_patterns = { "%.git/", "%.lock$", "%-lock.json$", "%.direnv/" },
-          -- NOTE: path_display might have a negative performance impact
-          path_display = {
-            filename_first = {
-              reverse_directories = true,
-            },
-            truncate = 1,
-          },
-          winblend = 0,
-          border = {},
-          mappings = {
-            i = {
-              ["<C-Down>"] = actions.cycle_history_next,
-              ["<C-Up>"] = actions.cycle_history_prev,
-              ["<esc>"] = actions.close,
-              ["<C-S-v>"] = keymapsUtils.commandPaste,
-              ["<CR>"] = function(prompt_bufnr)
-                local action_state = require "telescope.actions.state"
-                local picker = action_state.get_current_picker(prompt_bufnr)
-                local prev_get_selection_window = picker.get_selection_window
+          truncate = 1,
+        },
+        winblend = 0,
+        border = {},
+        mappings = {
+          i = {
+            ["<C-Down>"] = function(...)
+              require("telescope.actions").cycle_history_next(...)
+            end,
+            ["<C-Up>"] = function(...)
+              require("telescope.actions").cycle_history_prev(...)
+            end,
+            ["<esc>"] = function(...)
+              require("telescope.actions").close(...)
+            end,
+            ["<C-S-v>"] = keymapsUtils.commandPaste,
+            ["<CR>"] = function(prompt_bufnr)
+              local action_state = require "telescope.actions.state"
+              local picker = action_state.get_current_picker(prompt_bufnr)
+              local prev_get_selection_window = picker.get_selection_window
 
-                -- open files in the first window that is an actual file.
-                -- use the current window if no other window is available.
-                picker.get_selection_window = function()
-                  local wins = vim.api.nvim_list_wins()
-                  table.insert(wins, 1, vim.api.nvim_get_current_win())
-                  for _, win in ipairs(wins) do
-                    local buf = vim.api.nvim_win_get_buf(win)
-                    if vim.bo[buf].buftype == "" then
-                      return win
-                    end
+              -- open files in the first window that is an actual file.
+              -- use the current window if no other window is available.
+              picker.get_selection_window = function()
+                local wins = vim.api.nvim_list_wins()
+                table.insert(wins, 1, vim.api.nvim_get_current_win())
+                for _, win in ipairs(wins) do
+                  local buf = vim.api.nvim_win_get_buf(win)
+                  if vim.bo[buf].buftype == "" then
+                    return win
                   end
-                  return 0
                 end
-                actions.select_default(prompt_bufnr)
+                return 0
+              end
+              require("telescope.actions").select_default(prompt_bufnr)
 
-                -- restore get_selection_window
-                picker.get_selection_window = prev_get_selection_window
-              end,
-              ["<S-CR>"] = actions.select_default,
-            },
-          },
-          pickers = {
-            oldfiles = {
-              cwd_only = true,
-            },
-          },
-          preview = {
-            filesize_limit = 0.5,
-            highlight_limit = 0.5,
-            filetype_hook = function(_, bufnr)
-              return not utils.is_minfile(bufnr)
+              -- restore get_selection_window
+              picker.get_selection_window = prev_get_selection_window
+            end,
+            ["<S-CR>"] = function(...)
+              require("telescope.actions").select_default(...)
             end,
           },
         },
-      }
-    end,
+        pickers = {
+          oldfiles = {
+            cwd_only = true,
+          },
+        },
+        preview = {
+          filesize_limit = 0.5,
+          highlight_limit = 0.5,
+          filetype_hook = function(_, bufnr)
+            return not utils.is_minfile(bufnr)
+          end,
+        },
+      },
+    },
   },
 
   {
@@ -925,12 +930,22 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     optional = true,
-    opts = function(_, opts)
-      local flash = require("custom.utils-plugins.telescope").flash
-      opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
-        mappings = { n = { s = flash }, i = { ["<c-s>"] = flash } },
-      })
-    end,
+    opts = {
+      defaults = {
+        mappings = {
+          n = {
+            s = function(...)
+              require("custom.utils-plugins.telescope").flash(...)
+            end,
+          },
+          i = {
+            ["<c-s>"] = function(...)
+              require("custom.utils-plugins.telescope").flash(...)
+            end,
+          },
+        },
+      },
+    },
   },
 
   {
