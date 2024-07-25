@@ -188,6 +188,7 @@ return {
       "hrsh7th/cmp-cmdline",
       "dmitmel/cmp-cmdline-history",
     },
+    opts_extend = { "sources" },
     opts = function(_, opts)
       local cmp = require "cmp"
       local defaults = require "cmp.config.default"()
@@ -316,13 +317,12 @@ return {
             fallback()
           end,
         },
-        sources = cmp.config.sources({
-          { name = "luasnip", max_item_count = 10 },
-          { name = "nvim_lsp" },
-          { name = "path", max_item_count = 10 },
-        }, {
-          { name = "buffer", max_item_count = 10 },
-        }),
+        sources = {
+          { name = "luasnip", max_item_count = 10, group_index = 1 },
+          { name = "path", max_item_count = 10, group_index = 2 },
+          { name = "nvim_lsp", group_index = 3 },
+          { name = "buffer", max_item_count = 10, group_index = 99 },
+        },
         experimental = {
           ghost_text = false,
           native_menu = false,

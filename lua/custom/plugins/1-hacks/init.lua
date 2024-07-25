@@ -20,4 +20,10 @@ return {
     optional = true,
     opts_extend = { "spec" },
   },
+
+  {
+    "hrsh7th/nvim-cmp",
+    optional = true,
+    opts_extend = { "sources" },
+  },
 }
