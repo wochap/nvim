@@ -64,9 +64,9 @@ return {
       require("lazy.core.loader").add_to_rtp(plugin)
       require "nvim-treesitter.query_predicates"
     end,
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, {
+    opts_extend = { "ensure_installed" },
+    opts = {
+      ensure_installed = {
         "ssh_config",
         "gitcommit",
         "git_rebase",
@@ -80,39 +80,37 @@ return {
         "vimdoc",
         "diff",
         -- "norg"
-      })
-      return vim.tbl_deep_extend("force", opts, {
-        textobjects = {
-          move = {
-            enable = true,
-            goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
-            goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-            goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
-            goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
-          },
-        },
-        indent = {
+      },
+      textobjects = {
+        move = {
           enable = true,
-          disable = { "yaml" },
+          goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
+          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
+          goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
         },
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-          disable = function(_, bufnr)
-            return utils.is_minfile(bufnr) or utils.is_bigfile(bufnr, 0.5)
-          end,
+      },
+      indent = {
+        enable = true,
+        disable = { "yaml" },
+      },
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+        disable = function(_, bufnr)
+          return utils.is_minfile(bufnr) or utils.is_bigfile(bufnr, 0.5)
+        end,
+      },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = "<C-space>",
+          node_incremental = "<C-space>",
+          scope_incremental = false,
+          node_decremental = "<bs>",
         },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "<C-space>",
-            node_incremental = "<C-space>",
-            scope_incremental = false,
-            node_decremental = "<bs>",
-          },
-        },
-      })
-    end,
+      },
+    },
     config = function(_, opts)
       lazyUtils.on_load("nvim-dap-repl-highlights", function()
         require("nvim-dap-repl-highlights").setup()

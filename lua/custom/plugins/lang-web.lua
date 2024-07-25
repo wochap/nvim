@@ -14,9 +14,8 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, {
+    opts = {
+      ensure_installed = {
         "astro",
         "css",
         "graphql",
@@ -28,8 +27,8 @@ return {
         "typescript",
         "vue",
         "xml",
-      })
-    end,
+      },
+    },
   },
 
   {
