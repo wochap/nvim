@@ -14,4 +14,10 @@ return {
     optional = true,
     opts_extend = { "ensure_installed" },
   },
+
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts_extend = { "spec" },
+  },
 }

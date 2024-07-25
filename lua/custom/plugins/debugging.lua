@@ -242,9 +242,8 @@ return {
   {
     "folke/which-key.nvim",
     optional = true,
-    opts = function(_, opts)
-      opts.spec = opts.spec or {}
-      vim.list_extend(opts.spec, { { "<leader>d", group = "dap" } })
-    end,
+    opts = {
+      spec = { { "<leader>d", group = "dap" } },
+    },
   },
 }

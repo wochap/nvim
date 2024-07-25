@@ -33,9 +33,9 @@ return {
     init = function()
       vim.opt.timeout = true
     end,
-    opts = function(_, opts)
-      opts.spec = opts.spec or {}
-      vim.list_extend(opts.spec, {
+    opts_extend = { "spec" },
+    opts = {
+      spec = {
         {
           mode = { "n", "v" },
           { "<leader>c", group = "misc" },
@@ -46,35 +46,32 @@ return {
           { "<leader>p", group = "lazy" },
           { "<leader>q", group = "quit" },
         },
-      })
-      return {
-        spec = opts.spec,
-        preset = "modern",
-        layout = {
-          align = "left",
-          -- TOFIX: spacing also gets added in the first column
-          spacing = 0,
-        },
-        win = {
-          no_overlap = false,
-          title = false,
-          padding = { 0, 1 },
-          -- TODO: make it work
-          -- wo = {
-          --   winhighlight = "Normal:WhichKeyNormal,FloatBorder:WhichKeyBorder,FloatTitle:WhichKeyTitle,Search:None",
-          -- },
-        },
-        icons = {
-          -- disable icons
-          rules = false,
-        },
-        plugins = {
-          -- NOTE: register keymaps conflict with the which-key registers plugin
-          -- additionally, there's a bug: <C-r> + register prints twice when executing macros
-          registers = false,
-        },
-      }
-    end,
+      },
+      preset = "modern",
+      layout = {
+        align = "left",
+        -- TOFIX: spacing also gets added in the first column
+        spacing = 0,
+      },
+      win = {
+        no_overlap = false,
+        title = false,
+        padding = { 0, 1 },
+        -- TODO: make it work
+        -- wo = {
+        --   winhighlight = "Normal:WhichKeyNormal,FloatBorder:WhichKeyBorder,FloatTitle:WhichKeyTitle,Search:None",
+        -- },
+      },
+      icons = {
+        -- disable icons
+        rules = false,
+      },
+      plugins = {
+        -- NOTE: register keymaps conflict with the which-key registers plugin
+        -- additionally, there's a bug: <C-r> + register prints twice when executing macros
+        registers = false,
+      },
+    },
   },
 
   {

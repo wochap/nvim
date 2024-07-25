@@ -358,10 +358,9 @@ return {
   {
     "folke/which-key.nvim",
     optional = true,
-    opts = function(_, opts)
-      opts.spec = opts.spec or {}
-      vim.list_extend(opts.spec, { { "<leader>x", group = "trouble" } })
-    end,
+    opts = {
+      spec = { { "<leader>x", group = "trouble" } },
+    },
   },
 
   {
@@ -1111,9 +1110,8 @@ return {
   {
     "folke/which-key.nvim",
     optional = true,
-    opts = function(_, opts)
-      opts.spec = opts.spec or {}
-      vim.list_extend(opts.spec, { { "<leader>s", group = "sniprun" } })
-    end,
+    opts = {
+      spec = { { "<leader>s", group = "sniprun" } },
+    },
   },
 }
