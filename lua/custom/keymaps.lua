@@ -18,15 +18,9 @@ map("n", "<C-w>x", "<C-w>s", "Split window horizontally")
 map("n", "<C-`>", "<C-w>p", "Focus prev window")
 
 -- terminal
-map("t", "<C-x>", keymapsUtils.exitTerminalMode, "exit terminal mode")
-map("t", "<C-S-x>", keymapsUtils.exitTerminalMode .. "<C-w>q", "hide terminal")
-map({ "n", "t" }, "<A-i>", function()
-  terminalUtils.toggle(nil, {
-    cwd = vim.loop.cwd(),
-    size = { width = 0.8, height = 0.8 },
-    border = "single",
-  })
-end, "toggle floating term")
+map("t", "<C-x>", terminalUtils.exitTerminalMode, "exit terminal mode")
+map("t", "<C-S-x>", terminalUtils.exitTerminalMode .. "<C-w>q", "hide terminal")
+map({ "n", "t" }, "<A-i>", terminalUtils.toggleScratchTerm, "toggle floating term")
 
 -- scrolling
 map({ "n", "v" }, "<C-S-d>", "zL", "scroll half screen to the right")

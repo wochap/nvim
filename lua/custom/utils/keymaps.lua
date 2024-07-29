@@ -77,7 +77,9 @@ M.map = function(mode, lhs, rhs, desc, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-M.exitTerminalMode = vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true)
+M.unmap = function(mode, lhs, opts)
+  vim.keymap.del(mode, lhs, opts)
+end
 
 local runExpr = function(expr)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(expr, true, false, true), "n", true)

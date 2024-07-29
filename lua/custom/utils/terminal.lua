@@ -2,7 +2,7 @@ local M = {}
 
 local terminals = {}
 
-function M.toggle(cmd, opts)
+M.toggle = function(cmd, opts)
   opts = vim.tbl_deep_extend("force", {
     ft = "term",
     size = { width = 0.5, height = 0.5 },
@@ -30,6 +30,16 @@ function M.toggle(cmd, opts)
   end
 
   return terminals[termkey]
+end
+
+M.exitTerminalMode = vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true)
+
+M.toggleScratchTerm = function()
+  M.toggle(nil, {
+    cwd = vim.loop.cwd(),
+    size = { width = 0.8, height = 0.8 },
+    border = "single",
+  })
 end
 
 return M

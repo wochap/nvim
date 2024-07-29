@@ -280,6 +280,11 @@ local getOverridesHl = function(mocha)
     TelescopeResultsTitle = { fg = mocha.mantle, bg = mocha.lavender },
     TelescopeSelection = { fg = mocha.text, bg = mocha.surface0 },
 
+    -- fzf.lua
+    FzfLuaBorder = { fg = floatColors.bg, bg = floatColors.bg },
+    FzfLuaNormal = { bg = floatColors.bg },
+    FzfLuaTitle = { fg = mocha.base, bg = mocha.red },
+
     -- which-key.nvim
     WhichKey = { bg = "NONE", fg = mocha.text },
 

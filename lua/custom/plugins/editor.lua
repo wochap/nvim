@@ -1,4 +1,6 @@
 local utils = require "custom.utils"
+local terminalUtils = require "custom.utils.terminal"
+local lspUtils = require "custom.utils.lsp"
 local lazyUtils = require "custom.utils.lazy"
 local nvimtreeUtils = require "custom.utils-plugins.nvimtree"
 local keymapsUtils = require "custom.utils.keymaps"
@@ -835,6 +837,139 @@ return {
         },
       },
     },
+  },
+
+  {
+    "ibhagwan/fzf-lua",
+    cmd = "FzfLua",
+    keys = {
+      {
+        "<leader>fF",
+        "<cmd>FzfLua files<CR>",
+        desc = "find files (fd)",
+      },
+      {
+        "<leader>fW",
+        "<cmd>FzfLua live_grep_glob<CR>",
+        desc = "find word (rg)",
+      },
+    },
+    opts = function(_, opts)
+      local actions = require "fzf-lua.actions"
+      local defaults = require "fzf-lua.profiles.default-title"
+      return vim.tbl_deep_extend("force", defaults, opts, {
+        defaults = {
+          git_icons = false,
+          formatter = "path.filename_first",
+          keymap = {
+            builtin = {
+              ["<F1>"] = "toggle-help",
+              ["<C-f>"] = "half-page-down",
+              ["<C-b>"] = "half-page-up",
+              ["<C-d>"] = "preview-page-down",
+              ["<C-u>"] = "preview-page-up",
+            },
+            fzf = {
+              ["ctrl-q"] = "select-all+accept",
+              ["ctrl-f"] = "half-page-down",
+              ["ctrl-b"] = "half-page-up",
+              ["ctrl-d"] = "preview-page-down",
+              ["ctrl-u"] = "preview-page-up",
+              ["shift-up"] = "prev-history",
+              ["shift-down"] = "next-history",
+            },
+          },
+        },
+        keymap = {
+          builtin = {
+            false,
+          },
+          fzf = {
+            false,
+          },
+        },
+        file_ignore_patterns = { "%.lock$", "%-lock.json$" },
+        fzf_colors = true,
+        fzf_opts = {
+          ["--no-scrollbar"] = true,
+          -- ["--pointer"] = " ",
+          ["--marker"] = "┃",
+          ["--marker-multi-line"] = "╻┃╹",
+        },
+        previewers = {
+          builtin = {
+            syntax_delay = 1,
+            syntax_limit_b = 1024 * 1024 * 0.5, -- 0.5MB
+            limit_b = 1024 * 1024 * 0.5, -- 0.5MB
+            -- TODO: disable preview on minfiles
+          },
+        },
+        winopts = {
+          backdrop = 100,
+          width = 0.9,
+          height = 0.9,
+          row = 0.5,
+          col = 0.5,
+          preview = {
+            scrollchars = { "┃", "" },
+            default = "builtin",
+          },
+          -- HACK: fzf run in a terminal window
+          -- global mappings conflicts with our actions
+          on_create = function()
+            keymapsUtils.unmap("t", "<C-x>")
+            keymapsUtils.unmap("t", "<A-i>")
+          end,
+          on_close = function()
+            keymapsUtils.map("t", "<C-x>", terminalUtils.exitTerminalMode, "exit terminal mode")
+            keymapsUtils.map("t", "<A-i>", terminalUtils.toggleScratchTerm, "toggle floating term")
+          end,
+        },
+        files = {
+          cmd = "fd --type f --fixed-strings --color never --exclude node_modules --exclude .git --exclude .direnv",
+          prompt = "  ",
+          cwd_prompt = false,
+          no_header = true,
+          no_header_i = true,
+          fzf_opts = {
+            ["--history"] = vim.fn.stdpath "state" .. "/fzf-lua-files-history",
+          },
+          actions = {
+            ["default"] = actions.file_edit,
+            ["alt-i"] = actions.toggle_ignore,
+            ["alt-h"] = actions.toggle_hidden,
+            ["ctrl-x"] = actions.file_split,
+            ["ctrl-v"] = actions.file_vsplit,
+            ["ctrl-q"] = {
+              fn = actions.file_edit_or_qf,
+              prefix = "select-all+",
+            },
+          },
+        },
+        grep = {
+          cmd = "rg -L --color=always --no-heading --with-filename --line-number --column --smart-case -g '!{node_modules,.git,.direnv}/'",
+          prompt = "  ",
+          no_header = true,
+          no_header_i = true,
+          -- NOTE: multiline reduces performance
+          -- multiline = 2,
+          fzf_opts = {
+            ["--history"] = vim.fn.stdpath "state" .. "/fzf-lua-grep-history",
+          },
+          actions = {
+            ["default"] = actions.file_edit,
+            ["alt-i"] = actions.toggle_ignore,
+            ["alt-h"] = actions.toggle_hidden,
+            ["ctrl-x"] = actions.file_split,
+            ["ctrl-v"] = actions.file_vsplit,
+            ["ctrl-q"] = {
+              fn = actions.file_edit_or_qf,
+              prefix = "select-all+",
+            },
+          },
+        },
+      })
+    end,
   },
 
   {
