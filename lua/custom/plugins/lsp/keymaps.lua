@@ -60,11 +60,19 @@ M.get = function()
     },
     { "gh", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
     { "<c-h>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
-    { "<leader>la", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+    {
+      "<leader>la",
+      function()
+        require("actions-preview").code_actions()
+      end,
+      desc = "Code Action",
+      mode = { "n", "v" },
+      has = "codeAction",
+    },
     {
       "<leader>lA",
       function()
-        require("lazyvim.util.lsp").action.source()
+        require("actions-preview").code_actions { context = { only = { "source" } } }
       end,
       desc = "Source Action",
       has = "codeAction",

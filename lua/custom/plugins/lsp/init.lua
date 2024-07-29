@@ -328,4 +328,27 @@ return {
       autoEnableHints = false,
     },
   },
+
+  {
+    "aznhe21/actions-preview.nvim",
+    opts = {
+      telescope = {
+        results_title = false,
+        layout_strategy = "vertical",
+        layout_config = {
+          vertical = {
+            prompt_position = "top",
+            preview_width = 0.55,
+          },
+        },
+      },
+    },
+    config = function(_, opts)
+      local hl = require "actions-preview.highlight"
+      opts.highlight_command = {
+        hl.delta "delta --dark --paging=never",
+      }
+      require("actions-preview").setup(opts)
+    end,
+  },
 }
