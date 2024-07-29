@@ -693,12 +693,7 @@ return {
             require("custom.utils-plugins.telescope").find_files_fd()
           end
         end,
-        desc = "find files (git ls-files)",
-      },
-      {
-        "<leader>fF",
-        "<cmd>lua require'custom.utils-plugins.telescope'.find_files_fd()<CR>",
-        desc = "find files (fd)",
+        desc = "find files",
       },
       {
         "<leader>fa",
@@ -714,9 +709,9 @@ return {
               "--exclude",
               "node_modules",
               "--exclude",
-              "_node_modules",
+              ".git",
               "--exclude",
-              "__node_modules",
+              ".direnv",
             },
             follow = true,
             hidden = true,
@@ -747,8 +742,10 @@ return {
           "--line-number",
           "--column",
           "--smart-case",
+          "-g",
+          "!{node_modules,.git,.direnv}/",
         },
-        multi_icon = "",
+        multi_icon = "┃",
         prompt_prefix = "  ",
         selection_caret = " ",
         entry_prefix = " ",
@@ -776,12 +773,10 @@ return {
         -- NOTE: We don't ignore node_modules here
         -- because we use Telescope to find references,
         -- and sometimes references are in node_modules.
-        file_ignore_patterns = { "%.git/", "%.lock$", "%-lock.json$", "%.direnv/" },
+        file_ignore_patterns = { "%.lock$", "%-lock.json$" },
         -- NOTE: path_display might have a negative performance impact
         path_display = {
-          filename_first = {
-            reverse_directories = true,
-          },
+          filename_first = {},
           truncate = 1,
         },
         winblend = 0,
