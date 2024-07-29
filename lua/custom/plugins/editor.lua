@@ -748,7 +748,8 @@ return {
           "--column",
           "--smart-case",
         },
-        prompt_prefix = "   ",
+        multi_icon = "",
+        prompt_prefix = "  ",
         selection_caret = " ",
         entry_prefix = " ",
         get_selection_window = function()
