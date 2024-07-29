@@ -58,7 +58,7 @@ return {
     "hrsh7th/nvim-cmp",
     optional = true,
     opts = {
-      sources = { { name = "lazydev", group_index = 3 } },
+      sources = { { name = "lazydev", group_index = 2 } },
     },
   },
 

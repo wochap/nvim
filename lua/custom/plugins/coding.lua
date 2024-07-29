@@ -318,9 +318,9 @@ return {
           end,
         },
         sources = {
-          { name = "luasnip", max_item_count = 10, group_index = 1 },
-          { name = "path", max_item_count = 10, group_index = 2 },
-          { name = "nvim_lsp", group_index = 3 },
+          { name = "path", max_item_count = 10, group_index = 1 },
+          { name = "luasnip", max_item_count = 10, group_index = 2 },
+          { name = "nvim_lsp", group_index = 2 },
           { name = "buffer", max_item_count = 10, group_index = 99 },
         },
         experimental = {
