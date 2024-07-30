@@ -929,8 +929,6 @@ return {
           cmd = "fd --type f --fixed-strings --color never --exclude node_modules --exclude .git --exclude .direnv",
           prompt = "  ",
           cwd_prompt = false,
-          no_header = true,
-          no_header_i = true,
           fzf_opts = {
             ["--history"] = vim.fn.stdpath "state" .. "/fzf-lua-files-history",
           },
@@ -949,8 +947,6 @@ return {
         grep = {
           cmd = "rg -L --color=always --no-heading --with-filename --line-number --column --smart-case -g '!{node_modules,.git,.direnv}/'",
           prompt = "  ",
-          no_header = true,
-          no_header_i = true,
           -- NOTE: multiline reduces performance
           -- multiline = 2,
           fzf_opts = {

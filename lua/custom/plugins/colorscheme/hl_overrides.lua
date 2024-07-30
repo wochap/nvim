@@ -284,6 +284,9 @@ local getOverridesHl = function(mocha)
     FzfLuaBorder = { fg = floatColors.bg, bg = floatColors.bg },
     FzfLuaNormal = { bg = floatColors.bg },
     FzfLuaTitle = { fg = mocha.base, bg = mocha.red },
+    FzfLuaFzfHeader = { fg = floatColors.bg, bg = floatColors.bg },
+    FzfLuaHeaderText = { fg = floatColors.bg, bg = floatColors.bg },
+    FzfLuaHeaderBind = { fg = floatColors.bg, bg = floatColors.bg },
 
     -- which-key.nvim
     WhichKey = { bg = "NONE", fg = mocha.text },
