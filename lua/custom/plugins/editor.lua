@@ -1,10 +1,10 @@
 local utils = require "custom.utils"
 local terminalUtils = require "custom.utils.terminal"
-local lspUtils = require "custom.utils.lsp"
 local lazyUtils = require "custom.utils.lazy"
 local nvimtreeUtils = require "custom.utils-plugins.nvimtree"
 local keymapsUtils = require "custom.utils.keymaps"
 local in_leetcode = require("custom.utils.constants").in_leetcode
+local files_count_cache = {}
 
 return {
   {
@@ -690,6 +690,17 @@ return {
       {
         "<leader>ff",
         function()
+          local cwd = vim.loop.cwd()
+          local count = files_count_cache[cwd]
+          if count == nil then
+            local output = vim.fn.systemlist "(git ls-files --cached || fd --type f) | wc -l"
+            count = #output > 0 and tonumber(output[1]) or 0
+            files_count_cache[cwd] = count
+          end
+          if count >= 1000 then
+            require("fzf-lua").files()
+            return
+          end
           local ok, _ = pcall(require("custom.utils-plugins.telescope").find_files_git)
           if not ok then
             require("custom.utils-plugins.telescope").find_files_fd()
