@@ -797,6 +797,12 @@ return {
         border = {},
         mappings = {
           i = {
+            ["<C-f>"] = function(...)
+              require("telescope.actions").results_scrolling_down(...)
+            end,
+            ["<C-b>"] = function(...)
+              require("telescope.actions").results_scrolling_up(...)
+            end,
             ["<C-Down>"] = function(...)
               require("telescope.actions").cycle_history_next(...)
             end,
