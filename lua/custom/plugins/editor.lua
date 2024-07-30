@@ -931,6 +931,7 @@ return {
           preview = {
             scrollchars = { "┃", "" },
             default = "builtin",
+            horizontal = "right:55%",
           },
           -- HACK: fzf run in a terminal window
           -- global mappings conflicts with our actions
