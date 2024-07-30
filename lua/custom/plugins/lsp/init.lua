@@ -333,7 +333,6 @@ return {
     "aznhe21/actions-preview.nvim",
     opts = {
       telescope = {
-        results_title = false,
         layout_strategy = "vertical",
         layout_config = {
           vertical = {
