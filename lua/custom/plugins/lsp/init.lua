@@ -145,7 +145,7 @@ return {
       lspUtils.on_attach(function(client, buffer)
         if client.supports_method "textDocument/inlayHint" then
           if vim.api.nvim_buf_is_valid(buffer) and vim.bo[buffer].buftype == "" then
-            lspUtils.toggle_inlay_hints(buffer, true)
+            vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
           end
         end
       end)
