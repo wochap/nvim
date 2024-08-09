@@ -16,6 +16,11 @@ M.setup = function()
   -- Add LazyFile event
   -- Properly load file based plugins without blocking the UI
   require("lazyvim.util.plugin").lazy_file()
+
+  -- Override LazyVim lsp utils
+  local lazyVimLspUtil = require "lazyvim.util.lsp"
+  lazyVimLspUtil.format = require("custom.utils.lsp").format
+  lazyVimLspUtil.formatter = require("custom.utils.lsp").formatter
 end
 
 return M
