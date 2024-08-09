@@ -8,8 +8,52 @@ M.resolve = function(...)
   return require("lazyvim.util.format").resolve(...)
 end
 
-M.format = function(...)
-  require("lazyvim.util.format").format(...)
+---@param opts? {force?:boolean, buf?:number}
+M.format = function(opts)
+  opts = opts or {}
+  local buf = opts.buf or vim.api.nvim_get_current_buf()
+  if not ((opts and opts.force) or M.enabled(buf)) then
+    return
+  end
+
+  local done = false
+  -- ASYNC FORMAT START
+  local run_async_formatters = function(formatters)
+    local function run_next(index)
+      if index > #formatters then
+        return
+      end
+      local formatter = formatters[index]
+      if formatter.active then
+        done = true
+        LazyVim.try(function()
+          return formatter.format(buf, function()
+            run_next(index + 1)
+          end)
+        end, { msg = "Formatter `" .. formatter.name .. "` failed" })
+      else
+        run_next(index + 1)
+      end
+    end
+    run_next(1)
+  end
+  run_async_formatters(M.resolve(buf))
+  -- ASYNC FORMAT END
+
+  -- SYNC FORMAT START
+  -- for _, formatter in ipairs(M.resolve(buf)) do
+  --   if formatter.active then
+  --     done = true
+  --     LazyVim.try(function()
+  --       return formatter.format(buf)
+  --     end, { msg = "Formatter `" .. formatter.name .. "` failed" })
+  --   end
+  -- end
+  -- SYNC FORMAT END
+
+  if not done and opts and opts.force then
+    LazyVim.warn("No formatter available", { title = "LazyVim" })
+  end
 end
 
 M.info = function(...)

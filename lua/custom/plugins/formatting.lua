@@ -41,11 +41,8 @@ return {
           name = "conform.nvim",
           priority = 100,
           primary = true,
-          format = function(buf)
-            local plugin = require("lazy.core.config").plugins["conform.nvim"]
-            local Plugin = require "lazy.core.plugin"
-            local opts = Plugin.values(plugin, "opts", false)
-            require("conform").format(lazyCoreUtils.merge(opts.format, { bufnr = buf }))
+          format = function(buf, cb)
+            require("conform").format({ bufnr = buf }, cb)
           end,
           sources = function(buf)
             local ret = require("conform").list_formatters(buf)
@@ -57,13 +54,11 @@ return {
       end)
     end,
     opts = {
-      -- NOTE: conform.nvim doesn't have the option `format`
-      -- options for conform.format
-      format = {
-        timeout_ms = 3000,
-        async = false, -- not recommended to change
-        quiet = false, -- not recommended to change
-        lsp_format = "fallback", -- not recommended to change
+      default_format_opts = {
+        async = true,
+        quiet = false,
+        -- timeout_ms = 1000, -- doesn't have effect if async is true
+        lsp_format = "fallback",
       },
       formatters_by_ft = {},
       -- The options you set here will be merged with the builtin formatters.

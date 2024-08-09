@@ -36,8 +36,9 @@ return {
       -- NOTE: nvim-lspconfig doesn't have the option `format`
       -- options for vim.lsp.buf.format
       format = {
+        async = true,
+        -- timeout_ms = 1000, -- doesn't have effect if async is true
         formatting_options = nil,
-        timeout_ms = nil,
       },
       -- NOTE: nvim-lspconfig doesn't have the option `capabilities`
       -- add any global capabilities here
