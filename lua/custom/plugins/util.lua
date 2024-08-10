@@ -403,6 +403,33 @@ return {
     },
   },
 
+  {
+    "stevearc/profile.nvim",
+    keys = {
+      {
+        "<leader>cpt",
+        function()
+          local profile = require "profile"
+          if profile.is_recording() then
+            profile.stop()
+            vim.ui.input(
+              { prompt = "Save profile to:", completion = "file", default = "profile.json" },
+              function(filename)
+                if filename then
+                  profile.export(filename)
+                  vim.notify(string.format("Wrote %s", filename))
+                end
+              end
+            )
+          else
+            profile.start "*"
+          end
+        end,
+        desc = "toggle profile",
+      },
+    },
+  },
+
   -- library used by other plugins
   { "nvim-lua/plenary.nvim" },
   { "nvim-lua/popup.nvim" },
