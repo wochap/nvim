@@ -138,6 +138,10 @@ return {
       },
       filesystem_watchers = {
         enable = true,
+        -- PERF: nvim-tree.lua will freeze nvim on projects
+        -- with a lot of files after every BufWritePost
+        -- to prevent that we ignore those folders
+        ignore_dirs = { "node_modules", ".direnv", ".git" },
       },
       actions = {
         open_file = {
