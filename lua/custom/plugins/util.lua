@@ -58,12 +58,12 @@ return {
         gitsigns = { enabled = true }, -- disables git signs
       },
       on_open = function()
-        -- TODO: disable indentmini.nvim
+        require("indentmini").toggle(false)
         utils.disable_ufo()
         utils.disable_statuscol()
       end,
       on_close = function()
-        -- TODO: enable indentmini.nvim
+        require("indentmini").toggle(true)
       end,
     },
   },

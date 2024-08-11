@@ -566,8 +566,10 @@ return {
     },
   },
 
+  -- NOTE: indentmini.nvim can affect winhl
   {
-    "nvimdev/indentmini.nvim",
+    "wochap/indentmini.nvim",
+    branch = "toggle",
     event = "LazyFile",
     opts = {
       char = constants.in_kitty and "▎" or "▏",

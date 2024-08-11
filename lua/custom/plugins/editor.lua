@@ -415,6 +415,12 @@ return {
         },
       },
       hooks = {
+        view_enter = function()
+          require("indentmini").toggle(false)
+        end,
+        view_leave = function()
+          require("indentmini").toggle(true)
+        end,
         diff_buf_read = function()
           vim.opt_local.wrap = false
         end,
