@@ -1,4 +1,5 @@
 local utils = require "custom.utils"
+local lspUtils = require "custom.utils.lsp"
 local terminalUtils = require "custom.utils.terminal"
 local lazyUtils = require "custom.utils.lazy"
 local nvimtreeUtils = require "custom.utils-plugins.nvimtree"
@@ -421,8 +422,9 @@ return {
         view_leave = function()
           require("indentmini").toggle(true)
         end,
-        diff_buf_read = function()
+        diff_buf_read = function(bufnr)
           vim.opt_local.wrap = false
+          lspUtils.toggle_inlay_hints(bufnr, false)
         end,
         diff_buf_win_enter = function(bufnr, winid, ctx)
           if ctx.layout_name == "diff2_horizontal" then
