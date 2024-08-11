@@ -109,7 +109,7 @@ for i = 1, #registers do
       return "<C-r>" .. register
     end
     return "<cmd>lua require('custom.utils.keymaps').insertPaste(" .. register .. ")<CR>"
-  end, nil, { expr = true, noremap = false })
+  end, nil, { expr = true, noremap = true })
 end
 
 -- fast macros execution
