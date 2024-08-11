@@ -237,8 +237,8 @@ local getOverridesHl = function(mocha)
     --mini.hipatterns
     MiniHipatternsFixme = { fg = mocha.red, bg = "NONE", style = {} },
     MiniHipatternsHack = { fg = mocha.yellow, bg = "NONE", style = {} },
-    MiniHipatternsTodo = { fg = mocha.teal, bg = "NONE", style = {} },
     MiniHipatternsNote = { fg = mocha.sky, bg = "NONE", style = {} },
+    MiniHipatternsTodo = { fg = mocha.teal, bg = "NONE", style = {} },
 
     -- flash.nvim
     FlashPrompt = { link = "Normal" },
