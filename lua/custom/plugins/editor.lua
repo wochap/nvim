@@ -5,7 +5,6 @@ local lazyUtils = require "custom.utils.lazy"
 local nvimtreeUtils = require "custom.utils-plugins.nvimtree"
 local keymapsUtils = require "custom.utils.keymaps"
 local in_leetcode = require("custom.utils.constants").in_leetcode
-local files_count_cache = {}
 
 return {
   {
@@ -13,7 +12,7 @@ return {
     cmd = { "Oil" },
     keys = {
       {
-        "<leader>fo",
+        "<leader>o",
         "<cmd>Oil<CR>",
         desc = "open Oil",
       },
@@ -661,101 +660,85 @@ return {
         end,
       },
     },
-    keys = (in_leetcode and {}) or {
-      {
-        "<leader>cf",
-        "<cmd>Telescope filetypes<cr>",
-        desc = "change filetype",
-      },
+    keys = (in_leetcode and {})
+      or {
+        {
+          "<leader>cf",
+          "<cmd>Telescope filetypes<cr>",
+          desc = "change filetype",
+        },
 
-      -- find
-      {
-        "<leader>fw",
-        "<cmd>lua require'custom.utils-plugins.telescope'.live_grep()<CR>",
-        desc = "find word",
+        -- find
+        {
+          "<leader>fw",
+          -- TODO: use FzfLua live_grep_glob
+          "<cmd>lua require'custom.utils-plugins.telescope'.live_grep()<CR>",
+          desc = "find word",
+        },
+        {
+          "<leader>fy",
+          "<cmd>lua require'custom.utils-plugins.telescope'.document_symbols()<CR>",
+          desc = "find file symbols",
+        },
+        {
+          "<leader>fY",
+          "<cmd>lua require'custom.utils-plugins.telescope'.workspace_symbols()<CR>",
+          desc = "find project symbols",
+        },
+        {
+          "<leader>fo",
+          "<cmd>Telescope oldfiles<CR>",
+          desc = "find old files",
+        },
+        {
+          "<leader>fb",
+          function()
+            if utils.in_big_project() then
+              require("fzf-lua").buffers()
+              return
+            end
+            require("telescope.builtin").buffers {
+              sort_mru = true,
+              select_current = true,
+            }
+          end,
+          desc = "find buffers",
+        },
+        {
+          "<leader>ff",
+          function()
+            if utils.in_big_project() then
+              require("fzf-lua").files()
+              return
+            end
+            local ok, _ = pcall(require("custom.utils-plugins.telescope").find_files_git)
+            if not ok then
+              require("custom.utils-plugins.telescope").find_files_fd()
+            end
+          end,
+          desc = "find files",
+        },
+        {
+          "<leader>fa",
+          function()
+            if utils.in_big_project() then
+              require("fzf-lua").files {
+                cmd = "fd --type f --fixed-strings --color never --exclude node_modules --exclude .git --exclude .direnv --hidden --no-ignore",
+              }
+              return
+            end
+            require("custom.utils-plugins.telescope").find_files_fd {
+              no_ignore = true,
+            }
+          end,
+          desc = "find files!",
+        },
+        {
+          "<leader>fp",
+          "<cmd>lua require'custom.utils-plugins.telescope'.projects()<CR>",
+          desc = "change project",
+        },
       },
-      {
-        "<leader>fy",
-        "<cmd>lua require'custom.utils-plugins.telescope'.document_symbols()<CR>",
-        desc = "find file symbols",
-      },
-      {
-        "<leader>fY",
-        "<cmd>lua require'custom.utils-plugins.telescope'.workspace_symbols()<CR>",
-        desc = "find project symbols",
-      },
-      {
-        "<leader>fO",
-        "<cmd>Telescope oldfiles<CR>",
-        desc = "find old files",
-      },
-      {
-        "<leader>fg",
-        "<cmd>Telescope git_status<CR>",
-        desc = "find changed files",
-      },
-      {
-        "<leader>fb",
-        "<cmd>Telescope buffers sort_mru=true ignore_current_buffer=true <CR>",
-        desc = "find buffers",
-      },
-      {
-        "<leader>ff",
-        function()
-          local cwd = vim.loop.cwd()
-          local count = files_count_cache[cwd]
-          if count == nil then
-            local output = vim.fn.systemlist "(git ls-files --cached || fd --type f) | wc -l"
-            count = #output > 0 and tonumber(output[1]) or 0
-            files_count_cache[cwd] = count
-          end
-          if count >= 1000 then
-            require("fzf-lua").files()
-            return
-          end
-          local ok, _ = pcall(require("custom.utils-plugins.telescope").find_files_git)
-          if not ok then
-            require("custom.utils-plugins.telescope").find_files_fd()
-          end
-        end,
-        desc = "find files",
-      },
-      {
-        "<leader>fa",
-        function()
-          require("telescope.builtin").find_files {
-            find_command = {
-              "fd",
-              "--type",
-              "f",
-              "--fixed-strings",
-              "--color",
-              "never",
-              "--exclude",
-              "node_modules",
-              "--exclude",
-              ".git",
-              "--exclude",
-              ".direnv",
-            },
-            follow = true,
-            hidden = true,
-            no_ignore = true,
-          }
-        end,
-        desc = "find files!",
-      },
-      {
-        "<leader>fx",
-        "<cmd>Telescope marks<CR>",
-        desc = "find marks",
-      },
-      {
-        "<leader>fp",
-        "<cmd>lua require'custom.utils-plugins.telescope'.projects()<CR>",
-        desc = "change project",
-      },
-    },
     opts = {
       defaults = {
         vimgrep_arguments = {
@@ -874,14 +857,14 @@ return {
     cmd = "FzfLua",
     keys = {
       {
-        "<leader>fF",
-        "<cmd>FzfLua files<CR>",
-        desc = "find files (fd)",
+        "<leader>fg",
+        "<cmd>FzfLua git_status<CR>",
+        desc = "find changed files",
       },
       {
-        "<leader>fW",
-        "<cmd>FzfLua live_grep_glob<CR>",
-        desc = "find word (rg)",
+        "<leader>fx",
+        "<cmd>FzfLua marks<CR>",
+        desc = "find marks",
       },
     },
     opts = function(_, opts)
@@ -921,6 +904,7 @@ return {
         file_ignore_patterns = { "%.lock$", "%-lock.json$" },
         fzf_colors = true,
         fzf_opts = {
+          ["--header"] = " ", -- add space between prompt and results
           ["--no-scrollbar"] = true,
           -- ["--pointer"] = " ",
           ["--marker"] = "┃",
@@ -957,7 +941,7 @@ return {
           end,
         },
         files = {
-          cmd = "fd --type f --fixed-strings --color never --exclude node_modules --exclude .git --exclude .direnv",
+          cmd = "fd --type f --fixed-strings --color never --exclude node_modules --exclude .git --exclude .direnv --hidden",
           prompt = "  ",
           cwd_prompt = false,
           fzf_opts = {
@@ -974,6 +958,7 @@ return {
               prefix = "select-all+",
             },
           },
+          no_header = true,
         },
         grep = {
           cmd = "rg -L --color=always --no-heading --with-filename --line-number --column --smart-case -g '!{node_modules,.git,.direnv}/'",
@@ -994,6 +979,33 @@ return {
               prefix = "select-all+",
             },
           },
+          no_header = true,
+        },
+        buffers = {
+          prompt = "  ",
+          actions = {
+            ["default"] = actions.buf_edit,
+            ["ctrl-x"] = actions.buf_split,
+            ["ctrl-v"] = actions.buf_vsplit,
+            ["ctrl-q"] = {
+              fn = actions.file_edit_or_qf,
+              prefix = "select-all+",
+            },
+          },
+        },
+        git = {
+          status = {
+            prompt = "  ",
+            winopts = {
+              preview = {
+                layout = "vertical",
+                vertical = "bottom:55%",
+              },
+            },
+          },
+        },
+        marks = {
+          prompt = "  ",
         },
       })
     end,

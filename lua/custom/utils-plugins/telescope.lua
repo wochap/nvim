@@ -133,8 +133,8 @@ M.find_files_git = function()
   }
 end
 
-M.find_files_fd = function()
-  require("telescope.builtin").find_files {
+M.find_files_fd = function(opts)
+  require("telescope.builtin").find_files(vim.tbl_extend("force", {
     find_command = {
       "fd",
       "--type",
@@ -151,7 +151,7 @@ M.find_files_fd = function()
     },
     follow = true,
     hidden = true,
-  }
+  }, opts))
 end
 
 local symbols = {
@@ -170,12 +170,14 @@ local symbols = {
 M.document_symbols = function()
   require("telescope.builtin").lsp_document_symbols {
     symbols = symbols,
+    show_line = true,
   }
 end
 
 M.workspace_symbols = function()
   require("telescope.builtin").lsp_workspace_symbols {
     symbols = symbols,
+    show_line = true,
   }
 end
 
