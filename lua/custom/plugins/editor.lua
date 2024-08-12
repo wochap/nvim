@@ -738,6 +738,11 @@ return {
           "<cmd>lua require'custom.utils-plugins.telescope'.projects()<CR>",
           desc = "change project",
         },
+        {
+          "<leader>fd",
+          "<cmd>Telescope current_buffer_fuzzy_find fuzzy=false case_mode=ignore_case<CR>",
+          desc = "find word in file",
+        },
       },
     opts = {
       defaults = {
