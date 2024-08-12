@@ -186,36 +186,55 @@ return {
 
   {
     "ThePrimeagen/harpoon",
+    branch = "harpoon2",
     keys = {
       {
         "<leader>hs",
-        "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>",
+        function()
+          local harpoon = require "harpoon"
+          harpoon.ui:toggle_quick_menu(harpoon:list())
+        end,
         desc = "toggle quick menu files",
       },
       {
         "<leader>ha",
-        "<cmd>lua require('harpoon.mark').add_file()<CR>",
+        "<cmd>lua require('harpoon'):list():add()<CR>",
         desc = "add file",
       },
       {
         "<leader>hp",
-        "<cmd>lua require('harpoon.ui').nav_file(1)<CR>",
+        "<cmd>lua require('harpoon'):list():select(1)<CR>",
         desc = "go to file 1",
       },
       {
         "<leader>hf",
-        "<cmd>lua require('harpoon.ui').nav_file(2)<CR>",
+        "<cmd>lua require('harpoon'):list():select(2)<CR>",
         desc = "go to file 2",
       },
       {
         "<leader>hw",
-        "<cmd>lua require('harpoon.ui').nav_file(3)<CR>",
+        "<cmd>lua require('harpoon'):list():select(3)<CR>",
         desc = "go to file 3",
       },
       {
         "<leader>hq",
-        "<cmd>lua require('harpoon.ui').nav_file(4)<CR>",
+        "<cmd>lua require('harpoon'):list():select(4)<CR>",
         desc = "go to file 4",
+      },
+      {
+        "[H",
+        "<cmd>lua require('harpoon'):list():prev()<CR>",
+        desc = "go to prev file",
+      },
+      {
+        "]H",
+        "<cmd>lua require('harpoon'):list():next()<CR>",
+        desc = "go to next file",
+      },
+    },
+    opts = {
+      settings = {
+        save_on_toggle = true,
       },
     },
   },
@@ -223,7 +242,7 @@ return {
     "folke/which-key.nvim",
     optional = true,
     opts = {
-      spec = { { "<leader>h", group = "harpon" } },
+      spec = { { "<leader>h", group = "harpoon" } },
     },
   },
 
