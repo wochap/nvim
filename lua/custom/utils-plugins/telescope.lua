@@ -151,7 +151,7 @@ M.find_files_fd = function(opts)
     },
     follow = true,
     hidden = true,
-  }, opts))
+  }, opts or {}))
 end
 
 local symbols = {
