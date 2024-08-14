@@ -774,6 +774,7 @@ return {
           end
           return winid
         end,
+        dynamic_preview_title = true,
         results_title = false,
         sorting_strategy = "ascending",
         layout_config = {
