@@ -74,6 +74,7 @@
   "nvim-lspconfig": { "branch": "master", "commit": "652386deae739e38fa1bcf2f06e3e7de9b3436ba" },
   "nvim-nio": { "branch": "master", "commit": "a428f309119086dc78dd4b19306d2d67be884eee" },
   "nvim-spectre": { "branch": "master", "commit": "ba7fb777edff6c1fbbeffd343e113af64c04e90a" },
+  "nvim-texlabconfig": { "branch": "master", "commit": "b817297fd07bd6c127df56d01f439f2f838c49ed" },
   "nvim-tree.lua": { "branch": "master", "commit": "48d0e82f9434691cc50d970898142a8c084a49d6" },
   "nvim-treesitter": { "branch": "master", "commit": "3d1f5e7df8d9981ec0bcf4aa635c0cc0a7ee89d9" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "ca93cb2c34b67ab22d01976fc90bc95627a3317f" },
