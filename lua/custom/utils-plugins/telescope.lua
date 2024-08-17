@@ -60,8 +60,8 @@ local function live_grep(state, actions)
       index = index + 1
 
       -- NOTE: doesn't work with --json
-      -- args[index] = "--vimgrep"
-      -- index = index + 1
+      args[index] = "--vimgrep"
+      index = index + 1
 
       -- --glob-case-insensitive
       return args
