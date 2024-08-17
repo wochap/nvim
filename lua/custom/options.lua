@@ -143,3 +143,6 @@ vim.opt.guifont = "Iosevka NF:h10:#e-antialias"
 -- PERF: stop highlighting large lines
 -- only works with syntax builtin nvim plugin
 vim.opt.synmaxcol = 500
+
+vim.opt.spell = false
+vim.opt.spelllang = { "en_us", "es" }

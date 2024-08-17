@@ -52,7 +52,7 @@ require("lazy").setup {
   change_detection = { enabled = false },
   performance = {
     rtp = {
-      disabled_plugins = {
+      disabled_plugins = vim.tbl_extend("force", {
         "2html_plugin",
         "bugreport",
         "compiler",
@@ -63,14 +63,9 @@ require("lazy").setup {
         "logipat",
         "matchit",
         "matchparen",
-        "netrw",
-        "netrwFileHandlers",
-        "netrwPlugin",
-        "netrwSettings",
         "optwin",
         "rplugin",
         "rrhelper",
-        "spellfile_plugin",
         "synmenu",
         "tar",
         "tarPlugin",
@@ -80,7 +75,12 @@ require("lazy").setup {
         "vimballPlugin",
         "zip",
         "zipPlugin",
-      },
+      }, constants.disable_netrw and {
+        "netrw",
+        "netrwFileHandlers",
+        "netrwPlugin",
+        "netrwSettings",
+      } or {}),
     },
   },
 }

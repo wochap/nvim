@@ -64,4 +64,7 @@ M.transparent_background = false
 -- otherwise, we end up with a bunch of errors
 M.first_install = false
 
+local es_spell_path = vim.fn.stdpath "data" .. "/site/spell/es.utf-8.spl"
+M.disable_netrw = vim.loop.fs_stat(es_spell_path) and true or false
+
 return M
