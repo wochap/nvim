@@ -7,7 +7,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
     opts = {
-      ensure_installed = { "latex" },
+      ensure_installed = { "latex", "bibtex" },
     },
   },
 
