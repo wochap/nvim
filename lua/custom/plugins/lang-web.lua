@@ -45,7 +45,9 @@ return {
       servers = {
         html = { filetypes = { "xhtml", "html" } },
         cssls = {
-          provideFormatter = false,
+          init_options = {
+            provideFormatter = false,
+          },
           capabilities = {
             textDocument = {
               completion = {
