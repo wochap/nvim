@@ -258,7 +258,6 @@ return {
         ["json"] = { "prettierd" },
         ["jsonc"] = { "prettierd" },
         ["yaml"] = { "prettierd" },
-        ["markdown"] = { "prettierd" },
         ["markdown.mdx"] = { "prettierd" },
         ["graphql"] = { "prettierd" },
         ["handlebars"] = { "prettierd" },

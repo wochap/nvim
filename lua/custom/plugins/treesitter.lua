@@ -71,8 +71,6 @@ return {
         "gitcommit",
         "git_rebase",
         "git_config",
-        "markdown",
-        "markdown_inline",
         "query",
         "rasi",
         "regex",

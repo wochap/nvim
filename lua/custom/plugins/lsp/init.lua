@@ -68,9 +68,6 @@ return {
       -- NOTE: nvim-lspconfig doesn't have the option `servers`
       -- LSP Server Settings
       servers = {
-        marksman = {
-          mason = false,
-        },
         -- example to setup with lua_ls
         -- lua_ls = {
         --   mason = false, -- set to false if you don't want this server to be installed with mason
