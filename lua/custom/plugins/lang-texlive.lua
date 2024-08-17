@@ -67,6 +67,26 @@ return {
   },
 
   {
+    "stevearc/conform.nvim",
+    optional = true,
+    dependencies = {
+      -- NOTE: latexindent doesn't work on nixos
+      -- {
+      --   "williamboman/mason.nvim",
+      --   optional = true,
+      --   opts = {
+      --     ensure_installed = { "latexindent" },
+      --   },
+      -- },
+    },
+    opts = {
+      formatters_by_ft = {
+        ["tex"] = { "latexindent" },
+      },
+    },
+  },
+
+  {
     "f3fora/nvim-texlabconfig",
     ft = { "tex", "bib" },
     build = "go build",
