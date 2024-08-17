@@ -11,8 +11,13 @@ return {
       {
         "folke/neoconf.nvim",
         cmd = "Neoconf",
-        config = false,
-        dependencies = { "nvim-lspconfig" },
+        opts = {
+          import = {
+            vscode = true,
+            coc = false,
+            nlsp = false,
+          },
+        },
       },
 
       "mason.nvim",
@@ -97,10 +102,6 @@ return {
       },
     },
     config = function(_, opts)
-      -- setup neoconf
-      local plugin = require("lazy.core.config").spec.plugins["neoconf.nvim"]
-      require("neoconf").setup(require("lazy.core.plugin").values(plugin, "opts", false))
-
       -- setup lsp formatter
       formatUtils.register(lspUtils.formatter())
 
