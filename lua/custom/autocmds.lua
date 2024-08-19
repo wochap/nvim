@@ -89,7 +89,7 @@ utils.autocmd({ "CmdwinEnter" }, {
 -- Wrap text filetypes
 utils.autocmd("FileType", {
   group = utils.augroup "wrap_text",
-  pattern = { "gitcommit", "gitrebase", "markdown", "norg", "" },
+  pattern = { "gitcommit", "gitrebase", "markdown", "norg", "tex", "" },
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.linebreak = true
