@@ -38,4 +38,10 @@ return {
       },
     },
   },
+
+  {
+    "wochap/indentmini.nvim",
+    optional = true,
+    opts_extend = { "exclude" },
+  },
 }

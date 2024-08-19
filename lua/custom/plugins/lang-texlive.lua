@@ -92,4 +92,12 @@ return {
     build = "go build",
     opts = {},
   },
+
+  {
+    "wochap/indentmini.nvim",
+    optional = true,
+    opts = {
+      exclude = { "tex" },
+    },
+  },
 }
