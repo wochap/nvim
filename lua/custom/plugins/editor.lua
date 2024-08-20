@@ -804,6 +804,18 @@ return {
             ["<C-b>"] = function(...)
               require("telescope.actions").results_scrolling_up(...)
             end,
+            ["<C-S-f>"] = function(...)
+              require("telescope.actions").results_scrolling_right(...)
+            end,
+            ["<C-S-b>"] = function(...)
+              require("telescope.actions").results_scrolling_left(...)
+            end,
+            ["<C-S-d>"] = function(...)
+              require("telescope.actions").preview_scrolling_right(...)
+            end,
+            ["<C-S-u>"] = function(...)
+              require("telescope.actions").preview_scrolling_left(...)
+            end,
             ["<C-Down>"] = function(...)
               require("telescope.actions").cycle_history_next(...)
             end,
