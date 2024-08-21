@@ -77,6 +77,7 @@ return {
         "vim",
         "vimdoc",
         "diff",
+        "dockerfile",
         -- "norg"
       },
       textobjects = {
