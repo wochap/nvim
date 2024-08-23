@@ -56,6 +56,9 @@ M.in_leetcode = leet_arg == vim.fn.argv()[1]
 local kitty_arg = "kitty-scrollback"
 M.in_kittyscrollback = kitty_arg == vim.fn.argv()[1]
 
+-- nvim is opening a file from the cmdline
+M.has_file_arg = vim.fn.argc(-1) > 1 and not M.in_neorg and not M.in_leetcode and not M.in_kittyscrollback
+
 -- M.transparent_background = not vim.g.neovide
 M.transparent_background = false
 
