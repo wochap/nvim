@@ -18,7 +18,7 @@ M.on_load = function(...)
   require("lazyvim.util").on_load(...)
 end
 
-M.has_load = function(...)
+M.is_loaded = function(...)
   return require("lazyvim.util").is_loaded(...)
 end
 

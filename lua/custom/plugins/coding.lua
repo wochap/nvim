@@ -206,7 +206,7 @@ return {
             return false
           end
 
-          local has_cmp_dap_load = lazyUtils.has_load "cmp-dap"
+          local has_cmp_dap_load = lazyUtils.is_loaded "cmp-dap"
           if has_cmp_dap_load then
             local cmp_dap = require "cmp_dap"
             if cmp_dap.is_dap_buffer() then
