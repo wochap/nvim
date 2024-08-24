@@ -1,3 +1,4 @@
+local constants = require "custom.utils.constants"
 local utils = require "custom.utils"
 
 -- PERF: disable nvim syntax, which causes severe lag
@@ -12,15 +13,14 @@ require "custom.globals"
 require "custom.lazy"
 
 -- lazy load ./autocmds.lua, ./keymaps.lua, ./commands.lua
-local lazy_autocmds = vim.fn.argc(-1) == 0
-if not lazy_autocmds then
+if constants.has_file_arg then
   require "custom.autocmds"
 end
 utils.autocmd("User", {
   group = utils.augroup "load_core",
   pattern = "VeryLazy",
   callback = function()
-    if lazy_autocmds then
+    if not constants.has_file_arg then
       require "custom.autocmds"
     end
     require "custom.keymaps"
@@ -28,7 +28,4 @@ utils.autocmd("User", {
   end,
 })
 
-local lazyCoreUtils = require "lazy.core.util"
-lazyCoreUtils.track "colorscheme"
 vim.cmd.colorscheme "catppuccin"
-lazyCoreUtils.track()

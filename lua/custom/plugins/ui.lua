@@ -115,6 +115,7 @@ return {
   {
     "kevinhwang91/nvim-ufo",
     enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
+    lazy = not constants.has_file_arg,
     event = "VeryLazy",
     dependencies = {
       "kevinhwang91/promise-async",
@@ -223,7 +224,8 @@ return {
   {
     "luukvbaal/statuscol.nvim",
     enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
-    lazy = false,
+    lazy = not constants.has_file_arg,
+    event = "VeryLazy",
     opts = function()
       local builtin = require "statuscol.builtin"
       return {
