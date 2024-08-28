@@ -1139,7 +1139,9 @@ return {
   {
     "akinsho/git-conflict.nvim",
     version = "*",
-    event = "VeryLazy",
+    -- disable lazy, so inlay_hints are disabled on
+    -- files with git conflicts
+    lazy = false,
     cmd = "GitConflictListQf",
     keys = {
       {
@@ -1166,18 +1168,28 @@ return {
       vim.api.nvim_create_autocmd("User", {
         pattern = "GitConflictDetected",
         callback = function(event)
-          lazyUtils.on_load("which-key.nvim", function()
-            local wk = require "which-key"
-            wk.add {
-              buffer = event.buf,
-              { "<leader>gc", group = "git conflict" },
-            }
-          end)
+          lspUtils.toggle_inlay_hints(event.buf, false)
+          utils.disable_ufo(event.buf)
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "GitConflictResolved",
+        callback = function(event)
+          lspUtils.toggle_inlay_hints(event.buf, true)
+          utils.enable_ufo(event.buf)
         end,
       })
 
       require("git-conflict").setup(opts)
     end,
+  },
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = {
+      spec = { { "<leader>gc", group = "git conflict" } },
+    },
   },
 
   {

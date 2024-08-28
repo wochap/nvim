@@ -54,14 +54,24 @@ M.is_minfile = function(bufnr)
   return filename:match(fn_pattern) or (not langUtils.matchesAnyRegex(filetype, ft_patterns) and has_long_line(bufnr))
 end
 
-M.disable_ufo = function()
+M.disable_ufo = function(bufnr)
   local has_ufo, ufo = pcall(require, "ufo")
   if not has_ufo then
     return
   end
-  pcall(ufo.detach)
+  pcall(ufo.detach, bufnr)
   vim.opt_local.foldenable = false
   vim.opt_local.foldcolumn = "0"
+end
+
+M.enable_ufo = function(bufnr)
+  local has_ufo, ufo = pcall(require, "ufo")
+  if not has_ufo then
+    return
+  end
+  pcall(ufo.attach, bufnr)
+  vim.opt_local.foldenable = true
+  vim.opt_local.foldcolumn = "1"
 end
 
 M.disable_statuscol = function(winid)

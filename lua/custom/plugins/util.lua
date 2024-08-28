@@ -1,5 +1,6 @@
 local utils = require "custom.utils"
 local windowPickerUtils = require "custom.utils-plugins.window-picker"
+local lspUtils = require "custom.utils.lsp"
 local constants = require "custom.utils.constants"
 
 return {
@@ -55,12 +56,17 @@ return {
         twilight = { enabled = false }, -- enable to start Twilight when zen mode opens
         gitsigns = { enabled = true }, -- disables git signs
       },
-      on_open = function()
+      on_open = function(winid)
+        local bufnr = vim.api.nvim_win_get_buf(winid)
+        utils.disable_statuscol(winid)
+        utils.disable_ufo(bufnr)
+        lspUtils.toggle_inlay_hints(bufnr, false)
         require("indentmini").toggle(false)
-        utils.disable_ufo()
-        utils.disable_statuscol()
       end,
-      on_close = function()
+      on_close = function(winid)
+        local bufnr = vim.api.nvim_get_current_buf()
+        utils.enable_ufo(bufnr)
+        lspUtils.toggle_inlay_hints(bufnr, true)
         require("indentmini").toggle(true)
       end,
     },

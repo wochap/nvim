@@ -68,8 +68,15 @@ M.disable = function(...)
   require("lazyvim.util.lsp").disable(...)
 end
 
-M.toggle_inlay_hints = function(...)
-  return require("lazyvim.util.toggle").inlay_hints(...)
+M.toggle_inlay_hints = function(bufnr, state)
+  if bufnr == nil then
+    bufnr = 0
+  end
+  if state == nil then
+    state = not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr }
+  end
+  vim.lsp.inlay_hint.enable(state, { bufnr = bufnr })
+  vim.api.nvim_buf_set_var(bufnr, "is_ih_enabled", state)
 end
 
 M.get_pkg_path = function(pkg, path, opts)

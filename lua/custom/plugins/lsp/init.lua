@@ -142,6 +142,10 @@ return {
       -- enable inlay hints
       lspUtils.on_attach(function(client, buffer)
         if client.supports_method "textDocument/inlayHint" then
+          local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, buffer, "is_ih_enabled")
+          if is_ih_enabled_ok and not is_ih_enabled then
+            return
+          end
           if vim.api.nvim_buf_is_valid(buffer) and vim.bo[buffer].buftype == "" then
             vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
           end

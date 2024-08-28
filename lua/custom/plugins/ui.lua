@@ -152,8 +152,8 @@ return {
       utils.autocmd("FileType", {
         group = utils.augroup "hide_ufo_folds",
         pattern = constants.exclude_filetypes,
-        callback = function()
-          utils.disable_ufo()
+        callback = function(event)
+          utils.disable_ufo(event.buf)
         end,
       })
     end,
