@@ -323,7 +323,21 @@ return {
           { name = "path", max_item_count = 10, group_index = 1 },
           { name = "luasnip", max_item_count = 10, group_index = 2 },
           { name = "nvim_lsp", group_index = 2 },
-          { name = "buffer", max_item_count = 10, group_index = 99 },
+          {
+            name = "buffer",
+            max_item_count = 10,
+            group_index = 99,
+            option = {
+              -- visible buffers
+              get_bufnrs = function()
+                local bufs = {}
+                for _, win in ipairs(vim.api.nvim_list_wins()) do
+                  bufs[vim.api.nvim_win_get_buf(win)] = true
+                end
+                return vim.tbl_keys(bufs)
+              end,
+            },
+          },
         },
         experimental = {
           ghost_text = false,
