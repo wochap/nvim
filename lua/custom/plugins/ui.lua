@@ -618,18 +618,42 @@ return {
   },
 
   {
-    "tzachar/highlight-undo.nvim",
+    "mei28/luminate.nvim",
     event = "LazyFile",
     opts = {
       duration = 200,
-      undo = {
-        hlgroup = "Visual",
-      },
-      redo = {
-        hlgroup = "Visual",
-      },
-      highlight_for_count = true,
     },
+    config = function(_, opts)
+      local luminate = require "luminate"
+      lazyUtils.on_load("catppuccin", function()
+        local mocha = require("catppuccin.palettes").get_palette "mocha"
+        local guibg = mocha.surface1
+        local fg = "NONE"
+        opts = vim.tbl_deep_extend("force", {}, opts or {}, {
+          yank = {
+            hlgroup = "Luminate",
+            guibg = guibg,
+            fg = fg,
+          },
+          paste = {
+            hlgroup = "Luminate",
+            guibg = guibg,
+            fg = fg,
+          },
+          undo = {
+            hlgroup = "Luminate",
+            guibg = guibg,
+            fg = fg,
+          },
+          redo = {
+            hlgroup = "Luminate",
+            guibg = guibg,
+            fg = fg,
+          },
+        })
+        luminate.setup(opts)
+      end)
+    end,
   },
 
   {

@@ -6,14 +6,6 @@ utils.autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   command = "checktime",
 })
 
--- Highlight on yank
-utils.autocmd("TextYankPost", {
-  group = utils.augroup "highlight_yank",
-  callback = function()
-    vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
-  end,
-})
-
 -- Resize splits if window got resized
 utils.autocmd({ "VimResized" }, {
   group = utils.augroup "resize_splits",
