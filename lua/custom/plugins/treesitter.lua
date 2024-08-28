@@ -33,6 +33,7 @@ return {
         "vimdoc",
         "diff",
         "dockerfile",
+        "just",
         -- "norg"
       },
       textobjects = {
