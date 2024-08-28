@@ -415,15 +415,10 @@ return {
         },
       },
       hooks = {
-        view_enter = function()
-          require("indentmini").toggle(false)
-        end,
-        view_leave = function()
-          require("indentmini").toggle(true)
-        end,
         diff_buf_read = function(bufnr)
           vim.opt_local.wrap = false
           lspUtils.toggle_inlay_hints(bufnr, false)
+          require("indentmini").toggle_buff(bufnr, false)
         end,
         diff_buf_win_enter = function(bufnr, winid, ctx)
           if ctx.layout_name == "diff2_horizontal" then

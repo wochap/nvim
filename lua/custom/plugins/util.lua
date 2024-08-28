@@ -59,15 +59,17 @@ return {
       on_open = function(winid)
         local bufnr = vim.api.nvim_win_get_buf(winid)
         utils.disable_statuscol(winid)
+        require("indentmini").toggle_win(winid, false)
+        -- TODO: edge case where if you are in zen mode
+        -- and switch to a different buffer
+        -- this fn doesn't get called
         utils.disable_ufo(bufnr)
         lspUtils.toggle_inlay_hints(bufnr, false)
-        require("indentmini").toggle(false)
       end,
-      on_close = function(winid)
+      on_close = function()
         local bufnr = vim.api.nvim_get_current_buf()
         utils.enable_ufo(bufnr)
         lspUtils.toggle_inlay_hints(bufnr, true)
-        require("indentmini").toggle(true)
       end,
     },
   },
