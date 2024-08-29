@@ -14,14 +14,26 @@ vim.opt.relativenumber = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
 
+-- hide nvim bottom status
+vim.opt.cmdheight = 0
+
 -- global statusline
+-- HACK: lazy load statusline, otherwise it produces blinking because of noice.nvim
 vim.opt.laststatus = 3
-if not constants.in_kittyscrollback then
-  vim.opt.statusline = "%!v:lua.require('custom.utils.statusline').statusline()"
-end
+vim.opt.statusline = "%#Normal#"
+utils.autocmd("User", {
+  group = utils.augroup "load_statusline",
+  pattern = "VeryLazy",
+  callback = function()
+    if not constants.in_kittyscrollback then
+      vim.opt.statusline = "%!v:lua.require('custom.utils.statusline').statusline()"
+    end
+  end,
+})
 
 -- global bufferline
 vim.opt.showtabline = 2
+vim.o.tabline = "%#Normal#"
 
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
@@ -143,6 +155,3 @@ vim.opt.synmaxcol = 500
 
 vim.opt.spell = false
 vim.opt.spelllang = { "en_us", "es" }
-
--- hide nvim messages bar
-vim.opt.cmdheight = 0

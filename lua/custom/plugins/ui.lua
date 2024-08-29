@@ -302,8 +302,9 @@ return {
       },
     },
     init = function()
-      vim.o.tabline = " "
-      vim.opt.termguicolors = true
+      -- options already set in options.lua
+      -- vim.o.tabline = "%#Normal#"
+      -- vim.opt.termguicolors = true
 
       -- Fix bufferline when restoring a session
       utils.autocmd("BufAdd", {
