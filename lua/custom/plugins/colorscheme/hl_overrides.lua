@@ -79,7 +79,7 @@ local getExtraHl = function(mocha)
     ["@text.uri.markdown_inline"] = { fg = mocha.blue },
 
     -- custom statusline
-    StRelativePath = { fg = colorschemeUtils.darken(mocha.text, 0.667, mocha.surface0) },
+    StRelativePath = { fg = mocha.overlay0 },
     StModule = { bg = st_module_bg, fg = st_module_fg },
     StModuleAlt = { bg = st_bg, fg = st_fg },
     StModuleSep = { bg = st_bg, fg = st_module_bg },

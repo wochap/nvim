@@ -123,7 +123,7 @@ local function relative_path()
 
   local filename = vim.api.nvim_buf_get_name(0)
   local relative_path_str = vim.fn.fnamemodify(filename, ":~:.")
-  relative_path_str = string.sub(relative_path_str, 1, -1 + string.len(filename_str) * -1)
+  relative_path_str = string.sub(relative_path_str, 1, -2 + string.len(filename_str) * -1)
 
   if string.len(relative_path_str) > 60 then
     local parts = {}
@@ -133,7 +133,7 @@ local function relative_path()
     if #parts > 2 then
       local first_folder = parts[1]
       local last_folder = parts[#parts]
-      relative_path_str = first_folder .. "/…/" .. last_folder .. "/"
+      relative_path_str = first_folder .. "/…/" .. last_folder
     end
   end
 
@@ -152,8 +152,9 @@ local function file_module()
     .. hl_str "StModule"
     .. " "
     .. filetype_icon()
-    .. relative_path()
     .. filename()
+    .. " "
+    .. relative_path()
     .. hl_str "StModule"
     .. " "
     .. hl_str "StModuleSep"
