@@ -60,9 +60,9 @@ end
 M.print_buf_info = function()
   local winid = vim.api.nvim_get_current_win()
   local bufid = vim.api.nvim_win_get_buf(winid)
-  local buftype = vim.api.nvim_buf_get_option(bufid, "buftype")
+  local buftype = vim.api.nvim_get_option_value("buftype", { buf = bufid })
   local bufname = vim.api.nvim_buf_get_name(bufid)
-  local filetype = vim.bo.filetype
+  local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufid })
   local floating = vim.api.nvim_win_get_config(winid).relative ~= ""
 
   vim.notify("winid " .. winid)
