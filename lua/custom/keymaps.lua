@@ -35,15 +35,15 @@ map("n", "<leader>cd", "<cmd>lua require('osv').launch({ port = 8086 })<cr>", "s
 map("n", "<leader>cD", "<cmd>lua require('osv').stop()<cr>", "stop nvim server")
 
 -- editing
-map("n", "[<Space>", ":set paste<CR>m`O<Esc>``:set nopaste<CR>", "add empty line up")
-map("n", "]<Space>", ":set paste<CR>m`o<Esc>``:set nopaste<CR>", "add empty line down")
-map("n", "[<Del>", "m`:silent +g/\\m^\\s*$/d<CR>``:noh<CR>", "remove emply line up")
-map("n", "]<Del>", "m`:silent -g/\\m^\\s*$/d<CR>``:noh<CR>", "remove emply line down")
+map("n", "[<Space>", ":set paste<CR>m`O<Esc>``:set nopaste<CR>", "add empty line up", { silent = true })
+map("n", "]<Space>", ":set paste<CR>m`o<Esc>``:set nopaste<CR>", "add empty line down", { silent = true })
+map("n", "]<Del>", "m`:silent +g/\\m^\\s*$/d<CR>``:noh<CR>", "remove emply line up", { silent = true })
+map("n", "[<Del>", "m`:silent -g/\\m^\\s*$/d<CR>``:noh<CR>", "remove emply line down", { silent = true })
 map("i", "<A-BS>", '<Esc>"zcb<Del>', "delete backward-word")
 map("i", "<A-S-BS>", '<Esc>"zcB<Del>', "delete the entire backward-word")
 -- map("i", "<A-Del>", '<Esc>"zcw', "delete forward-word")
 -- map("i", "<A-S-Del>", '<Esc>"zcW', "delete the entire forward-word")
-map("v", "g<C-a>", ":s/\\([^ ]\\) \\{2,\\}/\\1 /g<CR>:nohlsearch<CR>", "Unalign")
+map("v", "g<C-a>", ":s/\\([^ ]\\) \\{2,\\}/\\1 /g<CR>:nohlsearch<CR>", "Unalign", { silent = true })
 map({ "n", "i", "x" }, "<S-A-Down>", keymapsUtils.getCloneLineFn "down", "clone line down")
 map({ "n", "i", "x" }, "<S-A-Up>", keymapsUtils.getCloneLineFn "up", "clone line up")
 map("s", "<BS>", "<C-o>c", "delete selection")
@@ -72,13 +72,13 @@ end, "Toggle Conceal")
 
 -- misc
 map("n", "<C-y>", "<cmd> %y+ <CR>", "copy whole file")
-map({ "n", "i", "v" }, "<C-s>", "<Esc>:w <CR>", "save buffer")
-map({ "n", "i", "v" }, "<C-S-s>", "<Esc>:w! <CR>", "save buffer!")
+map({ "n", "i", "v" }, "<C-s>", "<cmd>w<cr><esc>", "save buffer")
+map({ "n", "i", "v" }, "<C-S-s>", "<cmd>w!<cr><esc>", "save buffer!")
 map("n", "<leader>qq", "<cmd>qa <CR>", "exit")
 map("n", "<leader>q!", "<cmd>qa! <CR>", "exit!")
 map("n", "gV", "`[v`]", "select last yanked/changed text")
 map({ "n", "i", "v", "s" }, "<C-e>", keymapsUtils.close_all_floating, "close floating windows")
-map("n", "<f5>", ":e %<CR>", "reload buffer")
+map("n", "<f5>", "<cmd>edit %<CR>", "reload buffer")
 map("n", "<leader>cps", function()
   vim.cmd [[
     :profile start /tmp/nvim-profile.log
