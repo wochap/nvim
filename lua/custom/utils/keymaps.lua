@@ -1,5 +1,10 @@
 local M = {}
 
+local exclude_filetypes = {
+  "noice",
+  "incline",
+  "fidget",
+}
 M.close_all_floating = function()
   local cmp = require "cmp"
   if cmp.visible() then
@@ -18,11 +23,16 @@ M.close_all_floating = function()
 
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     local _, config = pcall(vim.api.nvim_win_get_config, win)
-    -- TODO: close nui.nvim popups
     if config and config.relative ~= "" then
+      local bufid = vim.api.nvim_win_get_buf(win)
+      local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufid })
+      if vim.tbl_contains(exclude_filetypes, filetype) then
+        goto continue
+      end
       local ok, _ = pcall(vim.api.nvim_win_close, win, false)
-      vim.notify("closing window:" .. (not ok and " failed" or "") .. win)
+      vim.notify("closing window:" .. (not ok and " failed" or "") .. win .. " " .. filetype)
     end
+    ::continue::
   end
 end
 
