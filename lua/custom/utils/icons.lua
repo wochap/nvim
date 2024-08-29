@@ -1,5 +1,12 @@
 local M = {}
 
+M.diagnostic = {
+  Error = "󰅚 ",
+  Warn = " ",
+  Info = " ",
+  Hint = "󰛩 ",
+}
+
 M.lspkind = {
   Array = " ",
   Boolean = "󰨙 ",

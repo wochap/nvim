@@ -1,12 +1,5 @@
 local M = {}
 
-M.diagnostic_icons = {
-  Error = "󰅚 ",
-  Warn = " ",
-  Info = " ",
-  Hint = "󰛩 ",
-}
-
 -- NOTE: you can't exclude empty filetypes
 M.exclude_filetypes = {
   "DiffviewFileHistory",

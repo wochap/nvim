@@ -1,4 +1,5 @@
 local constants = require "custom.utils.constants"
+local iconsUtils = require "custom.utils.icons"
 local lspUtils = require "custom.utils.lsp"
 
 local fn = vim.fn
@@ -236,16 +237,16 @@ local function diagnostics_module()
   local hints_count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
   local infos_count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   local errors = (errors_count and errors_count > 0)
-      and (hl_str "StErrors" .. constants.diagnostic_icons.Error .. "" .. errors_count)
+      and (hl_str "StErrors" .. iconsUtils.diagnostic.Error .. "" .. errors_count)
     or ""
   local warnings = (warnings_count and warnings_count > 0)
-      and (hl_str "StWarnings" .. constants.diagnostic_icons.Warn .. "" .. warnings_count)
+      and (hl_str "StWarnings" .. iconsUtils.diagnostic.Warn .. "" .. warnings_count)
     or ""
   local hints = (hints_count and hints_count > 0)
-      and (hl_str "StHints" .. constants.diagnostic_icons.Hint .. "" .. hints_count)
+      and (hl_str "StHints" .. iconsUtils.diagnostic.Hint .. "" .. hints_count)
     or ""
   local infos = (infos_count and infos_count > 0)
-      and (hl_str "StInfos" .. constants.diagnostic_icons.Info .. "" .. infos_count)
+      and (hl_str "StInfos" .. iconsUtils.diagnostic.Info .. "" .. infos_count)
     or ""
 
   return table.concat(removeEmptyStr { errors, warnings, hints, infos }, " ")
