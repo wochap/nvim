@@ -255,8 +255,27 @@ return {
   {
     "smjonas/inc-rename.nvim",
     opts = {
-      input_buffer_type = "dressing",
       preview_empty_name = true,
+    },
+  },
+  {
+    "wochap/noice.nvim",
+    optional = true,
+    opts = {
+      cmdline = {
+        format = {
+          IncRename = {
+            pattern = "^:%s*IncRename%s+",
+            icon = " ",
+            conceal = true,
+            opts = {
+              relative = "cursor",
+              size = { min_width = 20 },
+              position = { row = -2, col = 2 },
+            },
+          },
+        },
+      },
     },
   },
 

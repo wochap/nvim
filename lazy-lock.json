@@ -5,7 +5,6 @@
   "LuaSnip": { "branch": "master", "commit": "03c8e67eb7293c404845b3982db895d59c0d1538" },
   "SchemaStore.nvim": { "branch": "main", "commit": "6ba091a30616aadeda531c7f27dfad263303f55d" },
   "actions-preview.nvim": { "branch": "master", "commit": "9f52a01c374318e91337697ebed51c6fae57f8a4" },
-  "bmessages.nvim": { "branch": "main", "commit": "cad159ee584932d1a631ca7c5a2e6e58d3e9981e" },
   "bufferline.nvim": { "branch": "main", "commit": "4c454877386ced3474a0f7e22769ce870a0ccfa0" },
   "catppuccin": { "branch": "main", "commit": "f8564054831b45bac52f91bb8d12c68631b13e1a" },
   "clangd_extensions.nvim": { "branch": "main", "commit": "a8500531c4ed3a207e744a374ea038744a0f93eb" },

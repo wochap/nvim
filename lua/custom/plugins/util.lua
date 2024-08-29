@@ -229,19 +229,6 @@ return {
   },
 
   {
-    "ariel-frischer/bmessages.nvim",
-    cmd = { "Bmessages", "Bmessagesvs", "Bmessagessp", "BmessagesEdit" },
-    keys = {
-      {
-        "<leader>cm",
-        "<cmd>Bmessages<CR>",
-        desc = "open messages",
-      },
-    },
-    opts = {},
-  },
-
-  {
     "mrjones2014/smart-splits.nvim",
     event = "VeryLazy",
     keys = {

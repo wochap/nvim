@@ -1,5 +1,6 @@
 local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
+local iconsUtils = require "custom.utils.icons"
 local constants = require "custom.utils.constants"
 local in_neorg = require("custom.utils.constants").in_neorg
 local in_leetcode = require("custom.utils.constants").in_leetcode
@@ -453,6 +454,50 @@ return {
     "wochap/noice.nvim",
     event = "VeryLazy",
     keys = {
+      { "<leader>n", "", desc = "noice" },
+      {
+        "<S-Enter>",
+        function()
+          require("noice").redirect(vim.fn.getcmdline())
+        end,
+        mode = "c",
+        desc = "Redirect Cmdline",
+      },
+      {
+        "<leader>nl",
+        function()
+          require("noice").cmd "last"
+        end,
+        desc = "Noice Last Message",
+      },
+      {
+        "<leader>nh",
+        function()
+          require("noice").cmd "history"
+        end,
+        desc = "Noice History",
+      },
+      {
+        "<leader>na",
+        function()
+          require("noice").cmd "all"
+        end,
+        desc = "Noice All",
+      },
+      {
+        "<leader>nd",
+        function()
+          require("noice").cmd "dismiss"
+        end,
+        desc = "Dismiss All",
+      },
+      {
+        "<leader>np",
+        function()
+          require("noice").cmd "pick"
+        end,
+        desc = "Noice Picker",
+      },
       -- scroll signature/hover windows
       {
         "<c-u>",
@@ -480,25 +525,36 @@ return {
       },
     },
     opts = {
+      -- replace native cmdline
       cmdline = {
-        enabled = false,
+        enabled = true,
+        format = {
+          -- bottom search
+          search_down = {
+            view = "cmdline",
+            icon = "  ",
+          },
+          search_up = {
+            view = "cmdline",
+            icon = "  ",
+          },
+        },
       },
+      -- let noice manage messages
       messages = {
-        enabled = false,
+        enabled = true,
+        -- disable search count virtualtext
+        view_search = false,
       },
       popupmenu = {
         enabled = false,
       },
+      -- show all messages at bottom right
       notify = {
-        enabled = false,
+        enabled = true,
+        view = "mini",
       },
       lsp = {
-        progress = {
-          enabled = false,
-        },
-        message = {
-          enabled = false,
-        },
         hover = {
           enabled = true,
         },
@@ -516,11 +572,76 @@ return {
           ["cmp.entry.get_documentation"] = true,
         },
       },
+      routes = {
+        -- show cursor movements and
+        -- write file messages in mini view
+        {
+          filter = {
+            event = "msg_show",
+            any = {
+              { find = "%d+L, %d+B" },
+              { find = "; after #%d+" },
+              { find = "; before #%d+" },
+            },
+          },
+          view = "mini",
+        },
+        -- show long notifications in split
+        {
+          filter = {
+            event = "msg_show",
+            min_height = 20,
+          },
+          view = "cmdline_output",
+        },
+        -- show cmd output in split
+        {
+          filter = {
+            cmdline = "^:",
+          },
+          view = "cmdline_output",
+        },
+      },
+      format = {
+        level = {
+          icons = {
+            error = iconsUtils.diagnostic.Error,
+            warn = iconsUtils.diagnostic.Warn,
+            info = iconsUtils.diagnostic.Info,
+          },
+        },
+      },
       views = {
-        -- fix lsp progress covering lualine
+        -- rice cmdline popup
+        cmdline_popup = {
+          position = {
+            row = 4,
+            col = "50%",
+          },
+          size = {
+            min_width = 60,
+            width = "auto",
+            height = "auto",
+          },
+          border = {
+            style = "solid",
+            padding = { 0, 1 },
+          },
+          win_options = {
+            winhighlight = {
+              Normal = "NoiceCmdlinePopupNormal",
+              FloatBorder = "NoiceCmdlinePopupBorder",
+            },
+          },
+        },
+        -- fix mini covering statusline
         mini = {
           position = {
-            row = -2,
+            row = -1,
+          },
+          zindex = 46,
+          win_config = {
+            winblend = 100,
           },
         },
         -- add padding to lsp doc|signature windows
@@ -543,8 +664,30 @@ return {
             col = 0,
           },
         },
+        -- rice confirm popup
+        confirm = {
+          align = "top",
+          position = {
+            row = 4,
+            col = "50%",
+          },
+          border = {
+            text = {
+              top = "",
+            },
+          },
+        },
       },
     },
+    config = function(_, opts)
+      -- HACK: noice shows messages from before it was enabled,
+      -- but this is not ideal when Lazy is installing plugins,
+      -- so clear the messages in this case.
+      if vim.o.filetype == "lazy" then
+        vim.cmd [[messages clear]]
+      end
+      require("noice").setup(opts)
+    end,
   },
 
   {
@@ -555,6 +698,7 @@ return {
       notification = {
         window = {
           winblend = 100,
+          zindex = 45,
         },
       },
       integration = {
@@ -563,6 +707,21 @@ return {
         },
         ["xcodebuild-nvim"] = {
           enable = false,
+        },
+      },
+    },
+  },
+  {
+    "wochap/noice.nvim",
+    optional = true,
+    opts = {
+      -- disable noice lsp progress and messages
+      lsp = {
+        progress = {
+          enabled = false,
+        },
+        message = {
+          enabled = false,
         },
       },
     },

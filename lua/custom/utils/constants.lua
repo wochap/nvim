@@ -29,6 +29,7 @@ M.exclude_filetypes = {
   "trouble",
   "vim",
   "wk",
+  "noice",
 }
 
 M.exclude_buftypes = {

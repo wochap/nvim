@@ -93,8 +93,10 @@ local getExtraHl = function(mocha)
     StEmptySpace = { bg = "NONE" },
     StMaximize = { fg = mocha.blue },
     StLsp = { fg = mocha.maroon },
-    StSearchCount = { fg = mocha.teal },
+    StSearch = { fg = mocha.teal },
     StFolder = { fg = mocha.blue },
+    StMacro = { fg = mocha.red },
+    StCommand = { fg = mocha.mauve },
 
     -- oil.nvim
     OilMtime = { fg = "#8383A9" },
@@ -242,8 +244,7 @@ local getOverridesHl = function(mocha)
 
     -- flash.nvim
     FlashPrompt = { link = "Normal" },
-    FlashPromptMode = { bg = mocha.peach, fg = mocha.base, style = { "bold" } },
-    FlashPromptModeSep = { fg = mocha.peach },
+    FlashPromptMode = { bg = "NONE", fg = mocha.yellow },
 
     -- trouble.nvim
     TroubleNormal = { bg = mocha.base },
@@ -287,6 +288,15 @@ local getOverridesHl = function(mocha)
     FzfLuaFzfHeader = { fg = mocha.maroon, bg = floatColors.bg },
     FzfLuaHeaderText = { fg = mocha.overlay0, bg = floatColors.bg },
     FzfLuaHeaderBind = { fg = mocha.red, bg = floatColors.bg },
+
+    -- noice.nvim
+    NoiceCmdlinePopupNormal = { fg = mocha.text, bg = mocha.surface0 },
+    NoiceCmdlinePopupBorder = { fg = mocha.surface0, bg = mocha.surface0 },
+    NoiceConfirm = { link = "NormalFloat" },
+    NoiceConfirmBorder = { link = "FloatBorder" },
+    NoiceSplit = { link = "Normal" },
+    NoiceSplitBorder = { link = "FloatBorder" },
+    NoiceMini = { link = "Comment" },
 
     -- which-key.nvim
     WhichKey = { bg = "NONE", fg = mocha.text },

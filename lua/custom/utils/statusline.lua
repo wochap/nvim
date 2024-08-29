@@ -1,6 +1,7 @@
 local constants = require "custom.utils.constants"
 local iconsUtils = require "custom.utils.icons"
 local lspUtils = require "custom.utils.lsp"
+local lazyUtils = require "custom.utils.lazy"
 
 local fn = vim.fn
 local api = vim.api
@@ -264,24 +265,29 @@ local function searchcount_module()
   end
 
   local denominator = math.min(result.total, result.maxcount)
+  local current_search = vim.fn.getreg "/"
 
-  return hl_str "StSearchCount" .. string.format("[%d/%d]", result.current, denominator)
+  return hl_str "StSearch" .. string.format("%s [%d/%d]", current_search, result.current, denominator)
 end
 
-local function selectioncount_module()
-  local mode = vim.fn.mode(true)
-  local line_start, col_start = vim.fn.line "v", vim.fn.col "v"
-  local line_end, col_end = vim.fn.line ".", vim.fn.col "."
-
-  if mode:match "" then
-    return string.format("%dx%d", math.abs(line_start - line_end) + 1, math.abs(col_start - col_end) + 1)
-  elseif mode:match "V" or line_start ~= line_end then
-    return math.abs(line_start - line_end) + 1
-  elseif mode:match "v" then
-    return math.abs(col_start - col_end) + 1
-  else
+local function command_module()
+  if not lazyUtils.is_loaded "noice.nvim" then
     return ""
   end
+  if not require("noice").api.status.command.has() then
+    return ""
+  end
+  return hl_str "StCommand" .. require("noice").api.status.command.get()
+end
+
+local function macro_module()
+  if not lazyUtils.is_loaded "noice.nvim" then
+    return ""
+  end
+  if not require("noice").api.status.mode.has() then
+    return ""
+  end
+  return hl_str "StMacro" .. require("noice").api.status.mode.get()
 end
 
 local function filetype()
@@ -385,6 +391,8 @@ M.statusline = function()
     -- NOTE: the following string takes all the available space
     "%=",
     searchcount_module(),
+    macro_module(),
+    command_module(),
     maximize_status_module(),
     diagnostics_module(),
     lsp_or_filetype_module(),
