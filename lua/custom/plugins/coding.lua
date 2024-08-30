@@ -384,13 +384,15 @@ return {
       }
 
       cmp.setup(opts)
-      cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmdlineMapping,
-        sources = {
-          { name = "cmdline_history", max_item_count = 10 },
-          { name = "buffer", max_item_count = 10 },
-        },
-      })
+      -- TODO: cmdline on / and ? causes that
+      -- arrow up and down don't work as expected
+      -- cmp.setup.cmdline({ "/", "?" }, {
+      --   mapping = cmdlineMapping,
+      --   sources = {
+      --     { name = "cmdline_history", max_item_count = 10 },
+      --     { name = "buffer", max_item_count = 10 },
+      --   },
+      -- })
 
       cmp.setup.cmdline(":", {
         mapping = cmdlineMapping,
