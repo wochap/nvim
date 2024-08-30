@@ -1,3 +1,5 @@
+local iconsUtils = require "custom.utils.icons"
+
 local M = {}
 
 local function live_grep(state, actions)
@@ -220,7 +222,7 @@ M.projects = function()
   }
   local display = function(entry)
     return displayer {
-      { "", "NvimTreeFolderIcon" },
+      { iconsUtils.folder.default, "NvimTreeFolderIcon" },
       entry.value,
     }
   end

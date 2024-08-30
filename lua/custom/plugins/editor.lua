@@ -4,6 +4,7 @@ local terminalUtils = require "custom.utils.terminal"
 local lazyUtils = require "custom.utils.lazy"
 local nvimtreeUtils = require "custom.utils-plugins.nvimtree"
 local keymapsUtils = require "custom.utils.keymaps"
+local iconsUtils = require "custom.utils.icons"
 local in_leetcode = require("custom.utils.constants").in_leetcode
 
 return {
@@ -40,8 +41,8 @@ return {
         { "mtime", highlight = "OilMtime" },
         {
           "icon",
-          default_file = "󰈚",
-          directory = "",
+          default_file = iconsUtils.file.default,
+          directory = iconsUtils.folder.default,
           add_padding = false,
         },
       },
@@ -180,16 +181,16 @@ return {
             modified = true,
           },
           glyphs = {
-            default = "󰈚",
-            symlink = "",
-            modified = "",
+            default = iconsUtils.file.default,
+            symlink = iconsUtils.file.symlink,
+            modified = iconsUtils.git.Change,
             folder = {
-              default = "",
-              empty = "",
-              empty_open = "",
-              open = "",
-              symlink = "",
-              symlink_open = "",
+              default = iconsUtils.folder.default,
+              empty = iconsUtils.folder.empty,
+              empty_open = iconsUtils.folder.empty_open,
+              open = iconsUtils.folder.open,
+              symlink = iconsUtils.folder.symlink,
+              symlink_open = iconsUtils.folder.symlink_open,
               arrow_open = " ",
               arrow_closed = " ",
             },
@@ -199,7 +200,7 @@ return {
               unmerged = "",
               renamed = "󰁕",
               untracked = "",
-              deleted = "",
+              deleted = iconsUtils.git.Delete,
               ignored = "",
             },
           },

@@ -1,4 +1,3 @@
-local constants = require "custom.utils.constants"
 local iconsUtils = require "custom.utils.icons"
 local lspUtils = require "custom.utils.lsp"
 local lazyUtils = require "custom.utils.lazy"
@@ -212,12 +211,14 @@ local function git_diff_module()
   end
 
   local git_status = vim.b.gitsigns_status_dict
-  local added = (git_status.added and git_status.added ~= 0) and (hl_str "StGitAdd" .. " " .. git_status.added) or ""
+  local added = (git_status.added and git_status.added ~= 0)
+      and (hl_str "StGitAdd" .. iconsUtils.git.Add .. " " .. git_status.added)
+    or ""
   local changed = (git_status.changed and git_status.changed ~= 0)
-      and (hl_str "StGitChange" .. " " .. git_status.changed)
+      and (hl_str "StGitChange" .. iconsUtils.git.Change .. " " .. git_status.changed)
     or ""
   local removed = (git_status.removed and git_status.removed ~= 0)
-      and (hl_str "StGitDelete" .. " " .. git_status.removed)
+      and (hl_str "StGitDelete" .. iconsUtils.git.Delete .. " " .. git_status.removed)
     or ""
 
   return table.concat(removeEmptyStr { added, changed, removed }, " ")
@@ -238,22 +239,22 @@ local function diagnostics_module()
   local hints_count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
   local infos_count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   local errors = (errors_count and errors_count > 0)
-      and (hl_str "StErrors" .. iconsUtils.diagnostic.Error .. "" .. errors_count)
+      and (hl_str "StErrors" .. iconsUtils.diagnostic.Error .. " " .. errors_count)
     or ""
   local warnings = (warnings_count and warnings_count > 0)
-      and (hl_str "StWarnings" .. iconsUtils.diagnostic.Warn .. "" .. warnings_count)
+      and (hl_str "StWarnings" .. iconsUtils.diagnostic.Warn .. " " .. warnings_count)
     or ""
   local hints = (hints_count and hints_count > 0)
-      and (hl_str "StHints" .. iconsUtils.diagnostic.Hint .. "" .. hints_count)
+      and (hl_str "StHints" .. iconsUtils.diagnostic.Hint .. " " .. hints_count)
     or ""
   local infos = (infos_count and infos_count > 0)
-      and (hl_str "StInfos" .. iconsUtils.diagnostic.Info .. "" .. infos_count)
+      and (hl_str "StInfos" .. iconsUtils.diagnostic.Info .. " " .. infos_count)
     or ""
 
   return table.concat(removeEmptyStr { errors, warnings, hints, infos }, " ")
 end
 
-local function searchcount_module()
+local function search_count_module()
   if vim.v.hlsearch == 0 then
     return ""
   end
@@ -356,7 +357,8 @@ local function dirname_module()
     .. hl_str "StModule"
     .. " "
     .. hl_merge("StFolder", "StModule")
-    .. " "
+    .. iconsUtils.folder.default
+    .. " "
     .. hl_str "StModule"
     .. dirname
     .. " "
@@ -390,7 +392,7 @@ M.statusline = function()
     git_diff_module(),
     -- NOTE: the following string takes all the available space
     "%=",
-    searchcount_module(),
+    search_count_module(),
     macro_module(),
     command_module(),
     maximize_status_module(),

@@ -253,7 +253,7 @@ return {
               opts.formatting.format(entry, item)
             end
 
-            local icon = " " .. (iconsUtils.lspkind[item.kind] or "") .. " "
+            local icon = " " .. (iconsUtils.lspkind[item.kind] or "")
             item.kind = string.format("%s %s", icon, item.kind)
             -- limit str length
             if string.len(item.abbr) > 60 then
