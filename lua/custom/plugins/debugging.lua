@@ -100,6 +100,17 @@ return {
 
       {
         "theHamsta/nvim-dap-virtual-text",
+        keys = {
+          {
+            "<leader>dC",
+            function()
+              local virtual_text = require "nvim-dap-virtual-text/virtual_text"
+              virtual_text.clear_virtual_text()
+              virtual_text.clear_last_frames()
+            end,
+            desc = "clear virtual text",
+          },
+        },
         opts = {
           virt_text_pos = "eol",
         },
