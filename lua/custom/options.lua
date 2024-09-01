@@ -6,6 +6,8 @@ local utils = require "custom.utils"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.opt.termsync = false
+
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.numberwidth = 2
@@ -155,3 +157,6 @@ vim.opt.synmaxcol = 500
 
 vim.opt.spell = false
 vim.opt.spelllang = { "en_us", "es" }
+
+-- docs: https://neovim.io/doc/user/options.html#'sessionoptions'
+vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "globals", "skiprtp" }
