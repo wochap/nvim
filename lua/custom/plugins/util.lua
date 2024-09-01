@@ -27,9 +27,9 @@ return {
     cmd = { "ZenMode" },
     keys = {
       {
-        "<leader>z",
+        [[\]] .. "z",
         "<cmd>ZenMode<CR>",
-        desc = "toggle zen mode",
+        desc = "Toggle 'zen mode'",
       },
     },
     opts = {
@@ -216,11 +216,11 @@ return {
     "declancm/maximize.nvim",
     keys = {
       {
-        "<leader>m",
+        [[\]] .. "m",
         function()
           require("maximize").toggle()
         end,
-        desc = "max window",
+        desc = "Toggle 'maximize'",
       },
     },
     opts = {
