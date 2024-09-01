@@ -204,7 +204,12 @@ return {
     "folke/which-key.nvim",
     optional = true,
     opts = {
-      spec = { { "<leader>l", group = "lsp" } },
+      spec = {
+        {
+          mode = { "n", "v" },
+          { "<leader>l", group = "lsp" },
+        },
+      },
     },
   },
 
