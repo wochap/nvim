@@ -44,6 +44,9 @@ M.in_kitty = os.getenv "TERM" == "xterm-kitty"
 local neorg_arg = "neorg"
 M.in_neorg = neorg_arg == vim.fn.argv()[1]
 
+local zk_arg = "zk"
+M.in_zk = zk_arg == vim.fn.argv()[1]
+
 local leet_arg = "leetcode.nvim"
 M.in_leetcode = leet_arg == vim.fn.argv()[1]
 
