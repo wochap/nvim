@@ -71,6 +71,11 @@ return {
         desc = "new note",
       },
       {
+        "<leader>zd",
+        "<Cmd>ZkNew { dir = 'journal' }<CR>",
+        desc = "new daily",
+      },
+      {
         "<leader>zf",
         "<Cmd>ZkNotes<CR>",
         desc = "notes picker",
