@@ -46,7 +46,9 @@ map("i", "<A-S-BS>", '<Esc>"zcB<Del>', "delete the entire backward-word")
 map("v", "g<C-a>", ":s/\\([^ ]\\) \\{2,\\}/\\1 /g<CR>:nohlsearch<CR>", "Unalign", { silent = true })
 map({ "n", "i", "x" }, "<S-A-Down>", keymapsUtils.getCloneLineFn "down", "clone line down")
 map({ "n", "i", "x" }, "<S-A-Up>", keymapsUtils.getCloneLineFn "up", "clone line up")
-map("s", "<BS>", "<C-o>c", "delete selection")
+map("s", "<BS>", function()
+  keymapsUtils.runExpr '<C-o>"_c'
+end, "delete selection")
 map("n", "K", "kJ", "Join with prev line")
 map("i", "<S-CR>", "'<C-o>o'", "add new line", { expr = true, noremap = true })
 

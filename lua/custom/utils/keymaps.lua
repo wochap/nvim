@@ -91,7 +91,7 @@ M.unmap = function(mode, lhs, opts)
   vim.keymap.del(mode, lhs, opts)
 end
 
-local runExpr = function(expr)
+M.runExpr = function(expr)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(expr, true, false, true), "n", true)
 end
 
@@ -113,15 +113,15 @@ M.getCloneLineFn = function(direction)
       end
     elseif mode == "i" then
       if direction == "down" then
-        runExpr '<C-o>mz<Esc>"zyy"zp`zi<Down>'
+        M.runExpr '<C-o>mz<Esc>"zyy"zp`zi<Down>'
       elseif direction == "up" then
-        runExpr '<C-o>mz<Esc>"zyy"zP`zi<Up>'
+        M.runExpr '<C-o>mz<Esc>"zyy"zP`zi<Up>'
       end
     elseif mode == "n" then
       if direction == "down" then
-        runExpr 'mz"zyy"zp`z<Down>'
+        M.runExpr 'mz"zyy"zp`z<Down>'
       elseif direction == "up" then
-        runExpr 'mz"zyy"zP`z<Up>'
+        M.runExpr 'mz"zyy"zP`z<Up>'
       end
     end
   end
@@ -153,9 +153,9 @@ M.insertPaste = function(regname)
     paste(regname, "v", ((in_end_of_line and "gp") or "gP"))
   else
     if in_end_of_line then
-      runExpr('<C-o>"' .. regname .. "p")
+      M.runExpr('<C-o>"' .. regname .. "p")
     else
-      runExpr('<C-o>"' .. regname .. "P")
+      M.runExpr('<C-o>"' .. regname .. "P")
     end
   end
 end
@@ -165,7 +165,7 @@ M.commandPaste = function()
   local reg_type = vim.fn.getregtype "+"
   local reg_content = vim.fn.getreg "+"
   vim.fn.setreg("+", get_first_line(reg_content), reg_type)
-  runExpr "<C-r>+"
+  M.runExpr "<C-r>+"
   vim.defer_fn(function()
     vim.fn.setreg("+", reg_content, reg_type)
   end, 0)
@@ -180,13 +180,13 @@ M.paste = function()
     paste("+", "v", "gP")
   elseif mode == "V" then
     paste("+", "v", "gP")
-    runExpr "i<BS><Esc>"
+    M.runExpr "i<BS><Esc>"
   elseif mode == "i" then
     M.insertPaste "+"
   elseif mode == "c" then
     M.commandPaste()
   elseif mode == "t" then
-    runExpr '<C-\\><C-N>"+pi'
+    M.runExpr '<C-\\><C-N>"+pi'
   end
 end
 
