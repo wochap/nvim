@@ -24,7 +24,7 @@ return {
 
   {
     "folke/zen-mode.nvim",
-    cmd = { "ZenMode" },
+    cmd = "ZenMode",
     keys = {
       {
         [[\]] .. "z",

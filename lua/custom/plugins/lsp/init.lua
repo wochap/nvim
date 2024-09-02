@@ -6,7 +6,7 @@ local lspKeymapsUtils = require "custom.plugins.lsp.keymaps"
 return {
   {
     "neovim/nvim-lspconfig",
-    event = "LazyFile",
+    event = { "LazyFile", "VeryLazy" },
     dependencies = {
       {
         "folke/neoconf.nvim",
@@ -259,6 +259,7 @@ return {
 
   {
     "smjonas/inc-rename.nvim",
+    cmd = "IncRename",
     opts = {
       preview_empty_name = true,
     },
@@ -286,7 +287,6 @@ return {
 
   {
     "RRethy/vim-illuminate",
-    event = "LazyFile",
     keys = {
       {
         "]]",
@@ -318,7 +318,7 @@ return {
 
   {
     "wochap/lsp-lens.nvim",
-    event = "LazyFile",
+    event = { "LazyFile", "VeryLazy" },
     opts = {
       enable = true,
       include_declaration = false,

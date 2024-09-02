@@ -3,7 +3,7 @@ local lazyCoreUtils = require "lazy.core.util"
 return {
   {
     "mfussenegger/nvim-lint",
-    event = "LazyFile",
+    event = { "LazyFile", "VeryLazy" },
     opts = {
       -- Event to trigger linters
       events = { "BufWritePost", "BufReadPost", "InsertLeave" },

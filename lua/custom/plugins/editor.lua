@@ -11,7 +11,7 @@ local in_leetcode = require("custom.utils.constants").in_leetcode
 return {
   {
     "stevearc/oil.nvim",
-    cmd = { "Oil" },
+    cmd = "Oil",
     keys = {
       {
         "<leader>o",
@@ -80,8 +80,6 @@ return {
 
   {
     "nvim-tree/nvim-tree.lua",
-    lazy = not constants.has_file_arg,
-    -- enabled = false,
     event = "VeryLazy",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     keys = (in_leetcode and {}) or {
@@ -281,7 +279,7 @@ return {
 
   {
     "folke/trouble.nvim",
-    cmd = { "Trouble" },
+    cmd = "Trouble",
     keys = {
       {
         "<leader>xw",
@@ -654,6 +652,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     event = "VeryLazy",
+    cmd = "Telescope",
     dependencies = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -884,6 +883,7 @@ return {
 
   {
     "ibhagwan/fzf-lua",
+    event = "VeryLazy",
     cmd = "FzfLua",
     keys = {
       {
@@ -1038,7 +1038,6 @@ return {
 
   {
     "folke/flash.nvim",
-    event = "VeryLazy",
     init = function()
       utils.autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
         group = utils.augroup "turn_off_flash_search",
@@ -1143,9 +1142,7 @@ return {
   {
     "akinsho/git-conflict.nvim",
     version = "*",
-    -- disable lazy, so inlay_hints are disabled on
-    -- files with git conflicts
-    lazy = false,
+    event = { "LazyFile", "VeryLazy" },
     cmd = "GitConflictListQf",
     keys = {
       {
@@ -1198,7 +1195,7 @@ return {
 
   {
     "lewis6991/gitsigns.nvim",
-    event = "LazyFile",
+    event = "VeryLazy",
     opts = {
       signs = {
         add = {

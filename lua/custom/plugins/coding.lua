@@ -97,7 +97,7 @@ return {
 
   {
     "echasnovski/mini.ai",
-    event = "LazyFile",
+    event = { "LazyFile", "VeryLazy" },
     opts = function()
       local ai = require "mini.ai"
       return {
@@ -178,7 +178,7 @@ return {
 
   {
     "hrsh7th/nvim-cmp",
-    event = { "CmdlineEnter", "InsertEnter" },
+    event = { "CmdlineEnter", "InsertEnter", "VeryLazy" },
     version = false, -- last release is way too old
     dependencies = {
       -- cmp sources plugins
@@ -408,7 +408,7 @@ return {
 
   {
     "L3MON4D3/LuaSnip",
-    event = { "InsertEnter" },
+    event = { "InsertEnter", "VeryLazy" },
     version = "v2.*",
     build = "make install_jsregexp",
     dependencies = {
@@ -456,7 +456,7 @@ return {
 
   {
     "windwp/nvim-autopairs",
-    event = "InsertEnter",
+    event = { "InsertEnter", "VeryLazy" },
     opts = {
       fast_wrap = {},
       disable_filetype = { "TelescopePrompt", "spectre_panel", "vim" },
@@ -481,7 +481,7 @@ return {
   },
   {
     "numToStr/Comment.nvim",
-    event = "LazyFile",
+    event = { "LazyFile", "VeryLazy" },
     keys = {
       {
         "<leader>/",
@@ -506,7 +506,7 @@ return {
 
   {
     "monkoose/matchparen.nvim",
-    event = "LazyFile",
+    event = { "LazyFile", "VeryLazy" },
     opts = {
       debounce_time = 100,
     },
@@ -514,7 +514,7 @@ return {
 
   {
     "NMAC427/guess-indent.nvim",
-    event = "VeryLazy",
+    event = { "LazyFile", "VeryLazy" },
     opts = {},
   },
 }

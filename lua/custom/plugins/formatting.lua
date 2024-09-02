@@ -7,7 +7,7 @@ return {
   {
     "stevearc/conform.nvim",
     dependencies = { "mason.nvim" },
-    cmd = "ConformInfo",
+    cmd = { "ConformInfo", "LazyFormat", "LazyFormatInfo" },
     keys = {
       {
         "<leader>lf",

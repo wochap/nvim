@@ -5,6 +5,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    event = "LazyFile",
     opts = {
       transparent_background = constants.transparent_background, -- disables setting the background color.
       show_end_of_buffer = false, -- shows the '~' characters after the end of buffers

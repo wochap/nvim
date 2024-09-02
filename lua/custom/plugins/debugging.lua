@@ -5,6 +5,8 @@ return {
   {
     "LiadOz/nvim-dap-repl-highlights",
     event = { "LazyFile", "VeryLazy" },
+    -- call nvim-dap-repl-highlights setup on treesitter config fn
+    config = function() end,
   },
   {
     "nvim-treesitter/nvim-treesitter",

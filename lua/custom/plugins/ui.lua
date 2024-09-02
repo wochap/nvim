@@ -116,7 +116,6 @@ return {
   {
     "kevinhwang91/nvim-ufo",
     enabled = not in_kittyscrollback and not in_leetcode and not in_zk,
-    lazy = not constants.has_file_arg,
     event = "VeryLazy",
     dependencies = {
       "kevinhwang91/promise-async",
@@ -225,8 +224,7 @@ return {
   {
     "luukvbaal/statuscol.nvim",
     enabled = not in_kittyscrollback and not in_leetcode and not in_zk,
-    lazy = not constants.has_file_arg,
-    event = "VeryLazy",
+    event = { "LazyFile", "VeryLazy" },
     opts = function()
       local builtin = require "statuscol.builtin"
       return {
@@ -453,7 +451,7 @@ return {
 
   {
     "wochap/noice.nvim",
-    event = "VeryLazy",
+    event = { "LazyFile", "VeryLazy" },
     keys = {
       { "<leader>n", "", desc = "noice" },
       {
@@ -732,7 +730,7 @@ return {
   {
     "wochap/indentmini.nvim",
     branch = "toggle",
-    event = "LazyFile",
+    event = "VeryLazy",
     opts = {
       char = constants.in_kitty and "▎" or "▏",
       exclude = constants.exclude_filetypes,
@@ -741,7 +739,7 @@ return {
 
   {
     "mcauley-penney/visual-whitespace.nvim",
-    event = "LazyFile",
+    event = "VeryLazy",
     opts = {
       highlight = { link = "VisualWhitespace" },
       space_char = "·",
@@ -765,7 +763,7 @@ return {
 
   {
     "echasnovski/mini.hipatterns",
-    event = "LazyFile",
+    event = "VeryLazy",
     opts = {
       highlighters = {
         -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
@@ -779,7 +777,7 @@ return {
 
   {
     "mei28/luminate.nvim",
-    event = "LazyFile",
+    event = "VeryLazy",
     opts = {
       duration = 200,
     },
