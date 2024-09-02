@@ -8,6 +8,7 @@ return {
     "stevearc/conform.nvim",
     dependencies = { "mason.nvim" },
     cmd = { "ConformInfo", "LazyFormat", "LazyFormatInfo" },
+    event = "VeryLazy",
     keys = {
       {
         "<leader>lf",

@@ -224,7 +224,7 @@ return {
   {
     "luukvbaal/statuscol.nvim",
     enabled = not in_kittyscrollback and not in_leetcode and not in_zk,
-    event = { "LazyFile", "VeryLazy" },
+    event = "VeryLazy",
     opts = function()
       local builtin = require "statuscol.builtin"
       return {
