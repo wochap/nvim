@@ -34,6 +34,10 @@ return {
       for name, linter in pairs(opts.linters) do
         if type(linter) == "table" and type(lint.linters[name]) == "table" then
           lint.linters[name] = vim.tbl_deep_extend("force", lint.linters[name], linter)
+          if type(linter.prepend_args) == "table" then
+            lint.linters[name].args = lint.linters[name].args or {}
+            vim.list_extend(lint.linters[name].args, linter.prepend_args)
+          end
         else
           lint.linters[name] = linter
         end
@@ -41,7 +45,7 @@ return {
       lint.linters_by_ft = opts.linters_by_ft
 
       function M.debounce(ms, fn)
-        local timer = vim.loop.new_timer()
+        local timer = vim.uv.new_timer()
         return function(...)
           local argv = { ... }
           timer:start(ms, 0, function()
@@ -57,6 +61,9 @@ return {
         -- * otherwise will split filetype by "." and add all those linters
         -- * this differs from conform.nvim which only uses the first filetype that has a formatter
         local names = lint._resolve_linter_by_ft(vim.bo.filetype)
+
+        -- Create a copy of the names table to avoid modifying the original.
+        names = vim.list_extend({}, names)
 
         -- Add fallback linters.
         if #names == 0 then
