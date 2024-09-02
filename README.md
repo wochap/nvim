@@ -64,7 +64,7 @@ Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirem
 
 ## Tips to learn to use this nvim config
 
-- Learn [https://github.com/folke/lazy.nvim](https://github.com/folke/lazy.nvim), then remove all lazy.nvim plugin specs that you are not going to use in `lua/custom/plugins/*`. For example, if you don't use neorg remove `neorg.lua`, if you don't code zig, remove `lang-zig.lua`. If you don't use Kitty, remove `lua/custom/plugins/kitty.lua`.
+- Learn [https://github.com/folke/lazy.nvim](https://github.com/folke/lazy.nvim), then remove all lazy.nvim plugin specs that you are not going to use in `lua/custom/plugins/*`. For example, if you don't code zig, remove `lang-zig.lua`. If you don't use Kitty, remove `lua/custom/plugins/kitty.lua`.
 - Keymaps are located in `lua/custom/keymaps.lua` (global), `lua/custom/plugins/lsp/keymaps.lua` (active when an LSP server is running), and within each plugin spec.
 - If you need autoformatting on save, create an autocmd that calls `conform.nvim`.
 - Formatting, linting, and LSP config are the same as in Lazyvim, so feel free to import extras from Lazyvim, and add LSP servers in the same manner you did in Lazyvim.

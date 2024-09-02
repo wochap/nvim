@@ -2,7 +2,7 @@ local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
 local iconsUtils = require "custom.utils.icons"
 local constants = require "custom.utils.constants"
-local in_neorg = require("custom.utils.constants").in_neorg
+local in_zk = require("custom.utils.constants").in_zk
 local in_leetcode = require("custom.utils.constants").in_leetcode
 local in_kittyscrollback = require("custom.utils.constants").in_kittyscrollback
 
@@ -77,7 +77,7 @@ return {
 
   {
     "b0o/incline.nvim",
-    enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
+    enabled = not in_kittyscrollback and not in_leetcode and not in_zk,
     event = "VeryLazy",
     opts = {
       ignore = {
@@ -115,7 +115,7 @@ return {
 
   {
     "kevinhwang91/nvim-ufo",
-    enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
+    enabled = not in_kittyscrollback and not in_leetcode and not in_zk,
     lazy = not constants.has_file_arg,
     event = "VeryLazy",
     dependencies = {
@@ -224,7 +224,7 @@ return {
 
   {
     "luukvbaal/statuscol.nvim",
-    enabled = not in_kittyscrollback and not in_leetcode and not in_neorg,
+    enabled = not in_kittyscrollback and not in_leetcode and not in_zk,
     lazy = not constants.has_file_arg,
     event = "VeryLazy",
     opts = function()

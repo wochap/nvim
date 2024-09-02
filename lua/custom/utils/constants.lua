@@ -41,9 +41,6 @@ M.in_foot = os.getenv "TERM" == "foot"
 
 M.in_kitty = os.getenv "TERM" == "xterm-kitty"
 
-local neorg_arg = "neorg"
-M.in_neorg = neorg_arg == vim.fn.argv()[1]
-
 local zk_arg = "zk"
 M.in_zk = zk_arg == vim.fn.argv()[1]
 
@@ -54,7 +51,7 @@ local kitty_arg = "kitty-scrollback"
 M.in_kittyscrollback = kitty_arg == vim.fn.argv()[1]
 
 -- nvim is opening a file from the cmdline
-M.has_file_arg = vim.fn.argc(-1) > 0 and not M.in_neorg and not M.in_leetcode and not M.in_kittyscrollback
+M.has_file_arg = vim.fn.argc(-1) > 0 and not M.in_zk and not M.in_leetcode and not M.in_kittyscrollback
 
 -- M.transparent_background = not vim.g.neovide
 M.transparent_background = false

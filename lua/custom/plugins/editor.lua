@@ -1,4 +1,5 @@
 local utils = require "custom.utils"
+local constants = require "custom.utils.constants"
 local lspUtils = require "custom.utils.lsp"
 local terminalUtils = require "custom.utils.terminal"
 local lazyUtils = require "custom.utils.lazy"
@@ -79,6 +80,7 @@ return {
 
   {
     "nvim-tree/nvim-tree.lua",
+    lazy = not constants.has_file_arg,
     -- enabled = false,
     event = "VeryLazy",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
