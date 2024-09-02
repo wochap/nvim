@@ -33,6 +33,16 @@ utils.autocmd("User", {
     end
   end,
 })
+utils.autocmd("FileType", {
+  group = utils.augroup "load_statusline_in_qf",
+  pattern = "qf",
+  callback = function()
+    if not constants.in_kittyscrollback then
+      vim.opt_local.statusline = "%!v:lua.require('custom.utils.statusline').statusline()"
+      vim.opt_local.signcolumn = "yes:1"
+    end
+  end,
+})
 
 -- global bufferline
 vim.opt.showtabline = 2
