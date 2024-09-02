@@ -1,5 +1,6 @@
 local constants = require "custom.utils.constants"
 local utils = require "custom.utils"
+local iconsUtils = require "custom.utils.icons"
 
 -- Set <space> as the leader key
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -88,8 +89,8 @@ vim.opt.listchars = {
 vim.opt.fillchars = {
   eob = " ",
   diff = "╱",
-  foldopen = "",
-  foldclose = "",
+  foldopen = iconsUtils.fold.open,
+  foldclose = iconsUtils.fold.closed,
   foldsep = " ",
 }
 

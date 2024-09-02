@@ -1,5 +1,10 @@
 local M = {}
 
+M.fold = {
+  open = "",
+  closed = "",
+}
+
 M.folder = {
   default = "",
   open = "",

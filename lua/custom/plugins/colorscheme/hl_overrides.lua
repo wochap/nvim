@@ -248,6 +248,7 @@ local getOverridesHl = function(mocha)
 
     -- trouble.nvim
     TroubleNormal = { bg = mocha.base },
+    TroubleNormalNC = { bg = mocha.base },
 
     -- nvim-tree.lua
     NvimTreeNormal = { bg = mocha.base },

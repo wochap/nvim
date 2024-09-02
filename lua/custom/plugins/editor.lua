@@ -281,87 +281,95 @@ return {
 
   {
     "folke/trouble.nvim",
-    tag = "v2.10.0",
-    cmd = { "TroubleToggle", "Trouble" },
+    cmd = { "Trouble" },
     keys = {
       {
-        "<leader>xx",
-        "<cmd>TroubleToggle<cr>",
-        desc = "show last list",
-      },
-      {
         "<leader>xw",
-        "<cmd>TroubleToggle workspace_diagnostics<cr>",
+        "<cmd>Trouble diagnostics toggle<cr>",
         desc = "toggle project diagnostics",
       },
       {
         "<leader>xf",
-        "<cmd>TroubleToggle document_diagnostics<cr>",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
         desc = "toggle file diagnostic",
       },
       {
         "<leader>xl",
-        "<cmd>TroubleToggle loclist<cr>",
+        "<cmd>Trouble loclist toggle<cr>",
         desc = "toggle loclist",
       },
       {
         "<leader>xq",
-        "<cmd>TroubleToggle quickfix<cr>",
+        "<cmd>Trouble qflist toggle<cr>",
         desc = "toggle quicklist",
       },
       {
         "[x",
-        "<cmd>lua require('trouble').previous({ jump = true, skip_groups = true })<CR>",
-        desc = "go to prev troublelist item",
+        function()
+          if require("trouble").is_open() then
+            require("trouble").prev { skip_groups = true, jump = true }
+          else
+            local ok, err = pcall(vim.cmd.cprev)
+            if not ok then
+              vim.notify(err, vim.log.levels.ERROR)
+            end
+          end
+        end,
+        desc = "Goto prev trouble/quickfix item",
       },
       {
         "]x",
-        "<cmd>lua require('trouble').next({ jump = true, skip_groups = true })<CR>",
-        desc = "go to next troublelist item",
-      },
-    },
-    init = function()
-      utils.autocmd("FileType", {
-        group = utils.augroup "trouble_better_ux",
-        pattern = "Trouble",
-        callback = function()
-          vim.opt_local.number = true
-          vim.opt_local.relativenumber = true
-          vim.opt_local.signcolumn = "yes"
-          -- put cursor in second line
-          -- vim.defer_fn(function()
-          --   pcall(vim.api.nvim_win_set_cursor, 0, { 1, 1 })
-          -- end, 0)
-        end,
-      })
-      utils.autocmd("FileType", {
-        group = utils.augroup "hijack_quickfix_and_location_list",
-        pattern = "qf",
-        callback = function()
-          local trouble = require "trouble"
-          if vim.fn.getloclist(0, { filewinid = 1 }).filewinid ~= 0 then
-            vim.defer_fn(function()
-              vim.cmd.lclose()
-              trouble.open "loclist"
-            end, 0)
+        function()
+          if require("trouble").is_open() then
+            require("trouble").next { skip_groups = true, jump = true }
           else
-            vim.defer_fn(function()
-              vim.cmd.cclose()
-              trouble.open "quickfix"
-            end, 0)
+            local ok, err = pcall(vim.cmd.cnext)
+            if not ok then
+              vim.notify(err, vim.log.levels.ERROR)
+            end
           end
         end,
-      })
-    end,
+        desc = "Goto next trouble/quickfix item",
+      },
+    },
     opts = {
-      use_diagnostic_signs = true,
-      group = true,
-      padding = false,
-      indent_lines = false,
-      auto_jump = {},
+      focus = true,
+      indent_guides = false,
       multiline = false,
-      fold_open = "",
-      fold_closed = "",
+      open_no_results = true,
+      win = {
+        type = "split",
+        position = "bottom",
+        padding = {
+          left = 0,
+        },
+        wo = {
+          number = true,
+          signcolumn = "yes",
+          relativenumber = true,
+        },
+      },
+      preview = {
+        type = "main",
+        scratch = false,
+      },
+      keys = {
+        ["<c-s>"] = false,
+        ["<c-x>"] = "jump_split",
+        ["<c-v>"] = "jump_vsplit",
+      },
+      icons = {
+        indent = {
+          ws = "",
+          fold_open = iconsUtils.fold.open .. " ",
+          fold_closed = iconsUtils.fold.closed .. " ",
+        },
+        folder_closed = iconsUtils.folder.default .. " ",
+        folder_open = iconsUtils.folder.open .. " ",
+        kinds = vim.tbl_map(function(icon)
+          return icon .. " "
+        end, iconsUtils.lspkind),
+      },
     },
   },
   {
@@ -796,6 +804,12 @@ return {
         border = {},
         mappings = {
           i = {
+            ["<c-q>"] = function(...)
+              return require("trouble.sources.telescope").open(...)
+            end,
+            ["<a-q>"] = function(...)
+              return require("trouble.sources.telescope").open(...)
+            end,
             ["<C-f>"] = function(...)
               require("telescope.actions").results_scrolling_down(...)
             end,
@@ -886,6 +900,7 @@ return {
     opts = function(_, opts)
       local actions = require "fzf-lua.actions"
       local defaults = require "fzf-lua.profiles.default-title"
+      local trouble_actions = require("trouble.sources.fzf").actions
       return vim.tbl_deep_extend("force", defaults, opts, {
         defaults = {
           git_icons = false,
@@ -969,10 +984,8 @@ return {
             ["alt-h"] = actions.toggle_hidden,
             ["ctrl-x"] = actions.file_split,
             ["ctrl-v"] = actions.file_vsplit,
-            ["ctrl-q"] = {
-              fn = actions.file_edit_or_qf,
-              prefix = "select-all+",
-            },
+            ["alt-q"] = trouble_actions.open_selected,
+            ["ctrl-q"] = trouble_actions.open_all,
           },
           no_header = true,
         },
@@ -990,10 +1003,8 @@ return {
             ["alt-h"] = actions.toggle_hidden,
             ["ctrl-x"] = actions.file_split,
             ["ctrl-v"] = actions.file_vsplit,
-            ["ctrl-q"] = {
-              fn = actions.file_edit_or_qf,
-              prefix = "select-all+",
-            },
+            ["alt-q"] = trouble_actions.open_selected,
+            ["ctrl-q"] = trouble_actions.open_all,
           },
           no_header = true,
         },
@@ -1003,10 +1014,8 @@ return {
             ["default"] = actions.buf_edit,
             ["ctrl-x"] = actions.buf_split,
             ["ctrl-v"] = actions.buf_vsplit,
-            ["ctrl-q"] = {
-              fn = actions.file_edit_or_qf,
-              prefix = "select-all+",
-            },
+            ["alt-q"] = trouble_actions.open_selected,
+            ["ctrl-q"] = trouble_actions.open_all,
           },
         },
         git = {
