@@ -21,7 +21,7 @@ return {
   },
 
   {
-    "hrsh7th/nvim-cmp",
+    "yioneko/nvim-cmp",
     optional = true,
     dependencies = {
       "f3fora/cmp-spell",

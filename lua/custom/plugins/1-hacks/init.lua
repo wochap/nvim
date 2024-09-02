@@ -22,7 +22,7 @@ return {
   },
 
   {
-    "hrsh7th/nvim-cmp",
+    "yioneko/nvim-cmp",
     optional = true,
     opts_extend = { "sources" },
   },

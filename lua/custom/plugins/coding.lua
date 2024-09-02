@@ -177,7 +177,8 @@ return {
   },
 
   {
-    "hrsh7th/nvim-cmp",
+    "yioneko/nvim-cmp",
+    branch = "perf-up",
     event = { "CmdlineEnter", "InsertEnter", "VeryLazy" },
     version = false, -- last release is way too old
     dependencies = {
