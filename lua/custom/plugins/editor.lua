@@ -349,7 +349,7 @@ return {
       },
       preview = {
         type = "main",
-        scratch = false,
+        scratch = true,
       },
       keys = {
         ["<c-s>"] = false,
@@ -1162,7 +1162,7 @@ return {
       },
       disable_diagnostics = true,
       list_opener = function()
-        require("trouble").open "quickfix"
+        require("trouble").open { mode = "quickfix" }
       end,
     },
     config = function(_, opts)
