@@ -1,6 +1,7 @@
 local iconsUtils = require "custom.utils.icons"
 local lspUtils = require "custom.utils.lsp"
 local lazyUtils = require "custom.utils.lazy"
+local gitBranchUtils = require "custom.utils.git-branch"
 
 local fn = vim.fn
 local api = vim.api
@@ -162,45 +163,15 @@ local function file_module()
     .. separators.l
 end
 
-local branch_cache = {}
 local function git_branch_module()
-  -- retrieve git branch from custom solution
   if not vim.b.gitsigns_head or vim.b.gitsigns_git_status then
-    local cwd = vim.loop.cwd()
+    local branch_name = " " .. gitBranchUtils.get_branch()
 
-    -- try to return git branch from cache
-    if branch_cache[cwd] and branch_cache[cwd] ~= "" then
-      local branch_name = " " .. branch_cache[cwd]
-
-      -- refresh cache
-      vim.schedule(function()
-        local output = vim.fn.systemlist "git rev-parse --abbrev-ref HEAD 2>/dev/null"
-        branch_cache[cwd] = #output > 0 and output[1] or ""
-      end)
-
-      return hl_str "StModuleAlt" .. branch_name
-    end
-
-    -- git branch isn't in cache
-    if branch_cache[cwd] ~= "" then
-      local output = vim.fn.systemlist "git rev-parse --abbrev-ref HEAD 2>/dev/null"
-      branch_cache[cwd] = #output > 0 and output[1] or ""
-
-      if branch_cache[cwd] == "" then
-        return ""
-      end
-
-      local branch_name = " " .. branch_cache[cwd]
-
-      return hl_str "StModuleAlt" .. branch_name
-    end
-
-    return ""
+    return hl_str "StModuleAlt" .. branch_name
   end
 
-  -- retrieve git branch from gitsigns
-  local git_status = vim.b.gitsigns_status_dict
-  local branch_name = " " .. git_status.head
+  local bufnr = vim.api.nvim_get_current_buf()
+  local branch_name = " " .. gitBranchUtils.get_branch(bufnr)
 
   return hl_str "StModuleAlt" .. branch_name
 end
@@ -412,6 +383,10 @@ M.statusline = function()
   }
 
   return table.concat(removeEmptyStr(modules), empty_space(2))
+end
+
+M.init = function()
+  gitBranchUtils.init()
 end
 
 return M

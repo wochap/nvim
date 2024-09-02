@@ -29,6 +29,7 @@ utils.autocmd("User", {
   pattern = "VeryLazy",
   callback = function()
     if not constants.in_kittyscrollback then
+      require("custom.utils.statusline").init()
       vim.opt.statusline = "%!v:lua.require('custom.utils.statusline').statusline()"
     end
   end,
