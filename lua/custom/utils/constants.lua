@@ -30,6 +30,9 @@ M.exclude_filetypes = {
   "vim",
   "wk",
   "noice",
+  "grug-far",
+  "grug-far-history",
+  "grug-far-help",
 }
 
 M.exclude_buftypes = {

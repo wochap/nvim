@@ -52,6 +52,7 @@ return {
         },
 
         -- enable the ones we'll use
+        grug_far = true,
         window_picker = true,
         fidget = true,
         flash = true,

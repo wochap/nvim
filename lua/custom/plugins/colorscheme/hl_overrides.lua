@@ -133,6 +133,11 @@ local getExtraHl = function(mocha)
       undercurl = true,
     },
 
+    -- grug-far.nvim
+    GrugFarResultsMatch = { default = true, link = "DiffChange" },
+    GrugFarResultsMatchAdded = { default = true, link = "DiffAdd" },
+    GrugFarResultsMatchRemoved = { default = true, link = "DiffDelete" },
+
     -- bufferline.nvim
     BufferLineOffset = { bg = mocha.mantle, fg = mocha.lavender },
     DevIconDimmed = { fg = mocha.surface1 },

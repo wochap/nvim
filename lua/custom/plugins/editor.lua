@@ -630,7 +630,7 @@ return {
       {
         "<leader>fs",
         "<cmd>lua require('spectre').open()<CR>",
-        desc = "find word spectre",
+        desc = "search and replace spectre",
       },
     },
     opts = {
@@ -646,6 +646,74 @@ return {
           desc = "send all item to quickfix",
         },
       },
+    },
+  },
+
+  {
+    "MagicDuck/grug-far.nvim",
+    cmd = "GrugFar",
+    keys = {
+      {
+        "<leader>fr",
+        function()
+          local grug = require "grug-far"
+          local ext = vim.bo.buftype == "" and vim.fn.expand "%:e"
+          grug.open {
+            prefills = {
+              filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+            },
+          }
+        end,
+        mode = { "n", "v" },
+        desc = "search and replace grug-far",
+      },
+    },
+    opts = {
+      transient = true,
+      folding = {
+        enabled = false,
+      },
+      searchOnInsertLeave = false,
+      windowCreationCommand = "vsplit",
+      headerMaxWidth = 80,
+      icons = {
+        -- actionEntryBullet = " ",
+        searchInput = " ",
+        pathsInput = iconsUtils.folder.default .. " ",
+        resultsStatusError = iconsUtils.diagnostic.Error .. " ",
+        -- resultsStatusSuccess = "󰗡 ",
+        resultsActionMessage = " " .. iconsUtils.diagnostic.Info .. " ",
+        -- resultsChangeIndicator = "┃",
+        -- resultsAddedIndicator = "▒",
+        -- resultsRemovedIndicator = "▒",
+        -- resultsDiffSeparatorIndicator = "┊",
+      },
+      keymaps = {
+        replace = { n = "<leader>rr" },
+        qflist = { n = "<leader>rq" },
+        syncLocations = { n = "<leader>rs" },
+        syncLine = { n = "<leader>rl" },
+        close = { n = "<leader>rc" },
+        historyOpen = { n = "<leader>rt" },
+        historyAdd = { n = "<leader>ra" },
+        refresh = { n = "<leader>rf" },
+        openLocation = { n = "<leader>ro" },
+        openNextLocation = false,
+        openPrevLocation = false,
+        gotoLocation = { n = "<enter>" },
+        pickHistoryEntry = { n = "<enter>" },
+        abort = { n = "<leader>rb" },
+        help = { n = "g?" },
+        toggleShowCommand = { n = "<leader>rp" },
+        swapEngine = { n = "<leader>re" },
+      },
+    },
+  },
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = {
+      spec = { { "<leader>r", group = "grug-far" } },
     },
   },
 

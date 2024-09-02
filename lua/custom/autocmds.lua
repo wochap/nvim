@@ -67,6 +67,9 @@ utils.autocmd("FileType", {
     "checkhealth",
     "neotest-summary",
     "neotest-output-panel",
+    "grug-far",
+    "grug-far-history",
+    "grug-far-help",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
