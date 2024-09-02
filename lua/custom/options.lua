@@ -160,4 +160,4 @@ vim.opt.spell = false
 vim.opt.spelllang = { "en_us", "es" }
 
 -- docs: https://neovim.io/doc/user/options.html#'sessionoptions'
-vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "globals", "skiprtp" }
+vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "skiprtp" }
