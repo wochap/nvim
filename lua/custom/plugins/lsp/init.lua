@@ -1,3 +1,4 @@
+local utils = require "custom.utils"
 local lspUtils = require "custom.utils.lsp"
 local iconsUtils = require "custom.utils.icons"
 local formatUtils = require "custom.utils.format"
@@ -138,6 +139,22 @@ return {
         name = "DiagnosticSign" .. name
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
+      utils.autocmd("InsertEnter", {
+        pattern = "*",
+        callback = function()
+          vim.diagnostic.config {
+            underline = false,
+          }
+        end,
+      })
+      utils.autocmd("InsertLeave", {
+        pattern = "*",
+        callback = function()
+          vim.diagnostic.config {
+            underline = true,
+          }
+        end,
+      })
 
       -- enable inlay hints
       lspUtils.on_attach(function(client, buffer)
