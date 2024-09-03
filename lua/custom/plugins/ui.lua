@@ -727,10 +727,49 @@ return {
   },
 
   -- NOTE: indentmini.nvim can affect winhl
+  -- NOTE: scrolling may cause cursor to glitch, this means the cursor
+  -- might briefly appear in the wrong position for a few milliseconds
   {
     "wochap/indentmini.nvim",
     branch = "toggle",
     event = "VeryLazy",
+    init = function()
+      -- toggle indentmini.nvim on visual mode change
+      -- since it causes conflicts with visual-whitespace.nvim
+      -- and luminate.nvim
+      utils.autocmd("ModeChanged", {
+        group = utils.augroup "disable_indentmini_on_visual_mode_enter",
+        pattern = "*:[vV]",
+        callback = function(event)
+          local cur_mode = vim.fn.mode()
+          if cur_mode ~= "v" and cur_mode ~= "V" then
+            return
+          end
+
+          local is_im_enabled_ok, _ = pcall(vim.api.nvim_buf_get_var, event.buf, "is_im_enabled")
+          if is_im_enabled_ok then
+            return
+          end
+
+          require("indentmini").toggle_buff(event.buf, false)
+          vim.api.nvim_buf_set_var(event.buf, "was_im_toggled", true)
+        end,
+      })
+      utils.autocmd("ModeChanged", {
+        group = utils.augroup "enable_indentmini_on_visual_mode_leave",
+        pattern = "[vV]:*",
+        callback = function(event)
+          local was_im_toggled_ok, _ = pcall(vim.api.nvim_buf_get_var, event.buf, "was_im_toggled")
+          if not was_im_toggled_ok then
+            return
+          end
+
+          require("indentmini").toggle_buff(event.buf, true)
+          vim.api.nvim_buf_del_var(event.buf, "was_im_toggled")
+          vim.api.nvim_buf_del_var(event.buf, "is_im_enabled")
+        end,
+      })
+    end,
     opts = {
       char = constants.in_kitty and "▎" or "▏",
       exclude = constants.exclude_filetypes,
