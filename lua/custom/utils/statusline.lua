@@ -164,14 +164,7 @@ local function file_module()
 end
 
 local function git_branch_module()
-  if not vim.b.gitsigns_head or vim.b.gitsigns_git_status then
-    local branch_name = " " .. gitBranchUtils.get_branch()
-
-    return hl_str "StModuleAlt" .. branch_name
-  end
-
-  local bufnr = vim.api.nvim_get_current_buf()
-  local branch_name = " " .. gitBranchUtils.get_branch(bufnr)
+  local branch_name = " " .. gitBranchUtils.get_branch()
 
   return hl_str "StModuleAlt" .. branch_name
 end
