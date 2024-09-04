@@ -5,6 +5,7 @@ local getColors = function(palette)
       warning = palette.peach,
       info = palette.blue,
       hint = palette.mauve,
+      conflict = palette.maroon,
     },
     git = {
       delete = palette.red,
@@ -86,6 +87,7 @@ local getExtraHl = function(mocha)
     StGitAdd = { fg = gitColors.add },
     StGitChange = { fg = gitColors.change },
     StGitDelete = { fg = gitColors.delete },
+    StGitConflict = { fg = gitColors.conflict },
     StErrors = { fg = stateColors.error },
     StWarnings = { fg = stateColors.warning },
     StHints = { fg = stateColors.hint },
