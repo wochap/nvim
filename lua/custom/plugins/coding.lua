@@ -322,8 +322,8 @@ return {
         },
         sources = {
           { name = "path", max_item_count = 10, group_index = 1 },
-          { name = "luasnip", max_item_count = 10, group_index = 2 },
-          { name = "nvim_lsp", group_index = 2 },
+          { name = "luasnip", max_item_count = 10, group_index = 1 },
+          { name = "nvim_lsp", max_item_count = 25, group_index = 1 },
           {
             name = "buffer",
             max_item_count = 10,

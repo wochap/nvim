@@ -58,7 +58,7 @@ return {
     "yioneko/nvim-cmp",
     optional = true,
     opts = {
-      sources = { { name = "lazydev", group_index = 2 } },
+      sources = { { name = "lazydev", group_index = 1 } },
     },
   },
 
