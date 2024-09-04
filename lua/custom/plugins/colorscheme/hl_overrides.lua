@@ -298,8 +298,8 @@ local getOverridesHl = function(mocha)
     FzfLuaHeaderBind = { fg = mocha.red, bg = floatColors.bg },
 
     -- noice.nvim
-    NoiceCmdlinePopupNormal = { fg = mocha.text, bg = mocha.surface0 },
-    NoiceCmdlinePopupBorder = { fg = mocha.surface0, bg = mocha.surface0 },
+    NoiceCmdlinePopupNormal = { fg = mocha.text, bg = mocha.crust },
+    NoiceCmdlinePopupBorder = { fg = mocha.crust, bg = mocha.crust },
     NoiceConfirm = { link = "NormalFloat" },
     NoiceConfirmBorder = { link = "FloatBorder" },
     NoiceSplit = { link = "Normal" },
