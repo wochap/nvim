@@ -818,7 +818,7 @@ return {
     "mei28/luminate.nvim",
     event = "VeryLazy",
     opts = {
-      duration = 200,
+      duration = 50,
     },
     config = function(_, opts)
       local luminate = require "luminate"
