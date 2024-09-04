@@ -187,7 +187,7 @@ local function git_diff_module()
   local conflict = ""
   if lazyUtils.is_loaded "git-conflict.nvim" then
     local gc = require "git-conflict"
-    local ok, conflict_count = pcall(gc.conflict_count, { bufnr = 0 })
+    local ok, conflict_count = pcall(gc.conflict_count)
     if ok then
       conflict = (conflict_count ~= 0) and (hl_str "StGitConflict" .. iconsUtils.git.Conflict .. " " .. conflict_count)
         or ""
