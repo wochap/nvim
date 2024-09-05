@@ -1,5 +1,6 @@
 local constants = require "custom.utils.constants"
 local lspUtils = require "custom.utils.lsp"
+local utils = require "custom.utils"
 
 return {
   {
@@ -382,5 +383,42 @@ return {
         ["yarn.lock"] = { glyph = "", hl = "MiniIconsBlue" },
       },
     },
+  },
+
+  {
+    "wochap/emmet-vim",
+    event = "VeryLazy",
+    cmd = "EmmetInstall",
+    init = function()
+      vim.g.user_emmet_install_global = 0
+      vim.g.user_emmet_leader_key = "<C-z>"
+      vim.g.user_emmet_mode = "i"
+
+      utils.autocmd("FileType", {
+        group = utils.augroup "install_emmet",
+        pattern = {
+          "astro",
+          "css",
+          "eruby",
+          "html",
+          "xhtml",
+          "xml",
+          "htmldjango",
+          "javascript",
+          "javascriptreact",
+          "less",
+          "pug",
+          "sass",
+          "scss",
+          "svelte",
+          "typescript",
+          "typescriptreact",
+          "vue",
+        },
+        callback = function()
+          vim.cmd [[ EmmetInstall ]]
+        end,
+      })
+    end,
   },
 }
