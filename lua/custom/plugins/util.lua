@@ -230,6 +230,7 @@ return {
 
   {
     "mrjones2014/smart-splits.nvim",
+    commit = "aee30930689ae427729aad41568ccaae57c167fe",
     event = "VeryLazy",
     keys = {
       -- focus windows
