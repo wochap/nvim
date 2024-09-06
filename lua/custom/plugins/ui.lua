@@ -773,6 +773,7 @@ return {
         hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
         note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
         todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+        perf = { pattern = "%f[%w]()PERF()%f[%W]", group = "MiniHipatternsPerf" },
       },
     },
   },
