@@ -31,6 +31,7 @@ utils.autocmd("User", {
     if not constants.in_kittyscrollback then
       require("custom.utils.statusline").init()
       vim.opt.statusline = "%!v:lua.require('custom.utils.statusline').statusline()"
+      vim.opt.cmdheight = 1
     end
   end,
 })
@@ -161,7 +162,7 @@ end
 
 -- set cursor style to underline
 -- opt.guicursor = "n-v-c-sm:hor20-Cursor,i-ci-ve:ver25,r-cr-o:hor20"
-vim.opt.guifont = "Iosevka NF:h10:#e-antialias"
+vim.opt.guifont = "IosevkaTerm NF:h10"
 
 -- PERF: stop highlighting large lines
 -- only works with syntax builtin nvim plugin
