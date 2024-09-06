@@ -790,10 +790,10 @@ return {
 
   {
     "brenoprata10/nvim-highlight-colors",
-    commit = "e0f614a8980c8ce35caa43c0affb5cac3fb344d0",
     event = "VeryLazy",
     opts = {
       render = "virtual",
+      virtual_symbol_position = "eol",
       enable_named_colors = false,
       enable_tailwind = false,
       custom_colors = {},

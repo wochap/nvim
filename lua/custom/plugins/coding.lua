@@ -254,8 +254,14 @@ return {
               opts.formatting.format(entry, item)
             end
 
-            local icon = " " .. (iconsUtils.lspkind[item.kind] or "")
-            item.kind = string.format("%s %s", icon, item.kind)
+            local color_item = require("nvim-highlight-colors").format(entry, { kind = item.kind })
+            local icon = iconsUtils.lspkind[item.kind] or " "
+            item.kind = string.format(" %s %s", icon, item.kind)
+            -- apply nvim-highlight-colors
+            if color_item.abbr_hl_group then
+              item.kind_hl_group = color_item.abbr_hl_group
+              item.kind = string.format(" %s %s", color_item.abbr, item.kind)
+            end
             -- limit str length
             if string.len(item.abbr) > 60 then
               item.abbr = string.format("%s…", string.sub(item.abbr, 1, 60))
