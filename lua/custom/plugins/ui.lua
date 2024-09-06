@@ -751,6 +751,8 @@ return {
     },
   },
 
+  -- PERF: it causes nvim to freeze
+  -- when scrolling to code with colors
   {
     "brenoprata10/nvim-highlight-colors",
     event = "VeryLazy",
