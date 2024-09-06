@@ -64,20 +64,6 @@ return {
   {
     "echasnovski/mini.move",
     event = { "LazyFile", "VeryLazy" },
-    keys = {
-      {
-        "<A-Down>",
-        "<Cmd>lua MiniMove.move_line('down')<CR>",
-        desc = "Move line down",
-        mode = "i",
-      },
-      {
-        "<A-Up>",
-        "<Cmd>lua MiniMove.move_line('up')<CR>",
-        desc = "Move line up",
-        mode = "i",
-      },
-    },
     opts = {
       mappings = {
         left = "<A-Left>",
