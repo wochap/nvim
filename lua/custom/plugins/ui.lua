@@ -754,7 +754,8 @@ return {
   -- PERF: it causes nvim to freeze
   -- when scrolling to code with colors
   {
-    "brenoprata10/nvim-highlight-colors",
+    "wochap/nvim-highlight-colors",
+    branch = "perf",
     event = "VeryLazy",
     opts = {
       render = "virtual",
