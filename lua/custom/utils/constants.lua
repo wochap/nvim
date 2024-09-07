@@ -2,37 +2,53 @@ local M = {}
 
 -- NOTE: you can't exclude empty filetypes
 M.exclude_filetypes = {
+  -- diffview.nvim
   "DiffviewFileHistory",
   "DiffviewFiles",
+  -- nvim-tree.lua
   "NvimTree",
+  -- telescope.nvim
   "TelescopePrompt",
   "TelescopeResults",
-  "Trouble",
+  -- trouble.nvim
+  "trouble",
+  -- nvim-dap
   "dap-repl",
   "dapui_breakpoints",
   "dapui_console",
   "dapui_scopes",
   "dapui_stacks",
   "dapui_watches",
-  "help",
+  -- lazy.nvim
   "lazy",
-  "lazyterm",
-  "leetcode.nvim",
+  -- nvim-lspconfig
   "lspinfo",
+  -- leetcode.nvim
+  "leetcode.nvim",
+  -- mason.nvim
   "mason",
+  -- neo-tree.nvim
   "neo-tree",
-  "notify",
+  -- oil.nvim
   "oil",
-  "qf",
-  "terminal",
-  "toggleterm",
-  "trouble",
-  "vim",
+  -- which-key.nvim
   "wk",
+  -- noice.nvim
   "noice",
+  -- grug-far.nvim
   "grug-far",
   "grug-far-history",
   "grug-far-help",
+  -- harpoon
+  "harpoon",
+  -- incline.nvim
+  "incline",
+  -- nvim
+  "help",
+  "qf",
+  "notify",
+  "terminal",
+  "vim",
 }
 
 M.exclude_buftypes = {
