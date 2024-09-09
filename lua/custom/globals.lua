@@ -1,5 +1,8 @@
 local constants = require "custom.utils.constants"
 
+-- overwrite PATH to ensure LSP servers start correctly in older projects
+vim.env.PATH = "/run/current-system/sw/bin/:" .. vim.env.PATH
+
 -- disable netrw
 if constants.disable_netrw then
   vim.g.loaded_netrw = 1
