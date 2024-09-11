@@ -60,6 +60,8 @@ M.in_foot = os.getenv "TERM" == "foot"
 
 M.in_kitty = os.getenv "TERM" == "xterm-kitty"
 
+M.in_neovide = vim.g.neovide
+
 local zk_arg = "zk"
 M.in_zk = zk_arg == vim.fn.argv()[1]
 

@@ -853,7 +853,7 @@ return {
 
   {
     "3rd/image.nvim",
-    enabled = constants.in_kitty,
+    enabled = constants.in_kitty and not constants.in_neovide,
     event = "VeryLazy",
     opts = {
       backend = "kitty",
