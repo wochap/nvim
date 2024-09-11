@@ -156,6 +156,9 @@ vim.opt.wrap = false
 -- disable swapfiles
 vim.opt.swapfile = false
 
+-- sync buffers between neovim windows
+vim.opt.autoread = true
+
 if vim.fn.has "nvim-0.10" == 1 then
   vim.opt.smoothscroll = true
 end
