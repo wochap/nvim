@@ -7,7 +7,7 @@ utils.autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 })
 
 -- Resize splits if window got resized
-utils.autocmd({ "VimResized" }, {
+utils.autocmd("VimResized", {
   group = utils.augroup "resize_splits",
   callback = function()
     local current_tab = vim.fn.tabpagenr()
@@ -40,8 +40,8 @@ utils.autocmd("FileType", {
     "gitrebase",
     "gitconfig",
   },
-  callback = function()
-    vim.opt_local.bufhidden = "wipe"
+  callback = function(event)
+    vim.bo[event.buf].bufhidden = "wipe"
   end,
 })
 
@@ -76,7 +76,7 @@ utils.autocmd("FileType", {
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
-utils.autocmd({ "CmdwinEnter" }, {
+utils.autocmd("CmdwinEnter", {
   group = utils.augroup "close_with_q_cmd",
   command = "nnoremap <buffer> q :q<CR>",
 })
@@ -92,7 +92,7 @@ utils.autocmd("FileType", {
 })
 
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
-utils.autocmd({ "BufWritePre" }, {
+utils.autocmd("BufWritePre", {
   group = utils.augroup "auto_create_dir",
   callback = function(event)
     if event.match:match "^%w%w+://" then
@@ -107,8 +107,8 @@ utils.autocmd({ "BufWritePre" }, {
 utils.autocmd("FileType", {
   pattern = { "gitsendemail", "conf", "editorconfig", "qf" },
   group = utils.augroup "enable_filetypes_syntax",
-  callback = function()
-    vim.opt_local.syntax = vim.bo.filetype
+  callback = function(event)
+    vim.bo[event.buf].syntax = vim.bo[event.buf].filetype
   end,
 })
 
