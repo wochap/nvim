@@ -130,6 +130,7 @@ end
 
 M.find_files_git = function()
   require("telescope.builtin").git_files {
+    use_git_root = false,
     show_untracked = true,
     recurse_submodules = false,
   }
