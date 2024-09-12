@@ -30,3 +30,10 @@ vim.api.nvim_create_user_command("WindowPicker", function(e)
   vim.api.nvim_set_current_win(winid)
   vim.cmd("edit " .. file)
 end, { nargs = "?", complete = "file" })
+
+-- open Nvim LSP in split
+vim.api.nvim_create_user_command("LspLog", function()
+  vim.cmd(string.format("vsplit %s", vim.lsp.get_log_path()))
+end, {
+  desc = "Opens the Nvim LSP client log.",
+})
