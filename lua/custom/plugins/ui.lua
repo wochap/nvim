@@ -158,7 +158,7 @@ return {
       })
     end,
     opts = {
-      open_fold_hl_timeout = 400,
+      open_fold_hl_timeout = 100,
       close_fold_kinds = {},
       enable_get_fold_virt_text = false,
       preview = {
@@ -785,7 +785,7 @@ return {
     "mei28/luminate.nvim",
     event = "VeryLazy",
     opts = {
-      duration = 50,
+      duration = 100,
     },
     config = function(_, opts)
       local luminate = require "luminate"
