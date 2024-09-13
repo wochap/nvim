@@ -433,6 +433,7 @@ return {
           if ctx.layout_name == "diff2_horizontal" then
             if ctx.symbol == "a" then
               vim.opt_local.winhl = table.concat({
+                "DiffAdd:GitSignsDeletePreview",
                 "DiffDelete:DiffviewDiffDeleteSign",
                 "DiffChange:GitSignsDeletePreview",
                 "DiffText:GitSignsDeleteInline",
