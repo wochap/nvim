@@ -670,6 +670,7 @@ return {
       },
     },
     opts = {
+      wrap = false,
       transient = true,
       folding = {
         enabled = false,
@@ -677,6 +678,11 @@ return {
       searchOnInsertLeave = false,
       windowCreationCommand = "vsplit",
       headerMaxWidth = 80,
+      engines = {
+        ripgrep = {
+          showReplaceDiff = true,
+        },
+      },
       icons = {
         -- actionEntryBullet = " ",
         searchInput = " ",
