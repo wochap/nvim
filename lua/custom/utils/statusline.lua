@@ -164,9 +164,13 @@ local function file_module()
 end
 
 local function git_branch_module()
-  local branch_name = " " .. gitBranchUtils.get_branch()
+  local branch_name = gitBranchUtils.get_branch()
 
-  return hl_str "StModuleAlt" .. branch_name
+  if #branch_name > 0 then
+    return hl_str "StModuleAlt" .. " " .. branch_name
+  end
+
+  return ""
 end
 
 local function git_diff_module()
