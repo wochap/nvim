@@ -386,7 +386,7 @@ return {
   },
 
   {
-    "wochap/emmet-vim",
+    "mattn/emmet-vim",
     event = "VeryLazy",
     cmd = "EmmetInstall",
     init = function()
