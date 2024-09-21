@@ -140,19 +140,17 @@ return {
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
       utils.autocmd("InsertEnter", {
+        group = utils.augroup "hide_underline_diagnostic",
         pattern = "*",
         callback = function()
-          vim.diagnostic.config {
-            underline = false,
-          }
+          vim.diagnostic.config { underline = false }
         end,
       })
       utils.autocmd("InsertLeave", {
+        group = utils.augroup "show_underline_diagnostic",
         pattern = "*",
         callback = function()
-          vim.diagnostic.config {
-            underline = true,
-          }
+          vim.diagnostic.config { underline = true }
         end,
       })
 
