@@ -380,7 +380,7 @@ return {
     "stevearc/profile.nvim",
     keys = {
       {
-        "<leader>cpt",
+        "<leader>mpt",
         function()
           local profile = require "profile"
           if profile.is_recording() then

@@ -31,8 +31,8 @@ map("n", "<C-j>", "4<C-e>", "scroll down keeping cursor position")
 -- debug nvim config
 map("n", "<f2>", keymapsUtils.print_syntax_info, "print syntax info")
 map("n", "<f3>", keymapsUtils.print_buf_info, "print buffer info")
-map("n", "<leader>cd", "<cmd>lua require('osv').launch({ port = 8086 })<cr>", "start nvim server")
-map("n", "<leader>cD", "<cmd>lua require('osv').stop()<cr>", "stop nvim server")
+map("n", "<leader>md", "<cmd>lua require('osv').launch({ port = 8086 })<cr>", "start nvim server")
+map("n", "<leader>mD", "<cmd>lua require('osv').stop()<cr>", "stop nvim server")
 
 -- editing
 map("n", "[<Space>", ":set paste<CR>m`O<Esc>``:set nopaste<CR>", "add empty line up", { silent = true })
@@ -87,23 +87,23 @@ map("n", "<leader>q!", "<cmd>qa! <CR>", "exit!")
 map("n", "gV", "`[v`]", "select last yanked/changed text")
 map({ "n", "i", "v", "s" }, "<C-e>", keymapsUtils.close_all_floating, "close floating windows")
 map("n", "<f5>", "<cmd>edit %<CR>", "reload buffer")
-map("n", "<leader>cps", function()
+map("n", "<leader>mps", function()
   vim.cmd [[
     :profile start /tmp/nvim-profile.log
     :profile func *
     :profile file *
   ]]
 end, "Profile Start")
-map("n", "<leader>cpe", function()
+map("n", "<leader>mpe", function()
   vim.cmd [[
     :profile stop
     :e /tmp/nvim-profile.log
   ]]
 end, "Profile End")
-map("n", "<leader>cPs", "<cmd>syntime on<CR>", "Profile Syntax Start")
-map("n", "<leader>cPe", "<cmd>syntime report<CR>", "Profile Syntax End")
+map("n", "<leader>mPs", "<cmd>syntime on<CR>", "Profile Syntax Start")
+map("n", "<leader>mPe", "<cmd>syntime report<CR>", "Profile Syntax End")
 -- https://vim.fandom.com/wiki/Super_retab
-map("n", "<leader>ct", "<cmd>retab!<CR>", "format leading spacing in whole file")
+map("n", "<leader>mt", "<cmd>retab!<CR>", "format leading spacing in whole file")
 
 -- better insert register pasting
 -- disables autoindent before pasting

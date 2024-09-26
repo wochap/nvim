@@ -502,6 +502,179 @@ return {
   },
 
   {
+    "jake-stewart/multicursor.nvim",
+    branch = "1.0",
+    keys = {
+      {
+        "<C-leftmouse>",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.handleMouse()
+        end,
+        desc = "Toggle cursor",
+        mode = "n",
+      },
+      {
+        "<leader>c<Up>",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.addCursor "k"
+        end,
+        desc = "Add above",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>c<Down>",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.addCursor "j"
+        end,
+        desc = "Add below",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>cn",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.addCursor "*"
+        end,
+        desc = "Add and jump to next word",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>cs",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.skipCursor "*"
+        end,
+        desc = "Skip and jump to next word",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>c<Right>",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.prevCursor()
+        end,
+        desc = "Rotate prev",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>c<Left>",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.nextCursor()
+        end,
+        desc = "Rotate next",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>cx",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.deleteCursor()
+        end,
+        desc = "Delete",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>cq",
+        function()
+          local mc = require "multicursor-nvim"
+          if mc.cursorsEnabled() then
+            -- Stop other cursors from moving.
+            -- This allows you to reposition the main cursor.
+            mc.disableCursors()
+          else
+            mc.addCursor()
+          end
+        end,
+        desc = "Stop other or add",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>c<Esc>",
+        function()
+          local mc = require "multicursor-nvim"
+          if not mc.cursorsEnabled() then
+            mc.enableCursors()
+          elseif mc.hasCursors() then
+            mc.clearCursors()
+          else
+            -- Default <esc> handler.
+          end
+        end,
+        desc = "Start other or clear",
+        mode = "n",
+      },
+      {
+        "<leader>ca",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.alignCursors()
+        end,
+        desc = "Align columns",
+        mode = "n",
+      },
+      {
+        "<leader>cS",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.splitCursors()
+        end,
+        desc = "Split by regex",
+        mode = "v",
+      },
+      {
+        "I",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.insertVisual()
+        end,
+        desc = "Insert",
+        mode = "v",
+      },
+      {
+        "A",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.appendVisual()
+        end,
+        desc = "Append",
+        mode = "v",
+      },
+      {
+        "<leader>cM",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.matchCursors()
+        end,
+        desc = "Match by regex",
+        mode = "v",
+      },
+      {
+        "<leader>ct",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.transposeCursors(1)
+        end,
+        desc = "Rotate next",
+        mode = "v",
+      },
+      {
+        "<leader>cT",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.transposeCursors(-1)
+        end,
+        desc = "Rotate prev",
+        mode = "v",
+      },
+    },
+    opts = {},
+  },
+
+  {
     "monkoose/matchparen.nvim",
     event = { "LazyFile", "VeryLazy" },
     opts = {

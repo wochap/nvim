@@ -39,9 +39,9 @@ return {
       spec = {
         {
           mode = { "n", "v" },
-          { "<leader>c", group = "misc" },
-          { "<leader>cp", group = "profile" },
-          { "<leader>cP", group = "syntax profile" },
+          { "<leader>m", group = "misc" },
+          { "<leader>mp", group = "profile" },
+          { "<leader>mP", group = "syntax profile" },
           { "<leader>f", group = "files" },
           { "<leader>g", group = "git" },
           { "<leader>p", group = "lazy" },

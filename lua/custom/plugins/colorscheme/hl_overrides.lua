@@ -144,6 +144,12 @@ local getExtraHl = function(mocha)
     BufferLineOffset = { bg = mocha.mantle, fg = mocha.lavender },
     DevIconDimmed = { fg = mocha.surface1 },
 
+    -- multicursor.nvim
+    MultiCursorCursor = { link = "Cursor" },
+    MultiCursorVisual = { link = "Visual" },
+    MultiCursorDisabledCursor = { link = "Visual" },
+    MultiCursorDisabledVisual = { link = "Visual" },
+
     -- nvim-web-devicons
     DevIconDefault = { fg = mocha.red },
     DevIconc = { fg = mocha.blue },

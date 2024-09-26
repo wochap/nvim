@@ -743,7 +743,7 @@ return {
     keys = (in_leetcode and {})
       or {
         {
-          "<leader>cf",
+          "<leader>mf",
           "<cmd>Telescope filetypes<cr>",
           desc = "change filetype",
         },
