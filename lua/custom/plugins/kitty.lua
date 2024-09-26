@@ -5,6 +5,7 @@ local in_kittyscrollback = require("custom.utils.constants").in_kittyscrollback
 return {
   {
     "mikesmithgh/kitty-scrollback.nvim",
+    enabled = in_kittyscrollback,
     commit = "3f430ff8829dc2b0f5291d87789320231fdb65a1",
     event = { "User KittyScrollbackLaunch" },
     cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
