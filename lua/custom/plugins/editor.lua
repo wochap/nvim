@@ -1274,16 +1274,16 @@ return {
     opts = {
       signs = {
         add = {
-          text = "▍",
+          text = constants.in_kitty and "▍" or "▎",
         },
         change = {
-          text = "▍",
+          text = constants.in_kitty and "▍" or "▎",
         },
         delete = {
           text = "",
         },
         changedelete = {
-          text = "▍",
+          text = constants.in_kitty and "▍" or "▎",
         },
         topdelete = {
           text = "",
@@ -1299,16 +1299,16 @@ return {
       signs_staged_enable = true,
       signs_staged = {
         add = {
-          text = "▍",
+          text = constants.in_kitty and "▍" or "▎",
         },
         change = {
-          text = "▍",
+          text = constants.in_kitty and "▍" or "▎",
         },
         delete = {
           text = "",
         },
         changedelete = {
-          text = "▍",
+          text = constants.in_kitty and "▍" or "▎",
         },
         topdelete = {
           text = "",
