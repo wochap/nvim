@@ -113,7 +113,7 @@ local function filetype_icon()
   return hl_merge(hl, "StModule") .. icon .. " "
 end
 
-local function relative_path()
+local function file_relative_path()
   if vim.o.columns < breakpoint then
     return ""
   end
@@ -123,23 +123,24 @@ local function relative_path()
     return ""
   end
 
-  local filename = vim.api.nvim_buf_get_name(0)
-  local relative_path_str = vim.fn.fnamemodify(filename, ":~:.")
-  relative_path_str = string.sub(relative_path_str, 1, -2 + string.len(filename_str) * -1)
+  local filename_path_str = vim.api.nvim_buf_get_name(0)
+  local filename_relative_path_str = vim.fn.fnamemodify(filename_path_str, ":~:.")
+  filename_relative_path_str = string.sub(filename_relative_path_str, 1, -2 + string.len(filename_str) * -1)
+  -- TODO: remove git root pwd from relative path str
 
-  if string.len(relative_path_str) > 60 then
+  if string.len(filename_relative_path_str) > 40 then
     local parts = {}
-    for part in string.gmatch(relative_path_str, "[^/]+") do
+    for part in string.gmatch(filename_relative_path_str, "[^/]+") do
       table.insert(parts, part)
     end
     if #parts > 2 then
       local first_folder = parts[1]
       local last_folder = parts[#parts]
-      relative_path_str = first_folder .. "/…/" .. last_folder
+      filename_relative_path_str = first_folder .. "/…/" .. last_folder
     end
   end
 
-  return hl_merge("StRelativePath", "StModule") .. relative_path_str
+  return hl_merge("StRelativePath", "StModule") .. filename_relative_path_str
 end
 
 local function filename()
@@ -156,7 +157,7 @@ local function file_module()
     .. filetype_icon()
     .. filename()
     .. " "
-    .. relative_path()
+    .. file_relative_path()
     .. hl_str "StModule"
     .. " "
     .. hl_str "StModuleSep"
@@ -326,8 +327,32 @@ local function indent_module()
   return hl_str "StModuleAlt" .. str
 end
 
+local function dirname_relative_path()
+  if vim.o.columns < breakpoint then
+    return ""
+  end
+
+  local dirname_path_str = vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+  local dirname_str = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+  local dirname_relative_path_str = string.sub(dirname_path_str, 1, -2 + string.len(dirname_str) * -1)
+
+  if string.len(dirname_relative_path_str) > 30 then
+    local parts = {}
+    for part in string.gmatch(dirname_relative_path_str, "[^/]+") do
+      table.insert(parts, part)
+    end
+    if #parts > 2 then
+      local first_folder = parts[1]
+      local last_folder = parts[#parts]
+      dirname_relative_path_str = first_folder .. "/…/" .. last_folder
+    end
+  end
+
+  return hl_merge("StRelativePath", "StModule") .. dirname_relative_path_str
+end
+
 local function dirname_module()
-  local dirname = vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+  local dirname_str = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 
   return hl_str "StModuleSep"
     .. separators.r_b
@@ -337,7 +362,10 @@ local function dirname_module()
     .. iconsUtils.folder.default
     .. " "
     .. hl_str "StModule"
-    .. dirname
+    .. dirname_str
+    .. " "
+    .. dirname_relative_path()
+    .. hl_str "StModule"
     .. " "
     .. hl_str "StModuleSep"
     .. separators.r
@@ -371,10 +399,10 @@ M.statusline = function()
     "%=",
     search_count_module(),
     macro_module(),
-    command_module(),
     maximize_status_module(),
     diagnostics_module(),
     lsp_or_filetype_module(),
+    command_module(),
     indent_module(),
     dirname_module() .. location_module(),
   }
