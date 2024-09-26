@@ -43,6 +43,8 @@ M.exclude_filetypes = {
   "harpoon",
   -- incline.nvim
   "incline",
+  -- checkhealth
+  "checkhealth",
   -- nvim
   "help",
   "qf",
