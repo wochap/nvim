@@ -155,6 +155,12 @@ return {
     branch = "harpoon2",
     keys = {
       {
+        "<leader>h",
+        "",
+        desc = "harpoon",
+      },
+
+      {
         "<leader>hs",
         function()
           local harpoon = require "harpoon"
@@ -202,13 +208,6 @@ return {
       settings = {
         save_on_toggle = true,
       },
-    },
-  },
-  {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      spec = { { "<leader>h", group = "harpoon" } },
     },
   },
 

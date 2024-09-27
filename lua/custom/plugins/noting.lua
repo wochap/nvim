@@ -66,6 +66,13 @@ return {
     },
     keys = {
       {
+        "<leader>z",
+        "",
+        desc = "zk",
+        mode = { "n", "v" },
+      },
+
+      {
         "<leader>zn",
         "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>",
         desc = "new note",
@@ -127,17 +134,5 @@ return {
         require("telescope").load_extension "zk"
       end)
     end,
-  },
-  {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      spec = {
-        {
-          mode = { "n", "v" },
-          { "<leader>z", group = "zk" },
-        },
-      },
-    },
   },
 }

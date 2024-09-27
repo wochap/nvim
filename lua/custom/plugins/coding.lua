@@ -506,6 +506,13 @@ return {
     branch = "1.0",
     keys = {
       {
+        "<leader>c",
+        "",
+        desc = "multicursor",
+        mode = { "n", "v" },
+      },
+
+      {
         "<C-leftmouse>",
         function()
           local mc = require "multicursor-nvim"

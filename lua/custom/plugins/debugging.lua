@@ -137,6 +137,12 @@ return {
     },
     keys = {
       {
+        "<leader>d",
+        "",
+        desc = "dap",
+      },
+
+      {
         "<leader>d<Up>",
         "<cmd>lua require'dap'.step_out()<CR>",
         desc = "step out",
@@ -250,12 +256,5 @@ return {
         })
       end)
     end,
-  },
-  {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      spec = { { "<leader>d", group = "dap" } },
-    },
   },
 }

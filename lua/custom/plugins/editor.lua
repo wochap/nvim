@@ -655,6 +655,12 @@ return {
     cmd = "GrugFar",
     keys = {
       {
+        "<leader>R",
+        "",
+        desc = "grug-far",
+      },
+
+      {
         "<leader>fr",
         function()
           local grug = require "grug-far"
@@ -714,13 +720,6 @@ return {
         toggleShowCommand = { n = "<leader>rp" },
         swapEngine = { n = "<leader>re" },
       },
-    },
-  },
-  {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      spec = { { "<leader>r", group = "grug-far" } },
     },
   },
 
@@ -1221,6 +1220,12 @@ return {
     cmd = "GitConflictListQf",
     keys = {
       {
+        "<leader>gc",
+        "",
+        desc = "git conflict",
+      },
+
+      {
         "<leader>xg",
         "<cmd>GitConflictListQf<cr>",
         desc = "toggle project git conflicts",
@@ -1259,13 +1264,6 @@ return {
 
       require("git-conflict").setup(opts)
     end,
-  },
-  {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      spec = { { "<leader>gc", group = "git conflict" } },
-    },
   },
 
   {
@@ -1365,6 +1363,13 @@ return {
     build = "sh install.sh",
     keys = {
       {
+        "<leader>s",
+        "",
+        desc = "sniprun",
+        mode = { "n", "v" },
+      },
+
+      {
         "<leader>sr",
         "<Plug>SnipRun",
         desc = "run code",
@@ -1397,17 +1402,5 @@ return {
         sniprun.setup(opts)
       end)
     end,
-  },
-  {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      spec = {
-        {
-          mode = { "n", "v" },
-          { "<leader>s", group = "sniprun" },
-        },
-      },
-    },
   },
 }

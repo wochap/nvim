@@ -26,6 +26,13 @@ return {
       "williamboman/mason-lspconfig.nvim",
     },
     keys = {
+      {
+        "<leader>l",
+        "",
+        desc = "lsp",
+        mode = { "n", "v" },
+      },
+
       -- NOTE: more keys in ./keymaps.lua
       {
         "<leader>li",
@@ -214,18 +221,6 @@ return {
         mlsp.setup { ensure_installed = ensure_installed, handlers = { setup } }
       end
     end,
-  },
-  {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      spec = {
-        {
-          mode = { "n", "v" },
-          { "<leader>l", group = "lsp" },
-        },
-      },
-    },
   },
 
   {

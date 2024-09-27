@@ -7,6 +7,12 @@ return {
     priority = 1,
     keys = (not in_leetcode and {}) or {
       {
+        "<leader>L",
+        "",
+        desc = "leetcode",
+      },
+
+      {
         "<leader>e",
         "<cmd>Leet menu<cr>",
         desc = "focus dashboard",
@@ -62,13 +68,6 @@ return {
       description = {
         width = "50%",
       },
-    },
-  },
-  {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      spec = { { "<leader>L", group = "leetcode" } },
     },
   },
 }
