@@ -121,16 +121,16 @@ for i = 1, #registers do
 end
 
 -- fast macros execution
-registers = "abcdefghijklmnopqrstuvwxyz"
-for i = 1, #registers do
-  local register = registers:sub(i, i)
-
-  map("n", "@" .. register, function()
-    vim.opt.lazyredraw = true
-    vim.cmd.normal { "@" .. register, bang = true }
-    vim.opt.lazyredraw = false
-  end, nil, { noremap = true })
-end
+-- registers = "abcdefghijklmnopqrstuvwxyz"
+-- for i = 1, #registers do
+--   local register = registers:sub(i, i)
+--
+--   map("n", "@" .. register, function()
+--     vim.opt.lazyredraw = true
+--     vim.cmd.normal { "@" .. register, bang = true }
+--     vim.opt.lazyredraw = false
+--   end, nil, { noremap = true })
+-- end
 
 -- enable terminal like copy and paste in neovide
 if vim.g.neovide then
