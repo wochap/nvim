@@ -427,7 +427,10 @@ return {
         diff_buf_read = function(bufnr)
           vim.opt_local.wrap = false
           lspUtils.toggle_inlay_hints(bufnr, false)
-          require("indentmini").toggle_buff(bufnr, false)
+          local has_im, im = pcall(require, "indentmini")
+          if has_im then
+            im.toggle_buff(bufnr, false)
+          end
         end,
         diff_buf_win_enter = function(bufnr, winid, ctx)
           if ctx.layout_name == "diff2_horizontal" then

@@ -59,7 +59,10 @@ return {
       on_open = function(winid)
         local bufnr = vim.api.nvim_win_get_buf(winid)
         utils.disable_statuscol(winid)
-        require("indentmini").toggle_win(winid, false)
+        local has_im, im = pcall(require, "indentmini")
+        if has_im then
+          im.toggle_win(winid, false)
+        end
         -- TODO: edge case where if you are in zen mode
         -- and switch to a different buffer
         -- this fn doesn't get called
