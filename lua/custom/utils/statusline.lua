@@ -5,7 +5,7 @@ local gitBranchUtils = require "custom.utils.git-branch"
 
 local fn = vim.fn
 local api = vim.api
-local breakpoint = 100
+local breakpoint = 110
 local separators = {
   l = "",
   l_b = "",
@@ -114,7 +114,7 @@ local function filetype_icon()
 end
 
 local function file_relative_path()
-  if vim.o.columns < breakpoint then
+  if vim.o.columns <= breakpoint then
     return ""
   end
 
@@ -150,14 +150,14 @@ local function filename()
 end
 
 local function file_module()
+  local file_relative_path_str = file_relative_path()
   return hl_str "StModuleSep"
     .. separators.l_b
     .. hl_str "StModule"
     .. " "
     .. filetype_icon()
     .. filename()
-    .. " "
-    .. file_relative_path()
+    .. (#file_relative_path_str > 0 and " " .. file_relative_path_str or "")
     .. hl_str "StModule"
     .. " "
     .. hl_str "StModuleSep"
@@ -175,7 +175,7 @@ local function git_branch_module()
 end
 
 local function git_diff_module()
-  if not vim.b.gitsigns_head or vim.b.gitsigns_git_status or vim.o.columns < breakpoint then
+  if not vim.b.gitsigns_head or vim.b.gitsigns_git_status or vim.o.columns <= breakpoint then
     return ""
   end
 
@@ -328,7 +328,7 @@ local function indent_module()
 end
 
 local function dirname_relative_path()
-  if vim.o.columns < breakpoint then
+  if vim.o.columns <= breakpoint then
     return ""
   end
 
@@ -353,6 +353,7 @@ end
 
 local function dirname_module()
   local dirname_str = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+  local dirname_relative_path_str = dirname_relative_path()
 
   return hl_str "StModuleSep"
     .. separators.r_b
@@ -363,8 +364,7 @@ local function dirname_module()
     .. " "
     .. hl_str "StModule"
     .. dirname_str
-    .. " "
-    .. dirname_relative_path()
+    .. (#dirname_relative_path_str > 0 and " " .. dirname_relative_path_str or "")
     .. hl_str "StModule"
     .. " "
     .. hl_str "StModuleSep"
