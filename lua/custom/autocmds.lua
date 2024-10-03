@@ -51,6 +51,7 @@ utils.autocmd("FileType", {
 utils.autocmd("FileType", {
   group = utils.augroup "close_with_q",
   pattern = {
+    "trouble",
     "gitcommit",
     "gitrebase",
     "gitconfig",
