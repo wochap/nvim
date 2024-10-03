@@ -150,14 +150,19 @@ return {
         group = utils.augroup "hide_underline_diagnostic",
         pattern = "*",
         callback = function()
-          vim.diagnostic.config { underline = false }
+          vim.schedule(function()
+            vim.diagnostic.config { underline = false }
+          end)
         end,
       })
       utils.autocmd("InsertLeave", {
         group = utils.augroup "show_underline_diagnostic",
         pattern = "*",
         callback = function()
-          vim.diagnostic.config { underline = true }
+          -- NOTE: it doesn't work well on JS files without the vim.schedule
+          vim.schedule(function()
+            vim.diagnostic.config { underline = true }
+          end)
         end,
       })
 
