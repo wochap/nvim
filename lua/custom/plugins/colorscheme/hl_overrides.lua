@@ -413,6 +413,9 @@ local getOverridesHl = function(mocha)
     --   bg = "NONE",
     --   fg = mocha.green,
     -- },
+    CurSearch = {
+      link = "Search",
+    },
   }
 end
 
