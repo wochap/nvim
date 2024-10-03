@@ -106,7 +106,7 @@ utils.autocmd("BufWritePre", {
 
 -- Enable native syntax hl
 utils.autocmd("FileType", {
-  pattern = { "gitsendemail", "conf", "editorconfig", "qf", "checkhealth" },
+  pattern = { "gitsendemail", "conf", "editorconfig", "qf", "checkhealth", "less" },
   group = utils.augroup "enable_filetypes_syntax",
   callback = function(event)
     vim.bo[event.buf].syntax = vim.bo[event.buf].filetype
