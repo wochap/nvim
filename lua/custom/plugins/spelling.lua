@@ -5,6 +5,22 @@ return {
     opts = {
       servers = {
         ltex = {
+          filetypes = {
+            "bib",
+            "gitcommit",
+            "markdown",
+            "org",
+            "plaintex",
+            "rst",
+            "rnoweb",
+            "tex",
+            "pandoc",
+            "quarto",
+            "rmd",
+            "context",
+            "mail",
+            "text",
+          },
           settings = {
             ltex = {
               language = "en-US",
