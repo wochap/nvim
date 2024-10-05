@@ -47,7 +47,7 @@ local function has_long_line(bufnr)
 end
 
 local fn_pattern = "%.min%.[a-zA-Z]*$"
-local ft_patterns = { "gitcommit", "gitrebase", "markdown", "norg", "tex", "bib" }
+local ft_patterns = { "gitcommit", "gitrebase", "markdown", "norg", "tex", "bib", "typst" }
 M.is_minfile = function(bufnr)
   local filename = vim.api.nvim_buf_get_name(bufnr)
   local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
