@@ -377,7 +377,11 @@ local getOverridesHl = function(mocha)
     DiagnosticWarn = { fg = stateColors.warning }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticInfo = { fg = stateColors.info }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticHint = { fg = stateColors.hint }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-    DiagnosticUnnecessary = { fg = colorschemeUtils.darken(mocha.text, 0.667, mocha.base), link = nil },
+    DiagnosticUnnecessary = {
+      fg = colorschemeUtils.darken(mocha.text, 0.667, mocha.base),
+      undercurl = true,
+      link = nil,
+    },
     DiagnosticFloatingError = { fg = stateColors.error }, -- Used to color "Error" diagnostic messages in diagnostics float
     DiagnosticFloatingWarn = { fg = stateColors.warning }, -- Used to color "Warn" diagnostic messages in diagnostics float
     DiagnosticFloatingInfo = { fg = stateColors.info }, -- Used to color "Info" diagnostic messages in diagnostics float
