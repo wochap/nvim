@@ -107,7 +107,7 @@ return {
           },
           keys = {
             {
-              "gS",
+              "go",
               function()
                 require("vtsls").commands.goto_source_definition(0)
               end,
