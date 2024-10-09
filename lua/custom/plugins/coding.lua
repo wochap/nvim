@@ -163,13 +163,17 @@ return {
   },
 
   {
-    "yioneko/nvim-cmp",
-    branch = "perf-up",
+    "hrsh7th/nvim-cmp",
+    enabled = false,
+  },
+  {
+    -- hrsh7th/nvim-cmp fork
+    "iguanacucumber/magazine.nvim",
     event = { "CmdlineEnter", "InsertEnter", "VeryLazy" },
     version = false, -- last release is way too old
+    main = "lazyvim.util.cmp",
     dependencies = {
       -- cmp sources plugins
-      "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -185,8 +189,10 @@ return {
         enabled = function()
           local cmp_ctx = require "cmp.config.context"
           if
+            -- disable when recording a macro
             (vim.fn.reg_recording() ~= "")
             or (vim.fn.reg_executing() ~= "")
+            -- disable in comments
             or (cmp_ctx.in_treesitter_capture "comment" == true)
             or (cmp_ctx.in_syntax_group "comment" == true)
           then
@@ -196,6 +202,7 @@ return {
           local has_cmp_dap_load = lazyUtils.is_loaded "cmp-dap"
           if has_cmp_dap_load then
             local cmp_dap = require "cmp_dap"
+            -- enable if in dap buffer
             if cmp_dap.is_dap_buffer() then
               return true
             end
@@ -209,6 +216,7 @@ return {
         },
         window = {
           completion = {
+            -- NOTE: changing border breaks scrollbar UI
             border = cmpUtils.border "CmpBorder",
             side_padding = 1,
             winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel,Search:None",
@@ -223,15 +231,6 @@ return {
           entries = {
             follow_cursor = true,
           },
-        },
-        snippet = {
-          expand = function(args)
-            local has_luasnip, luasnip = pcall(require, "luasnip")
-            if not has_luasnip then
-              return
-            end
-            luasnip.lsp_expand(args.body)
-          end,
         },
         formatting = {
           fields = { "abbr", "kind", "menu" },
@@ -259,62 +258,47 @@ return {
           end,
         },
         mapping = {
-          -- TODO: add C-f and C-b mappings to scroll options
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-u>"] = cmp.mapping.scroll_docs(-4),
           ["<C-d>"] = cmp.mapping.scroll_docs(4),
+          ["<C-b>"] = cmpUtils.scroll(-4),
+          ["<C-f>"] = cmpUtils.scroll(4),
           ["<C-n>"] = cmpUtils.select_next_item,
           ["<C-p>"] = cmpUtils.select_prev_item,
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<C-k>"] = function()
-            require("luasnip").expand()
+
+          -- lazyvim has a better cmp.confirm
+          ["<C-y>"] = function(...)
+            require("lazyvim.util.cmp").confirm {
+              behavior = cmp.ConfirmBehavior.Insert,
+              select = true,
+            }(...)
           end,
+
+          -- close cmp menu on movements
           ["<Up>"] = function(fallback)
-            cmpUtils.cmp_close_tl()
+            cmpUtils.async_cmp_close_tl()
             fallback()
           end,
           ["<Down>"] = function(fallback)
-            cmpUtils.cmp_close_tl()
+            cmpUtils.async_cmp_close_tl()
             fallback()
           end,
           ["<Left>"] = function(fallback)
-            cmpUtils.cmp_close_tl()
+            cmpUtils.async_cmp_close_tl()
             fallback()
           end,
           ["<Right>"] = function(fallback)
-            cmpUtils.cmp_close_tl()
+            cmpUtils.async_cmp_close_tl()
             fallback()
           end,
-          ["<C-y>"] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = true,
-          },
-          ["<Tab>"] = {
-            i = function(fallback)
-              if require("luasnip").jumpable(1) then
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-next", true, true, true), "")
-              else
-                fallback()
-              end
-            end,
-            s = function(fallback)
-              require("luasnip").jump(1)
-            end,
-          },
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            require("luasnip").jump(-1)
-          end, {
-            "i",
-            "s",
-          }),
           ["<CR>"] = function(fallback)
-            cmpUtils.cmp_close_tl()
+            cmpUtils.async_cmp_close_tl()
             fallback()
           end,
         },
         sources = {
           { name = "path", max_item_count = 10, group_index = 1 },
-          { name = "luasnip", max_item_count = 10, group_index = 1 },
           { name = "nvim_lsp", max_item_count = 25, group_index = 1 },
           {
             name = "buffer",
@@ -342,7 +326,9 @@ return {
     config = function(_, opts)
       local cmp = require "cmp"
       local cmdlineMapping = {
-        ["<C-Space>"] = { c = cmp.mapping.complete() },
+        ["<C-Space>"] = {
+          c = cmp.mapping.complete(),
+        },
         ["<C-n>"] = {
           c = cmpUtils.select_next_item,
         },
@@ -353,19 +339,23 @@ return {
           c = cmp.mapping.abort(),
         },
         ["<C-y>"] = {
-          c = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = true,
-          },
+          c = function(...)
+            require("lazyvim.util.cmp").confirm {
+              behavior = cmp.ConfirmBehavior.Insert,
+              select = true,
+            }(...)
+          end,
         },
         ["<C-S-y>"] = {
           c = function(fallback)
-            cmp.confirm({
-              behavior = cmp.ConfirmBehavior.Insert,
-              select = true,
-            }, function()
-              vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "")
-            end)
+            if cmp.core.view:visible() or vim.fn.pumvisible() == 1 then
+              cmp.confirm({
+                behavior = cmp.ConfirmBehavior.Insert,
+                select = true,
+              }, function()
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "")
+              end)
+            end
           end,
         },
         ["<Tab>"] = {
@@ -423,7 +413,7 @@ return {
     },
     opts = {
       history = true,
-      updateevents = "TextChanged,TextChangedI",
+      delete_check_events = "TextChanged",
       -- Show snippets related to the language
       -- in the current cursor position
       ft_func = function()
@@ -432,8 +422,14 @@ return {
     },
     config = function(_, opts)
       local luasnip = require "luasnip"
-      luasnip.config.set_config(opts)
-      require("luasnip.loaders.from_vscode").load { paths = vim.fn.stdpath "config" .. "/snippets" }
+      luasnip.setup(opts)
+
+      -- load snippets in nvim config folder
+      require("luasnip.loaders.from_vscode").load {
+        paths = vim.fn.stdpath "config" .. "/snippets",
+      }
+
+      -- clear luasnip on InsertLeave
       vim.api.nvim_create_autocmd("InsertLeave", {
         callback = function()
           if
@@ -445,6 +441,54 @@ return {
         end,
       })
     end,
+  },
+  {
+    "iguanacucumber/magazine.nvim",
+    optional = true,
+    dependencies = {
+      -- cmp sources plugins
+      "saadparwaiz1/cmp_luasnip",
+    },
+    keys = {
+      {
+        "<tab>",
+        function()
+          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+        end,
+        expr = true,
+        silent = true,
+        mode = "i",
+      },
+      {
+        "<tab>",
+        function()
+          require("luasnip").jump(1)
+        end,
+        mode = "s",
+      },
+      {
+        "<s-tab>",
+        function()
+          require("luasnip").jump(-1)
+        end,
+        mode = { "i", "s" },
+      },
+    },
+    opts = {
+      snippet = {
+        expand = function(args)
+          require("luasnip").lsp_expand(args.body)
+        end,
+      },
+      mapping = {
+        ["<C-k>"] = function()
+          require("luasnip").expand()
+        end,
+      },
+      sources = {
+        { name = "luasnip", max_item_count = 10, group_index = 1 },
+      },
+    },
   },
 
   {
@@ -459,7 +503,7 @@ return {
     config = function(_, opts)
       require("nvim-autopairs").setup(opts)
 
-      lazyUtils.on_load("nvim-cmp", function()
+      lazyUtils.on_load("magazine.nvim", function()
         local cmp_autopairs = require "nvim-autopairs.completion.cmp"
         require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
       end)

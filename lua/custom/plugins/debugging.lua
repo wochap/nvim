@@ -247,7 +247,7 @@ return {
         numhl = "",
       })
 
-      lazyUtils.on_load("nvim-cmp", function()
+      lazyUtils.on_load("magazine.nvim", function()
         local cmp = require "cmp"
         cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
           sources = {

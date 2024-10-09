@@ -37,7 +37,7 @@ return {
   },
 
   {
-    "yioneko/nvim-cmp",
+    "iguanacucumber/magazine.nvim",
     optional = true,
     dependencies = {
       "f3fora/cmp-spell",

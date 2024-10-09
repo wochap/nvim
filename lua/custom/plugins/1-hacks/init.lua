@@ -22,7 +22,7 @@ return {
   },
 
   {
-    "yioneko/nvim-cmp",
+    "iguanacucumber/magazine.nvim",
     optional = true,
     opts_extend = { "sources" },
   },

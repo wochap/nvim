@@ -55,7 +55,7 @@ return {
     "Bilal2453/luvit-meta",
   },
   {
-    "yioneko/nvim-cmp",
+    "iguanacucumber/magazine.nvim",
     optional = true,
     opts = {
       sources = { { name = "lazydev", group_index = 1 } },
