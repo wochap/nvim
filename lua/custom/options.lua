@@ -148,6 +148,9 @@ vim.opt.compatible = false
 -- max items in autocomplete menu
 vim.opt.pumheight = 15
 
+-- opacity for autocomplete menu
+vim.opt.pumblend = 5
+
 -- don't scroll after splitting
 vim.opt.splitkeep = "screen"
 

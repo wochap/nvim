@@ -216,15 +216,15 @@ local getExtraHl = function(mocha)
     PmenuSel = { bg = mocha.green, fg = mocha.base },
     CmpItemAbbr = { fg = mocha.text },
     CmpItemAbbrMatch = { fg = mocha.blue, bold = true },
-    CmpSel = { link = "PmenuSel", bold = true },
-    CmpPmenu = { bg = floatColors.bg },
+    CmpSel = { bg = mocha.surface0 },
+    Pmenu = { bg = floatColors.bg },
     CmpBorder = { fg = floatColors.bg, bg = floatColors.bg },
     CmpDoc = {
-      bg = colorschemeUtils.darken(mocha.surface0, 0.54, mocha.base),
+      bg = mocha.crust,
     },
     CmpDocBorder = {
-      fg = colorschemeUtils.darken(mocha.surface0, 0.54, mocha.base),
-      bg = colorschemeUtils.darken(mocha.surface0, 0.54, mocha.base),
+      fg = mocha.crust,
+      bg = mocha.crust,
     },
   })
 end

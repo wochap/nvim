@@ -219,12 +219,12 @@ return {
             -- NOTE: changing border breaks scrollbar UI
             border = cmpUtils.border "CmpBorder",
             side_padding = 1,
-            winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel,Search:None",
+            winhighlight = "Normal:Pmenu,FloatBorder:CmpBorder,CursorLine:CmpSel,Search:None",
             scrollbar = true,
           },
           documentation = {
             border = cmpUtils.border "CmpDocBorder",
-            winhighlight = "Normal:CmpDoc,Search:None",
+            winhighlight = "Normal:CmpDoc,FloatBorder:CmpDocBorder,Search:None",
           },
         },
         view = {
