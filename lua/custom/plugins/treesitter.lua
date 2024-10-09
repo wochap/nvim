@@ -53,7 +53,7 @@ return {
         enable = true,
         additional_vim_regex_highlighting = false,
         disable = function(_, bufnr)
-          return utils.is_minfile(bufnr) or utils.is_bigfile(bufnr, 0.5)
+          return utils.is_minfile(bufnr) or utils.is_bigfile(bufnr, constants.big_file_mb)
         end,
       },
       incremental_selection = {

@@ -1,4 +1,5 @@
 local utils = require "custom.utils"
+local constants = require "custom.utils.constants"
 
 -- Check if we need to reload the file when it changed
 utils.autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
@@ -120,5 +121,30 @@ utils.autocmd("FileType", {
   callback = function()
     -- undo overwrite of PATH in lua/custom/globals.lua
     vim.env.PATH = vim.env.PATH:gsub("/run/current%-system/sw/bin/:", "", 1)
+  end,
+})
+
+-- Handle big files and minified files
+vim.filetype.add {
+  pattern = {
+    [".*"] = {
+      function(path, buf)
+        return vim.bo[buf]
+            and vim.bo[buf].filetype ~= "bigfile"
+            and path
+            and (utils.is_bigfile(buf, constants.big_file_mb) or utils.is_minfile(buf))
+            and "bigfile"
+          or nil
+      end,
+    },
+  },
+}
+utils.autocmd({ "FileType" }, {
+  group = utils.augroup "bigfile",
+  pattern = "bigfile",
+  callback = function(ev)
+    vim.schedule(function()
+      vim.bo[ev.buf].syntax = vim.filetype.match { buf = ev.buf } or ""
+    end)
   end,
 })

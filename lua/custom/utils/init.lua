@@ -4,13 +4,9 @@ local M = {}
 
 local function get_buf_size_in_mb(bufnr)
   bufnr = bufnr or vim.api.nvim_get_current_buf()
-  local ok, stats = pcall(function()
-    return vim.loop.fs_stat(vim.api.nvim_buf_get_name(bufnr))
-  end)
-  if not (ok and stats) then
-    return
-  end
-  return math.floor(0.5 + (stats.size / (1024 * 1024)))
+  local filepath = vim.api.nvim_buf_get_name(bufnr)
+  local file_size = vim.fn.getfsize(filepath)
+  return math.floor(0.5 + (file_size / (1024 * 1024)))
 end
 
 M.is_bigfile = function(bufnr, mb)
@@ -31,6 +27,8 @@ M.is_bigfile = function(bufnr, mb)
   return true
 end
 
+local fn_pattern = "%.min%.[a-zA-Z]*$"
+local ft_ignore_patterns = { "gitcommit", "gitrebase", "markdown", "norg", "tex", "bib", "typst" }
 local function has_long_line(bufnr)
   -- get the first 10 lines
   local lines_count = vim.api.nvim_buf_line_count(bufnr)
@@ -45,13 +43,11 @@ local function has_long_line(bufnr)
   end
   return max_line_length > 300
 end
-
-local fn_pattern = "%.min%.[a-zA-Z]*$"
-local ft_patterns = { "gitcommit", "gitrebase", "markdown", "norg", "tex", "bib", "typst" }
 M.is_minfile = function(bufnr)
   local filename = vim.api.nvim_buf_get_name(bufnr)
   local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
-  return filename:match(fn_pattern) or (not langUtils.matchesAnyRegex(filetype, ft_patterns) and has_long_line(bufnr))
+  return filename:match(fn_pattern)
+    or (not langUtils.matchesAnyRegex(filetype, ft_ignore_patterns) and has_long_line(bufnr))
 end
 
 M.disable_ufo = function(bufnr)
