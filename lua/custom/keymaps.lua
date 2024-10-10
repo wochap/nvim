@@ -59,8 +59,13 @@ map("n", "K", "kJ", "Join with prev line")
 map("i", "<S-CR>", "'<C-o>o'", "add new line", { expr = true, noremap = true })
 
 -- Allow moving the cursor through wrapped lines with <Up> and <Down>
-map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", nil, { expr = true, silent = true })
-map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", nil, { expr = true, silent = true })
+-- and add numbered movement to jump list
+map({ "n", "x" }, "<Down>", function()
+  return vim.v.count == 0 and "gj" or "m'" .. vim.v.count .. "j"
+end, nil, { expr = true, silent = true })
+map({ "n", "x" }, "<Up>", function()
+  return vim.v.count == 0 and "gk" or "m'" .. vim.v.count .. "k"
+end, nil, { expr = true, silent = true })
 
 -- editing movement
 map("i", "<A-Left>", "<C-o>b", "move backward one word")
