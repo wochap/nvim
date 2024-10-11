@@ -74,7 +74,7 @@ return {
 
       {
         "<leader>zn",
-        "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>",
+        "<Cmd>lua require('custom.utils-plugins.zk').new()<CR>",
         desc = "new note",
       },
       {
