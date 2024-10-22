@@ -561,7 +561,7 @@ return {
           enabled = true,
           -- automatically show signature help when typing
           auto_open = {
-            enabled = true,
+            enabled = false,
           },
         },
         override = {
@@ -633,6 +633,10 @@ return {
               FloatBorder = "NoiceCmdlinePopupBorder",
             },
           },
+        },
+        -- always enter the split when it opens
+        split = {
+          enter = true,
         },
         -- fix mini covering statusline
         mini = {
