@@ -85,8 +85,24 @@ end, "Toggle Conceal")
 
 -- misc
 map("n", "<C-y>", "<cmd> %y+ <CR>", "copy whole file")
-map({ "n", "i", "v" }, "<C-s>", "<cmd>w<cr><esc>", "save buffer")
-map({ "n", "i", "v" }, "<C-S-s>", "<cmd>w!<cr><esc>", "save buffer!")
+map({ "n", "i", "v" }, "<C-s>", function()
+  local filename = (vim.fn.expand "%" == "" and "") or vim.fn.expand "%:t"
+  local buftype = vim.api.nvim_get_option_value("buftype", { buf = 0 })
+  if #filename == 0 or #buftype > 0 then
+    return ""
+  end
+  vim.notify('"' .. filename .. '" written', vim.log.levels.INFO)
+  return "<cmd>w<cr><esc>"
+end, "save buffer", { expr = true })
+map({ "n", "i", "v" }, "<C-S-s>", function()
+  local filename = (vim.fn.expand "%" == "" and "") or vim.fn.expand "%:t"
+  local buftype = vim.api.nvim_get_option_value("buftype", { buf = 0 })
+  if #filename == 0 or #buftype > 0 then
+    return ""
+  end
+  vim.notify('"' .. filename .. '" written', vim.log.levels.INFO)
+  return "<cmd>w!<cr><esc>"
+end, "save buffer!")
 map("n", "<leader>qq", "<cmd>qa <CR>", "exit")
 map("n", "<leader>q!", "<cmd>qa! <CR>", "exit!")
 map("n", "gV", "`[v`]", "select last yanked/changed text")
