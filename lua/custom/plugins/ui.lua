@@ -572,18 +572,19 @@ return {
         },
       },
       routes = {
-        -- show cursor movements and
-        -- write file messages in mini view
         {
           filter = {
             event = "msg_show",
             any = {
+              -- yank messages
+              { find = "yanked" },
+              -- write file messages
               { find = "%d+L, %d+B" },
+              -- search messages
               { find = "; after #%d+" },
               { find = "; before #%d+" },
             },
           },
-          view = "mini",
         },
         -- show long notifications in split
         {
