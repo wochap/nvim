@@ -12,7 +12,16 @@ return {
     optional = true,
     opts = {
       servers = {
-        nil_ls = {},
+        nixd = {
+          mason = false,
+          settings = {
+            nixd = {
+              formatting = {
+                command = {},
+              },
+            },
+          },
+        },
       },
     },
   },
