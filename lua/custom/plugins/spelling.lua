@@ -20,6 +20,7 @@ return {
             "context",
             "mail",
             "text",
+            "typst",
           },
           settings = {
             ltex = {
