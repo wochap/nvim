@@ -293,6 +293,8 @@ local getOverridesHl = function(mocha)
     TelescopePromptPrefix = { bg = mocha.surface0 },
     TelescopePromptTitle = { fg = mocha.base, bg = mocha.red },
     TelescopePreviewTitle = { fg = mocha.base, bg = mocha.green },
+    TelescopePreviewNormal = { bg = mocha.crust },
+    TelescopePreviewBorder = { fg = mocha.crust, bg = mocha.crust },
     TelescopeResultsTitle = { fg = mocha.mantle, bg = mocha.lavender },
     TelescopeSelection = { fg = mocha.text, bg = mocha.surface0 },
 

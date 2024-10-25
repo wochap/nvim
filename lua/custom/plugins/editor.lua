@@ -858,11 +858,16 @@ return {
         end,
         dynamic_preview_title = true,
         results_title = false,
+        layout_strategy = "flex",
         sorting_strategy = "ascending",
         layout_config = {
           horizontal = {
             prompt_position = "top",
             preview_width = 0.55,
+          },
+          vertical = {
+            prompt_position = "top",
+            mirror = true,
           },
           width = 0.9,
           height = 0.9,
