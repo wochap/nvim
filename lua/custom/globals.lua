@@ -1,6 +1,8 @@
 local constants = require "custom.utils.constants"
 
 -- overwrite PATH to ensure LSP servers start correctly in older projects
+-- doesn't work with LSP servers for langs with different
+-- grand major version number e.g. Ruby
 vim.env.PATH = "/run/current-system/sw/bin/:" .. vim.env.PATH
 
 -- disable netrw
