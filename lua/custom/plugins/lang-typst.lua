@@ -35,6 +35,8 @@ return {
           settings = {
             exportPdf = "onSave",
             outputPath = "$root/$dir/$name",
+            systemFonts = true,
+            fontPaths = nil,
           },
         },
       },
