@@ -136,6 +136,7 @@ return {
         ignore = false,
         show_on_dirs = true,
         show_on_open_dirs = false,
+        timeout = 400,
       },
       filesystem_watchers = {
         enable = true,
