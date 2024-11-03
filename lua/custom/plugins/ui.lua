@@ -744,17 +744,17 @@ return {
     },
   },
 
-  {
-    "mcauley-penney/visual-whitespace.nvim",
-    event = "VeryLazy",
-    opts = {
-      highlight = { link = "VisualWhitespace" },
-      space_char = "·",
-      tab_char = "󰌒",
-      nl_char = "",
-      cr_char = "",
-    },
-  },
+  -- {
+  --   "mcauley-penney/visual-whitespace.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     highlight = { link = "VisualWhitespace" },
+  --     space_char = "·",
+  --     tab_char = "󰌒",
+  --     nl_char = "",
+  --     cr_char = "",
+  --   },
+  -- },
 
   -- PERF: it causes nvim to freeze
   -- when scrolling to code with colors
