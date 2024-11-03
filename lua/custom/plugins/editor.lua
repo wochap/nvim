@@ -794,10 +794,7 @@ return {
               require("fzf-lua").files()
               return
             end
-            local ok, _ = pcall(require("custom.utils-plugins.telescope").find_files_git)
-            if not ok then
-              require("custom.utils-plugins.telescope").find_files_fd()
-            end
+            require("custom.utils-plugins.telescope").find_files_fd()
           end,
           desc = "find files",
         },
