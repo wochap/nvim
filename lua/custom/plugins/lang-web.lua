@@ -1,6 +1,11 @@
 local constants = require "custom.utils.constants"
 local lspUtils = require "custom.utils.lsp"
-local utils = require "custom.utils"
+
+local has_prettierd_config = function(ctx)
+  vim.fn.system { "prettier", "--find-config-path", ctx.filename }
+  return vim.v.shell_error == 0
+end
+local has_prettierd_config_memoized = LazyVim.memoize(has_prettierd_config)
 
 return {
   {
@@ -263,6 +268,13 @@ return {
         ["graphql"] = { "prettierd" },
         ["handlebars"] = { "prettierd" },
         ["xml"] = { "xmlformat" },
+      },
+      formatters = {
+        prettierd = {
+          condition = function(_, ctx)
+            return has_prettierd_config_memoized(ctx)
+          end,
+        },
       },
     },
   },
