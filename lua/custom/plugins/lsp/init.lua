@@ -83,6 +83,7 @@ return {
       servers = {
         -- example to setup with lua_ls
         -- lua_ls = {
+        --   enabled = false, -- set to false if you don't want this server
         --   mason = false, -- set to false if you don't want this server to be installed with mason
         --   Use this to add any additional keymaps
         --   for specific lsp servers
@@ -193,6 +194,10 @@ return {
         local server_opts = vim.tbl_deep_extend("force", {
           capabilities = vim.deepcopy(capabilities),
         }, servers[server] or {})
+
+        if server_opts.enabled == false then
+          return
+        end
 
         if opts.setup[server] then
           if opts.setup[server](server, server_opts) then
