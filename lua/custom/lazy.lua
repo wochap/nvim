@@ -23,7 +23,7 @@ require("lazy").setup {
       "LazyVim/LazyVim",
       lazy = false,
       version = false,
-      commit = "d5a4ced75acadb6ae151c0d2960a531c691c88b9", -- v12.41.0
+      commit = "73f14943bac5830905d715804ca581a91844272a", -- v12.44.1
       priority = 10000,
       config = function()
         lazyvimUtils.setup()

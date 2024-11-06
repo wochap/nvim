@@ -11,7 +11,7 @@ return {
     optional = true,
     opts = {
       servers = {
-        ruff_lsp = {
+        ruff = {
           keys = {
             {
               "<leader>co",
