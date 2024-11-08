@@ -126,10 +126,10 @@ function M.resolve(buffer)
     return {}
   end
   local spec = M.get()
-  local opts = lazyUtils.opts "nvim-lspconfig"
+  local lspconfigOpts = lazyUtils.opts "nvim-lspconfig"
   local clients = lspUtils.get_clients { bufnr = buffer }
   for _, client in ipairs(clients) do
-    local maps = opts.servers[client.name] and opts.servers[client.name].keys or {}
+    local maps = lspconfigOpts.servers[client.name] and lspconfigOpts.servers[client.name].keys or {}
     vim.list_extend(spec, maps)
   end
   return Keys.resolve(spec)
