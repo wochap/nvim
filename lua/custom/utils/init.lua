@@ -28,7 +28,7 @@ M.is_bigfile = function(bufnr, mb)
 end
 
 local fn_pattern = "%.min%.[a-zA-Z]*$"
-local ft_ignore_patterns = { "gitcommit", "gitrebase", "markdown", "norg", "tex", "bib", "typst" }
+local ft_ignore_patterns = { "gitcommit", "gitrebase", "markdown", "tex", "bib", "typst" }
 local function has_long_line(bufnr)
   -- get the first 10 lines
   local lines_count = vim.api.nvim_buf_line_count(bufnr)

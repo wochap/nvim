@@ -34,7 +34,6 @@ return {
         "diff",
         "dockerfile",
         "just",
-        -- "norg"
       },
       textobjects = {
         move = {
