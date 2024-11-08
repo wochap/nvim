@@ -78,8 +78,8 @@ return {
     config = function()
       -- If treesitter is already loaded, we need to run config again for textobjects
       if lazyUtils.is_loaded "nvim-treesitter" then
-        local opts = lazyUtils.opts "nvim-treesitter"
-        require("nvim-treesitter.configs").setup { textobjects = opts.textobjects }
+        local treesitterOpts = lazyUtils.opts "nvim-treesitter"
+        require("nvim-treesitter.configs").setup { textobjects = treesitterOpts.textobjects }
       end
 
       -- When in diff mode, we want to use the default
