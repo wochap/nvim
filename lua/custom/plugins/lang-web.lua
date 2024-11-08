@@ -1,5 +1,6 @@
 local constants = require "custom.utils.constants"
 local lspUtils = require "custom.utils.lsp"
+local utils = require "custom.utils"
 
 local has_prettierd_config = function(ctx)
   vim.fn.system { "prettier", "--find-config-path", ctx.filename }
