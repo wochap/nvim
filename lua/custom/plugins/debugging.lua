@@ -3,20 +3,6 @@ local lazyUtils = require "custom.utils.lazy"
 -- Debugger
 return {
   {
-    "LiadOz/nvim-dap-repl-highlights",
-    event = { "LazyFile", "VeryLazy" },
-    -- call nvim-dap-repl-highlights setup on treesitter config fn
-    config = function() end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    optional = true,
-    opts = {
-      ensure_installed = { "dap_repl" },
-    },
-  },
-
-  {
     "mfussenegger/nvim-dap",
     dependencies = {
       "nvim-neotest/nvim-nio",
@@ -116,6 +102,20 @@ return {
         opts = {
           virt_text_pos = "eol",
         },
+      },
+
+      {
+        "LiadOz/nvim-dap-repl-highlights",
+        config = function()
+          lazyUtils.on_load("nvim-treesitter", function()
+            local treesitterOpts = lazyUtils.opts "nvim-treesitter"
+            local ensureInstalled = vim.tbl_extend("force", {}, treesitterOpts.ensure_installed, {
+              "dap_repl",
+            })
+            require("nvim-dap-repl-highlights").setup()
+            require("nvim-treesitter.configs").setup { ensure_installed = ensureInstalled }
+          end)
+        end,
       },
 
       "mason.nvim",

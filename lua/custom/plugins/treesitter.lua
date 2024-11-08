@@ -67,13 +67,8 @@ return {
       },
     },
     config = function(_, opts)
-      lazyUtils.on_load("nvim-dap-repl-highlights", function()
-        require("nvim-dap-repl-highlights").setup()
-
-        require("nvim-treesitter.configs").setup(opts)
-
-        vim.treesitter.language.register("bash", "zsh")
-      end)
+      require("nvim-treesitter.configs").setup(opts)
+      vim.treesitter.language.register("bash", "zsh")
     end,
   },
 
