@@ -131,6 +131,7 @@ return {
             function() end,
           },
         },
+        config = function() end,
       },
 
       "rcarriga/cmp-dap",
@@ -207,9 +208,15 @@ return {
       },
     },
     config = function()
-      -- Load vscode launchjs
-      local filetypes = require "mason-nvim-dap.mappings.filetypes"
-      require("dap.ext.vscode").load_launchjs(nil, filetypes)
+      -- load mason-nvim-dap here, after all adapters have been setup
+      require("mason-nvim-dap").setup(lazyUtils.opts "mason-nvim-dap.nvim")
+
+      -- setup dap config by VsCode launch.json file
+      local vscode = require "dap.ext.vscode"
+      local json = require "plenary.json"
+      vscode.json_decode = function(str)
+        return vim.json.decode(json.json_strip_comments(str))
+      end
 
       vim.api.nvim_set_hl(0, "DapStoppedLine", {
         default = true,

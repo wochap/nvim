@@ -311,7 +311,22 @@ return {
         }
       end
 
+      if not dap.adapters["node"] then
+        dap.adapters["node"] = function(cb, config)
+          if config.type == "node" then
+            config.type = "pwa-node"
+          end
+          local nativeAdapter = dap.adapters["pwa-node"]
+          if type(nativeAdapter) == "function" then
+            nativeAdapter(cb, config)
+          else
+            cb(nativeAdapter)
+          end
+        end
+      end
+
       if not dap.adapters["node2"] then
+        -- very old nodejs adapter
         require("dap").adapters["node2"] = {
           type = "executable",
           command = "node",
@@ -332,7 +347,11 @@ return {
         }
       end
 
-      for _, language in ipairs { "typescript", "javascript", "typescriptreact", "javascriptreact" } do
+      local js_filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+      local vscode = require "dap.ext.vscode"
+      vscode.type_to_filetypes["node"] = js_filetypes
+      vscode.type_to_filetypes["pwa-node"] = js_filetypes
+      for _, language in ipairs(js_filetypes) do
         local isJs = language == "javascript"
         if not dap.configurations[language] then
           dap.configurations[language] = {
