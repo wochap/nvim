@@ -72,6 +72,10 @@ return {
         -- additionally, there's a bug: <C-r> + register prints twice when executing macros
         registers = false,
       },
+      -- https://github.com/folke/which-key.nvim/issues/824
+      triggers = {
+        { "<auto>", mode = "nsot" },
+      },
     },
   },
 
