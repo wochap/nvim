@@ -889,4 +889,20 @@ return {
       -- hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" }, -- render image files as images when opened
     },
   },
+
+  {
+    "sphamba/smear-cursor.nvim",
+    event = "VeryLazy",
+    opts = {
+      legacy_computing_symbols_support = true,
+    },
+    config = function(_, opts)
+      local smear_cursor = require "smear_cursor"
+      lazyUtils.on_load("catppuccin", function()
+        local mocha = require("catppuccin.palettes").get_palette "mocha"
+        opts.cursor_color = mocha.green
+        smear_cursor.setup(opts)
+      end)
+    end,
+  },
 }
