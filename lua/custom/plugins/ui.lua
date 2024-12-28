@@ -791,42 +791,34 @@ return {
   },
 
   {
-    "mei28/luminate.nvim",
+    "tzachar/highlight-undo.nvim",
     event = "VeryLazy",
+    init = function()
+      -- Highlight on yank
+      utils.autocmd("TextYankPost", {
+        group = utils.augroup "highlight_yank",
+        callback = function()
+          vim.highlight.on_yank { higroup = "Highlight", timeout = 100 }
+        end,
+      })
+    end,
     opts = {
       duration = 100,
+      keymaps = {
+        undo = {
+          hlgroup = "Highlight",
+        },
+        redo = {
+          hlgroup = "Highlight",
+        },
+        paste = {
+          hlgroup = "Highlight",
+        },
+        Paste = {
+          hlgroup = "Highlight",
+        },
+      },
     },
-    config = function(_, opts)
-      local luminate = require "luminate"
-      lazyUtils.on_load("catppuccin", function()
-        local mocha = require("catppuccin.palettes").get_palette "mocha"
-        local guibg = mocha.surface1
-        local fg = "NONE"
-        opts = vim.tbl_deep_extend("force", {}, opts or {}, {
-          yank = {
-            hlgroup = "Luminate",
-            guibg = guibg,
-            fg = fg,
-          },
-          paste = {
-            hlgroup = "Luminate",
-            guibg = guibg,
-            fg = fg,
-          },
-          undo = {
-            hlgroup = "Luminate",
-            guibg = guibg,
-            fg = fg,
-          },
-          redo = {
-            hlgroup = "Luminate",
-            guibg = guibg,
-            fg = fg,
-          },
-        })
-        luminate.setup(opts)
-      end)
-    end,
   },
 
   {

@@ -150,6 +150,12 @@ local getExtraHl = function(mocha)
     MultiCursorDisabledCursor = { link = "Visual" },
     MultiCursorDisabledVisual = { link = "Visual" },
 
+    -- highlight-undo.nvim
+    Highlight = {
+      fg = "NONE",
+      bg = mocha.surface1,
+    },
+
     -- nvim-web-devicons
     DevIconDefault = { fg = mocha.red },
     DevIconc = { fg = mocha.blue },
