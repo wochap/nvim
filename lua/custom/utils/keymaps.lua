@@ -4,6 +4,7 @@ local exclude_filetypes = {
   "noice",
   "incline",
   "fidget",
+  "smear-cursor",
 }
 M.close_all_floating = function()
   local cmp = require "cmp"
