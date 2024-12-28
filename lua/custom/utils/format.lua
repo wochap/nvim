@@ -26,11 +26,16 @@ M.format = function(opts)
       local formatter = formatters[index]
       if formatter.active then
         done = true
-        LazyVim.try(function()
-          return formatter.format(buf, function()
+        local try_opts = { msg = "Formatter `" .. formatter.name .. "` failed" }
+        local try_fn = function()
+          return formatter.format(buf, function(err)
+            if err then
+              LazyVim.error(try_opts.msg)
+            end
             run_next(index + 1)
           end)
-        end, { msg = "Formatter `" .. formatter.name .. "` failed" })
+        end
+        LazyVim.try(try_fn, try_opts)
       else
         run_next(index + 1)
       end
