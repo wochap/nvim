@@ -37,3 +37,44 @@ vim.api.nvim_create_user_command("LspLog", function()
 end, {
   desc = "Opens the Nvim LSP client log.",
 })
+
+vim.api.nvim_create_user_command("DiffClip", function()
+  -- Check if there is a visual selection
+  local mode = vim.fn.mode()
+  local ft = vim.bo.filetype
+
+  if mode == "v" or mode == "V" then
+    -- Save the visual selection into the unnamed register
+    vim.cmd 'normal! "vy'
+  else
+    -- Select the entire file if there is no selection
+    vim.cmd "normal! ggVGy"
+  end
+
+  -- Open a new vertical split to display clipboard content
+  vim.cmd [[
+    leftabove vnew [Clipboard]
+    setlocal bufhidden=wipe buftype=nofile noswapfile
+    put +
+    0d_
+    " Remove Windows CR
+    silent %s/\r$//e
+  ]]
+
+  -- Restore file type and enable diff mode in both buffers
+  -- vim.cmd('execute "set ft=" . ' .. ft)
+  vim.cmd "diffthis"
+  vim.opt_local.winhl = table.concat({
+    "DiffAdd:GitSignsDeletePreview",
+    "DiffDelete:DiffviewDiffDeleteSign",
+    "DiffChange:GitSignsDeletePreview",
+    "DiffText:GitSignsDeleteInline",
+  }, ",")
+  vim.cmd "wincmd p"
+  vim.cmd "diffthis"
+  vim.opt_local.winhl = table.concat({
+    "DiffDelete:DiffviewDiffDeleteSign",
+    "DiffChange:GitSignsAddPreview",
+    "DiffText:GitSignsAddInline",
+  }, ",")
+end, { desc = "Compare Selection or Active File with Clipboard", range = false })
