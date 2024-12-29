@@ -569,7 +569,7 @@ return {
         "<leader>c<Up>",
         function()
           local mc = require "multicursor-nvim"
-          mc.addCursor "k"
+          mc.lineAddCursor(-1)
         end,
         desc = "Add above",
         mode = { "n", "v" },
@@ -578,7 +578,7 @@ return {
         "<leader>c<Down>",
         function()
           local mc = require "multicursor-nvim"
-          mc.addCursor "j"
+          mc.lineAddCursor(1)
         end,
         desc = "Add below",
         mode = { "n", "v" },
@@ -587,36 +587,63 @@ return {
         "<leader>cn",
         function()
           local mc = require "multicursor-nvim"
-          mc.addCursor "*"
+          mc.matchAddCursor(1)
         end,
         desc = "Add and jump to next word",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>cN",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.matchAddCursor(-1)
+        end,
+        desc = "Add and jump to prev word",
         mode = { "n", "v" },
       },
       {
         "<leader>cs",
         function()
           local mc = require "multicursor-nvim"
-          mc.skipCursor "*"
+          mc.matchSkipCursor(1)
         end,
         desc = "Skip and jump to next word",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>cS",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.matchSkipCursor(-1)
+        end,
+        desc = "Skip and jump to prev word",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>c*",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.matchAllAddCursors()
+        end,
+        desc = "Add to all words",
         mode = { "n", "v" },
       },
       {
         "<leader>c<Right>",
         function()
           local mc = require "multicursor-nvim"
-          mc.prevCursor()
+          mc.nextCursor()
         end,
-        desc = "Rotate prev",
+        desc = "Next",
         mode = { "n", "v" },
       },
       {
         "<leader>c<Left>",
         function()
           local mc = require "multicursor-nvim"
-          mc.nextCursor()
+          mc.prevCursor()
         end,
-        desc = "Rotate next",
+        desc = "Prev",
         mode = { "n", "v" },
       },
       {
@@ -659,10 +686,32 @@ return {
         mode = "n",
       },
       {
+        "<leader>cr",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.restoreCursors()
+        end,
+        desc = "Restore",
+        mode = "n",
+      },
+      {
+        "<leader>ct",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.toggleCursor()
+        end,
+        desc = "Toggle",
+        mode = "n",
+      },
+      {
         "<leader>ca",
         function()
           local mc = require "multicursor-nvim"
-          mc.alignCursors()
+          if mc.cursorsEnabled() then
+            mc.alignCursors()
+          else
+            LazyVim.error("Cursors are disabled", { title = "multicursor.nvim" })
+          end
         end,
         desc = "Align columns",
         mode = "n",
@@ -674,6 +723,15 @@ return {
           mc.splitCursors()
         end,
         desc = "Split by regex",
+        mode = "v",
+      },
+      {
+        "<leader>cM",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.matchCursors()
+        end,
+        desc = "Match by regex",
         mode = "v",
       },
       {
@@ -695,16 +753,7 @@ return {
         mode = "v",
       },
       {
-        "<leader>cM",
-        function()
-          local mc = require "multicursor-nvim"
-          mc.matchCursors()
-        end,
-        desc = "Match by regex",
-        mode = "v",
-      },
-      {
-        "<leader>ct",
+        "<leader>cr",
         function()
           local mc = require "multicursor-nvim"
           mc.transposeCursors(1)
@@ -713,7 +762,7 @@ return {
         mode = "v",
       },
       {
-        "<leader>cT",
+        "<leader>cR",
         function()
           local mc = require "multicursor-nvim"
           mc.transposeCursors(-1)
