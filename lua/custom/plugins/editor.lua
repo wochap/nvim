@@ -85,12 +85,21 @@ return {
     keys = (in_leetcode and {}) or {
       {
         "<leader>b",
-        "<cmd>NvimTreeToggle<CR>",
+        function()
+          require("neo-tree.command").execute { action = "close" }
+          local api = require "nvim-tree.api"
+          api.tree.toggle {
+            find_file = false,
+            focus = true,
+            update_root = false,
+          }
+        end,
         desc = "toggle nvimtree",
       },
       {
         "<leader>B",
         function()
+          require("neo-tree.command").execute { action = "close" }
           local api = require "nvim-tree.api"
           api.tree.toggle {
             find_file = false,
@@ -103,7 +112,11 @@ return {
       },
       {
         "<leader>e",
-        "<cmd>NvimTreeFocus<CR>",
+        function()
+          require("neo-tree.command").execute { action = "close" }
+          local api = require "nvim-tree.api"
+          api.tree.open()
+        end,
         desc = "focus nvimtree",
       },
     },
@@ -253,6 +266,198 @@ return {
             didRename = true,
             willRename = true,
           },
+        },
+      },
+    },
+  },
+
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    event = "VeryLazy",
+    cmd = "Neotree",
+    keys = {
+      -- {
+      --   "<leader>b",
+      --   function()
+      --     require("neo-tree.command").execute { toggle = true, dir = vim.loop.cwd() }
+      --   end,
+      --   desc = "toggle neotree",
+      -- },
+      -- {
+      --   "<leader>e",
+      --   function()
+      --     require("neo-tree.command").execute { action = "focus", dir = vim.loop.cwd() }
+      --   end,
+      --   desc = "focus neotree",
+      -- },
+      {
+        "<leader>ge",
+        function()
+          require("nvim-tree.api").tree.close()
+          require("neo-tree.command").execute { source = "git_status", toggle = true }
+        end,
+        desc = "Git Explorer",
+      },
+    },
+    init = function()
+      if vim.fn.argc(-1) == 1 then
+        local stat = vim.loop.fs_stat(vim.fn.argv(0))
+        if stat and stat.type == "directory" then
+          require "neo-tree"
+        end
+      end
+    end,
+    opts = {
+      sources = {
+        "filesystem",
+        "git_status",
+      },
+      auto_clean_after_session_restore = true,
+      close_if_last_window = true,
+      enable_diagnostics = false,
+      enable_opened_markers = false,
+      enable_cursor_hijack = true,
+      popup_border_style = "single",
+      use_popups_for_input = false,
+      use_default_mappings = false,
+      hide_root_node = true,
+      open_files_do_not_replace_types = {
+        "terminal",
+        "qf",
+        "Trouble",
+        "spectre_panel",
+        "DiffviewFileHistory",
+        "dapui_console",
+        "dap-repl",
+        "dapui_watches",
+        "dapui_stacks",
+        "dapui_breakpoints",
+      },
+      event_handlers = {
+        {
+          event = "neo_tree_window_after_open",
+          handler = function(event)
+            vim.cmd ":wincmd ="
+            utils.disable_ufo(event.bufnr, event.winid)
+          end,
+        },
+        {
+          event = "neo_tree_window_after_close",
+          handler = function()
+            vim.cmd ":wincmd ="
+          end,
+        },
+      },
+      filesystem = {
+        hijack_netrw_behavior = "disabled",
+        bind_to_cwd = false,
+        window = {
+          mappings = {
+            ["."] = "toggle_hidden",
+            ["/"] = "fuzzy_finder",
+            ["<A-Up>"] = "navigate_up",
+            ["-"] = "set_root",
+            ["[g"] = "prev_git_modified",
+            ["]g"] = "next_git_modified",
+            ["i"] = "show_file_details",
+          },
+        },
+        follow_current_file = {
+          enabled = true,
+        },
+        use_libuv_file_watcher = true,
+        filtered_items = {
+          hide_dotfiles = false,
+          hide_gitignored = false,
+          hide_by_name = {
+            ".git",
+            "node_modules",
+          },
+        },
+      },
+      git_status = {
+        window = {
+          mappings = {
+            ["<leader>gS"] = "git_add_file",
+            ["<leader>gU"] = "git_unstage_file",
+            ["<leader>gR"] = "git_revert_file",
+          },
+        },
+      },
+      window = {
+        width = 50,
+        position = "right",
+        mappings = {
+          ["<CR>"] = "open_with_window_picker",
+          ["<C-v>"] = "vsplit_with_window_picker",
+          ["<C-x>"] = "split_with_window_picker",
+          ["<BS>"] = "close_node",
+          ["zC"] = "close_all_nodes",
+          ["zO"] = "expand_all_nodes",
+          ["<C-r>"] = "refresh",
+          ["a"] = "add",
+          ["d"] = "delete",
+          ["r"] = "rename",
+          ["c"] = "copy_to_clipboard",
+          ["x"] = "cut_to_clipboard",
+          ["p"] = "paste_from_clipboard",
+          ["q"] = "close_window",
+          ["?"] = "show_help",
+          ["o"] = function(state)
+            require("lazy.util").open(state.tree:get_node().path, { system = true })
+          end,
+          ["y"] = function(state)
+            local node = state.tree:get_node()
+            local filename = node.name
+            vim.fn.setreg("+", filename, "c")
+            vim.notify("Copied: " .. filename)
+          end,
+          ["Y"] = function(state)
+            local node = state.tree:get_node()
+            local filepath = node:get_id()
+            local modify = vim.fn.fnamemodify
+            local relativepath = modify(filepath, ":.")
+            vim.fn.setreg("+", relativepath, "c")
+            vim.notify("Copied: " .. relativepath)
+          end,
+          ["gy"] = function(state)
+            local node = state.tree:get_node()
+            local filepath = node:get_id()
+            vim.fn.setreg("+", filepath, "c")
+            vim.notify("Copied: " .. filepath)
+          end,
+        },
+      },
+      default_component_configs = {
+        container = {
+          width = "100%",
+          right_padding = 1,
+        },
+        indent = {
+          with_markers = false,
+          padding = 2,
+        },
+        icon = {
+          folder_empty = iconsUtils.folder.empty,
+          folder_empty_open = iconsUtils.folder.empty_open,
+        },
+        modified = {
+          symbol = "",
+        },
+        git_status = {
+          symbols = {
+            added = iconsUtils.git.Add,
+            deleted = iconsUtils.git.Delete,
+            modified = iconsUtils.git.Change,
+            renamed = "󰁕",
+            untracked = "",
+            ignored = "",
+            unstaged = "󰄱",
+            staged = "",
+            conflict = "",
+          },
+          align = "right",
         },
       },
     },

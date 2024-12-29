@@ -325,10 +325,12 @@ local getOverridesHl = function(mocha)
     WhichKey = { bg = "NONE", fg = mocha.text },
 
     -- neo-tree.nvim
+    NeoTreeNormal = { bg = mocha.base },
+    NeoTreeNormalNC = { bg = mocha.base },
     NeoTreeDirectoryName = { fg = mocha.text },
     NeoTreeGitUntracked = { fg = gitColors.add },
-    NeoTreeVertSplit = { fg = mocha.mantle, bg = mocha.mantle },
-    NeoTreeWinSeparator = { link = "NeoTreeVertSplit" },
+    NeoTreeVertSplit = separatorColors,
+    NeoTreeWinSeparator = separatorColors,
     NeoTreeGitModified = { fg = gitColors.change },
 
     -- gitsigns.nvim
