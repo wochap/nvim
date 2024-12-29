@@ -30,7 +30,7 @@ M.format = function(opts)
         local try_fn = function()
           return formatter.format(buf, function(err)
             if err then
-              LazyVim.error(try_opts.msg)
+              LazyVim.error(try_opts.msg, { title = "conform.nvim" })
             end
             run_next(index + 1)
           end)
