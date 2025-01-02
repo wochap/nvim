@@ -34,11 +34,6 @@ local function get_git_head(head_file)
   return nil
 end
 
-local function redraw_status()
-  vim.cmd [[ redrawstatus ]]
-end
-local debounced_redraw_status = defer.debounce_trailing(redraw_status, 100)
-
 ---updates the current value of git_branch and sets up file watch on HEAD file
 local function update_branch()
   active_bufnr = tostring(vim.api.nvim_get_current_buf())
@@ -47,7 +42,6 @@ local function update_branch()
   if git_dir and #git_dir > 0 then
     local head_file = git_dir .. sep .. "HEAD"
     get_git_head(head_file)
-    debounced_redraw_status()
     file_changed:start(
       head_file,
       sep ~= "\\" and {} or 1000,
