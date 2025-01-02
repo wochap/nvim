@@ -295,7 +295,11 @@ return {
         "<leader>ge",
         function()
           require("nvim-tree.api").tree.close()
-          require("neo-tree.command").execute { source = "git_status", toggle = true }
+          require("neo-tree.command").execute {
+            source = "git_status",
+            toggle = true,
+            reveal = true,
+          }
         end,
         desc = "Git Explorer",
       },
@@ -317,7 +321,7 @@ return {
       close_if_last_window = true,
       enable_diagnostics = false,
       enable_opened_markers = false,
-      enable_cursor_hijack = true,
+      -- enable_cursor_hijack = true,
       popup_border_style = "single",
       use_popups_for_input = false,
       use_default_mappings = false,
