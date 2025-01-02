@@ -164,6 +164,28 @@ local function file_module()
     .. separators.l
 end
 
+local trouble_st
+local function symbols_module()
+  if not LazyVim.has "trouble.nvim" then
+    return ""
+  end
+  if not trouble_st then
+    local trouble = require "trouble"
+    trouble_st = trouble.statusline {
+      mode = "symbols",
+      groups = {},
+      title = false,
+      filter = { range = true },
+      format = "{kind_icon:StModuleAlt}{symbol.name:StModuleAlt}",
+      hl_group = "StModuleAlt",
+    }
+  end
+  if not trouble_st.has() then
+    return ""
+  end
+  return trouble_st.get()
+end
+
 local function git_branch_module()
   local branch_name = gitBranchUtils.get_branch()
 
@@ -395,6 +417,7 @@ M.statusline = function()
     mode_module() .. file_module(),
     git_branch_module(),
     git_diff_module(),
+    symbols_module(),
     -- NOTE: the following string takes all the available space
     "%=",
     search_count_module(),
