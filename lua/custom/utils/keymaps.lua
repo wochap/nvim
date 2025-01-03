@@ -141,7 +141,7 @@ local function get_first_line(str)
   return string.sub(str, 1, newline_index - 1)
 end
 
-M.insertPaste = function(regname)
+M.insert_paste = function(regname)
   local register_content = vim.fn.getreg(regname)
   local is_multiline = string.find(register_content, "\n") ~= nil
 
@@ -161,7 +161,7 @@ M.insertPaste = function(regname)
   end
 end
 
-M.commandPaste = function()
+M.command_paste = function()
   -- Paste first line of register
   local reg_type = vim.fn.getregtype "+"
   local reg_content = vim.fn.getreg "+"
@@ -183,9 +183,9 @@ M.paste = function()
     paste("+", "v", "gP")
     M.run_expr "i<BS><Esc>"
   elseif mode == "i" then
-    M.insertPaste "+"
+    M.insert_paste "+"
   elseif mode == "c" then
-    M.commandPaste()
+    M.command_paste()
   elseif mode == "t" then
     M.run_expr '<C-\\><C-N>"+pi'
   end

@@ -140,7 +140,7 @@ for i = 1, #registers do
     if vim.fn.reg_recording() then
       return "<C-r>" .. register
     end
-    return "<cmd>lua require('custom.utils.keymaps').insertPaste(" .. register .. ")<CR>"
+    return "<cmd>lua require('custom.utils.keymaps').insert_paste(" .. register .. ")<CR>"
   end, nil, { expr = true, noremap = true })
 end
 

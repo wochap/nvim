@@ -1125,7 +1125,7 @@ return {
             ["<esc>"] = function(...)
               require("telescope.actions").close(...)
             end,
-            ["<C-S-v>"] = keymapsUtils.commandPaste,
+            ["<C-S-v>"] = keymapsUtils.command_paste,
             ["<CR>"] = function(prompt_bufnr)
               local action_state = require "telescope.actions.state"
               local picker = action_state.get_current_picker(prompt_bufnr)
