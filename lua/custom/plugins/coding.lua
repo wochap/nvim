@@ -139,21 +139,32 @@ return {
         "to_constant_case",
         "to_camel_case",
         "to_pascal_case",
+        "to_title_case",
       },
     },
     config = function(_, opts)
       require("textcase").setup(opts)
 
+      -- create alias for dash-case
       local to_kebab_case = require("textcase.shared.utils").create_wrapped_method(
         "to_dash_case",
         require("textcase.conversions.stringcase").to_dash_case,
         "to-kebab-case"
       )
+      local to_title_case = require("textcase.plugin.api").to_title_case
       require("textcase.plugin.plugin").register_keybindings(opts.prefix, to_kebab_case, {
         prefix = opts.prefix,
         quick_replace = "k",
         operator = "ok",
         lsp_rename = "K",
+      })
+
+      -- setup Title Case keymap
+      require("textcase.plugin.plugin").register_keybindings(opts.prefix, to_title_case, {
+        prefix = opts.prefix,
+        quick_replace = "t",
+        operator = "ot",
+        lsp_rename = "T",
       })
 
       lazyUtils.on_load("telescope.nvim", function()
