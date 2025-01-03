@@ -106,6 +106,7 @@ return {
 
   {
     url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
+    enabled = false,
     event = "VeryLazy",
     opts = {
       query = {
