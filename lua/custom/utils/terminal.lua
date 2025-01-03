@@ -32,9 +32,9 @@ M.toggle = function(cmd, opts)
   return terminals[termkey]
 end
 
-M.exitTerminalMode = vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true)
+M.exit_terminal_mode = vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true)
 
-M.toggleScratchTerm = function()
+M.toggle_scratch_term = function()
   M.toggle(nil, {
     cwd = vim.loop.cwd(),
     size = { width = 0.8, height = 0.8 },

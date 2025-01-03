@@ -56,7 +56,7 @@ local modes = {
   ["!"] = { "SHELL", "Terminal" },
 }
 
-local function removeEmptyStr(list)
+local function remove_empty_str(list)
   local result = {}
   for _, value in ipairs(list) do
     if value ~= "" then
@@ -221,7 +221,7 @@ local function git_diff_module()
     end
   end
 
-  return table.concat(removeEmptyStr { added, changed, removed, conflict }, " ")
+  return table.concat(remove_empty_str { added, changed, removed, conflict }, " ")
 end
 
 local function maximize_status_module()
@@ -251,7 +251,7 @@ local function diagnostics_module()
       and (hl_str "StInfos" .. iconsUtils.diagnostic.Info .. " " .. infos_count)
     or ""
 
-  return table.concat(removeEmptyStr { errors, warnings, hints, infos }, " ")
+  return table.concat(remove_empty_str { errors, warnings, hints, infos }, " ")
 end
 
 local function search_count_module()
@@ -430,7 +430,7 @@ M.statusline = function()
     dirname_module() .. location_module(),
   }
 
-  return table.concat(removeEmptyStr(modules), empty_space(2))
+  return table.concat(remove_empty_str(modules), empty_space(2))
 end
 
 M.init = function()

@@ -47,7 +47,7 @@ M.is_minfile = function(bufnr)
   local filename = vim.api.nvim_buf_get_name(bufnr)
   local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
   return filename:match(fn_pattern)
-    or (not langUtils.matchesAnyRegex(filetype, ft_ignore_patterns) and has_long_line(bufnr))
+    or (not langUtils.matches_any_regex(filetype, ft_ignore_patterns) and has_long_line(bufnr))
 end
 
 M.disable_ufo = function(bufnr, winid)

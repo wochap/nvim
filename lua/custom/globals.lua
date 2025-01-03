@@ -28,7 +28,7 @@ vim.g.terminal_color_13 = "#F5C2E7"
 vim.g.terminal_color_14 = "#94E2D5"
 vim.g.terminal_color_15 = "#A6ADC8"
 
-if vim.g.neovide then
+if constants.in_neovide then
   vim.g.neovide_floating_shadow = false
   vim.g.neovide_hide_mouse_when_typing = true
   vim.g.neovide_floating_z_height = 7

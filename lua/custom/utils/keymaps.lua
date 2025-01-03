@@ -92,11 +92,11 @@ M.unmap = function(mode, lhs, opts)
   vim.keymap.del(mode, lhs, opts)
 end
 
-M.runExpr = function(expr)
+M.run_expr = function(expr)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(expr, true, false, true), "n", true)
 end
 
-M.getCloneLineFn = function(direction)
+M.get_clone_line_fn = function(direction)
   return function()
     if vim.api.nvim_get_mode().mode == "v" then
       vim.cmd "normal! V"
@@ -114,15 +114,15 @@ M.getCloneLineFn = function(direction)
       end
     elseif mode == "i" then
       if direction == "down" then
-        M.runExpr '<C-o>mz<Esc>"zyy"zp`zi<Down>'
+        M.run_expr '<C-o>mz<Esc>"zyy"zp`zi<Down>'
       elseif direction == "up" then
-        M.runExpr '<C-o>mz<Esc>"zyy"zP`zi<Up>'
+        M.run_expr '<C-o>mz<Esc>"zyy"zP`zi<Up>'
       end
     elseif mode == "n" then
       if direction == "down" then
-        M.runExpr 'mz"zyy"zp`z<Down>'
+        M.run_expr 'mz"zyy"zp`z<Down>'
       elseif direction == "up" then
-        M.runExpr 'mz"zyy"zP`z<Up>'
+        M.run_expr 'mz"zyy"zP`z<Up>'
       end
     end
   end
@@ -154,9 +154,9 @@ M.insertPaste = function(regname)
     paste(regname, "v", ((in_end_of_line and "gp") or "gP"))
   else
     if in_end_of_line then
-      M.runExpr('<C-o>"' .. regname .. "p")
+      M.run_expr('<C-o>"' .. regname .. "p")
     else
-      M.runExpr('<C-o>"' .. regname .. "P")
+      M.run_expr('<C-o>"' .. regname .. "P")
     end
   end
 end
@@ -166,7 +166,7 @@ M.commandPaste = function()
   local reg_type = vim.fn.getregtype "+"
   local reg_content = vim.fn.getreg "+"
   vim.fn.setreg("+", get_first_line(reg_content), reg_type)
-  M.runExpr "<C-r>+"
+  M.run_expr "<C-r>+"
   vim.defer_fn(function()
     vim.fn.setreg("+", reg_content, reg_type)
   end, 0)
@@ -181,13 +181,13 @@ M.paste = function()
     paste("+", "v", "gP")
   elseif mode == "V" then
     paste("+", "v", "gP")
-    M.runExpr "i<BS><Esc>"
+    M.run_expr "i<BS><Esc>"
   elseif mode == "i" then
     M.insertPaste "+"
   elseif mode == "c" then
     M.commandPaste()
   elseif mode == "t" then
-    M.runExpr '<C-\\><C-N>"+pi'
+    M.run_expr '<C-\\><C-N>"+pi'
   end
 end
 

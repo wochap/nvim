@@ -1,6 +1,6 @@
 local M = {}
 
-M.matchesAnyRegex = function(str, tbl)
+M.matches_any_regex = function(str, tbl)
   for _, pattern in ipairs(tbl) do
     if string.match(str, pattern) then
       return true

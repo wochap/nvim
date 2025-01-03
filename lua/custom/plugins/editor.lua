@@ -1256,8 +1256,8 @@ return {
             keymapsUtils.unmap("t", "<A-i>")
           end,
           on_close = function()
-            keymapsUtils.map("t", "<C-x>", terminalUtils.exitTerminalMode, "exit terminal mode")
-            keymapsUtils.map("t", "<A-i>", terminalUtils.toggleScratchTerm, "toggle floating term")
+            keymapsUtils.map("t", "<C-x>", terminalUtils.exit_terminal_mode, "exit terminal mode")
+            keymapsUtils.map("t", "<A-i>", terminalUtils.toggle_scratch_term, "toggle floating term")
           end,
         },
         files = {
