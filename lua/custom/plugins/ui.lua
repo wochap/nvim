@@ -889,6 +889,7 @@ return {
     opts = {
       legacy_computing_symbols_support = true,
       smear_between_neighbor_lines = false,
+      windows_zindex = 47,
     },
     config = function(_, opts)
       local smear_cursor = require "smear_cursor"
