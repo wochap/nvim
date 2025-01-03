@@ -48,33 +48,43 @@ vim.api.nvim_create_user_command("DiffClip", function()
     vim.cmd 'normal! "vy'
   else
     -- Select the entire file if there is no selection
-    vim.cmd "normal! ggVGy"
+    vim.cmd 'normal! ggVG"vy'
   end
+
+  vim.cmd [[
+    tabnew [Selection]
+    setlocal bufhidden=wipe buftype=nofile noswapfile
+    put v
+    0d_
+    " Remove Windows CR
+    silent %s/\r$//e
+  ]]
+  vim.bo.filetype = ft
 
   -- Open a new vertical split to display clipboard content
   vim.cmd [[
-    leftabove vnew [Clipboard]
+    vnew [Clipboard]
     setlocal bufhidden=wipe buftype=nofile noswapfile
     put +
     0d_
     " Remove Windows CR
     silent %s/\r$//e
   ]]
+  vim.bo.filetype = ft
 
-  -- Restore file type and enable diff mode in both buffers
-  -- vim.cmd('execute "set ft=" . ' .. ft)
+  -- Enable diff mode in both buffers
+  vim.cmd "diffthis"
+  vim.opt_local.winhl = table.concat({
+    "DiffDelete:DiffviewDiffDeleteSign",
+    "DiffChange:GitSignsAddPreview",
+    "DiffText:GitSignsAddInline",
+  }, ",")
+  vim.cmd "wincmd p"
   vim.cmd "diffthis"
   vim.opt_local.winhl = table.concat({
     "DiffAdd:GitSignsDeletePreview",
     "DiffDelete:DiffviewDiffDeleteSign",
     "DiffChange:GitSignsDeletePreview",
     "DiffText:GitSignsDeleteInline",
-  }, ",")
-  vim.cmd "wincmd p"
-  vim.cmd "diffthis"
-  vim.opt_local.winhl = table.concat({
-    "DiffDelete:DiffviewDiffDeleteSign",
-    "DiffChange:GitSignsAddPreview",
-    "DiffText:GitSignsAddInline",
   }, ",")
 end, { desc = "Compare Selection or Active File with Clipboard", range = false })
