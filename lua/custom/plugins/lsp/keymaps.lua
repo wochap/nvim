@@ -90,7 +90,7 @@ M.get = function()
     {
       "<leader>lR",
       function()
-        require("lazyvim.util.lsp").rename_file()
+        Snacks.rename.rename_file()
       end,
       desc = "Rename (Buffer)",
       has = { "workspace/didRenameFiles", "workspace/willRenameFiles" },
