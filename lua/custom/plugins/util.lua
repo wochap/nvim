@@ -11,12 +11,12 @@ return {
       {
         "<leader>ql",
         "<cmd>lua require('persistence').load()<CR>",
-        desc = "load last session",
+        desc = "Last Session",
       },
       {
         "<leader>qs",
         "<cmd>lua require('persistence').save()<CR>",
-        desc = "save session",
+        desc = "Save Session",
       },
     },
     opts = {},
@@ -27,9 +27,9 @@ return {
     cmd = "ZenMode",
     keys = {
       {
-        [[\]] .. "z",
+        "<leader>uz",
         "<cmd>ZenMode<CR>",
-        desc = "Toggle 'zen mode'",
+        desc = "Toggle Zen Mode",
       },
     },
     opts = {
@@ -102,7 +102,7 @@ return {
     "echasnovski/mini.bufremove",
     keys = {
       {
-        "<leader>w",
+        "<leader>bd",
         function()
           local bd = require("mini.bufremove").delete
           if vim.bo.modified then
@@ -117,14 +117,14 @@ return {
             bd(0)
           end
         end,
-        desc = "close buffer",
+        desc = "Close",
       },
       {
-        "<leader>W",
+        "<leader>bD",
         function()
           require("mini.bufremove").delete(0, true)
         end,
-        desc = "close buffer!",
+        desc = "Close!",
       },
     },
     opts = {},
@@ -134,18 +134,18 @@ return {
     "kazhala/close-buffers.nvim",
     keys = {
       {
-        "<leader>fk",
+        "<leader>bo",
         function()
           require("close_buffers").delete { type = "hidden" }
         end,
-        desc = "close other buffers",
+        desc = "Close Others",
       },
       {
-        "<leader>fK",
+        "<leader>bO",
         function()
           require("close_buffers").delete { type = "hidden", force = true }
         end,
-        desc = "close other buffers!",
+        desc = "Close Others!",
       },
     },
     opts = {
@@ -169,42 +169,42 @@ return {
           local harpoon = require "harpoon"
           harpoon.ui:toggle_quick_menu(harpoon:list())
         end,
-        desc = "toggle quick menu files",
+        desc = "Quick Menu",
       },
       {
         "<leader>ha",
         "<cmd>lua require('harpoon'):list():add()<CR>",
-        desc = "add file",
+        desc = "Add",
       },
       {
         "<leader>hp",
         "<cmd>lua require('harpoon'):list():select(1)<CR>",
-        desc = "go to file 1",
+        desc = "Buffer 1",
       },
       {
         "<leader>hf",
         "<cmd>lua require('harpoon'):list():select(2)<CR>",
-        desc = "go to file 2",
+        desc = "Buffer 2",
       },
       {
         "<leader>hw",
         "<cmd>lua require('harpoon'):list():select(3)<CR>",
-        desc = "go to file 3",
+        desc = "Buffer 3",
       },
       {
         "<leader>hq",
         "<cmd>lua require('harpoon'):list():select(4)<CR>",
-        desc = "go to file 4",
+        desc = "Buffer 4",
       },
       {
         "[H",
         "<cmd>lua require('harpoon'):list():prev()<CR>",
-        desc = "go to prev file",
+        desc = "Prev Buffer (Harpoon)",
       },
       {
         "]H",
         "<cmd>lua require('harpoon'):list():next()<CR>",
-        desc = "go to next file",
+        desc = "Next Buffer (Harpoon)",
       },
     },
     opts = {
@@ -218,11 +218,11 @@ return {
     "declancm/maximize.nvim",
     keys = {
       {
-        [[\]] .. "m",
+        "<leader>um",
         function()
           require("maximize").toggle()
         end,
-        desc = "Toggle 'maximize'",
+        desc = "Toggle Maximize",
       },
     },
     opts = {
@@ -239,54 +239,66 @@ return {
       {
         "<C-Left>",
         "<cmd>lua require('smart-splits').move_cursor_left()<cr>",
+        desc = "Focus Window Left",
       },
       {
         "<C-Right>",
         "<cmd>lua require('smart-splits').move_cursor_right()<cr>",
+        desc = "Focus Window Right",
       },
       {
         "<C-Down>",
         "<cmd>lua require('smart-splits').move_cursor_down()<cr>",
+        desc = "Focus Window Down",
       },
       {
         "<C-Up>",
         "<cmd>lua require('smart-splits').move_cursor_up()<cr>",
+        desc = "Focus Window Up",
       },
 
       -- resize windows
       {
         "<C-S-A-Left>",
         "<cmd>lua require('smart-splits').resize_left()<cr>",
+        desc = "Resize Window Left",
       },
       {
         "<C-S-A-Right>",
         "<cmd>lua require('smart-splits').resize_right()<cr>",
+        desc = "Resize Window Right",
       },
       {
         "<C-S-A-Down>",
         "<cmd>lua require('smart-splits').resize_down()<cr>",
+        desc = "Resize Window Down",
       },
       {
         "<C-S-A-Up>",
         "<cmd>lua require('smart-splits').resize_up()<cr>",
+        desc = "Resize Window Up",
       },
 
       -- swap windows
       {
         "<C-S-Left>",
         "<cmd>lua require('smart-splits').swap_buf_left()<cr>",
+        desc = "Swap Buffer Left",
       },
       {
         "<C-S-Right>",
         "<cmd>lua require('smart-splits').swap_buf_right()<cr>",
+        desc = "Swap Buffer Right",
       },
       {
         "<C-S-Down>",
         "<cmd>lua require('smart-splits').swap_buf_down()<cr>",
+        desc = "Swap Buffer Down",
       },
       {
         "<C-S-Up>",
         "<cmd>lua require('smart-splits').swap_buf_up()<cr>",
+        desc = "Swap Buffer Up",
       },
     },
     opts = {
@@ -330,26 +342,26 @@ return {
       {
         "<C-F4>",
         windowPickerUtils.window_pick,
-        "focus visible window",
+        "Focus Window",
       },
       {
         -- HACK: F28 maps C-F4 in terminal linux
         "<F28>",
         windowPickerUtils.window_pick,
-        "focus visible window",
+        "Focus Window",
       },
 
       -- swap windows
       {
         "<C-S-F4>",
         windowPickerUtils.window_swap,
-        "swap with window",
+        "Swap With Window",
       },
       {
         -- HACK: F40 maps C-S-F4 in terminal linux
         "<F40>",
         windowPickerUtils.window_swap,
-        "swap with window",
+        "Swap With Window",
       },
     },
     opts = {
@@ -400,7 +412,7 @@ return {
             profile.start "*"
           end
         end,
-        desc = "toggle profile",
+        desc = "Toggle (profile.nvim)",
       },
     },
   },

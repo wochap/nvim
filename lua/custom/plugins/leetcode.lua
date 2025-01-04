@@ -15,52 +15,52 @@ return {
       {
         "<leader>e",
         "<cmd>Leet menu<cr>",
-        desc = "focus dashboard",
+        desc = "Dashboard",
       },
       {
-        "<leader>b",
+        "<leader>E",
         "<cmd>Leet desc<cr>",
-        desc = "toggle question description",
+        desc = "Question Description",
       },
       {
         "<leader>Ld",
         "<cmd>Leet daily<cr>",
-        desc = "opens question of today",
+        desc = "Today's Question",
       },
       {
         "<leader>Lc",
         "<cmd>Leet console<cr>",
-        desc = "opens question console",
+        desc = "Question Console",
       },
       {
         "<leader>Li",
         "<cmd>Leet info<cr>",
-        desc = "opens question information",
+        desc = "Question Information",
       },
       {
         "<leader>Ll",
         "<cmd>Leet lang<cr>",
-        desc = "change question language",
+        desc = "Question Language",
       },
       {
         "<leader>Lr",
         "<cmd>Leet run<cr>",
-        desc = "run question",
+        desc = "Run Question",
       },
       {
         "<leader>Ls",
         "<cmd>Leet submit<cr>",
-        desc = "submit question",
+        desc = "Submit Question",
       },
       {
         "<leader>ff",
         "<cmd>Leet list<cr>",
-        desc = "opens problemlist",
+        desc = "Problem List",
       },
       {
         "<leader>fb",
         "<cmd>Leet tabs<cr>",
-        desc = "opens question tabs",
+        desc = "Question Tabs",
       },
     },
     opts = {

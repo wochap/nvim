@@ -44,10 +44,13 @@ return {
           { "<leader>m", group = "misc" },
           { "<leader>mp", group = "profile" },
           { "<leader>mP", group = "syntax profile" },
-          { "<leader>f", group = "files" },
+          { "<leader><tab>", group = "tab" },
+          { "<leader>b", group = "buffer" },
+          { "<leader>u", group = "ui" },
+          { "<leader>f", group = "find/search/replace" },
           { "<leader>g", group = "git" },
           { "<leader>p", group = "lazy" },
-          { "<leader>q", group = "quit" },
+          { "<leader>q", group = "quit/session" },
         },
       },
       preset = "modern",
@@ -132,21 +135,21 @@ return {
         function()
           require("ufo").openAllFolds()
         end,
-        desc = "ufo open all folds",
+        desc = "Ufo Open All Folds",
       },
       {
         "zM",
         function()
           require("ufo").closeAllFolds()
         end,
-        desc = "ufo open all folds",
+        desc = "Ufo Close All Folds",
       },
       {
         "zm",
         function()
           require("ufo").closeFoldsWith()
         end,
-        desc = "ufo close folds with",
+        desc = "Ufo Close All Folds With",
       },
     },
     init = function()
@@ -281,7 +284,7 @@ return {
           local bufferline = require "bufferline"
           pcall(bufferline.cycle, 1)
         end,
-        desc = "goto next buffer",
+        desc = "Next Buffer",
       },
       {
         "<S-Left>",
@@ -289,20 +292,16 @@ return {
           local bufferline = require "bufferline"
           pcall(bufferline.cycle, -1)
         end,
-        desc = "goto prev buffer",
+        desc = "Prev Buffer",
       },
       {
-        "<leader>fT",
+        "<leader><tab>d",
         function()
-          -- local state = require "bufferline.state"
           local ui = require "bufferline.ui"
-          -- for _, item in ipairs(state.visible_components) do
-          --   _G.___bufferline_private.handle_close(item.id)
-          -- end
           vim.cmd "tabclose"
           ui.refresh()
         end,
-        desc = "close tab",
+        desc = "Close",
       },
     },
     init = function()
@@ -460,6 +459,7 @@ return {
     event = { "LazyFile", "VeryLazy" },
     keys = {
       { "<leader>n", "", desc = "noice" },
+
       {
         "<S-Enter>",
         function()
@@ -473,21 +473,21 @@ return {
         function()
           require("noice").cmd "last"
         end,
-        desc = "Noice Last Message",
+        desc = "Last Message",
       },
       {
         "<leader>nh",
         function()
           require("noice").cmd "history"
         end,
-        desc = "Noice History",
+        desc = "History",
       },
       {
         "<leader>na",
         function()
           require("noice").cmd "all"
         end,
-        desc = "Noice All",
+        desc = "History All",
       },
       {
         "<leader>nd",
@@ -501,7 +501,7 @@ return {
         function()
           require("noice").cmd "pick"
         end,
-        desc = "Noice Picker",
+        desc = "Picker (Telescope)",
       },
       -- scroll signature/hover windows
       {
@@ -513,7 +513,7 @@ return {
         end,
         silent = true,
         expr = true,
-        desc = "Scroll backward",
+        desc = "Scroll Backward",
         mode = { "i", "n", "s" },
       },
       {
@@ -525,7 +525,7 @@ return {
         end,
         silent = true,
         expr = true,
-        desc = "Scroll forward",
+        desc = "Scroll Forward",
         mode = { "i", "n", "s" },
       },
     },
@@ -901,5 +901,12 @@ return {
         smear_cursor.setup(opts)
       end)
     end,
+  },
+
+  {
+    "snacks.nvim",
+    opts = {
+      toggle = { map = LazyVim.safe_keymap_set },
+    },
   },
 }

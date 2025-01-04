@@ -16,7 +16,14 @@ return {
       {
         "<leader>o",
         "<cmd>Oil<CR>",
-        desc = "open Oil",
+        desc = "Oil (Cwd)",
+      },
+      {
+        "<leader>O",
+        function()
+          require("oil").open(LazyVim.root())
+        end,
+        desc = "Oil (Root)",
       },
     },
     opts = {
@@ -84,40 +91,44 @@ return {
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     keys = (in_leetcode and {}) or {
       {
-        "<leader>b",
+        "<leader>E",
         function()
           require("neo-tree.command").execute { action = "close" }
           local api = require "nvim-tree.api"
-          api.tree.toggle {
-            find_file = false,
-            focus = true,
-            update_root = false,
-          }
+          if api.tree.is_tree_buf() then
+            api.tree.close()
+          elseif api.tree.is_visible() then
+            api.tree.open()
+          else
+            api.tree.toggle {
+              find_file = false,
+              focus = true,
+              update_root = false,
+              path = LazyVim.root(),
+            }
+          end
         end,
-        desc = "toggle nvimtree",
-      },
-      {
-        "<leader>B",
-        function()
-          require("neo-tree.command").execute { action = "close" }
-          local api = require "nvim-tree.api"
-          api.tree.toggle {
-            find_file = false,
-            focus = true,
-            path = utils.get_buffer_root_path(),
-            update_root = false,
-          }
-        end,
-        desc = "toggle nvimtree (relative root dir)",
+        desc = "Nvimtree (Root)", -- focus/toggle
       },
       {
         "<leader>e",
         function()
           require("neo-tree.command").execute { action = "close" }
           local api = require "nvim-tree.api"
-          api.tree.open()
+          if api.tree.is_tree_buf() then
+            api.tree.close()
+          elseif api.tree.is_visible() then
+            api.tree.open()
+          else
+            api.tree.toggle {
+              find_file = false,
+              focus = true,
+              update_root = false,
+              path = vim.uv.cwd(),
+            }
+          end
         end,
-        desc = "focus nvimtree",
+        desc = "Nvimtree (Cwd)", -- focus/toggle
       },
     },
     opts = {
@@ -474,12 +485,12 @@ return {
       {
         "<leader>gl",
         "<cmd>LazyGit<CR>",
-        desc = "open lazygit",
+        desc = "Lazygit (Cwd)",
       },
       {
         "<leader>gL",
         "<cmd>LazyGitCurrentFile<CR>",
-        desc = "open lazygit (relative root dir)",
+        desc = "Lazygit (Root)",
       },
     },
     init = function()
@@ -494,22 +505,22 @@ return {
       {
         "<leader>xw",
         "<cmd>Trouble diagnostics toggle<cr>",
-        desc = "toggle project diagnostics",
+        desc = "Diagnostics (Project)",
       },
       {
         "<leader>xf",
         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-        desc = "toggle file diagnostic",
+        desc = "Diagnostics (Buffer)",
       },
       {
         "<leader>xl",
         "<cmd>Trouble loclist toggle<cr>",
-        desc = "toggle loclist",
+        desc = "Loclist",
       },
       {
         "<leader>xq",
         "<cmd>Trouble qflist toggle<cr>",
-        desc = "toggle quicklist",
+        desc = "Quicklist",
       },
       {
         "[x",
@@ -523,7 +534,7 @@ return {
             end
           end
         end,
-        desc = "Goto prev trouble/quickfix item",
+        desc = "Prev Trouble/Quickfix Item",
       },
       {
         "]x",
@@ -537,7 +548,7 @@ return {
             end
           end
         end,
-        desc = "Goto next trouble/quickfix item",
+        desc = "Next Trouble/Quickfix Item",
       },
     },
     opts = {
@@ -595,12 +606,12 @@ return {
       {
         "<leader>gf",
         "<cmd>DiffviewFileHistory --no-merges %<CR>",
-        desc = "open current file history",
+        desc = "Buffer Git History",
       },
       {
         "<leader>gd",
         "<cmd>DiffviewOpen<CR>",
-        desc = "open merge tool",
+        desc = "Merge Tool",
       },
     },
     opts = {
@@ -844,7 +855,7 @@ return {
       {
         "<leader>fs",
         "<cmd>lua require('spectre').open()<CR>",
-        desc = "search and replace spectre",
+        desc = "Search And Replace (Spectre)",
       },
     },
     opts = {
@@ -868,12 +879,6 @@ return {
     cmd = "GrugFar",
     keys = {
       {
-        "<leader>R",
-        "",
-        desc = "grug-far",
-      },
-
-      {
         "<leader>fr",
         function()
           local grug = require "grug-far"
@@ -885,7 +890,7 @@ return {
           }
         end,
         mode = { "n", "v" },
-        desc = "search and replace grug-far",
+        desc = "Search And Replace (GrugFar)",
       },
     },
     opts = {
@@ -935,6 +940,13 @@ return {
       },
     },
   },
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = {
+      spec = { { "<leader>R", group = "grug-far" } },
+    },
+  },
 
   {
     "nvim-telescope/telescope.nvim",
@@ -957,7 +969,7 @@ return {
         {
           "<leader>mf",
           "<cmd>Telescope filetypes<cr>",
-          desc = "change filetype",
+          desc = "Pick Filetype",
         },
 
         -- find
@@ -965,22 +977,22 @@ return {
           "<leader>fw",
           -- TODO: use FzfLua live_grep_glob
           "<cmd>lua require'custom.utils-plugins.telescope'.live_grep()<CR>",
-          desc = "find word",
+          desc = "Grep (Project)",
         },
         {
           "<leader>fy",
           "<cmd>lua require'custom.utils-plugins.telescope'.document_symbols()<CR>",
-          desc = "find file symbols",
+          desc = "LSP Symbols (Buffer)",
         },
         {
           "<leader>fY",
           "<cmd>lua require'custom.utils-plugins.telescope'.workspace_symbols()<CR>",
-          desc = "find project symbols",
+          desc = "LSP Symbols (Project)",
         },
         {
           "<leader>fo",
           "<cmd>Telescope oldfiles<CR>",
-          desc = "find old files",
+          desc = "Old Files",
         },
         {
           "<leader>fb",
@@ -994,7 +1006,7 @@ return {
               select_current = true,
             }
           end,
-          desc = "find buffers",
+          desc = "Opened Buffers",
         },
         {
           "<leader>ff",
@@ -1005,7 +1017,18 @@ return {
             end
             require("custom.utils-plugins.telescope").find_files_fd()
           end,
-          desc = "find files",
+          desc = "Files (Cwd)",
+        },
+        {
+          "<leader>fF",
+          function()
+            if utils.in_big_project() then
+              require("fzf-lua").files { cwd = LazyVim.root() }
+              return
+            end
+            require("custom.utils-plugins.telescope").find_files_fd { cwd = LazyVim.root() }
+          end,
+          desc = "Files (Root)",
         },
         {
           "<leader>fa",
@@ -1020,17 +1043,34 @@ return {
               no_ignore = true,
             }
           end,
-          desc = "find files!",
+          desc = "Files! (Cwd)",
+        },
+        {
+          "<leader>fA",
+          function()
+            if utils.in_big_project() then
+              require("fzf-lua").files {
+                cmd = "fd --type f --fixed-strings --color never --exclude node_modules --exclude .git --exclude .direnv --hidden --no-ignore",
+                cwd = LazyVim.root(),
+              }
+              return
+            end
+            require("custom.utils-plugins.telescope").find_files_fd {
+              no_ignore = true,
+              cwd = LazyVim.root(),
+            }
+          end,
+          desc = "Files! (Root)",
         },
         {
           "<leader>fp",
           "<cmd>lua require'custom.utils-plugins.telescope'.projects()<CR>",
-          desc = "change project",
+          desc = "Pick Project",
         },
         {
           "<leader>fd",
           "<cmd>Telescope current_buffer_fuzzy_find fuzzy=false case_mode=ignore_case<CR>",
-          desc = "find word in file",
+          desc = "Grep (Buffer)",
         },
       },
     opts = {
@@ -1178,12 +1218,12 @@ return {
       {
         "<leader>fg",
         "<cmd>FzfLua git_status<CR>",
-        desc = "find changed files",
+        desc = "Changed Files",
       },
       {
         "<leader>fx",
         "<cmd>FzfLua marks<CR>",
-        desc = "find marks",
+        desc = "Marks",
       },
     },
     opts = function(_, opts)
@@ -1256,8 +1296,8 @@ return {
             keymapsUtils.unmap("t", "<A-i>")
           end,
           on_close = function()
-            keymapsUtils.map("t", "<C-x>", terminalUtils.exit_terminal_mode, "exit terminal mode")
-            keymapsUtils.map("t", "<A-i>", terminalUtils.toggle_scratch_term, "toggle floating term")
+            keymapsUtils.map("t", "<C-x>", terminalUtils.exit_terminal_mode, "Esc Terminal")
+            keymapsUtils.map("t", "<A-i>", terminalUtils.toggle_scratch_term, "Toggle Terminal")
           end,
         },
         files = {
@@ -1436,15 +1476,9 @@ return {
     cmd = "GitConflictListQf",
     keys = {
       {
-        "<leader>gc",
-        "",
-        desc = "git conflict",
-      },
-
-      {
         "<leader>xg",
         "<cmd>GitConflictListQf<cr>",
-        desc = "toggle project git conflicts",
+        desc = "Git Conflicts (Project)",
       },
     },
     opts = {
@@ -1480,6 +1514,13 @@ return {
 
       require("git-conflict").setup(opts)
     end,
+  },
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = {
+      spec = { { "<leader>gc", group = "git conflict" } },
+    },
   },
 
   {
@@ -1540,7 +1581,7 @@ return {
             require("gitsigns").next_hunk()
           end)
           return "<Ignore>"
-        end, "jump to next hunk", { expr = true, buffer = bufnr })
+        end, "Next Hunk", { expr = true, buffer = bufnr })
         map("n", "[g", function()
           if vim.wo.diff then
             return "[c"
@@ -1549,24 +1590,24 @@ return {
             require("gitsigns").prev_hunk()
           end)
           return "<Ignore>"
-        end, "jump to prev hunk", { expr = true, buffer = bufnr })
-        map("n", "<leader>gS", "<cmd>lua require('gitsigns').stage_buffer()<cr>", "stage buffer", { buffer = bufnr })
-        map("n", "<leader>gs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", "stage hunk", { buffer = bufnr })
-        map("n", "<leader>gR", "<cmd>lua require('gitsigns').reset_buffer()<cr>", "reset buffer", { buffer = bufnr })
-        map("n", "<leader>gr", "<cmd>lua require('gitsigns').reset_hunk()<cr>", "reset hunk", { buffer = bufnr })
-        map("n", "<leader>gp", "<cmd>lua require('gitsigns').preview_hunk()<cr>", "preview hunk", { buffer = bufnr })
+        end, "Prev Hunk", { expr = true, buffer = bufnr })
+        map("n", "<leader>gS", "<cmd>lua require('gitsigns').stage_buffer()<cr>", "Stage Buffer", { buffer = bufnr })
+        map("n", "<leader>gs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", "Stage Hunk", { buffer = bufnr })
+        map("n", "<leader>gR", "<cmd>lua require('gitsigns').reset_buffer()<cr>", "Reset Buffer", { buffer = bufnr })
+        map("n", "<leader>gr", "<cmd>lua require('gitsigns').reset_hunk()<cr>", "Reset Hunk", { buffer = bufnr })
+        map("n", "<leader>gp", "<cmd>lua require('gitsigns').preview_hunk()<cr>", "Preview Hunk", { buffer = bufnr })
         map(
           "n",
           "<leader>gb",
           "<cmd>lua require('gitsigns').blame_line({ full = true })<cr>",
-          "blame line",
+          "Blame Line",
           { buffer = bufnr }
         )
         map(
           "n",
           "<leader>gD",
           "<cmd>lua require('gitsigns').toggle_deleted()<cr>",
-          "toggle deleted",
+          "Toggle Deleted",
           { buffer = bufnr }
         )
       end,
@@ -1579,27 +1620,27 @@ return {
     build = "sh install.sh",
     keys = {
       {
-        "<leader>s",
+        "<leader>S",
         "",
         desc = "sniprun",
         mode = { "n", "v" },
       },
 
       {
-        "<leader>sr",
+        "<leader>Sr",
         "<Plug>SnipRun",
-        desc = "run code",
+        desc = "Run Code",
         mode = { "n", "v" },
       },
       {
-        "<leader>sR",
+        "<leader>SR",
         "<Plug>SnipRunOperator",
-        desc = "run code with nvim operator",
+        desc = "Run Code With Nvim Operator",
       },
       {
-        "<leader>sc",
+        "<leader>SC",
         "<cmd>SnipClose<CR>",
-        desc = "clear virtualtext",
+        desc = "Clear Virtual Text",
       },
     },
     opts = {

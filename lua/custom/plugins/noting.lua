@@ -75,17 +75,17 @@ return {
       {
         "<leader>zn",
         "<Cmd>lua require('custom.utils-plugins.zk').new()<CR>",
-        desc = "new note",
+        desc = "New",
       },
       {
         "<leader>zd",
         "<Cmd>ZkNew { dir = 'journal' }<CR>",
-        desc = "new daily",
+        desc = "New (Daily)",
       },
       {
         "<leader>zf",
         "<Cmd>ZkNotes<CR>",
-        desc = "notes picker",
+        desc = "Picker (Telescope)", -- notes picker
       },
     },
     init = function()
@@ -95,31 +95,31 @@ return {
         callback = function(event)
           if require("zk.util").notebook_root(vim.fn.expand "%:p") ~= nil then
             local opts = { noremap = true, buffer = event.buf }
-            keymapsUtils.map("n", "<CR>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "open link under cursor", opts)
+            keymapsUtils.map("n", "<CR>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "Open Link Under Cursor", opts)
             keymapsUtils.map(
               "n",
               "<leader>zN",
               "<Cmd>ZkNew { dir = vim.fn.expand('%:p:h'), title = vim.fn.input('Title: ') }<CR>",
-              "new note (same directory)",
+              "New (Same Directory)",
               opts
             )
             keymapsUtils.map(
               "v",
               "<leader>zt",
               ":'<,'>ZkNewFromTitleSelection { dir = vim.fn.expand('%:p:h') }<CR>",
-              "new note (same directory, selection as title)",
+              "New (Same Directory, Selection As Title)",
               opts
             )
             keymapsUtils.map(
               "v",
               "<leader>zc",
               ":'<,'>ZkNewFromContentSelection { dir = vim.fn.expand('%:p:h'), title = vim.fn.input('Title: ') }<CR>",
-              "new note (same directory, selection as content)",
+              "New (Same Directory, Selection As Content)",
               opts
             )
-            keymapsUtils.map("n", "<leader>zb", "<Cmd>ZkBacklinks<CR>", "pick zk backlinks", opts)
-            keymapsUtils.map("n", "<leader>zl", "<Cmd>ZkLinks<CR>", "pick zk links", opts)
-            keymapsUtils.map("n", "<leader>zi", "<Cmd>ZkInsertLink<CR>", "insert link", opts)
+            keymapsUtils.map("n", "<leader>zb", "<Cmd>ZkBacklinks<CR>", "Pick Zk Backlinks", opts)
+            keymapsUtils.map("n", "<leader>zl", "<Cmd>ZkLinks<CR>", "Pick Zk Links", opts)
+            keymapsUtils.map("n", "<leader>zi", "<Cmd>ZkInsertLink<CR>", "Insert Link", opts)
           end
         end,
       })

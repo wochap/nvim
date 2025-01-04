@@ -85,14 +85,6 @@ M.augroup = function(name)
   return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
 end
 
-M.get_buffer_root_path = function()
-  local root_path = vim.fn.finddir(".git", ".;")
-  if root_path == "" then
-    root_path = vim.fn.findfile("package.json", ".;")
-  end
-  return vim.fn.fnamemodify(root_path, ":h")
-end
-
 local files_count_cache = {}
 M.in_big_project = function(cwd)
   cwd = cwd or vim.loop.cwd()

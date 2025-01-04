@@ -1,5 +1,4 @@
 local utils = require "custom.utils"
-local lazyCoreUtils = require "lazy.core.util"
 local lazyUtils = require "custom.utils.lazy"
 local formatUtils = require "custom.utils.format"
 
@@ -13,7 +12,7 @@ return {
       {
         "<leader>lf",
         "<cmd>LazyFormat<CR>",
-        desc = "format document/selection",
+        desc = "Format Buffer/Selection",
         mode = { "n", "v" },
       },
       {
@@ -21,7 +20,7 @@ return {
         function()
           require("conform").format { formatters = { "injected" } }
         end,
-        desc = "format injected langs in document/selection",
+        desc = "Format Buffer/Selection (Injected Langs)",
         mode = { "n", "v" },
       },
     },

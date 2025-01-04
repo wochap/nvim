@@ -117,7 +117,7 @@ return {
               function()
                 require("vtsls").commands.goto_source_definition(0)
               end,
-              desc = "Goto Source Definition",
+              desc = "Goto Source Definition (Vtsls)",
             },
             {
               "gR",
@@ -138,28 +138,28 @@ return {
               function()
                 require("vtsls").commands.add_missing_imports(0)
               end,
-              desc = "Add missing imports",
+              desc = "Add Missing Imports",
             },
             {
               "<leader>lu",
               function()
                 require("vtsls").commands.remove_unused_imports(0)
               end,
-              desc = "Remove unused imports",
+              desc = "Remove Unused Imports",
             },
             {
               "<leader>lD",
               function()
                 require("vtsls").commands.fix_all(0)
               end,
-              desc = "Fix all diagnostics",
+              desc = "Fix All Diagnostics",
             },
             {
               "<leader>lT",
               function()
                 require("vtsls").commands.select_ts_version(0)
               end,
-              desc = "Select TS workspace version",
+              desc = "Select TS Workspace Version",
             },
           },
           settings = {

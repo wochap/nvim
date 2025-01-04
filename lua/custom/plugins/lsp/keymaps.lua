@@ -41,7 +41,7 @@ M.get = function()
       function()
         require("telescope.builtin").lsp_type_definitions { reuse_win = false }
       end,
-      desc = "Goto T[y]pe Definition",
+      desc = "Goto Type Definition",
     },
     {
       "gH",
@@ -84,7 +84,7 @@ M.get = function()
         return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand "<cword>"
       end,
       expr = true,
-      desc = "Rename",
+      desc = "Rename (Word)",
       has = "rename",
     },
     {
@@ -92,26 +92,26 @@ M.get = function()
       function()
         require("lazyvim.util.lsp").rename_file()
       end,
-      desc = "Rename file",
+      desc = "Rename (Buffer)",
       has = { "workspace/didRenameFiles", "workspace/willRenameFiles" },
     },
     {
-      [[\]] .. "h",
+      "<leader>uh",
       lspUtils.toggle_inlay_hints,
-      desc = "Toggle 'inlay hints'",
+      desc = "Toggle Inlay Hints",
       has = "inlayHint",
     },
     {
-      [[\]] .. "c",
+      "<leader>uC",
       "<cmd>LspLensToggle<CR>",
-      desc = "Toggle 'codelens'",
+      desc = "Toggle Codelens",
       has = "codeLens",
     },
-    { "<leader>ld", vim.diagnostic.open_float, desc = "floating diagnostic" },
-    { "[d", diagnostic_goto(false), desc = "prev diagnostic" },
-    { "]d", diagnostic_goto(true), desc = "next diagnostic" },
-    { "[e", diagnostic_goto(false, "ERROR"), desc = "prev diagnostic error" },
-    { "]e", diagnostic_goto(true, "ERROR"), desc = "next diagnostic error" },
+    { "<leader>ld", vim.diagnostic.open_float, desc = "Diagnostic" },
+    { "[d", diagnostic_goto(false), desc = "Prev Diagnostic" },
+    { "]d", diagnostic_goto(true), desc = "Next Diagnostic" },
+    { "[e", diagnostic_goto(false, "ERROR"), desc = "Prev Diagnostic (Error)" },
+    { "]e", diagnostic_goto(true, "ERROR"), desc = "Next Diagnostic (Error)" },
   }
   return M._keys
 end

@@ -191,12 +191,4 @@ M.paste = function()
   end
 end
 
-M.toggleLocalOpt = function(option, values)
-  if vim.opt_local[option]:get() == values[1] then
-    vim.opt_local[option] = values[2]
-  else
-    vim.opt_local[option] = values[1]
-  end
-end
-
 return M

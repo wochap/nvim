@@ -32,7 +32,7 @@ end
 
 M.load_mappings = function()
   local map = keymapsUtils.map
-  map("n", "<leader>L", "<cmd>Lazy<cr>", "lazy")
+  map("n", "<leader>L", "<cmd>Lazy<cr>", "Lazy")
 end
 
 return M

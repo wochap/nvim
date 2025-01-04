@@ -128,7 +128,7 @@ return {
         "gt.",
         "<cmd>TextCaseOpenTelescope<CR>",
         mode = { "n", "v" },
-        desc = "Telescope",
+        desc = "Pick (Telescope)",
       },
     },
     opts = {
@@ -418,7 +418,7 @@ return {
       {
         "<C-k>",
         "<cmd>lua require'luasnip'.expand()<CR>",
-        desc = "expand snippet",
+        desc = "Expand Snippet",
         mode = "i",
       },
     },
@@ -536,12 +536,12 @@ return {
         function()
           require("Comment.api").toggle.linewise.current()
         end,
-        desc = "Toggle comment",
+        desc = "Comment", -- toggle
       },
       {
         "<leader>/",
         "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-        desc = "Toggle comment",
+        desc = "Comment", -- toggle
         mode = "v",
       },
     },
@@ -573,7 +573,7 @@ return {
           local mc = require "multicursor-nvim"
           mc.handleMouse()
         end,
-        desc = "Toggle cursor",
+        desc = "Toggle",
         mode = "n",
       },
       {
@@ -582,7 +582,7 @@ return {
           local mc = require "multicursor-nvim"
           mc.lineAddCursor(-1)
         end,
-        desc = "Add above",
+        desc = "Add Above",
         mode = { "n", "v" },
       },
       {
@@ -591,7 +591,7 @@ return {
           local mc = require "multicursor-nvim"
           mc.lineAddCursor(1)
         end,
-        desc = "Add below",
+        desc = "Add Below",
         mode = { "n", "v" },
       },
       {
@@ -600,7 +600,7 @@ return {
           local mc = require "multicursor-nvim"
           mc.matchAddCursor(1)
         end,
-        desc = "Add and jump to next word",
+        desc = "Add And Jump To Next Word",
         mode = { "n", "v" },
       },
       {
@@ -609,7 +609,7 @@ return {
           local mc = require "multicursor-nvim"
           mc.matchAddCursor(-1)
         end,
-        desc = "Add and jump to prev word",
+        desc = "Add And Jump To Prev Word",
         mode = { "n", "v" },
       },
       {
@@ -618,7 +618,7 @@ return {
           local mc = require "multicursor-nvim"
           mc.matchSkipCursor(1)
         end,
-        desc = "Skip and jump to next word",
+        desc = "Skip And Jump To Next Word",
         mode = { "n", "v" },
       },
       {
@@ -627,7 +627,7 @@ return {
           local mc = require "multicursor-nvim"
           mc.matchSkipCursor(-1)
         end,
-        desc = "Skip and jump to prev word",
+        desc = "Skip And Jump To Prev Word",
         mode = { "n", "v" },
       },
       {
@@ -636,7 +636,7 @@ return {
           local mc = require "multicursor-nvim"
           mc.matchAllAddCursors()
         end,
-        desc = "Add to all words",
+        desc = "Add To All Words",
         mode = { "n", "v" },
       },
       {
@@ -678,7 +678,7 @@ return {
             mc.addCursor()
           end
         end,
-        desc = "Stop other or add",
+        desc = "Stop Other Or Add",
         mode = { "n", "v" },
       },
       {
@@ -693,7 +693,7 @@ return {
             -- Default <esc> handler.
           end
         end,
-        desc = "Start other or clear",
+        desc = "Start Other Or Clear",
         mode = "n",
       },
       {
@@ -724,7 +724,7 @@ return {
             LazyVim.error("Cursors are disabled", { title = "multicursor.nvim" })
           end
         end,
-        desc = "Align columns",
+        desc = "Align Columns",
         mode = "n",
       },
       {
@@ -733,7 +733,7 @@ return {
           local mc = require "multicursor-nvim"
           mc.splitCursors()
         end,
-        desc = "Split by regex",
+        desc = "Split By Regex",
         mode = "v",
       },
       {
@@ -742,7 +742,7 @@ return {
           local mc = require "multicursor-nvim"
           mc.matchCursors()
         end,
-        desc = "Match by regex",
+        desc = "Match By Regex",
         mode = "v",
       },
       {
@@ -769,7 +769,7 @@ return {
           local mc = require "multicursor-nvim"
           mc.transposeCursors(1)
         end,
-        desc = "Rotate next",
+        desc = "Rotate Next",
         mode = "v",
       },
       {
@@ -778,7 +778,7 @@ return {
           local mc = require "multicursor-nvim"
           mc.transposeCursors(-1)
         end,
-        desc = "Rotate prev",
+        desc = "Rotate Prev",
         mode = "v",
       },
     },

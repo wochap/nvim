@@ -15,14 +15,14 @@ return {
             function()
               require("goto-breakpoints").next()
             end,
-            desc = "next breakpoint",
+            desc = "Next Breakpoint",
           },
           {
             "[h",
             function()
               require("goto-breakpoints").prev()
             end,
-            desc = "prev breakpoint",
+            desc = "Prev Breakpoint",
           },
         },
       },
@@ -96,7 +96,7 @@ return {
               virtual_text.clear_virtual_text()
               virtual_text.clear_last_frames()
             end,
-            desc = "clear virtual text",
+            desc = "Clear Virtual Text",
           },
         },
         opts = {
@@ -146,57 +146,57 @@ return {
       {
         "<leader>d<Up>",
         "<cmd>lua require'dap'.step_out()<CR>",
-        desc = "step out",
+        desc = "Step Out",
       },
       {
         "<leader>d<Right>",
         "<cmd>lua require'dap'.step_into()<CR>",
-        desc = "step into",
+        desc = "Step Into",
       },
       {
         "<leader>d<Down>",
         "<cmd>lua require'dap'.step_over()<CR>",
-        desc = "step over",
+        desc = "Step Over",
       },
       {
         "<leader>d<Left>",
         "<cmd>lua require'dap'.continue()<CR>",
-        desc = "continue",
+        desc = "Continue",
       },
       {
         "<leader>dH",
         "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
-        desc = "set breakpoint condition",
+        desc = "Add Breakpoint Condition",
       },
       {
         "<leader>dh",
         "<cmd>lua require'dap'.toggle_breakpoint()<CR>",
-        desc = "set breakpoint",
+        desc = "Add Breakpoint",
       },
       {
         "<leader>dc",
         "<cmd>lua require'dap'.terminate()<CR>",
-        desc = "terminate",
+        desc = "Terminate",
       },
       {
         "<leader>de",
         "<cmd>lua require'dap'.set_exception_breakpoints({'all'})<CR>",
-        desc = "set exception breakpoints ALL",
+        desc = "Add Exception Breakpoints All",
       },
       {
         "<leader>di",
         "<cmd>lua require'dap.ui.widgets'.hover()<CR>",
-        desc = "hover",
+        desc = "Hover",
       },
       {
         "<leader>dr",
         "<cmd>lua require'dap'.repl.toggle({}, 'vsplit')<CR><C-w>l",
-        desc = "toggle repl",
+        desc = "Toggle Repl",
       },
       {
         "<leader>dn",
         "<cmd>lua require'dap'.run_to_cursor()<CR>",
-        desc = "run to cursor",
+        desc = "Run To Cursor",
       },
       {
         "<leader>du",
@@ -204,7 +204,7 @@ return {
           require("dapui").toggle { reset = true }
           vim.cmd "wincmd ="
         end,
-        desc = "open dapui",
+        desc = "Open DapUI",
       },
     },
     config = function()
