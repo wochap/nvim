@@ -235,6 +235,13 @@ return {
 
   {
     "williamboman/mason.nvim",
+    keys = {
+      {
+        "<leader>lm",
+        "<cmd>Mason<CR>",
+        desc = "Mason",
+      },
+    },
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     opts_extend = { "ensure_installed" },
     opts = {
