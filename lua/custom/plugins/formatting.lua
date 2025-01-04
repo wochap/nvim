@@ -12,16 +12,30 @@ return {
       {
         "<leader>lf",
         "<cmd>LazyFormat<CR>",
-        desc = "Format Buffer/Selection",
-        mode = { "n", "v" },
+        desc = "Format Buffer",
+        mode = "n",
+      },
+      {
+        "<leader>lf",
+        "<cmd>LazyFormat<CR>",
+        desc = "Format Selection",
+        mode = "v",
       },
       {
         "<leader>lF",
         function()
           require("conform").format { formatters = { "injected" } }
         end,
-        desc = "Format Buffer/Selection (Injected Langs)",
-        mode = { "n", "v" },
+        desc = "Format Buffer (Injected Langs)",
+        mode = "n",
+      },
+      {
+        "<leader>lF",
+        function()
+          require("conform").format { formatters = { "injected" } }
+        end,
+        desc = "Format Selection (Injected Langs)",
+        mode = "v",
       },
     },
     init = function()
