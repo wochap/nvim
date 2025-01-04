@@ -737,16 +737,47 @@ return {
     },
   },
 
-  -- NOTE: indentmini.nvim can affect winhl
-  -- NOTE: scrolling may cause cursor to glitch, this means the cursor
-  -- might briefly appear in the wrong position for a few milliseconds
   {
-    "wochap/indentmini.nvim",
-    branch = "toggle",
-    event = "VeryLazy",
+    "folke/snacks.nvim",
+    optional = true,
     opts = {
-      char = constants.in_kitty and "▎" or "▏",
-      exclude = constants.exclude_filetypes,
+      toggle = {
+        map = LazyVim.safe_keymap_set,
+      },
+
+      -- indent lines
+      indent = {
+        indent = {
+          enabled = true,
+          char = constants.in_kitty and "▎" or "▏",
+          only_scope = false,
+          only_current = true,
+          hl = "SnacksIndent",
+        },
+        animate = {
+          enabled = false,
+        },
+        scope = {
+          enabled = false,
+          hl = "SnacksIndentScope",
+        },
+        chunk = {
+          enabled = false,
+          hl = "SnacksIndentChunk",
+        },
+        blank = {
+          hl = "SnacksIndentBlank",
+        },
+        exclude_filetypes = constants.exclude_filetypes,
+        filter = function(buf)
+          local exclude_filetypes = LazyVim.opts("snacks.nvim").indent.exclude_filetypes
+          local filetype = vim.api.nvim_get_option_value("filetype", { buf = buf })
+          return vim.g.snacks_indent ~= false
+            and vim.b[buf].snacks_indent ~= false
+            and vim.bo[buf].buftype == ""
+            and not vim.tbl_contains(exclude_filetypes, filetype)
+        end,
+      },
     },
   },
 
@@ -901,12 +932,5 @@ return {
         smear_cursor.setup(opts)
       end)
     end,
-  },
-
-  {
-    "snacks.nvim",
-    opts = {
-      toggle = { map = LazyVim.safe_keymap_set },
-    },
   },
 }

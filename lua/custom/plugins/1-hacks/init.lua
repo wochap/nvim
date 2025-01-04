@@ -40,8 +40,8 @@ return {
   },
 
   {
-    "wochap/indentmini.nvim",
+    "folke/snacks.nvim",
     optional = true,
-    opts_extend = { "exclude" },
+    opts_extend = { "indent.exclude_filetypes" },
   },
 }

@@ -119,9 +119,11 @@ local getExtraHl = function(mocha)
     IlluminatedWordRead = { link = "IlluminatedWordText" },
     IlluminatedWordWrite = { link = "IlluminatedWordText" },
 
-    -- indentmini.nvim
-    IndentLine = { link = "IblIndent" },
-    IndentLineCurrent = { link = "IblIndent" },
+    -- snacks.nvim
+    SnacksIndent = { link = "IblIndent" },
+    SnacksIndentScope = { link = "IblIndent" },
+    SnacksIndentChunk = { link = "IblIndent" },
+    SnacksIndentBlank = { link = "IblIndent" },
 
     -- incline.nvim
     InclineNormalNC = {

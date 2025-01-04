@@ -94,10 +94,12 @@ return {
   },
 
   {
-    "wochap/indentmini.nvim",
+    "folke/snacks.nvim",
     optional = true,
     opts = {
-      exclude = { "tex" },
+      indent = {
+        exclude_filetypes = { "tex" },
+      },
     },
   },
 }
