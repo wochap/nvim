@@ -502,22 +502,24 @@ return {
     },
   },
 
+  -- auto pairs
   {
-    "windwp/nvim-autopairs",
-    event = { "InsertEnter", "VeryLazy" },
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
     opts = {
-      fast_wrap = {},
-      disable_filetype = { "TelescopePrompt", "spectre_panel", "vim" },
-      check_ts = true,
-      map_bs = false,
+      modes = { insert = true, command = true, terminal = false },
+      -- skip autopair when next character is one of these
+      skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
+      -- skip autopair when the cursor is inside these treesitter nodes
+      skip_ts = { "string", "comment" },
+      -- skip autopair when next character is closing pair
+      -- and there are more closing pairs than opening pairs
+      skip_unbalanced = true,
+      -- better deal with markdown code blocks
+      markdown = true,
     },
     config = function(_, opts)
-      require("nvim-autopairs").setup(opts)
-
-      lazyUtils.on_load("magazine.nvim", function()
-        local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-        require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-      end)
+      LazyVim.mini.pairs(opts)
     end,
   },
 
