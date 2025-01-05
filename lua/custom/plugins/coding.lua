@@ -523,39 +523,29 @@ return {
     end,
   },
 
+  -- comments
   {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    opts = {
-      enable_autocmd = false,
-    },
-  },
-  {
-    "numToStr/Comment.nvim",
+    "folke/ts-comments.nvim",
     event = { "LazyFile", "VeryLazy" },
     keys = {
       {
         "<leader>/",
         function()
-          require("Comment.api").toggle.linewise.current()
+          vim.cmd.norm "gcc"
         end,
         desc = "Comment", -- toggle
+        mode = "n",
       },
       {
         "<leader>/",
-        "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+        function()
+          vim.cmd.norm "gc"
+        end,
         desc = "Comment", -- toggle
         mode = "v",
       },
     },
-    opts = function()
-      return {
-        mappings = {
-          basic = false,
-          extra = false,
-        },
-        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-      }
-    end,
+    opts = {},
   },
 
   {
