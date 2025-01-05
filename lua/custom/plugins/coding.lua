@@ -25,7 +25,9 @@ return {
     "folke/which-key.nvim",
     optional = true,
     opts = {
-      spec = { { "gs", group = "surround" } },
+      spec = {
+        { "gs", group = "surround" },
+      },
     },
   },
 
