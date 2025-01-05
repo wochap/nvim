@@ -176,6 +176,10 @@ if not constants.in_neovide then
   vim.opt.guifont = "IosevkaTerm NF:h10"
 end
 
+if constants.in_neovide then
+  vim.opt.shell = "zsh"
+end
+
 -- PERF: stop highlighting large lines
 -- only works with syntax builtin nvim plugin
 vim.opt.synmaxcol = 500
