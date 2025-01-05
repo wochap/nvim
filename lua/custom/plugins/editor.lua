@@ -1592,6 +1592,7 @@ return {
         map("n", "<leader>gR", "<cmd>lua require('gitsigns').reset_buffer()<cr>", "Reset Buffer", { buffer = bufnr })
         map("n", "<leader>gr", "<cmd>lua require('gitsigns').reset_hunk()<cr>", "Reset Hunk", { buffer = bufnr })
         map("n", "<leader>gp", "<cmd>lua require('gitsigns').preview_hunk()<cr>", "Preview Hunk", { buffer = bufnr })
+        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Select Hunk (GitSigns)")
         map(
           "n",
           "<leader>gb",
