@@ -7,8 +7,8 @@ local exclude_filetypes = {
   "smear-cursor",
 }
 M.close_all_floating = function()
-  local cmp = require "cmp"
-  if cmp.visible() then
+  local blink = require "blink.cmp"
+  if blink.is_visible() then
     return
   end
 

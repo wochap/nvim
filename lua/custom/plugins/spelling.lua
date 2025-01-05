@@ -38,22 +38,25 @@ return {
   },
 
   {
-    "iguanacucumber/magazine.nvim",
+    "saghen/blink.cmp",
     optional = true,
     dependencies = {
       "f3fora/cmp-spell",
     },
     opts = {
       sources = {
-        {
-          name = "spell",
-          max_item_count = 10,
-          group_index = 99,
-          option = {
-            -- enable_in_context = function()
-            --   return require("cmp.config.context").in_treesitter_capture "spell"
-            -- end,
-            preselect_correct_word = false,
+        providers = {
+          spell = {
+            name = "spell",
+            module = "blink.compat.source",
+            max_items = 10,
+            score_offset = -2,
+            opts = {
+              -- enable_in_context = function()
+              --   return require("cmp.config.context").in_treesitter_capture "spell"
+              -- end,
+              preselect_correct_word = false,
+            },
           },
         },
       },

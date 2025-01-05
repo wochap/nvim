@@ -22,9 +22,13 @@ return {
   },
 
   {
-    "iguanacucumber/magazine.nvim",
+    "saghen/blink.cmp",
     optional = true,
-    opts_extend = { "sources" },
+    opts_extend = {
+      "sources.completion.enabled_providers",
+      "sources.compat",
+      "sources.default",
+    },
   },
 
   {

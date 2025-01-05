@@ -180,326 +180,308 @@ return {
   {
     -- hrsh7th/nvim-cmp fork
     "iguanacucumber/magazine.nvim",
-    event = { "CmdlineEnter", "InsertEnter", "VeryLazy" },
-    version = false, -- last release is way too old
-    main = "lazyvim.util.cmp",
+    enabled = false,
+  },
+  {
+    "saghen/blink.cmp",
+    version = "v0.9.2",
+    event = { "InsertEnter", "VeryLazy" },
     dependencies = {
-      -- cmp sources plugins
-      "hrsh7th/cmp-nvim-lua",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
+      {
+        "saghen/blink.compat",
+        opts = {},
+      },
+      {
+        "carbonid1/EmmetJSS",
+        opts = {},
+        config = function() end,
+      },
+      {
+        "L3MON4D3/LuaSnip",
+        version = "v2.*",
+        build = "make install_jsregexp",
+        opts = {},
+        config = function() end,
+      },
       "dmitmel/cmp-cmdline-history",
     },
-    opts_extend = { "sources" },
-    opts = function(_, opts)
-      local cmp = require "cmp"
-      local defaults = require "cmp.config.default"()
-      return {
-        enabled = function()
-          local cmp_ctx = require "cmp.config.context"
-          if
-            -- disable when recording a macro
-            (vim.fn.reg_recording() ~= "")
-            or (vim.fn.reg_executing() ~= "")
-            -- disable in comments
-            or (cmp_ctx.in_treesitter_capture "comment" == true)
-            or (cmp_ctx.in_syntax_group "comment" == true)
-          then
-            return false
+    opts = {
+      enabled = function()
+        local recording_macro = vim.fn.reg_recording() ~= "" or vim.fn.reg_executing() ~= ""
+        local has_cmp_dap_load = lazyUtils.is_loaded "cmp-dap"
+        if has_cmp_dap_load then
+          local cmp_dap = require "cmp_dap"
+          -- enable if in dap buffer
+          if cmp_dap.is_dap_buffer() then
+            return true
           end
-
+        end
+        return vim.bo.buftype ~= "prompt" and vim.b.completion ~= false and not recording_macro
+      end,
+      snippets = {
+        expand = function(snippet, _)
+          return LazyVim.cmp.expand(snippet)
+        end,
+      },
+      appearance = {
+        kind_icons = iconsUtils.lspkind,
+        use_nvim_cmp_as_default = false,
+        -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- adjusts spacing to ensure icons are aligned
+        nerd_font_variant = "mono",
+      },
+      completion = {
+        keyword = {
+          -- will fuzzy match on the text before the cursor
+          range = "prefix",
+        },
+        accept = {
+          auto_brackets = {
+            enabled = true,
+          },
+        },
+        menu = {
+          winblend = 5,
+          min_width = 15,
+          max_height = 15,
+          border = cmpUtils.border "BlinkCmpMenuBorder",
+          auto_show = function(ctx)
+            -- Don't show completion menu automatically in cmdline mode and when searching
+            return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
+          end,
+          draw = {
+            columns = {
+              { "label", "label_description", gap = 1 },
+              { "kind_icon", "kind", gap = 1 },
+            },
+            components = {
+              label = {
+                highlight = function(ctx)
+                  -- label and label details
+                  local highlights = {
+                    { 0, #ctx.label, group = ctx.deprecated and "BlinkCmpLabelDeprecated" or "BlinkCmpLabel" },
+                  }
+                  if ctx.label_detail then
+                    table.insert(
+                      highlights,
+                      { #ctx.label, #ctx.label + #ctx.label_detail, group = "BlinkCmpLabelDetail" }
+                    )
+                  end
+                  -- characters matched on the label by the fuzzy matcher
+                  for _, idx in ipairs(ctx.label_matched_indices) do
+                    table.insert(highlights, { idx, idx + 1, group = "BlinkCmpLabelMatch" })
+                  end
+                  return highlights
+                end,
+              },
+            },
+            -- highlight lsp source with treesitter
+            treesitter = { "lsp" },
+          },
+          -- Screen coordinates of the command line
+          cmdline_position = function()
+            if LazyVim.has "noice.nvim" then
+              local Api = require "noice.api"
+              local pos = Api.get_cmdline_position()
+              return { pos.screenpos.row - 1, pos.screenpos.col - 2 }
+            end
+            if vim.g.ui_cmdline_pos ~= nil then
+              local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
+              return { pos[1] - 1, pos[2] }
+            end
+            local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+            return { vim.o.lines - height, 0 }
+          end,
+        },
+        list = {
+          selection = function(ctx)
+            if ctx.mode == "cmdline" or vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype()) then
+              return "auto_insert"
+            end
+            return "manual"
+          end,
+        },
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 200,
+          window = {
+            min_width = 15,
+            max_height = 20,
+            border = cmpUtils.border "BlinkCmpDocBorder",
+          },
+          -- NOTE: improve perf
+          -- treesitter_highlighting = false,
+        },
+        ghost_text = {
+          enabled = true,
+        },
+      },
+      -- experimental signature help support
+      signature = {
+        enabled = false,
+      },
+      sources = {
+        -- Dynamically picking providers by treesitter node/filetype
+        default = function()
+          local success, node = pcall(vim.treesitter.get_node)
+          if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
+            return { "buffer" }
+          end
           local has_cmp_dap_load = lazyUtils.is_loaded "cmp-dap"
           if has_cmp_dap_load then
             local cmp_dap = require "cmp_dap"
             -- enable if in dap buffer
             if cmp_dap.is_dap_buffer() then
-              return true
+              return { "dap", "snippets", "buffer" }
             end
           end
-
-          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+          return { "lazydev", "lsp", "path", "snippets", "buffer" }
         end,
-        preselect = cmp.PreselectMode.None,
-        completion = {
-          completeopt = "menu,menuone,noinsert,noselect,fuzzy",
-        },
-        window = {
-          completion = {
-            -- NOTE: changing border breaks scrollbar UI
-            border = cmpUtils.border "CmpBorder",
-            side_padding = 1,
-            winhighlight = "Normal:Pmenu,FloatBorder:CmpBorder,CursorLine:CmpSel,Search:None",
-            scrollbar = true,
-          },
-          documentation = {
-            border = cmpUtils.border "CmpDocBorder",
-            winhighlight = "Normal:CmpDoc,FloatBorder:CmpDocBorder,Search:None",
-          },
-        },
-        view = {
-          entries = {
-            follow_cursor = true,
-          },
-        },
-        formatting = {
-          fields = { "abbr", "kind", "menu" },
-          format = function(entry, item)
-            if opts and opts.formatting and opts.formatting.format then
-              opts.formatting.format(entry, item)
-            end
-
-            local color_item = require("nvim-highlight-colors").format(entry, { kind = item.kind })
-            local icon = iconsUtils.lspkind[item.kind] or " "
-            item.kind = string.format(" %s %s", icon, item.kind)
-            -- apply nvim-highlight-colors
-            if color_item.abbr_hl_group then
-              item.kind_hl_group = color_item.abbr_hl_group
-              item.kind = string.format(" %s %s", color_item.abbr, item.kind)
-            end
-            -- limit str length
-            if string.len(item.abbr) > 60 then
-              item.abbr = string.format("%s…", string.sub(item.abbr, 1, 60))
-            end
-            if item.menu and string.len(item.menu) > 20 then
-              item.menu = string.format("%s… ", string.sub(item.abbr, 1, 20))
-            end
-            return item
-          end,
-        },
-        mapping = {
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-d>"] = cmp.mapping.scroll_docs(4),
-          ["<C-b>"] = cmpUtils.scroll(-4),
-          ["<C-f>"] = cmpUtils.scroll(4),
-          ["<C-n>"] = cmpUtils.select_next_item,
-          ["<C-p>"] = cmpUtils.select_prev_item,
-          ["<C-e>"] = cmp.mapping.abort(),
-
-          -- lazyvim has a better cmp.confirm
-          ["<C-y>"] = function(...)
-            require("lazyvim.util.cmp").confirm {
-              behavior = cmp.ConfirmBehavior.Insert,
-              select = true,
-            }(...)
-          end,
-
-          -- close cmp menu on movements
-          ["<Up>"] = function(fallback)
-            cmpUtils.async_cmp_close_tl()
-            fallback()
-          end,
-          ["<Down>"] = function(fallback)
-            cmpUtils.async_cmp_close_tl()
-            fallback()
-          end,
-          ["<Left>"] = function(fallback)
-            cmpUtils.async_cmp_close_tl()
-            fallback()
-          end,
-          ["<Right>"] = function(fallback)
-            cmpUtils.async_cmp_close_tl()
-            fallback()
-          end,
-          ["<CR>"] = function(fallback)
-            cmpUtils.async_cmp_close_tl()
-            fallback()
-          end,
-        },
-        sources = {
-          { name = "path", max_item_count = 10, group_index = 1 },
-          { name = "nvim_lsp", max_item_count = 25, group_index = 1 },
-          {
-            name = "buffer",
-            max_item_count = 10,
-            group_index = 99,
-            option = {
-              -- visible buffers
-              get_bufnrs = function()
-                local bufs = {}
-                for _, win in ipairs(vim.api.nvim_list_wins()) do
-                  bufs[vim.api.nvim_win_get_buf(win)] = true
-                end
-                return vim.tbl_keys(bufs)
+        cmdline = function()
+          local type = vim.fn.getcmdtype()
+          -- Search forward and backward
+          if type == "/" or type == "?" then
+            return { "buffer" }
+          end
+          -- Commands
+          if type == ":" or type == "@" then
+            return { "cmdline_history", "cmdline" }
+          end
+          return {}
+        end,
+        providers = {
+          snippets = {
+            max_items = 10,
+            opts = {
+              search_paths = {
+                vim.fn.stdpath "config" .. "/snippets",
+                vim.fn.stdpath "data" .. "/lazy/EmmetJSS",
+              },
+              friendly_snippets = false,
+              get_filetype = function(ctx)
+                -- TODO: get filetype from cursor position
+                -- local filetypes = require("luasnip.extras.filetype_functions").from_pos_or_filetype()
+                -- if #filetypes > 0 then
+                --   return filetypes[1]
+                -- end
+                return vim.bo.filetype
               end,
             },
           },
+          buffer = {
+            max_items = 10,
+            score_offset = -1,
+          },
+          path = {
+            max_items = 10,
+          },
+          cmdline = {
+            max_items = 10,
+          },
+          cmdline_history = {
+            name = "cmdline_history",
+            module = "blink.compat.source",
+          },
         },
-        experimental = {
-          ghost_text = false,
-          native_menu = false,
-        },
-        sorting = defaults.sorting,
-      }
-    end,
-    config = function(_, opts)
-      local cmp = require "cmp"
-      local cmdlineMapping = {
-        ["<C-Space>"] = {
-          c = cmp.mapping.complete(),
-        },
-        ["<C-n>"] = {
-          c = cmpUtils.select_next_item,
-        },
-        ["<C-p>"] = {
-          c = cmpUtils.select_prev_item,
-        },
-        ["<C-e>"] = {
-          c = cmp.mapping.abort(),
-        },
-        ["<C-y>"] = {
-          c = function(...)
-            require("lazyvim.util.cmp").confirm {
-              behavior = cmp.ConfirmBehavior.Insert,
-              select = true,
-            }(...)
-          end,
-        },
-        ["<C-S-y>"] = {
-          c = function(fallback)
-            if cmp.core.view:visible() or vim.fn.pumvisible() == 1 then
-              cmp.confirm({
-                behavior = cmp.ConfirmBehavior.Insert,
-                select = true,
-              }, function()
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "")
-              end)
+      },
+      keymap = {
+        preset = "none",
+        ["<C-Space>"] = { "show" },
+        ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+        ["<C-b>"] = {
+          function(cmp)
+            if not cmp.is_visible() then
+              return
             end
+            vim.schedule(function()
+              cmpUtils.select_next_idx(4, -1)
+            end)
+            return true
           end,
+          "fallback",
         },
-        ["<Tab>"] = {
-          c = cmpUtils.select_next_item,
+        ["<C-f>"] = {
+          function(cmp)
+            if not cmp.is_visible() then
+              return
+            end
+            vim.schedule(function()
+              cmpUtils.select_next_idx(4)
+            end)
+            return true
+          end,
+          "fallback",
         },
-        ["<S-Tab>"] = {
-          c = cmpUtils.select_prev_item,
+        ["<C-p>"] = { "select_prev", "fallback" },
+        ["<C-n>"] = { "select_next", "fallback" },
+        ["<C-e>"] = { "hide", "fallback" },
+        ["<C-y>"] = { "select_and_accept" },
+        ["<Tab>"] = { "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "snippet_backward", "fallback" },
+        cmdline = {
+          ["<C-Space>"] = { "show" },
+          ["<C-b>"] = {
+            function(cmp)
+              if not cmp.is_visible() then
+                return
+              end
+              vim.schedule(function()
+                cmpUtils.select_next_idx(4, -1)
+              end)
+              return true
+            end,
+            "fallback",
+          },
+          ["<C-f>"] = {
+            function(cmp)
+              if not cmp.is_visible() then
+                return
+              end
+              vim.schedule(function()
+                cmpUtils.select_next_idx(4)
+              end)
+              return true
+            end,
+            "fallback",
+          },
+          ["<C-p>"] = { "select_prev", "fallback" },
+          ["<C-n>"] = { "select_next", "fallback" },
+          ["<C-e>"] = { "hide", "fallback" },
+          ["<C-y>"] = { "select_and_accept" },
+          ["<C-S-y>"] = {
+            function()
+              vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "")
+            end,
+          },
+          ["<Tab>"] = { "select_next", "fallback" },
+          ["<S-Tab>"] = { "select_prev", "fallback" },
         },
-      }
-
-      cmp.setup(opts)
-      -- TODO: cmdline on / and ? causes that
-      -- arrow up and down don't work as expected
-      -- cmp.setup.cmdline({ "/", "?" }, {
-      --   mapping = cmdlineMapping,
-      --   sources = {
-      --     { name = "cmdline_history", max_item_count = 10 },
-      --     { name = "buffer", max_item_count = 10 },
-      --   },
-      -- })
-
-      cmp.setup.cmdline(":", {
-        mapping = cmdlineMapping,
-        sources = {
-          { name = "cmdline", max_item_count = 10 },
-          { name = "cmdline_history", max_item_count = 10 },
-          { name = "path", max_item_count = 10 },
-          { name = "nvim_lua", max_item_count = 10 },
-        },
-      })
-    end,
-  },
-
-  {
-    "L3MON4D3/LuaSnip",
-    event = { "InsertEnter", "VeryLazy" },
-    version = "v2.*",
-    build = "make install_jsregexp",
-    dependencies = {
-      {
-        "carbonid1/EmmetJSS",
-        config = function()
-          local plugin_path = vim.fn.stdpath "data" .. "/lazy/EmmetJSS"
-          require("luasnip.loaders.from_vscode").load { paths = plugin_path }
-        end,
       },
-    },
-    keys = {
-      {
-        "<C-k>",
-        "<cmd>lua require'luasnip'.expand()<CR>",
-        desc = "Expand Snippet",
-        mode = "i",
-      },
-    },
-    opts = {
-      history = true,
-      delete_check_events = "TextChanged",
-      -- Show snippets related to the language
-      -- in the current cursor position
-      ft_func = function()
-        return require("luasnip.extras.filetype_functions").from_pos_or_filetype()
-      end,
     },
     config = function(_, opts)
-      local luasnip = require "luasnip"
-      luasnip.setup(opts)
-
-      -- load snippets in nvim config folder
-      require("luasnip.loaders.from_vscode").load {
-        paths = vim.fn.stdpath "config" .. "/snippets",
-      }
-
-      -- clear luasnip on InsertLeave
-      vim.api.nvim_create_autocmd("InsertLeave", {
-        callback = function()
-          if
-            luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
-            and not require("luasnip").session.jump_active
-          then
-            luasnip.unlink_current()
+      -- check if we need to override symbol kinds
+      for _, provider in pairs(opts.sources.providers or {}) do
+        if provider.kind then
+          local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+          local kind_idx = #CompletionItemKind + 1
+          CompletionItemKind[kind_idx] = provider.kind
+          CompletionItemKind[provider.kind] = kind_idx
+          local transform_items = provider.transform_items
+          provider.transform_items = function(ctx, items)
+            items = transform_items and transform_items(ctx, items) or items
+            for _, item in ipairs(items) do
+              item.kind = kind_idx or item.kind
+            end
+            return items
           end
-        end,
-      })
+          -- Unset custom prop to pass blink.cmp validation
+          provider.kind = nil
+        end
+      end
+
+      require("blink.cmp").setup(opts)
     end,
-  },
-  {
-    "iguanacucumber/magazine.nvim",
-    optional = true,
-    dependencies = {
-      -- cmp sources plugins
-      "saadparwaiz1/cmp_luasnip",
-    },
-    keys = {
-      {
-        "<tab>",
-        function()
-          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-        end,
-        expr = true,
-        silent = true,
-        mode = "i",
-      },
-      {
-        "<tab>",
-        function()
-          require("luasnip").jump(1)
-        end,
-        mode = "s",
-      },
-      {
-        "<s-tab>",
-        function()
-          require("luasnip").jump(-1)
-        end,
-        mode = { "i", "s" },
-      },
-    },
-    opts = {
-      snippet = {
-        expand = function(args)
-          require("luasnip").lsp_expand(args.body)
-        end,
-      },
-      mapping = {
-        ["<C-k>"] = function()
-          require("luasnip").expand()
-        end,
-      },
-      sources = {
-        { name = "luasnip", max_item_count = 10, group_index = 1 },
-      },
-    },
   },
 
   -- auto pairs

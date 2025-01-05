@@ -253,15 +253,21 @@ return {
         linehl = "",
         numhl = "",
       })
-
-      lazyUtils.on_load("magazine.nvim", function()
-        local cmp = require "cmp"
-        cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-          sources = {
-            { name = "dap" },
-          },
-        })
-      end)
     end,
+  },
+
+  {
+    "saghen/blink.cmp",
+    optional = true,
+    opts = {
+      sources = {
+        providers = {
+          dap = {
+            name = "dap",
+            module = "blink.compat.source",
+          },
+        },
+      },
+    },
   },
 }

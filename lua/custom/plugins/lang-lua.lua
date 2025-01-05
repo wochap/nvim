@@ -58,10 +58,18 @@ return {
     "Bilal2453/luvit-meta",
   },
   {
-    "iguanacucumber/magazine.nvim",
+    "saghen/blink.cmp",
     optional = true,
     opts = {
-      sources = { { name = "lazydev", group_index = 1 } },
+      sources = {
+        providers = {
+          lazydev = {
+            name = "LazyDev",
+            module = "lazydev.integrations.blink",
+            score_offset = 1, -- show at a higher priority than lsp
+          },
+        },
+      },
     },
   },
 

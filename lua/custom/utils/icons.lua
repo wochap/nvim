@@ -47,7 +47,7 @@ M.lspkind = {
   Enum = "",
   EnumMember = "",
   Event = "",
-  Field = "",
+  Field = "󰜢",
   File = "",
   Folder = "",
   Function = "󰊕",
@@ -62,7 +62,7 @@ M.lspkind = {
   Object = "",
   Operator = "",
   Package = "",
-  Property = "",
+  Property = "󰖷",
   Reference = "",
   Snippet = "",
   String = "",
@@ -71,7 +71,7 @@ M.lspkind = {
   Text = "",
   TypeParameter = "",
   Unit = "",
-  Value = "",
+  Value = "󰦨",
   Variable = "󰀫",
 }
 
