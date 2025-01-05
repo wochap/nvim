@@ -600,6 +600,50 @@ return {
   },
 
   {
+    "folke/todo-comments.nvim",
+    cmd = { "TodoTrouble", "TodoTelescope" },
+    event = "VeryLazy",
+    opts = {
+      signs = true,
+      highlight = {
+        multiline = false,
+      },
+    },
+    keys = {
+      {
+        "]t",
+        function()
+          require("todo-comments").jump_next()
+        end,
+        desc = "Next Todo Comment",
+      },
+      {
+        "[t",
+        function()
+          require("todo-comments").jump_prev()
+        end,
+        desc = "Previous Todo Comment",
+      },
+      {
+        "<leader>xt",
+        "<cmd>Trouble todo toggle<cr>",
+        desc = "Todo (Project)",
+      },
+      {
+        "<leader>xT",
+        "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>",
+        desc = "Todo/Fix/Fixme (Project)",
+      },
+    },
+    config = function(_, opts)
+      local tc = require "todo-comments"
+      tc.setup(opts)
+      -- disable todo-comments highlight
+      tc.disable()
+    end,
+  },
+
+  {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
     keys = {
