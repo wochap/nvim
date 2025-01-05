@@ -917,7 +917,8 @@ return {
 
   {
     "sphamba/smear-cursor.nvim",
-    enabled = not constants.in_kitty and not constants.in_neovide,
+    -- enabled = not constants.in_kitty and not constants.in_neovide,
+    enabled = false,
     event = "VeryLazy",
     opts = {
       legacy_computing_symbols_support = true,
