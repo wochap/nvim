@@ -184,7 +184,7 @@ return {
   },
   {
     "saghen/blink.cmp",
-    version = "v0.9.2",
+    version = "v0.9.3",
     event = { "InsertEnter", "VeryLazy" },
     dependencies = {
       {
@@ -294,12 +294,7 @@ return {
           end,
         },
         list = {
-          selection = function(ctx)
-            if ctx.mode == "cmdline" or vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype()) then
-              return "auto_insert"
-            end
-            return "manual"
-          end,
+          selection = "auto_insert",
         },
         documentation = {
           auto_show = true,
@@ -413,10 +408,27 @@ return {
           end,
           "fallback",
         },
-        ["<C-p>"] = { "select_prev", "fallback" },
-        ["<C-n>"] = { "select_next", "fallback" },
+        ["<C-p>"] = {
+          function(cmp)
+            if not cmp.is_visible() then
+              cmp.show()
+              return
+            end
+            cmp.select_prev()
+          end,
+        },
+        ["<C-n>"] = {
+          function(cmp)
+            if not cmp.is_visible() then
+              cmp.show()
+              return
+            end
+            cmp.select_next()
+          end,
+        },
         ["<C-e>"] = { "hide", "fallback" },
         ["<C-y>"] = { "select_and_accept" },
+        ["<C-k>"] = { "select_and_accept" },
         ["<Tab>"] = { "snippet_forward", "fallback" },
         ["<S-Tab>"] = { "snippet_backward", "fallback" },
         cmdline = {
@@ -445,8 +457,24 @@ return {
             end,
             "fallback",
           },
-          ["<C-p>"] = { "select_prev", "fallback" },
-          ["<C-n>"] = { "select_next", "fallback" },
+          ["<C-p>"] = {
+            function(cmp)
+              if not cmp.is_visible() then
+                cmp.show()
+                return
+              end
+              cmp.select_prev()
+            end,
+          },
+          ["<C-n>"] = {
+            function(cmp)
+              if not cmp.is_visible() then
+                cmp.show()
+                return
+              end
+              cmp.select_next()
+            end,
+          },
           ["<C-e>"] = { "hide", "fallback" },
           ["<C-y>"] = { "select_and_accept" },
           ["<C-S-y>"] = {
@@ -454,8 +482,24 @@ return {
               vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "")
             end,
           },
-          ["<Tab>"] = { "select_next", "fallback" },
-          ["<S-Tab>"] = { "select_prev", "fallback" },
+          ["<Tab>"] = {
+            function(cmp)
+              if not cmp.is_visible() then
+                cmp.show()
+                return
+              end
+              cmp.select_next()
+            end,
+          },
+          ["<S-Tab>"] = {
+            function(cmp)
+              if not cmp.is_visible() then
+                cmp.show()
+                return
+              end
+              cmp.select_prev()
+            end,
+          },
         },
       },
     },
