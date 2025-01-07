@@ -336,10 +336,10 @@ return {
           return string.format("%s", _opts.raise(_opts.ordinal))
         end,
         close_command = function(n)
-          require("mini.bufremove").delete(n, false)
+          Snacks.bufdelete(n)
         end,
         right_mouse_command = function(n)
-          require("mini.bufremove").delete(n, false)
+          Snacks.bufdelete(n)
         end,
         indicator = {
           style = "none",
@@ -751,6 +751,41 @@ return {
   {
     "folke/snacks.nvim",
     optional = true,
+    keys = {
+      {
+        "<leader>.",
+        function()
+          Snacks.scratch()
+        end,
+        desc = "Toggle Scratch Buffer",
+      },
+      {
+        "<leader>w",
+        "<leader>bd",
+        desc = "Close Buffer",
+        remap = true,
+      },
+      {
+        "<leader>W",
+        "<leader>bD",
+        desc = "Close Buffer!",
+        remap = true,
+      },
+      {
+        "<leader>bd",
+        function()
+          Snacks.bufdelete()
+        end,
+        desc = "Close",
+      },
+      {
+        "<leader>bD",
+        function()
+          Snacks.bufdelete { force = true }
+        end,
+        desc = "Close!",
+      },
+    },
     opts = {
       toggle = {
         map = LazyVim.safe_keymap_set,
