@@ -2,7 +2,7 @@ local iconsUtils = require "custom.utils.icons"
 
 local M = {}
 
-local function live_grep(state, actions)
+local function live_grep(state, actions, opts)
   local builtin = require "telescope.builtin"
   local prompt_title = "Live Grep"
 
@@ -22,7 +22,7 @@ local function live_grep(state, actions)
     prompt_title = prompt_title .. "[W]"
   end
 
-  builtin.live_grep {
+  builtin.live_grep(vim.tbl_extend("force", {
     prompt_title = prompt_title,
     default_text = state.prompt,
     additional_args = function()
@@ -79,10 +79,10 @@ local function live_grep(state, actions)
       map("n", "<A-s>", actions.toggle_fixed_strings)
       return true
     end,
-  }
+  }, opts))
 end
 
-local function reload(state, prompt_bufnr, actions)
+local function reload(state, actions, prompt_bufnr, opts)
   -- save prompt value
   local actions_state = require "telescope.actions.state"
   local picker = actions_state.get_current_picker(prompt_bufnr)
@@ -92,19 +92,20 @@ local function reload(state, prompt_bufnr, actions)
   -- refresh telescope
   require("telescope.actions").close(prompt_bufnr)
   vim.schedule(function()
-    live_grep(state, actions)
+    live_grep(state, actions, opts)
   end)
 end
 
-local function create_toggle(state, actions, key)
+local function create_toggle(state, actions, key, opts)
   return function(prompt_bufnr)
     state[key] = not state[key]
 
-    reload(state, prompt_bufnr, actions)
+    reload(state, actions, prompt_bufnr, opts)
   end
 end
 
-M.live_grep = function()
+M.live_grep = function(opts)
+  opts = opts or {}
   local actions = {}
   local state = {
     match_case = false,
@@ -119,13 +120,13 @@ M.live_grep = function()
     vim.api.nvim_command "normal :esc<CR>"
     state.glob = glob
 
-    reload(state, prompt_bufnr, actions)
+    reload(state, actions, prompt_bufnr, opts)
   end
-  actions.toggle_match_case = create_toggle(state, actions, "match_case")
-  actions.toggle_match_word = create_toggle(state, actions, "match_word")
-  actions.toggle_fixed_strings = create_toggle(state, actions, "fixed_strings")
+  actions.toggle_match_case = create_toggle(state, actions, "match_case", opts)
+  actions.toggle_match_word = create_toggle(state, actions, "match_word", opts)
+  actions.toggle_fixed_strings = create_toggle(state, actions, "fixed_strings", opts)
 
-  live_grep(state, actions)
+  live_grep(state, actions, opts)
 end
 
 M.find_files_git = function()

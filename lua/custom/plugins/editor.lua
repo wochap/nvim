@@ -1016,8 +1016,17 @@ return {
         {
           "<leader>fw",
           -- TODO: use FzfLua live_grep_glob
-          "<cmd>lua require'custom.utils-plugins.telescope'.live_grep()<CR>",
-          desc = "Grep (Project)",
+          function()
+            require("custom.utils-plugins.telescope").live_grep()
+          end,
+          desc = "Grep (Cwd)",
+        },
+        {
+          "<leader>fW",
+          function()
+            require("custom.utils-plugins.telescope").live_grep { cwd = LazyVim.root() }
+          end,
+          desc = "Grep (Root)",
         },
         {
           "<leader>fy",
