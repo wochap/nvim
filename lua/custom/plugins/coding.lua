@@ -426,7 +426,7 @@ return {
             cmp.select_next()
           end,
         },
-        ["<C-e>"] = { "hide", "fallback" },
+        ["<C-e>"] = { "cancel", "fallback" },
         ["<C-y>"] = { "select_and_accept" },
         ["<C-k>"] = { "select_and_accept" },
         ["<Tab>"] = { "snippet_forward", "fallback" },
@@ -475,7 +475,7 @@ return {
               cmp.select_next()
             end,
           },
-          ["<C-e>"] = { "hide", "fallback" },
+          ["<C-e>"] = { "cancel", "fallback" },
           ["<C-y>"] = { "select_and_accept" },
           ["<C-S-y>"] = {
             function()
