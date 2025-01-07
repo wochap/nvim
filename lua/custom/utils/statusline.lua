@@ -420,7 +420,7 @@ M.statusline = function()
     symbols_module(),
     -- NOTE: the following string takes all the available space
     "%=",
-    search_count_module(),
+    -- search_count_module(),
     macro_module(),
     maximize_status_module(),
     diagnostics_module(),

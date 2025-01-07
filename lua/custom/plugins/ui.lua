@@ -559,8 +559,8 @@ return {
       -- let noice manage messages
       messages = {
         enabled = true,
-        -- disable search count virtualtext
-        view_search = false,
+        -- show search count as virtualtext
+        view_search = "virtualtext",
       },
       popupmenu = {
         enabled = false,

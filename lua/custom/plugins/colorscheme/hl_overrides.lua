@@ -247,6 +247,7 @@ local getExtraHl = function(mocha)
 end
 
 local getOverridesHl = function(mocha)
+  local U = require "catppuccin.utils.colors"
   local colorschemeUtils = require "custom.utils.colorscheme"
   local gitColors = getColors(mocha).git
   local stateColors = getColors(mocha).state
@@ -331,6 +332,10 @@ local getOverridesHl = function(mocha)
     NoiceSplit = { link = "Normal" },
     NoiceSplitBorder = { link = "FloatBorder" },
     NoiceMini = { link = "Comment" },
+    NoiceVirtualText = {
+      fg = U.darken(mocha.sky, 0.90, mocha.base),
+      bg = U.darken(U.darken(mocha.sky, 0.90, mocha.base), 0.095, mocha.base),
+    },
 
     -- which-key.nvim
     WhichKey = { bg = "NONE", fg = mocha.text },
