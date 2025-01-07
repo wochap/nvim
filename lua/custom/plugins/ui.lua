@@ -165,6 +165,17 @@ return {
           utils.disable_ufo(event.buf)
         end,
       })
+
+      utils.autocmd("FileType", {
+        group = utils.augroup "hide_ufo_folds",
+        pattern = "*",
+        callback = function(event)
+          local buftype = vim.api.nvim_get_option_value("buftype", { buf = event.buf })
+          if vim.tbl_contains(constants.exclude_buftypes, buftype) then
+            utils.disable_ufo(event.buf)
+          end
+        end,
+      })
     end,
     opts = {
       open_fold_hl_timeout = 100,
