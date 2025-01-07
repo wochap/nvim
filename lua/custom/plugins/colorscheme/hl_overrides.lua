@@ -425,13 +425,14 @@ local getOverridesHl = function(mocha)
     -- nvim status bar
     StatusLine = { bg = mocha.base },
 
+    -- nvim-lsp-endhints
     LspInlayHint = {
       fg = mocha.surface1,
-      bg = colorschemeUtils.darken(mocha.mantle, 0.5, mocha.base),
+      bg = U.darken(mocha.surface1, 0.095, mocha.base),
     },
-    LspLens = {
-      link = "LspInlayHint",
-    },
+
+    -- lsp-lens.nvim
+    LspLens = { link = "LspInlayHint" },
 
     -- nvim recording macro msg
     ModeMsg = {
