@@ -1518,8 +1518,7 @@ return {
   },
 
   {
-    -- NOTE: doesn't work if root cwd isn't git repository
-    "akinsho/git-conflict.nvim",
+    "wochap/git-conflict.nvim",
     version = "*",
     event = { "LazyFile", "VeryLazy" },
     cmd = "GitConflictListQf",
