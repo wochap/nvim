@@ -841,6 +841,7 @@ return {
 
   -- PERF: it causes nvim to freeze
   -- when scrolling to code with colors
+  -- fork fixed that issue
   {
     "wochap/nvim-highlight-colors",
     branch = "perf",
