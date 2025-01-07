@@ -3,14 +3,14 @@ local M = {}
 M.border = function(hl_name)
   return {
     -- just the enought chars to show the scrollbar correctly
-    { "╭", hl_name },
-    { "─", hl_name },
-    { "╮", hl_name },
-    { " ", hl_name },
-    { " ", hl_name },
-    { " ", hl_name },
-    { " ", hl_name },
-    { " ", hl_name },
+    { "╭", hl_name }, -- top left
+    { "─", hl_name }, -- top
+    { "╮", hl_name }, -- top right
+    { " ", hl_name }, -- right
+    { " ", hl_name }, -- bottom right
+    { " ", hl_name }, -- bottom
+    { " ", hl_name }, -- bottom left
+    { " ", hl_name }, -- left
   }
 end
 
