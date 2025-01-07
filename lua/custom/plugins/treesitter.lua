@@ -138,4 +138,40 @@ return {
       end)
     end,
   },
+
+  {
+    "aaronik/treewalker.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<A-j>",
+        "<cmd>Treewalker Down<CR>",
+        mode = { "n", "v" },
+        desc = "Treewalker Down",
+      },
+      {
+        "<A-k>",
+        "<cmd>Treewalker Up<CR>",
+        mode = { "n", "v" },
+        desc = "Treewalker Up",
+      },
+      {
+        "<A-h>",
+        "<cmd>Treewalker Left<CR>",
+        mode = { "n", "v" },
+        desc = "Treewalker Left",
+      },
+      {
+        "<A-l>",
+        "<cmd>Treewalker Right<CR>",
+        mode = { "n", "v" },
+        desc = "Treewalker Right",
+      },
+    },
+    opts = {
+      highlight = true,
+      highlight_duration = 100,
+      highlight_group = "Highlight",
+    },
+  },
 }
