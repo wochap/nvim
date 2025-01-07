@@ -46,15 +46,7 @@ M.get = function()
     {
       "gH",
       function()
-        local has_ufo, ufo = pcall(require, "ufo")
-        local winid = has_ufo and ufo.peekFoldedLinesUnderCursor() or nil
-        if winid then
-          -- remove left padding
-          utils.disable_statuscol(winid)
-        end
-        if not winid then
-          vim.lsp.buf.hover()
-        end
+        vim.lsp.buf.hover()
       end,
       desc = "Hover",
     },

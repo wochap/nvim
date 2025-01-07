@@ -135,21 +135,32 @@ return {
         function()
           require("ufo").openAllFolds()
         end,
-        desc = "Ufo Open All Folds",
+        desc = "Open Folds (Ufo)",
       },
       {
         "zM",
         function()
           require("ufo").closeAllFolds()
         end,
-        desc = "Ufo Close All Folds",
+        desc = "Close Folds (Ufo)",
       },
       {
         "zm",
         function()
           require("ufo").closeFoldsWith()
         end,
-        desc = "Ufo Close All Folds With",
+        desc = "Close Folds With (Ufo)",
+      },
+      {
+        "zp",
+        function()
+          local winid = require("ufo").peekFoldedLinesUnderCursor()
+          if winid then
+            -- remove left padding
+            utils.disable_statuscol(winid)
+          end
+        end,
+        desc = "Preview Fold (Ufo)",
       },
     },
     init = function()
