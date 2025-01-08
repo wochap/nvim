@@ -1180,6 +1180,11 @@ return {
         winblend = 0,
         border = {},
         mappings = {
+          n = {
+            ["<C-c>"] = function(...)
+              require("telescope.actions").close(...)
+            end,
+          },
           i = {
             ["<c-q>"] = function(...)
               return require("trouble.sources.telescope").open(...)
