@@ -208,14 +208,6 @@ return {
     opts = {
       enabled = function()
         local recording_macro = vim.fn.reg_recording() ~= "" or vim.fn.reg_executing() ~= ""
-        local has_cmp_dap_load = lazyUtils.is_loaded "cmp-dap"
-        if has_cmp_dap_load then
-          local cmp_dap = require "cmp_dap"
-          -- enable if in dap buffer
-          if cmp_dap.is_dap_buffer() then
-            return true
-          end
-        end
         return vim.bo.buftype ~= "prompt" and vim.b.completion ~= false and not recording_macro
       end,
       snippets = {
@@ -533,6 +525,23 @@ return {
         end
         -- Unset custom prop
         opts.sources.defaults = nil
+      end
+
+      -- check for enableds
+      if opts.enableds then
+        local enableds = opts.enableds
+        local originalEnabled = opts.enabled
+        table.insert(enableds, originalEnabled)
+        opts.enabled = function()
+          for _, func in ipairs(enableds) do
+            local result = func()
+            if result ~= nil then
+              return result
+            end
+          end
+        end
+        -- Unset custom prop
+        opts.enableds = nil
       end
 
       require("blink.cmp").setup(opts)

@@ -26,7 +26,11 @@ return {
     optional = true,
     opts_extend = {
       -- NOTE: `sources.defaults` doesn't exist in blink.cmp
+      -- it should be a list of functions
       "sources.defaults",
+      -- NOTE: `enableds` doesn't exist in blink.cmp
+      -- it should be a list of functions
+      "enableds",
     },
   },
 
