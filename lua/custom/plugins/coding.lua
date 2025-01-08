@@ -322,14 +322,6 @@ return {
           if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
             return { "buffer" }
           end
-          local has_cmp_dap_load = lazyUtils.is_loaded "cmp-dap"
-          if has_cmp_dap_load then
-            local cmp_dap = require "cmp_dap"
-            -- enable if in dap buffer
-            if cmp_dap.is_dap_buffer() then
-              return { "dap", "snippets", "buffer" }
-            end
-          end
           return { "lazydev", "lsp", "path", "snippets", "buffer" }
         end,
         cmdline = function()
@@ -347,6 +339,8 @@ return {
         providers = {
           snippets = {
             max_items = 10,
+            -- NOTE: kind doesn't exists in blink.cmp
+            kind = "Snippet",
             opts = {
               search_paths = {
                 vim.fn.stdpath "config" .. "/snippets",
@@ -522,6 +516,23 @@ return {
           -- Unset custom prop to pass blink.cmp validation
           provider.kind = nil
         end
+      end
+
+      -- check for sources.defaults
+      if opts.sources.defaults then
+        local defaults = opts.sources.defaults
+        local originalDefault = opts.sources.default
+        table.insert(defaults, originalDefault)
+        opts.sources.default = function()
+          for _, func in ipairs(defaults) do
+            local result = func()
+            if result ~= nil then
+              return result
+            end
+          end
+        end
+        -- Unset custom prop
+        opts.sources.defaults = nil
       end
 
       require("blink.cmp").setup(opts)

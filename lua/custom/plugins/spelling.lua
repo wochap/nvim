@@ -57,6 +57,7 @@ return {
               -- end,
               preselect_correct_word = false,
             },
+            kind = "Spell",
           },
         },
       },

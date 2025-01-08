@@ -25,9 +25,8 @@ return {
     "saghen/blink.cmp",
     optional = true,
     opts_extend = {
-      "sources.completion.enabled_providers",
-      "sources.compat",
-      "sources.default",
+      -- NOTE: `sources.defaults` doesn't exist in blink.cmp
+      "sources.defaults",
     },
   },
 

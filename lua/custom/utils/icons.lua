@@ -73,6 +73,8 @@ M.lspkind = {
   Unit = "",
   Value = "󰦨",
   Variable = "󰀫",
+  Dap = "",
+  Spell = "暈",
 }
 
 return M

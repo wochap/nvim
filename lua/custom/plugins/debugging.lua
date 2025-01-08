@@ -261,10 +261,24 @@ return {
     optional = true,
     opts = {
       sources = {
+        defaults = {
+          function()
+            local has_cmp_dap_load = lazyUtils.is_loaded "cmp-dap"
+            if has_cmp_dap_load then
+              local cmp_dap = require "cmp_dap"
+              -- enable if in dap buffer
+              if cmp_dap.is_dap_buffer() then
+                return { "dap", "snippets", "buffer" }
+              end
+            end
+            return nil
+          end,
+        },
         providers = {
           dap = {
             name = "dap",
             module = "blink.compat.source",
+            kind = "Dap",
           },
         },
       },
