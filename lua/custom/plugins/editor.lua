@@ -1669,6 +1669,102 @@ return {
   },
 
   {
+    "FabijanZulj/blame.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>gB",
+        "<cmd>BlameToggle window<CR>",
+        desc = "Blame (Buffer)",
+      },
+    },
+    opts = {
+      date_format = "%a %d %b %Y",
+      blame_options = { "-w" },
+      focus_blame = true, -- focus blame window
+      merge_consecutive = true,
+      commit_detail_view = function(commit_hash, row, file_path)
+        vim.cmd("DiffviewOpen " .. commit_hash .. "^! --selected-file=" .. file_path)
+        -- TODO: use DiffviewFileHistory
+        -- vim.cmd("DiffviewFileHistory " .. file_path .. " --range=" .. commit_hash .. "^!")
+      end,
+      format_fn = function(line_porcelain, config, idx)
+        local hash = string.sub(line_porcelain.hash, 0, 7)
+        local line_with_hl = {}
+        local is_commited = hash ~= "0000000"
+        if is_commited then
+          local summary
+          if #line_porcelain.summary > config.max_summary_width then
+            summary = string.sub(line_porcelain.summary, 0, config.max_summary_width - 3) .. "..."
+          else
+            summary = line_porcelain.summary
+          end
+          line_with_hl = {
+            idx = idx,
+            values = {
+              {
+                textValue = os.date(config.date_format, line_porcelain.committer_time),
+                hl = "Comment",
+              },
+              {
+                textValue = line_porcelain.author,
+                hl = "Comment",
+              },
+              {
+                textValue = summary,
+                hl = hash,
+              },
+            },
+            format = " %s  %s  %s",
+          }
+        else
+          line_with_hl = {
+            idx = idx,
+            values = {
+              {
+                textValue = "Not commited",
+                hl = "Comment",
+              },
+            },
+            format = " %s",
+          }
+        end
+        return line_with_hl
+      end,
+      mappings = {
+        commit_info = "i",
+        stack_push = "<TAB>",
+        stack_pop = { "<S-TAB>", "<BS>" },
+        show_commit = "<CR>",
+        close = "q",
+      },
+    },
+    config = function(_, opts)
+      -- colors
+      lazyUtils.on_load("catppuccin", function()
+        local mocha = require("catppuccin.palettes").get_palette "mocha"
+        opts.colors = {
+          mocha.rosewater,
+          mocha.flamingo,
+          mocha.pink,
+          mocha.mauve,
+          mocha.red,
+          mocha.maroon,
+          mocha.peach,
+          mocha.yellow,
+          mocha.green,
+          mocha.teal,
+          mocha.sky,
+          mocha.sapphire,
+          mocha.blue,
+          mocha.lavender,
+        }
+        require("blame").setup(opts)
+      end)
+    end,
+  },
+
+  {
     "michaelb/sniprun",
     cmd = { "SnipRun", "SnipRunOperator" },
     build = "sh install.sh",

@@ -10,6 +10,8 @@ M.exclude_filetypes = {
   -- telescope.nvim
   "TelescopePrompt",
   "TelescopeResults",
+  -- blame.nvim
+  "blame",
   -- trouble.nvim
   "trouble",
   -- nvim-dap
