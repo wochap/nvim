@@ -184,7 +184,7 @@ return {
   },
   {
     "saghen/blink.cmp",
-    version = "v0.9.3",
+    version = "v0.10.0",
     event = { "InsertEnter", "VeryLazy" },
     dependencies = {
       {
@@ -286,7 +286,10 @@ return {
           end,
         },
         list = {
-          selection = "auto_insert",
+          selection = {
+            preselect = false,
+            auto_insert = true,
+          },
         },
         documentation = {
           auto_show = true,
