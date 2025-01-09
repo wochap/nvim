@@ -770,6 +770,7 @@ return {
         end,
         desc = "Toggle Scratch Buffer",
       },
+
       {
         "<leader>w",
         "<leader>bd",
@@ -795,6 +796,15 @@ return {
           Snacks.bufdelete { force = true }
         end,
         desc = "Close!",
+      },
+
+      {
+        "<leader>go",
+        function()
+          Snacks.gitbrowse()
+        end,
+        desc = "Git Browse",
+        mode = { "n", "v" },
       },
     },
     opts = {
