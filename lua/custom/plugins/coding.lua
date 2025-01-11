@@ -210,11 +210,6 @@ return {
         local recording_macro = vim.fn.reg_recording() ~= "" or vim.fn.reg_executing() ~= ""
         return vim.bo.buftype ~= "prompt" and vim.b.completion ~= false and not recording_macro
       end,
-      snippets = {
-        expand = function(snippet, _)
-          return LazyVim.cmp.expand(snippet)
-        end,
-      },
       appearance = {
         kind_icons = iconsUtils.lspkind,
         use_nvim_cmp_as_default = false,
@@ -336,21 +331,6 @@ return {
             max_items = 10,
             -- NOTE: kind doesn't exists in blink.cmp
             kind = "Snippet",
-            opts = {
-              search_paths = {
-                vim.fn.stdpath "config" .. "/snippets",
-                vim.fn.stdpath "data" .. "/lazy/EmmetJSS",
-              },
-              friendly_snippets = false,
-              get_filetype = function(ctx)
-                -- TODO: get filetype from cursor position
-                -- local filetypes = require("luasnip.extras.filetype_functions").from_pos_or_filetype()
-                -- if #filetypes > 0 then
-                --   return filetypes[1]
-                -- end
-                return vim.bo.filetype
-              end,
-            },
           },
           buffer = {
             max_items = 10,
@@ -417,9 +397,6 @@ return {
         },
         ["<C-e>"] = { "cancel", "fallback" },
         ["<C-y>"] = { "select_and_accept" },
-        ["<C-k>"] = { "select_and_accept" },
-        ["<Tab>"] = { "snippet_forward", "fallback" },
-        ["<S-Tab>"] = { "snippet_backward", "fallback" },
         cmdline = {
           ["<C-Space>"] = { "show" },
           ["<C-b>"] = {
@@ -549,6 +526,142 @@ return {
 
       require("blink.cmp").setup(opts)
     end,
+  },
+
+  -- uncomment to use native snippets
+  -- {
+  --   "saghen/blink.cmp",
+  --   optional = true,
+  --   opts = {
+  --     snippets = {
+  --       expand = function(snippet, _)
+  --         return LazyVim.cmp.expand(snippet)
+  --       end,
+  --     },
+  --     sources = {
+  --       providers = {
+  --         snippets = {
+  --           opts = {
+  --             search_paths = {
+  --               vim.fn.stdpath "config" .. "/snippets",
+  --               vim.fn.stdpath "data" .. "/lazy/EmmetJSS",
+  --             },
+  --             friendly_snippets = false,
+  --             get_filetype = function(ctx)
+  --               -- TODO: get filetype from cursor position
+  --               -- local filetypes = require("luasnip.extras.filetype_functions").from_pos_or_filetype()
+  --               -- if #filetypes > 0 then
+  --               --   return filetypes[1]
+  --               -- end
+  --               return vim.bo.filetype
+  --             end,
+  --           },
+  --         },
+  --       },
+  --     },
+  --     keymap = {
+  --       ["<C-k>"] = { "select_and_accept" },
+  --       ["<Tab>"] = { "snippet_forward", "fallback" },
+  --       ["<S-Tab>"] = { "snippet_backward", "fallback" },
+  --     },
+  --   },
+  -- },
+
+  {
+    "L3MON4D3/LuaSnip",
+    event = { "InsertEnter", "VeryLazy" },
+    version = "v2.*",
+    build = "make install_jsregexp",
+    dependencies = {
+      {
+        "carbonid1/EmmetJSS",
+        config = function()
+          local plugin_path = vim.fn.stdpath "data" .. "/lazy/EmmetJSS"
+          require("luasnip.loaders.from_vscode").load { paths = plugin_path }
+        end,
+      },
+    },
+    keys = {
+      {
+        "<tab>",
+        function()
+          local luasnip = require "luasnip"
+          if luasnip.jumpable(1) then
+            luasnip.jump(1)
+            return ""
+          end
+          return "<tab>"
+        end,
+        desc = "Snippet Forward",
+        expr = true,
+        silent = true,
+        mode = "i",
+      },
+      {
+        "<tab>",
+        function()
+          require("luasnip").jump(1)
+        end,
+        desc = "Snippet Forward",
+        mode = "s",
+      },
+      {
+        "<s-tab>",
+        function()
+          require("luasnip").jump(-1)
+        end,
+        desc = "Snippet Backward",
+        mode = { "i", "s" },
+      },
+      {
+        "<C-k>",
+        function()
+          require("luasnip").expand()
+        end,
+        desc = "Expand Snippet",
+        mode = "i",
+      },
+    },
+    opts = {
+      history = true,
+      delete_check_events = "TextChanged",
+      -- Show snippets related to the language
+      -- in the current cursor position
+      ft_func = function()
+        return require("luasnip.extras.filetype_functions").from_pos_or_filetype()
+      end,
+      -- for lazy load snippets for given buffer
+      -- from_filetype_load = function(bufnr)
+      --   return require("luasnip.extras.filetype_functions").from_filetype_load(bufnr)
+      -- end,
+    },
+    config = function(_, opts)
+      local luasnip = require "luasnip"
+      luasnip.setup(opts)
+
+      -- load snippets in nvim config folder
+      require("luasnip.loaders.from_vscode").load {
+        paths = vim.fn.stdpath "config" .. "/snippets",
+      }
+
+      -- clear luasnip on InsertLeave
+      vim.api.nvim_create_autocmd("InsertLeave", {
+        callback = function()
+          if luasnip.session.current_nodes[vim.api.nvim_get_current_buf()] and not luasnip.session.jump_active then
+            luasnip.unlink_current()
+          end
+        end,
+      })
+    end,
+  },
+  {
+    "saghen/blink.cmp",
+    optional = true,
+    opts = {
+      snippets = {
+        preset = "luasnip",
+      },
+    },
   },
 
   -- auto pairs
