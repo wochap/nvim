@@ -96,6 +96,9 @@ return {
       latex = {
         enabled = false,
       },
+      heading = {
+        sign = false,
+      },
       code = {
         left_margin = 1,
         left_pad = 1,
