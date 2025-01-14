@@ -45,6 +45,7 @@ return {
     },
     opts = {
       sources = {
+        default = { "spell" },
         providers = {
           spell = {
             name = "spell",
@@ -52,6 +53,7 @@ return {
             max_items = 10,
             score_offset = -2,
             opts = {
+              keep_all_entries = true, -- don't filter it
               -- enable_in_context = function()
               --   return require("cmp.config.context").in_treesitter_capture "spell"
               -- end,

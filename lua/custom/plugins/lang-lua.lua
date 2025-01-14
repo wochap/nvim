@@ -62,6 +62,7 @@ return {
     optional = true,
     opts = {
       sources = {
+        default = { "lazydev" },
         providers = {
           lazydev = {
             name = "LazyDev",

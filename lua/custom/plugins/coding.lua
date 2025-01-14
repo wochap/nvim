@@ -306,14 +306,17 @@ return {
         enabled = false,
       },
       sources = {
-        -- Dynamically picking providers by treesitter node/filetype
-        default = function()
-          local success, node = pcall(vim.treesitter.get_node)
-          if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
-            return { "buffer" }
-          end
-          return { "lazydev", "lsp", "path", "snippets", "buffer" }
-        end,
+        defaults = {
+          -- Dynamically picking providers by treesitter node/filetype
+          function()
+            local success, node = pcall(vim.treesitter.get_node)
+            if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
+              return { "buffer" }
+            end
+            return nil
+          end,
+        },
+        default = { "lsp", "path", "snippets", "buffer" },
         cmdline = function()
           local type = vim.fn.getcmdtype()
           -- Search forward and backward
@@ -494,7 +497,6 @@ return {
       if opts.sources.defaults then
         local defaults = opts.sources.defaults
         local originalDefault = opts.sources.default
-        table.insert(defaults, originalDefault)
         opts.sources.default = function()
           for _, func in ipairs(defaults) do
             local result = func()
@@ -502,6 +504,7 @@ return {
               return result
             end
           end
+          return originalDefault
         end
         -- Unset custom prop
         opts.sources.defaults = nil
