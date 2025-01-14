@@ -761,6 +761,7 @@ return {
       local actions = require "diffview.actions"
       opts.keymaps = {
         view = {
+          { "n", "<leader>b", false },
           { "n", "[x", false },
           { "n", "]x", false },
           {
@@ -855,7 +856,14 @@ return {
             actions.goto_file_edit,
             { desc = "Open the file in the previous tabpage" },
           },
+          {
+            "n",
+            "q",
+            actions.close,
+            { desc = "Close" },
+          },
 
+          { "n", "<leader>b", false },
           { "n", "[x", false },
           { "n", "]x", false },
           { "n", "[c", actions.prev_conflict, { desc = "Go to the previous conflict" } },
@@ -895,6 +903,16 @@ return {
             "dC",
             actions.conflict_choose_all "none",
             { desc = "Delete the conflict region for the whole file" },
+          },
+        },
+        file_history_panel = {
+          { "n", "<leader>b", false },
+
+          {
+            "n",
+            "q",
+            actions.close,
+            { desc = "Close" },
           },
         },
       }
