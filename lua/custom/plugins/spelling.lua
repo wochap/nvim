@@ -41,6 +41,8 @@ return {
     "saghen/blink.cmp",
     optional = true,
     dependencies = {
+      -- remember to enable spell: `vim.opt.spell = true`
+      -- use `z=` to use the native spell picker
       "f3fora/cmp-spell",
     },
     opts = {
