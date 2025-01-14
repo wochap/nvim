@@ -25,6 +25,7 @@ return {
     "saghen/blink.cmp",
     optional = true,
     opts_extend = {
+      "sources.default",
       -- NOTE: `sources.defaults` doesn't exist in blink.cmp
       -- it should be a list of functions
       "sources.defaults",

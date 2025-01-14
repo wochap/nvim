@@ -268,12 +268,12 @@ return {
     opts = {
       sources = {
         defaults = {
-          function()
+          function(default)
             local filetype = vim.api.nvim_buf_get_option(0, "filetype")
             local has_render_markdown_load = lazyUtils.is_loaded "render-markdown.nvim"
             if has_render_markdown_load then
               if filetype == "markdown" then
-                return { "lsp", "path", "snippets", "buffer", "markdown" }
+                return vim.tbl_extend("force", default, { "markdown" })
               end
             end
             return nil

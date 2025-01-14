@@ -499,7 +499,7 @@ return {
         local originalDefault = opts.sources.default
         opts.sources.default = function()
           for _, func in ipairs(defaults) do
-            local result = func()
+            local result = func(originalDefault)
             if result ~= nil then
               return result
             end
