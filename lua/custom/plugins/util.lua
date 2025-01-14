@@ -381,6 +381,35 @@ return {
     },
   },
 
+  {
+    "HakonHarnes/img-clip.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>p",
+        "<cmd>PasteImage<CR>",
+        desc = "Paste image",
+      },
+    },
+    opts = {
+      default = {
+        dir_path = "attachments",
+        use_absolute_path = false,
+        relative_to_current_file = true,
+        show_dir_path_in_prompt = true,
+        drag_and_drop = {
+          enabled = false,
+        },
+      },
+      filetypes = {
+        typst = {
+          template = [[#image("$FILE_PATH")]],
+          relative_to_current_file = true,
+        },
+      },
+    },
+  },
+
   -- library used by other plugins
   { "nvim-lua/plenary.nvim" },
   { "nvim-lua/popup.nvim" },

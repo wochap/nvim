@@ -970,6 +970,9 @@ return {
         neorg = {
           enabled = false,
         },
+        typst = {
+          enabled = false,
+        },
       },
       -- max_width = nil,
       -- max_height = nil,
