@@ -835,7 +835,7 @@ return {
         blank = {
           hl = "SnacksIndentBlank",
         },
-        exclude_filetypes = vim.tbl_extend("force", constants.exclude_filetypes, { "markdown" }),
+        exclude_filetypes = constants.exclude_filetypes,
         filter = function(buf)
           local exclude_filetypes = LazyVim.opts("snacks.nvim").indent.exclude_filetypes
           local filetype = vim.api.nvim_get_option_value("filetype", { buf = buf })

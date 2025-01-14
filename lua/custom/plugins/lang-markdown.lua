@@ -1,4 +1,6 @@
+local constants = require "custom.utils.constants"
 local utils = require "custom.utils"
+local lazyUtils = require "custom.utils.lazy"
 local keymapsUtils = require "custom.utils.keymaps"
 
 return {
@@ -72,6 +74,60 @@ return {
 
       throttle_time = "auto", -- minimum amount of time in milliseconds
       -- that has to pass before starting new render
+    },
+  },
+
+  {
+    "folke/snacks.nvim",
+    optional = true,
+    opts = {
+      indent = {
+        exclude_filetypes = { "markdown" },
+      },
+    },
+  },
+
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    enabled = not constants.in_kittyscrollback,
+    event = "VeryLazy",
+    opts = {
+      file_types = { "markdown" },
+      latex = {
+        enabled = false,
+      },
+      code = {
+        left_margin = 1,
+        left_pad = 1,
+        right_pad = 1,
+      },
+    },
+  },
+  {
+    "saghen/blink.cmp",
+    optional = true,
+    opts = {
+      sources = {
+        defaults = {
+          function(default)
+            local filetype = vim.api.nvim_buf_get_option(0, "filetype")
+            local has_render_markdown_load = lazyUtils.is_loaded "render-markdown.nvim"
+            if has_render_markdown_load then
+              if filetype == "markdown" then
+                return vim.tbl_extend("force", default, { "markdown" })
+              end
+            end
+            return nil
+          end,
+        },
+        providers = {
+          markdown = {
+            name = "RenderMarkdown",
+            module = "render-markdown.integ.blink",
+            kind = "RenderMarkdown",
+          },
+        },
+      },
     },
   },
 }

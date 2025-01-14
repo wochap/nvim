@@ -1,4 +1,3 @@
-local constants = require "custom.utils.constants"
 local lazyUtils = require "custom.utils.lazy"
 local utils = require "custom.utils"
 
@@ -20,7 +19,6 @@ return {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       "echasnovski/mini.icons",
-      "MeanderingProgrammer/render-markdown.nvim",
     },
     keys = function(_, keys)
       local opts =
@@ -248,45 +246,9 @@ return {
 
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    enabled = not constants.in_kittyscrollback,
-    event = "VeryLazy",
-    opts = {
-      file_types = { "markdown", "Avante" },
-      latex = {
-        enabled = false,
-      },
-      code = {
-        left_margin = 1,
-        left_pad = 1,
-        right_pad = 1,
-      },
-    },
-  },
-  {
-    "saghen/blink.cmp",
     optional = true,
     opts = {
-      sources = {
-        defaults = {
-          function(default)
-            local filetype = vim.api.nvim_buf_get_option(0, "filetype")
-            local has_render_markdown_load = lazyUtils.is_loaded "render-markdown.nvim"
-            if has_render_markdown_load then
-              if filetype == "markdown" then
-                return vim.tbl_extend("force", default, { "markdown" })
-              end
-            end
-            return nil
-          end,
-        },
-        providers = {
-          markdown = {
-            name = "RenderMarkdown",
-            module = "render-markdown.integ.blink",
-            kind = "RenderMarkdown",
-          },
-        },
-      },
+      file_types = { "Avante" },
     },
   },
 }

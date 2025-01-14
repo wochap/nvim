@@ -52,4 +52,10 @@ return {
     optional = true,
     opts_extend = { "indent.exclude_filetypes" },
   },
+
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    optional = true,
+    opts_extend = { "file_types" },
+  },
 }
