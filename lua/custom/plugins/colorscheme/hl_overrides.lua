@@ -389,6 +389,12 @@ local getOverridesHl = function(mocha)
     GitConflictAncestorLabel = { bg = colorschemeUtils.darken(gitColors.ancestor, 0.4, mocha.mantle) },
     GitConflictAncestor = { bg = colorschemeUtils.darken(gitColors.ancestor, 0.2, mocha.mantle) },
 
+    -- avante.nvim
+    AvanteConflictCurrentLabel = { link = "GitConflictCurrentLabel" },
+    AvanteConflictCurrent = { link = "GitConflictCurrent" },
+    AvanteConflictIncomingLabel = { link = "GitConflictIncomingLabel" },
+    AvanteConflictIncoming = { link = "GitConflictIncoming" },
+
     -- diagnostics
     DiagnosticUnderlineError = { undercurl = true, sp = stateColors.error }, -- Used to underline "Error" diagnostics
     DiagnosticUnderlineWarn = { undercurl = true, sp = stateColors.warning }, -- Used to underline "Warning" diagnostics

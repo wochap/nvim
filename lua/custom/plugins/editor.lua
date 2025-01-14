@@ -93,19 +93,24 @@ return {
       {
         "<leader>E",
         function()
-          require("neo-tree.command").execute { action = "close" }
           local api = require "nvim-tree.api"
           if api.tree.is_tree_buf() then
+            -- close nvim-tree
             api.tree.close()
           elseif api.tree.is_visible() then
+            -- focus nvim-tree
             api.tree.open()
           else
-            api.tree.toggle {
-              find_file = false,
-              focus = true,
-              update_root = false,
-              path = LazyVim.root(),
-            }
+            -- open nvim-tree
+            utils.close_sidebars "nvim_tree"
+            vim.schedule(function()
+              api.tree.toggle {
+                find_file = false,
+                focus = true,
+                update_root = false,
+                path = LazyVim.root(),
+              }
+            end)
           end
         end,
         desc = "Nvimtree (Root)", -- focus/toggle
@@ -113,19 +118,24 @@ return {
       {
         "<leader>e",
         function()
-          require("neo-tree.command").execute { action = "close" }
           local api = require "nvim-tree.api"
           if api.tree.is_tree_buf() then
+            -- close nvim-tree
             api.tree.close()
           elseif api.tree.is_visible() then
+            -- focus nvim-tree
             api.tree.open()
           else
-            api.tree.toggle {
-              find_file = false,
-              focus = true,
-              update_root = false,
-              path = vim.uv.cwd(),
-            }
+            -- open nvim-tree
+            utils.close_sidebars "nvim_tree"
+            vim.schedule(function()
+              api.tree.toggle {
+                find_file = false,
+                focus = true,
+                update_root = false,
+                path = vim.uv.cwd(),
+              }
+            end)
           end
         end,
         desc = "Nvimtree (Cwd)", -- focus/toggle
@@ -305,12 +315,15 @@ return {
       {
         "<leader>ge",
         function()
-          require("nvim-tree.api").tree.close()
-          require("neo-tree.command").execute {
-            source = "git_status",
-            toggle = true,
-            reveal = true,
-          }
+          -- TODO: only close sidebars if neo_tree is close
+          utils.close_sidebars "neo_tree"
+          vim.schedule(function()
+            require("neo-tree.command").execute {
+              source = "git_status",
+              toggle = true,
+              reveal = true,
+            }
+          end)
         end,
         desc = "Git Explorer",
       },

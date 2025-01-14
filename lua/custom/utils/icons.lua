@@ -74,6 +74,8 @@ M.lspkind = {
   Value = "󰦨",
   Variable = "󰀫",
   Dap = "",
+  Avante = "󰯫",
+  RenderMarkdown = "",
   Spell = "暈",
 }
 

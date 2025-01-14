@@ -1,3 +1,4 @@
+local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
 
 -- Debugger
@@ -201,10 +202,24 @@ return {
       {
         "<leader>du",
         function()
-          require("dapui").toggle { reset = true }
-          vim.cmd "wincmd ="
+          local is_dapui_open = false
+          local windows = require "dapui.windows"
+          for _, win_layout in ipairs(windows.layouts) do
+            if win_layout:is_open() then
+              is_dapui_open = true
+            end
+          end
+
+          if not is_dapui_open then
+            utils.close_sidebars "dapui"
+          end
+
+          vim.schedule(function()
+            require("dapui").toggle { reset = true }
+            vim.cmd "wincmd ="
+          end)
         end,
-        desc = "Open DapUI",
+        desc = "DapUI",
       },
     },
     config = function()

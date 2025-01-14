@@ -43,6 +43,8 @@ M.exclude_filetypes = {
   "grug-far-help",
   -- harpoon
   "harpoon",
+  -- avante.nvim
+  "Avante",
   -- incline.nvim
   "incline",
   -- checkhealth

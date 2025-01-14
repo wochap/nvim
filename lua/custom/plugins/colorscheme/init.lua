@@ -52,6 +52,7 @@ return {
         },
 
         -- enable the ones we'll use
+        render_markdown = true,
         blink_cmp = true,
         grug_far = true,
         window_picker = true,
