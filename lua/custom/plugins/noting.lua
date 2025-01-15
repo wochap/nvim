@@ -13,9 +13,14 @@ return {
     },
     opts = {
       workspaces = {
+        -- TODO: automagically populate workspaces
         {
           name = "utp",
           path = "~/Sync/obsidian/utp",
+        },
+        {
+          name = "recipes",
+          path = "~/Sync/obsidian/recipes",
         },
       },
       notes_subdir = "",
@@ -52,7 +57,7 @@ return {
         enable = false,
       },
       attachments = {
-        img_folder = "assets/imgs",
+        img_folder = "attachments",
       },
     },
   },
