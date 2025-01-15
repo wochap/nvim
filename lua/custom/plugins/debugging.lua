@@ -296,7 +296,7 @@ return {
               local cmp_dap = require "cmp_dap"
               -- enable if in dap buffer
               if cmp_dap.is_dap_buffer() then
-                return { "dap", "snippets", "buffer" }
+                return { "dap", "buffer" }
               end
             end
             return nil
