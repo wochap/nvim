@@ -44,6 +44,7 @@ return {
             end
             vim.schedule(function()
               require("avante.api").ask()
+              require("avante.api").focus()
             end)
           end,
           desc = "Ask",
@@ -65,6 +66,7 @@ return {
             end
             vim.schedule(function()
               require("avante.api").edit()
+              require("avante.api").focus()
             end)
           end,
           desc = "Edit",
@@ -80,6 +82,9 @@ return {
               require("avante").toggle()
               -- fix: artifacts when toggling avante
               vim.cmd "redraw"
+              if require("avante").is_sidebar_open() then
+                require("avante.api").focus()
+              end
             end)
           end,
           desc = "Toggle",
@@ -88,7 +93,7 @@ return {
     end,
     opts = {
       provider = "openai",
-      auto_suggestions_provider = "copilot",
+      auto_suggestions_provider = "claude",
       openai = {
         api_key_name = "cmd:bat --plain " .. vim.env.HOME .. "/.config/secrets/deepseek/gean.marroquin@gmail.com",
         endpoint = "https://api.deepseek.com/v1",
