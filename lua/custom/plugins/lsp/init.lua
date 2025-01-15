@@ -179,6 +179,30 @@ return {
           end
         end
       end)
+      -- PERF: disable inlay hints on insert mode because
+      -- it gets executed on every stroke
+      utils.autocmd("InsertEnter", {
+        group = utils.augroup "disable_inlay_hints",
+        pattern = "*",
+        callback = function(event)
+          vim.schedule(function()
+            vim.lsp.inlay_hint.enable(false, { bufnr = event.buf })
+          end)
+        end,
+      })
+      utils.autocmd("InsertLeave", {
+        group = utils.augroup "enable_inlay_hints",
+        pattern = "*",
+        callback = function(event)
+          vim.schedule(function()
+            local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, event.buf, "is_ih_enabled")
+            if is_ih_enabled_ok and not is_ih_enabled then
+              return
+            end
+            vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+          end)
+        end,
+      })
 
       -- setup opts.servers and opts.setup
       local servers = opts.servers
@@ -373,7 +397,13 @@ return {
       local augroup = vim.api.nvim_create_augroup("lsp_lens", { clear = true })
       vim.api.nvim_create_autocmd({ "LspAttach", "InsertLeave", "CursorHold", "BufEnter" }, {
         group = augroup,
-        callback = lens.procedure,
+        callback = function(...)
+          local mode = vim.api.nvim_get_mode().mode
+          -- Only run if not in insert mode
+          if mode ~= "i" then
+            lens.procedure(...)
+          end
+        end,
       })
     end,
   },
