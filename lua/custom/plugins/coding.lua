@@ -514,7 +514,6 @@ return {
       if opts.enableds then
         local enableds = opts.enableds
         local originalEnabled = opts.enabled
-        table.insert(enableds, originalEnabled)
         opts.enabled = function()
           for _, func in ipairs(enableds) do
             local result = func()
@@ -522,6 +521,7 @@ return {
               return result
             end
           end
+          return originalEnabled()
         end
         -- Unset custom prop
         opts.enableds = nil
