@@ -101,6 +101,12 @@ return {
             showSuggestionsAsSnippets = true,
           },
         },
+        tsserver = {
+          enabled = false,
+        },
+        ts_ls = {
+          enabled = false,
+        },
         vtsls = {
           filetypes = {
             "javascript",
@@ -193,7 +199,9 @@ return {
               },
               preferences = { importModuleSpecifier = "non-relative" },
               updateImportsOnFileMove = { enabled = "always" },
-              suggest = { completeFunctionCalls = true },
+              suggest = {
+                completeFunctionCalls = true,
+              },
               inlayHints = {
                 enumMemberValues = { enabled = true },
                 functionLikeReturnTypes = { enabled = false },
@@ -228,6 +236,20 @@ return {
         },
       },
       setup = {
+        emmet_language_server = function()
+          -- TODO: re enable once bug is fixed in blink.cmp
+          -- https://github.com/Saghen/blink.cmp/issues/910
+          -- disable emmet_language_server
+          return true
+        end,
+        tsserver = function()
+          -- disable tsserver
+          return true
+        end,
+        ts_ls = function()
+          -- disable ts_ls
+          return true
+        end,
         vtsls = function(_, opts)
           -- set default server config, recommended by yioneko/nvim-vtsls
           require("lspconfig.configs").vtsls = require("vtsls").lspconfig
