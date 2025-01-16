@@ -61,13 +61,7 @@ return {
         {
           opts.mappings.edit,
           function()
-            if not require("avante").is_sidebar_open() then
-              utils.close_sidebars "avante"
-            end
-            vim.schedule(function()
-              require("avante.api").edit()
-              require("avante.api").focus()
-            end)
+            require("avante.api").edit()
           end,
           desc = "Edit",
           mode = "v",
