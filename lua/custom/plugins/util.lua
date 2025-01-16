@@ -403,7 +403,7 @@ return {
       },
       filetypes = {
         typst = {
-          template = [[#image("$FILE_PATH")]],
+          template = [[#image("./$FILE_PATH")]],
           relative_to_current_file = true,
         },
       },
