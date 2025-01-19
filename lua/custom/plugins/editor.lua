@@ -1451,6 +1451,93 @@ return {
   },
 
   {
+    "folke/snacks.nvim",
+    optional = true,
+    -- TODO: https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#-sources
+    keys = {
+      {
+        "<leader>fv",
+        function()
+          Snacks.picker.pick("files", {})
+          -- Snacks.picker.pick {
+          --   finder = "meta_layouts",
+          --   format = "text",
+          --   on_change = function(picker, item)
+          --     vim.schedule(function()
+          --       picker:set_layout(item.text)
+          --     end)
+          --   end,
+          -- }
+        end,
+        desc = "Pick",
+      },
+    },
+    opts = {
+      picker = {
+        -- TODO: filetype hook, disable preview hl
+        -- TODO: ignore .lock files
+        -- TODO: update fd? rg? args
+        -- TODO: window picker
+        layouts = {
+          default = {
+            layout = {
+              box = "horizontal",
+              width = 0.9,
+              min_width = 120,
+              height = 0.9,
+              {
+                box = "vertical",
+                border = "rounded",
+                title = "{source} {live} {flags}",
+                title_pos = "center",
+                { win = "input", height = 1, border = "bottom" },
+                { win = "list", border = "none" },
+              },
+              { win = "preview", border = "rounded", width = 0.55 },
+            },
+          },
+          vertical = {
+            layout = {
+              width = 0.9,
+              min_width = 80,
+              height = 0.9,
+              min_height = 30,
+              box = "vertical",
+              border = "rounded",
+              title = "{source} {live} {flags}",
+              title_pos = "center",
+              { win = "input", height = 1, border = "bottom" },
+              { win = "list", border = "bottom" },
+              { win = "preview", height = 0.55, border = "top" },
+            },
+          },
+        },
+        formatters = {
+          file = {
+            filename_first = true,
+          },
+        },
+        win = {
+          input = {
+            keys = {
+              ["<C-c>"] = { "close", mode = { "i", "n" } },
+              ["<C-b>"] = { "list_scroll_up", mode = { "i", "n" } },
+              ["<C-f>"] = { "list_scroll_down", mode = { "i", "n" } },
+              ["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
+              ["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
+              ["<C-x>"] = { "edit_split", mode = { "i", "n" } },
+            },
+          },
+        },
+        icons = {
+          diagnostics = iconsUtils.diagnostic,
+          kinds = iconsUtils.lspkind,
+        },
+      },
+    },
+  },
+
+  {
     "folke/flash.nvim",
     init = function()
       utils.autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
