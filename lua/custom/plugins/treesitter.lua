@@ -27,7 +27,6 @@ return {
         "git_rebase",
         "git_config",
         "query",
-        "rasi",
         "regex",
         "vim",
         "vimdoc",

@@ -6,6 +6,17 @@ return {
       ensure_installed = { "bash" },
     },
   },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    optional = true,
+    opts = function()
+      vim.filetype.add {
+        pattern = {
+          ["%.env%.[%w_.-]+"] = "sh",
+        },
+      }
+    end,
+  },
 
   {
     "neovim/nvim-lspconfig",

@@ -89,4 +89,16 @@ return {
       })
     end,
   },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    optional = true,
+    opts = function()
+      vim.filetype.add {
+        pattern = {
+          [".*/kitty/.+%.conf"] = "kitty",
+        },
+      }
+    end,
+  },
 }

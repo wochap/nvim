@@ -189,9 +189,3 @@ vim.opt.spelllang = { "en_us", "es" }
 
 -- docs: https://neovim.io/doc/user/options.html#'sessionoptions'
 vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "skiprtp" }
-
-vim.filetype.add {
-  pattern = {
-    [".env.*"] = "sh",
-  },
-}
