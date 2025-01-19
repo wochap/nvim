@@ -27,15 +27,7 @@ return {
     },
   },
 
-  {
-    "stevearc/conform.nvim",
-    optional = true,
-    opts = {
-      formatters_by_ft = {
-        ["markdown"] = { "prettierd" },
-      },
-    },
-  },
+  -- NOTE: lang-web.lua adds Prettier formatting for Markdown
 
   {
     "Saimo/peek.nvim",

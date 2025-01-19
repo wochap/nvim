@@ -2,11 +2,40 @@ local constants = require "custom.utils.constants"
 local lspUtils = require "custom.utils.lsp"
 local utils = require "custom.utils"
 
-local has_prettierd_config = function(ctx)
-  vim.fn.system { "prettier", "--find-config-path", ctx.filename }
-  return vim.v.shell_error == 0
+local prettier_supported = {
+  "css",
+  "graphql",
+  "handlebars",
+  "html",
+  "javascript",
+  "javascriptreact",
+  "json",
+  "jsonc",
+  "less",
+  "markdown",
+  "markdown.mdx",
+  "scss",
+  "typescript",
+  "typescriptreact",
+  "vue",
+  "yaml",
+}
+
+-- source: lua/lazyvim/plugins/extras/formatting/prettier.lua
+local function has_prettier_parser(ctx)
+  local ft = vim.bo[ctx.buf].filetype --[[@as string]]
+  -- default filetypes are always supported
+  if vim.tbl_contains(prettier_supported, ft) then
+    return true
+  end
+  -- otherwise, check if a parser can be inferred
+  local ret = vim.fn.system { "prettierd", "--file-info", "'" .. ctx.filename .. "'" }
+  ---@type boolean, string?
+  local ok, parser = pcall(function()
+    return vim.fn.json_decode(ret).inferredParser
+  end)
+  return ok and parser and parser ~= vim.NIL
 end
-local has_prettierd_config_memoized = LazyVim.memoize(has_prettierd_config)
 
 return {
   {
@@ -276,27 +305,28 @@ return {
     },
     opts = {
       formatters_by_ft = {
+        ["css"] = { "prettierd" },
+        ["graphql"] = { "prettierd" },
+        ["handlebars"] = { "prettierd" },
+        ["html"] = { "prettierd" },
         ["javascript"] = { "prettierd" },
         ["javascriptreact"] = { "prettierd" },
+        ["json"] = { "prettierd" },
+        ["jsonc"] = { "prettierd" },
+        ["less"] = { "prettierd" },
+        ["markdown"] = { "prettierd" },
+        ["markdown.mdx"] = { "prettierd" },
+        ["scss"] = { "prettierd" },
         ["typescript"] = { "prettierd" },
         ["typescriptreact"] = { "prettierd" },
         ["vue"] = { "prettierd" },
-        ["css"] = { "prettierd" },
-        ["scss"] = { "prettierd" },
-        ["less"] = { "prettierd" },
-        ["html"] = { "prettierd" },
-        ["json"] = { "prettierd" },
-        ["jsonc"] = { "prettierd" },
         ["yaml"] = { "prettierd" },
-        ["markdown.mdx"] = { "prettierd" },
-        ["graphql"] = { "prettierd" },
-        ["handlebars"] = { "prettierd" },
         ["xml"] = { "xmlformat" },
       },
       formatters = {
         prettierd = {
           condition = function(_, ctx)
-            return has_prettierd_config_memoized(ctx)
+            return has_prettier_parser(ctx)
           end,
         },
       },
