@@ -5,6 +5,9 @@ local constants = require "custom.utils.constants"
 -- grand major version number e.g. Ruby
 vim.env.PATH = "/run/current-system/sw/bin/:" .. vim.env.PATH
 
+-- open nvim in lazygit terminal
+vim.env.GIT_EDITOR = "nvim"
+
 -- disable netrw
 if constants.disable_netrw then
   vim.g.loaded_netrw = 1
