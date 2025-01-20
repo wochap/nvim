@@ -3,7 +3,6 @@ local lazyUtils = require "custom.utils.lazy"
 return {
   {
     "ThePrimeagen/refactoring.nvim",
-    event = { "BufReadPre", "BufNewFile" },
     keys = {
       {
         "<leader>r",
@@ -90,7 +89,7 @@ return {
       {
         "<leader>rp",
         function()
-          require("refactoring").debug.print_var()
+          require("refactoring").debug.print_var {}
         end,
         mode = "v",
         desc = "Debug Print Variable",

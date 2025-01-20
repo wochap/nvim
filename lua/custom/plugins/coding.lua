@@ -5,7 +5,7 @@ local cmpUtils = require "custom.utils-plugins.cmp"
 return {
   {
     "echasnovski/mini.surround",
-    event = { "LazyFile", "VeryLazy" },
+    event = "VeryLazy",
     opts = {
       mappings = {
         add = "gsa", -- Add surrounding in Normal and Visual modes
@@ -35,13 +35,13 @@ return {
   -- ga or gA
   {
     "echasnovski/mini.align",
-    event = { "LazyFile", "VeryLazy" },
+    event = "VeryLazy",
     opts = {},
   },
 
   {
     "echasnovski/mini.operators",
-    event = { "LazyFile", "VeryLazy" },
+    event = "VeryLazy",
     opts = {
       evaluate = {
         prefix = "",
@@ -122,7 +122,7 @@ return {
 
   {
     "johmsalas/text-case.nvim",
-    event = { "LazyFile", "VeryLazy" },
+    event = "VeryLazy",
     keys = {
       {
         "gt.",
