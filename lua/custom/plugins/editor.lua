@@ -1435,6 +1435,7 @@ return {
     optional = true,
     -- TODO: https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#-sources
     keys = {
+      -- pick
       {
         "<leader>fv",
         function()
@@ -1451,7 +1452,29 @@ return {
         end,
         desc = "Pick",
       },
+      {
+        "<leader>fu",
+        function()
+          Snacks.picker.pick {
+            finder = "vim_undo",
+            format = "undo",
+            preview = "preview",
+            confirm = "item_action",
+            win = {
+              preview = {
+                wo = {
+                  number = false,
+                  relativenumber = false,
+                  signcolumn = "no",
+                },
+              },
+            },
+          }
+        end,
+        desc = "Undo Tree",
+      },
 
+      -- lazygit
       {
         "<leader>gl",
         function()
