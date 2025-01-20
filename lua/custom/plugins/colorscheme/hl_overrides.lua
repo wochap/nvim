@@ -158,6 +158,15 @@ local getExtraHl = function(mocha)
       bg = mocha.surface1,
     },
 
+    --
+    YankyPut = {
+      fg = "NONE",
+      bg = mocha.surface1,
+    },
+    YankyYanked = {
+      link = "YankyPut",
+    },
+
     -- nvim-web-devicons
     DevIconDefault = { fg = mocha.red },
     DevIconc = { fg = mocha.blue },

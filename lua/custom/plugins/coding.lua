@@ -947,6 +947,58 @@ return {
   },
 
   {
+    "gbprod/yanky.nvim",
+    keys = {
+      {
+        "p",
+        "<Plug>(YankyPutAfter)",
+        mode = { "n", "x" },
+        desc = "Paste After Cursor",
+      },
+      {
+        "P",
+        "<Plug>(YankyPutBefore)",
+        mode = { "n", "x" },
+        desc = "Paste Before Cursor",
+      },
+      {
+        "=p",
+        "<Plug>(YankyPutAfterLinewise)",
+        desc = "Paste In Line Below",
+      },
+      {
+        "=P",
+        "<Plug>(YankyPutBeforeLinewise)",
+        desc = "Paste In Line Above",
+      },
+      {
+        "[y",
+        "<Plug>(YankyCycleForward)",
+        desc = "Cycle Forward Through Yank History",
+      },
+      {
+        "]y",
+        "<Plug>(YankyCycleBackward)",
+        desc = "Cycle Backward Through Yank History",
+      },
+      {
+        "y",
+        "<Plug>(YankyYank)",
+        mode = { "n", "x" },
+        desc = "Yanky Yank",
+      },
+    },
+    opts = {
+      ring = {
+        history_length = 20,
+      },
+      highlight = {
+        timer = 100,
+      },
+    },
+  },
+
+  {
     "monkoose/matchparen.nvim",
     event = { "LazyFile", "VeryLazy" },
     opts = {
