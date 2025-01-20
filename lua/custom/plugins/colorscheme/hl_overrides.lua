@@ -124,6 +124,8 @@ local getExtraHl = function(mocha)
     SnacksIndentScope = { link = "IblIndent" },
     SnacksIndentChunk = { link = "IblIndent" },
     SnacksIndentBlank = { link = "IblIndent" },
+    SnacksNormal = { link = "Normal" },
+    SnacksNormalNC = { link = "Normal" },
 
     -- incline.nvim
     InclineNormalNC = {

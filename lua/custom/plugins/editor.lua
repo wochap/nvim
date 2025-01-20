@@ -492,26 +492,6 @@ return {
   },
 
   {
-    "kdheepak/lazygit.nvim",
-    cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" },
-    keys = {
-      {
-        "<leader>gl",
-        "<cmd>LazyGit<CR>",
-        desc = "Lazygit (Cwd)",
-      },
-      {
-        "<leader>gL",
-        "<cmd>LazyGitCurrentFile<CR>",
-        desc = "Lazygit (Root)",
-      },
-    },
-    init = function()
-      vim.g.lazygit_floating_window_scaling_factor = 1 -- scaling factor for floating window
-    end,
-  },
-
-  {
     "folke/trouble.nvim",
     cmd = "Trouble",
     keys = {
@@ -1471,6 +1451,21 @@ return {
         end,
         desc = "Pick",
       },
+
+      {
+        "<leader>gl",
+        function()
+          Snacks.lazygit()
+        end,
+        desc = "Lazygit (Cwd)",
+      },
+      {
+        "<leader>gL",
+        function()
+          Snacks.lazygit { cwd = LazyVim.root.git() }
+        end,
+        desc = "Lazygit (Root)",
+      },
     },
     opts = {
       picker = {
@@ -1532,6 +1527,15 @@ return {
         icons = {
           diagnostics = iconsUtils.diagnostic,
           kinds = iconsUtils.lspkind,
+        },
+      },
+
+      lazygit = {
+        configure = false,
+        win = {
+          style = "lazygit",
+          width = 0,
+          height = 0,
         },
       },
     },
