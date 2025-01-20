@@ -762,56 +762,7 @@ return {
   {
     "folke/snacks.nvim",
     optional = true,
-    keys = {
-      {
-        "<leader>.",
-        function()
-          Snacks.scratch()
-        end,
-        desc = "Toggle Scratch Buffer",
-      },
-
-      {
-        "<leader>w",
-        "<leader>bd",
-        desc = "Close Buffer",
-        remap = true,
-      },
-      {
-        "<leader>W",
-        "<leader>bD",
-        desc = "Close Buffer!",
-        remap = true,
-      },
-      {
-        "<leader>bd",
-        function()
-          Snacks.bufdelete()
-        end,
-        desc = "Close",
-      },
-      {
-        "<leader>bD",
-        function()
-          Snacks.bufdelete { force = true }
-        end,
-        desc = "Close!",
-      },
-
-      {
-        "<leader>go",
-        function()
-          Snacks.gitbrowse()
-        end,
-        desc = "Git Browse",
-        mode = { "n", "v" },
-      },
-    },
     opts = {
-      toggle = {
-        map = LazyVim.safe_keymap_set,
-      },
-
       -- indent lines
       indent = {
         indent = {

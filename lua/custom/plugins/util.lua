@@ -410,6 +410,64 @@ return {
     },
   },
 
+  {
+    "folke/snacks.nvim",
+    optional = true,
+    keys = {
+      -- scratch
+      {
+        "<leader>.",
+        function()
+          Snacks.scratch()
+        end,
+        desc = "Toggle Scratch Buffer",
+      },
+
+      -- bufdelete
+      {
+        "<leader>w",
+        "<leader>bd",
+        desc = "Close Buffer",
+        remap = true,
+      },
+      {
+        "<leader>W",
+        "<leader>bD",
+        desc = "Close Buffer!",
+        remap = true,
+      },
+      {
+        "<leader>bd",
+        function()
+          Snacks.bufdelete()
+        end,
+        desc = "Close",
+      },
+      {
+        "<leader>bD",
+        function()
+          Snacks.bufdelete { force = true }
+        end,
+        desc = "Close!",
+      },
+
+      -- gitbrowse
+      {
+        "<leader>go",
+        function()
+          Snacks.gitbrowse()
+        end,
+        desc = "Git Browse",
+        mode = { "n", "v" },
+      },
+    },
+    opts = {
+      toggle = {
+        map = LazyVim.safe_keymap_set,
+      },
+    },
+  },
+
   -- library used by other plugins
   { "nvim-lua/plenary.nvim" },
   { "nvim-lua/popup.nvim" },
