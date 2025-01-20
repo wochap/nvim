@@ -82,7 +82,7 @@ return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     enabled = not constants.in_kittyscrollback,
-    event = "VeryLazy",
+    event = (constants.in_zk and { "LazyFile", "VeryLazy" }) or "VeryLazy",
     opts = {
       file_types = { "markdown" },
       latex = {
