@@ -79,7 +79,7 @@ return {
         desc = "Extract Function To File",
       },
       {
-        "<leader>rx",
+        "<leader>rv",
         function()
           require("refactoring").refactor "Extract Variable"
         end,
