@@ -143,7 +143,8 @@ utils.autocmd({ "FileType" }, {
   group = utils.augroup "bigfile",
   pattern = "bigfile",
   callback = function(ev)
-    vim.cmd [[NoMatchParen]]
+    -- TODO: does "monkoose/matchparen.nvim" supports disabling it?
+    -- vim.cmd [[NoMatchParen]]
     vim.schedule(function()
       vim.bo[ev.buf].syntax = vim.filetype.match { buf = ev.buf } or ""
     end)
