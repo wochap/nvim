@@ -93,11 +93,32 @@ return {
       {
         "<leader>E",
         function()
+          if utils.in_big_project() then
+            -- source: https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/826#discussioncomment-5429747
+            local manager = require "neo-tree.sources.manager"
+            local renderer = require "neo-tree.ui.renderer"
+            local state = manager.get_state "filesystem"
+            local window_exists = renderer.window_exists(state)
+
+            if window_exists then
+              -- focus
+              require("neo-tree.command").execute {
+                dir = LazyVim.root(),
+                reveal = true,
+              }
+            else
+              -- open
+              require("neo-tree.command").execute {
+                dir = LazyVim.root(),
+                reveal = true,
+              }
+            end
+
+            return
+          end
+
           local api = require "nvim-tree.api"
-          if api.tree.is_tree_buf() then
-            -- close nvim-tree
-            api.tree.close()
-          elseif api.tree.is_visible() then
+          if api.tree.is_visible() then
             -- focus nvim-tree
             api.tree.open()
           else
@@ -118,11 +139,32 @@ return {
       {
         "<leader>e",
         function()
+          if utils.in_big_project() then
+            -- source: https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/826#discussioncomment-5429747
+            local manager = require "neo-tree.sources.manager"
+            local renderer = require "neo-tree.ui.renderer"
+            local state = manager.get_state "filesystem"
+            local window_exists = renderer.window_exists(state)
+
+            if window_exists then
+              -- focus
+              require("neo-tree.command").execute {
+                dir = vim.uv.cwd(),
+                reveal = true,
+              }
+            else
+              -- open
+              require("neo-tree.command").execute {
+                dir = vim.uv.cwd(),
+                reveal = true,
+              }
+            end
+
+            return
+          end
+
           local api = require "nvim-tree.api"
-          if api.tree.is_tree_buf() then
-            -- close nvim-tree
-            api.tree.close()
-          elseif api.tree.is_visible() then
+          if api.tree.is_visible() then
             -- focus nvim-tree
             api.tree.open()
           else
