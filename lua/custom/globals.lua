@@ -41,3 +41,7 @@ end
 
 vim.g.foot = constants.in_foot
 vim.g.kitty = constants.in_kitty
+
+_G.dd = function(...)
+  Snacks.debug.inspect(...)
+end
