@@ -107,7 +107,7 @@ vim.opt.inccommand = "nosplit"
 -- Show which line/column your cursor is on
 -- NOTE: cursorcolumn causes glitches
 vim.opt.cursorline = true
--- vim.opt.cursorcolumn = not constants.transparent_background
+vim.opt.cursorcolumn = not constants.transparent_background
 
 -- Minimal number of screen lines to keep above, below, left and right before the cursor.
 vim.opt.scrolloff = 4
