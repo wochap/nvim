@@ -17,6 +17,9 @@ vim.opt.relativenumber = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
 
+-- use snacks statuscolumn
+vim.opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
+
 -- hide nvim bottom status
 vim.opt.cmdheight = 0
 

@@ -154,11 +154,8 @@ return {
       {
         "zp",
         function()
-          local winid = require("ufo").peekFoldedLinesUnderCursor()
-          if winid then
-            -- remove left padding
-            utils.disable_statuscol(winid)
-          end
+          local winid = require("ufo.preview").floatWinid()
+          require("ufo").peekFoldedLinesUnderCursor(winid ~= nil)
         end,
         desc = "Preview Fold (Ufo)",
       },
@@ -250,48 +247,6 @@ return {
         },
       },
     },
-  },
-
-  {
-    "luukvbaal/statuscol.nvim",
-    enabled = not in_kittyscrollback and not in_leetcode and not in_zk,
-    event = { "LazyFile", "VeryLazy" },
-    opts = function()
-      local builtin = require "statuscol.builtin"
-      return {
-        ft_ignore = constants.exclude_filetypes,
-        bt_ignore = constants.exclude_buftypes,
-        segments = {
-          -- {
-          --   text = { "%s" },
-          --   condition = { true },
-          --   click = "v:lua.ScSa",
-          -- },
-          {
-            text = { " " },
-            condition = { true },
-          },
-          {
-            sign = { name = { "Dap*" }, namespace = { "bulb*" } },
-            click = "v:lua.ScSa",
-          },
-          {
-            text = { builtin.lnumfunc, " " },
-            condition = { true, builtin.not_empty },
-            click = "v:lua.ScLa",
-          },
-          {
-            sign = { namespace = { "gitsign*" }, colwidth = 1, wrap = true },
-            click = "v:lua.ScSa",
-          },
-          {
-            text = { builtin.foldfunc, "  " },
-            condition = { true, builtin.not_empty },
-            click = "v:lua.ScFa",
-          },
-        },
-      }
-    end,
   },
 
   {
@@ -795,6 +750,12 @@ return {
             and vim.bo[buf].buftype == ""
             and not vim.tbl_contains(exclude_filetypes, filetype)
         end,
+      },
+
+      statuscolumn = {
+        enabled = false,
+        left = { "sign" },
+        right = { "fold", "git" },
       },
     },
   },

@@ -1784,7 +1784,7 @@ return {
           text = "",
         },
         untracked = {
-          text = "", -- PERF: a lot of signs with statuscol.nvim causes lag
+          text = constants.in_kitty and "▍" or "▎",
         },
       },
       preview_config = {
@@ -1807,6 +1807,9 @@ return {
         },
         topdelete = {
           text = "",
+        },
+        untracked = {
+          text = constants.in_kitty and "▍" or "▎",
         },
       },
       word_diff = false,

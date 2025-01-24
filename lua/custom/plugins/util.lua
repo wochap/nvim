@@ -58,7 +58,6 @@ return {
       },
       on_open = function(winid)
         local bufnr = vim.api.nvim_win_get_buf(winid)
-        utils.disable_statuscol(winid)
         -- TODO: edge case where if you are in zen mode
         -- and switch to a different buffer
         -- this fn doesn't get called
