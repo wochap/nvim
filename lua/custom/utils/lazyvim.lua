@@ -13,6 +13,8 @@ M.setup = function()
   -- required by lazyvim extras using `LazyVim.extras.wants`
   _G.LazyVim = require "lazyvim.util"
 
+  vim.g.lazyvim_eslint_auto_format = false
+
   -- Add LazyFile event
   -- Properly load file based plugins without blocking the UI
   require("lazyvim.util.plugin").lazy_file()

@@ -261,6 +261,9 @@ return {
         eslint = {
           settings = {
             run = "onSave",
+            -- validate = "off", -- it also disables code actions
+            format = false,
+            runtime = "node",
           },
         },
       },
