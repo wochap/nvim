@@ -33,6 +33,13 @@ M.diagnostic = {
   Hint = "󰛩",
 }
 
+M.diagnostic_by_index = {
+  M.diagnostic.Error,
+  M.diagnostic.Warn,
+  M.diagnostic.Info,
+  M.diagnostic.Hint,
+}
+
 M.lspkind = {
   Array = "",
   Boolean = "󰨙",
