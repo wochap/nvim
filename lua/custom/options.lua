@@ -24,20 +24,12 @@ vim.opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
 vim.opt.cmdheight = 0
 
 -- global statusline
--- HACK: lazy load statusline, otherwise it produces blinking because of noice.nvim
 vim.opt.laststatus = 3
 vim.opt.statusline = "%#Normal#"
-utils.autocmd("User", {
-  group = utils.augroup "load_statusline",
-  pattern = "VeryLazy",
-  callback = function()
-    if not constants.in_kittyscrollback then
-      require("custom.utils.statusline").init()
-      vim.opt.statusline = "%!v:lua.require('custom.utils.statusline').statusline()"
-      vim.opt.cmdheight = 1
-    end
-  end,
-})
+if not constants.in_kittyscrollback then
+  require("custom.utils.statusline").init()
+  vim.opt.statusline = "%!v:lua.require('custom.utils.statusline').statusline()"
+end
 utils.autocmd("FileType", {
   group = utils.augroup "load_statusline_in_qf",
   pattern = "qf",
