@@ -271,6 +271,22 @@ return {
       at_edge = "stop",
       default_amount = 4,
     },
+    config = function(_, opts)
+      require("smart-splits").setup(opts)
+
+      -- in tmux, smart-splits sometimes fails to
+      -- run mux.on_init when nvim regains focus
+      local mux = require("smart-splits.mux").get()
+      if not mux or mux.type ~= "tmux" then
+        return
+      end
+      utils.autocmd("FocusGained", {
+        group = utils.augroup "fix_on_init_smart_splits_nvim",
+        callback = function()
+          mux.on_init()
+        end,
+      })
+    end,
   },
 
   {
