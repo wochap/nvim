@@ -92,6 +92,7 @@ return {
         sign = false,
       },
       code = {
+        sign = false,
         left_margin = 1,
         left_pad = 1,
         right_pad = 1,
