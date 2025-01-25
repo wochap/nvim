@@ -133,7 +133,21 @@ return {
       vim.diagnostic.config {
         underline = true,
         update_in_insert = false,
-        virtual_text = false,
+        -- NOTE: enable virtual_text because underline is buggy
+        virtual_text = {
+          format = function(diagnostic)
+            return string.format(
+              "%s %s (%s)",
+              iconsUtils.diagnostic_by_index[diagnostic.severity],
+              diagnostic.message,
+              diagnostic.source
+            )
+          end,
+          prefix = "",
+          suffix = " ",
+          spacing = 1,
+          source = false,
+        },
         signs = false, -- PERF: a lot of signs causes lag
         severity_sort = true,
         float = {
