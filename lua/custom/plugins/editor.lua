@@ -6,6 +6,7 @@ local lazyUtils = require "custom.utils.lazy"
 local nvimtreeUtils = require "custom.utils-plugins.nvimtree"
 local keymapsUtils = require "custom.utils.keymaps"
 local iconsUtils = require "custom.utils.icons"
+local snacksUtils = require "custom.utils-plugins.snacks"
 local in_leetcode = require("custom.utils.constants").in_leetcode
 
 return {
@@ -1537,7 +1538,6 @@ return {
         -- TODO: filetype hook, disable preview hl
         -- TODO: ignore .lock files
         -- TODO: update fd? rg? args
-        -- TODO: window picker
         layouts = {
           default = {
             layout = {
@@ -1572,6 +1572,35 @@ return {
             },
           },
         },
+        actions = {
+          pick = function(picker, item)
+            picker:close()
+            local winid = snacksUtils.window_pick()
+            if winid == nil then
+              return
+            end
+            vim.api.nvim_set_current_win(winid)
+            picker:action "edit"
+          end,
+          pick_vsplit = function(picker, item)
+            picker:close()
+            local winid = snacksUtils.window_pick()
+            if winid == nil then
+              return
+            end
+            vim.api.nvim_set_current_win(winid)
+            picker:action "edit_vsplit"
+          end,
+          pick_split = function(picker, item)
+            picker:close()
+            local winid = snacksUtils.window_pick()
+            if winid == nil then
+              return
+            end
+            vim.api.nvim_set_current_win(winid)
+            picker:action "edit_split"
+          end,
+        },
         formatters = {
           file = {
             filename_first = true,
@@ -1586,6 +1615,9 @@ return {
               ["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
               ["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
               ["<C-x>"] = { "edit_split", mode = { "i", "n" } },
+              ["<S-CR>"] = { "pick", mode = { "i", "n" } },
+              ["<c-v>"] = { "pick_vsplit", mode = { "i", "n" } },
+              ["<c-x>"] = { "pick_split", mode = { "i", "n" } },
             },
           },
         },

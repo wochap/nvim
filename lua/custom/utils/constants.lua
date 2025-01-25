@@ -1,12 +1,13 @@
 local M = {}
 
--- NOTE: you can't exclude empty filetypes
-M.exclude_filetypes = {
+M.window_picker_exclude_filetypes = {
+  -- nvim-tree.lua
+  "NvimTree",
+  -- neo-tree.nvim
+  "neo-tree",
   -- diffview.nvim
   "DiffviewFileHistory",
   "DiffviewFiles",
-  -- nvim-tree.lua
-  "NvimTree",
   -- telescope.nvim
   "TelescopePrompt",
   "TelescopeResults",
@@ -23,44 +24,57 @@ M.exclude_filetypes = {
   "dapui_watches",
   -- lazy.nvim
   "lazy",
-  -- nvim-lspconfig
-  "lspinfo",
-  -- leetcode.nvim
-  "leetcode.nvim",
   -- mason.nvim
   "mason",
-  -- neo-tree.nvim
-  "neo-tree",
-  -- oil.nvim
-  "oil",
   -- which-key.nvim
   "wk",
   -- noice.nvim
   "noice",
-  -- grug-far.nvim
-  "grug-far",
-  "grug-far-history",
-  "grug-far-help",
   -- harpoon
   "harpoon",
   -- avante.nvim
   "Avante",
+  "AvanteInput",
+  "AvanteSelectedFiles",
   -- incline.nvim
   "incline",
+  -- snacks
+  "snacks_picker_input",
+  "snacks_picker_list",
+  "snacks_picker_preview",
+  -- nvim
+  "qf",
+  "notify",
+  "terminal",
+}
+
+-- NOTE: you can't exclude empty filetypes
+M.exclude_filetypes = vim.tbl_extend("force", M.window_picker_exclude_filetypes, {
+  -- nvim-lspconfig
+  "lspinfo",
+  -- leetcode.nvim
+  "leetcode.nvim",
+  -- oil.nvim
+  "oil",
+  -- grug-far.nvim
+  "grug-far",
+  "grug-far-history",
+  "grug-far-help",
   -- checkhealth
   "checkhealth",
   -- nvim
   "help",
-  "qf",
-  "notify",
-  "terminal",
   "vim",
-}
+})
 
-M.exclude_buftypes = {
+M.window_picker_exclude_buftypes = {
   "terminal",
   "nofile",
 }
+
+M.exclude_buftypes = vim.tbl_extend("force", M.window_picker_exclude_buftypes, {
+  -- TODO
+})
 
 M.in_foot = os.getenv "TERM" == "foot"
 

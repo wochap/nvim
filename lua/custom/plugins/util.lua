@@ -329,17 +329,8 @@ return {
       },
       filter_rules = {
         bo = {
-          filetype = {
-            "qf",
-            "notify",
-            "neo-tree",
-            "incline",
-            "NvimTree",
-          },
-          buftype = {
-            "terminal",
-            "nofile",
-          },
+          filetype = constants.window_picker_exclude_filetypes,
+          buftype = constants.window_picker_exclude_buftypes,
         },
       },
     },
