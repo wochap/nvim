@@ -442,8 +442,8 @@ local getOverridesHl = function(mocha)
       bg = U.darken(stateColors.info, 0.095, mocha.base),
     },
     DiagnosticVirtualTextWarn = {
-      fg = stateColors.error,
-      bg = U.darken(stateColors.error, 0.095, mocha.base),
+      fg = stateColors.warning,
+      bg = U.darken(stateColors.warning, 0.095, mocha.base),
     },
 
     -- nvim float windows
