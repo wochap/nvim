@@ -429,6 +429,22 @@ local getOverridesHl = function(mocha)
     DiagnosticFloatingWarn = { fg = stateColors.warning }, -- Used to color "Warn" diagnostic messages in diagnostics float
     DiagnosticFloatingInfo = { fg = stateColors.info }, -- Used to color "Info" diagnostic messages in diagnostics float
     DiagnosticFloatingHint = { fg = stateColors.hint }, -- Used to color "Hint" diagnostic messages in diagnostics float
+    DiagnosticVirtualTextError = {
+      fg = stateColors.error,
+      bg = U.darken(stateColors.error, 0.095, mocha.base),
+    },
+    DiagnosticVirtualTextHint = {
+      fg = stateColors.hint,
+      bg = U.darken(stateColors.hint, 0.095, mocha.base),
+    },
+    DiagnosticVirtualTextInfo = {
+      fg = stateColors.info,
+      bg = U.darken(stateColors.info, 0.095, mocha.base),
+    },
+    DiagnosticVirtualTextWarn = {
+      fg = stateColors.error,
+      bg = U.darken(stateColors.error, 0.095, mocha.base),
+    },
 
     -- nvim float windows
     FloatTitle = { bg = floatColors.bg, fg = mocha.surface1 },
