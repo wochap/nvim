@@ -147,6 +147,9 @@ return {
           suffix = " ",
           spacing = 1,
           source = false,
+          severity = {
+            min = vim.diagnostic.severity.WARN,
+          },
         },
         signs = false, -- PERF: a lot of signs causes lag
         severity_sort = true,
