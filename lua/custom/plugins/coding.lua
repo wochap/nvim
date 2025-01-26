@@ -330,6 +330,10 @@ return {
           return {}
         end,
         providers = {
+          lsp = {
+            -- if lsp takes more than 500ms then make it async
+            timeout_ms = 500,
+          },
           snippets = {
             max_items = 10,
             -- NOTE: kind doesn't exists in blink.cmp
