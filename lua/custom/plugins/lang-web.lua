@@ -268,12 +268,6 @@ return {
         },
       },
       setup = {
-        emmet_language_server = function()
-          -- TODO: re enable once bug is fixed in blink.cmp
-          -- https://github.com/Saghen/blink.cmp/issues/910
-          -- disable emmet_language_server
-          return true
-        end,
         tsserver = function()
           -- disable tsserver
           return true

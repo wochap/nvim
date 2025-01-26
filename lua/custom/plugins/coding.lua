@@ -184,7 +184,7 @@ return {
   },
   {
     "saghen/blink.cmp",
-    version = "v0.10.0",
+    version = "v0.11.0",
     event = { "InsertEnter", "VeryLazy" },
     dependencies = {
       {
