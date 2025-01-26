@@ -281,6 +281,13 @@ local function command_module()
   return hl_str "StCommand" .. require("noice").api.status.command.get()
 end
 
+local function lazy_module()
+  if not require("lazy.status").has_updates() then
+    return ""
+  end
+  return hl_str "StLazy" .. require("lazy.status").updates()
+end
+
 local function macro_module()
   if not lazyUtils.is_loaded "noice.nvim" then
     return ""
@@ -426,6 +433,7 @@ M.statusline = function()
     diagnostics_module(),
     lsp_or_filetype_module(),
     command_module(),
+    lazy_module(),
     indent_module(),
     dirname_module() .. location_module(),
   }
