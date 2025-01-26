@@ -130,27 +130,28 @@ return {
       end
 
       -- setup diagnostics
+      local diagnostic_virtual_text_opts = {
+        format = function(diagnostic)
+          return string.format(
+            "%s %s (%s)",
+            iconsUtils.diagnostic_by_index[diagnostic.severity],
+            diagnostic.message,
+            diagnostic.source
+          )
+        end,
+        prefix = "",
+        suffix = " ",
+        spacing = 1,
+        source = false,
+        severity = {
+          min = vim.diagnostic.severity.WARN,
+        },
+      }
       vim.diagnostic.config {
         underline = true,
         update_in_insert = false,
         -- NOTE: enable virtual_text because underline is buggy
-        virtual_text = {
-          format = function(diagnostic)
-            return string.format(
-              "%s %s (%s)",
-              iconsUtils.diagnostic_by_index[diagnostic.severity],
-              diagnostic.message,
-              diagnostic.source
-            )
-          end,
-          prefix = "",
-          suffix = " ",
-          spacing = 1,
-          source = false,
-          severity = {
-            min = vim.diagnostic.severity.WARN,
-          },
-        },
+        virtual_text = diagnostic_virtual_text_opts,
         signs = false, -- PERF: a lot of signs causes lag
         severity_sort = true,
         float = {
@@ -165,21 +166,58 @@ return {
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
       utils.autocmd("InsertEnter", {
-        group = utils.augroup "hide_underline_diagnostic",
+        group = utils.augroup "disable_diagnostic",
         pattern = "*",
         callback = function()
           vim.schedule(function()
-            vim.diagnostic.config { underline = false }
+            vim.diagnostic.config {
+              underline = false,
+              virtual_text = false,
+            }
           end)
         end,
       })
       utils.autocmd("InsertLeave", {
-        group = utils.augroup "show_underline_diagnostic",
+        group = utils.augroup "enable_diagnostic",
         pattern = "*",
         callback = function()
           -- NOTE: it doesn't work well on JS files without the vim.schedule
           vim.schedule(function()
-            vim.diagnostic.config { underline = true }
+            vim.diagnostic.config {
+              underline = true,
+              virtual_text = diagnostic_virtual_text_opts,
+            }
+          end)
+        end,
+      })
+      utils.autocmd("ModeChanged", {
+        group = utils.augroup "disable_disagnostic_on_visual_mode_enter",
+        pattern = "*:[vV]",
+        callback = function(event)
+          local cur_mode = vim.fn.mode()
+          if cur_mode ~= "v" and cur_mode ~= "V" then
+            return
+          end
+
+          vim.schedule(function()
+            vim.diagnostic.config {
+              underline = false,
+              virtual_text = false,
+            }
+          end)
+        end,
+      })
+      utils.autocmd("ModeChanged", {
+        group = utils.augroup "enable_diagnostic_on_visual_mode_leave",
+        pattern = "[vV]:*",
+        callback = function(event)
+          vim.schedule(function()
+            vim.schedule(function()
+              vim.diagnostic.config {
+                underline = true,
+                virtual_text = diagnostic_virtual_text_opts,
+              }
+            end)
           end)
         end,
       })
@@ -210,6 +248,33 @@ return {
       utils.autocmd("InsertLeave", {
         group = utils.augroup "enable_inlay_hints",
         pattern = "*",
+        callback = function(event)
+          vim.schedule(function()
+            local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, event.buf, "is_ih_enabled")
+            if is_ih_enabled_ok and not is_ih_enabled then
+              return
+            end
+            vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+          end)
+        end,
+      })
+      utils.autocmd("ModeChanged", {
+        group = utils.augroup "disable_inlay_hints_on_visual_mode_enter",
+        pattern = "*:[vV]",
+        callback = function(event)
+          local cur_mode = vim.fn.mode()
+          if cur_mode ~= "v" and cur_mode ~= "V" then
+            return
+          end
+
+          vim.schedule(function()
+            vim.lsp.inlay_hint.enable(false, { bufnr = event.buf })
+          end)
+        end,
+      })
+      utils.autocmd("ModeChanged", {
+        group = utils.augroup "enable_inlay_hints_on_visual_mode_leave",
+        pattern = "[vV]:*",
         callback = function(event)
           vim.schedule(function()
             local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, event.buf, "is_ih_enabled")
