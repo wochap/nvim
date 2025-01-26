@@ -627,6 +627,41 @@ return {
     },
   },
   {
+    "folke/snacks.nvim",
+    optional = true,
+    opts = {
+      picker = {
+        actions = {
+          trouble_open = function(...)
+            require("trouble.sources.snacks").actions.trouble_open(...)
+          end,
+          trouble_open_selected = function(...)
+            require("trouble.sources.snacks").actions.trouble_open_selected(...)
+          end,
+          trouble_open_all = function(...)
+            require("trouble.sources.snacks").actions.trouble_open_all(...)
+          end,
+          trouble_add = function(...)
+            require("trouble.sources.snacks").actions.trouble_add(...)
+          end,
+          trouble_add_selected = function(...)
+            require("trouble.sources.snacks").actions.trouble_add_selected(...)
+          end,
+          trouble_add_all = function(...)
+            require("trouble.sources.snacks").actions.trouble_add_all(...)
+          end,
+        },
+        win = {
+          input = {
+            keys = {
+              ["<c-t>"] = { "trouble_open", mode = { "n", "i" } },
+            },
+          },
+        },
+      },
+    },
+  },
+  {
     "folke/which-key.nvim",
     optional = true,
     opts = {
@@ -636,7 +671,7 @@ return {
 
   {
     "folke/todo-comments.nvim",
-    cmd = { "TodoTrouble", "TodoTelescope" },
+    cmd = { "TodoTrouble" },
     event = "VeryLazy",
     opts = {
       signs = true,
