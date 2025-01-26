@@ -45,7 +45,7 @@ return {
       },
       indent = {
         enable = true,
-        disable = { "yaml" },
+        disable = { "yaml", "lua" },
       },
       highlight = {
         enable = true,
