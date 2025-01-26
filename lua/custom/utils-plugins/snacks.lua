@@ -90,8 +90,11 @@ M.grep = function(pick_opts)
         end,
         glob_filter = function(picker, item)
           local opts = picker.opts --[[@as snacks.picker.grep.Config]]
-          local glob = vim.fn.input("Enter glob filter: ", opts.glob or "")
-          vim.api.nvim_command "normal :esc<CR>"
+          local prev_glob = opts.glob
+          local glob = vim.fn.input("Enter glob filter: ", prev_glob or "")
+          if prev_glob == glob then
+            return
+          end
           opts.glob = glob
           picker:find()
           -- TODO: add feedback in title
