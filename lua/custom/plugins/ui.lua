@@ -238,6 +238,7 @@ return {
     optional = true,
     opts = {
       -- nvim-ufo capabilities
+      -- source: https://github.com/kevinhwang91/nvim-ufo?tab=readme-ov-file#minimal-configuration
       capabilities = {
         textDocument = {
           foldingRange = {
