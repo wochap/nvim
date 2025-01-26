@@ -327,14 +327,6 @@ local getOverridesHl = function(mocha)
     TelescopeResultsTitle = { fg = mocha.mantle, bg = mocha.lavender },
     TelescopeSelection = { fg = mocha.text, bg = mocha.surface0 },
 
-    -- fzf.lua
-    FzfLuaBorder = { fg = floatColors.bg, bg = floatColors.bg },
-    FzfLuaNormal = { bg = floatColors.bg },
-    FzfLuaTitle = { fg = mocha.base, bg = mocha.red },
-    FzfLuaFzfHeader = { fg = mocha.maroon, bg = floatColors.bg },
-    FzfLuaHeaderText = { fg = mocha.overlay0, bg = floatColors.bg },
-    FzfLuaHeaderBind = { fg = mocha.red, bg = floatColors.bg },
-
     -- noice.nvim
     NoiceCmdlinePopupNormal = { fg = mocha.text, bg = mocha.crust },
     NoiceCmdlinePopupBorder = { fg = mocha.crust, bg = mocha.crust },

@@ -19,12 +19,23 @@ M.get = function()
     return M._keys
   end
   M._keys = {
-    { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References", nowait = true },
+    {
+      "gr",
+      function()
+        Snacks.picker.lsp_references {
+          jump = { reuse_win = false },
+        }
+      end,
+      desc = "References",
+      nowait = true,
+    },
     { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration", has = "declaration" },
     {
       "gd",
       function()
-        require("telescope.builtin").lsp_definitions { reuse_win = false }
+        Snacks.picker.lsp_definitions {
+          jump = { reuse_win = false },
+        }
       end,
       desc = "Goto Definition",
       has = "definition",
@@ -32,14 +43,18 @@ M.get = function()
     {
       "gI",
       function()
-        require("telescope.builtin").lsp_implementations { reuse_win = false }
+        Snacks.picker.lsp_implementations {
+          jump = { reuse_win = false },
+        }
       end,
       desc = "Goto Implementation",
     },
     {
       "gy",
       function()
-        require("telescope.builtin").lsp_type_definitions { reuse_win = false }
+        Snacks.picker.lsp_type_definitions {
+          jump = { reuse_win = false },
+        }
       end,
       desc = "Goto Type Definition",
     },

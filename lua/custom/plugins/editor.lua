@@ -1,7 +1,6 @@
 local utils = require "custom.utils"
 local constants = require "custom.utils.constants"
 local lspUtils = require "custom.utils.lsp"
-local terminalUtils = require "custom.utils.terminal"
 local lazyUtils = require "custom.utils.lazy"
 local nvimtreeUtils = require "custom.utils-plugins.nvimtree"
 local keymapsUtils = require "custom.utils.keymaps"
@@ -1058,124 +1057,6 @@ return {
         end,
       },
     },
-    keys = (in_leetcode and {})
-      or {
-        {
-          "<leader>mf",
-          "<cmd>Telescope filetypes<cr>",
-          desc = "Pick Filetype",
-        },
-
-        -- find
-        {
-          "<leader>fw",
-          -- TODO: use FzfLua live_grep_glob
-          function()
-            require("custom.utils-plugins.telescope").live_grep()
-          end,
-          desc = "Grep (Cwd)",
-        },
-        {
-          "<leader>fW",
-          function()
-            require("custom.utils-plugins.telescope").live_grep { cwd = LazyVim.root() }
-          end,
-          desc = "Grep (Root)",
-        },
-        {
-          "<leader>fy",
-          "<cmd>lua require'custom.utils-plugins.telescope'.document_symbols()<CR>",
-          desc = "LSP Symbols (Buffer)",
-        },
-        {
-          "<leader>fY",
-          "<cmd>lua require'custom.utils-plugins.telescope'.workspace_symbols()<CR>",
-          desc = "LSP Symbols (Project)",
-        },
-        {
-          "<leader>fo",
-          "<cmd>Telescope oldfiles<CR>",
-          desc = "Old Files",
-        },
-        {
-          "<leader>fb",
-          function()
-            if utils.in_big_project() then
-              require("fzf-lua").buffers()
-              return
-            end
-            require("telescope.builtin").buffers {
-              sort_mru = true,
-              select_current = true,
-            }
-          end,
-          desc = "Opened Buffers",
-        },
-        {
-          "<leader>ff",
-          function()
-            if utils.in_big_project() then
-              require("fzf-lua").files()
-              return
-            end
-            require("custom.utils-plugins.telescope").find_files_fd()
-          end,
-          desc = "Files (Cwd)",
-        },
-        {
-          "<leader>fF",
-          function()
-            if utils.in_big_project() then
-              require("fzf-lua").files { cwd = LazyVim.root() }
-              return
-            end
-            require("custom.utils-plugins.telescope").find_files_fd { cwd = LazyVim.root() }
-          end,
-          desc = "Files (Root)",
-        },
-        {
-          "<leader>fa",
-          function()
-            if utils.in_big_project() then
-              require("fzf-lua").files {
-                cmd = "fd --type f --fixed-strings --color never --exclude node_modules --exclude .git --exclude .direnv --hidden --no-ignore",
-              }
-              return
-            end
-            require("custom.utils-plugins.telescope").find_files_fd {
-              no_ignore = true,
-            }
-          end,
-          desc = "Files! (Cwd)",
-        },
-        {
-          "<leader>fA",
-          function()
-            if utils.in_big_project() then
-              require("fzf-lua").files {
-                cmd = "fd --type f --fixed-strings --color never --exclude node_modules --exclude .git --exclude .direnv --hidden --no-ignore",
-                cwd = LazyVim.root(),
-              }
-              return
-            end
-            require("custom.utils-plugins.telescope").find_files_fd {
-              no_ignore = true,
-              cwd = LazyVim.root(),
-            }
-          end,
-          desc = "Files! (Root)",
-        },
-        {
-          "<leader>fp",
-          "<cmd>lua require'custom.utils-plugins.telescope'.projects()<CR>",
-          desc = "Pick Project",
-        },
-        {
-          "<leader>fd",
-          "<cmd>Telescope current_buffer_fuzzy_find fuzzy=false case_mode=ignore_case<CR>",
-          desc = "Grep (Buffer)",
-        },
-      },
     opts = {
       defaults = {
         vimgrep_arguments = {
@@ -1270,9 +1151,6 @@ return {
             ["<C-Up>"] = function(...)
               require("telescope.actions").cycle_history_prev(...)
             end,
-            ["<esc>"] = function(...)
-              require("telescope.actions").close(...)
-            end,
             ["<C-S-v>"] = keymapsUtils.command_paste,
             ["<CR>"] = function(prompt_bufnr)
               local action_state = require "telescope.actions.state"
@@ -1319,181 +1197,135 @@ return {
   },
 
   {
-    "ibhagwan/fzf-lua",
-    event = "VeryLazy",
-    cmd = "FzfLua",
-    keys = {
+    "folke/snacks.nvim",
+    optional = true,
+    keys = (in_leetcode and {}) or {
+      -- pick
       {
-        "<leader>fg",
-        "<cmd>FzfLua git_status<CR>",
-        desc = "Changed Files",
+        "<leader>ff",
+        function()
+          snacksUtils.files {
+            cwd = vim.uv.cwd(),
+          }
+        end,
+        desc = "Files (Cwd)",
+      },
+      {
+        "<leader>fF",
+        function()
+          snacksUtils.files {
+            cwd = LazyVim.root(),
+          }
+        end,
+        desc = "Files (Root)",
+      },
+      {
+        "<leader>fa",
+        function()
+          snacksUtils.files {
+            cwd = vim.uv.cwd(),
+            ignored = true,
+          }
+        end,
+        desc = "Files! (Cwd)",
+      },
+      {
+        "<leader>fA",
+        function()
+          snacksUtils.files {
+            cwd = LazyVim.root(),
+            ignored = true,
+          }
+        end,
+        desc = "Files! (Root)",
+      },
+      {
+        "<leader>fw",
+        function()
+          snacksUtils.grep {
+            cwd = vim.uv.cwd(),
+          }
+        end,
+        desc = "Grep (Cwd)",
+      },
+      {
+        "<leader>fw",
+        function()
+          snacksUtils.grep {
+            cwd = vim.uv.cwd(),
+          }
+        end,
+        desc = "Grep (Cwd)",
+      },
+      {
+        "<leader>fW",
+        function()
+          snacksUtils.grep {
+            cwd = LazyVim.root(),
+          }
+        end,
+        desc = "Grep (Root)",
+      },
+      {
+        "<leader>fy",
+        function()
+          Snacks.picker.lsp_symbols {
+            filter = {
+              default = snacksUtils.default_lsp_symbols,
+            },
+          }
+        end,
+        desc = "LSP Symbols (Buffer)",
+      },
+      {
+        "<leader>fY",
+        function()
+          Snacks.picker.lsp_workspace_symbols {
+            filter = {
+              default = snacksUtils.default_lsp_symbols,
+            },
+          }
+        end,
+        desc = "LSP Symbols (Project)",
+      },
+      {
+        "<leader>fo",
+        function()
+          Snacks.picker.recent()
+        end,
+        desc = "Old Files",
+      },
+      {
+        "<leader>fb",
+        function()
+          Snacks.picker.buffers {
+            hidden = true,
+          }
+        end,
+        desc = "Opened Buffers",
+      },
+      {
+        "<leader>fd",
+        function()
+          Snacks.picker.lines()
+        end,
+        desc = "Grep (Buffer)",
       },
       {
         "<leader>fx",
-        "<cmd>FzfLua marks<CR>",
+        function()
+          Snacks.picker.marks()
+        end,
         desc = "Marks",
       },
-    },
-    opts = function(_, opts)
-      local actions = require "fzf-lua.actions"
-      local defaults = require "fzf-lua.profiles.default-title"
-      local trouble_actions = require("trouble.sources.fzf").actions
-      return vim.tbl_deep_extend("force", defaults, opts, {
-        defaults = {
-          git_icons = false,
-          formatter = "path.filename_first",
-          keymap = {
-            builtin = {
-              ["<F1>"] = "toggle-help",
-              ["<C-f>"] = "half-page-down",
-              ["<C-b>"] = "half-page-up",
-              ["<C-d>"] = "preview-page-down",
-              ["<C-u>"] = "preview-page-up",
-            },
-            fzf = {
-              ["ctrl-q"] = "select-all+accept",
-              ["ctrl-f"] = "half-page-down",
-              ["ctrl-b"] = "half-page-up",
-              ["ctrl-d"] = "preview-page-down",
-              ["ctrl-u"] = "preview-page-up",
-              ["shift-up"] = "prev-history",
-              ["shift-down"] = "next-history",
-            },
-          },
-        },
-        keymap = {
-          builtin = {
-            false,
-          },
-          fzf = {
-            false,
-          },
-        },
-        file_ignore_patterns = { "%.lock$", "%-lock.json$" },
-        fzf_colors = true,
-        fzf_opts = {
-          ["--header"] = " ", -- add space between prompt and results
-          ["--no-scrollbar"] = true,
-          -- ["--pointer"] = " ",
-          ["--marker"] = "┃",
-          ["--marker-multi-line"] = "╻┃╹",
-        },
-        previewers = {
-          builtin = {
-            syntax_delay = 1,
-            syntax_limit_b = 1024 * 1024 * 0.5, -- 0.5MB
-            limit_b = 1024 * 1024 * 0.5, -- 0.5MB
-            -- TODO: disable preview on minfiles
-          },
-        },
-        winopts = {
-          backdrop = 100,
-          width = 0.9,
-          height = 0.9,
-          row = 0.5,
-          col = 0.5,
-          preview = {
-            scrollchars = { "┃", "" },
-            default = "builtin",
-            horizontal = "right:55%",
-          },
-          -- HACK: fzf run in a terminal window
-          -- global mappings conflicts with our actions
-          on_create = function()
-            keymapsUtils.unmap("t", "<C-x>")
-            keymapsUtils.unmap("t", "<A-i>")
-          end,
-          on_close = function()
-            keymapsUtils.map("t", "<C-x>", terminalUtils.exit_terminal_mode, "Esc Terminal")
-            keymapsUtils.map("t", "<A-i>", terminalUtils.toggle_scratch_term, "Toggle Terminal")
-          end,
-        },
-        files = {
-          cmd = "fd --type f --fixed-strings --color never --exclude node_modules --exclude .git --exclude .direnv --hidden",
-          prompt = "  ",
-          cwd_prompt = false,
-          fzf_opts = {
-            ["--history"] = vim.fn.stdpath "state" .. "/fzf-lua-files-history",
-          },
-          actions = {
-            ["default"] = actions.file_edit,
-            ["alt-i"] = actions.toggle_ignore,
-            ["alt-h"] = actions.toggle_hidden,
-            ["ctrl-x"] = actions.file_split,
-            ["ctrl-v"] = actions.file_vsplit,
-            ["alt-q"] = trouble_actions.open_selected,
-            ["ctrl-q"] = trouble_actions.open_all,
-          },
-          no_header = true,
-        },
-        grep = {
-          cmd = "rg -L --color=always --no-heading --with-filename --line-number --column --smart-case -g '!{node_modules,.git,.direnv}/'",
-          prompt = "  ",
-          -- NOTE: multiline reduces performance
-          -- multiline = 2,
-          fzf_opts = {
-            ["--history"] = vim.fn.stdpath "state" .. "/fzf-lua-grep-history",
-          },
-          actions = {
-            ["default"] = actions.file_edit,
-            ["alt-i"] = actions.toggle_ignore,
-            ["alt-h"] = actions.toggle_hidden,
-            ["ctrl-x"] = actions.file_split,
-            ["ctrl-v"] = actions.file_vsplit,
-            ["alt-q"] = trouble_actions.open_selected,
-            ["ctrl-q"] = trouble_actions.open_all,
-          },
-          no_header = true,
-        },
-        buffers = {
-          prompt = "  ",
-          actions = {
-            ["default"] = actions.buf_edit,
-            ["ctrl-x"] = actions.buf_split,
-            ["ctrl-v"] = actions.buf_vsplit,
-            ["alt-q"] = trouble_actions.open_selected,
-            ["ctrl-q"] = trouble_actions.open_all,
-          },
-        },
-        git = {
-          status = {
-            prompt = "  ",
-            winopts = {
-              preview = {
-                layout = "vertical",
-                vertical = "bottom:55%",
-              },
-            },
-          },
-        },
-        marks = {
-          prompt = "  ",
-        },
-      })
-    end,
-  },
-
-  {
-    "folke/snacks.nvim",
-    optional = true,
-    -- TODO: https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#-sources
-    keys = {
-      -- pick
       {
-        "<leader>fv",
+        "<leader>fg",
         function()
-          Snacks.picker.pick("files", {})
-          -- Snacks.picker.pick {
-          --   finder = "meta_layouts",
-          --   format = "text",
-          --   on_change = function(picker, item)
-          --     vim.schedule(function()
-          --       picker:set_layout(item.text)
-          --     end)
-          --   end,
-          -- }
+          Snacks.picker.git_status {
+            layout = "vertical",
+          }
         end,
-        desc = "Pick",
+        desc = "Changed Files",
       },
       {
         "<leader>fu",
@@ -1516,6 +1348,20 @@ return {
         end,
         desc = "Undo Tree",
       },
+      {
+        "<leader>mf",
+        function()
+          snacksUtils.filetypes()
+        end,
+        desc = "Pick Filetype",
+      },
+      {
+        "<leader>fp",
+        function()
+          snacksUtils.projects()
+        end,
+        desc = "Pick Project",
+      },
 
       -- lazygit
       {
@@ -1535,9 +1381,7 @@ return {
     },
     opts = {
       picker = {
-        -- TODO: filetype hook, disable preview hl
-        -- TODO: ignore .lock files
-        -- TODO: update fd? rg? args
+        -- TODO: filetype hook, disable preview hl, not utils.is_minfile
         layouts = {
           default = {
             layout = {
@@ -1604,6 +1448,11 @@ return {
         formatters = {
           file = {
             filename_first = true,
+          },
+        },
+        previewers = {
+          git = {
+            native = true,
           },
         },
         win = {
@@ -1716,27 +1565,6 @@ return {
       prompt = {
         enabled = true,
         prefix = { { "  ", "FlashPromptMode" }, { " " } },
-      },
-    },
-  },
-  -- integrate flash in telescope
-  {
-    "nvim-telescope/telescope.nvim",
-    optional = true,
-    opts = {
-      defaults = {
-        mappings = {
-          n = {
-            s = function(...)
-              require("custom.utils-plugins.telescope").flash(...)
-            end,
-          },
-          i = {
-            ["<c-s>"] = function(...)
-              require("custom.utils-plugins.telescope").flash(...)
-            end,
-          },
-        },
       },
     },
   },
