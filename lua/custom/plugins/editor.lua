@@ -65,7 +65,7 @@ return {
         ["<CR>"] = "actions.select",
         ["<C-t>"] = "actions.select_tab",
         ["<C-p>"] = "actions.preview",
-        ["<Esc>"] = "actions.close",
+        ["<C-c>"] = "actions.close",
         ["-"] = "actions.parent",
         ["_"] = "actions.open_cwd",
         ["`"] = "actions.cd",
@@ -77,7 +77,7 @@ return {
         ["<C-v>"] = "actions.select_vsplit",
         ["<C-x>"] = "actions.select_split",
         ["<C-r>"] = "actions.refresh",
-        ["o"] = "actions.open_external",
+        ["go"] = "actions.open_external",
       },
       view_options = {
         show_hidden = true,
