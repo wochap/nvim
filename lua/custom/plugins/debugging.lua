@@ -303,6 +303,8 @@ return {
           end,
         },
         providers = {
+          -- the following command tells if current dap session supports completion
+          -- :lua= require("dap").session().capabilities.supportsCompletionsRequest
           dap = {
             name = "dap",
             module = "blink.compat.source",
