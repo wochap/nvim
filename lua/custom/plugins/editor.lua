@@ -633,22 +633,22 @@ return {
       picker = {
         actions = {
           trouble_open = function(...)
-            require("trouble.sources.snacks").actions.trouble_open(...)
+            require("trouble.sources.snacks").actions.trouble_open.action(...)
           end,
           trouble_open_selected = function(...)
-            require("trouble.sources.snacks").actions.trouble_open_selected(...)
+            require("trouble.sources.snacks").actions.trouble_open_selected.action(...)
           end,
           trouble_open_all = function(...)
-            require("trouble.sources.snacks").actions.trouble_open_all(...)
+            require("trouble.sources.snacks").actions.trouble_open_all.action(...)
           end,
           trouble_add = function(...)
-            require("trouble.sources.snacks").actions.trouble_add(...)
+            require("trouble.sources.snacks").actions.trouble_add.action(...)
           end,
           trouble_add_selected = function(...)
-            require("trouble.sources.snacks").actions.trouble_add_selected(...)
+            require("trouble.sources.snacks").actions.trouble_add_selected.action(...)
           end,
           trouble_add_all = function(...)
-            require("trouble.sources.snacks").actions.trouble_add_all(...)
+            require("trouble.sources.snacks").actions.trouble_add_all.action(...)
           end,
         },
         win = {
