@@ -83,7 +83,7 @@ end
 
 local files_count_cache = {}
 M.in_big_project = function(cwd)
-  cwd = cwd or vim.loop.cwd()
+  cwd = cwd or vim.uv.cwd()
   local count = files_count_cache[cwd]
   if count == nil then
     local output = vim.fn.systemlist "(git ls-files --cached || fd --type f) | wc -l"

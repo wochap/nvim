@@ -103,7 +103,7 @@ M.transparent_background = false
 M.first_install = false
 
 local es_spell_path = vim.fn.stdpath "data" .. "/site/spell/es.utf-8.spl"
-M.disable_netrw = vim.loop.fs_stat(es_spell_path) and true or false
+M.disable_netrw = vim.uv.fs_stat(es_spell_path) and true or false
 
 M.big_file_mb = 0.5
 

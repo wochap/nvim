@@ -5,7 +5,7 @@ local M = {}
 
 M.install = function()
   local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-  if not vim.loop.fs_stat(lazypath) then
+  if not vim.uv.fs_stat(lazypath) then
     constants.first_install = true
 
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"

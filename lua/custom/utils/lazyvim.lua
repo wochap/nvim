@@ -2,7 +2,7 @@ local M = {}
 
 M.load = function()
   local lazyvim_path = vim.fn.stdpath "data" .. "/lazy/LazyVim"
-  if vim.loop.fs_stat(lazyvim_path) then
+  if vim.uv.fs_stat(lazyvim_path) then
     vim.opt.rtp:prepend(lazyvim_path)
     M.setup()
   end

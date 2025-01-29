@@ -1,4 +1,3 @@
-local defer = require "custom.utils.defer"
 local utils = require "custom.utils"
 
 -- source: https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/components/branch/git_branch.lua
@@ -14,7 +13,7 @@ local sep = package.config:sub(1, 1)
 -- event watcher to watch head file
 -- Use file watch for non Windows and poll for Windows.
 -- Windows doesn't like file watch for some reason.
-local file_changed = sep ~= "\\" and vim.loop.new_fs_event() or vim.loop.new_fs_poll()
+local file_changed = sep ~= "\\" and vim.uv.new_fs_event() or vim.uv.new_fs_poll()
 local git_dir_cache = {} -- Stores git paths that we already know of
 
 ---sets git_branch variable to branch name or commit hash if not on branch
@@ -99,7 +98,7 @@ function M.find_git_dir(dir_path)
       break
     end
     local git_path = root_dir .. sep .. ".git"
-    local git_file_stat = vim.loop.fs_stat(git_path)
+    local git_file_stat = vim.uv.fs_stat(git_path)
     if git_file_stat then
       if git_file_stat.type == "directory" then
         git_dir = git_path
@@ -117,7 +116,7 @@ function M.find_git_dir(dir_path)
         end
       end
       if git_dir then
-        local head_file_stat = vim.loop.fs_stat(git_dir .. sep .. "HEAD")
+        local head_file_stat = vim.uv.fs_stat(git_dir .. sep .. "HEAD")
         if head_file_stat and head_file_stat.type == "file" then
           break
         else
