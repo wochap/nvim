@@ -340,20 +340,6 @@ return {
     event = "VeryLazy",
     cmd = "Neotree",
     keys = {
-      -- {
-      --   "<leader>b",
-      --   function()
-      --     require("neo-tree.command").execute { toggle = true, dir = vim.loop.cwd() }
-      --   end,
-      --   desc = "toggle neotree",
-      -- },
-      -- {
-      --   "<leader>e",
-      --   function()
-      --     require("neo-tree.command").execute { action = "focus", dir = vim.loop.cwd() }
-      --   end,
-      --   desc = "focus neotree",
-      -- },
       {
         "<leader>ge",
         function()
