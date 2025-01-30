@@ -314,6 +314,7 @@ local getOverridesHl = function(mocha)
     NvimTreeGitFileStagedHL = { link = "NvimTreeGitStaged" },
     NvimTreeGitDirtyIcon = { fg = gitColors.delete },
     NvimTreeGitFileDirtyHL = { link = "NvimTreeGitDirty" },
+    NvimTreeGitFileIgnoredHL = { link = "NeoTreeGitIgnored" },
 
     -- telescope.nvim
     TelescopeBorder = { fg = floatColors.bg, bg = floatColors.bg },
