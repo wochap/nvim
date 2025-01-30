@@ -206,6 +206,7 @@ return {
           padding = 2,
         },
         signcolumn = "no",
+        number = false,
       },
       git = {
         enable = true,
@@ -396,6 +397,7 @@ return {
           handler = function(event)
             vim.cmd ":wincmd ="
             utils.disable_ufo(event.bufnr, event.winid)
+            vim.opt.cursorcolumn = false
           end,
         },
         {
