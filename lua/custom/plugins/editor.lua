@@ -1439,6 +1439,10 @@ return {
             },
           },
         },
+        toggles = {
+          regex = { icon = "R", value = true },
+          follow = { value = false },
+        },
         actions = {
           pick = function(picker, item)
             picker:close()
