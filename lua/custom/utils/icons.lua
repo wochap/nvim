@@ -87,4 +87,8 @@ M.lsp_kind = {
   History = "",
 }
 
+M.other = {
+  ellipsis = "…",
+}
+
 return M

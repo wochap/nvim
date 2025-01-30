@@ -146,6 +146,10 @@ end
 local function filename()
   local filename_str = (fn.expand "%" == "" and "[No Name]") or fn.expand "%:t"
 
+  if #filename_str > 40 then
+    filename_str = iconsUtils.other.ellipsis .. string.sub(filename_str, -20)
+  end
+
   return hl_str "StModule" .. filename_str
 end
 
