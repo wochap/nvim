@@ -233,14 +233,10 @@ return {
           min_width = 15,
           max_height = 15,
           border = cmpUtils.border "BlinkCmpMenuBorder",
-          auto_show = function(ctx)
-            -- Don't show completion menu automatically in cmdline mode and when searching
-            return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
-          end,
           draw = {
             columns = {
               { "label", "label_description", gap = 1 },
-              { "kind_icon", "kind", gap = 1 },
+              { "kind_icon", "kind", gap = 2 },
             },
             components = {
               label = {
@@ -322,11 +318,11 @@ return {
           local type = vim.fn.getcmdtype()
           -- Search forward and backward
           if type == "/" or type == "?" then
-            return { "buffer" }
+            return { "buffer", "cmdline_history_search" }
           end
           -- Commands
           if type == ":" or type == "@" then
-            return { "cmdline_history", "cmdline" }
+            return { "cmdline", "cmdline_history_cmd" }
           end
           return {}
         end,
@@ -350,9 +346,25 @@ return {
           cmdline = {
             max_items = 10,
           },
-          cmdline_history = {
+          cmdline_history_cmd = {
             name = "cmdline_history",
             module = "blink.compat.source",
+            max_items = 5,
+            score_offset = -2,
+            opts = {
+              history_type = "cmd",
+            },
+            kind = "History",
+          },
+          cmdline_history_search = {
+            name = "cmdline_history",
+            module = "blink.compat.source",
+            max_items = 5,
+            score_offset = -2,
+            opts = {
+              history_type = "search",
+            },
+            kind = "History",
           },
         },
       },

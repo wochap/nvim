@@ -84,6 +84,7 @@ M.lsp_kind = {
   Avante = "󰯫",
   RenderMarkdown = "",
   Spell = "暈",
+  History = "",
 }
 
 return M
