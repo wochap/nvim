@@ -118,10 +118,10 @@ vim.opt.hlsearch = true
 
 -- Indenting
 vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
-vim.opt.smartindent = false -- fix indent of line starting with `#`
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.smartindent = false -- fix indent of line starting with `#`
 
 -- Allow going past the end of line in visual block mode
 vim.opt.virtualedit = "block"

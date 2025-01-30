@@ -46,6 +46,8 @@ M.window_picker_exclude_filetypes = {
   "qf",
   "notify",
   "terminal",
+  "netrw",
+  "tutor",
 }
 
 -- NOTE: you can't exclude empty filetypes
@@ -70,10 +72,11 @@ M.exclude_filetypes = vim.tbl_extend("force", M.window_picker_exclude_filetypes,
 M.window_picker_exclude_buftypes = {
   "terminal",
   "nofile",
+  "prompt",
 }
 
 M.exclude_buftypes = vim.tbl_extend("force", M.window_picker_exclude_buftypes, {
-  -- TODO
+  "help",
 })
 
 M.in_foot = os.getenv "TERM" == "foot"

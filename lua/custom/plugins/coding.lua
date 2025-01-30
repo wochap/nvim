@@ -1,3 +1,4 @@
+local constants = require "custom.utils.constants"
 local lazyUtils = require "custom.utils.lazy"
 local iconsUtils = require "custom.utils.icons"
 local cmpUtils = require "custom.utils-plugins.cmp"
@@ -1013,6 +1014,11 @@ return {
   {
     "NMAC427/guess-indent.nvim",
     event = { "LazyFile", "VeryLazy" },
-    opts = {},
+    opts = {
+      filetype_exclude = vim.tbl_extend("force", constants.exclude_filetypes, {
+        "diff",
+      }),
+      buftype_exclude = constants.exclude_buftypes,
+    },
   },
 }
