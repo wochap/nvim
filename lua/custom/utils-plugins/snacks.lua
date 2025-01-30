@@ -47,16 +47,18 @@ M.grep = function(pick_opts)
   Snacks.picker.pick(
     "grep",
     vim.tbl_extend("force", {
+      toggles = {
+        regex = { icon = "R", value = true },
+        custom_word = { icon = "W", value = true },
+        custom_case = { icon = "C", value = true },
+        custom_glob = { icon = "G", value = true },
+      },
       actions = {
         -- toggles arg --fixed-strings
         toggle_regex = function(picker, item)
           local opts = picker.opts --[[@as snacks.picker.grep.Config]]
           opts.regex = not opts.regex
           picker:find()
-          -- TODO: update update_titles fn?
-          -- in snacks/picker/core/picker.lua
-          -- to show indicator of regex
-          -- or just update opts.title?
         end,
         -- toggles arg --word-regexp
         toggle_match_word = function(picker, item)
@@ -65,11 +67,12 @@ M.grep = function(pick_opts)
             opts.args = vim.tbl_filter(function(val)
               return val ~= "--word-regexp"
             end, opts.args)
+            opts.custom_word = false
           else
             table.insert(opts.args, "--word-regexp")
+            opts.custom_word = true
           end
           picker:find()
-          -- TODO: add feedback in title
         end,
         -- toggles arg --case-sensitive and --ignore-case
         toggle_match_case = function(picker, item)
@@ -79,14 +82,15 @@ M.grep = function(pick_opts)
               return val ~= "--ignore-case"
             end, opts.args)
             table.insert(opts.args, "--case-sensitive")
+            opts.custom_case = true
           else
             opts.args = vim.tbl_filter(function(val)
               return val ~= "--case-sensitive"
             end, opts.args)
             table.insert(opts.args, "--ignore-case")
+            opts.custom_case = false
           end
           picker:find()
-          -- TODO: add feedback in title
         end,
         glob_filter = function(picker, item)
           local opts = picker.opts --[[@as snacks.picker.grep.Config]]
@@ -95,15 +99,15 @@ M.grep = function(pick_opts)
           if prev_glob == glob then
             return
           end
+          opts.custom_glob = #glob > 0
           opts.glob = glob
           picker:find()
-          -- TODO: add feedback in title
         end,
       },
       win = {
         input = {
           keys = {
-            ["<A-s>"] = { "toggle_regex", mode = { "i", "n" } },
+            ["<A-r>"] = { "toggle_regex", mode = { "i", "n" } },
             ["<A-w>"] = { "toggle_match_word", mode = { "i", "n" } },
             ["<A-c>"] = { "toggle_match_case", mode = { "i", "n" } },
             ["<A-g>"] = { "glob_filter", mode = { "i", "n" } },
