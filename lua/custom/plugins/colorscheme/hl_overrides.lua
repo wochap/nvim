@@ -127,6 +127,8 @@ local getExtraHl = function(mocha)
     SnacksIndentBlank = { link = "IblIndent" },
     SnacksNormal = { link = "Normal" },
     SnacksNormalNC = { link = "Normal" },
+    -- TODO: bug, space without HL in snacks Input
+    SnacksInputTitle = { link = "FloatTitle" },
 
     -- incline.nvim
     InclineNormalNC = {

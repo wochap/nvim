@@ -447,6 +447,12 @@ return {
       toggle = {
         map = LazyVim.safe_keymap_set,
       },
+
+      styles = {
+        scratch = {
+          wo = { winhighlight = "" },
+        },
+      },
     },
   },
 

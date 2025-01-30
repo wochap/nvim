@@ -8,27 +8,6 @@ local in_kittyscrollback = require("custom.utils.constants").in_kittyscrollback
 
 return {
   {
-    "stevearc/dressing.nvim",
-    init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.select = function(...)
-        require("lazy").load { plugins = { "dressing.nvim" } }
-        return vim.ui.select(...)
-      end
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.input = function(...)
-        require("lazy").load { plugins = { "dressing.nvim" } }
-        return vim.ui.input(...)
-      end
-    end,
-    opts = {
-      input = {
-        title_pos = "center",
-      },
-    },
-  },
-
-  {
     "folke/which-key.nvim",
     -- https://github.com/folke/which-key.nvim/issues/824
     version = "v3.14.1",
@@ -757,6 +736,23 @@ return {
         enabled = false,
         left = { "sign" },
         right = { "fold", "git" },
+      },
+
+      -- better vim.ui.input
+      input = {},
+
+      -- better vim.ui.select
+      picker = {
+        ui_select = true,
+      },
+
+      styles = {
+        input = {
+          row = 3,
+          wo = {
+            winhighlight = "",
+          },
+        },
       },
     },
   },
