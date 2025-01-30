@@ -211,7 +211,7 @@ return {
         return vim.bo.buftype ~= "prompt" and vim.b.completion ~= false and not recording_macro
       end,
       appearance = {
-        kind_icons = iconsUtils.lspkind,
+        kind_icons = iconsUtils.lsp_kind,
         use_nvim_cmp_as_default = false,
         -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- adjusts spacing to ensure icons are aligned

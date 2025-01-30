@@ -40,7 +40,7 @@ M.diagnostic_by_index = {
   M.diagnostic.Hint,
 }
 
-M.lspkind = {
+M.lsp_kind = {
   Array = "",
   Boolean = "󰨙",
   Class = "",

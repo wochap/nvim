@@ -608,7 +608,7 @@ return {
         folder_open = iconsUtils.folder.open .. " ",
         kinds = vim.tbl_map(function(icon)
           return icon .. " "
-        end, iconsUtils.lspkind),
+        end, iconsUtils.lsp_kind),
       },
     },
   },
@@ -1493,7 +1493,7 @@ return {
         },
         icons = {
           diagnostics = iconsUtils.diagnostic,
-          kinds = iconsUtils.lspkind,
+          kinds = iconsUtils.lsp_kind,
         },
       },
 
