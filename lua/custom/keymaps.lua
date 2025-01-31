@@ -39,8 +39,8 @@ map("n", "<f5>", "<cmd>edit %<Bar>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR
 -- tabs
 map("n", "<S-Up>", "<cmd>tabprevious<CR>", "Next Tab")
 map("n", "<S-Down>", "<cmd>tabnext<CR>", "Previous Tab")
-map("n", "<leader><tab>n", "<cmd>tabnew<CR>", "New")
-map("n", "<leader><tab>o", "<cmd>tabonly<CR>", "Close Others")
+map("n", "<leader><Tab>n", "<cmd>tabnew<CR>", "New")
+map("n", "<leader><Tab>o", "<cmd>tabonly<CR>", "Close Others")
 
 -- windows
 map("n", "<C-w>x", "<C-w>s", "Split Window Below")

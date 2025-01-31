@@ -23,7 +23,7 @@ return {
           { "<leader>m", group = "misc" },
           { "<leader>mp", group = "profile" },
           { "<leader>mP", group = "syntax profile" },
-          { "<leader><tab>", group = "tab" },
+          { "<leader><Tab>", group = "tab" },
           { "<leader>b", group = "buffer" },
           { "<leader>u", group = "ui" },
           { "<leader>f", group = "find/search/replace" },
@@ -252,7 +252,7 @@ return {
         desc = "Prev Buffer",
       },
       {
-        "<leader><tab>d",
+        "<leader><Tab>d",
         function()
           local ui = require "bufferline.ui"
           vim.cmd "tabclose"
