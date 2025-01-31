@@ -1330,7 +1330,14 @@ return {
       {
         "<leader>fd",
         function()
+          local has_rm, rm = pcall(require, "render-markdown")
+          if has_rm then
+            rm.disable()
+          end
           Snacks.picker.lines()
+          if has_rm then
+            rm.enable()
+          end
         end,
         desc = "Grep (Buffer)",
       },
@@ -1494,6 +1501,16 @@ return {
               ["<S-CR>"] = { "pick", mode = { "i", "n" } },
               ["<c-v>"] = { "pick_vsplit", mode = { "i", "n" } },
               ["<c-x>"] = { "pick_split", mode = { "i", "n" } },
+            },
+          },
+          list = {
+            wo = {
+              conceallevel = 0,
+            },
+          },
+          preview = {
+            wo = {
+              conceallevel = 0,
             },
           },
         },
