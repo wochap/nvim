@@ -197,13 +197,7 @@ return {
         opts = {},
         config = function() end,
       },
-      {
-        "L3MON4D3/LuaSnip",
-        version = "v2.*",
-        build = "make install_jsregexp",
-        opts = {},
-        config = function() end,
-      },
+      "L3MON4D3/LuaSnip",
       "dmitmel/cmp-cmdline-history",
     },
     opts = {
