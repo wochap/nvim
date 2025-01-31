@@ -752,6 +752,9 @@ return {
           wo = {
             winhighlight = "",
           },
+          keys = {
+            n_ctrl_c = { "<C-c>", "cancel", mode = "n" },
+          },
         },
       },
     },
