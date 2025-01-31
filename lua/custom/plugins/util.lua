@@ -456,6 +456,45 @@ return {
     },
   },
 
+  {
+    "derektata/lorem.nvim",
+    keys = {
+      {
+        "<leader>mlw",
+        function()
+          local n_str = vim.fn.input "Words count: "
+          local n = tonumber(n_str)
+          if n and n > 0 then
+            vim.cmd("LoremIpsum words " .. n)
+          end
+        end,
+        desc = "Lorem Words",
+      },
+      {
+        "<leader>mlp",
+        function()
+          local n_str = vim.fn.input "Paragraphs count: "
+          local n = tonumber(n_str)
+          if n and n > 0 then
+            vim.cmd("LoremIpsum paragraphs " .. n)
+          end
+        end,
+        desc = "Lorem Paragraphs",
+      },
+    },
+    opts = {},
+    config = function(_, opts)
+      require("lorem").opts(opts)
+    end,
+  },
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = {
+      spec = { { "<leader>ml", group = "lorem" } },
+    },
+  },
+
   -- library used by other plugins
   { "nvim-lua/plenary.nvim" },
   { "nvim-lua/popup.nvim" },
