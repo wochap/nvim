@@ -4,9 +4,13 @@ local constants = require "custom.utils.constants"
 local map = keymapsUtils.map
 
 -- clear search
-map({ "n", "s" }, "<Esc>", function()
+map({ "n", "i", "s" }, "<Esc>", function()
   vim.cmd "noh"
-  return "<esc>"
+  local has_luasnip, luasnip = pcall(require, "luasnip")
+  if has_luasnip then
+    luasnip.unlink_current()
+  end
+  return "<Esc>"
 end, "Esc and Clear hlsearch", { expr = true })
 
 -- buffers

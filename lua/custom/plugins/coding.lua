@@ -2,6 +2,7 @@ local constants = require "custom.utils.constants"
 local lazyUtils = require "custom.utils.lazy"
 local iconsUtils = require "custom.utils.icons"
 local cmpUtils = require "custom.utils-plugins.cmp"
+local keymapsUtils = require "custom.utils.keymaps"
 
 return {
   {
@@ -597,22 +598,20 @@ return {
     },
     keys = {
       {
-        "<tab>",
+        "<Tab>",
         function()
           local luasnip = require "luasnip"
           if luasnip.jumpable(1) then
             luasnip.jump(1)
-            return ""
+          else
+            keymapsUtils.run_expr "<Tab>"
           end
-          return "<tab>"
         end,
         desc = "Snippet Forward",
-        expr = true,
-        silent = true,
         mode = "i",
       },
       {
-        "<tab>",
+        "<Tab>",
         function()
           require("luasnip").jump(1)
         end,
@@ -620,7 +619,7 @@ return {
         mode = "s",
       },
       {
-        "<s-tab>",
+        "<S-Tab>",
         function()
           require("luasnip").jump(-1)
         end,
@@ -650,22 +649,12 @@ return {
       -- end,
     },
     config = function(_, opts)
-      local luasnip = require "luasnip"
-      luasnip.setup(opts)
+      require("luasnip").setup(opts)
 
       -- load snippets in nvim config folder
       require("luasnip.loaders.from_vscode").load {
         paths = vim.fn.stdpath "config" .. "/snippets",
       }
-
-      -- clear luasnip on InsertLeave
-      vim.api.nvim_create_autocmd("InsertLeave", {
-        callback = function()
-          if luasnip.session.current_nodes[vim.api.nvim_get_current_buf()] and not luasnip.session.jump_active then
-            luasnip.unlink_current()
-          end
-        end,
-      })
     end,
   },
   {
