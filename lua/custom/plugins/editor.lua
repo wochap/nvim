@@ -1855,6 +1855,16 @@ return {
         }
         require("blame").setup(opts)
       end)
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "BlameViewOpened",
+        callback = function(event)
+          local winid = vim.fn.bufwinid(event.buf)
+          vim.wo[winid].signcolumn = "no"
+          vim.wo[winid].number = false
+          vim.wo[winid].cursorcolumn = false
+        end,
+      })
     end,
   },
 
