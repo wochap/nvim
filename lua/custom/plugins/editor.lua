@@ -1445,6 +1445,25 @@ return {
               { win = "preview", height = 0.55, border = "top" },
             },
           },
+          ivy = {
+            layout = {
+              box = "vertical",
+              backdrop = false,
+              row = -1,
+              width = 0,
+              height = 0.5,
+              border = "top",
+              title = " {title} {live} {flags}",
+              title_pos = "center",
+              { win = "input", height = 1, border = "bottom" },
+              {
+                box = "horizontal",
+                border = "bottom",
+                { win = "list", border = "none" },
+                { win = "preview", title = "{preview}", width = 0.6, border = "left" },
+              },
+            },
+          },
         },
         toggles = {
           regex = { icon = "R", value = true },
