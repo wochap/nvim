@@ -87,8 +87,9 @@ M.get = function()
     {
       "<leader>lr",
       function()
-        local inc_rename = require "inc_rename"
-        return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand "<cword>"
+        vim.lsp.buf.rename()
+        -- save all buffers after rename
+        vim.cmd "silent! wa"
       end,
       expr = true,
       desc = "Rename (Word)",
