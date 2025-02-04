@@ -43,6 +43,7 @@ return {
         },
       },
       picker = {
+        -- TODO: update to snacks picker
         name = "telescope.nvim",
         note_mappings = {
           new = "<C-n>",
@@ -130,6 +131,8 @@ return {
       })
     end,
     opts = {
+      -- TODO: update to snacks_picker
+      -- https://github.com/zk-org/zk-nvim/pull/206
       picker = "telescope",
     },
     config = function(_, opts)
