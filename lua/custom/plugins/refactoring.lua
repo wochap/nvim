@@ -1,5 +1,3 @@
-local lazyUtils = require "custom.utils.lazy"
-
 return {
   {
     "ThePrimeagen/refactoring.nvim",
@@ -14,7 +12,8 @@ return {
       {
         "<leader>rs",
         function()
-          return require("telescope").extensions.refactoring.refactors()
+          -- TODO: add snacks picker preview
+          require("refactoring").select_refactor()
         end,
         mode = "v",
         desc = "Refactor",
@@ -119,11 +118,5 @@ return {
       show_success_message = true, -- shows a message with information about the refactor on success
       -- i.e. [Refactor] Inlined 3 variable occurrences
     },
-    config = function(_, opts)
-      require("refactoring").setup(opts)
-      lazyUtils.on_load("telescope.nvim", function()
-        require("telescope").load_extension "refactoring"
-      end)
-    end,
   },
 }
