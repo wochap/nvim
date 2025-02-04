@@ -453,13 +453,6 @@ return {
         end,
         desc = "Dismiss All",
       },
-      {
-        "<leader>np",
-        function()
-          require("noice").cmd "pick"
-        end,
-        desc = "Picker (Telescope)",
-      },
       -- scroll signature/hover windows
       {
         "<c-u>",
