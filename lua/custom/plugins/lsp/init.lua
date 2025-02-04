@@ -478,6 +478,7 @@ return {
   {
     "aznhe21/actions-preview.nvim",
     opts = {
+      -- TODO: update to snacks picker
       telescope = {
         layout_strategy = "vertical",
         layout_config = {
