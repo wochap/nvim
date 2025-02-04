@@ -178,18 +178,9 @@ return {
         ignore_patterns = { "%.git", "%.worktree", "__pycache__", "node_modules", "%.direnv" },
       },
       file_selector = {
-        provider = "telescope",
+        provider = "snacks",
       },
     },
-    config = function(_, opts)
-      -- show preview in file_selector
-      local conf = require("telescope.config").values
-      opts.file_selector.provider_opts = {
-        previewer = conf.file_previewer {},
-      }
-
-      require("avante").setup(opts)
-    end,
   },
   {
     "saghen/blink.cmp",

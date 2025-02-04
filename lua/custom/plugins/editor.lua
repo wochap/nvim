@@ -1467,7 +1467,7 @@ return {
         },
         toggles = {
           regex = { icon = "R", value = true },
-          follow = { value = false },
+          follow = { icon = "f", value = false },
         },
         actions = {
           pick = function(picker, item)
