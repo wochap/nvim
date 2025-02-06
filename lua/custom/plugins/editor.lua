@@ -413,7 +413,7 @@ return {
         window = {
           mappings = {
             ["."] = "toggle_hidden",
-            ["/"] = "fuzzy_finder",
+            ["f"] = "fuzzy_finder",
             ["<A-Up>"] = "navigate_up",
             ["-"] = "set_root",
             ["[g"] = "prev_git_modified",
