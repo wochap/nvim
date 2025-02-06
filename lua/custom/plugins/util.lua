@@ -2,6 +2,7 @@ local utils = require "custom.utils"
 local windowPickerUtils = require "custom.utils-plugins.window-picker"
 local lspUtils = require "custom.utils.lsp"
 local constants = require "custom.utils.constants"
+local smartSplitsUtils = require "custom.utils-plugins.smart-splits"
 
 return {
   {
@@ -274,8 +275,8 @@ return {
     config = function(_, opts)
       require("smart-splits").setup(opts)
 
-      -- in tmux, smart-splits sometimes fails to
-      -- run mux.on_init when nvim regains focus
+      -- in tmux, smart-splits sometimes set pane-is-vim to 0
+      -- even if we didn't left nvim
       local mux = require("smart-splits.mux").get()
       if not mux or mux.type ~= "tmux" then
         return
@@ -283,7 +284,11 @@ return {
       utils.autocmd("FocusGained", {
         group = utils.augroup "fix_on_init_smart_splits_nvim",
         callback = function()
-          mux.on_init()
+          local pane_id = os.getenv "TMUX_PANE"
+          if tonumber(smartSplitsUtils.tmux_exec { "show-options", "-pqvt", pane_id, "@pane-is-vim" }) == 1 then
+            return
+          end
+          smartSplitsUtils.tmux_exec { "set-option", "-pt", pane_id, "@pane-is-vim", 1 }
         end,
       })
     end,
