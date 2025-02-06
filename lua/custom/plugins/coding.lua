@@ -629,9 +629,25 @@ return {
       {
         "<C-k>",
         function()
+          local luasnip = require "luasnip"
+          if luasnip.choice_active() then
+            luasnip.change_choice(1)
+            return
+          end
           require("luasnip").expand()
         end,
-        desc = "Expand Snippet",
+        desc = "Expand Snippet Or Next Choice",
+        mode = "i",
+      },
+      {
+        "<C-S-k>",
+        function()
+          local luasnip = require "luasnip"
+          if luasnip.choice_active() then
+            luasnip.change_choice(-1)
+          end
+        end,
+        desc = "Prev Choice",
         mode = "i",
       },
     },

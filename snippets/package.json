@@ -74,6 +74,13 @@
           "nix"
         ],
         "path": "./nix.json"
+      },
+      {
+        "language": [
+          "markdown",
+          "rmd"
+        ],
+        "path": "./markdown.json"
       }
     ]
   }
