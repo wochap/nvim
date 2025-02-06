@@ -317,10 +317,15 @@ end
 local function lsp()
   if rawget(vim, "lsp") then
     local client_names = {}
+    local client_names_ignore = { "copilot" }
 
     for _, client in ipairs(lspUtils.get_clients()) do
       if client.attached_buffers[vim.api.nvim_get_current_buf()] then
+        if vim.tbl_contains(client_names_ignore, client.name) then
+          goto continue
+        end
         table.insert(client_names, client.name)
+        ::continue::
       end
     end
 
@@ -346,6 +351,19 @@ local function lsp_or_filetype_module()
   end
 
   return filetype()
+end
+
+local function copilot_module()
+  local clients = lspUtils.get_clients(), "copilot"
+  local client_names = vim.tbl_map(function(client)
+    return client.name
+  end, clients)
+
+  if not vim.tbl_contains(client_names, "copilot") then
+    return ""
+  end
+
+  return hl_str "StCopilot" .. " "
 end
 
 local function indent_module()
@@ -436,6 +454,7 @@ M.statusline = function()
     maximize_status_module(),
     diagnostics_module(),
     lsp_or_filetype_module(),
+    copilot_module(),
     command_module(),
     lazy_module(),
     indent_module(),
