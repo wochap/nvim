@@ -37,6 +37,8 @@ local function has_prettier_parser(ctx)
   return ok and parser and parser ~= vim.NIL
 end
 
+vim.g.lazyvim_eslint_auto_format = false
+
 return {
   {
     enabled = not constants.first_install,
