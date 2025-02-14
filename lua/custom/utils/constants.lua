@@ -1,3 +1,5 @@
+local langUtils = require "custom.utils.lang"
+
 local M = {}
 
 M.window_picker_exclude_filetypes = {
@@ -51,7 +53,7 @@ M.window_picker_exclude_filetypes = {
 }
 
 -- NOTE: you can't exclude empty filetypes
-M.exclude_filetypes = vim.tbl_extend("force", M.window_picker_exclude_filetypes, {
+M.exclude_filetypes = langUtils.list_merge(M.window_picker_exclude_filetypes, {
   -- nvim-lspconfig
   "lspinfo",
   -- leetcode.nvim
@@ -75,7 +77,7 @@ M.window_picker_exclude_buftypes = {
   "prompt",
 }
 
-M.exclude_buftypes = vim.tbl_extend("force", M.window_picker_exclude_buftypes, {
+M.exclude_buftypes = langUtils.list_merge(M.window_picker_exclude_buftypes, {
   "help",
 })
 

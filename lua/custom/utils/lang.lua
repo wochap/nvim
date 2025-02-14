@@ -17,4 +17,12 @@ M.remove_str_from_list = function(list, str)
   end
 end
 
+M.list_merge = function(...)
+  local lists = {}
+  for _, list in ipairs { ... } do
+    vim.list_extend(lists, list)
+  end
+  return lists
+end
+
 return M

@@ -3,6 +3,7 @@ local lazyUtils = require "custom.utils.lazy"
 local iconsUtils = require "custom.utils.icons"
 local cmpUtils = require "custom.utils-plugins.cmp"
 local keymapsUtils = require "custom.utils.keymaps"
+local langUtils = require "custom.utils.lang"
 
 return {
   {
@@ -1026,7 +1027,7 @@ return {
     "NMAC427/guess-indent.nvim",
     event = { "LazyFile", "VeryLazy" },
     opts = {
-      filetype_exclude = vim.tbl_extend("force", constants.exclude_filetypes, {
+      filetype_exclude = langUtils.list_merge(constants.exclude_filetypes, {
         "diff",
       }),
       buftype_exclude = constants.exclude_buftypes,

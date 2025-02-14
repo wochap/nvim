@@ -2,6 +2,7 @@ local constants = require "custom.utils.constants"
 local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
 local keymapsUtils = require "custom.utils.keymaps"
+local langUtils = require "custom.utils.lang"
 
 return {
   {
@@ -110,7 +111,7 @@ return {
             local has_render_markdown_load = lazyUtils.is_loaded "render-markdown.nvim"
             if has_render_markdown_load then
               if filetype == "markdown" then
-                return vim.tbl_extend("force", default, { "markdown" })
+                return langUtils.list_merge(default, { "markdown" })
               end
             end
             return nil

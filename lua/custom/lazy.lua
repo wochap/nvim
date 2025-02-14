@@ -1,6 +1,7 @@
 local constants = require "custom.utils.constants"
 local lazyUtils = require "custom.utils.lazy"
 local lazyvimUtils = require "custom.utils.lazyvim"
+local langUtils = require "custom.utils.lang"
 
 -- Install `lazy.nvim` plugin manager
 lazyUtils.install()
@@ -67,7 +68,7 @@ require("lazy").setup {
   change_detection = { enabled = false },
   performance = {
     rtp = {
-      disabled_plugins = vim.tbl_extend("force", {
+      disabled_plugins = langUtils.list_merge({
         "2html_plugin",
         "bugreport",
         "compiler",

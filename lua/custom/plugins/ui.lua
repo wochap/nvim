@@ -824,6 +824,7 @@ return {
           hlgroup = "Highlight",
         },
       },
+      ignored_filetypes = constants.exclude_filetypes,
     },
   },
 

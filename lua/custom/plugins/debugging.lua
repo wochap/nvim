@@ -1,5 +1,6 @@
 local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
+local langUtils = require "custom.utils.lang"
 
 -- Debugger
 return {
@@ -110,7 +111,7 @@ return {
         config = function()
           lazyUtils.on_load("nvim-treesitter", function()
             local treesitterOpts = lazyUtils.opts "nvim-treesitter"
-            local ensureInstalled = vim.tbl_extend("force", {}, treesitterOpts.ensure_installed, {
+            local ensureInstalled = langUtils.list_merge(treesitterOpts.ensure_installed, {
               "dap_repl",
             })
             require("nvim-dap-repl-highlights").setup()

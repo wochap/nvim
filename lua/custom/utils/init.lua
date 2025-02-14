@@ -35,7 +35,7 @@ local function has_long_line(bufnr)
   local lines_start = vim.api.nvim_buf_get_lines(bufnr, 0, 10, false)
   local lines_end = vim.api.nvim_buf_get_lines(bufnr, lines_count > 10 and lines_count - 9 or 0, lines_count, false)
   local max_line_length = 0
-  local lines = vim.tbl_extend("force", {}, lines_start, lines_end)
+  local lines = langUtils.list_merge(lines_start, lines_end)
   for _, line in ipairs(lines) do
     if #line > max_line_length then
       max_line_length = #line
