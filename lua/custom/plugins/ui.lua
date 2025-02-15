@@ -818,20 +818,7 @@ return {
     end,
     opts = {
       duration = 100,
-      keymaps = {
-        undo = {
-          hlgroup = "Highlight",
-        },
-        redo = {
-          hlgroup = "Highlight",
-        },
-        paste = {
-          hlgroup = "Highlight",
-        },
-        Paste = {
-          hlgroup = "Highlight",
-        },
-      },
+      hlgroup = "Highlight",
       ignored_filetypes = constants.exclude_filetypes,
     },
   },
