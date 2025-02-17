@@ -97,8 +97,8 @@ return {
             -- source: https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/826#discussioncomment-5429747
             local manager = require "neo-tree.sources.manager"
             local renderer = require "neo-tree.ui.renderer"
-            local state = manager.get_state "filesystem"
-            local window_exists = renderer.window_exists(state)
+            local state_ok, state = pcall(manager.get_state, "filesystem")
+            local window_exists = state_ok and renderer.window_exists(state) or false
 
             if window_exists then
               -- focus
@@ -143,8 +143,8 @@ return {
             -- source: https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/826#discussioncomment-5429747
             local manager = require "neo-tree.sources.manager"
             local renderer = require "neo-tree.ui.renderer"
-            local state = manager.get_state "filesystem"
-            local window_exists = renderer.window_exists(state)
+            local state_ok, state = pcall(manager.get_state, "filesystem")
+            local window_exists = state_ok and renderer.window_exists(state) or false
 
             if window_exists then
               -- focus
