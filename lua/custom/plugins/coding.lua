@@ -187,7 +187,7 @@ return {
   },
   {
     "saghen/blink.cmp",
-    version = "v0.11.0",
+    version = "v0.12.4",
     event = { "InsertEnter", "VeryLazy" },
     dependencies = {
       {
@@ -310,18 +310,6 @@ return {
           end,
         },
         default = { "lsp", "path", "snippets", "buffer" },
-        cmdline = function()
-          local type = vim.fn.getcmdtype()
-          -- Search forward and backward
-          if type == "/" or type == "?" then
-            return { "buffer", "cmdline_history_search" }
-          end
-          -- Commands
-          if type == ":" or type == "@" then
-            return { "cmdline", "cmdline_history_cmd" }
-          end
-          return {}
-        end,
         providers = {
           lsp = {
             -- if lsp takes more than 500ms then make it async
@@ -413,7 +401,21 @@ return {
         },
         ["<C-e>"] = { "cancel", "fallback" },
         ["<C-y>"] = { "select_and_accept" },
-        cmdline = {
+      },
+      cmdline = {
+        sources = function()
+          local type = vim.fn.getcmdtype()
+          -- Search forward and backward
+          if type == "/" or type == "?" then
+            return { "buffer", "cmdline_history_search" }
+          end
+          -- Commands
+          if type == ":" or type == "@" then
+            return { "cmdline", "cmdline_history_cmd" }
+          end
+          return {}
+        end,
+        keymap = {
           ["<C-Space>"] = { "show" },
           ["<C-b>"] = {
             function(cmp)
@@ -481,6 +483,16 @@ return {
               end
               cmp.select_prev()
             end,
+          },
+        },
+        completion = {
+          menu = {
+            draw = {
+              columns = {
+                { "label", "label_description", gap = 1 },
+                { "kind_icon", "kind", gap = 2 },
+              },
+            },
           },
         },
       },
