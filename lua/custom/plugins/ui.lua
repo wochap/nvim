@@ -727,7 +727,7 @@ return {
 
       image = {
         enabled = constants.in_kitty and not constants.in_neovide,
-        markdown = {
+        doc = {
           max_width = 80,
           max_height = 40,
         },
@@ -852,57 +852,6 @@ return {
         return package.loaded["nvim-web-devicons"]
       end
     end,
-  },
-
-  {
-    "3rd/image.nvim",
-    -- enabled = constants.in_kitty and not constants.in_neovide,
-    enabled = false,
-    event = "VeryLazy",
-    opts = {
-      backend = "kitty",
-      integrations = {
-        markdown = {
-          enabled = true,
-          clear_in_insert_mode = true,
-          download_remote_images = true,
-          only_render_image_at_cursor = true,
-          filetypes = { "markdown" },
-          resolve_image_path = function(document_path, image_path, fallback)
-            -- if LazyVim.has "obsidian.nvim" then
-            -- local obsidian_client = require("obsidian").get_client()
-            -- print "hola"
-            -- document_path = /home/gean/Sync/obsidian/recipes/Peru/test.md
-            -- image_path = Pasted image 20241207184901.png|300
-
-            -- local working_dir = vim.fn.getcwd()
-            -- Format image path for Obsidian notes
-            -- if working_dir:find "path/to/your/vault" then
-            --   return working_dir .. "/" .. image_path
-            -- end
-            -- end
-
-            -- Fallback to the default behavior
-            return fallback(document_path, image_path)
-          end,
-        },
-        neorg = {
-          enabled = false,
-        },
-        typst = {
-          enabled = false,
-        },
-      },
-      -- max_width = nil,
-      -- max_height = nil,
-      max_width_window_percentage = 80,
-      max_height_window_percentage = 40,
-      window_overlap_clear_enabled = true,
-      window_overlap_clear_ft_ignore = {},
-      -- editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
-      -- tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-      -- hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" }, -- render image files as images when opened
-    },
   },
 
   {
