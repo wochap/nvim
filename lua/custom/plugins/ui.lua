@@ -10,7 +10,7 @@ return {
   {
     "folke/which-key.nvim",
     -- https://github.com/folke/which-key.nvim/issues/824
-    version = "v3.14.1",
+    -- version = "v3.14.1",
     event = "VeryLazy",
     init = function()
       vim.opt.timeout = true
