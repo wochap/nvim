@@ -187,7 +187,7 @@ return {
   },
   {
     "saghen/blink.cmp",
-    version = "v0.12.4",
+    version = "v0.13.1",
     event = { "InsertEnter", "VeryLazy" },
     dependencies = {
       {
@@ -416,6 +416,7 @@ return {
           return {}
         end,
         keymap = {
+          preset = "none",
           ["<C-Space>"] = { "show" },
           ["<C-b>"] = {
             function(cmp)
@@ -487,12 +488,16 @@ return {
         },
         completion = {
           menu = {
+            auto_show = true,
             draw = {
               columns = {
                 { "label", "label_description", gap = 1 },
                 { "kind_icon", "kind", gap = 2 },
               },
             },
+          },
+          ghost_text = {
+            enabled = false,
           },
         },
       },
