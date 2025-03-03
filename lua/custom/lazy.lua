@@ -77,7 +77,6 @@ require("lazy").setup {
         "getscriptPlugin",
         "gzip",
         "logipat",
-        "matchit",
         "matchparen",
         "optwin",
         "rplugin",
