@@ -1,5 +1,14 @@
 local constants = require "custom.utils.constants"
 
+-- source: https://github.com/serranomorante/.dotfiles/blob/main/docs/python-dev-setup.md
+local venv_path = table.concat({
+  "import sys",
+  'sys.path.append("' .. os.getenv "GLOBAL_PYTHON_FOLDER_PATH" .. '/lib/python3.11/site-packages")',
+  'sys.path.append("' .. os.getenv "GLOBAL_KITTY_FOLDER_PATH" .. '/lib/kitty")',
+  "import pylint_venv",
+  "pylint_venv.inithook(force_venv_activation=True, quiet=True)",
+}, "; ")
+
 return {
   {
     enabled = not constants.first_install,
@@ -56,6 +65,20 @@ return {
     opts = {
       linters_by_ft = {
         python = { "pylint" },
+      },
+      linters = {
+        pylint = {
+          args = {
+            "--init-hook",
+            venv_path,
+            "-f",
+            "json",
+            "--from-stdin",
+            function()
+              return vim.api.nvim_buf_get_name(0)
+            end,
+          },
+        },
       },
     },
   },
