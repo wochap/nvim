@@ -1,10 +1,12 @@
 local constants = require "custom.utils.constants"
 
 -- source: https://github.com/serranomorante/.dotfiles/blob/main/docs/python-dev-setup.md
+local global_python_folder_path = os.getenv "GLOBAL_PYTHON_FOLDER_PATH" or ""
+local global_kitty_folder_path = os.getenv "GLOBAL_KITTY_FOLDER_PATH" or ""
 local venv_path = table.concat({
   "import sys",
-  'sys.path.append("' .. os.getenv "GLOBAL_PYTHON_FOLDER_PATH" .. '/lib/python3.11/site-packages")',
-  'sys.path.append("' .. os.getenv "GLOBAL_KITTY_FOLDER_PATH" .. '/lib/kitty")',
+  'sys.path.append("' .. global_python_folder_path .. '/lib/python3.11/site-packages")',
+  'sys.path.append("' .. global_kitty_folder_path .. '/lib/kitty")',
   "import pylint_venv",
   "pylint_venv.inithook(force_venv_activation=True, quiet=True)",
 }, "; ")
