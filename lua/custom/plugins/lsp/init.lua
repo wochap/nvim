@@ -111,6 +111,9 @@ return {
       },
     },
     config = function(_, opts)
+      -- slow down log file growth
+      vim.lsp.set_log_level(vim.log.levels.ERROR)
+
       -- setup lsp formatter
       formatUtils.register(lspUtils.formatter())
 
@@ -368,6 +371,8 @@ return {
         },
       },
       max_concurrent_installers = 10,
+      -- slow down log file growth
+      log_level = vim.log.levels.ERROR,
     },
     config = function(_, opts)
       require("mason").setup(opts)
