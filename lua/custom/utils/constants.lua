@@ -112,4 +112,7 @@ M.disable_netrw = vim.uv.fs_stat(es_spell_path) and true or false
 
 M.big_file_mb = 0.5
 
+local nix_path = os.getenv "NIX_PATH"
+M.in_nix = nix_path ~= nil and nix_path ~= ""
+
 return M
