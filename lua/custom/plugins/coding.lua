@@ -170,6 +170,7 @@ return {
         lsp_rename = "T",
       })
 
+      -- TODO: update to snacks picker
       lazyUtils.on_load("telescope.nvim", function()
         require("telescope").load_extension "textcase"
       end)

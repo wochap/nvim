@@ -5,7 +5,7 @@ local constants = require "custom.utils.constants"
 
 return {
   {
-    "epwalsh/obsidian.nvim",
+    "obsidian-nvim/obsidian.nvim",
     version = "*",
     event = {
       "BufReadPre " .. vim.fn.expand "~" .. "/Sync/obsidian/*.md",
@@ -23,6 +23,7 @@ return {
           path = "~/Sync/obsidian/recipes",
         },
       },
+      log_level = vim.log.levels.ERROR,
       notes_subdir = "",
       daily_notes = {
         folder = "journal/dailies",
@@ -43,8 +44,7 @@ return {
         },
       },
       picker = {
-        -- TODO: update to snacks picker
-        name = "telescope.nvim",
+        name = "snacks.pick",
         note_mappings = {
           new = "<C-n>",
           insert_link = "<C-l>",
@@ -60,12 +60,17 @@ return {
       attachments = {
         img_folder = "attachments",
       },
+      completion = {
+        nvim_cmp = false,
+        blink = true,
+      },
     },
   },
 
   {
     "zk-org/zk-nvim",
     lazy = not constants.in_zk,
+    main = "zk",
     event = {
       "BufReadPre " .. vim.fn.expand "~" .. "/Sync/zk/*.md",
       "BufNewFile " .. vim.fn.expand "~" .. "/Sync/zk/*.md",
@@ -91,7 +96,7 @@ return {
       {
         "<leader>zf",
         "<Cmd>ZkNotes<CR>",
-        desc = "Picker (Telescope)", -- notes picker
+        desc = "Picker", -- notes picker
       },
     },
     init = function()
@@ -131,16 +136,7 @@ return {
       })
     end,
     opts = {
-      -- TODO: update to snacks_picker
-      -- https://github.com/zk-org/zk-nvim/pull/206
-      picker = "telescope",
+      picker = "snacks_picker",
     },
-    config = function(_, opts)
-      require("zk").setup(opts)
-
-      lazyUtils.on_load("telescope.nvim", function()
-        require("telescope").load_extension "zk"
-      end)
-    end,
   },
 }
