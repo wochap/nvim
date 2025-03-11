@@ -783,6 +783,7 @@ return {
     event = "VeryLazy",
     opts = {
       render = "virtual",
+      virtual_symbol = iconsUtils.other.color,
       virtual_symbol_position = "eol",
       enable_named_colors = false,
       enable_tailwind = false,

@@ -1,5 +1,4 @@
 local constants = require "custom.utils.constants"
-local lazyUtils = require "custom.utils.lazy"
 local iconsUtils = require "custom.utils.icons"
 local cmpUtils = require "custom.utils-plugins.cmp"
 local keymapsUtils = require "custom.utils.keymaps"
@@ -227,6 +226,7 @@ return {
           max_height = 15,
           border = cmpUtils.border "BlinkCmpMenuBorder",
           draw = {
+            gap = 2,
             columns = {
               { "label", "label_description", gap = 1 },
               { "kind_icon", "kind", gap = 2 },
@@ -311,6 +311,9 @@ return {
           lsp = {
             -- if lsp takes more than 500ms then make it async
             timeout_ms = 500,
+            opts = {
+              tailwind_color_icon = iconsUtils.other.color,
+            },
           },
           snippets = {
             max_items = 10,
@@ -487,6 +490,7 @@ return {
           menu = {
             auto_show = true,
             draw = {
+              -- gap = 2,
               columns = {
                 { "label", "label_description", gap = 1 },
                 { "kind_icon", "kind", gap = 2 },
