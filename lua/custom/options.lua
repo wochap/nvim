@@ -184,3 +184,7 @@ vim.opt.spelllang = { "en_us", "es" }
 
 -- docs: https://neovim.io/doc/user/options.html#'sessionoptions'
 vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "skiprtp" }
+
+-- go to previous/next line with h,l,left arrow and right arrow
+-- when cursor reaches end/beginning of line
+vim.opt.whichwrap:append "<>[]hl"
