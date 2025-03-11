@@ -694,6 +694,7 @@ return {
       -- indent lines
       indent = {
         indent = {
+          -- PERF: causes lag when folding a lot of lines
           enabled = true,
           char = constants.in_kitty and "▎" or "▏",
           only_scope = false,
