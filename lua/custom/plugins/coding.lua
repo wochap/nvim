@@ -4,6 +4,7 @@ local iconsUtils = require "custom.utils.icons"
 local cmpUtils = require "custom.utils-plugins.cmp"
 local keymapsUtils = require "custom.utils.keymaps"
 local langUtils = require "custom.utils.lang"
+local textCaseUtils = require "custom.utils-plugins.text-case"
 
 return {
   {
@@ -129,9 +130,9 @@ return {
     keys = {
       {
         "gt.",
-        "<cmd>TextCaseOpenTelescope<CR>",
+        textCaseUtils.openSelect,
         mode = { "n", "v" },
-        desc = "Pick (Telescope)",
+        desc = "Pick",
       },
     },
     opts = {
@@ -169,11 +170,6 @@ return {
         operator = "ot",
         lsp_rename = "T",
       })
-
-      -- TODO: update to snacks picker
-      lazyUtils.on_load("telescope.nvim", function()
-        require("telescope").load_extension "textcase"
-      end)
     end,
   },
 
