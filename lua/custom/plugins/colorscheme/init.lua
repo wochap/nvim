@@ -83,10 +83,6 @@ return {
         nvimtree = true,
         neotree = true,
         semantic_tokens = true,
-        telescope = {
-          enabled = true,
-          style = "nvchad",
-        },
         treesitter = true,
         which_key = true,
       },

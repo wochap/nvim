@@ -319,19 +319,6 @@ local getOverridesHl = function(mocha)
     NvimTreeGitFileDirtyHL = { link = "NvimTreeGitDirty" },
     NvimTreeGitFileIgnoredHL = { link = "NeoTreeGitIgnored" },
 
-    -- telescope.nvim
-    TelescopeBorder = { fg = floatColors.bg, bg = floatColors.bg },
-    TelescopeNormal = { bg = floatColors.bg },
-    TelescopePromptBorder = { fg = mocha.surface0, bg = mocha.surface0 },
-    TelescopePromptNormal = { bg = mocha.surface0 },
-    TelescopePromptPrefix = { bg = mocha.surface0 },
-    TelescopePromptTitle = { fg = mocha.base, bg = mocha.red },
-    TelescopePreviewTitle = { fg = mocha.base, bg = mocha.green },
-    TelescopePreviewNormal = { bg = mocha.crust },
-    TelescopePreviewBorder = { fg = mocha.crust, bg = mocha.crust },
-    TelescopeResultsTitle = { fg = mocha.mantle, bg = mocha.lavender },
-    TelescopeSelection = { fg = mocha.text, bg = mocha.surface0 },
-
     -- noice.nvim
     NoiceCmdlinePopupNormal = { fg = mocha.text, bg = mocha.crust },
     NoiceCmdlinePopupBorder = { fg = mocha.crust, bg = mocha.crust },

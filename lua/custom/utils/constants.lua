@@ -10,9 +10,6 @@ M.window_picker_exclude_filetypes = {
   -- diffview.nvim
   "DiffviewFileHistory",
   "DiffviewFiles",
-  -- telescope.nvim
-  "TelescopePrompt",
-  "TelescopeResults",
   -- blame.nvim
   "blame",
   -- trouble.nvim
