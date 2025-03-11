@@ -200,6 +200,21 @@ local function git_branch_module()
   return ""
 end
 
+local function git_branch_gitsigns_module()
+  if not vim.b.gitsigns_head or vim.b.gitsigns_git_status then
+    return ""
+  end
+
+  local git_status = vim.b.gitsigns_status_dict
+  local branch_name = git_status.head
+
+  if #branch_name > 0 then
+    return hl_str "StModuleAlt" .. " " .. branch_name
+  end
+
+  return ""
+end
+
 local function git_diff_module()
   if not vim.b.gitsigns_head or vim.b.gitsigns_git_status or vim.o.columns <= breakpoint then
     return ""
@@ -444,7 +459,8 @@ local M = {}
 M.statusline = function()
   local modules = {
     mode_module() .. file_module(),
-    git_branch_module(),
+    -- git_branch_module(),
+    git_branch_gitsigns_module(),
     git_diff_module(),
     symbols_module(),
     -- NOTE: the following string takes all the available space
@@ -465,7 +481,7 @@ M.statusline = function()
 end
 
 M.init = function()
-  gitBranchUtils.init()
+  -- gitBranchUtils.init()
 end
 
 return M
