@@ -16,8 +16,8 @@ $ rm -rf ~/.local/state/nvim
 # installation
 $ git clone git@github.com:wochap/nvim.git ~/.config/nvim
 $ nvim
-# wait for lazy.nvim to finish and restart nvim
-# enter nvim and repeat once more
+# wait for lazy.nvim to finish, then restart nvim
+# enter nvim and repeat the installation step once more
 ```
 
 **IMPORTANT:** I disabled nvim builtin syntax which caused severe lag on my system, re enable it commenting out the line `lua/custom/init.lua:6`. Alternatively, you can install the Treesitter parser for the specified language or enable syntax for that specified filetype in the current buffer with `:set syntax=<filetype>`.
@@ -28,15 +28,15 @@ $ nvim
 
 - Lag
 
-  Try disabling `statuscol.nvim` plugin or use a better fast terminal like [foot](https://codeberg.org/dnkl/foot)
+  Try using a faster and better terminal, such as [foot](https://codeberg.org/dnkl/foot)
 
 - Anything Eslint related
 
   Run in nvim
 
   ```
-  :w
-  :e
+  :w %
+  :e %
   ```
 
   If that didn't work, kill all eslint processes
@@ -55,8 +55,8 @@ Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirem
 - [neovim-remote](https://github.com/mhinz/neovim-remote)
 - [foot](https://codeberg.org/dnkl/foot) (recommended)
 - [tree-sitter](https://github.com/tree-sitter/tree-sitter)
-- ripgrep (required by [telescope](https://github.com/nvim-telescope/telescope.nvim))
-- fd (required by [telescope](https://github.com/nvim-telescope/telescope.nvim))
+- ripgrep (required by [snacks.nvim picker](https://github.com/folke/snacks.nvim/blob/main/docs/picker.md))
+- fd (required by [snacks.nvim picker](https://github.com/folke/snacks.nvim/blob/main/docs/picker.md))
 - deno (required by [peek](https://github.com/toppair/peek.nvim))
 - nixfmt (required by [conform.nvim](https://github.com/stevearc/conform.nvim))
 - statix (required by [nvim-lint](https://github.com/mfussenegger/nvim-lint))
