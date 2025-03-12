@@ -357,6 +357,11 @@ return {
         "<cmd>Mason<CR>",
         desc = "Mason",
       },
+      {
+        "<leader>M",
+        "<cmd>Mason<CR>",
+        desc = "Mason",
+      },
     },
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     opts_extend = { "ensure_installed" },
@@ -364,6 +369,8 @@ return {
       -- NOTE: mason.nvim doesn't have the option `ensure_installed`
       ensure_installed = {},
       ui = {
+        width = 0.8,
+        height = 0.9,
         icons = {
           package_pending = " ",
           package_installed = "󰄳 ",
