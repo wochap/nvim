@@ -26,6 +26,7 @@ local getColors = function(palette)
 end
 
 local getExtraHl = function(mocha)
+  local U = require "catppuccin.utils.colors"
   local colorschemeUtils = require "custom.utils.colorscheme"
   local gitColors = getColors(mocha).git
   local stateColors = getColors(mocha).state
@@ -130,6 +131,10 @@ local getExtraHl = function(mocha)
     SnacksNormalNC = { link = "Normal" },
     -- TODO: bug, space without HL in snacks Input
     SnacksInputTitle = { link = "FloatTitle" },
+    SnacksPickerMatch = {
+      fg = mocha.blue,
+      bg = U.darken(mocha.blue, 0.095, mocha.base),
+    },
 
     -- incline.nvim
     InclineNormalNC = {
