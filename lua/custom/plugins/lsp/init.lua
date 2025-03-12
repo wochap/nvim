@@ -373,9 +373,9 @@ return {
         height = 0.9,
         backdrop = 60,
         icons = {
-          package_pending = " ",
-          package_installed = "󰄳 ",
-          package_uninstalled = " 󰚌",
+          package_pending = "",
+          package_installed = "●",
+          package_uninstalled = "○",
         },
       },
       max_concurrent_installers = 10,
