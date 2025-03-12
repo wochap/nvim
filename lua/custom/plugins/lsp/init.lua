@@ -371,6 +371,7 @@ return {
       ui = {
         width = 0.8,
         height = 0.9,
+        backdrop = 60,
         icons = {
           package_pending = " ",
           package_installed = "󰄳 ",
