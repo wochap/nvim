@@ -24,56 +24,6 @@ return {
   },
 
   {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    keys = {
-      {
-        "<leader>uz",
-        "<cmd>ZenMode<CR>",
-        desc = "Toggle Zen Mode",
-      },
-    },
-    opts = {
-      window = {
-        backdrop = 1,
-        width = 130, -- width of the Zen window
-        height = 1, -- height of the Zen window
-        options = {
-          cursorline = false,
-          cursorcolumn = false,
-          number = false,
-          relativenumber = false,
-          signcolumn = "no",
-          foldcolumn = "0",
-        },
-      },
-      plugins = {
-        options = {
-          enabled = true,
-          ruler = false, -- disables the ruler text in the cmd line area
-          showcmd = false, -- disables the command in the last line of the screen
-          laststatus = 0,
-        },
-        twilight = { enabled = false }, -- enable to start Twilight when zen mode opens
-        gitsigns = { enabled = true }, -- disables git signs
-      },
-      on_open = function(winid)
-        local bufnr = vim.api.nvim_win_get_buf(winid)
-        -- TODO: edge case where if you are in zen mode
-        -- and switch to a different buffer
-        -- this fn doesn't get called
-        utils.disable_ufo(bufnr)
-        lspUtils.toggle_inlay_hints(bufnr, false)
-      end,
-      on_close = function()
-        local bufnr = vim.api.nvim_get_current_buf()
-        utils.enable_ufo(bufnr)
-        lspUtils.toggle_inlay_hints(bufnr, true)
-      end,
-    },
-  },
-
-  {
     "echasnovski/mini.bracketed",
     event = "VeryLazy",
     opts = {
@@ -410,6 +360,15 @@ return {
         desc = "Toggle Scratch Buffer",
       },
 
+      -- zen
+      {
+        "<leader>uz",
+        function()
+          Snacks.zen()
+        end,
+        desc = "Toggle Zen Mode",
+      },
+
       -- bufdelete
       {
         "<leader>w",
@@ -453,9 +412,46 @@ return {
         map = LazyVim.safe_keymap_set,
       },
 
+      zen = {
+        toggles = {
+          dim = false,
+          diagnostics = false,
+          -- TODO: it doesn't toggle off git_signs
+          git_signs = false,
+        },
+        show = {
+          statusline = false,
+        },
+        on_open = function(win)
+          local bufnr = win.buf
+          -- TODO: edge case where if you are in zen mode
+          -- and switch to a different buffer
+          -- this fn doesn't get called
+          utils.disable_ufo(bufnr)
+          lspUtils.toggle_inlay_hints(bufnr, false)
+        end,
+        on_close = function(win)
+          local bufnr = win.buf
+          utils.enable_ufo(bufnr)
+          lspUtils.toggle_inlay_hints(bufnr, true)
+        end,
+      },
+
       styles = {
         scratch = {
           wo = { winhighlight = "" },
+        },
+
+        zen = {
+          zindex = constants.zindex_fullscreen,
+          width = 130,
+          height = 0,
+          wo = {
+            cursorline = false,
+            cursorcolumn = false,
+          },
+          -- removes cursorline, cursorcolumn, numbers and signs
+          minimal = false,
         },
       },
     },
