@@ -65,8 +65,8 @@ require("lazy").setup {
   },
   ui = {
     size = {
-      width = 0.8,
-      height = 0.9,
+      width = constants.width_fullscreen,
+      height = constants.height_fullscreen,
     },
   },
   install = { colorscheme = { "catppuccin", "habamax" } },

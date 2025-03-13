@@ -3,6 +3,7 @@ local lspUtils = require "custom.utils.lsp"
 local iconsUtils = require "custom.utils.icons"
 local formatUtils = require "custom.utils.format"
 local lspKeymapsUtils = require "custom.plugins.lsp.keymaps"
+local constants = require "custom.utils.constants"
 
 return {
   {
@@ -369,8 +370,8 @@ return {
       -- NOTE: mason.nvim doesn't have the option `ensure_installed`
       ensure_installed = {},
       ui = {
-        width = 0.8,
-        height = 0.9,
+        width = constants.width_fullscreen,
+        height = constants.height_fullscreen,
         backdrop = 60,
         icons = {
           package_pending = "",

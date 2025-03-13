@@ -2,6 +2,17 @@ local langUtils = require "custom.utils.lang"
 
 local M = {}
 
+M.width_fullscreen = 174
+M.height_fullscreen = 0.9
+
+-- lazy.nvim uses 50
+-- but float windows uses 50 as well
+M.zindex_fullscreen = 49
+
+-- 43 is used because mason.nvim uses 44, and its zindex isn't configurable
+-- notifications look bad over fullscreen buffers, such as mason.nvim
+M.zindex_float = 43
+
 M.window_picker_exclude_filetypes = {
   -- nvim-tree.lua
   "NvimTree",

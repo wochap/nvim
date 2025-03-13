@@ -1,3 +1,5 @@
+local constants = require "custom.utils.constants"
+
 local M = {}
 
 local terminals = {}
@@ -37,7 +39,10 @@ M.exit_terminal_mode = vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true,
 M.toggle_scratch_term = function()
   M.toggle(nil, {
     cwd = vim.uv.cwd(),
-    size = { width = 0.8, height = 0.8 },
+    size = {
+      width = constants.width_fullscreen,
+      height = constants.height_fullscreen,
+    },
     border = "single",
   })
 end

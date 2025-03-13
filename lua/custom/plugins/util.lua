@@ -439,12 +439,17 @@ return {
 
       styles = {
         scratch = {
-          wo = { winhighlight = "" },
+          wo = {
+            winhighlight = "",
+          },
+          width = constants.width_fullscreen,
+          height = constants.height_fullscreen,
+          zindex = constants.zindex_fullscreen,
         },
 
         zen = {
           zindex = constants.zindex_fullscreen,
-          width = 130,
+          width = constants.width_fullscreen,
           height = 0,
           wo = {
             cursorline = false,

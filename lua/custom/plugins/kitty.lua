@@ -1,16 +1,16 @@
 local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
-local in_kittyscrollback = require("custom.utils.constants").in_kittyscrollback
+local constants = require "custom.utils.constants"
 
 return {
   {
     "mikesmithgh/kitty-scrollback.nvim",
-    enabled = in_kittyscrollback,
+    enabled = constants.in_kittyscrollback,
     commit = "3f430ff8829dc2b0f5291d87789320231fdb65a1",
     event = { "User KittyScrollbackLaunch" },
     cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
     init = function()
-      if in_kittyscrollback then
+      if constants.in_kittyscrollback then
         vim.opt.showtabline = 0
         vim.opt.laststatus = 0
       end
@@ -44,7 +44,7 @@ return {
             row = vim.o.lines,
             style = "minimal",
             width = vim.o.columns,
-            zindex = 40,
+            zindex = constants.zindex_fullscreen,
           }
         end,
       },

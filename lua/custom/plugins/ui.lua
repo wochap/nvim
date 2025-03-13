@@ -79,7 +79,7 @@ return {
         overlap = {
           borders = true,
         },
-        zindex = 10,
+        zindex = constants.zindex_float,
         margin = {
           horizontal = 0,
           vertical = 1,
@@ -599,7 +599,7 @@ return {
           position = {
             row = -1,
           },
-          zindex = 46,
+          zindex = constants.zindex_float,
           win_config = {
             winblend = 100,
           },
@@ -658,7 +658,7 @@ return {
       notification = {
         window = {
           winblend = 100,
-          zindex = 45,
+          zindex = constants.zindex_float,
         },
       },
       integration = {
@@ -864,7 +864,7 @@ return {
     opts = {
       legacy_computing_symbols_support = true,
       smear_between_neighbor_lines = false,
-      windows_zindex = 47,
+      windows_zindex = constants.zindex_fullscreen,
     },
     config = function(_, opts)
       local smear_cursor = require "smear_cursor"
