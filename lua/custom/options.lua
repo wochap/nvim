@@ -14,6 +14,17 @@ vim.opt.number = true
 vim.opt.numberwidth = 2
 vim.opt.relativenumber = true
 
+vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.grepprg = "rg --vimgrep"
+
+-- When jumping back to a recent file, restore scroll position
+-- source: https://www.reddit.com/r/neovim/comments/16nead7/comment/k1e1nj5/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+-- source: https://www.reddit.com/r/neovim/comments/1cytkbq/comment/l7cqdmq/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+vim.opt.jumpoptions = "stack,view"
+
+-- Confirm to save changes before exiting modified buffer
+vim.opt.confirm = true
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
 
@@ -63,6 +74,7 @@ vim.opt.breakindent = true
 
 -- Save undo history
 vim.opt.undofile = true
+vim.opt.undolevels = 10000
 
 -- Don't store backup while overwriting the file
 vim.opt.backup = false
@@ -122,6 +134,7 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = false -- fix indent of line starting with `#`
+vim.opt.shiftround = true -- Round indent
 
 -- Allow going past the end of line in visual block mode
 vim.opt.virtualedit = "block"
