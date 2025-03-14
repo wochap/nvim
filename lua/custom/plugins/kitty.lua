@@ -6,7 +6,7 @@ return {
   {
     "mikesmithgh/kitty-scrollback.nvim",
     enabled = constants.in_kittyscrollback,
-    commit = "3f430ff8829dc2b0f5291d87789320231fdb65a1",
+    commit = "fd9f83f3f1141ef65de73fbe962f6c606ef02da8", -- v6.2.2
     event = { "User KittyScrollbackLaunch" },
     cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
     init = function()
@@ -18,12 +18,8 @@ return {
     opts = {
       callbacks = {
         after_setup = function()
-          local ksb_api = require "kitty-scrollback.api"
           vim.opt.signcolumn = "no"
           vim.opt.cmdheight = 1
-          vim.keymap.set("n", "Q", ksb_api.quit_all, {})
-          vim.keymap.set("n", "q", ksb_api.close_or_quit_all, {})
-          vim.keymap.set("n", "<esc>", ":noh<CR>", {})
         end,
       },
       keymaps_enabled = true,
