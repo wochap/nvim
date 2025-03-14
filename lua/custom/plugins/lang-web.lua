@@ -68,6 +68,17 @@ return {
       },
     },
   },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    optional = true,
+    opts = function()
+      vim.filetype.add {
+        extension = {
+          mdx = "markdown.mdx",
+        },
+      }
+    end,
+  },
 
   {
     "yioneko/nvim-vtsls",
