@@ -347,6 +347,22 @@ return {
           handlers = { setup },
         }
       end
+
+      -- add toggle keymap for diagnostics
+      Snacks.toggle.diagnostics():map "<leader>ud"
+
+      -- add toggle keymap for inlay hints
+      -- TODO: check if the buffer's LSP supports `inlayHint`
+      -- before adding a keymap to the buffer
+      Snacks.toggle({
+        name = "Inlay Hints",
+        get = function()
+          return vim.lsp.inlay_hint.is_enabled { bufnr = 0 }
+        end,
+        set = function(enabled)
+          lspUtils.toggle_inlay_hints(0, enabled)
+        end,
+      }):map "<leader>uh"
     end,
   },
 
@@ -474,6 +490,22 @@ return {
           end
         end,
       })
+
+      -- TODO: check if the buffer's LSP supports `codeLens`
+      -- before adding a keymap to the buffer
+      Snacks.toggle({
+        name = "Codelens",
+        get = function()
+          return require("lsp-lens.config").config.enable
+        end,
+        set = function(enabled)
+          if enabled then
+            lens.lsp_lens_on()
+          else
+            lens.lsp_lens_off()
+          end
+        end,
+      }):map "<leader>uC"
     end,
   },
 

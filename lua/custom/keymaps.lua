@@ -111,18 +111,6 @@ map("i", "<A-S-Right>", "<C-o>W", "Move Entire Forward Word")
 -- map("i", "<A-e>", "<C-o>e", "")
 -- map("i", "<A-S-e>", "<C-o>E", "")
 
--- toggling
-Snacks.toggle.option("spell", { name = "Spelling" }):map "<leader>us"
-Snacks.toggle.option("wrap", { name = "Wrap" }):map "<leader>uw"
-Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map "<leader>uL"
-Snacks.toggle.line_number():map "<leader>ul"
-Snacks.toggle
-  .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" })
-  :map "<leader>uc"
-Snacks.toggle.diagnostics():map "<leader>ud"
-Snacks.toggle.treesitter():map "<leader>uT"
--- Snacks.toggle.inlay_hints():map "<leader>uh"
-
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward].'zv'", "Next Search Result", { expr = true })
 map("x", "n", "'Nn'[v:searchforward]", "Next Search Result", { expr = true })
@@ -185,4 +173,5 @@ end
 -- enable terminal like copy and paste in neovide
 if constants.in_neovide then
   map({ "n", "v", "i", "c", "t" }, "<C-S-v>", keymapsUtils.paste, "Paste", { noremap = true })
+  map({ "n", "v", "i", "c", "t" }, "<Insert>", keymapsUtils.paste, "Paste", { noremap = true })
 end

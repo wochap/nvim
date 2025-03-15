@@ -67,6 +67,9 @@ return {
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
       vim.treesitter.language.register("bash", "zsh")
+
+      -- add toggle keymap for treesitter
+      Snacks.toggle.treesitter():map "<leader>uT"
     end,
   },
 

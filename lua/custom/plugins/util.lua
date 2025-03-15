@@ -130,18 +130,27 @@ return {
 
   {
     "declancm/maximize.nvim",
-    keys = {
-      {
-        "<leader>um",
-        function()
-          require("maximize").toggle()
+    event = "VeryLazy",
+    opts = function()
+      Snacks.toggle({
+        name = "Maximize",
+        get = function()
+          return vim.t.maximized
         end,
-        desc = "Toggle Maximize",
-      },
-    },
-    opts = {
-      aerial = { enable = false },
-    },
+        set = function(enabled)
+          local m = require "maximize"
+          if enabled then
+            m.maximize()
+          else
+            m.restore()
+          end
+        end,
+      }):map "<leader>um"
+
+      return {
+        aerial = { enable = false },
+      }
+    end,
   },
 
   {
@@ -360,15 +369,6 @@ return {
         desc = "Toggle Scratch Buffer",
       },
 
-      -- zen
-      {
-        "<leader>uz",
-        function()
-          Snacks.zen()
-        end,
-        desc = "Toggle Zen Mode",
-      },
-
       -- bufdelete
       {
         "<leader>w",
@@ -408,35 +408,6 @@ return {
       },
     },
     opts = {
-      toggle = {
-        map = LazyVim.safe_keymap_set,
-      },
-
-      zen = {
-        toggles = {
-          dim = false,
-          diagnostics = false,
-          -- TODO: it doesn't toggle off git_signs
-          git_signs = false,
-        },
-        show = {
-          statusline = false,
-        },
-        on_open = function(win)
-          local bufnr = win.buf
-          -- TODO: edge case where if you are in zen mode
-          -- and switch to a different buffer
-          -- this fn doesn't get called
-          utils.disable_ufo(bufnr)
-          lspUtils.toggle_inlay_hints(bufnr, false)
-        end,
-        on_close = function(win)
-          local bufnr = win.buf
-          utils.enable_ufo(bufnr)
-          lspUtils.toggle_inlay_hints(bufnr, true)
-        end,
-      },
-
       styles = {
         scratch = {
           wo = {
@@ -446,20 +417,77 @@ return {
           height = constants.height_fullscreen,
           zindex = constants.zindex_fullscreen,
         },
-
-        zen = {
-          zindex = constants.zindex_fullscreen,
-          width = constants.width_fullscreen,
-          height = 0,
-          wo = {
-            cursorline = false,
-            cursorcolumn = false,
-          },
-          -- removes cursorline, cursorcolumn, numbers and signs
-          minimal = false,
-        },
       },
     },
+  },
+
+  {
+    "folke/snacks.nvim",
+    optional = true,
+    opts = function(_, opts)
+      Snacks.toggle.zen():map "<leader>uz"
+
+      return vim.tbl_deep_extend("force", opts, {
+        zen = {
+          toggles = {
+            dim = false,
+            diagnostics = false,
+            -- TODO: it doesn't toggle off git_signs
+            git_signs = false,
+          },
+          show = {
+            statusline = false,
+          },
+          on_open = function(win)
+            local bufnr = win.buf
+            -- TODO: edge case where if you are in zen mode
+            -- and switch to a different buffer
+            -- this fn doesn't get called
+            utils.disable_ufo(bufnr)
+            lspUtils.toggle_inlay_hints(bufnr, false)
+          end,
+          on_close = function(win)
+            local bufnr = win.buf
+            utils.enable_ufo(bufnr)
+            lspUtils.toggle_inlay_hints(bufnr, true)
+          end,
+        },
+        styles = {
+          zen = {
+            zindex = constants.zindex_fullscreen,
+            width = constants.width_fullscreen,
+            height = 0,
+            wo = {
+              cursorline = false,
+              cursorcolumn = false,
+            },
+            -- removes cursorline, cursorcolumn, numbers and signs
+            minimal = false,
+          },
+        },
+      })
+    end,
+  },
+
+  {
+    "folke/snacks.nvim",
+    optional = true,
+    opts = function(_, opts)
+      Snacks.toggle.option("spell", { name = "Spelling" }):map "<leader>us"
+      Snacks.toggle.option("wrap", { name = "Wrap" }):map "<leader>uw"
+      Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map "<leader>uL"
+      Snacks.toggle.line_number():map "<leader>ul"
+      Snacks.toggle
+        .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" })
+        :map "<leader>uc"
+
+      return vim.tbl_deep_extend("force", opts, {
+        toggle = {
+          map = LazyVim.safe_keymap_set,
+          notify = false,
+        },
+      })
+    end,
   },
 
   {

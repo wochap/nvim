@@ -103,18 +103,6 @@ M.get = function()
       desc = "Rename (Buffer)",
       has = { "workspace/didRenameFiles", "workspace/willRenameFiles" },
     },
-    {
-      "<leader>uh",
-      lspUtils.toggle_inlay_hints,
-      desc = "Toggle Inlay Hints",
-      has = "inlayHint",
-    },
-    {
-      "<leader>uC",
-      "<cmd>LspLensToggle<CR>",
-      desc = "Toggle Codelens",
-      has = "codeLens",
-    },
     { "<leader>ld", vim.diagnostic.open_float, desc = "Diagnostic" },
     { "[d", diagnostic_goto(false), desc = "Prev Diagnostic" },
     { "]d", diagnostic_goto(true), desc = "Next Diagnostic" },
