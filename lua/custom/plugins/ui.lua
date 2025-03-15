@@ -230,6 +230,7 @@ return {
   },
 
   {
+    -- fork adds element.id in options.get_element_icon fn
     "wochap/bufferline.nvim",
     enabled = not in_kittyscrollback,
     branch = "main",
@@ -412,6 +413,7 @@ return {
   },
 
   {
+    -- fork fixes position of signature/hover windows
     "wochap/noice.nvim",
     event = { "LazyFile", "VeryLazy" },
     keys = {
@@ -776,8 +778,8 @@ return {
 
   -- PERF: it causes nvim to freeze
   -- when scrolling to code with colors
-  -- fork fixed that issue
   {
+    -- fork debounces hl colors, fixing the issue above
     "wochap/nvim-highlight-colors",
     branch = "perf",
     event = "VeryLazy",

@@ -460,6 +460,8 @@ return {
   },
 
   {
+    -- fork places virtual text at the end of line
+    -- instead of above the line
     "wochap/lsp-lens.nvim",
     event = { "LazyFile", "VeryLazy" },
     opts = {

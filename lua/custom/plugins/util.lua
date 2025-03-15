@@ -254,6 +254,7 @@ return {
   },
 
   {
+    -- fork throw error if there are not windows
     "wochap/nvim-window-picker",
     name = "window-picker",
     keys = {
