@@ -84,6 +84,7 @@ return {
         neotree = true,
         semantic_tokens = true,
         treesitter = true,
+        treesitter_context = true,
         which_key = true,
       },
     },

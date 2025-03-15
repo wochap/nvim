@@ -107,6 +107,43 @@ return {
   },
 
   {
+    -- fork introduces get_window_contexts fn
+    "wochap/nvim-treesitter-context",
+    event = "VeryLazy",
+    keys = {
+      {
+        "[C",
+        function()
+          require("treesitter-context").go_to_context(vim.v.count1)
+        end,
+        mode = "n",
+        desc = "GoTo Context",
+      },
+    },
+    opts = function()
+      local tsc = require "treesitter-context"
+      Snacks.toggle({
+        name = "Treesitter Context",
+        get = tsc.enabled,
+        set = function(state)
+          if state then
+            tsc.enable()
+          else
+            tsc.disable()
+          end
+        end,
+      }):map "<leader>ut"
+
+      return {
+        mode = "cursor",
+        max_lines = 3,
+        zindex = constants.zindex_float,
+        line_numbers = false,
+      }
+    end,
+  },
+
+  {
     url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
     enabled = false,
     event = "VeryLazy",
