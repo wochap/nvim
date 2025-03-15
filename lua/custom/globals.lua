@@ -16,6 +16,10 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 
+-- https://vi.stackexchange.com/a/5318/12823
+vim.g.matchparen_timeout = 2
+vim.g.matchparen_insert_timeout = 2
+
 -- disable netrw
 if constants.disable_netrw then
   vim.g.loaded_netrw = 1
