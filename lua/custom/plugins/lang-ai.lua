@@ -85,16 +85,39 @@ return {
       }
     end,
     opts = {
-      provider = "openai",
-      auto_suggestions_provider = "claude",
-      openai = {
-        api_key_name = "cmd:bat --plain " .. vim.env.HOME .. "/.config/secrets/deepseek/gean.marroquin@gmail.com",
-        endpoint = "https://api.deepseek.com/v1",
-        model = "deepseek-chat",
-        timeout = 30000, -- 30s
-        temperature = 0,
-        max_tokens = 4096,
-        -- ["local"] = false,
+      provider = "deepseek_chat",
+      auto_suggestions_provider = "copilot",
+      vendors = {
+        deepseek_coder = {
+          __inherited_from = "openai",
+          disable_tools = true,
+          api_key_name = "cmd:bat --plain " .. vim.env.HOME .. "/.config/secrets/deepseek/gean.marroquin@gmail.com",
+          endpoint = "https://api.deepseek.com/v1",
+          model = "deepseek-coder",
+          timeout = 30000, -- 30s
+          temperature = 0,
+          max_tokens = 4096,
+        },
+        deepseek_chat = {
+          __inherited_from = "openai",
+          disable_tools = true,
+          api_key_name = "cmd:bat --plain " .. vim.env.HOME .. "/.config/secrets/deepseek/gean.marroquin@gmail.com",
+          endpoint = "https://api.deepseek.com/v1",
+          model = "deepseek-chat",
+          timeout = 30000, -- 30s
+          temperature = 0,
+          max_tokens = 4096,
+        },
+        deepseek_r1 = {
+          __inherited_from = "openai",
+          disable_tools = true,
+          api_key_name = "cmd:bat --plain " .. vim.env.HOME .. "/.config/secrets/deepseek/gean.marroquin@gmail.com",
+          endpoint = "https://api.deepseek.com/v1",
+          model = "deepseek-reasoner",
+          timeout = 30000, -- 30s
+          temperature = 0,
+          max_tokens = 4096,
+        },
       },
       behaviour = {
         auto_focus_sidebar = false,
@@ -168,7 +191,7 @@ return {
           start_insert = true,
         },
         ask = {
-          start_insert = true,
+          start_insert = false,
         },
       },
       hints = {
