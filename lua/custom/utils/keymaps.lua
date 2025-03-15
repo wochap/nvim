@@ -6,6 +6,16 @@ local exclude_filetypes = {
   "fidget",
   "smear-cursor",
 }
+local function is_ts_context_window(winid)
+  local has_ts_context, ts_context_render = pcall(require, "treesitter-context.render")
+  if not has_ts_context then
+    return false
+  end
+  local window_contexts = vim.tbl_map(function(t)
+    return t.context_winid
+  end, ts_context_render.get_window_contexts())
+  return vim.tbl_contains(window_contexts, winid)
+end
 M.close_all_floating = function()
   local blink = require "blink.cmp"
   if blink.is_visible() then
@@ -27,7 +37,7 @@ M.close_all_floating = function()
     if config and config.relative ~= "" then
       local bufid = vim.api.nvim_win_get_buf(win)
       local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufid })
-      if vim.tbl_contains(exclude_filetypes, filetype) then
+      if vim.tbl_contains(exclude_filetypes, filetype) or is_ts_context_window(win) then
         goto continue
       end
       local ok, _ = pcall(vim.api.nvim_win_close, win, false)
