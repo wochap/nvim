@@ -238,7 +238,9 @@ return {
         },
       },
       modified = {
-        enable = true,
+        -- PERF: enabling modified on large codebases
+        -- causes significant UI lag
+        enable = false,
         show_on_dirs = true,
         show_on_open_dirs = false,
       },
