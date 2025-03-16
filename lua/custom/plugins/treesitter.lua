@@ -138,7 +138,8 @@ return {
         mode = "cursor",
         max_lines = 3,
         zindex = constants.zindex_float,
-        line_numbers = false,
+        line_numbers = true,
+        enable_hl = false,
       }
     end,
   },

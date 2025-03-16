@@ -13,7 +13,7 @@ M.zindex_fullscreen = 49
 -- notifications look bad over fullscreen buffers, such as mason.nvim
 M.zindex_float = 43
 
-M.window_picker_exclude_filetypes = {
+local common_exclude_filetypes = {
   -- nvim-tree.lua
   "NvimTree",
   -- neo-tree.nvim
@@ -52,6 +52,8 @@ M.window_picker_exclude_filetypes = {
   "snacks_picker_input",
   "snacks_picker_list",
   "snacks_picker_preview",
+  -- fidget.nvim
+  "fidget",
   -- nvim
   "qf",
   "notify",
@@ -60,8 +62,13 @@ M.window_picker_exclude_filetypes = {
   "tutor",
 }
 
+M.window_picker_exclude_filetypes = langUtils.list_merge(common_exclude_filetypes, {
+  -- nvim-treesitter-context
+  "treesitter_context",
+})
+
 -- NOTE: you can't exclude empty filetypes
-M.exclude_filetypes = langUtils.list_merge(M.window_picker_exclude_filetypes, {
+M.exclude_filetypes = langUtils.list_merge(common_exclude_filetypes, {
   -- nvim-lspconfig
   "lspinfo",
   -- leetcode.nvim

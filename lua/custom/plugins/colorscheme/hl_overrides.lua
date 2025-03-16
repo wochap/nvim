@@ -467,6 +467,8 @@ local getOverridesHl = function(mocha)
     LspLens = { link = "LspInlayHint" },
 
     -- nvim-treesitter-context
+    TreesitterContext = { fg = mocha.surface1, bg = "NONE" },
+    TreesitterContextLineNumber = { link = "LineNr" },
     TreesitterContextBottom = { style = {} },
 
     -- nvim recording macro msg

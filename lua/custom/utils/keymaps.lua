@@ -1,10 +1,16 @@
 local M = {}
 
 local exclude_filetypes = {
+  -- noice.nvim
   "noice",
+  -- incline.nvim
   "incline",
+  -- fidget.nvim
   "fidget",
+  -- smear-cursor.nvim
   "smear-cursor",
+  -- nvim-treesitter-context
+  "treesitter_context",
 }
 local function is_ts_context_window(winid)
   local has_ts_context, ts_context_render = pcall(require, "treesitter-context.render")
