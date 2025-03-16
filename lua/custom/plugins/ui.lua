@@ -700,7 +700,7 @@ return {
           enabled = true,
           char = constants.in_kitty and "▎" or "▏",
           only_scope = false,
-          only_current = false,
+          only_current = true,
           hl = "SnacksIndent",
         },
         animate = {
