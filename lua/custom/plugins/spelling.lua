@@ -53,7 +53,7 @@ return {
             name = "spell",
             module = "blink.compat.source",
             max_items = 10,
-            score_offset = -2,
+            score_offset = -20,
             opts = {
               keep_all_entries = true, -- don't filter it
               -- enable_in_context = function()

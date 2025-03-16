@@ -67,7 +67,8 @@ return {
           lazydev = {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
-            score_offset = 1, -- show at a higher priority than lsp
+            score_offset = 10, -- show at a higher priority than lsp
+            fallbacks = {},
           },
         },
       },

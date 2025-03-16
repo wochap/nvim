@@ -228,11 +228,13 @@ return {
           draw = {
             gap = 2,
             columns = {
+              { "kind_icon" },
               { "label", "label_description", gap = 1 },
-              { "kind_icon", "kind", gap = 2 },
+              { "kind" },
             },
             components = {
               label = {
+                width = { fill = true, max = 40 },
                 highlight = function(ctx)
                   -- label and label details
                   local highlights = {
@@ -311,6 +313,8 @@ return {
           lsp = {
             -- if lsp takes more than 500ms then make it async
             timeout_ms = 500,
+            score_offset = 0,
+            fallbacks = {},
             opts = {
               tailwind_color_icon = iconsUtils.other.color,
             },
@@ -319,22 +323,26 @@ return {
             max_items = 10,
             -- NOTE: kind doesn't exists in blink.cmp
             kind = "Snippet",
+            score_offset = 0,
           },
           buffer = {
             max_items = 10,
-            score_offset = -1,
+            score_offset = -10,
           },
           path = {
             max_items = 10,
+            score_offset = 20,
+            fallbacks = {},
           },
           cmdline = {
             max_items = 10,
+            score_offset = 0,
           },
           cmdline_history_cmd = {
             name = "cmdline_history",
             module = "blink.compat.source",
             max_items = 5,
-            score_offset = -2,
+            score_offset = -20,
             opts = {
               history_type = "cmd",
             },
@@ -344,7 +352,7 @@ return {
             name = "cmdline_history",
             module = "blink.compat.source",
             max_items = 5,
-            score_offset = -2,
+            score_offset = -20,
             opts = {
               history_type = "search",
             },
@@ -492,8 +500,9 @@ return {
             draw = {
               -- gap = 2,
               columns = {
+                { "kind_icon" },
                 { "label", "label_description", gap = 1 },
-                { "kind_icon", "kind", gap = 2 },
+                { "kind" },
               },
             },
           },
