@@ -207,4 +207,6 @@ M.paste = function()
   end
 end
 
+M.exit_terminal_mode = vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true)
+
 return M

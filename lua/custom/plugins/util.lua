@@ -370,6 +370,20 @@ return {
         desc = "Toggle Scratch Buffer",
       },
 
+      -- termimal
+      {
+        "<A-i>",
+        function()
+          Snacks.terminal.toggle("zsh", {
+            win = {
+              border = "rounded",
+            },
+          })
+        end,
+        desc = "Toggle Terminal",
+        mode = { "n", "t" },
+      },
+
       -- bufdelete
       {
         "<leader>w",
@@ -417,6 +431,17 @@ return {
           width = constants.width_fullscreen,
           height = constants.height_fullscreen,
           zindex = constants.zindex_fullscreen,
+        },
+
+        terminal = {
+          width = constants.width_fullscreen,
+          height = constants.height_fullscreen,
+          wo = {
+            winhighlight = "NormalFloat:Normal,FloatBorder:SnacksTermFloatBorder,Search:None",
+          },
+          keys = {
+            term_normal = false,
+          },
         },
       },
     },

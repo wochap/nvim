@@ -1,5 +1,4 @@
 local keymapsUtils = require "custom.utils.keymaps"
-local terminalUtils = require "custom.utils.terminal"
 local constants = require "custom.utils.constants"
 local map = keymapsUtils.map
 
@@ -48,9 +47,8 @@ map("n", "<C-w>v", "<C-w>v", "Split Window Right")
 map("n", "<C-`>", "<C-w>p", "Previous Window")
 
 -- terminal
-map("t", "<C-x>", terminalUtils.exit_terminal_mode, "Esc Terminal") -- exit terminal mode
-map("t", "<C-S-x>", terminalUtils.exit_terminal_mode .. "<C-w>q", "Hide Terminal")
-map({ "n", "t" }, "<A-i>", terminalUtils.toggle_scratch_term, "Toggle Terminal")
+map("t", "<C-x>", keymapsUtils.exit_terminal_mode, "Esc Terminal") -- exit terminal mode
+map("t", "<C-S-x>", keymapsUtils.exit_terminal_mode .. "<C-w>q", "Hide Terminal")
 
 -- scrolling
 map({ "n", "v" }, "<C-S-d>", "zL", "Scroll Right") -- half screen

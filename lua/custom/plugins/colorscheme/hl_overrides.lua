@@ -135,6 +135,7 @@ local getExtraHl = function(mocha)
       fg = mocha.blue,
       bg = U.darken(mocha.blue, 0.095, mocha.base),
     },
+    SnacksTermFloatBorder = { bg = mocha.base, fg = mocha.base },
 
     -- incline.nvim
     InclineNormalNC = {
