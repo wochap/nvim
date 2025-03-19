@@ -408,7 +408,13 @@ return {
           end,
         },
         ["<C-e>"] = { "cancel", "fallback" },
-        ["<C-y>"] = { "select_and_accept" },
+        ["<C-y>"] = {
+          function()
+            -- insert undo breakpoint
+            keymapsUtils.run_expr "<C-g>u"
+          end,
+          "select_and_accept",
+        },
       },
       cmdline = {
         sources = function()
@@ -668,7 +674,12 @@ return {
             luasnip.change_choice(1)
             return
           end
-          require("luasnip").expand()
+          -- insert undo breakpoint
+          keymapsUtils.run_expr "<C-g>u"
+
+          vim.schedule(function()
+            require("luasnip").expand()
+          end)
         end,
         desc = "Expand Snippet Or Next Choice",
         mode = "i",
