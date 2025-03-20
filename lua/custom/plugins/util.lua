@@ -437,7 +437,7 @@ return {
           width = constants.width_fullscreen,
           height = constants.height_fullscreen,
           wo = {
-            winhighlight = "NormalFloat:Normal,FloatBorder:SnacksTermFloatBorder,Search:None",
+            winhighlight = "NormalFloat:Normal,FloatBorder:SnacksTermFloatBorder",
           },
           keys = {
             term_normal = false,
