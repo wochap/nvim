@@ -24,4 +24,14 @@ return {
       }
     end,
   },
+
+  {
+    "neovim/nvim-lspconfig",
+    optional = true,
+    opts = {
+      servers = {
+        hyprls = {},
+      },
+    },
+  },
 }
