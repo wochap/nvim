@@ -406,6 +406,9 @@ local getOverridesHl = function(mocha)
     AvanteConflictCurrent = { link = "GitConflictCurrent" },
     AvanteConflictIncomingLabel = { link = "GitConflictIncomingLabel" },
     AvanteConflictIncoming = { link = "GitConflictIncoming" },
+    AvanteSidebarNormal = { link = "Normal" },
+    AvanteSidebarWinSeparator = { link = "WinSeparator" },
+    AvanteSidebarWinHorizontalSeparator = { link = "WinSeparator" },
 
     -- diagnostics
     DiagnosticUnderlineError = { undercurl = true, sp = stateColors.error }, -- Used to underline "Error" diagnostics
