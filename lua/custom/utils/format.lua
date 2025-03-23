@@ -8,7 +8,7 @@ M.resolve = function(...)
   return require("lazyvim.util.format").resolve(...)
 end
 
----@param opts? {force?:boolean, buf?:number}
+---@param opts? {force?:boolean, buf?:number, format_opts?:table}
 M.format = function(opts)
   opts = opts or {}
   local buf = opts.buf or vim.api.nvim_get_current_buf()
@@ -28,7 +28,7 @@ M.format = function(opts)
         done = true
         local try_opts = { msg = "Formatter `" .. formatter.name .. "` failed" }
         local try_fn = function()
-          return formatter.format(buf, function(err)
+          return formatter.format(buf, opts.format_opts, function(err)
             if err then
               LazyVim.error(try_opts.msg, { title = "conform.nvim" })
             end
@@ -75,9 +75,20 @@ M.setup = function()
   -- })
 
   -- Manual format
-  vim.api.nvim_create_user_command("LazyFormat", function()
-    M.format { force = true }
-  end, { desc = "Format selection or buffer" })
+  vim.api.nvim_create_user_command("LazyFormat", function(args)
+    local range = nil
+    if args.count ~= -1 then
+      local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+      range = {
+        start = { args.line1, 0 },
+        ["end"] = { args.line2, end_line:len() },
+      }
+    end
+    M.format {
+      force = true,
+      format_opts = { range = range },
+    }
+  end, { desc = "Format selection or buffer", range = true })
 
   -- Format info
   vim.api.nvim_create_user_command("LazyFormatInfo", function()

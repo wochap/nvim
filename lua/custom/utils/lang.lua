@@ -25,4 +25,8 @@ M.list_merge = function(...)
   return lists
 end
 
+M.tbl_merge = function(...)
+  return LazyVim.merge(...)
+end
+
 return M

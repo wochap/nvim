@@ -1,6 +1,7 @@
 local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
 local formatUtils = require "custom.utils.format"
+local langUtils = require "custom.utils.lang"
 
 return {
   {
@@ -11,13 +12,17 @@ return {
     keys = {
       {
         "<leader>lf",
-        "<cmd>LazyFormat<CR>",
+        function()
+          require("custom.utils.format").format { force = true }
+        end,
         desc = "Format Buffer",
         mode = "n",
       },
       {
         "<leader>lf",
-        "<cmd>LazyFormat<CR>",
+        function()
+          require("custom.utils.format").format { force = true }
+        end,
         desc = "Format Selection",
         mode = "v",
       },
@@ -55,8 +60,9 @@ return {
           name = "conform.nvim",
           priority = 100,
           primary = true,
-          format = function(buf, cb)
-            require("conform").format({ bufnr = buf }, cb)
+          format = function(buf, format_opts, cb)
+            local opts = langUtils.tbl_merge({}, format_opts, { bufnr = buf })
+            require("conform").format(opts, cb)
           end,
           sources = function(buf)
             local ret = require("conform").list_formatters(buf)
