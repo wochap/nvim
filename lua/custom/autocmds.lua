@@ -57,22 +57,25 @@ utils.autocmd("FileType", {
     "gitrebase",
     "gitconfig",
     "PlenaryTestPopup",
+    "spectre_panel",
+    -- neotest
+    "neotest-output",
+    "neotest-summary",
+    "neotest-output-panel",
+    -- grug-far.nvim
+    "grug-far",
+    "grug-far-history",
+    "grug-far-help",
+    -- nvim
     "help",
     "lspinfo",
     "man",
     "notify",
     "qf",
     "query",
-    "spectre_panel",
     "startuptime",
     "tsplayground",
-    "neotest-output",
     "checkhealth",
-    "neotest-summary",
-    "neotest-output-panel",
-    "grug-far",
-    "grug-far-history",
-    "grug-far-help",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
