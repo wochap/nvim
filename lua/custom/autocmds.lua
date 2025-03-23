@@ -115,17 +115,6 @@ utils.autocmd("FileType", {
   end,
 })
 
-if constants.in_nix then
-  utils.autocmd("FileType", {
-    group = utils.augroup "stop_path_overwrite",
-    pattern = { "term", "snacks_terminal" },
-    callback = function()
-      -- undo overwrite of PATH in lua/custom/globals.lua
-      vim.env.PATH = vim.env.PATH:gsub("/run/current%-system/sw/bin/:", "", 1)
-    end,
-  })
-end
-
 -- Handle big files and minified files
 vim.filetype.add {
   pattern = {
