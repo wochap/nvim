@@ -42,7 +42,9 @@ return {
               utils.close_sidebars "avante"
             end
             vim.schedule(function()
-              require("avante.api").ask()
+              if require("avante").is_sidebar_open() and require("avante.utils").is_sidebar_buffer(0) then
+                return
+              end
               require("avante.api").focus()
             end)
           end,
@@ -72,10 +74,9 @@ return {
               utils.close_sidebars "avante"
             end
             vim.schedule(function()
-              require("avante").toggle()
-              -- fix: artifacts when toggling avante
-              vim.cmd "redraw"
               if require("avante").is_sidebar_open() then
+                require("avante").close_sidebar()
+              else
                 require("avante.api").focus()
               end
             end)
@@ -172,6 +173,7 @@ return {
           reverse_switch_windows = "<S-Tab>",
           remove_file = "d",
           add_file = "@",
+          close = {},
         },
         files = {
           add_current = "<leader>aA", -- Add current buffer to selected files
@@ -204,6 +206,23 @@ return {
         provider = "snacks",
       },
     },
+    config = function(_, opts)
+      utils.autocmd("FileType", {
+        group = utils.augroup "close_avante_with_q",
+        pattern = {
+          "Avante",
+          "AvanteInput",
+          "AvanteSelectedFiles",
+        },
+        callback = function(event)
+          vim.keymap.set("n", "q", function()
+            require("avante").close_sidebar()
+          end, { buffer = event.buf, silent = true })
+        end,
+      })
+
+      require("avante").setup(opts)
+    end,
   },
   {
     "saghen/blink.cmp",
