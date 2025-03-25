@@ -98,6 +98,11 @@ return {
         "<Cmd>ZkNotes<CR>",
         desc = "Picker", -- notes picker
       },
+      {
+        "<leader>zm",
+        "<Cmd>lua require('custom.utils-plugins.zk').open_main()<CR>",
+        desc = "Main",
+      },
     },
     init = function()
       utils.autocmd({ "BufEnter" }, {
