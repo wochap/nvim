@@ -2,7 +2,7 @@
   "EmmetJSS": { "branch": "master", "commit": "252ae74ca42aa2b6d0414c19757c22ddbce36d29" },
   "LazyVim": { "branch": "main", "commit": "eb8ddea8c9438c34e71db097eb77a44185dd1093" },
   "LuaSnip": { "branch": "master", "commit": "03c8e67eb7293c404845b3982db895d59c0d1538" },
-  "SchemaStore.nvim": { "branch": "main", "commit": "735e53aa42423239e1f862e3356bdda56a2ba30e" },
+  "SchemaStore.nvim": { "branch": "main", "commit": "d307d291f38678d064cb987112926df6d9134de3" },
   "actions-preview.nvim": { "branch": "master", "commit": "4ab7842eb6a5b6d2b004f8234dcf33382a0fdde2" },
   "avante.nvim": { "branch": "main", "commit": "a06bb97db6e522f51de1427b72762a1ad0794279" },
   "blame.nvim": { "branch": "main", "commit": "39bb4cda9e658d053a43919b10ca52c0a4d738e1" },
