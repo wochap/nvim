@@ -98,6 +98,13 @@ return {
         left_pad = 1,
         right_pad = 1,
       },
+      overrides = {
+        buftype = {
+          nofile = {
+            enabled = false,
+          },
+        },
+      },
     },
   },
   {
