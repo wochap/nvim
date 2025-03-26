@@ -329,7 +329,7 @@ return {
   },
 
   {
-    "HakonHarnes/img-clip.nvim",
+    "wochap/img-clip.nvim",
     event = "VeryLazy",
     keys = {
       {
@@ -343,6 +343,7 @@ return {
         dir_path = "attachments",
         use_absolute_path = false,
         relative_to_current_file = true,
+        insert_mode_after_paste = false,
         show_dir_path_in_prompt = true,
         drag_and_drop = {
           enabled = false,
@@ -350,8 +351,11 @@ return {
       },
       filetypes = {
         typst = {
-          template = [[#image("./$FILE_PATH")]],
+          process_cmd = "convert - png:-",
+          extension = "png",
+          template = [[#image("./$FILE_PATH")$CURSOR]],
           relative_to_current_file = true,
+          copy_images = true,
         },
       },
     },
