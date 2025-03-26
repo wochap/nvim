@@ -326,7 +326,8 @@ return {
       local bufferline = require "bufferline"
       lazyUtils.on_load("catppuccin", function()
         local mocha = require("catppuccin.palettes").get_palette "mocha"
-        local bufferlineBg = "NONE"
+        -- TODO: check if theme has transparency and set bg to NONE
+        local bufferlineBg = mocha.base
         local bufferlineFg = mocha.surface1
         opts.highlights = require("catppuccin.groups.integrations.bufferline").get {
           styles = {},
