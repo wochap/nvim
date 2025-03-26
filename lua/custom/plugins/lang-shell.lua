@@ -3,7 +3,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
     opts = {
-      ensure_installed = { "bash" },
+      ensure_installed = { "bash", "just" },
     },
   },
   {
@@ -43,6 +43,7 @@ return {
     opts = {
       formatters_by_ft = {
         sh = { "shfmt" },
+        just = { "just" },
       },
     },
   },
