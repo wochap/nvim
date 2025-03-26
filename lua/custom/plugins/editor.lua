@@ -718,6 +718,16 @@ return {
         desc = "Merge Tool",
       },
     },
+    init = function()
+      utils.autocmd("VimLeavePre", {
+        group = utils.augroup "remove_diffview_buffers",
+        callback = function()
+          for _, view in ipairs(require("diffview.lib").views) do
+            view:close()
+          end
+        end,
+      })
+    end,
     opts = {
       enhanced_diff_hl = false,
       show_help_hints = false,
