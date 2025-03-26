@@ -85,6 +85,21 @@ return {
         },
       }
     end,
+    init = function()
+      utils.autocmd("FileType", {
+        group = utils.augroup "close_avante_with_q",
+        pattern = {
+          "Avante",
+          "AvanteInput",
+          "AvanteSelectedFiles",
+        },
+        callback = function(event)
+          vim.keymap.set("n", "q", function()
+            require("avante").close_sidebar()
+          end, { buffer = event.buf, silent = true })
+        end,
+      })
+    end,
     opts = {
       provider = "deepseek_chat",
       auto_suggestions_provider = "copilot",
@@ -206,23 +221,6 @@ return {
         provider = "snacks",
       },
     },
-    config = function(_, opts)
-      utils.autocmd("FileType", {
-        group = utils.augroup "close_avante_with_q",
-        pattern = {
-          "Avante",
-          "AvanteInput",
-          "AvanteSelectedFiles",
-        },
-        callback = function(event)
-          vim.keymap.set("n", "q", function()
-            require("avante").close_sidebar()
-          end, { buffer = event.buf, silent = true })
-        end,
-      })
-
-      require("avante").setup(opts)
-    end,
   },
   {
     "saghen/blink.cmp",
