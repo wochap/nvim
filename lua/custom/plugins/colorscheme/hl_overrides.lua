@@ -450,6 +450,7 @@ local getOverridesHl = function(mocha)
       fg = stateColors.warning,
       bg = U.darken(stateColors.warning, 0.095, mocha.base),
     },
+    -- TODO: add DiagnosticVirtualLines...?
 
     -- nvim float windows
     FloatTitle = { bg = floatColors.bg, fg = mocha.surface1 },

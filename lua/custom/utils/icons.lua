@@ -27,10 +27,10 @@ M.git = {
 }
 
 M.diagnostic = {
-  Error = "󰅚",
+  Error = "",
   Warn = "",
   Info = "",
-  Hint = "󰛩",
+  Hint = "󰌶",
 }
 
 M.diagnostic_by_index = {
