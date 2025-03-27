@@ -715,6 +715,7 @@ return {
 
       -- load snippets in nvim config folder
       -- NOTE: when using sync `load`, entries are duplicated in blink.cmp
+      -- lazy_load doesn't work on nvim 0.11
       require("luasnip.loaders.from_vscode").lazy_load {
         paths = vim.fn.stdpath "config" .. "/snippets",
       }
