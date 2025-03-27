@@ -526,6 +526,19 @@ return {
   },
 
   {
+    "folke/snacks.nvim",
+    optional = true,
+    opts = function(_, opts)
+      -- Toggle the profiler
+      Snacks.toggle.profiler():map "<leader>pp"
+
+      return vim.tbl_deep_extend("force", opts, {
+        profiler = {},
+      })
+    end,
+  },
+
+  {
     "derektata/lorem.nvim",
     keys = {
       {

@@ -248,6 +248,14 @@ local function maximize_status_module()
   return vim.t.maximized and (hl_str "StMaximize" .. " zoom") or ""
 end
 
+local function snacks_profiler_module()
+  if not lazyUtils.is_loaded "snacks.nvim" then
+    return ""
+  end
+  local status = require("snacks.profiler").status()
+  return status.cond() and (hl_str "StSnacksProfiler" .. " profile") or ""
+end
+
 local function diagnostics_module()
   if not rawget(vim, "lsp") then
     return ""
@@ -467,6 +475,7 @@ M.statusline = function()
     "%=",
     -- search_count_module(),
     macro_module(),
+    snacks_profiler_module(),
     maximize_status_module(),
     diagnostics_module(),
     lsp_or_filetype_module(),

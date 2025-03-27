@@ -102,6 +102,7 @@ local getExtraHl = function(mocha)
     StCommand = { fg = mocha.mauve },
     StLazy = { fg = mocha.pink },
     StCopilot = { fg = mocha.sapphire },
+    StSnacksProfiler = { fg = mocha.red },
 
     -- oil.nvim
     OilMtime = { fg = "#8383A9" },
