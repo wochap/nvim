@@ -201,3 +201,7 @@ vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "skiprtp"
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 vim.opt.whichwrap:append "<>[]hl"
+
+if vim.fn.has "nvim-0.11" == 1 then
+  vim.opt.winborder = "none"
+end
