@@ -122,21 +122,8 @@ map("n", "<leader>qq", "<cmd>qa <CR>", "Exit")
 map("n", "<leader>q!", "<cmd>qa! <CR>", "Exit!")
 map("n", "gV", "`[v`]", "Last Yanked/Changed")
 map({ "n", "i", "v", "s" }, "<C-e>", keymapsUtils.close_all_floating, "Close Floating Windows")
-map("n", "<leader>mps", function()
-  vim.cmd [[
-    :profile start /tmp/nvim-profile.log
-    :profile func *
-    :profile file *
-  ]]
-end, "Profile Start (Custom)")
-map("n", "<leader>mpe", function()
-  vim.cmd [[
-    :profile stop
-    :e /tmp/nvim-profile.log
-  ]]
-end, "Profile End (Custom)")
-map("n", "<leader>mPs", "<cmd>syntime on<CR>", "Profile Syntax Start")
-map("n", "<leader>mPe", "<cmd>syntime report<CR>", "Profile Syntax End")
+map("n", "<leader>ps", "<cmd>syntime on<CR>", "Profile Syntax Start")
+map("n", "<leader>pS", "<cmd>syntime report<CR>", "Profile Syntax End")
 map("n", "<leader>mc", "<cmd>DiffClip<CR>", "DiffClip")
 -- https://vim.fandom.com/wiki/Super_retab
 map("n", "<leader>mt", "<cmd>retab!<CR>", "Format Leading Spacing") -- in buffer

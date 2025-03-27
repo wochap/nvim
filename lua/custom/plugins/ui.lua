@@ -28,7 +28,7 @@ return {
           { "<leader>u", group = "ui" },
           { "<leader>f", group = "find/search/replace" },
           { "<leader>g", group = "git" },
-          { "<leader>p", group = "lazy" },
+          { "<leader>p", group = "profiler" },
           { "<leader>q", group = "quit/session" },
         },
       },
