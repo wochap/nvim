@@ -221,7 +221,7 @@ return {
           },
         },
         menu = {
-          winblend = 5,
+          winblend = vim.o.pumblend,
           min_width = 15,
           max_height = 15,
           border = cmpUtils.border "BlinkCmpMenuBorder",
