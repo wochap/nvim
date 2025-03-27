@@ -134,29 +134,59 @@ return {
       end
 
       -- setup diagnostics
-      local diagnostic_virtual_text_opts = {
-        format = function(diagnostic)
-          return string.format(
-            "%s %s (%s)",
-            iconsUtils.diagnostic_by_index[diagnostic.severity],
-            diagnostic.message,
-            diagnostic.source
-          )
-        end,
-        prefix = "",
-        suffix = " ",
-        spacing = 1,
-        source = false,
-        severity = {
-          min = vim.diagnostic.severity.WARN,
-        },
-      }
+      local diagnostic_signs_opts
+      local diagnostic_virtual_text_opts
+      local diagnostic_virtual_lines_opts
+      if vim.fn.has "nvim-0.11" == 1 then
+        diagnostic_signs_opts = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = iconsUtils.diagnostic.Error,
+            [vim.diagnostic.severity.WARN] = iconsUtils.diagnostic.Warn,
+            [vim.diagnostic.severity.HINT] = "",
+            [vim.diagnostic.severity.INFO] = "",
+          },
+        }
+        diagnostic_virtual_text_opts = false
+        diagnostic_virtual_lines_opts = {
+          current_line = true,
+          format = function(diagnostic)
+            return string.format(
+              "%s %s (%s)",
+              iconsUtils.diagnostic_by_index[diagnostic.severity],
+              diagnostic.message,
+              diagnostic.source
+            )
+          end,
+          severity = {
+            min = vim.diagnostic.severity.WARN,
+          },
+        }
+      else
+        diagnostic_signs_opts = false
+        diagnostic_virtual_text_opts = {
+          format = function(diagnostic)
+            return string.format(
+              "%s %s (%s)",
+              iconsUtils.diagnostic_by_index[diagnostic.severity],
+              diagnostic.message,
+              diagnostic.source
+            )
+          end,
+          prefix = "",
+          suffix = " ",
+          spacing = 1,
+          source = false,
+          severity = {
+            min = vim.diagnostic.severity.WARN,
+          },
+        }
+        diagnostic_virtual_lines_opts = false
+      end
       vim.diagnostic.config {
         underline = true,
         update_in_insert = false,
-        -- NOTE: enable virtual_text because underline is buggy
         virtual_text = diagnostic_virtual_text_opts,
-        signs = false, -- PERF: a lot of signs causes lag
+        signs = diagnostic_signs_opts,
         severity_sort = true,
         float = {
           border = "single",
@@ -164,6 +194,7 @@ return {
             return string.format("%s (%s)", diagnostic.message, diagnostic.source)
           end,
         },
+        virtual_lines = diagnostic_virtual_lines_opts,
       }
       for name, icon in pairs(iconsUtils.diagnostic) do
         name = "DiagnosticSign" .. name
@@ -176,7 +207,6 @@ return {
           vim.schedule(function()
             vim.diagnostic.config {
               underline = false,
-              virtual_text = false,
             }
           end)
         end,
@@ -189,7 +219,6 @@ return {
           vim.schedule(function()
             vim.diagnostic.config {
               underline = true,
-              virtual_text = diagnostic_virtual_text_opts,
             }
           end)
         end,
@@ -206,7 +235,6 @@ return {
           vim.schedule(function()
             vim.diagnostic.config {
               underline = false,
-              virtual_text = false,
             }
           end)
         end,
@@ -219,7 +247,6 @@ return {
             vim.schedule(function()
               vim.diagnostic.config {
                 underline = true,
-                virtual_text = diagnostic_virtual_text_opts,
               }
             end)
           end)
