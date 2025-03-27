@@ -218,7 +218,10 @@ return {
               experimental = {
                 maxInlayHintLength = 30,
                 completion = {
+                  -- PERF: vtsls sends a large number of completions
+                  -- reducing this number makes blink.cmp fast again
                   enableServerSideFuzzyMatch = true,
+                  entriesLimit = 20,
                 },
               },
               tsserver = {
@@ -252,7 +255,13 @@ return {
                 propertyDeclarationTypes = { enabled = true },
                 variableTypes = { enabled = false },
               },
+              tsserver = {
+                maxTsServerMemory = 8192,
+              },
             },
+          },
+          flags = {
+            debounce_text_changes = 250,
           },
         },
         volar = {
@@ -277,6 +286,14 @@ return {
             -- validate = "off", -- it also disables code actions
             format = false,
             runtime = "node",
+          },
+          flags = {
+            debounce_text_changes = 250,
+          },
+        },
+        tailwindcss = {
+          flags = {
+            debounce_text_changes = 250,
           },
         },
       },
