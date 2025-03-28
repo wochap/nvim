@@ -470,7 +470,7 @@ M.statusline = function()
     -- git_branch_module(),
     git_branch_gitsigns_module(),
     git_diff_module(),
-    symbols_module(),
+    -- symbols_module(),
     -- NOTE: the following string takes all the available space
     "%=",
     -- search_count_module(),
