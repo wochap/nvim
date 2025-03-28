@@ -34,7 +34,6 @@ return {
       },
       preset = "modern",
       layout = {
-        align = "left",
         -- TOFIX: spacing also gets added in the first column
         spacing = 0,
       },
@@ -46,10 +45,6 @@ return {
         -- wo = {
         --   winhighlight = "Normal:WhichKeyNormal,FloatBorder:WhichKeyBorder,FloatTitle:WhichKeyTitle,Search:None",
         -- },
-      },
-      icons = {
-        -- disable icons
-        rules = false,
       },
       plugins = {
         -- NOTE: register keymaps conflict with the which-key registers plugin
