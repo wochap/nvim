@@ -278,6 +278,13 @@ return {
     optional = true,
     opts = {
       file_types = { "Avante" },
+      overrides = {
+        filetype = {
+          Avante = {
+            enabled = true,
+          },
+        },
+      },
     },
   },
 }
