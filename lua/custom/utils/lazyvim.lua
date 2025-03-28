@@ -13,6 +13,13 @@ M.setup = function()
   -- required by lazyvim extras using `LazyVim.extras.wants`
   _G.LazyVim = require "lazyvim.util"
 
+  -- LazyVim root dir detection
+  -- Each entry can be:
+  -- * the name of a detector function like `lsp` or `cwd`
+  -- * a pattern or array of patterns like `.git` or `lua`.
+  -- * a function with signature `function(buf) -> string|string[]`
+  vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+
   -- Add LazyFile event
   -- Properly load file based plugins without blocking the UI
   require("lazyvim.util.plugin").lazy_file()
