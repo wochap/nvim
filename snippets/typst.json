@@ -1,0 +1,19 @@
+{
+  "base": {
+    "prefix": "base",
+    "body": [
+      "#import \"/common.typ\": *",
+      "",
+      "#set page(",
+      "\tpaper: \"a4\",",
+      "\tmargin: 0.75in,",
+      ")",
+      "",
+      "#set text(",
+      "\tlang: \"es\",",
+      "\tfont: \"Calibri\",",
+      "\tsize: 11pt,",
+      ")"
+    ]
+  }
+}

@@ -81,6 +81,12 @@
           "rmd"
         ],
         "path": "./markdown.json"
+      },
+      {
+        "language": [
+          "typst"
+        ],
+        "path": "./typst.json"
       }
     ]
   }
