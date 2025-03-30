@@ -103,6 +103,11 @@ return {
         "<Cmd>lua require('custom.utils-plugins.zk').open_main()<CR>",
         desc = "Main",
       },
+      {
+        "<leader>zl",
+        "<Cmd>lua require('custom.utils-plugins.zk').open_last_daily()<CR>",
+        desc = "Main",
+      },
     },
     init = function()
       utils.autocmd({ "BufEnter" }, {
@@ -134,7 +139,7 @@ return {
               opts
             )
             keymapsUtils.map("n", "<leader>zb", "<Cmd>ZkBacklinks<CR>", "Pick Zk Backlinks", opts)
-            keymapsUtils.map("n", "<leader>zl", "<Cmd>ZkLinks<CR>", "Pick Zk Links", opts)
+            keymapsUtils.map("n", "<leader>zL", "<Cmd>ZkLinks<CR>", "Pick Zk Links", opts)
             keymapsUtils.map("n", "<leader>zi", "<Cmd>ZkInsertLink<CR>", "Insert Link", opts)
           end
         end,
