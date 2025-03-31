@@ -1,3 +1,6 @@
+-- enable experimental Lua module loader
+vim.loader.enable()
+
 local constants = require "custom.utils.constants"
 local utils = require "custom.utils"
 
