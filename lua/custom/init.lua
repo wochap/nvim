@@ -24,6 +24,7 @@ utils.autocmd("User", {
       require "custom.autocmds"
     end
     require "custom.keymaps"
+    require "custom.macros"
     require "custom.commands"
   end,
 })
