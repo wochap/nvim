@@ -317,7 +317,6 @@ return {
             timeout_ms = 500,
             score_offset = 0,
             fallbacks = {},
-            min_keyword_length = 2,
             opts = {
               tailwind_color_icon = iconsUtils.other.color,
             },
