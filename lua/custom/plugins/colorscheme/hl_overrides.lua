@@ -96,6 +96,8 @@ local getExtraHl = function(mocha)
     StEmptySpace = { bg = "NONE" },
     StMaximize = { fg = mocha.blue },
     StLsp = { fg = mocha.maroon },
+    StFormatter = { fg = mocha.green },
+    StLinter = { fg = mocha.yellow },
     StSearch = { fg = mocha.teal },
     StFolder = { fg = mocha.blue },
     StMacro = { fg = mocha.red },

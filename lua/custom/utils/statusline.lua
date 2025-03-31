@@ -2,6 +2,8 @@ local iconsUtils = require "custom.utils.icons"
 local lspUtils = require "custom.utils.lsp"
 local lazyUtils = require "custom.utils.lazy"
 local gitBranchUtils = require "custom.utils.git-branch"
+local formatUtils = require "custom.utils.format"
+local lintUtils = require "custom.utils.lint"
 
 local fn = vim.fn
 local api = vim.api
@@ -376,6 +378,54 @@ local function lsp_or_filetype_module()
   return filetype()
 end
 
+local function formatter_module()
+  if not lazyUtils.is_loaded "conform.nvim" then
+    return ""
+  end
+
+  local buf = vim.api.nvim_get_current_buf()
+  local formatter_names = {}
+
+  for _, formatter in ipairs(formatUtils.resolve(buf)) do
+    if #formatter.resolved > 0 and formatter.active then
+      table.insert(formatter_names, formatter.name)
+    end
+  end
+
+  if #formatter_names == 0 then
+    return ""
+  end
+
+  if #formatter_names > 1 then
+    return hl_str "StFormatter" .. " " .. #formatter_names
+  end
+
+  return hl_str "StFormatter" .. " " .. formatter_names[1]
+end
+
+local function linter_module()
+  if not lazyUtils.is_loaded "nvim-lint" then
+    return ""
+  end
+
+  local buf = vim.api.nvim_get_current_buf()
+  local linter_names = {}
+
+  for _, linter in ipairs(lintUtils.resolve(buf)) do
+    table.insert(linter_names, linter)
+  end
+
+  if #linter_names == 0 then
+    return ""
+  end
+
+  if #linter_names > 1 then
+    return hl_str "StLinter" .. " " .. #linter_names
+  end
+
+  return hl_str "StLinter" .. " " .. linter_names[1]
+end
+
 local function copilot_module()
   local clients = lspUtils.get_clients(), "copilot"
   local client_names = vim.tbl_map(function(client)
@@ -469,7 +519,7 @@ M.statusline = function()
     mode_module() .. file_module(),
     -- git_branch_module(),
     git_branch_gitsigns_module(),
-    git_diff_module(),
+    -- git_diff_module(),
     -- symbols_module(),
     -- NOTE: the following string takes all the available space
     "%=",
@@ -478,6 +528,8 @@ M.statusline = function()
     snacks_profiler_module(),
     maximize_status_module(),
     diagnostics_module(),
+    formatter_module(),
+    linter_module(),
     lsp_or_filetype_module(),
     copilot_module(),
     command_module(),
