@@ -383,12 +383,12 @@ local function formatter_module()
     return ""
   end
 
-  local buf = vim.api.nvim_get_current_buf()
+  local bufnr = vim.api.nvim_get_current_buf()
   local formatter_names = {}
 
-  for _, formatter in ipairs(formatUtils.resolve(buf)) do
+  for _, formatter in ipairs(formatUtils.resolve(bufnr)) do
     if #formatter.resolved > 0 and formatter.active then
-      table.insert(formatter_names, formatter.name)
+      vim.list_extend(formatter_names, formatter.resolved)
     end
   end
 
