@@ -520,6 +520,7 @@ M.statusline = function()
     -- git_branch_module(),
     git_branch_gitsigns_module(),
     -- git_diff_module(),
+    diagnostics_module(),
     -- symbols_module(),
     -- NOTE: the following string takes all the available space
     "%=",
@@ -527,7 +528,6 @@ M.statusline = function()
     macro_module(),
     snacks_profiler_module(),
     maximize_status_module(),
-    diagnostics_module(),
     formatter_module(),
     linter_module(),
     lsp_or_filetype_module(),
