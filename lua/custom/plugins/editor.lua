@@ -1273,6 +1273,7 @@ return {
           default = {
             layout = {
               box = "horizontal",
+              backdrop = true,
               width = 0.9,
               min_width = 120,
               height = 0.9,
@@ -1289,6 +1290,7 @@ return {
           },
           vertical = {
             layout = {
+              backdrop = true,
               width = 0.9,
               min_width = 80,
               height = 0.9,
@@ -1399,6 +1401,7 @@ return {
       lazygit = {
         configure = false,
         win = {
+          backdrop = true,
           style = "lazygit",
           width = 0,
           height = 0,
