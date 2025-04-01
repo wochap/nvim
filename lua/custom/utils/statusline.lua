@@ -1,3 +1,4 @@
+local constants = require "custom.utils.constants"
 local iconsUtils = require "custom.utils.icons"
 local lspUtils = require "custom.utils.lsp"
 local lazyUtils = require "custom.utils.lazy"
@@ -327,6 +328,19 @@ local function macro_module()
   return hl_str "StMacro" .. require("noice").api.status.mode.get()
 end
 
+local function words_module()
+  local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+  if not vim.tbl_contains(constants.text_filetypes, filetype) then
+    return ""
+  end
+  local wc_table = vim.fn.wordcount()
+  if not wc_table.visual_words or not wc_table.visual_chars then
+    return hl_str "StModuleAlt" .. wc_table.words .. ": "
+  else
+    return hl_str "StModuleAlt" .. wc_table.visual_words .. ": "
+  end
+end
+
 local function filetype()
   if not vim.tbl_contains({ "", "nowrite" }, vim.bo.bt) and not vim.fn.bufname():match "^Scratch %d+$" then
     return ""
@@ -534,6 +548,7 @@ M.statusline = function()
     copilot_module(),
     command_module(),
     lazy_module(),
+    words_module(),
     indent_module(),
     dirname_module() .. location_module(),
   }

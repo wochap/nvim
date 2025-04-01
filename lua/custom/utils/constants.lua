@@ -13,6 +13,16 @@ M.zindex_fullscreen = 49
 -- notifications look bad over fullscreen buffers, such as mason.nvim
 M.zindex_float = 43
 
+M.text_filetypes = {
+  "gitcommit",
+  "gitrebase",
+  "markdown",
+  "tex",
+  "bib",
+  "typst",
+  "",
+}
+
 local common_exclude_filetypes = {
   -- nvim-tree.lua
   "NvimTree",
