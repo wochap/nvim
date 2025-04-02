@@ -478,12 +478,10 @@ return {
             -- TODO: edge case where if you are in zen mode
             -- and switch to a different buffer
             -- this fn doesn't get called
-            utils.disable_ufo(bufnr)
             lspUtils.toggle_inlay_hints(bufnr, false)
           end,
           on_close = function(win)
             local bufnr = win.buf
-            utils.enable_ufo(bufnr)
             lspUtils.toggle_inlay_hints(bufnr, true)
           end,
         },

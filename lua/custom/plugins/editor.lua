@@ -398,7 +398,6 @@ return {
           event = "neo_tree_window_after_open",
           handler = function(event)
             vim.cmd ":wincmd ="
-            utils.disable_ufo(event.bufnr, event.winid)
             vim.opt.cursorcolumn = false
           end,
         },
@@ -1561,7 +1560,6 @@ return {
         pattern = "GitConflictDetected",
         callback = function(event)
           lspUtils.toggle_inlay_hints(event.buf, false)
-          utils.disable_ufo(event.buf)
         end,
       })
 
@@ -1569,7 +1567,6 @@ return {
         pattern = "GitConflictResolved",
         callback = function(event)
           lspUtils.toggle_inlay_hints(event.buf, true)
-          utils.enable_ufo(event.buf)
         end,
       })
 
