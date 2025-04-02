@@ -297,44 +297,17 @@ return {
       api.events.subscribe(Event.TreeClose, function()
         vim.cmd ":wincmd ="
       end)
-    end,
-  },
-  {
-    "antosha417/nvim-lsp-file-operations",
-    event = "LspAttach",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    opts = {
-      operations = {
-        willRenameFiles = true,
-        didRenameFiles = true,
-        willCreateFiles = false,
-        didCreateFiles = false,
-        willDeleteFiles = false,
-        didDeleteFiles = false,
-      },
-      timeout_ms = 1000,
-    },
-    config = function(_, opts)
-      lazyUtils.on_load("nvim-tree.lua", function()
-        require("lsp-file-operations").setup(opts)
+
+      -- setup snacks.nvim rename
+      -- docs: https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
+      local prev = { new_name = "", old_name = "" } -- Prevents duplicate events
+      api.events.subscribe(Event.NodeRenamed, function(data)
+        if prev.new_name ~= data.new_name or prev.old_name ~= data.old_name then
+          data = data
+          Snacks.rename.on_rename_file(data.old_name, data.new_name)
+        end
       end)
     end,
-  },
-  {
-    "neovim/nvim-lspconfig",
-    optional = true,
-    opts = {
-      capabilities = {
-        workspace = {
-          fileOperations = {
-            didRename = true,
-            willRename = true,
-          },
-        },
-      },
-    },
   },
 
   {
@@ -342,6 +315,7 @@ return {
     branch = "v3.x",
     event = "VeryLazy",
     cmd = "Neotree",
+    opts_extend = { "event_handlers" },
     keys = {
       {
         "<leader>ge",
@@ -517,6 +491,40 @@ return {
             conflict = "",
           },
           align = "right",
+        },
+      },
+    },
+    config = function(_, opts)
+      require("neo-tree").setup(opts)
+
+      vim.api.nvim_create_autocmd("TermClose", {
+        pattern = "*lazygit",
+        callback = function()
+          if package.loaded["neo-tree.sources.git_status"] then
+            require("neo-tree.sources.git_status").refresh()
+          end
+        end,
+      })
+    end,
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    optional = true,
+    opts = {
+      event_handlers = {
+        -- setup snacks.nvim rename
+        -- docs: https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
+        {
+          event = "file_moved",
+          handler = function(data)
+            Snacks.rename.on_rename_file(data.source, data.destination)
+          end,
+        },
+        {
+          event = "file_renamed",
+          handler = function(data)
+            Snacks.rename.on_rename_file(data.source, data.destination)
+          end,
         },
       },
     },

@@ -85,6 +85,14 @@ return {
             lineFoldingOnly = true,
           },
         },
+
+        -- rename
+        workspace = {
+          fileOperations = {
+            didRename = true,
+            willRename = true,
+          },
+        },
       },
       -- NOTE: nvim-lspconfig doesn't have the option `servers`
       -- LSP Server Settings
