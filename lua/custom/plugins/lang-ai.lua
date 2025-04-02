@@ -231,8 +231,8 @@ return {
         defaults = {
           function()
             local filetype = vim.api.nvim_buf_get_option(0, "filetype")
-            local has_avante_load = lazyUtils.is_loaded "avante.nvim"
-            if has_avante_load then
+            local has_avante, _ = pcall(require, "avante")
+            if has_avante then
               if filetype == "AvanteInput" then
                 return { "buffer", "avante_commands", "avante_mentions", "avante_files" }
               end

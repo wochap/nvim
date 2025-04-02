@@ -234,8 +234,8 @@ local function git_diff_module()
       and (hl_str "StGitDelete" .. iconsUtils.git.Delete .. " " .. git_status.removed)
     or ""
   local conflict = ""
-  if lazyUtils.is_loaded "git-conflict.nvim" then
-    local gc = require "git-conflict"
+  local has_gc, gc = pcall(require, "git-conflict")
+  if has_gc then
     local ok, conflict_count = pcall(gc.conflict_count)
     if ok then
       conflict = (conflict_count ~= 0) and (hl_str "StGitConflict" .. iconsUtils.git.Conflict .. " " .. conflict_count)
@@ -252,7 +252,8 @@ local function maximize_status_module()
 end
 
 local function snacks_profiler_module()
-  if not lazyUtils.is_loaded "snacks.nvim" then
+  local has_snacks, _ = pcall(require, "snacks")
+  if not has_snacks then
     return ""
   end
   local status = require("snacks.profiler").status()
@@ -302,7 +303,8 @@ local function search_count_module()
 end
 
 local function command_module()
-  if not lazyUtils.is_loaded "noice.nvim" then
+  local has_noice, _ = pcall(require, "noice")
+  if not has_noice then
     return ""
   end
   if not require("noice").api.status.command.has() then
@@ -319,7 +321,8 @@ local function lazy_module()
 end
 
 local function macro_module()
-  if not lazyUtils.is_loaded "noice.nvim" then
+  local has_noice, _ = pcall(require, "noice")
+  if not has_noice then
     return ""
   end
   if not require("noice").api.status.mode.has() then
@@ -393,7 +396,8 @@ local function lsp_or_filetype_module()
 end
 
 local function formatter_module()
-  if not lazyUtils.is_loaded "conform.nvim" then
+  local has_conform, _ = pcall(require, "conform")
+  if not has_conform then
     return ""
   end
 
@@ -418,7 +422,8 @@ local function formatter_module()
 end
 
 local function linter_module()
-  if not lazyUtils.is_loaded "nvim-lint" then
+  local has_lint, _ = pcall(require, "lint")
+  if not has_lint then
     return ""
   end
 
@@ -545,7 +550,7 @@ M.statusline = function()
     formatter_module(),
     linter_module(),
     lsp_or_filetype_module(),
-    copilot_module(),
+    -- copilot_module(),
     command_module(),
     lazy_module(),
     words_module(),

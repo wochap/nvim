@@ -115,8 +115,8 @@ return {
         defaults = {
           function(default)
             local filetype = vim.api.nvim_buf_get_option(0, "filetype")
-            local has_render_markdown_load = lazyUtils.is_loaded "render-markdown.nvim"
-            if has_render_markdown_load then
+            local has_render_markdown, _ = pcall(require, "render-markdown")
+            if has_render_markdown then
               if filetype == "markdown" then
                 return langUtils.list_merge(default, { "markdown" })
               end

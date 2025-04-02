@@ -18,6 +18,7 @@ M.on_load = function(...)
   require("lazyvim.util").on_load(...)
 end
 
+-- PERF: try to avoid using it in recurring functions
 M.is_loaded = function(...)
   return require("lazyvim.util").is_loaded(...)
 end

@@ -278,8 +278,8 @@ return {
     opts = {
       enableds = {
         function()
-          local has_cmp_dap_load = lazyUtils.is_loaded "cmp-dap"
-          if has_cmp_dap_load then
+          local has_cmp_dap, _ = pcall(require, "cmp_dap")
+          if has_cmp_dap then
             local cmp_dap = require "cmp_dap"
             -- enable if in dap buffer
             if cmp_dap.is_dap_buffer() then
@@ -292,8 +292,8 @@ return {
       sources = {
         defaults = {
           function()
-            local has_cmp_dap_load = lazyUtils.is_loaded "cmp-dap"
-            if has_cmp_dap_load then
+            local has_cmp_dap, _ = pcall(require, "cmp_dap")
+            if has_cmp_dap then
               local cmp_dap = require "cmp_dap"
               -- enable if in dap buffer
               if cmp_dap.is_dap_buffer() then
