@@ -120,11 +120,6 @@ local getExtraHl = function(mocha)
       fg = mocha.overlay0, -- same as NonText
     },
 
-    -- vim-illuminate
-    IlluminatedWordText = { bg = colorschemeUtils.darken(mocha.surface1, 0.7, mocha.base), underline = false },
-    IlluminatedWordRead = { link = "IlluminatedWordText" },
-    IlluminatedWordWrite = { link = "IlluminatedWordText" },
-
     -- snacks.nvim
     SnacksIndent = { link = "IblIndent" },
     SnacksIndentScope = { link = "IblIndent" },
@@ -484,6 +479,11 @@ local getOverridesHl = function(mocha)
     ModeMsg = {
       fg = mocha.peach,
     },
+
+    -- nvim lsp
+    LspReferenceText = { bg = colorschemeUtils.darken(mocha.surface1, 0.7, mocha.base), underline = false },
+    LspReferenceRead = { link = "LspReferenceText" },
+    LspReferenceWrite = { link = "LspReferenceText" },
 
     -- nvim cursor
     -- Cursor = {

@@ -455,38 +455,6 @@ return {
   },
 
   {
-    "RRethy/vim-illuminate",
-    event = "LspAttach",
-    keys = {
-      {
-        "]]",
-        function()
-          require("illuminate").goto_next_reference(false)
-        end,
-        desc = "Next Reference",
-      },
-      {
-        "[[",
-        function()
-          require("illuminate").goto_prev_reference(false)
-        end,
-        desc = "Prev Reference",
-      },
-    },
-    opts = {
-      delay = 200,
-      under_cursor = false,
-      large_file_cutoff = 2000,
-      large_file_overrides = {
-        providers = { "lsp" },
-      },
-    },
-    config = function(_, opts)
-      require("illuminate").configure(opts)
-    end,
-  },
-
-  {
     -- fork places virtual text at the end of line
     -- instead of above the line
     "wochap/lsp-lens.nvim",
@@ -565,5 +533,31 @@ return {
       }
       require("actions-preview").setup(opts)
     end,
+  },
+
+  {
+    "folke/snacks.nvim",
+    optional = true,
+    keys = {
+      {
+        "]]",
+        function()
+          Snacks.words.jump(1)
+        end,
+        desc = "Next Reference",
+      },
+      {
+        "[[",
+        function()
+          Snacks.words.jump(-1)
+        end,
+        desc = "Prev Reference",
+      },
+    },
+    opts = {
+      words = {
+        enabled = true,
+      },
+    },
   },
 }
