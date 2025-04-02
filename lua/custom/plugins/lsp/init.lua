@@ -154,18 +154,18 @@ return {
           },
         }
         diagnostic_virtual_text_opts = {
-          current_line = false,
+          current_line = true,
           format = function(diagnostic)
             return string.format("%s (%s)", diagnostic.message, diagnostic.source)
           end,
-          prefix = "",
-          suffix = " ",
+          prefix = "●",
+          suffix = "",
           spacing = 0,
           source = false,
           severity = {
-            min = vim.diagnostic.severity.WARN,
             max = vim.diagnostic.severity.WARN,
           },
+          virt_text_pos = "eol_right_align",
         }
         diagnostic_virtual_lines_opts = {
           current_line = false,
@@ -183,9 +183,9 @@ return {
           format = function(diagnostic)
             return string.format("%s (%s)", diagnostic.message, diagnostic.source)
           end,
-          prefix = "",
-          suffix = " ",
-          spacing = 1,
+          prefix = "●",
+          suffix = "",
+          spacing = 0,
           source = false,
           severity = {
             min = vim.diagnostic.severity.WARN,
