@@ -148,14 +148,31 @@ return {
         diagnostic_signs_opts = {
           text = {
             [vim.diagnostic.severity.ERROR] = iconsUtils.diagnostic.Error,
-            [vim.diagnostic.severity.WARN] = iconsUtils.diagnostic.Warn,
+            [vim.diagnostic.severity.WARN] = "",
             [vim.diagnostic.severity.HINT] = "",
             [vim.diagnostic.severity.INFO] = "",
           },
         }
-        diagnostic_virtual_text_opts = false
+        diagnostic_virtual_text_opts = {
+          format = function(diagnostic)
+            return string.format(
+              "%s %s (%s)",
+              iconsUtils.diagnostic_by_index[diagnostic.severity],
+              diagnostic.message,
+              diagnostic.source
+            )
+          end,
+          prefix = "",
+          suffix = " ",
+          spacing = 1,
+          source = false,
+          severity = {
+            min = vim.diagnostic.severity.WARN,
+            max = vim.diagnostic.severity.WARN,
+          },
+        }
         diagnostic_virtual_lines_opts = {
-          current_line = true,
+          current_line = false,
           format = function(diagnostic)
             return string.format(
               "%s %s (%s)",
@@ -165,7 +182,7 @@ return {
             )
           end,
           severity = {
-            min = vim.diagnostic.severity.WARN,
+            min = vim.diagnostic.severity.ERROR,
           },
         }
       else
