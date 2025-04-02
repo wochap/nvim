@@ -58,6 +58,7 @@ return {
       -- add any global capabilities here
       capabilities = {
         textDocument = {
+          -- autocompletion
           completion = {
             completionItem = {
               documentationFormat = { "markdown", "plaintext" },
@@ -76,6 +77,12 @@ return {
                 },
               },
             },
+          },
+
+          -- folds
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
           },
         },
       },

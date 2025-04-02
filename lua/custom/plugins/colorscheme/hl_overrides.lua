@@ -291,12 +291,6 @@ local getOverridesHl = function(mocha)
     Todo = { fg = mocha.blue, bg = mocha.base },
     Error = { fg = mocha.red, bg = "NONE" }, -- (preferred) any erroneous construct
 
-    -- ufo
-    FoldColumn = { bg = "NONE" }, -- sign column
-    Folded = { bg = "NONE" }, -- folded line
-    UfoPreviewNormal = { bg = mocha.mantle },
-    UfoFoldedEllipsis = { link = "LspInlayHint" },
-
     --mini.hipatterns
     MiniHipatternsFixme = { fg = mocha.red, bg = "NONE", style = {} },
     MiniHipatternsHack = { fg = mocha.yellow, bg = "NONE", style = {} },
@@ -479,6 +473,10 @@ local getOverridesHl = function(mocha)
     ModeMsg = {
       fg = mocha.peach,
     },
+
+    -- nvim fold
+    FoldColumn = { bg = "NONE" }, -- sign column
+    Folded = { bg = "NONE" }, -- folded line
 
     -- nvim lsp
     LspReferenceText = { bg = colorschemeUtils.darken(mocha.surface1, 0.7, mocha.base), underline = false },

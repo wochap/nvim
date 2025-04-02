@@ -56,6 +56,16 @@ utils.autocmd("FileType", {
 vim.opt.showtabline = 2
 vim.o.tabline = "%#Normal#"
 
+-- folds
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.require'custom.utils.folds'.ts_foldexpr()"
+vim.opt.foldlevelstart = 99
+vim.opt.foldnestmax = 10 -- deepest fold is 10 levels
+vim.opt.foldenable = false -- don't fold by default
+vim.opt.foldlevel = 99
+vim.opt.foldcolumn = "0"
+vim.opt.foldtext = "v:lua.require'custom.utils.folds'.foldtext()"
+
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
 
@@ -111,6 +121,7 @@ vim.opt.fillchars = {
   foldopen = iconsUtils.fold.open,
   foldclose = iconsUtils.fold.closed,
   foldsep = " ",
+  fold = " ",
 }
 
 -- Preview substitutions live, as you type!
