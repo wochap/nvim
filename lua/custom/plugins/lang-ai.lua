@@ -5,6 +5,7 @@ return {
   {
     -- NOTE: run CopilotAuth
     "zbirenbaum/copilot.lua",
+    enabled = false,
     event = "VeryLazy",
     opts = {},
   },
