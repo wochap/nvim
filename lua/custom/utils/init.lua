@@ -119,4 +119,11 @@ M.close_sidebars = function(ignore_sidebar)
   end
 end
 
+M.bufname_valid = function(bufname)
+  if bufname:match "^/" or bufname:match "^[a-zA-Z]:" or bufname:match "^zipfile://" or bufname:match "^tarfile:" then
+    return true
+  end
+  return false
+end
+
 return M
