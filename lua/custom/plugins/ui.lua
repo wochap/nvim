@@ -46,11 +46,6 @@ return {
         --   winhighlight = "Normal:WhichKeyNormal,FloatBorder:WhichKeyBorder,FloatTitle:WhichKeyTitle,Search:None",
         -- },
       },
-      plugins = {
-        -- NOTE: register keymaps conflict with the which-key registers plugin
-        -- additionally, there's a bug: <C-r> + register prints twice when executing macros
-        registers = false,
-      },
       -- https://github.com/folke/which-key.nvim/issues/824
       -- triggers = {
       --   { "<auto>", mode = "nsot" },
