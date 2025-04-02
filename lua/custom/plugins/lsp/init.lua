@@ -154,17 +154,13 @@ return {
           },
         }
         diagnostic_virtual_text_opts = {
+          current_line = false,
           format = function(diagnostic)
-            return string.format(
-              "%s %s (%s)",
-              iconsUtils.diagnostic_by_index[diagnostic.severity],
-              diagnostic.message,
-              diagnostic.source
-            )
+            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
           end,
           prefix = "",
           suffix = " ",
-          spacing = 1,
+          spacing = 0,
           source = false,
           severity = {
             min = vim.diagnostic.severity.WARN,
@@ -174,12 +170,7 @@ return {
         diagnostic_virtual_lines_opts = {
           current_line = false,
           format = function(diagnostic)
-            return string.format(
-              "%s %s (%s)",
-              iconsUtils.diagnostic_by_index[diagnostic.severity],
-              diagnostic.message,
-              diagnostic.source
-            )
+            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
           end,
           severity = {
             min = vim.diagnostic.severity.ERROR,
@@ -188,13 +179,9 @@ return {
       else
         diagnostic_signs_opts = false
         diagnostic_virtual_text_opts = {
+          current_line = false,
           format = function(diagnostic)
-            return string.format(
-              "%s %s (%s)",
-              iconsUtils.diagnostic_by_index[diagnostic.severity],
-              diagnostic.message,
-              diagnostic.source
-            )
+            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
           end,
           prefix = "",
           suffix = " ",
