@@ -29,7 +29,16 @@ M.get = function()
       desc = "References",
       nowait = true,
     },
-    { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration", has = "declaration" },
+    {
+      "gD",
+      function()
+        Snacks.picker.lsp_declarations {
+          jump = { reuse_win = false },
+        }
+      end,
+      desc = "Goto Declaration",
+      has = "declaration",
+    },
     {
       "gd",
       function()
