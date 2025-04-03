@@ -469,6 +469,9 @@ local getOverridesHl = function(mocha)
     FoldColumn = { bg = "NONE" }, -- sign column
     Folded = { bg = "NONE" }, -- folded line
 
+    -- nvim snippets
+    SnippetTabstop = { bg = colorschemeUtils.darken(mocha.surface1, 0.7, mocha.base) },
+
     -- nvim lsp
     LspReferenceText = { bg = colorschemeUtils.darken(mocha.surface1, 0.7, mocha.base), underline = false },
     LspReferenceRead = { link = "LspReferenceText" },
