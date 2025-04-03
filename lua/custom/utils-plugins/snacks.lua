@@ -48,9 +48,9 @@ M.grep = function(pick_opts)
     "grep",
     vim.tbl_extend("force", {
       toggles = {
-        custom_word = { icon = "W", value = true },
-        custom_case = { icon = "C", value = true },
-        custom_glob = { icon = "G", value = true },
+        custom_word = { icon = " w", value = true },
+        custom_case = { icon = " c", value = true },
+        custom_glob = { icon = "󰑑 g", value = true },
       },
       actions = {
         -- toggles arg --fixed-strings

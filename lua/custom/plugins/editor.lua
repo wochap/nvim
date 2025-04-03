@@ -1332,8 +1332,11 @@ return {
           },
         },
         toggles = {
-          regex = { icon = "R", value = true },
-          follow = { icon = "f", value = false },
+          hidden = " h",
+          ignored = " i",
+          modified = " m",
+          regex = { icon = " r", value = true },
+          follow = { icon = " f", value = false },
         },
         actions = {
           pick = function(picker, item)
@@ -1400,6 +1403,11 @@ return {
           },
         },
         icons = {
+          ui = {
+            hidden = " h",
+            ignored = " i",
+            follow = " f",
+          },
           diagnostics = iconsUtils.diagnostic,
           kinds = iconsUtils.lsp_kind,
         },
