@@ -47,6 +47,9 @@ return {
                 return
               end
               require("avante.api").focus()
+
+              -- HACK: cancel treesitter textobject keymap
+              vim.cmd "normal! <Esc>"
             end)
           end,
           desc = "Ask",
