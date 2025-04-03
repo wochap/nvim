@@ -159,8 +159,11 @@ local getExtraHl = function(mocha)
     -- multicursor.nvim
     MultiCursorCursor = { link = "Cursor" },
     MultiCursorVisual = { link = "Visual" },
+    MultiCursorSign = { link = "SignColumn" },
+    MultiCursorMatchPreview = { link = "Search" },
     MultiCursorDisabledCursor = { link = "Visual" },
     MultiCursorDisabledVisual = { link = "Visual" },
+    MultiCursorDisabledSign = { link = "SignColumn" },
 
     -- highlight-undo.nvim
     Highlight = {
