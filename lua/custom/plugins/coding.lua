@@ -803,6 +803,24 @@ return {
         mode = "n",
       },
       {
+        "<C-leftdrag>",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.handleMouseDrag()
+        end,
+        desc = "Drag",
+        mode = "n",
+      },
+      {
+        "<C-leftrelease>",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.handleMouseRelease()
+        end,
+        desc = "Release",
+        mode = "n",
+      },
+      {
         "<leader>c<Up>",
         function()
           local mc = require "multicursor-nvim"
