@@ -86,6 +86,7 @@ return {
     event = (constants.in_zk and { "LazyFile", "VeryLazy" }) or "VeryLazy",
     opts = {
       file_types = { "markdown" },
+      change_events = { "DiagnosticChanged" },
       latex = {
         enabled = false,
       },
@@ -97,6 +98,27 @@ return {
         left_margin = 1,
         left_pad = 1,
         right_pad = 1,
+      },
+      link = {
+        wiki = {
+          body = function(ctx)
+            if ctx.alias then
+              return ctx.alias
+            end
+            -- get wiki conceal title from zk hint diagnostic
+            -- source: https://github.com/MeanderingProgrammer/render-markdown.nvim/discussions/228
+            local diagnostics = vim.diagnostic.get(ctx.buf, {
+              lnum = ctx.row,
+              severity = vim.diagnostic.severity.HINT,
+            })
+            for _, diagnostic in ipairs(diagnostics) do
+              if diagnostic.source == "zk" then
+                return diagnostic.message
+              end
+            end
+            return nil
+          end,
+        },
       },
       overrides = {
         buftype = {
