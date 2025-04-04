@@ -333,7 +333,7 @@ return {
     event = "VeryLazy",
     keys = {
       {
-        "<leader>p",
+        "<leader>P",
         "<cmd>PasteImage<CR>",
         desc = "Paste image",
       },
