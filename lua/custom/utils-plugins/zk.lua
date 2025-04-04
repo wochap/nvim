@@ -1,13 +1,21 @@
 local M = {}
 
-M.new = function()
+M.new = function(in_same_dir)
   local title = vim.trim(vim.fn.input "Title: ")
 
   if title == "" then
     return
   end
 
-  require("zk.commands").get "ZkNew" { title = title }
+  local dir
+  if in_same_dir then
+    dir = vim.fn.expand "%:p:h"
+  end
+
+  require("zk.commands").get "ZkNew" {
+    title = title,
+    dir = dir,
+  }
 end
 
 M.open_main = function()

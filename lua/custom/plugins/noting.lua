@@ -1,5 +1,4 @@
 local utils = require "custom.utils"
-local lazyUtils = require "custom.utils.lazy"
 local keymapsUtils = require "custom.utils.keymaps"
 local constants = require "custom.utils.constants"
 
@@ -7,9 +6,64 @@ return {
   {
     "obsidian-nvim/obsidian.nvim",
     version = "*",
+    lazy = not constants.in_obsidian,
     event = {
       "BufReadPre " .. vim.fn.expand "~" .. "/Sync/obsidian/*.md",
       "BufNewFile " .. vim.fn.expand "~" .. "/Sync/obsidian/*.md",
+    },
+    keys = {
+      {
+        "<leader>i",
+        "",
+        desc = "obsidian",
+        mode = { "n", "v" },
+      },
+
+      {
+        "<leader>in",
+        "<Cmd>lua require('custom.utils-plugins.obsidian').new()<CR>",
+        desc = "New",
+      },
+      {
+        "<leader>if",
+        "<Cmd>ObsidianQuickSwitch<CR>",
+        desc = "Picker", -- notes picker
+      },
+      {
+        "<leader>iw",
+        "<Cmd>ObsidianWorkspace<CR>",
+        desc = "Picker (workspace)", -- notes picker
+      },
+      {
+        "<leader>im",
+        "<Cmd>lua require('custom.utils-plugins.obsidian').open_main()<CR>",
+        desc = "Main",
+      },
+      {
+        "<leader>ib",
+        "<Cmd>ObsidianBacklinks<CR>",
+        desc = "Pick Obsidian Backlinks",
+      },
+      {
+        "<leader>iL",
+        "<Cmd>ObsidianLinks<CR>",
+        desc = "Pick Obsidian Links",
+      },
+      {
+        "<leader>ip",
+        "<Cmd>ObsidianPasteImg<CR>",
+        desc = "Paste Image",
+      },
+      {
+        "<leader>id",
+        "<Cmd>ObsidianToday<CR>",
+        desc = "New (Daily)",
+      },
+      {
+        "<leader>zl",
+        "<Cmd>ObsidianToday -1<CR>",
+        desc = "Last (Daily)",
+      },
     },
     opts = {
       workspaces = {
@@ -42,6 +96,13 @@ return {
           end,
           opts = { buffer = true, expr = true },
         },
+        -- TODO: ObsidianExtractNote
+        -- ["<leader>ii"] = {
+        --   action = function()
+        --     -- TODO: <Cmd>ObsidianLink<CR>
+        --   end,
+        --   opts = { desc = "Insert Obsidian Link", buffer = true, expr = true },
+        -- },
       },
       picker = {
         name = "snacks.pick",
@@ -54,6 +115,30 @@ return {
           insert_tag = "<C-l>",
         },
       },
+      wiki_link_func = "use_alias_only",
+      markdown_link_func = "use_alias_only",
+      follow_url_func = function(url)
+        vim.fn.jobstart { "open", url }
+      end,
+      follow_img_func = function(img)
+        vim.fn.jobstart { "open", img }
+      end,
+      note_id_func = function(title)
+        -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
+        -- In this case a note with the title 'My new note' will be given an ID that looks
+        -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
+        local suffix = ""
+        if title ~= nil then
+          -- If title is given, transform it into valid file name.
+          suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+        else
+          -- If title is nil, just add 4 random uppercase letters to the suffix.
+          for _ = 1, 4 do
+            suffix = suffix .. string.char(math.random(65, 90))
+          end
+        end
+        return tostring(os.time()) .. "_" .. suffix
+      end,
       ui = {
         enable = false,
       },
@@ -63,6 +148,11 @@ return {
       completion = {
         nvim_cmp = false,
         blink = true,
+      },
+      callbacks = {
+        post_set_workspace = function(client, workspace)
+          require("persistence").load()
+        end,
       },
     },
   },
@@ -89,11 +179,6 @@ return {
         desc = "New",
       },
       {
-        "<leader>zd",
-        "<Cmd>ZkNew { dir = 'journal' }<CR>",
-        desc = "New (Daily)",
-      },
-      {
         "<leader>zf",
         "<Cmd>ZkNotes<CR>",
         desc = "Picker", -- notes picker
@@ -104,9 +189,24 @@ return {
         desc = "Main",
       },
       {
+        "<leader>zb",
+        "<Cmd>ZkBacklinks<CR>",
+        desc = "Pick Zk Backlinks",
+      },
+      {
+        "<leader>zL",
+        "<Cmd>ZkLinks<CR>",
+        desc = "Pick Zk Links",
+      },
+      {
+        "<leader>zd",
+        "<Cmd>ZkNew { dir = 'journal' }<CR>",
+        desc = "New (Daily)",
+      },
+      {
         "<leader>zl",
         "<Cmd>lua require('custom.utils-plugins.zk').open_last_daily()<CR>",
-        desc = "Main",
+        desc = "Last (Daily)",
       },
     },
     init = function()
@@ -116,30 +216,17 @@ return {
         callback = function(event)
           if require("zk.util").notebook_root(vim.fn.expand "%:p") ~= nil then
             local opts = { noremap = true, buffer = event.buf }
-            keymapsUtils.map("n", "<CR>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "Open Link Under Cursor", opts)
             keymapsUtils.map(
               "n",
               "<leader>zN",
-              "<Cmd>ZkNew { dir = vim.fn.expand('%:p:h'), title = vim.fn.input('Title: ') }<CR>",
+              "<Cmd>lua require('custom.utils-plugins.zk').new(true)<CR>",
               "New (Same Directory)",
               opts
             )
-            keymapsUtils.map(
-              "v",
-              "<leader>zt",
-              ":'<,'>ZkNewFromTitleSelection { dir = vim.fn.expand('%:p:h') }<CR>",
-              "New (Same Directory, Selection As Title)",
-              opts
-            )
-            keymapsUtils.map(
-              "v",
-              "<leader>zc",
-              ":'<,'>ZkNewFromContentSelection { dir = vim.fn.expand('%:p:h'), title = vim.fn.input('Title: ') }<CR>",
-              "New (Same Directory, Selection As Content)",
-              opts
-            )
-            keymapsUtils.map("n", "<leader>zb", "<Cmd>ZkBacklinks<CR>", "Pick Zk Backlinks", opts)
-            keymapsUtils.map("n", "<leader>zL", "<Cmd>ZkLinks<CR>", "Pick Zk Links", opts)
+            -- TODO: ZkNewFromTitleSelection
+            -- TODO: ZkNewFromContentSelection
+            keymapsUtils.map("n", "gf", "<Cmd>lua vim.lsp.buf.definition()<CR>", "Open Link Under Cursor", opts)
+            keymapsUtils.map("n", "<CR>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "Open Link Under Cursor", opts)
             keymapsUtils.map("n", "<leader>zi", "<Cmd>ZkInsertLink<CR>", "Insert Link", opts)
           end
         end,

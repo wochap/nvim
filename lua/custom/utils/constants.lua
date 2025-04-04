@@ -115,6 +115,9 @@ M.in_neovide = vim.g.neovide
 local zk_arg = "zk"
 M.in_zk = zk_arg == vim.fn.argv()[1]
 
+local obsidian_arg = "obsidian"
+M.in_obsidian = obsidian_arg == vim.fn.argv()[1]
+
 local leet_arg = "leetcode.nvim"
 M.in_leetcode = leet_arg == vim.fn.argv()[1]
 
