@@ -902,7 +902,7 @@ return {
         mode = { "n", "v" },
       },
       {
-        "<leader>cx",
+        "<leader>cd",
         function()
           local mc = require "multicursor-nvim"
           mc.deleteCursor()
@@ -981,7 +981,7 @@ return {
         mode = "v",
       },
       {
-        "<leader>cM",
+        "<leader>cm",
         function()
           local mc = require "multicursor-nvim"
           mc.matchCursors()
@@ -1008,7 +1008,7 @@ return {
         mode = "v",
       },
       {
-        "<leader>cr",
+        "<leader>ct",
         function()
           local mc = require "multicursor-nvim"
           mc.transposeCursors(1)
@@ -1017,7 +1017,7 @@ return {
         mode = "v",
       },
       {
-        "<leader>cR",
+        "<leader>cT",
         function()
           local mc = require "multicursor-nvim"
           mc.transposeCursors(-1)
