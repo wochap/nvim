@@ -645,7 +645,6 @@ return {
   {
     -- fork debounces hl colors, fixing the issue above
     "wochap/nvim-highlight-colors",
-    branch = "perf",
     event = "VeryLazy",
     opts = {
       render = "virtual",
