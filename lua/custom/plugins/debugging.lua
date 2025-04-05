@@ -234,38 +234,33 @@ return {
         return vim.json.decode(json.json_strip_comments(str))
       end
 
-      vim.api.nvim_set_hl(0, "DapStoppedLine", {
-        default = true,
-        link = "Visual",
-      })
-
       vim.fn.sign_define("DapBreakpoint", {
-        text = " ",
-        texthl = "DiagnosticError",
+        text = "●",
+        texthl = "DapBreakpoint",
         linehl = "",
         numhl = "",
       })
       vim.fn.sign_define("DapBreakpointCondition", {
-        text = " ",
-        texthl = "DiagnosticError",
+        text = "●",
+        texthl = "DapBreakpointCondition",
         linehl = "",
         numhl = "",
       })
       vim.fn.sign_define("DapBreakpointRejected", {
-        text = " ",
-        texthl = "DiagnosticError",
+        text = "●",
+        texthl = "DapBreakpointRejected",
         linehl = "",
         numhl = "",
       })
       vim.fn.sign_define("DapStopped", {
-        text = "󰁕 ",
-        texthl = "DiagnosticWarn",
+        text = "",
+        texthl = "DapStopped",
         linehl = "DapStoppedLine",
         numhl = "",
       })
       vim.fn.sign_define("DapLogPoint", {
-        text = ".>",
-        texthl = "DiagnosticError",
+        text = "◆",
+        texthl = "DapLogPoint",
         linehl = "",
         numhl = "",
       })

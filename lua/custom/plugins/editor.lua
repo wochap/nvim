@@ -671,9 +671,11 @@ return {
     cmd = { "TodoTrouble" },
     event = "VeryLazy",
     opts = {
-      signs = true,
+      signs = false,
       highlight = {
         multiline = false,
+        keyword = "wide_fg",
+        after = "",
       },
     },
     keys = {

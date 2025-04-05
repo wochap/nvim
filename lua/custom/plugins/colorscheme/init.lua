@@ -7,19 +7,17 @@ return {
     name = "catppuccin",
     event = "LazyFile",
     opts = {
-      transparent_background = constants.transparent_background, -- disables setting the background color.
-      show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-      term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
+      transparent_background = constants.transparent_background,
+      show_end_of_buffer = false,
+      term_colors = true,
       dim_inactive = {
-        enabled = false, -- dims the background color of inactive window
-        shade = "dark",
-        percentage = 0.10, -- percentage of the shade to apply to the inactive window
+        enabled = false,
       },
-      no_italic = true, -- Force no italic
-      no_bold = false, -- Force no bold
-      no_underline = false, -- Force no underline
-      styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-        comments = {}, -- Change the style of comments
+      no_italic = true,
+      no_bold = false,
+      no_underline = false,
+      styles = {
+        comments = {},
         conditionals = {},
         loops = {},
         functions = {},
@@ -39,52 +37,58 @@ return {
           vibrant_green = "#b6f4be",
         },
       },
+      -- TODO: use custom_highlights
+      custom_highlights = {},
       highlight_overrides = highlight_overrides,
+      default_integrations = false,
       integrations = {
-        -- disable enabled by default
-        alpha = false,
-        cmp = false,
-        dashboard = false,
-        neogit = false,
-        illuminate = {
-          enabled = false,
-          lsp = false,
-        },
-
         -- enable the ones we'll use
-        render_markdown = true,
         blink_cmp = true,
-        grug_far = true,
-        window_picker = true,
+        diffview = true,
         fidget = true,
         flash = true,
         gitsigns = true,
-        indent_blankline = {
-          enabled = true,
-        },
-        lsp_trouble = true,
-        markdown = true,
+        grug_far = true,
+        harpoon = true,
+        -- markdown = true,
         mason = true,
         mini = true,
+        neotree = true,
+        noice = true,
+        neotest = true,
+        dap = true,
+        dap_ui = true,
         native_lsp = {
           enabled = true,
+          virtual_text = {
+            errors = {},
+            hints = {},
+            warnings = {},
+            information = {},
+            ok = {},
+          },
           underlines = {
             errors = { "undercurl" },
             hints = { "undercurl" },
             warnings = { "undercurl" },
             information = { "undercurl" },
+            ok = { "undercurl" },
           },
           inlay_hints = {
             background = false,
           },
         },
-        neotest = true,
-        noice = true,
-        nvimtree = true,
-        neotree = true,
         semantic_tokens = true,
-        treesitter = true,
+        nvimtree = true,
         treesitter_context = true,
+        treesitter = true,
+        window_picker = true,
+        render_markdown = true,
+        snacks = {
+          enabled = true,
+          indent_scope_color = "surface2",
+        },
+        lsp_trouble = true,
         which_key = true,
       },
     },

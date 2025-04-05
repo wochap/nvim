@@ -562,7 +562,7 @@ return {
         indent = {
           -- PERF: causes lag when folding a lot of lines
           enabled = true,
-          char = constants.in_kitty and "▎" or "▏",
+          char = constants.in_kitty and "│" or "🭲",
           only_scope = false,
           only_current = true,
           hl = "SnacksIndent",
@@ -571,7 +571,9 @@ return {
           enabled = false,
         },
         scope = {
-          enabled = false,
+          enabled = true,
+          char = constants.in_kitty and "│" or "🭲",
+          only_current = true,
           hl = "SnacksIndentScope",
         },
         chunk = {
@@ -628,17 +630,21 @@ return {
     },
   },
 
-  -- {
-  --   "mcauley-penney/visual-whitespace.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     highlight = { link = "VisualWhitespace" },
-  --     space_char = "·",
-  --     tab_char = "󰌒",
-  --     nl_char = "",
-  --     cr_char = "",
-  --   },
-  -- },
+  {
+    "mcauley-penney/visual-whitespace.nvim",
+    event = "VeryLazy",
+    opts = {
+      highlight = { link = "VisualWhitespace" },
+      space_char = "·",
+      tab_char = "󰌒",
+      nl_char = "",
+      cr_char = "",
+      excluded = {
+        filetypes = constants.exclude_filetypes,
+        buftypes = constants.exclude_buftypes,
+      },
+    },
+  },
 
   -- PERF: it causes nvim to freeze
   -- when scrolling to code with colors
@@ -653,21 +659,6 @@ return {
       enable_named_colors = false,
       enable_tailwind = false,
       custom_colors = {},
-    },
-  },
-
-  {
-    "echasnovski/mini.hipatterns",
-    event = "VeryLazy",
-    opts = {
-      highlighters = {
-        -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-        fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
-        hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-        note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
-        todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-        perf = { pattern = "%f[%w]()PERF()%f[%W]", group = "MiniHipatternsPerf" },
-      },
     },
   },
 

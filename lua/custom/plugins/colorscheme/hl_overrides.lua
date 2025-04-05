@@ -53,8 +53,10 @@ local getExtraHl = function(mocha)
   gen_modes_hl("Select", "mauve")
 
   return vim.tbl_deep_extend("force", result, {
+    -- lang less
     lessCssAttribute = { fg = mocha.text, link = nil },
 
+    -- lang zsh
     zshCommands = { fg = mocha.blue },
     zshDeref = { fg = mocha.red },
     zshFunction = { fg = mocha.blue },
@@ -64,17 +66,8 @@ local getExtraHl = function(mocha)
     zshSubstQuoted = { fg = mocha.red },
     zshVariableDef = { fg = mocha.red },
 
+    -- lang markdown
     ["@punctuation.special.markdown"] = { fg = mocha.teal },
-    ["@text.title.1.markdown"] = { fg = mocha.red },
-    ["@text.title.1.marker.markdown"] = { fg = mocha.red },
-    ["@text.title.2.markdown"] = { fg = mocha.peach },
-    ["@text.title.2.marker.markdown"] = { fg = mocha.peach },
-    ["@text.title.3.markdown"] = { fg = mocha.yellow },
-    ["@text.title.3.marker.markdown"] = { fg = mocha.yellow },
-    ["@text.title.4.markdown"] = { fg = mocha.green },
-    ["@text.title.4.marker.markdown"] = { fg = mocha.green },
-    ["@text.title.5.markdown"] = { fg = mocha.blue },
-    ["@text.title.5.marker.markdown"] = { fg = mocha.blue },
     ["@text.literal.markdown_inline"] = { fg = mocha.green },
     ["@text.reference.markdown_inline"] = { fg = mocha.lavender },
     ["@text.strong.markdown_inline"] = { fg = mocha.red },
@@ -120,11 +113,12 @@ local getExtraHl = function(mocha)
       fg = mocha.overlay0, -- same as NonText
     },
 
+    -- nvim-dap
+    DapStoppedLine = { link = "Visual" },
+
     -- snacks.nvim
-    SnacksIndent = { link = "IblIndent" },
-    SnacksIndentScope = { link = "IblIndent" },
-    SnacksIndentChunk = { link = "IblIndent" },
-    SnacksIndentBlank = { link = "IblIndent" },
+    SnacksIndentChunk = { link = "SnacksIndent" },
+    SnacksIndentBlank = { link = "SnacksIndent" },
     SnacksNormal = { link = "Normal" },
     SnacksNormalNC = { link = "Normal" },
     -- TODO: bug, space without HL in snacks Input
@@ -171,7 +165,7 @@ local getExtraHl = function(mocha)
       bg = mocha.surface1,
     },
 
-    --
+    -- yanky.nvim
     YankyPut = {
       fg = "NONE",
       bg = mocha.surface1,
@@ -217,32 +211,6 @@ local getExtraHl = function(mocha)
     DevIconDart = { fg = mocha.teal },
 
     -- blink.cmp
-    BlinkCmpKindClass = { fg = mocha.yellow },
-    BlinkCmpKindColor = { fg = mocha.red },
-    BlinkCmpKindConstant = { fg = mocha.peach },
-    BlinkCmpKindConstructor = { fg = mocha.blue },
-    BlinkCmpKindEnum = { fg = mocha.green },
-    BlinkCmpKindEnumMember = { fg = mocha.red },
-    BlinkCmpKindEvent = { fg = mocha.blue },
-    BlinkCmpKindField = { fg = mocha.green },
-    BlinkCmpKindFile = { fg = mocha.blue },
-    BlinkCmpKindFolder = { fg = mocha.blue },
-    BlinkCmpKindFunction = { fg = mocha.blue },
-    BlinkCmpKindInterface = { fg = mocha.yellow },
-    BlinkCmpKindKeyword = { fg = mocha.red },
-    BlinkCmpKindMethod = { fg = mocha.blue },
-    BlinkCmpKindModule = { fg = mocha.blue },
-    BlinkCmpKindOperator = { fg = mocha.blue },
-    BlinkCmpKindProperty = { fg = mocha.green },
-    BlinkCmpKindReference = { fg = mocha.red },
-    BlinkCmpKindSnippet = { fg = mocha.mauve },
-    BlinkCmpKindStruct = { fg = mocha.blue },
-    BlinkCmpKindText = { fg = mocha.teal },
-    BlinkCmpKindTypeParameter = { fg = mocha.blue },
-    BlinkCmpKindUnit = { fg = mocha.green },
-    BlinkCmpKindValue = { fg = mocha.peach },
-    BlinkCmpKindVariable = { fg = mocha.flamingo },
-
     BlinkCmpKindAvante = { fg = mocha.teal },
     BlinkCmpKindCodeium = { fg = mocha.teal },
     BlinkCmpKindCopilot = { fg = mocha.teal },
@@ -274,6 +242,7 @@ local getExtraHl = function(mocha)
       fg = mocha.crust,
       bg = mocha.crust,
     },
+
     PmenuSel = { bg = mocha.surface0 },
     Pmenu = { bg = floatColors.bg },
   })
@@ -290,7 +259,6 @@ local getOverridesHl = function(mocha)
   return {
     -- syntax
     ["@variable"] = { link = "Variable" },
-    -- PreProc = { link = "Comment" },
     Todo = { fg = mocha.blue, bg = mocha.base },
     Error = { fg = mocha.red, bg = "NONE" }, -- (preferred) any erroneous construct
 
