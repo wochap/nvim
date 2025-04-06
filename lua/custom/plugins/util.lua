@@ -111,6 +111,26 @@ return {
         desc = "Buffer 4",
       },
       {
+        "<leader>h1",
+        "<cmd>lua require('harpoon'):list():select(1)<CR>",
+        desc = "Buffer 1",
+      },
+      {
+        "<leader>h2",
+        "<cmd>lua require('harpoon'):list():select(2)<CR>",
+        desc = "Buffer 2",
+      },
+      {
+        "<leader>h3",
+        "<cmd>lua require('harpoon'):list():select(3)<CR>",
+        desc = "Buffer 3",
+      },
+      {
+        "<leader>h4",
+        "<cmd>lua require('harpoon'):list():select(4)<CR>",
+        desc = "Buffer 4",
+      },
+      {
         "[H",
         "<cmd>lua require('harpoon'):list():prev()<CR>",
         desc = "Prev Buffer (Harpoon)",
