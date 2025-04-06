@@ -704,12 +704,6 @@ return {
         desc = "Todo/Fix/Fixme (Project)",
       },
     },
-    config = function(_, opts)
-      local tc = require "todo-comments"
-      tc.setup(opts)
-      -- disable todo-comments highlight
-      tc.disable()
-    end,
   },
 
   {
