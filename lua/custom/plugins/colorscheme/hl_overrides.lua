@@ -353,7 +353,7 @@ local getOverridesHl = function(mocha)
     DiffviewDiffDeleteSign = { fg = mocha.surface1 }, -- both diff delete sign
     DiffviewFilePanelCounter = { fg = mocha.red, bg = "NONE" },
     DiffviewFilePanelTitle = { fg = mocha.lavender, bg = "NONE" },
-    -- DiffviewNormal = { link = "NvimTreeNormal" },
+    DiffviewNormal = { link = "Normal" },
     -- DiffviewVertSplit = { link = "VertSplit" },
 
     -- git-conflict.nvim
