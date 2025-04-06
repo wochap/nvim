@@ -56,20 +56,20 @@ return {
           mode = { "n", "v" },
         },
         {
-          opts.mappings.refresh,
-          function()
-            require("avante.api").refresh()
-          end,
-          desc = "Refresh",
-          mode = "n",
-        },
-        {
           opts.mappings.edit,
           function()
             require("avante.api").edit()
           end,
           desc = "Edit",
           mode = "v",
+        },
+        {
+          opts.mappings.refresh,
+          function()
+            require("avante.api").refresh()
+          end,
+          desc = "Refresh",
+          mode = "n",
         },
         {
           opts.mappings.toggle.default,
@@ -93,8 +93,6 @@ return {
       utils.autocmd("FileType", {
         group = utils.augroup "close_avante_with_q",
         pattern = {
-          "Avante",
-          "AvanteInput",
           "AvanteSelectedFiles",
         },
         callback = function(event)
@@ -169,15 +167,15 @@ return {
           next = "]]",
           prev = "[[",
         },
-        submit = {
-          normal = "<CR>",
-          insert = "<C-s>",
+        cancel = {
+          normal = { "<C-c>" },
         },
-        -- NOTE: The following will be safely set by avante.nvim
+        -- HACK: The following will be safely set by avante.nvim
         ask = "<leader>aa",
         edit = "<leader>ae",
         refresh = "<leader>ar",
         focus = "<leader>af",
+        stop = "<leader>aS",
         toggle = {
           default = "<leader>at",
           debug = "<leader>aTd",
@@ -192,10 +190,12 @@ return {
           reverse_switch_windows = "<S-Tab>",
           remove_file = "d",
           add_file = "@",
-          close = {},
+          close = { "q" },
+          close_from_input = { normal = "q" },
         },
         files = {
-          add_current = "<leader>aA", -- Add current buffer to selected files
+          add_current = "<leader>aA",
+          add_all_buffers = "<leader>aB",
         },
       },
       windows = {
@@ -212,17 +212,35 @@ return {
           start_insert = true,
         },
         ask = {
+          floating = false,
           start_insert = false,
         },
+      },
+      diff = {
+        autojump = false,
+        override_timeoutlen = -1,
       },
       hints = {
         enabled = false,
       },
       repo_map = {
-        ignore_patterns = { "%.git", "%.worktree", "__pycache__", "node_modules", "%.direnv" },
+        ignore_patterns = {
+          "%.git",
+          "%.worktree",
+          "__pycache__",
+          "node_modules",
+          "%.direnv",
+          "%.env",
+        },
       },
       file_selector = {
         provider = "snacks",
+        provider_opts = {
+          follow = true,
+          hidden = true,
+          exclude = { "node_modules", ".direnv" },
+          args = { "--fixed-strings" },
+        },
       },
     },
   },
