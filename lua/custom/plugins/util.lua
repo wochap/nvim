@@ -363,6 +363,7 @@ return {
         dir_path = "attachments",
         use_absolute_path = false,
         relative_to_current_file = true,
+        copy_images = true,
         insert_mode_after_paste = false,
         show_dir_path_in_prompt = true,
         drag_and_drop = {
@@ -371,6 +372,7 @@ return {
       },
       filetypes = {
         typst = {
+          -- typst doesn't support webp
           process_cmd = "convert - png:-",
           extension = "png",
           template = [[#image("./$FILE_PATH")$CURSOR]],
