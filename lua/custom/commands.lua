@@ -1,3 +1,6 @@
+local utils = require "custom.utils"
+local colorsUtils = require "custom.utils.colors"
+
 vim.api.nvim_create_user_command("LazyHealth", function()
   vim.cmd [[Lazy! load all]]
   vim.cmd [[checkhealth]]
@@ -88,3 +91,20 @@ vim.api.nvim_create_user_command("DiffClip", function()
     "DiffText:GitSignsDeleteInline",
   }, ",")
 end, { desc = "Compare Selection or Active File with Clipboard", range = false })
+
+vim.api.nvim_create_user_command("ToggleColorFormat", function()
+  local selected_text = utils.get_visual_selection()
+  if not selected_text then
+    return
+  end
+
+  if selected_text:match "^#?%x%x%x%x%x%x$" then
+    local rgb = colorsUtils.hex_to_rgb(selected_text)
+    utils.replace_visual_selection(rgb)
+  end
+
+  if selected_text:match "^rgb%(%d+,%s*%d+,%s*%d+%)$" then
+    local hex = colorsUtils.rgb_to_hex(selected_text)
+    utils.replace_visual_selection(hex)
+  end
+end, { desc = "Toggle Color Format", range = true })

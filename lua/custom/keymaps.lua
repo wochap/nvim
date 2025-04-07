@@ -125,6 +125,7 @@ map({ "n", "i", "v", "s" }, "<C-e>", keymapsUtils.close_all_floating, "Close Flo
 map("n", "<leader>ps", "<cmd>syntime on<CR>", "Profile Syntax Start")
 map("n", "<leader>pS", "<cmd>syntime report<CR>", "Profile Syntax End")
 map("n", "<leader>mc", "<cmd>DiffClip<CR>", "DiffClip")
+map("v", "<leader>mc", ":'<,'>ToggleColorFormat<CR>", "Toggle Color Format")
 -- https://vim.fandom.com/wiki/Super_retab
 map("n", "<leader>mt", "<cmd>retab!<CR>", "Format Leading Spacing") -- in buffer
 
