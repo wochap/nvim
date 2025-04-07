@@ -60,7 +60,7 @@ return {
         desc = "New (Daily)",
       },
       {
-        "<leader>zl",
+        "<leader>il",
         "<Cmd>ObsidianToday -1<CR>",
         desc = "Last (Daily)",
       },
