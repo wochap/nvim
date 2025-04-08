@@ -292,7 +292,7 @@ return {
         eslint = {
           settings = {
             run = "onSave",
-            -- validate = "off", -- it also disables code actions
+            -- validate = "off", -- disables diagnostics and code actions
             format = false,
             runtime = "node",
           },
