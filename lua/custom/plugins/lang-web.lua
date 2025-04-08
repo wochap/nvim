@@ -2,6 +2,9 @@ local constants = require "custom.utils.constants"
 local lspUtils = require "custom.utils.lsp"
 local utils = require "custom.utils"
 
+vim.g.lazyvim_eslint_auto_format = false
+vim.g.lazyvim_prettier_needs_config = false
+
 local prettier_supported = {
   "css",
   "graphql",
@@ -21,7 +24,12 @@ local prettier_supported = {
   "yaml",
 }
 
--- source: lua/lazyvim/plugins/extras/formatting/prettier.lua
+local function has_prettier_config(ctx)
+  vim.fn.system { "prettier", "--find-config-path", ctx.filename }
+  return vim.v.shell_error == 0
+end
+
+-- source: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/formatting/prettier.lua
 local function has_prettier_parser(ctx)
   local ft = vim.bo[ctx.buf].filetype --[[@as string]]
   -- default filetypes are always supported
@@ -37,7 +45,8 @@ local function has_prettier_parser(ctx)
   return ok and parser and parser ~= vim.NIL
 end
 
-vim.g.lazyvim_eslint_auto_format = false
+local has_prettier_config = LazyVim.memoize(has_prettier_config)
+local has_prettier_parser = LazyVim.memoize(has_prettier_parser)
 
 return {
   {
@@ -354,6 +363,7 @@ return {
         prettierd = {
           condition = function(_, ctx)
             return has_prettier_parser(ctx)
+              and (vim.g.lazyvim_prettier_needs_config ~= true or has_prettier_config(ctx))
           end,
         },
       },
