@@ -10,20 +10,7 @@ return {
     "neovim/nvim-lspconfig",
     event = { "LazyFile", "VeryLazy" },
     dependencies = {
-      {
-        "folke/neoconf.nvim",
-        cmd = "Neoconf",
-        opts = {
-          import = {
-            vscode = true,
-            coc = false,
-            nlsp = false,
-          },
-        },
-      },
-
       "mason.nvim",
-
       "williamboman/mason-lspconfig.nvim",
     },
     keys = {
