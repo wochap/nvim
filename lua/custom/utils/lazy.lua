@@ -36,4 +36,29 @@ M.load_mappings = function()
   map("n", "<leader>L", "<cmd>Lazy<cr>", "Lazy")
 end
 
+M.find_local_nolazy_spec = function()
+  local path = vim.uv.cwd()
+  local LOCAL_SPEC = ".nolazy.lua"
+  while path and path ~= "" do
+    local file = path .. "/" .. LOCAL_SPEC
+    if vim.fn.filereadable(file) == 1 then
+      return {
+        name = vim.fn.fnamemodify(file, ":~:."),
+        import = function()
+          local data = vim.secure.read(file)
+          if data then
+            return loadstring(data, LOCAL_SPEC)()
+          end
+          return {}
+        end,
+      }
+    end
+    local p = vim.fn.fnamemodify(path, ":h")
+    if p == path then
+      break
+    end
+    path = p
+  end
+end
+
 return M

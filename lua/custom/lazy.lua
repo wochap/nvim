@@ -19,6 +19,7 @@ require("lazy").setup {
       "folke/lazy.nvim",
       version = "*",
     },
+    lazyUtils.find_local_nolazy_spec() or {},
     -- Necessary to import extras from LazyVim
     {
       "LazyVim/LazyVim",

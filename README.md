@@ -24,6 +24,18 @@ $ nvim
 
 **IMPORTANT:** I have disabled Treesitter highlighting for minified files and files with long lines. Refer to the `is_minfile` function in `lua/custom/utils/init.lua` for details.
 
+## Tips and Tricks
+
+- Load a custom Neovim Lua configuration for specific projects:
+
+  ```sh
+  $ cd ./path-to-project
+  # To load code at the end of the Neovim startup process
+  $ touch .lazy.lua
+  # To load code at the beginning of the Neovim startup process
+  $ touch .nolazy.lua
+  ```
+
 ## Troubleshooting
 
 - Lag

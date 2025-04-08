@@ -2,8 +2,12 @@ local constants = require "custom.utils.constants"
 local lspUtils = require "custom.utils.lsp"
 local utils = require "custom.utils"
 
-vim.g.lazyvim_eslint_auto_format = false
-vim.g.lazyvim_prettier_needs_config = false
+if vim.g.lazyvim_eslint_auto_format == nil then
+  vim.g.lazyvim_eslint_auto_format = false
+end
+if vim.g.lazyvim_prettier_needs_config == nil then
+  vim.g.lazyvim_prettier_needs_config = false
+end
 
 local prettier_supported = {
   "css",
@@ -293,7 +297,7 @@ return {
           settings = {
             run = "onSave",
             -- validate = "off", -- disables diagnostics and code actions
-            format = false,
+            format = vim.g.lazyvim_eslint_auto_format,
             runtime = "node",
           },
           flags = {
