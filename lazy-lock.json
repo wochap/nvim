@@ -39,6 +39,7 @@
   "lsp-lens.nvim": { "branch": "main", "commit": "1cae44d080ed38d746cc11ad22ee84fca0f1f111" },
   "luvit-meta": { "branch": "main", "commit": "1df30b60b1b4aecfebc785aa98943db6c6989716" },
   "magazine.nvim": { "branch": "main", "commit": "e9a8078bd0465444328cffc7fd4bcd04d63d3fbf" },
+  "markview.nvim": { "branch": "main", "commit": "4f9ad36efe01c283aa886453ba75bf569c897c84" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "1a31f824b9cd5bc6f342fc29e9a53b60d74af245" },
   "mason-nvim-dap.nvim": { "branch": "main", "commit": "4c2cdc69d69fe00c15ae8648f7e954d99e5de3ea" },
   "mason.nvim": { "branch": "main", "commit": "fc98833b6da5de5a9c5b1446ac541577059555be" },

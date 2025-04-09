@@ -63,4 +63,67 @@ return {
       },
     },
   },
+
+  {
+    "OXY2DEV/markview.nvim",
+    event = "VeryLazy",
+    opts = {
+      preview = {
+        enable = true,
+        icon_provider = "mini",
+        debounce = 50,
+        hybrid_modes = { "n" },
+        linewise_hybrid_mode = true,
+        filetypes = { "typst" },
+      },
+      html = {
+        enable = false,
+      },
+      latex = {
+        enable = false,
+      },
+      markdown = {
+        enable = false,
+      },
+      markdown_inline = {
+        enable = false,
+      },
+      typst = {
+        enable = true,
+        code_blocks = {
+          style = "simple",
+          text = "",
+        },
+        raw_blocks = {
+          style = "simple",
+        },
+        math_blocks = {
+          -- TODO: add style simple
+          pad_amount = 0,
+        },
+        headings = {
+          enable = true,
+          heading_1 = {
+            sign = "",
+          },
+          heading_2 = {
+            sign = "",
+          },
+        },
+        -- TODO: list_items doesn't work
+        list_items = {
+          enable = true,
+        },
+      },
+      yaml = {
+        enable = false,
+        math_blocks = {
+          enable = false,
+        },
+        math_spans = {
+          enable = false,
+        },
+      },
+    },
+  },
 }

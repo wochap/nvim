@@ -92,6 +92,7 @@ return {
       },
       heading = {
         sign = false,
+        icons = { "󰼏  ", " 󰎨  ", "  󰼑  ", "   󰎲  ", "    󰼓  ", "     󰎴  " },
       },
       code = {
         sign = false,
