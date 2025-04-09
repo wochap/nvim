@@ -74,12 +74,16 @@ return {
       workspaces = {
         -- TODO: automagically populate workspaces
         {
-          name = "utp",
+          name = "UTP",
           path = "~/Sync/obsidian/utp",
         },
         {
-          name = "recipes",
+          name = "Recipes",
           path = "~/Sync/obsidian/recipes",
+        },
+        {
+          name = "VisualFaktory",
+          path = "~/Sync/obsidian/VisualFaktory",
         },
       },
       log_level = vim.log.levels.ERROR,
@@ -155,7 +159,8 @@ return {
         blink = true,
       },
       callbacks = {
-        post_set_workspace = function(client, workspace)
+        post_set_workspace = function(_, workspace)
+          vim.api.nvim_set_current_dir(tostring(workspace.root))
           require("persistence").load()
         end,
       },
