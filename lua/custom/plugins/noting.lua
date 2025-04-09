@@ -64,6 +64,11 @@ return {
         "<Cmd>ObsidianToday -1<CR>",
         desc = "Last (Daily)",
       },
+      {
+        "<leader>io",
+        "<Cmd>ObsidianOpen<CR>",
+        desc = "Open In Obsidian",
+      },
     },
     opts = {
       workspaces = {
