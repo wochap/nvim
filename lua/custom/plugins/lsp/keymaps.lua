@@ -1,4 +1,4 @@
-local utils = require "custom.utils"
+local blinkCmpUtils = require "custom.utils-plugins.blink-cmp"
 local lspUtils = require "custom.utils.lsp"
 local lazyUtils = require "custom.utils.lazy"
 
@@ -74,8 +74,23 @@ M.get = function()
       end,
       desc = "Hover",
     },
-    { "gh", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
-    { "<c-h>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
+    {
+      "gh",
+      function()
+        blinkCmpUtils.show_signature()
+      end,
+      desc = "Signature Help",
+      has = "signatureHelp",
+    },
+    {
+      "<c-h>",
+      function()
+        blinkCmpUtils.show_signature()
+      end,
+      mode = "i",
+      desc = "Signature Help",
+      has = "signatureHelp",
+    },
     {
       "<leader>la",
       function()

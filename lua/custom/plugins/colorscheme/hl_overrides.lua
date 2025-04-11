@@ -18,6 +18,11 @@ local getColors = function(palette)
     },
     float = {
       bg = palette.base,
+      blockBg = palette.mantle,
+      blockBorderBg = palette.mantle,
+      blockBorderFg = palette.mantle,
+      borderBg = palette.base,
+      borderFg = palette.blue,
     },
     separator = {
       bg = "NONE",
@@ -123,11 +128,13 @@ local getExtraHl = function(C)
     SnacksNormalNC = { link = "Normal" },
     -- TODO: bug, space without HL in snacks Input
     SnacksInputTitle = { link = "FloatTitle" },
-    SnacksPickerMatch = {
-      fg = C.blue,
-      bg = U.darken(C.blue, 0.095, C.base),
-    },
-    SnacksTermFloatBorder = { bg = C.base, fg = C.base },
+    SnacksPickerMatch = { fg = C.blue, bg = U.darken(C.blue, 0.095, C.base) },
+    SnacksTermFloatBorder = { bg = floatColors.borderBg, fg = floatColors.borderBg },
+    SnacksPickerFloatBorder = { fg = floatColors.borderBg },
+
+    -- nvim-window-picker
+    WindowPickerNormalFloat = { bg = floatColors.blockBg, fg = C.text },
+    WindowPickerFloatBorder = { bg = floatColors.blockBorderBg, fg = floatColors.blockBorderFg },
 
     -- incline.nvim
     InclineNormalNC = {
@@ -227,24 +234,19 @@ local getExtraHl = function(C)
     BlinkCmpLabelDescription = { fg = C.overlay0 },
     BlinkCmpLabelDetail = { fg = C.overlay0 },
     BlinkCmpLabelMatch = { fg = C.blue, bold = true },
-    BlinkCmpMenuBorder = {
-      bg = floatColors.bg,
-      fg = floatColors.bg,
-    },
-    BlinkCmpDoc = {
-      bg = C.crust,
-    },
-    BlinkCmpDocBorder = {
-      fg = C.crust,
-      bg = C.crust,
-    },
-    BlinkCmpDocSeparator = {
-      fg = C.crust,
-      bg = C.crust,
-    },
+    BlinkCmpMenuBorder = { bg = floatColors.borderBg, fg = floatColors.borderFg },
+    BlinkCmpDoc = { bg = floatColors.bg },
+    BlinkCmpDocBorder = { bg = floatColors.borderBg, fg = floatColors.borderFg },
+    BlinkCmpDocSeparator = { bg = floatColors.borderBg, fg = C.teal },
+    BlinkCmpSignatureHelp = { bg = floatColors.bg },
+    BlinkCmpSignatureHelpBorder = { bg = floatColors.borderBg, fg = floatColors.borderFg },
 
-    PmenuSel = { bg = C.surface0 },
+    -- nvim pmenu
+    -- PmenuSel = { link = "CursorLine" },
+    PmenuSel = { bg = U.darken(C.blue, 0.64, C.base) },
     Pmenu = { bg = floatColors.bg },
+    PmenuThumb = { bg = floatColors.borderFg },
+    PmenuSbar = { bg = "NONE" },
   })
 end
 
@@ -292,10 +294,10 @@ local getOverridesHl = function(C)
     NvimTreeGitFileIgnoredHL = { link = "NeoTreeGitIgnored" },
 
     -- noice.nvim
-    NoiceCmdlinePopupNormal = { fg = C.text, bg = C.crust },
-    NoiceCmdlinePopupBorder = { fg = C.crust, bg = C.crust },
-    NoiceConfirm = { link = "NormalFloat" },
-    NoiceConfirmBorder = { link = "FloatBorder" },
+    NoiceCmdlinePopupNormal = { fg = C.text, bg = floatColors.blockBorderBg },
+    NoiceCmdlinePopupBorder = { fg = floatColors.blockBorderFg, bg = floatColors.blockBorderBg },
+    NoiceConfirm = { fg = C.text, bg = floatColors.blockBorderBg },
+    NoiceConfirmBorder = { fg = floatColors.blockBorderFg, bg = floatColors.blockBorderBg },
     NoiceSplit = { link = "Normal" },
     NoiceSplitBorder = { link = "FloatBorder" },
     NoiceMini = { link = "Comment" },
@@ -305,7 +307,9 @@ local getOverridesHl = function(C)
     },
 
     -- which-key.nvim
-    WhichKey = { bg = "NONE", fg = C.text },
+    WhichKey = { bg = floatColors.blockBg, fg = C.text },
+    WhichKeyNormal = { link = "WhichKey" },
+    WhichKeyBorder = { bg = floatColors.blockBorderBg, fg = floatColors.blockBorderFg },
 
     -- neo-tree.nvim
     NeoTreeNormal = { bg = C.base },
@@ -374,25 +378,23 @@ local getOverridesHl = function(C)
     TreesitterContextLineNumber = { link = "LineNr" },
     TreesitterContextBottom = { style = {} },
 
-    -- diagnostics
-    DiagnosticUnderlineError = { undercurl = true, sp = stateColors.error }, -- Used to underline "Error" diagnostics
-    DiagnosticUnderlineWarn = { undercurl = true, sp = stateColors.warning }, -- Used to underline "Warning" diagnostics
-    DiagnosticUnderlineInfo = { undercurl = true, sp = stateColors.info }, -- Used to underline "Information" diagnostics
-    DiagnosticUnderlineHint = { undercurl = true, sp = stateColors.hint }, -- Used to underline "Hint" diagnostics
-    ErrorMsg = { fg = stateColors.error }, -- error messages on the command line
+    -- nvim spelling
     SpellBad = { sp = stateColors.error, undercurl = true }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
     SpellCap = { sp = stateColors.warning, undercurl = true }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     SpellLocal = { sp = stateColors.info, undercurl = true }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     SpellRare = { sp = stateColors.hint, undercurl = true }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
+
+    -- nvim diagnostics
+    ErrorMsg = { fg = stateColors.error }, -- error messages on the command line
+    DiagnosticUnderlineError = { undercurl = true, sp = stateColors.error }, -- Used to underline "Error" diagnostics
+    DiagnosticUnderlineWarn = { undercurl = true, sp = stateColors.warning }, -- Used to underline "Warning" diagnostics
+    DiagnosticUnderlineInfo = { undercurl = true, sp = stateColors.info }, -- Used to underline "Information" diagnostics
+    DiagnosticUnderlineHint = { undercurl = true, sp = stateColors.hint }, -- Used to underline "Hint" diagnostics
     DiagnosticError = { fg = stateColors.error }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticWarn = { fg = stateColors.warning }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticInfo = { fg = stateColors.info }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticHint = { fg = stateColors.hint }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-    DiagnosticUnnecessary = {
-      fg = U.darken(C.text, 0.667, C.base),
-      undercurl = true,
-      link = nil,
-    },
+    DiagnosticUnnecessary = { fg = U.darken(C.text, 0.667, C.base), undercurl = true, link = nil },
     DiagnosticFloatingError = { fg = stateColors.error }, -- Used to color "Error" diagnostic messages in diagnostics float
     DiagnosticFloatingWarn = { fg = stateColors.warning }, -- Used to color "Warn" diagnostic messages in diagnostics float
     DiagnosticFloatingInfo = { fg = stateColors.info }, -- Used to color "Info" diagnostic messages in diagnostics float
@@ -404,9 +406,9 @@ local getOverridesHl = function(C)
     -- TODO: add DiagnosticVirtualLines...?
 
     -- nvim float windows
-    FloatTitle = { bg = floatColors.bg, fg = C.surface1 },
+    FloatTitle = { bg = floatColors.bg, fg = C.lavender },
     NormalFloat = { bg = floatColors.bg },
-    FloatBorder = { bg = floatColors.bg, fg = floatColors.bg },
+    FloatBorder = { bg = floatColors.borderBg, fg = floatColors.borderFg },
 
     -- nvim separators
     WinSeparator = separatorColors,

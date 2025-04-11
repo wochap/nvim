@@ -1,6 +1,6 @@
 local constants = require "custom.utils.constants"
 local iconsUtils = require "custom.utils.icons"
-local cmpUtils = require "custom.utils-plugins.cmp"
+local blinkCmpUtils = require "custom.utils-plugins.blink-cmp"
 local keymapsUtils = require "custom.utils.keymaps"
 local langUtils = require "custom.utils.lang"
 local textCaseUtils = require "custom.utils-plugins.text-case"
@@ -225,8 +225,9 @@ return {
           winblend = vim.o.pumblend,
           min_width = 15,
           max_height = 15,
-          border = cmpUtils.border "BlinkCmpMenuBorder",
+          border = "rounded",
           draw = {
+            align_to = "label",
             gap = 2,
             columns = {
               { "kind_icon" },
@@ -263,7 +264,11 @@ return {
             if LazyVim.has "noice.nvim" then
               local Api = require "noice.api"
               local pos = Api.get_cmdline_position()
-              return { pos.screenpos.row - 1, pos.screenpos.col - 2 }
+              local type = vim.fn.getcmdtype()
+              if type == "/" or type == "?" then
+                return { pos.screenpos.row - 1, pos.screenpos.col - 2 }
+              end
+              return { pos.screenpos.row, pos.screenpos.col - 1 }
             end
             if vim.g.ui_cmdline_pos ~= nil then
               local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
@@ -286,7 +291,7 @@ return {
           window = {
             min_width = 15,
             max_height = 20,
-            border = cmpUtils.border "BlinkCmpDocBorder",
+            border = "rounded",
           },
           -- NOTE: improve perf
           -- treesitter_highlighting = false,
@@ -297,7 +302,19 @@ return {
       },
       -- experimental signature help support
       signature = {
-        enabled = false,
+        enabled = true,
+        trigger = {
+          show_on_insert = true,
+        },
+        window = {
+          min_width = 15,
+          max_height = 20,
+          border = "rounded",
+          -- TODO: fix scrollbar position
+          -- scrollbar = true,
+          treesitter_highlighting = true,
+          show_documentation = true,
+        },
       },
       sources = {
         defaults = {
@@ -365,15 +382,27 @@ return {
       keymap = {
         preset = "none",
         ["<C-Space>"] = { "show" },
-        ["<C-u>"] = { "scroll_documentation_up", "fallback" },
-        ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+        ["<C-u>"] = {
+          "scroll_documentation_up",
+          function()
+            return blinkCmpUtils.scroll_signature_up()
+          end,
+          "fallback",
+        },
+        ["<C-d>"] = {
+          "scroll_documentation_down",
+          function()
+            return blinkCmpUtils.scroll_signature_down()
+          end,
+          "fallback",
+        },
         ["<C-b>"] = {
           function(cmp)
             if not cmp.is_visible() then
               return
             end
             vim.schedule(function()
-              cmpUtils.select_next_idx(4, -1)
+              blinkCmpUtils.select_next_idx(4, -1)
             end)
             return true
           end,
@@ -385,7 +414,7 @@ return {
               return
             end
             vim.schedule(function()
-              cmpUtils.select_next_idx(4)
+              blinkCmpUtils.select_next_idx(4)
             end)
             return true
           end,
@@ -409,7 +438,13 @@ return {
             cmp.select_next()
           end,
         },
-        ["<C-e>"] = { "cancel", "fallback" },
+        ["<C-e>"] = {
+          function()
+            return blinkCmpUtils.hide_signature()
+          end,
+          "cancel",
+          "fallback",
+        },
         ["<C-y>"] = {
           function()
             -- insert undo breakpoint
@@ -440,7 +475,7 @@ return {
                 return
               end
               vim.schedule(function()
-                cmpUtils.select_next_idx(4, -1)
+                blinkCmpUtils.select_next_idx(4, -1)
               end)
               return true
             end,
@@ -452,7 +487,7 @@ return {
                 return
               end
               vim.schedule(function()
-                cmpUtils.select_next_idx(4)
+                blinkCmpUtils.select_next_idx(4)
               end)
               return true
             end,

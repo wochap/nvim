@@ -380,11 +380,8 @@ return {
           enabled = true,
         },
         signature = {
-          enabled = true,
-          -- automatically show signature help when typing
-          auto_open = {
-            enabled = false,
-          },
+          -- blink.cmp has signature integration
+          enabled = false,
         },
         override = {
           -- better highlighting for lsp signature/hover windows
@@ -446,7 +443,7 @@ return {
             height = "auto",
           },
           border = {
-            style = "solid",
+            style = "rounded",
             padding = { 0, 1 },
           },
           win_options = {
@@ -477,17 +474,26 @@ return {
             max_width = 90,
           },
           border = {
-            style = "none",
+            style = "rounded",
             padding = {
-              top = 1,
-              bottom = 1,
-              left = 1,
-              right = 1,
+              top = 0,
+              bottom = 0,
+              left = 0,
+              right = 0,
             },
           },
           position = {
             row = 1,
-            col = 0,
+            col = 1,
+          },
+          scrollbarOpts = {
+            showBar = false,
+            padding = {
+              top = 1,
+              bottom = 0,
+              right = 1,
+              left = 0,
+            },
           },
         },
         -- rice confirm popup

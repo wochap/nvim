@@ -351,7 +351,7 @@ return {
       enable_diagnostics = false,
       enable_opened_markers = false,
       -- enable_cursor_hijack = true,
-      popup_border_style = "single",
+      popup_border_style = "rounded",
       use_popups_for_input = false,
       use_default_mappings = false,
       hide_root_node = true,
@@ -1285,10 +1285,36 @@ return {
                 border = "rounded",
                 title = "{source} {live} {flags}",
                 title_pos = "center",
-                { win = "input", height = 1, border = "bottom" },
-                { win = "list", border = "none" },
+                wo = {
+                  winhighlight = {
+                    FloatBorder = "SnacksPickerFloatBorder",
+                  },
+                },
+                {
+                  win = "input",
+                  height = 1,
+                  border = "bottom",
+                  wo = {
+                    winhighlight = {
+                      FloatBorder = "SnacksPickerFloatBorder",
+                    },
+                  },
+                },
+                {
+                  win = "list",
+                  border = "none",
+                },
               },
-              { win = "preview", border = "rounded", width = 0.55 },
+              {
+                win = "preview",
+                border = "rounded",
+                width = 0.55,
+                wo = {
+                  winhighlight = {
+                    FloatBorder = "SnacksPickerFloatBorder",
+                  },
+                },
+              },
             },
           },
           vertical = {
@@ -1618,6 +1644,7 @@ return {
         },
       },
       preview_config = {
+        border = "rounded",
         row = 1,
       },
       max_file_length = 9999,

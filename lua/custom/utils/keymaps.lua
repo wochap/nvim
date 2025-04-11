@@ -24,7 +24,7 @@ local function is_ts_context_window(winid)
 end
 M.close_all_floating = function()
   local blink = require "blink.cmp"
-  if blink.is_visible() then
+  if blink.is_visible() or blink.is_signature_visible() then
     return
   end
 

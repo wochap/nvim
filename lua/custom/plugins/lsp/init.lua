@@ -195,7 +195,7 @@ return {
         signs = diagnostic_signs_opts,
         severity_sort = true,
         float = {
-          border = "single",
+          border = "rounded",
           format = function(diagnostic)
             return string.format("%s (%s)", diagnostic.message, diagnostic.source)
           end,
