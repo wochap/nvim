@@ -77,7 +77,8 @@ return {
   {
     "fladson/vim-kitty",
     ft = "kitty",
-    init = function()
+    opts = {},
+    config = function()
       utils.autocmd("FileType", {
         pattern = "kitty",
         group = utils.augroup "enable_kitty_syntax",
@@ -85,7 +86,6 @@ return {
       })
     end,
   },
-
   {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
