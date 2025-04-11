@@ -29,7 +29,7 @@ return {
       {
         "<leader>lF",
         function()
-          require("conform").format { formatters = { "injected" } }
+          require("conform").format { force = true, formatters = { "injected" } }
         end,
         desc = "Format Buffer (Injected Langs)",
         mode = "n",
@@ -37,7 +37,7 @@ return {
       {
         "<leader>lF",
         function()
-          require("conform").format { formatters = { "injected" } }
+          require("conform").format { force = true, formatters = { "injected" } }
         end,
         desc = "Format Selection (Injected Langs)",
         mode = "v",
