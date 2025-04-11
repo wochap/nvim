@@ -73,24 +73,24 @@ M.in_big_project = function(cwd)
 end
 
 M.close_sidebars = function(ignore_sidebar)
-  local has_neo_tree, neo_tree = pcall(require, "neo-tree.command")
+  local has_neo_tree = package.loaded["neo-tree"]
   if has_neo_tree and ignore_sidebar ~= "neo_tree" then
-    neo_tree.execute { action = "close" }
+    require("neo-tree.command").execute { action = "close" }
   end
 
-  local has_nvim_tree, nvim_tree = pcall(require, "nvim-tree.api")
+  local has_nvim_tree = package.loaded["nvim-tree"]
   if has_nvim_tree and ignore_sidebar ~= "nvim_tree" then
-    nvim_tree.tree.close()
+    require("nvim-tree.api").tree.close()
   end
 
-  local has_avante, avante = pcall(require, "avante")
+  local has_avante = package.loaded["avante"]
   if has_avante and ignore_sidebar ~= "avante" then
-    avante.close_sidebar()
+    require("avante").close_sidebar()
   end
 
-  local has_dapui, dapui = pcall(require, "dapui")
+  local has_dapui = package.loaded["dapui"]
   if has_dapui and ignore_sidebar ~= "dapui" then
-    dapui.close()
+    require("dapui").close()
   end
 end
 

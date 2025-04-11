@@ -11,10 +11,10 @@ M.format = function(opts, cb)
     LazyVim.opts("nvim-lspconfig").format or {},
     LazyVim.opts("conform.nvim").default_format_opts or {}
   )
-  local ok, conform = pcall(require, "conform")
+  local has_conform, conform = pcall(require, "conform")
   -- use conform for formatting with LSP when available,
   -- since it has better format diffing
-  if ok then
+  if has_conform then
     opts.formatters = {}
     conform.format(opts, cb)
   else

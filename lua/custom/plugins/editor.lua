@@ -1190,8 +1190,10 @@ return {
       {
         "<leader>fd",
         function()
-          local has_rm, rm = pcall(require, "render-markdown")
+          local has_rm = package.loaded["render-markdown"]
+          local rm
           if has_rm then
+            rm = require "render-markdown"
             rm.disable()
           end
           Snacks.picker.lines()
@@ -1453,10 +1455,11 @@ return {
       utils.autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
         group = utils.augroup "turn_off_flash_search",
         callback = function()
-          local has_flash, flash = pcall(require, "flash")
+          local has_flash = package.loaded["flash"]
           if not has_flash then
             return
           end
+          local flash = require "flash"
           pcall(flash.toggle, false)
         end,
       })

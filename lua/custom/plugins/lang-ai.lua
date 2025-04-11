@@ -252,7 +252,7 @@ return {
         defaults = {
           function()
             local filetype = vim.api.nvim_buf_get_option(0, "filetype")
-            local has_avante, _ = pcall(require, "avante")
+            local has_avante = package.loaded["avante"]
             if has_avante then
               if filetype == "AvanteInput" then
                 return { "buffer", "avante_commands", "avante_mentions", "avante_files" }

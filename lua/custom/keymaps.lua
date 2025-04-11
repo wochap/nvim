@@ -5,8 +5,9 @@ local map = keymapsUtils.map
 -- clear search
 map({ "n", "i", "s" }, "<Esc>", function()
   vim.cmd "noh"
-  local has_luasnip, luasnip = pcall(require, "luasnip")
+  local has_luasnip = package.loaded["luasnip"]
   if has_luasnip then
+    local luasnip = require "luasnip"
     luasnip.unlink_current()
   end
   return "<Esc>"

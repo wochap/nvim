@@ -273,7 +273,7 @@ return {
     opts = {
       enableds = {
         function()
-          local has_cmp_dap, _ = pcall(require, "cmp_dap")
+          local has_cmp_dap = package.loaded["cmp_dap"]
           if has_cmp_dap then
             local cmp_dap = require "cmp_dap"
             -- enable if in dap buffer
@@ -287,7 +287,7 @@ return {
       sources = {
         defaults = {
           function()
-            local has_cmp_dap, _ = pcall(require, "cmp_dap")
+            local has_cmp_dap = package.loaded["cmp_dap"]
             if has_cmp_dap then
               local cmp_dap = require "cmp_dap"
               -- enable if in dap buffer

@@ -103,12 +103,13 @@ local function mode_module()
 end
 
 local function filetype_icon()
-  local has_nwd, nwd = pcall(require, "nvim-web-devicons")
+  local has_nwd = package.loaded["nvim-web-devicons"]
 
   if not has_nwd then
     return ""
   end
 
+  local nwd = require "nvim-web-devicons"
   local icon, hl = nwd.get_icon(vim.fn.expand "%:t", nil, {
     default = true,
   })
@@ -234,8 +235,9 @@ local function git_diff_module()
       and (hl_str "StGitDelete" .. iconsUtils.git.Delete .. " " .. git_status.removed)
     or ""
   local conflict = ""
-  local has_gc, gc = pcall(require, "git-conflict")
+  local has_gc = package.loaded["git-conflict"]
   if has_gc then
+    local gc = require "git-conflict"
     local ok, conflict_count = pcall(gc.conflict_count)
     if ok then
       conflict = (conflict_count ~= 0) and (hl_str "StGitConflict" .. iconsUtils.git.Conflict .. " " .. conflict_count)
@@ -252,7 +254,7 @@ local function maximize_status_module()
 end
 
 local function snacks_profiler_module()
-  local has_snacks, _ = pcall(require, "snacks")
+  local has_snacks = package.loaded["snacks"]
   if not has_snacks then
     return ""
   end
@@ -303,14 +305,15 @@ local function search_count_module()
 end
 
 local function command_module()
-  local has_noice, _ = pcall(require, "noice")
+  local has_noice = package.loaded["noice"]
   if not has_noice then
     return ""
   end
-  if not require("noice").api.status.command.has() then
+  local noice = require "noice"
+  if not noice.api.status.command.has() then
     return ""
   end
-  return hl_str "StCommand" .. require("noice").api.status.command.get()
+  return hl_str "StCommand" .. noice.api.status.command.get()
 end
 
 local function lazy_module()
@@ -321,14 +324,15 @@ local function lazy_module()
 end
 
 local function macro_module()
-  local has_noice, _ = pcall(require, "noice")
+  local has_noice = package.loaded["noice"]
   if not has_noice then
     return ""
   end
-  if not require("noice").api.status.mode.has() then
+  local noice = require "noice"
+  if not noice.api.status.mode.has() then
     return ""
   end
-  return hl_str "StMacro" .. require("noice").api.status.mode.get()
+  return hl_str "StMacro" .. noice.api.status.mode.get()
 end
 
 local function words_module()
@@ -396,7 +400,7 @@ local function lsp_or_filetype_module()
 end
 
 local function formatter_module()
-  local has_conform, _ = pcall(require, "conform")
+  local has_conform = package.loaded["conform"]
   if not has_conform then
     return ""
   end
@@ -422,7 +426,7 @@ local function formatter_module()
 end
 
 local function linter_module()
-  local has_lint, _ = pcall(require, "lint")
+  local has_lint = package.loaded["lint"]
   if not has_lint then
     return ""
   end
