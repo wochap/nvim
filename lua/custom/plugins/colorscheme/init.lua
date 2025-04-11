@@ -31,7 +31,7 @@ return {
         operators = {},
       },
       color_overrides = {
-        mocha = {
+        all = {
           dark_purple = "#c7a0dc",
           sun = "#ffe9b6",
           vibrant_green = "#b6f4be",
