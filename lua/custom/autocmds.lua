@@ -161,3 +161,12 @@ utils.autocmd("LspDetach", {
   group = utils.augroup "revert_lsp_foldexpr",
   command = "setl foldexpr<",
 })
+
+utils.autocmd({ "FileType" }, {
+  group = utils.augroup "continue_markdown_list",
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.comments = "b:-"
+    vim.opt_local.formatoptions:append "r"
+  end,
+})

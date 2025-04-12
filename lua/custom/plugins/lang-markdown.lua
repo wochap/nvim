@@ -1,6 +1,5 @@
 local constants = require "custom.utils.constants"
 local utils = require "custom.utils"
-local lazyUtils = require "custom.utils.lazy"
 local keymapsUtils = require "custom.utils.keymaps"
 local langUtils = require "custom.utils.lang"
 
