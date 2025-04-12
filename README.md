@@ -2,7 +2,7 @@
 
 A Blazingly fast, opinionated Neovim configuration inspired by the aesthetics of [NvChad](https://github.com/NvChad/NvChad) combined with the LSP, formatting and linting setups from [LazyVim](https://github.com/LazyVim/LazyVim).
 
-![](https://i.imgur.com/LUw9hqi.png)
+![](https://i.imgur.com/ngNTSvS.png)
 ![](https://i.imgur.com/4mYz0I4.png)
 
 ## Installation
