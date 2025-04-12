@@ -369,6 +369,9 @@ local getOverridesHl = function(C)
     AvanteSidebarNormal = { link = "Normal" },
     AvanteSidebarWinSeparator = { link = "WinSeparator" },
     AvanteSidebarWinHorizontalSeparator = { link = "WinSeparator" },
+    AvantePromptInputBorder = { link = "FloatBorder" },
+    AvantePopupHint = { fg = C.peach, bold = true },
+    -- AvanteInlineHint = { },
 
     -- lsp-lens.nvim
     LspLens = { link = "LspInlayHint" },
@@ -406,7 +409,7 @@ local getOverridesHl = function(C)
     -- TODO: add DiagnosticVirtualLines...?
 
     -- nvim float windows
-    FloatTitle = { bg = floatColors.bg, fg = C.lavender },
+    FloatTitle = { bg = floatColors.bg, fg = floatColors.borderFg },
     NormalFloat = { bg = floatColors.bg },
     FloatBorder = { bg = floatColors.borderBg, fg = floatColors.borderFg },
 

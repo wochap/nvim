@@ -209,6 +209,7 @@ return {
           height = 8, -- Height of the input window in vertical layout
         },
         edit = {
+          border = "rounded",
           start_insert = true,
         },
         ask = {
