@@ -304,7 +304,8 @@ return {
       signature = {
         enabled = true,
         trigger = {
-          show_on_insert = true,
+          -- buggy
+          show_on_insert = false,
         },
         window = {
           min_width = 15,
