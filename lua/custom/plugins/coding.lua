@@ -665,15 +665,6 @@ return {
     event = { "InsertEnter", "VeryLazy" },
     version = "v2.*",
     build = "make install_jsregexp",
-    dependencies = {
-      {
-        "carbonid1/EmmetJSS",
-        config = function()
-          local plugin_path = vim.fn.stdpath "data" .. "/lazy/EmmetJSS"
-          require("luasnip.loaders.from_vscode").load { paths = plugin_path }
-        end,
-      },
-    },
     keys = {
       {
         "<Tab>",
@@ -740,12 +731,20 @@ return {
       -- Show snippets related to the language
       -- in the current cursor position
       ft_func = function()
-        return require("luasnip.extras.filetype_functions").from_pos_or_filetype()
+        local filetypes = require("luasnip.extras.filetype_functions").from_pos_or_filetype()
+        if vim.tbl_contains(filetypes, "markdown_inline") then
+          -- HACK: fix markdown snippets not being expanded
+          return { "markdown" }
+        end
+        return filetypes
       end,
       -- for lazy load snippets for given buffer
-      -- from_filetype_load = function(bufnr)
-      --   return require("luasnip.extras.filetype_functions").from_filetype_load(bufnr)
-      -- end,
+      load_ft_func = function(...)
+        return require("luasnip.extras.filetype_functions").extend_load_ft {
+          -- TODO: add injected filetypes for each filetype
+          markdown = { "javascript", "json" },
+        }(...)
+      end,
     },
     config = function(_, opts)
       require("luasnip").setup(opts)

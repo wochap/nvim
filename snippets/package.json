@@ -6,6 +6,15 @@
         "language": [
           "javascript",
           "javascriptreact",
+          "typescript",
+          "typescriptreact"
+        ],
+        "path": "./javascript/jss.json"
+      },
+      {
+        "language": [
+          "javascript",
+          "javascriptreact",
           "svelte",
           "typescript",
           "typescriptreact",

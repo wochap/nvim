@@ -1,0 +1,148 @@
+{
+  "dispay: flex": { "prefix": "d:f", "body": ["display: 'flex',", ""] },
+  "align-items: center": {
+    "prefix": "ai:c",
+    "body": ["alignItems: 'center',", ""]
+  },
+  "align-items: flex-start": {
+    "prefix": "ai:fs",
+    "body": ["alignItems: 'flex-start',", ""]
+  },
+  "align-items: flex-end": {
+    "prefix": "ai:fe",
+    "body": ["alignItems: 'flex-end',", ""]
+  },
+  "justify-content: center": {
+    "prefix": "jc:c",
+    "body": ["justifyContent: 'center',", ""]
+  },
+  "justify-content: flex-start": {
+    "prefix": "jc:fs",
+    "body": ["justifyContent: 'flex-start',", ""]
+  },
+  "justify-content: flex-end": {
+    "prefix": "jc:fe",
+    "body": ["justifyContent: 'flex-end',", ""]
+  },
+  "justify-content: space-around": {
+    "prefix": "jc:sa",
+    "body": ["justifyContent: 'space-around',", ""]
+  },
+  "justify-content: space-between": {
+    "prefix": "jc:sb",
+    "body": ["justifyContent: 'space-between',", ""]
+  },
+  "flex": { "prefix": "fx", "body": ["flex: ${1:1},", ""] },
+  "flex-grow": { "prefix": "fxg", "body": ["flexGrow: ${1:1},", ""] },
+  "flex-shrink": { "prefix": "fxsh", "body": ["flexShrink: ${1:1},", ""] },
+  "flex-wrap": { "prefix": "fxw", "body": ["flexWrap: '${1:wrap}',", ""] },
+  "flex-direction": {
+    "prefix": "fxd",
+    "body": ["flexDirection: '${1:column}',", ""]
+  },
+  "flex-direction: column": {
+    "prefix": "fxd:c",
+    "body": ["flexDirection: 'column',", ""]
+  },
+  "align-self: center": {
+    "prefix": "as:c",
+    "body": ["alignSelf: 'center',", ""]
+  },
+  "align-self: flex-start": {
+    "prefix": "as:fs",
+    "body": ["alignSelf: 'flex-start',", ""]
+  },
+  "align-self: flex-end": {
+    "prefix": "as:fe",
+    "body": ["alignSelf: 'flex-end',", ""]
+  },
+
+  "font-size": { "prefix": "fs", "body": ["fontSize: $1,", ""] },
+  "font-family": { "prefix": "ff", "body": ["fontFamily: '$1',", ""] },
+  "font-weight": { "prefix": "fw", "body": ["fontWeight: $1,", ""] },
+
+  "color: rgba": {
+    "prefix": "c:ra",
+    "body": ["color: 'rgba(${1:255}, ${2:255}, ${3:255}, ${4:1})',", ""]
+  },
+  "opacity": { "prefix": "op", "body": ["opacity: ${1:0.5},", ""] },
+
+  "padding": { "prefix": "p", "body": ["padding: $1,", ""] },
+  "padding-right": { "prefix": "pr", "body": ["paddingRight: $1,", ""] },
+  "padding-left": { "prefix": "pl", "body": ["paddingLeft: $1,", ""] },
+  "padding-top": { "prefix": "pt", "body": ["paddingTop: $1,", ""] },
+  "padding-bottom": { "prefix": "pb", "body": ["paddingBottom: $1,", ""] },
+
+  "margin": { "prefix": "m", "body": ["margin: $1,", ""] },
+  "margin-right": { "prefix": "mr", "body": ["marginRight: $1,", ""] },
+  "margin-left": { "prefix": "ml", "body": ["marginLeft: $1,", ""] },
+  "margin-top": { "prefix": "mt", "body": ["marginTop: $1,", ""] },
+  "margin-bottom": { "prefix": "mb", "body": ["marginBottom: $1,", ""] },
+
+  "dispay: inline-block": {
+    "prefix": "d:ib",
+    "body": ["display: 'inline-block',", ""]
+  },
+  "dispay: inline": { "prefix": "d:i", "body": ["display: 'inline',", ""] },
+  "dispay: none": { "prefix": "d:n", "body": ["display: 'none',", ""] },
+  "dispay: block": { "prefix": "d:b", "body": ["display: 'block',", ""] },
+
+  "visibility: hidden": {
+    "prefix": "v:h",
+    "body": ["visibility: 'hidden',", ""]
+  },
+
+  "overflow: hidden": { "prefix": "ov:h", "body": ["overflow: 'hidden',", ""] },
+  "overflow: visible": {
+    "prefix": "ov:v",
+    "body": ["overflow: 'visible',", ""]
+  },
+  "overflow: scroll": { "prefix": "ov:s", "body": ["overflow: 'scroll',", ""] },
+  "overflow: auto": { "prefix": "ov:a", "body": ["overflow: 'auto',", ""] },
+  "overflow-x: hidden": {
+    "prefix": "ovx:h",
+    "body": ["overflowX: 'hidden',", ""]
+  },
+  "overflow-x: visible": {
+    "prefix": "ovx:v",
+    "body": ["overflowX: 'visible',", ""]
+  },
+  "overflow-x: scroll": {
+    "prefix": "ovx:s",
+    "body": ["overflowX: 'scroll',", ""]
+  },
+  "overflow-x: auto": { "prefix": "ovx:a", "body": ["overflowX: 'auto',", ""] },
+  "overflow-y: hidden": {
+    "prefix": "ovy:h",
+    "body": ["overflowY: 'hidden',", ""]
+  },
+  "overflow-y: visible": {
+    "prefix": "ovy:v",
+    "body": ["overflowY: 'visible',", ""]
+  },
+  "overflow-y: scroll": {
+    "prefix": "ovy:s",
+    "body": ["overflowY: 'scroll',", ""]
+  },
+  "overflow-y: auto": { "prefix": "ovy:a", "body": ["overflowY: 'auto',", ""] },
+
+  "cursor: pointer": { "prefix": "cur:p", "body": ["cursor: 'pointer',", ""] },
+
+  "position-relative": {
+    "prefix": "pos:r",
+    "body": ["position: 'relative',", ""]
+  },
+  "position-absolute": {
+    "prefix": "pos:a",
+    "body": ["position: 'absolute',", ""]
+  },
+  "position-static": { "prefix": "pos:s", "body": ["position: 'static',", ""] },
+  "position-fixed": { "prefix": "pos:f", "body": ["position: 'fixed',", ""] },
+
+  "width": { "prefix": "w", "body": ["width: $1,", ""] },
+  "max-width": { "prefix": "maw", "body": ["maxWidth: $1,", ""] },
+  "min-width": { "prefix": "miw", "body": ["minWidth: $1,", ""] },
+  "height": { "prefix": "h", "body": ["height: $1,", ""] },
+  "max-height": { "prefix": "mah", "body": ["maxHeight: $1,", ""] },
+  "min-height": { "prefix": "mih", "body": ["minHeight: $1,", ""] }
+}
