@@ -1196,7 +1196,7 @@ return {
             rm = require "render-markdown"
             rm.disable()
           end
-          Snacks.picker.lines()
+          Snacks.picker.lines { layout = "ivy" }
           if has_rm then
             rm.enable()
           end
@@ -1330,27 +1330,60 @@ return {
               border = "rounded",
               title = "{source} {live} {flags}",
               title_pos = "center",
-              { win = "input", height = 1, border = "bottom" },
-              { win = "list", border = "bottom" },
-              { win = "preview", height = 0.55, border = "top" },
+              wo = {
+                winhighlight = {
+                  FloatBorder = "SnacksPickerFloatBorder",
+                },
+              },
+              {
+                win = "input",
+                height = 1,
+                border = "bottom",
+                wo = {
+                  winhighlight = {
+                    FloatBorder = "SnacksPickerFloatBorder",
+                  },
+                },
+              },
+              {
+                win = "list",
+                border = "bottom",
+              },
+              {
+                win = "preview",
+                height = 0.55,
+                border = "none",
+              },
             },
           },
           ivy = {
             layout = {
               box = "vertical",
-              backdrop = false,
+              backdrop = true,
               row = -1,
               width = 0,
-              height = 0.5,
-              border = "top",
+              height = 0.55,
+              border = "rounded",
               title = " {title} {live} {flags}",
               title_pos = "center",
-              { win = "input", height = 1, border = "bottom" },
+              wo = {
+                winhighlight = {
+                  FloatBorder = "SnacksPickerFloatBorder",
+                },
+              },
               {
-                box = "horizontal",
+                win = "input",
+                height = 1,
                 border = "bottom",
-                { win = "list", border = "none" },
-                { win = "preview", title = "{preview}", width = 0.6, border = "left" },
+                wo = {
+                  winhighlight = {
+                    FloatBorder = "SnacksPickerFloatBorder",
+                  },
+                },
+              },
+              {
+                win = "list",
+                border = "none",
               },
             },
           },
