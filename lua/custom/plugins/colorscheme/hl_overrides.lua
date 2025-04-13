@@ -371,7 +371,7 @@ local getOverridesHl = function(C)
     AvanteSidebarWinHorizontalSeparator = { link = "WinSeparator" },
     AvantePromptInputBorder = { link = "FloatBorder" },
     AvantePopupHint = { fg = C.peach, bold = true },
-    -- AvanteInlineHint = { },
+    AvanteInlineHint = { fg = C.peach, bold = true },
 
     -- lsp-lens.nvim
     LspLens = { link = "LspInlayHint" },
