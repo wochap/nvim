@@ -1,6 +1,7 @@
 local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
 local iconsUtils = require "custom.utils.icons"
+local bufferlineUtils = require "custom.utils-plugins.bufferline"
 local constants = require "custom.utils.constants"
 local in_zk = require("custom.utils.constants").in_zk
 local in_leetcode = require("custom.utils.constants").in_leetcode
@@ -188,90 +189,17 @@ return {
     config = function(_, opts)
       local bufferline = require "bufferline"
       lazyUtils.on_load("catppuccin", function()
-        local mocha = require("catppuccin.palettes").get_palette "mocha"
-        -- TODO: check if theme has transparency and set bg to NONE
-        local bufferlineBg = mocha.base
-        local bufferlineFg = mocha.surface1
-        opts.highlights = require("catppuccin.groups.integrations.bufferline").get {
-          styles = {},
-          custom = {
-            mocha = {
-              background = {
-                bg = bufferlineBg,
-                fg = bufferlineFg,
-              },
-              fill = {
-                bg = bufferlineBg,
-              },
-              tab = {
-                bg = bufferlineBg,
-                fg = bufferlineFg,
-              },
-              tab_selected = {
-                bg = bufferlineBg,
-                fg = mocha.lavender,
-              },
-              tab_separator = {
-                bg = bufferlineBg,
-                fg = mocha.base,
-              },
-              tab_separator_selected = {
-                bg = bufferlineBg,
-                fg = mocha.base,
-              },
-              buffer_visible = {
-                bg = bufferlineBg,
-                fg = bufferlineFg,
-              },
-              buffer_selected = {
-                fg = mocha.lavender,
-              },
-              duplicate_selected = {
-                bg = bufferlineBg,
-                fg = mocha.lavender,
-              },
-              duplicate_visible = {
-                bg = bufferlineBg,
-                fg = bufferlineFg,
-              },
-              duplicate = {
-                bg = bufferlineBg,
-                fg = bufferlineFg,
-              },
-              numbers = {
-                bg = bufferlineBg,
-                fg = bufferlineFg,
-              },
-              numbers_visible = {
-                bg = bufferlineBg,
-                fg = bufferlineFg,
-              },
-              numbers_selected = {
-                bg = bufferlineBg,
-                fg = mocha.lavender,
-              },
-              modified = {
-                bg = bufferlineBg,
-                fg = bufferlineFg,
-              },
-              modified_visible = {
-                bg = bufferlineBg,
-                fg = bufferlineFg,
-              },
-              modified_selected = {
-                fg = mocha.green,
-              },
-              indicator_visible = {
-                bg = bufferlineBg,
-              },
-              trunc_marker = {
-                bg = bufferlineBg,
-                fg = bufferlineFg,
-              },
-            },
-          },
-        }
+        opts.highlights = bufferlineUtils.get_highlights()
         bufferline.setup(opts)
+
+        vim.api.nvim_create_autocmd("ColorScheme", {
+          pattern = "catppuccin-*",
+          callback = function()
+            opts.highlights = bufferlineUtils.get_highlights()
+            bufferline.setup(opts)
+            require("bufferline.highlights").reset_icon_hl_cache()
+          end,
+        })
       end)
     end,
   },

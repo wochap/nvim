@@ -158,7 +158,7 @@ local get_extra_hl = function(C)
 
     -- bufferline.nvim
     BufferLineOffset = { bg = C.mantle, fg = C.lavender },
-    DevIconDimmed = { fg = C.surface1 },
+    DevIconDimmed = { fg = C.surface1, bg = C.base },
 
     -- multicursor.nvim
     MultiCursorCursor = { link = "Cursor" },
