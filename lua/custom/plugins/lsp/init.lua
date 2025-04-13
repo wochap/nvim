@@ -8,6 +8,7 @@ local constants = require "custom.utils.constants"
 return {
   {
     "neovim/nvim-lspconfig",
+    version = "v1.8.0",
     event = { "LazyFile", "VeryLazy" },
     dependencies = {
       "mason.nvim",
