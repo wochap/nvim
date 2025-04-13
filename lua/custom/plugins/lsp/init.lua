@@ -87,6 +87,7 @@ return {
         -- example to setup with lua_ls
         -- lua_ls = {
         --   enabled = false, -- set to false if you don't want this server
+        --   condition = function () return true end, -- return false if you don't want this server
         --   mason = false, -- set to false if you don't want this server to be installed with mason
         --   Use this to add any additional keymaps
         --   for specific lsp servers
@@ -341,6 +342,10 @@ return {
         }, servers[server] or {})
 
         if server_opts.enabled == false then
+          return
+        end
+
+        if server_opts.condition and server_opts.condition() == false then
           return
         end
 
