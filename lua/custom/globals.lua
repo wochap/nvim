@@ -1,4 +1,3 @@
-local lazyUtils = require "custom.utils.lazy"
 local constants = require "custom.utils.constants"
 
 if constants.in_nix then
