@@ -1,32 +1,35 @@
-local getColors = function(palette)
+local getColors = function(C)
+  local U = require "catppuccin.utils.colors"
+
   return {
     state = {
-      error = palette.red,
-      warning = palette.yellow,
-      info = palette.sky,
-      hint = palette.teal,
-      ok = palette.green,
-      conflict = palette.maroon,
+      error = C.red,
+      warning = C.yellow,
+      info = C.sky,
+      hint = C.teal,
+      ok = C.green,
+      conflict = C.maroon,
     },
     git = {
-      add = palette.green,
-      change = palette.peach,
-      delete = palette.red,
-      stage = palette.yellow,
-      info = palette.blue,
-      ancestor = palette.text,
+      add = C.green,
+      change = C.peach,
+      delete = C.red,
+      stage = U.darken(C.green, 0.5, C.base),
+      info = C.blue,
+      ancestor = C.text,
+      ignored = C.overlay0,
     },
     float = {
-      bg = palette.base,
-      blockBg = palette.mantle,
-      blockBorderBg = palette.mantle,
-      blockBorderFg = palette.mantle,
-      borderBg = palette.base,
-      borderFg = palette.blue,
+      bg = C.base,
+      blockBg = C.mantle,
+      blockBorderBg = C.mantle,
+      blockBorderFg = C.mantle,
+      borderBg = C.base,
+      borderFg = C.blue,
     },
     separator = {
       bg = "NONE",
-      fg = palette.mantle,
+      fg = C.mantle,
     },
   }
 end
