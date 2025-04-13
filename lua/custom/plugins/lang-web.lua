@@ -2,6 +2,9 @@ local constants = require "custom.utils.constants"
 local lspUtils = require "custom.utils.lsp"
 local utils = require "custom.utils"
 
+if vim.g.lazyvim_biome_needs_config == nil then
+  vim.g.lazyvim_biome_needs_config = true
+end
 if vim.g.lazyvim_eslint_auto_format == nil then
   vim.g.lazyvim_eslint_auto_format = false
 end
@@ -33,6 +36,11 @@ local function has_prettier_config(ctx)
   return vim.v.shell_error == 0
 end
 
+local function has_biome_config(path)
+  local has_biome = require("lspconfig.util").root_pattern("biome.json", "biome.jsonc")
+  return has_biome(path)
+end
+
 -- source: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/formatting/prettier.lua
 local function has_prettier_parser(ctx)
   local ft = vim.bo[ctx.buf].filetype --[[@as string]]
@@ -51,6 +59,7 @@ end
 
 local has_prettier_config = LazyVim.memoize(has_prettier_config)
 local has_prettier_parser = LazyVim.memoize(has_prettier_parser)
+local has_biome_config = LazyVim.memoize(has_biome_config)
 
 return {
   {
@@ -293,6 +302,11 @@ return {
             },
           },
         },
+        biome = {
+          condition = function()
+            return has_biome_config(vim.uv.cwd())
+          end,
+        },
         eslint = {
           settings = {
             run = "onSave",
@@ -344,23 +358,35 @@ return {
       },
     },
     opts = {
+      -- https://biomejs.dev/internals/language-support/
       formatters_by_ft = {
-        ["css"] = { "prettierd" },
-        ["graphql"] = { "prettierd" },
+        ["astro"] = { "biome" },
+        ["css"] = { "biome", "prettierd" },
+        ["graphql"] = { "biome", "prettierd" },
         ["handlebars"] = { "prettierd" },
-        ["html"] = { "prettierd" },
-        ["javascript"] = { "prettierd" },
-        ["javascriptreact"] = { "prettierd" },
-        ["json"] = { "prettierd" },
-        ["jsonc"] = { "prettierd" },
+        ["html"] = {
+          -- "biome",
+          "prettierd",
+        },
+        ["javascript"] = { "biome", "prettierd" },
+        ["javascriptreact"] = { "biome", "prettierd" },
+        ["json"] = { "biome", "prettierd" },
+        ["jsonc"] = { "biome", "prettierd" },
         ["less"] = { "prettierd" },
-        ["markdown"] = { "prettierd" },
+        ["markdown"] = {
+          -- "biome",
+          "prettierd",
+        },
         ["markdown.mdx"] = { "prettierd" },
+        ["svelte"] = { "biome", "prettierd" },
         ["scss"] = { "prettierd" },
-        ["typescript"] = { "prettierd" },
-        ["typescriptreact"] = { "prettierd" },
-        ["vue"] = { "prettierd" },
-        ["yaml"] = { "prettierd" },
+        ["typescript"] = { "biome", "prettierd" },
+        ["typescriptreact"] = { "biome", "prettierd" },
+        ["vue"] = { "biome", "prettierd" },
+        ["yaml"] = {
+          -- "biome",
+          "prettierd",
+        },
         ["xml"] = { "xmlformat" },
       },
       formatters = {
@@ -368,6 +394,11 @@ return {
           condition = function(_, ctx)
             return has_prettier_parser(ctx)
               and (vim.g.lazyvim_prettier_needs_config ~= true or has_prettier_config(ctx))
+          end,
+        },
+        biome = {
+          condition = function(_, ctx)
+            return vim.g.lazyvim_biome_needs_config ~= true or has_biome_config(ctx.dirname)
           end,
         },
       },
