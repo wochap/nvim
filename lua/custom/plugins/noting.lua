@@ -69,6 +69,11 @@ return {
         "<Cmd>ObsidianOpen<CR>",
         desc = "Open In Obsidian",
       },
+      -- {
+      --   "<leader>mx",
+      --   "<Cmd>ObsidianToggleCheckbox<CR>",
+      --   desc = "Toggle checkbox",
+      -- },
     },
     opts = {
       workspaces = {
@@ -245,5 +250,21 @@ return {
     opts = {
       picker = "snacks_picker",
     },
+  },
+
+  {
+    "opdavies/toggle-checkbox.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>mx",
+        "<Cmd>ToggleCheckbox<CR>",
+        desc = "Toggle checkbox",
+      },
+    },
+    opts = {},
+    config = function()
+      require "toggle-checkbox"
+    end,
   },
 }
