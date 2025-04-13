@@ -193,7 +193,7 @@ return {
         bufferline.setup(opts)
 
         vim.api.nvim_create_autocmd("ColorScheme", {
-          pattern = "catppuccin-*",
+          pattern = "catppuccin*",
           callback = function()
             opts.highlights = bufferlineUtils.get_highlights()
             bufferline.setup(opts)

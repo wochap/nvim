@@ -9,7 +9,7 @@ return {
     event = "LazyFile",
     init = function()
       vim.api.nvim_create_autocmd("ColorScheme", {
-        pattern = "catppuccin-*",
+        pattern = "catppuccin*",
         callback = function()
           lazyUtils.on_load("catppuccin", function()
             local C = require("catppuccin.palettes").get_palette()
