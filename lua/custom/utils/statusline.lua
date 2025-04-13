@@ -335,6 +335,20 @@ local function macro_module()
   return hl_str "StMacro" .. noice.api.status.mode.get()
 end
 
+local function harpoon_module()
+  local has_harpoon = package.loaded["harpoon"]
+  if not has_harpoon then
+    return ""
+  end
+  local harpoon = require "harpoon"
+  local filename_str = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+  local in_harpoon, index = harpoon:list():get_by_value(filename_str)
+  if in_harpoon then
+    return hl_str "StHarpoon" .. "󱡀 " .. index
+  end
+  return ""
+end
+
 local function words_module()
   local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
   if not vim.tbl_contains(constants.text_filetypes, filetype) then
@@ -548,6 +562,7 @@ M.statusline = function()
     -- NOTE: the following string takes all the available space
     "%=",
     -- search_count_module(),
+    harpoon_module(),
     macro_module(),
     snacks_profiler_module(),
     maximize_status_module(),

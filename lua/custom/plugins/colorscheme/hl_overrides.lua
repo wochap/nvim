@@ -106,6 +106,7 @@ local get_extra_hl = function(C)
     StLazy = { fg = C.pink },
     StCopilot = { fg = C.sapphire },
     StSnacksProfiler = { fg = C.red },
+    StHarpoon = { fg = C.teal },
 
     -- oil.nvim
     OilMtime = { fg = "#8383A9" },
