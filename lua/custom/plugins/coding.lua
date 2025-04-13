@@ -321,8 +321,7 @@ return {
         defaults = {
           -- Dynamically picking providers by treesitter node/filetype
           function()
-            local success, node = pcall(vim.treesitter.get_node)
-            if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
+            if blinkCmpUtils.inside_comment_block() then
               return { "buffer" }
             end
             return nil
