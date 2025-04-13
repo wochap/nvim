@@ -455,9 +455,14 @@ local getOverridesHl = function(C)
 end
 
 return {
-  mocha = function(mocha)
-    local extraHl = getExtraHl(mocha)
-    local overridesHl = getOverridesHl(mocha)
+  mocha = function(C)
+    local extraHl = getExtraHl(C)
+    local overridesHl = getOverridesHl(C)
+    return vim.tbl_deep_extend("force", extraHl, overridesHl)
+  end,
+  latte = function(C)
+    local extraHl = getExtraHl(C)
+    local overridesHl = getOverridesHl(C)
     return vim.tbl_deep_extend("force", extraHl, overridesHl)
   end,
 }
