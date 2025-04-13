@@ -34,7 +34,7 @@ local getColors = function(C)
   }
 end
 
-local getExtraHl = function(C)
+local get_extra_hl = function(C)
   local U = require "catppuccin.utils.colors"
   local gitColors = getColors(C).git
   local stateColors = getColors(C).state
@@ -253,7 +253,7 @@ local getExtraHl = function(C)
   })
 end
 
-local getOverridesHl = function(C)
+local get_overrides_hl = function(C)
   local U = require "catppuccin.utils.colors"
   local gitColors = getColors(C).git
   local stateColors = getColors(C).state
@@ -285,16 +285,22 @@ local getOverridesHl = function(C)
     NvimTreeIndentMarker = { fg = C.surface1 },
     NvimTreeOpenedFolderName = { fg = C.text },
     NvimTreeSymlink = { fg = C.text },
+
     NvimTreeGitDeleted = { fg = gitColors.delete },
     NvimTreeGitDirty = { fg = gitColors.change },
-    NvimTreeGitIgnored = { fg = C.surface1_fg },
+    NvimTreeGitIgnored = { fg = gitColors.ignored },
+    NvimTreeGitMerge = { link = "NvimTreeGitDirty" },
     NvimTreeGitNew = { fg = gitColors.add },
+    NvimTreeGitRenamed = { link = "NvimTreeGitDirty" },
     NvimTreeGitStaged = { fg = gitColors.stage },
-    NvimTreeGitStagedIcon = { fg = gitColors.add },
-    NvimTreeGitFileStagedHL = { link = "NvimTreeGitStaged" },
-    NvimTreeGitDirtyIcon = { fg = gitColors.delete },
-    NvimTreeGitFileDirtyHL = { link = "NvimTreeGitDirty" },
-    NvimTreeGitFileIgnoredHL = { link = "NeoTreeGitIgnored" },
+
+    NvimTreeGitDeletedIcon = { link = "NvimTreeGitDeleted" },
+    NvimTreeGitDirtyIcon = { link = "NvimTreeGitDirty" },
+    NvimTreeGitIgnoredIcon = { link = "NvimTreeGitIgnored" },
+    NvimTreeGitMergeIcon = { link = "NvimTreeGitMerge" },
+    NvimTreeGitNewIcon = { link = "NvimTreeGitNew" },
+    NvimTreeGitRenamedIcon = { link = "NvimTreeGitRenamed" },
+    NvimTreeGitStagedIcon = { link = "NvimTreeGitStaged" },
 
     -- noice.nvim
     NoiceCmdlinePopupNormal = { fg = C.text, bg = floatColors.blockBorderBg },
@@ -457,15 +463,15 @@ local getOverridesHl = function(C)
   }
 end
 
+local get_theme_overrides_hl = function(C)
+  local extra_hl = get_extra_hl(C)
+  local overrides_hl = get_overrides_hl(C)
+  return vim.tbl_deep_extend("force", extra_hl, overrides_hl)
+end
+
 return {
-  mocha = function(C)
-    local extraHl = getExtraHl(C)
-    local overridesHl = getOverridesHl(C)
-    return vim.tbl_deep_extend("force", extraHl, overridesHl)
-  end,
-  latte = function(C)
-    local extraHl = getExtraHl(C)
-    local overridesHl = getOverridesHl(C)
-    return vim.tbl_deep_extend("force", extraHl, overridesHl)
-  end,
+  latte = get_theme_overrides_hl,
+  frappe = get_theme_overrides_hl,
+  macchiato = get_theme_overrides_hl,
+  mocha = get_theme_overrides_hl,
 }
