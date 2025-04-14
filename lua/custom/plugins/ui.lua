@@ -566,6 +566,7 @@ return {
 
   {
     "mcauley-penney/visual-whitespace.nvim",
+    enabled = false,
     event = "VeryLazy",
     opts = {
       highlight = { link = "VisualWhitespace" },
@@ -662,6 +663,22 @@ return {
         local mocha = require("catppuccin.palettes").get_palette "mocha"
         opts.cursor_color = mocha.green
         smear_cursor.setup(opts)
+      end)
+    end,
+  },
+
+  -- very cool plugin but adds flashing :c
+  {
+    "rasulomaroff/reactive.nvim",
+    enabled = false,
+    event = "VeryLazy",
+    opts = {},
+    config = function(_, opts)
+      local reactive = require "reactive"
+      lazyUtils.on_load("catppuccin", function()
+        local flavour = require("catppuccin").flavour
+        opts.load = { "catppuccin-" .. flavour .. "-cursor", "catppuccin-" .. flavour .. "-cursorline" }
+        reactive.setup(opts)
       end)
     end,
   },
