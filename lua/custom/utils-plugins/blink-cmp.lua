@@ -101,8 +101,11 @@ M.inside_comment_block = function()
   end
   local node_under_cursor = vim.treesitter.get_node()
   local parser = vim.treesitter.get_parser(nil, nil, { error = false })
+  if not parser then
+    return false
+  end
   local query = vim.treesitter.query.get(parser:lang(), "highlights")
-  if not parser or not node_under_cursor or not query then
+  if not node_under_cursor or not query then
     return false
   end
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
