@@ -93,9 +93,11 @@ return {
         code_blocks = {
           style = "simple",
           text = "",
+          sign_hl = "SignColumn",
         },
         raw_blocks = {
           style = "simple",
+          sign_hl = "SignColumn",
         },
         math_blocks = {
           -- TODO: add style simple

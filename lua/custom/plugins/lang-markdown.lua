@@ -95,9 +95,9 @@ return {
       },
       code = {
         sign = false,
-        left_margin = 1,
-        left_pad = 1,
-        right_pad = 1,
+        left_margin = 0,
+        left_pad = 0,
+        right_pad = 0,
       },
       link = {
         wiki = {
