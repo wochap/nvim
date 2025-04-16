@@ -125,6 +125,12 @@ local get_extra_hl = function(C)
     -- nvim-dap
     DapStoppedLine = { link = "Visual" },
 
+    -- nvim-dap-virtual-text
+    NvimDapVirtualText = { fg = C.blue, bg = U.darken(C.blue, 0.095, C.base) },
+    NvimDapVirtualTextChanged = { fg = stateColors.warning, bg = U.darken(stateColors.warning, 0.095, C.base) },
+    NvimDapVirtualTextError = { fg = stateColors.error, bg = U.darken(stateColors.error, 0.095, C.base) },
+    NvimDapVirtualTextInfo = { fg = stateColors.info, bg = U.darken(stateColors.info, 0.095, C.base) },
+
     -- snacks.nvim
     SnacksIndentChunk = { link = "SnacksIndent" },
     SnacksIndentBlank = { link = "SnacksIndent" },
