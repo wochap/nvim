@@ -189,6 +189,7 @@ return {
         "<leader>di",
         "<cmd>lua require'dap.ui.widgets'.hover()<CR>",
         desc = "Hover",
+        mode = { "n", "v" },
       },
       {
         "<leader>dr",
