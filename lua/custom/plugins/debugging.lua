@@ -30,60 +30,86 @@ return {
       },
 
       {
-        "rcarriga/nvim-dap-ui",
+        "igorlfs/nvim-dap-view",
+        keys = {
+          {
+            "<leader>duo",
+            function()
+              require("dap-view").open()
+
+              utils.close_sidebars "dap-view"
+            end,
+            desc = "Open",
+          },
+          {
+            "<leader>duc",
+            function()
+              require("dap-view").close()
+            end,
+            desc = "Close",
+          },
+          {
+            "<leader>duC",
+            function()
+              require("dap-view").close(true)
+            end,
+            desc = "Close!",
+          },
+          {
+            "<leader>dut",
+            function()
+              require("dap-view").toggle()
+            end,
+            desc = "Toggle",
+          },
+          {
+            "<leader>due",
+            function()
+              require("dap-view").add_expr()
+            end,
+            desc = "Expression",
+          },
+          {
+            "<leader>dul",
+            function()
+              require("dap-view").jump "console"
+            end,
+            desc = "Console",
+          },
+          {
+            "<leader>dur",
+            function()
+              require("dap-view").jump "repl"
+            end,
+            desc = "Repl",
+          },
+        },
         opts = {
-          layouts = {
-            {
-              elements = {
-                {
-                  id = "scopes",
-                  size = 0.25,
-                },
-                {
-                  id = "breakpoints",
-                  size = 0.25,
-                },
-                {
-                  id = "stacks",
-                  size = 0.25,
-                },
-                {
-                  id = "watches",
-                  size = 0.25,
-                },
-              },
-              position = "right",
-              size = 50,
-            },
-            {
-              elements = {
-                {
-                  id = "repl",
-                  size = 0.5,
-                },
-                {
-                  id = "console",
-                  size = 0.5,
-                },
-              },
-              position = "bottom",
-              size = 10,
+          sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl" },
+          default_section = "scopes",
+          windows = {
+            height = 10,
+            terminal = {
+              position = "left",
+              hide = {},
             },
           },
         },
-        config = function(_, opts)
-          local dap = require "dap"
-          local dapui = require "dapui"
-          dapui.setup(opts)
-          dap.listeners.after.event_initialized["dapui_config"] = function()
-            dapui.open {}
-            vim.cmd "wincmd ="
+        config = function()
+          local dap, dap_view = require "dap", require "dap-view"
+          dap.listeners.before.attach["dap-view-config"] = function()
+            dap_view.open()
+            -- vim.cmd "wincmd ="
           end
-          dap.listeners.before.event_terminated["dapui_config"] = function()
-            dapui.close {}
+          dap.listeners.before.launch["dap-view-config"] = function()
+            dap_view.open()
+            -- vim.cmd "wincmd ="
           end
-          dap.listeners.before.event_exited["dapui_config"] = function()
-            dapui.close {}
+          dap.listeners.before.event_terminated["dap-view-config"] = function()
+            dap_view.close()
+          end
+          dap.listeners.before.event_exited["dap-view-config"] = function()
+            dap_view.close()
           end
         end,
       },
@@ -187,7 +213,9 @@ return {
       },
       {
         "<leader>di",
-        "<cmd>lua require'dap.ui.widgets'.hover()<CR>",
+        function()
+          require("dap.ui.widgets").hover(nil, { border = "rounded" })
+        end,
         desc = "Hover",
         mode = { "n", "v" },
       },
@@ -200,28 +228,6 @@ return {
         "<leader>dn",
         "<cmd>lua require'dap'.run_to_cursor()<CR>",
         desc = "Run To Cursor",
-      },
-      {
-        "<leader>du",
-        function()
-          local is_dapui_open = false
-          local windows = require "dapui.windows"
-          for _, win_layout in ipairs(windows.layouts) do
-            if win_layout:is_open() then
-              is_dapui_open = true
-            end
-          end
-
-          if not is_dapui_open then
-            utils.close_sidebars "dapui"
-          end
-
-          vim.schedule(function()
-            require("dapui").toggle { reset = true }
-            vim.cmd "wincmd ="
-          end)
-        end,
-        desc = "DapUI",
       },
     },
     config = function()

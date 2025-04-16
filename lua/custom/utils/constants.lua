@@ -35,13 +35,11 @@ local common_exclude_filetypes = {
   "blame",
   -- trouble.nvim
   "trouble",
-  -- nvim-dap-ui
+  -- nvim-dap
   "dap-repl",
-  "dapui_breakpoints",
-  "dapui_console",
-  "dapui_scopes",
-  "dapui_stacks",
-  "dapui_watches",
+  -- nvim-dap-ui
+  "dap-view",
+  "dap-view-term",
   -- lazy.nvim
   "lazy",
   -- mason.nvim

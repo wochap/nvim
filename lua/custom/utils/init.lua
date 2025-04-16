@@ -88,9 +88,9 @@ M.close_sidebars = function(ignore_sidebar)
     require("avante").close_sidebar()
   end
 
-  local has_dapui = package.loaded["dapui"]
-  if has_dapui and ignore_sidebar ~= "dapui" then
-    require("dapui").close()
+  local has_dap_view = package.loaded["dap-view"]
+  if has_dap_view and ignore_sidebar ~= "dap-view" then
+    require("dap-view").close()
   end
 end
 
