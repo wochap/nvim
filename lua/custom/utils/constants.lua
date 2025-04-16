@@ -35,7 +35,7 @@ local common_exclude_filetypes = {
   "blame",
   -- trouble.nvim
   "trouble",
-  -- nvim-dap
+  -- nvim-dap-ui
   "dap-repl",
   "dapui_breakpoints",
   "dapui_console",
@@ -89,6 +89,8 @@ M.exclude_filetypes = langUtils.list_merge(common_exclude_filetypes, {
   "grug-far",
   "grug-far-history",
   "grug-far-help",
+  -- nvim-spectre
+  "spectre_panel",
   -- checkhealth
   "checkhealth",
   -- nvim
