@@ -355,18 +355,7 @@ return {
       use_popups_for_input = false,
       use_default_mappings = false,
       hide_root_node = true,
-      open_files_do_not_replace_types = {
-        "terminal",
-        "qf",
-        "Trouble",
-        "spectre_panel",
-        "DiffviewFileHistory",
-        "dapui_console",
-        "dap-repl",
-        "dapui_watches",
-        "dapui_stacks",
-        "dapui_breakpoints",
-      },
+      open_files_do_not_replace_types = constants.window_picker_exclude_filetypes,
       event_handlers = {
         {
           event = "neo_tree_window_after_open",
