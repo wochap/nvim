@@ -112,6 +112,7 @@ return {
         treesitter_context = true,
         treesitter = true,
         window_picker = true,
+        rainbow_delimiters = true,
         render_markdown = true,
         snacks = {
           enabled = true,

@@ -145,20 +145,22 @@ return {
   },
 
   {
-    url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
+    "HiPhish/rainbow-delimiters.nvim",
     enabled = false,
+    submodules = false,
     event = "VeryLazy",
     opts = {
       query = {
-        javascript = "rainbow-parens",
+        javascript = "rainbow-delimiters-react",
       },
       highlight = {
-        "rainbow1",
-        "rainbow2",
-        "rainbow3",
-        "rainbow4",
-        "rainbow5",
-        "rainbow6",
+        "RainbowDelimiterRed",
+        "RainbowDelimiterYellow",
+        "RainbowDelimiterBlue",
+        "RainbowDelimiterOrange",
+        "RainbowDelimiterGreen",
+        "RainbowDelimiterViolet",
+        "RainbowDelimiterCyan",
       },
       whitelist = { "javascript" },
     },
