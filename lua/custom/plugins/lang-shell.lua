@@ -1,3 +1,5 @@
+local utils = require "custom.utils"
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -10,6 +12,16 @@ return {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
     opts = function()
+      utils.autocmd("BufEnter", {
+        group = utils.augroup "disable_diagnostics_in_env_files",
+        pattern = ".env*",
+        callback = function(event)
+          vim.diagnostic.enable(false, {
+            bufnr = event.buf,
+          })
+        end,
+      })
+
       vim.filetype.add {
         pattern = {
           ["%.env%.[%w_.-]+"] = "sh",
