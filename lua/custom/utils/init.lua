@@ -94,6 +94,11 @@ M.close_left_sidebars = function(ignore_sidebar)
   if has_avante and ignore_sidebar ~= "avante" then
     require("avante").close_sidebar()
   end
+
+  local has_neotest = package.loaded["neotest"]
+  if has_neotest and ignore_sidebar ~= "neotest" then
+    require("neotest").summary.close()
+  end
 end
 
 M.bufname_valid = function(bufname)
