@@ -36,8 +36,6 @@ return {
             "<leader>duo",
             function()
               require("dap-view").open()
-
-              utils.close_sidebars "dap-view"
             end,
             desc = "Open",
           },
