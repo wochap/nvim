@@ -1,4 +1,3 @@
-local lazyUtils = require "custom.utils.lazy"
 local utils = require "custom.utils"
 
 return {
@@ -40,7 +39,7 @@ return {
           opts.mappings.ask,
           function()
             if not require("avante").is_sidebar_open() then
-              utils.close_sidebars "avante"
+              utils.close_left_sidebars "avante"
             end
             vim.schedule(function()
               if require("avante").is_sidebar_open() and require("avante.utils").is_sidebar_buffer(0) then
@@ -75,7 +74,7 @@ return {
           opts.mappings.toggle.default,
           function()
             if not require("avante").is_sidebar_open() then
-              utils.close_sidebars "avante"
+              utils.close_left_sidebars "avante"
             end
             vim.schedule(function()
               if require("avante").is_sidebar_open() then
@@ -199,6 +198,7 @@ return {
         },
       },
       windows = {
+        position = "left",
         wrap = true,
         width = 50,
         sidebar_header = {

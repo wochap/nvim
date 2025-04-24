@@ -72,7 +72,7 @@ M.in_big_project = function(cwd)
   return false
 end
 
-M.close_sidebars = function(ignore_sidebar)
+M.close_right_sidebars = function(ignore_sidebar)
   local has_neo_tree = package.loaded["neo-tree"]
   if has_neo_tree and ignore_sidebar ~= "neo_tree" then
     require("neo-tree.command").execute { action = "close" }
@@ -83,14 +83,16 @@ M.close_sidebars = function(ignore_sidebar)
     require("nvim-tree.api").tree.close()
   end
 
+  -- local has_dap_view = package.loaded["dap-view"]
+  -- if has_dap_view and ignore_sidebar ~= "dap-view" then
+  --   require("dap-view").close()
+  -- end
+end
+
+M.close_left_sidebars = function(ignore_sidebar)
   local has_avante = package.loaded["avante"]
   if has_avante and ignore_sidebar ~= "avante" then
     require("avante").close_sidebar()
-  end
-
-  local has_dap_view = package.loaded["dap-view"]
-  if has_dap_view and ignore_sidebar ~= "dap-view" then
-    require("dap-view").close()
   end
 end
 

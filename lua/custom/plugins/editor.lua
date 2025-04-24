@@ -123,7 +123,7 @@ return {
             api.tree.open()
           else
             -- open nvim-tree
-            utils.close_sidebars "nvim_tree"
+            utils.close_right_sidebars "nvim_tree"
             vim.schedule(function()
               api.tree.toggle {
                 find_file = false,
@@ -169,7 +169,7 @@ return {
             api.tree.open()
           else
             -- open nvim-tree
-            utils.close_sidebars "nvim_tree"
+            utils.close_right_sidebars "nvim_tree"
             vim.schedule(function()
               api.tree.toggle {
                 find_file = false,
@@ -321,7 +321,7 @@ return {
         "<leader>ge",
         function()
           -- TODO: only close sidebars if neo_tree is close
-          utils.close_sidebars "neo_tree"
+          utils.close_right_sidebars "neo_tree"
           vim.schedule(function()
             require("neo-tree.command").execute {
               source = "git_status",
