@@ -34,7 +34,8 @@ return {
               -- auxDirectory = ".",
               -- bibtexFormatter = "texlab",
               build = {
-                -- args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+                -- NOTE: here I switch from latex to xelatex
+                args = { "-pdf", "-pdflatex=xelatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
                 -- executable = "latexmk",
                 forwardSearchAfter = true,
                 onSave = true,
