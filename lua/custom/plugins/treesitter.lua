@@ -151,7 +151,8 @@ return {
     event = "VeryLazy",
     opts = {
       query = {
-        javascript = "rainbow-delimiters-react",
+        javascript = "rainbow-parens",
+        tsx = "rainbow-parens",
       },
       highlight = {
         "RainbowDelimiterRed",
@@ -162,7 +163,7 @@ return {
         "RainbowDelimiterViolet",
         "RainbowDelimiterCyan",
       },
-      whitelist = { "javascript" },
+      -- whitelist = { "javascript" },
     },
     config = function(_, opts)
       lazyUtils.on_load("nvim-treesitter", function()
