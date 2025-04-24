@@ -919,6 +919,15 @@ return {
         mode = { "n", "v" },
       },
       {
+        "<leader>ce",
+        function()
+          local mc = require "multicursor-nvim"
+          mc.searchAllAddCursors()
+        end,
+        desc = "Add To All Search",
+        mode = { "n", "v" },
+      },
+      {
         "<leader>c<Right>",
         function()
           local mc = require "multicursor-nvim"
@@ -1099,6 +1108,7 @@ return {
         "<Plug>(YankyCycleBackward)",
         desc = "Cycle Backward Through Yank History",
       },
+      -- TODO: disable when in multicursor
       {
         "y",
         "<Plug>(YankyYank)",
