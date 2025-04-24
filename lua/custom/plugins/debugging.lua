@@ -168,7 +168,7 @@ return {
       {
         "<leader>d",
         "",
-        desc = "dap",
+        desc = "debug",
       },
 
       {
