@@ -347,6 +347,7 @@ return {
       sources = {
         "filesystem",
         "git_status",
+        "document_symbols",
       },
       auto_clean_after_session_restore = true,
       close_if_last_window = true,
@@ -364,6 +365,7 @@ return {
           handler = function(event)
             vim.cmd ":wincmd ="
             vim.opt.cursorcolumn = false
+            vim.opt.sidescrolloff = 0
           end,
         },
         {
@@ -460,7 +462,7 @@ return {
         },
         indent = {
           with_markers = false,
-          padding = 2,
+          padding = 1,
         },
         icon = {
           folder_empty = iconsUtils.folder.empty,
