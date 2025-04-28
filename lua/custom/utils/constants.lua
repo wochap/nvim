@@ -24,8 +24,6 @@ M.text_filetypes = {
 }
 
 local common_exclude_filetypes = {
-  -- nvim-tree.lua
-  "NvimTree",
   -- neo-tree.nvim
   "neo-tree",
   -- diffview.nvim

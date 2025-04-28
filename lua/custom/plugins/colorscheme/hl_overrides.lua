@@ -281,34 +281,6 @@ local get_overrides_hl = function(C)
     TroubleNormal = { bg = C.base },
     TroubleNormalNC = { bg = C.base },
 
-    -- nvim-tree.lua
-    NvimTreeNormal = { bg = C.base },
-    NvimTreeWinSeparator = separatorColors,
-    NvimTreeEmptyFolderName = { fg = C.text },
-    NvimTreeExecFile = { fg = C.text },
-    NvimTreeFolderIcon = { fg = C.blue },
-    NvimTreeFolderName = { fg = C.text },
-    NvimTreeImageFile = { fg = C.text },
-    NvimTreeIndentMarker = { fg = C.surface1 },
-    NvimTreeOpenedFolderName = { fg = C.text },
-    NvimTreeSymlink = { fg = C.text },
-
-    NvimTreeGitDeleted = { fg = gitColors.delete },
-    NvimTreeGitDirty = { fg = gitColors.change },
-    NvimTreeGitIgnored = { fg = gitColors.ignored },
-    NvimTreeGitMerge = { link = "NvimTreeGitDirty" },
-    NvimTreeGitNew = { fg = gitColors.add },
-    NvimTreeGitRenamed = { link = "NvimTreeGitDirty" },
-    NvimTreeGitStaged = { fg = gitColors.stage },
-
-    NvimTreeGitDeletedIcon = { link = "NvimTreeGitDeleted" },
-    NvimTreeGitDirtyIcon = { link = "NvimTreeGitDirty" },
-    NvimTreeGitIgnoredIcon = { link = "NvimTreeGitIgnored" },
-    NvimTreeGitMergeIcon = { link = "NvimTreeGitMerge" },
-    NvimTreeGitNewIcon = { link = "NvimTreeGitNew" },
-    NvimTreeGitRenamedIcon = { link = "NvimTreeGitRenamed" },
-    NvimTreeGitStagedIcon = { link = "NvimTreeGitStaged" },
-
     -- noice.nvim
     NoiceCmdlinePopupNormal = { fg = C.text, bg = floatColors.blockBorderBg },
     NoiceCmdlinePopupBorder = { fg = floatColors.blockBorderFg, bg = floatColors.blockBorderBg },

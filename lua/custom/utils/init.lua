@@ -78,11 +78,6 @@ M.close_right_sidebars = function(ignore_sidebar)
     require("neo-tree.command").execute { action = "close" }
   end
 
-  local has_nvim_tree = package.loaded["nvim-tree"]
-  if has_nvim_tree and ignore_sidebar ~= "nvim_tree" then
-    require("nvim-tree.api").tree.close()
-  end
-
   -- local has_dap_view = package.loaded["dap-view"]
   -- if has_dap_view and ignore_sidebar ~= "dap-view" then
   --   require("dap-view").close()

@@ -108,7 +108,6 @@ return {
           },
         },
         semantic_tokens = true,
-        nvimtree = true,
         treesitter_context = true,
         treesitter = true,
         window_picker = true,

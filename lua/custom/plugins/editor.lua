@@ -2,7 +2,6 @@ local utils = require "custom.utils"
 local constants = require "custom.utils.constants"
 local lspUtils = require "custom.utils.lsp"
 local lazyUtils = require "custom.utils.lazy"
-local nvimtreeUtils = require "custom.utils-plugins.nvimtree"
 local keymapsUtils = require "custom.utils.keymaps"
 local iconsUtils = require "custom.utils.icons"
 local snacksUtils = require "custom.utils-plugins.snacks"
@@ -86,239 +85,64 @@ return {
   },
 
   {
-    "nvim-tree/nvim-tree.lua",
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
     event = "VeryLazy",
-    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    cmd = "Neotree",
+    opts_extend = { "event_handlers" },
     keys = (in_leetcode and {}) or {
       {
         "<leader>E",
         function()
-          if utils.in_big_project() then
-            -- source: https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/826#discussioncomment-5429747
-            local manager = require "neo-tree.sources.manager"
-            local renderer = require "neo-tree.ui.renderer"
-            local state_ok, state = pcall(manager.get_state, "filesystem")
-            local window_exists = state_ok and renderer.window_exists(state) or false
+          -- source: https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/826#discussioncomment-5429747
+          local manager = require "neo-tree.sources.manager"
+          local renderer = require "neo-tree.ui.renderer"
+          local state_ok, state = pcall(manager.get_state, "filesystem")
+          local window_exists = state_ok and renderer.window_exists(state) or false
 
-            if window_exists then
-              -- focus
-              require("neo-tree.command").execute {
-                dir = LazyVim.root(),
-                reveal = true,
-              }
-            else
-              -- open
-              require("neo-tree.command").execute {
-                dir = LazyVim.root(),
-                reveal = true,
-              }
-            end
-
+          if window_exists then
+            -- focus
+            require("neo-tree.command").execute {
+              dir = LazyVim.root(),
+              reveal = true,
+            }
             return
           end
 
-          local api = require "nvim-tree.api"
-          if api.tree.is_visible() then
-            -- focus nvim-tree
-            api.tree.open()
-          else
-            -- open nvim-tree
-            utils.close_right_sidebars "nvim_tree"
-            vim.schedule(function()
-              api.tree.toggle {
-                find_file = false,
-                focus = true,
-                update_root = false,
-                path = LazyVim.root(),
-              }
-            end)
-          end
+          -- open
+          require("neo-tree.command").execute {
+            dir = LazyVim.root(),
+            reveal = true,
+          }
         end,
         desc = "Nvimtree (Root)", -- focus/toggle
       },
       {
         "<leader>e",
         function()
-          if utils.in_big_project() then
-            -- source: https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/826#discussioncomment-5429747
-            local manager = require "neo-tree.sources.manager"
-            local renderer = require "neo-tree.ui.renderer"
-            local state_ok, state = pcall(manager.get_state, "filesystem")
-            local window_exists = state_ok and renderer.window_exists(state) or false
+          -- source: https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/826#discussioncomment-5429747
+          local manager = require "neo-tree.sources.manager"
+          local renderer = require "neo-tree.ui.renderer"
+          local state_ok, state = pcall(manager.get_state, "filesystem")
+          local window_exists = state_ok and renderer.window_exists(state) or false
 
-            if window_exists then
-              -- focus
-              require("neo-tree.command").execute {
-                dir = vim.uv.cwd(),
-                reveal = true,
-              }
-            else
-              -- open
-              require("neo-tree.command").execute {
-                dir = vim.uv.cwd(),
-                reveal = true,
-              }
-            end
-
+          if window_exists then
+            -- focus
+            require("neo-tree.command").execute {
+              dir = vim.uv.cwd(),
+              reveal = true,
+            }
             return
           end
 
-          local api = require "nvim-tree.api"
-          if api.tree.is_visible() then
-            -- focus nvim-tree
-            api.tree.open()
-          else
-            -- open nvim-tree
-            utils.close_right_sidebars "nvim_tree"
-            vim.schedule(function()
-              api.tree.toggle {
-                find_file = false,
-                focus = true,
-                update_root = false,
-                path = vim.uv.cwd(),
-              }
-            end)
-          end
+          -- open
+          require("neo-tree.command").execute {
+            dir = vim.uv.cwd(),
+            reveal = true,
+          }
         end,
         desc = "Nvimtree (Cwd)", -- focus/toggle
       },
-    },
-    opts = {
-      filters = {
-        exclude = { vim.fn.stdpath "config" .. "/lua/custom" },
-        custom = { "^.git$" },
-      },
-      on_attach = nvimtreeUtils.on_attach,
-      respect_buf_cwd = false,
-      update_cwd = false,
-      disable_netrw = true,
-      hijack_cursor = false,
-      sync_root_with_cwd = true,
-      update_focused_file = {
-        enable = true,
-      },
-      view = {
-        side = "right",
-        preserve_window_proportions = true,
-        width = {
-          min = 50,
-          max = 50,
-          padding = 1, -- right
-        },
-        signcolumn = "no",
-        number = false,
-      },
-      git = {
-        enable = true,
-        ignore = false,
-        show_on_dirs = true,
-        show_on_open_dirs = true,
-        timeout = 400,
-      },
-      filesystem_watchers = {
-        enable = true,
-        -- PERF: nvim-tree.lua will freeze nvim on projects
-        -- with a lot of files after every BufWritePost
-        -- to prevent that we ignore those folders
-        ignore_dirs = { "node_modules", ".direnv", ".git" },
-      },
-      actions = {
-        open_file = {
-          window_picker = {
-            picker = function()
-              local ok, winid = pcall(require("window-picker").pick_window)
-
-              if not ok then
-                return -1
-              end
-
-              return winid
-            end,
-          },
-        },
-      },
-      modified = {
-        -- PERF: enabling modified on large codebases
-        -- causes significant UI lag
-        enable = false,
-        show_on_dirs = true,
-        show_on_open_dirs = false,
-      },
-      renderer = {
-        root_folder_label = false,
-        group_empty = false,
-        special_files = {},
-        highlight_git = "name",
-        icons = {
-          git_placement = "right_align",
-          modified_placement = "right_align",
-          hidden_placement = "right_align",
-          show = {
-            bookmarks = false,
-            diagnostics = false,
-            file = true,
-            folder = true,
-            folder_arrow = true,
-            git = true,
-            modified = true,
-          },
-          glyphs = {
-            default = iconsUtils.file.default,
-            symlink = iconsUtils.file.symlink,
-            modified = iconsUtils.git.Change,
-            folder = {
-              default = iconsUtils.folder.default,
-              empty = iconsUtils.folder.empty,
-              empty_open = iconsUtils.folder.empty_open,
-              open = iconsUtils.folder.open,
-              symlink = iconsUtils.folder.symlink,
-              symlink_open = iconsUtils.folder.symlink_open,
-              arrow_open = " ",
-              arrow_closed = " ",
-            },
-            git = {
-              unstaged = "󰄱",
-              staged = "",
-              unmerged = "",
-              renamed = "󰁕",
-              untracked = "",
-              deleted = iconsUtils.git.Delete,
-              ignored = "",
-            },
-          },
-        },
-      },
-    },
-    config = function(_, opts)
-      require("nvim-tree").setup(opts)
-      local api = require "nvim-tree.api"
-      local Event = api.events.Event
-      api.events.subscribe(Event.TreeOpen, function()
-        vim.cmd ":wincmd ="
-      end)
-      api.events.subscribe(Event.TreeClose, function()
-        vim.cmd ":wincmd ="
-      end)
-
-      -- setup snacks.nvim rename
-      -- docs: https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
-      local prev = { new_name = "", old_name = "" } -- Prevents duplicate events
-      api.events.subscribe(Event.NodeRenamed, function(data)
-        if prev.new_name ~= data.new_name or prev.old_name ~= data.old_name then
-          data = data
-          Snacks.rename.on_rename_file(data.old_name, data.new_name)
-        end
-      end)
-    end,
-  },
-
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    event = "VeryLazy",
-    cmd = "Neotree",
-    opts_extend = { "event_handlers" },
-    keys = {
       {
         "<leader>ge",
         function()
