@@ -100,6 +100,27 @@ return {
           end, { buffer = event.buf, silent = true })
         end,
       })
+
+      utils.autocmd("FileType", {
+        group = utils.augroup "resize_other_windows",
+        pattern = { "Avante" },
+        callback = function()
+          vim.cmd ":wincmd ="
+        end,
+      })
+
+      -- utils.autocmd("FileType", {
+      --   group = utils.augroup "unlock_avante_width",
+      --   pattern = {
+      --     "Avante",
+      --     "AvanteSelectedFiles",
+      --     "AvanteInput",
+      --   },
+      --   callback = function(event)
+      --     local winid = vim.fn.bufwinid(event.buf)
+      --     vim.wo[winid].winfixwidth = false
+      --   end,
+      -- })
     end,
     opts = {
       provider = "deepseek_chat",
