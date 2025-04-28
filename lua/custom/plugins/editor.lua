@@ -192,7 +192,7 @@ return {
       respect_buf_cwd = false,
       update_cwd = false,
       disable_netrw = true,
-      hijack_cursor = true,
+      hijack_cursor = false,
       sync_root_with_cwd = true,
       update_focused_file = {
         enable = true,
@@ -203,7 +203,7 @@ return {
         width = {
           min = 50,
           max = 50,
-          padding = 2,
+          padding = 1, -- right
         },
         signcolumn = "no",
         number = false,
@@ -212,7 +212,7 @@ return {
         enable = true,
         ignore = false,
         show_on_dirs = true,
-        show_on_open_dirs = false,
+        show_on_open_dirs = true,
         timeout = 400,
       },
       filesystem_watchers = {
@@ -250,7 +250,9 @@ return {
         special_files = {},
         highlight_git = "name",
         icons = {
-          git_placement = "after",
+          git_placement = "right_align",
+          modified_placement = "right_align",
+          hidden_placement = "right_align",
           show = {
             bookmarks = false,
             diagnostics = false,
