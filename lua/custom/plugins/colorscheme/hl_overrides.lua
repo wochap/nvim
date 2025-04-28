@@ -307,6 +307,7 @@ local get_overrides_hl = function(C)
     NeoTreeVertSplit = separatorColors,
     NeoTreeWinSeparator = separatorColors,
     NeoTreeGitModified = { fg = gitColors.change },
+    NeoTreeMessage = { fg = gitColors.ignored, italic = false },
 
     -- gitsigns.nvim
     GitSignsAdd = { fg = gitColors.add },
