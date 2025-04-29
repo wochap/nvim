@@ -584,6 +584,7 @@ return {
     optional = true,
     dependencies = {
       "thenbe/neotest-playwright",
+      "nvim-neotest/neotest-jest",
     },
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, {
@@ -593,6 +594,20 @@ return {
               -- persist_project_selection = true,
               enable_dynamic_test_discovery = true,
             },
+          },
+          ["neotest-jest"] = {
+            jestConfigFile = function(file)
+              -- TODO: monorepo setup?
+              local cwd = vim.fn.getcwd()
+              if vim.uv.fs_stat(cwd .. "/jest.config.ts") then
+                return cwd .. "/jest.config.ts"
+              end
+              return cwd .. "/jest.config.js"
+            end,
+            cwd = function(path)
+              -- TODO: monorepo setup?
+              return vim.fn.getcwd()
+            end,
           },
         },
       })
