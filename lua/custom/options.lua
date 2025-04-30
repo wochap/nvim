@@ -81,7 +81,7 @@ utils.autocmd("User", {
 
 -- Enable break indent, long lines will continue visually indented
 -- PERF: decreases performance on buffers with very long lines
-vim.opt.breakindent = true
+vim.opt.breakindent = false
 
 -- Save undo history
 vim.opt.undofile = true
