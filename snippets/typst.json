@@ -15,5 +15,18 @@
       "\tsize: 11pt,",
       ")"
     ]
+  },
+  "taskCover": {
+    "prefix": "task-cover",
+    "body": [
+      "#show: task-cover.with(",
+      "  course: \"\",",
+      "  teacher: \"\",",
+      "  task: \"\",",
+      "  week: 1,",
+      "  class: \"\",",
+      "  show-instructions: true,",
+      ")"
+    ]
   }
 }
