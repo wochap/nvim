@@ -105,6 +105,7 @@ return {
         },
         headings = {
           enable = true,
+          shift_width = 0,
           heading_1 = {
             sign = "",
           },

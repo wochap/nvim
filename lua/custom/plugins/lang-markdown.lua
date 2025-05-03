@@ -91,7 +91,7 @@ return {
       },
       heading = {
         sign = false,
-        icons = { "󰼏  ", " 󰎨  ", "  󰼑  ", "   󰎲  ", "    󰼓  ", "     󰎴  " },
+        icons = { "󰼏  ", "󰎨  ", "󰼑  ", "󰎲  ", "󰼓  ", "󰎴  " },
       },
       code = {
         sign = false,
