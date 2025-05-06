@@ -12,7 +12,7 @@ end
 M.format = function(opts)
   opts = opts or {}
   local buf = opts.buf or vim.api.nvim_get_current_buf()
-  if not ((opts and opts.force) or M.enabled(buf)) then
+  if not (opts and opts.force) then
     return
   end
 
