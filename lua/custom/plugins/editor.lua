@@ -824,7 +824,7 @@ return {
 
   {
     "MagicDuck/grug-far.nvim",
-    cmd = "GrugFar",
+    cmd = { "GrugFar", "GrugFarWithin" },
     keys = {
       {
         "<leader>fr",
