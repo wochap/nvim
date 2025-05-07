@@ -538,6 +538,18 @@ return {
 
       scroll = {
         enabled = not constants.in_neovide,
+        animate = {
+          duration = {
+            step = 15,
+            total = 250,
+          },
+          easing = "outQuad",
+        },
+        animate_repeat = {
+          delay = 100,
+          duration = { step = 5, total = 50 },
+          easing = "outQuad",
+        },
       },
 
       statuscolumn = {
