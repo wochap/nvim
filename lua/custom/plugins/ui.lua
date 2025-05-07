@@ -536,6 +536,10 @@ return {
         },
       },
 
+      scroll = {
+        enabled = not constants.in_neovide,
+      },
+
       statuscolumn = {
         enabled = false,
         left = { "sign" },
