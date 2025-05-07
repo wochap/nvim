@@ -428,8 +428,7 @@ return {
           executable = {
             command = "node",
             args = {
-              require("mason-registry").get_package("js-debug-adapter"):get_install_path()
-                .. "/js-debug/src/dapDebugServer.js",
+              vim.fn.expand "$MASON/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
               "${port}",
             },
           },
@@ -456,7 +455,7 @@ return {
           type = "executable",
           command = "node",
           args = {
-            require("mason-registry").get_package("node-debug2-adapter"):get_install_path() .. "/out/src/nodeDebug.js",
+            vim.fn.expand "$MASON/packages/node-debug2-adapter/out/src/nodeDebug.js",
           },
         }
       end
@@ -466,8 +465,7 @@ return {
           type = "executable",
           command = "node",
           args = {
-            require("mason-registry").get_package("chrome-debug-adapter"):get_install_path()
-              .. "/out/src/chromeDebug.js",
+            vim.fn.expand "$MASON/packages/chrome-debug-adapter/out/src/chromeDebug.js",
           },
         }
       end

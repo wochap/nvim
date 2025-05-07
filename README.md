@@ -59,7 +59,7 @@ $ nvim
 
 ## Requirements
 
-Any requirement from [Mason](https://github.com/williamboman/mason.nvim#requirements), [conform.nvim](https://github.com/stevearc/conform.nvim), [nvim-lint](https://github.com/mfussenegger/nvim-lint) and [nvim-dap](https://github.com/mfussenegger/nvim-dap) dependencies
+Any requirement from [Mason](https://github.com/mason-org/mason.nvim#requirements), [conform.nvim](https://github.com/stevearc/conform.nvim), [nvim-lint](https://github.com/mfussenegger/nvim-lint) and [nvim-dap](https://github.com/mfussenegger/nvim-dap) dependencies
 
 > Mason will install [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) lsp servers
 

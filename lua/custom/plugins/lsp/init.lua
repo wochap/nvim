@@ -364,7 +364,7 @@ return {
       local has_mason, mlsp = pcall(require, "mason-lspconfig")
       local all_mslp_servers = {}
       if has_mason then
-        all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
+        all_mslp_servers = vim.tbl_keys(require("mason-lspconfig").get_mappings().lspconfig_to_package)
       end
       local ensure_installed = {}
       for server, server_opts in pairs(servers) do
@@ -453,7 +453,7 @@ return {
       local function ensure_installed()
         for _, tool in ipairs(opts.ensure_installed) do
           local p = mr.get_package(tool)
-          if not p:is_installed() then
+          if not p:is_installed() and not p:is_installing() then
             p:install()
           end
         end
