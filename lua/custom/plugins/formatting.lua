@@ -6,7 +6,9 @@ local langUtils = require "custom.utils.lang"
 return {
   {
     "stevearc/conform.nvim",
-    dependencies = { "mason.nvim" },
+    dependencies = {
+      "williamboman/mason.nvim",
+    },
     cmd = { "ConformInfo", "LazyFormat", "LazyFormatInfo" },
     event = "VeryLazy",
     keys = {
