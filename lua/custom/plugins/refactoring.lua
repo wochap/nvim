@@ -6,7 +6,7 @@ return {
         "<leader>r",
         "",
         desc = "refactor",
-        mode = { "n", "v" },
+        mode = { "n", "x" },
       },
 
       {
@@ -23,28 +23,34 @@ return {
         function()
           require("refactoring").refactor "Inline Variable"
         end,
-        mode = { "n", "v" },
+        mode = { "n", "x" },
         desc = "Inline Variable",
+        expr = true,
       },
       {
         "<leader>rb",
         function()
           require("refactoring").refactor "Extract Block"
         end,
+        mode = { "n", "x" },
         desc = "Extract Block",
+        expr = true,
       },
       {
         "<leader>rf",
         function()
           require("refactoring").refactor "Extract Block To File"
         end,
+        mode = { "n", "x" },
         desc = "Extract Block To File",
+        expr = true,
       },
       {
         "<leader>rP",
         function()
           require("refactoring").debug.printf { below = false }
         end,
+        mode = { "n", "x" },
         desc = "Debug Print",
       },
       {
@@ -52,6 +58,7 @@ return {
         function()
           require("refactoring").debug.print_var { normal = true }
         end,
+        mode = { "n", "x" },
         desc = "Debug Print Variable",
       },
       {
@@ -59,6 +66,7 @@ return {
         function()
           require("refactoring").debug.cleanup {}
         end,
+        mode = { "n", "x" },
         desc = "Debug Cleanup",
       },
       {
@@ -66,31 +74,34 @@ return {
         function()
           require("refactoring").refactor "Extract Function"
         end,
-        mode = "v",
+        mode = { "n", "x" },
         desc = "Extract Function",
+        expr = true,
       },
       {
         "<leader>rF",
         function()
           require("refactoring").refactor "Extract Function To File"
         end,
-        mode = "v",
+        mode = { "n", "x" },
         desc = "Extract Function To File",
+        expr = true,
       },
       {
         "<leader>rv",
         function()
           require("refactoring").refactor "Extract Variable"
         end,
-        mode = "v",
+        mode = { "n", "x" },
         desc = "Extract Variable",
+        expr = true,
       },
       {
         "<leader>rp",
         function()
           require("refactoring").debug.print_var {}
         end,
-        mode = "v",
+        mode = { "n", "x" },
         desc = "Debug Print Variable",
       },
     },
