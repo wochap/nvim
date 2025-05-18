@@ -184,7 +184,7 @@ return {
   {
     -- PERF: runs very slow on nvim 0.11
     "saghen/blink.cmp",
-    version = "v1.1.1",
+    version = "v1.3.1",
     event = { "InsertEnter", "VeryLazy" },
     dependencies = {
       {
