@@ -998,9 +998,7 @@ return {
       {
         "<leader>fb",
         function()
-          Snacks.picker.buffers {
-            hidden = true,
-          }
+          Snacks.picker.buffers()
         end,
         desc = "Opened Buffers",
       },
