@@ -350,7 +350,7 @@ return {
     optional = true,
     dependencies = {
       {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         optional = true,
         opts = {
           ensure_installed = { "prettierd", "xmlformatter" },

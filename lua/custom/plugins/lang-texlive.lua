@@ -73,7 +73,7 @@ return {
     dependencies = {
       -- NOTE: latexindent doesn't work on nixos
       -- {
-      --   "williamboman/mason.nvim",
+      --   "mason-org/mason.nvim",
       --   optional = true,
       --   opts = {
       --     ensure_installed = { "latexindent" },

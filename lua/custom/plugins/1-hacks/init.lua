@@ -2,7 +2,7 @@
 
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     optional = true,
     -- NOTE: `opts_extend` don't work as expected
     -- if it isn't read by `lazy.nvim` at the start

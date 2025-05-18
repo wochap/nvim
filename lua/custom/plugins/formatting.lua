@@ -7,7 +7,7 @@ return {
   {
     "stevearc/conform.nvim",
     dependencies = {
-      "williamboman/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
     },
     cmd = { "ConformInfo", "LazyFormat", "LazyFormatInfo" },
     event = "VeryLazy",

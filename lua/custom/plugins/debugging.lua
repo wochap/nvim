@@ -144,7 +144,7 @@ return {
         end,
       },
 
-      "williamboman/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
 
       {
         "jay-babu/mason-nvim-dap.nvim",

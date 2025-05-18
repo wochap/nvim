@@ -11,8 +11,8 @@ return {
     version = "v1.8.0",
     event = { "LazyFile", "VeryLazy" },
     dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
     },
     keys = {
       {
@@ -407,7 +407,7 @@ return {
   },
 
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     version = "v1.11.0",
     keys = {
       {
@@ -470,7 +470,7 @@ return {
   },
 
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     version = "v1.32.0",
   },
 
