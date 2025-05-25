@@ -28,5 +28,44 @@
       "  show-instructions: true,",
       ")"
     ]
+  },
+  "apa": {
+    "prefix": "apa",
+    "body": [
+      "#import \"/common.typ\": *",
+      "",
+      "#set page(paper: \"us-letter\", margin: 2.30cm)",
+      "",
+      "#set text(lang: \"es\", font: \"Arial\", size: 11pt)",
+      "",
+      "#show: task-cover.with(",
+      "  course: \"\",",
+      "  teacher: \"\",",
+      "  task: \"\",",
+      "  week: 1,",
+      "  class: \"\",",
+      "  show-instructions: true,",
+      "  students: (",
+      "    // (",
+      "    //   fullName: [],",
+      "    //   code: [],",
+      "    // ),",
+      "  ),",
+      ")",
+      "",
+      "#pagebreak()",
+      "",
+      "#show: course-header.with(title: [])",
+      "",
+      "#counter(page).update(1)",
+      "#set page(numbering: \"1\")",
+      "",
+      "#apa-custom()[",
+      "  #bibliography(",
+      "    \"references.yml\",",
+      "    style: \"/apa.csl\",",
+      "  )",
+      "]"
+    ]
   }
 }
