@@ -21,6 +21,7 @@ return {
     opts = {
       servers = {
         marksman = {
+          enabled = false,
           mason = false,
         },
       },
