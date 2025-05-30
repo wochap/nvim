@@ -74,8 +74,12 @@ end
 
 M.close_right_sidebars = function(ignore_sidebar)
   local has_neo_tree = package.loaded["neo-tree"]
-  if has_neo_tree and ignore_sidebar ~= "neo_tree" then
-    require("neo-tree.command").execute { action = "close" }
+  if has_neo_tree and ignore_sidebar ~= "neo_tree_git" then
+    require("neo-tree.command").execute { action = "close", source = "git_status" }
+  end
+
+  if has_neo_tree and ignore_sidebar ~= "neo_tree_filesystem" then
+    require("neo-tree.command").execute { action = "close", source = "filesystem" }
   end
 
   -- local has_dap_view = package.loaded["dap-view"]
