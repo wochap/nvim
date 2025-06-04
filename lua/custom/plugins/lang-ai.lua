@@ -125,7 +125,7 @@ return {
     opts = {
       provider = "deepseek_chat",
       auto_suggestions_provider = "copilot",
-      vendors = {
+      providers = {
         deepseek_coder = {
           __inherited_from = "openai",
           disable_tools = true,
@@ -133,8 +133,10 @@ return {
           endpoint = "https://api.deepseek.com/v1",
           model = "deepseek-coder",
           timeout = 30000, -- 30s
-          temperature = 0,
-          max_tokens = 4096,
+          extra_request_body = {
+            temperature = 0,
+            max_tokens = 4096,
+          },
         },
         deepseek_chat = {
           __inherited_from = "openai",
@@ -143,8 +145,10 @@ return {
           endpoint = "https://api.deepseek.com/v1",
           model = "deepseek-chat",
           timeout = 30000, -- 30s
-          temperature = 0,
-          max_tokens = 4096,
+          extra_request_body = {
+            temperature = 0,
+            max_tokens = 4096,
+          },
         },
         deepseek_r1 = {
           __inherited_from = "openai",
@@ -153,10 +157,13 @@ return {
           endpoint = "https://api.deepseek.com/v1",
           model = "deepseek-reasoner",
           timeout = 30000, -- 30s
-          temperature = 0,
-          max_tokens = 4096,
+          extra_request_body = {
+            temperature = 0,
+            max_tokens = 4096,
+          },
         },
       },
+      vendors = {},
       behaviour = {
         auto_focus_sidebar = false,
         auto_suggestions = false,
