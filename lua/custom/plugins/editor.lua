@@ -86,7 +86,7 @@ return {
 
   {
     "nvim-neo-tree/neo-tree.nvim",
-    version = "3.32",
+    version = "3.33",
     event = "VeryLazy",
     cmd = "Neotree",
     opts_extend = { "event_handlers" },
