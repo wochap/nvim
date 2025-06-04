@@ -64,6 +64,7 @@
       "  #bibliography(",
       "    \"references.yml\",",
       "    style: \"/apa.csl\",",
+      "    full: true,",
       "  )",
       "]"
     ]
