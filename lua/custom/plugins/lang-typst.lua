@@ -128,5 +128,10 @@ return {
         },
       },
     },
+    init = function()
+      -- HACK: don't load blink or cmp plugin
+      vim.g.markview_blink_loaded = true
+      vim.g.markview_cmp_loaded = true
+    end,
   },
 }
