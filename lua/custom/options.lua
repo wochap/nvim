@@ -130,6 +130,7 @@ vim.opt.inccommand = "nosplit"
 
 -- Show which line/column your cursor is on
 -- NOTE: cursorcolumn causes glitches
+-- PERF: cursorcolumn causes performance issues with long lines
 vim.opt.cursorline = true
 vim.opt.cursorcolumn = not constants.transparent_background
 
