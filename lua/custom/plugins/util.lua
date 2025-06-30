@@ -429,6 +429,15 @@ return {
         remap = true,
       },
       {
+        "<leader>C",
+        function()
+          Snacks.bufdelete { force = true }
+          vim.api.nvim_win_close(0, true)
+        end,
+        desc = "Close Buffer!",
+        remap = true,
+      },
+      {
         "<leader>bd",
         function()
           Snacks.bufdelete()
