@@ -113,9 +113,17 @@ return {
             sign = "",
           },
         },
-        -- TODO: list_items doesn't work
         list_items = {
           enable = true,
+          marker_minus = {
+            add_padding = false,
+          },
+          marker_plus = {
+            add_padding = false,
+          },
+          marker_dot = {
+            add_padding = false,
+          },
         },
       },
       yaml = {
