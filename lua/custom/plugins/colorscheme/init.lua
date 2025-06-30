@@ -80,6 +80,7 @@ return {
         grug_far = true,
         harpoon = true,
         -- markdown = true,
+        markview = true,
         mason = true,
         mini = true,
         neotree = true,

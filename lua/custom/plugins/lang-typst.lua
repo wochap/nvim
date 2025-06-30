@@ -93,6 +93,7 @@ return {
         code_blocks = {
           style = "simple",
           text = "",
+          hl = "",
           sign_hl = "SignColumn",
         },
         raw_blocks = {
