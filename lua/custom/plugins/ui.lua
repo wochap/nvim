@@ -537,11 +537,12 @@ return {
       },
 
       scroll = {
-        enabled = not constants.in_neovide,
+        -- enabled = not constants.in_neovide,
+        enabled = false,
         animate = {
           duration = {
             step = 15,
-            total = 250,
+            total = 100,
           },
           easing = "outQuad",
         },
