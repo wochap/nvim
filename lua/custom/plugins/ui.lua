@@ -3,9 +3,6 @@ local lazyUtils = require "custom.utils.lazy"
 local iconsUtils = require "custom.utils.icons"
 local bufferlineUtils = require "custom.utils-plugins.bufferline"
 local constants = require "custom.utils.constants"
-local in_zk = require("custom.utils.constants").in_zk
-local in_leetcode = require("custom.utils.constants").in_leetcode
-local in_kittyscrollback = require("custom.utils.constants").in_kittyscrollback
 
 return {
   {
@@ -56,7 +53,7 @@ return {
 
   {
     "b0o/incline.nvim",
-    enabled = not in_kittyscrollback and not in_leetcode and not in_zk,
+    enabled = not constants.in_kittyscrollback and not constants.in_leetcode and not constants.in_zk,
     event = "VeryLazy",
     opts = {
       ignore = {
@@ -95,7 +92,7 @@ return {
   {
     -- fork adds element.id in options.get_element_icon fn
     "wochap/bufferline.nvim",
-    enabled = not in_kittyscrollback,
+    enabled = not constants.in_kittyscrollback and not constants.in_lite,
     branch = "main",
     event = "VeryLazy",
     keys = {

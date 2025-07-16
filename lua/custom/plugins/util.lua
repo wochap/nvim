@@ -177,8 +177,8 @@ return {
     "mrjones2014/smart-splits.nvim",
     -- PERF: It can double the startup time in some environments,
     -- e.g., when your laptop is in power-saving mode
-    lazy = false,
-    commit = "4a231987665d3c6e02ca88833d050e918afe3e1e", -- v1.8.1
+    lazy = constants.in_lite,
+    commit = "2b5dda43b3de5d13b56c4606f7d19db78637e527", -- v2.0.3
     keys = {
       -- focus windows
       {

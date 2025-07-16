@@ -141,4 +141,6 @@ M.big_file_mb = 0.5
 local nix_path = os.getenv "NIX_PATH"
 M.in_nix = nix_path ~= nil and nix_path ~= ""
 
+M.in_lite = os.getenv "LITE" == "true"
+
 return M
