@@ -1291,7 +1291,7 @@ return {
       {
         "s",
         function()
-          require("flash").jump()
+          require("flash").jump { search = { mode = "search" } }
         end,
         desc = "Flash",
         mode = { "n", "x", "o" },
@@ -1299,7 +1299,7 @@ return {
       {
         "<A-s>",
         function()
-          require("flash").jump { continue = true }
+          require("flash").jump { continue = true, search = { mode = "search" } }
         end,
         desc = "Flash",
         mode = { "n", "x", "o" },
