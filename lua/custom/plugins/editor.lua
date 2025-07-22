@@ -5,6 +5,7 @@ local lazyUtils = require "custom.utils.lazy"
 local keymapsUtils = require "custom.utils.keymaps"
 local iconsUtils = require "custom.utils.icons"
 local snacksUtils = require "custom.utils-plugins.snacks"
+local neotreeUtils = require "custom.utils-plugins.neo-tree"
 local in_leetcode = require("custom.utils.constants").in_leetcode
 
 return {
@@ -214,9 +215,9 @@ return {
         width = 50,
         position = "right",
         mappings = {
-          ["<CR>"] = "open_with_window_picker",
-          ["<C-v>"] = "vsplit_with_window_picker",
-          ["<C-x>"] = "split_with_window_picker",
+          ["<CR>"] = neotreeUtils.open_with_window_picker,
+          ["<C-v>"] = neotreeUtils.vsplit_with_window_picker,
+          ["<C-x>"] = neotreeUtils.split_with_window_picker,
           ["<BS>"] = "close_node",
           ["zC"] = "close_all_nodes",
           ["zO"] = "expand_all_nodes",
