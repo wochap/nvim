@@ -24,7 +24,7 @@ return {
   {
     "folke/which-key.nvim",
     optional = true,
-    opts_extend = { "spec" },
+    opts_extend = { "spec", "icons.rules" },
   },
 
   {

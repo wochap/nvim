@@ -13,7 +13,7 @@ return {
     init = function()
       vim.opt.timeout = true
     end,
-    opts_extend = { "spec" },
+    opts_extend = { "spec", "icons.rules" },
     opts = {
       spec = {
         {
