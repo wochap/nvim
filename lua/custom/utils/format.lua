@@ -28,12 +28,23 @@ M.format = function(opts)
         done = true
         local try_opts = { msg = "Formatter `" .. formatter.name .. "` failed" }
         local try_fn = function()
-          return formatter.format(buf, opts.format_opts, function(err)
+          local format_timer = vim.loop.new_timer()
+          local cb = function(err)
+            format_timer:stop()
+            format_timer:close()
             if err then
               LazyVim.error(try_opts.msg, { title = "conform.nvim" })
             end
             run_next(index + 1)
-          end)
+          end
+          format_timer:start(
+            1000,
+            0,
+            vim.schedule_wrap(function()
+              cb(true)
+            end)
+          )
+          return formatter.format(buf, opts.format_opts, cb)
         end
         LazyVim.try(try_fn, try_opts)
       else
