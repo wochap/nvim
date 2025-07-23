@@ -66,10 +66,6 @@ return {
     enabled = not constants.first_install,
     import = "lazyvim.plugins.extras.lang.tailwind",
   },
-  {
-    enabled = not constants.first_install,
-    import = "lazyvim.plugins.extras.linting.eslint",
-  },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -310,6 +306,8 @@ return {
         eslint = {
           settings = {
             run = "onSave",
+            -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
+            workingDirectories = { mode = "auto" },
             -- validate = "off", -- disables diagnostics and code actions
             format = vim.g.lazyvim_eslint_auto_format,
             runtime = "node",
@@ -340,6 +338,41 @@ return {
           -- copy typescript settings to javascript
           opts.settings.javascript =
             vim.tbl_deep_extend("force", {}, opts.settings.typescript, opts.settings.javascript or {})
+        end,
+        eslint = function()
+          if not vim.g.lazyvim_eslint_auto_format then
+            return
+          end
+
+          local function get_client(buf)
+            return LazyVim.lsp.get_clients({ name = "eslint", bufnr = buf })[1]
+          end
+
+          local formatter = LazyVim.lsp.formatter {
+            name = "eslint: lsp",
+            primary = false,
+            priority = 200,
+            filter = "eslint",
+          }
+
+          -- Use EslintFixAll on Neovim < 0.10.0
+          if not pcall(require, "vim.lsp._dynamic") then
+            formatter.name = "eslint: EslintFixAll"
+            formatter.sources = function(buf)
+              local client = get_client(buf)
+              return client and { "eslint" } or {}
+            end
+            formatter.format = function(buf, format_opts, cb)
+              local client = get_client(buf)
+              if client then
+                vim.cmd "EslintFixAll"
+              end
+              cb()
+            end
+          end
+
+          -- register the formatter with LazyVim
+          LazyVim.format.register(formatter)
         end,
       },
     },
