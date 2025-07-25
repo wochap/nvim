@@ -172,3 +172,14 @@ utils.autocmd({ "FileType" }, {
     vim.opt_local.formatoptions:append "r"
   end,
 })
+
+if constants.in_vi_edit then
+  utils.autocmd("VimEnter", {
+    group = utils.augroup "start_in_insert_mode",
+    pattern = "*",
+    command = [[
+      startinsert
+      normal! $
+    ]],
+  })
+end

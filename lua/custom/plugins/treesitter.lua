@@ -5,6 +5,7 @@ local lazyUtils = require "custom.utils.lazy"
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    enabled = not constants.in_vi_edit and not constants.in_kittyscrollback,
     version = false, -- last release is way too old and doesn't work on Windows
     lazy = not constants.has_file_arg,
     build = ":TSUpdate",
@@ -75,6 +76,7 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    enabled = not constants.in_vi_edit and not constants.in_kittyscrollback,
     event = "VeryLazy",
     config = function()
       -- If treesitter is already loaded, we need to run config again for textobjects

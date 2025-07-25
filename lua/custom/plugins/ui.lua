@@ -681,6 +681,27 @@ return {
     end,
   },
 
+  {
+    "mvllow/modes.nvim",
+    enabled = constants.in_vi_edit or constants.in_kittyscrollback,
+    lazy = false,
+    config = function(_, opts)
+      local modes = require "modes"
+      lazyUtils.on_load("catppuccin", function()
+        local C = require("catppuccin.palettes").get_palette()
+        opts.colors = {
+          copy = C.yellow,
+          delete = C.red,
+          format = C.peach,
+          insert = C.green,
+          replace = C.teal,
+          visual = C.mauve,
+        }
+        modes.setup(opts)
+      end)
+    end,
+  },
+
   -- very cool plugin but adds flashing :c
   {
     "rasulomaroff/reactive.nvim",

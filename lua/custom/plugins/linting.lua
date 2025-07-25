@@ -1,9 +1,11 @@
 local lintUtils = require "custom.utils.lint"
 local lazyCoreUtils = require "lazy.core.util"
+local constants = require "custom.utils.constants"
 
 return {
   {
     "mfussenegger/nvim-lint",
+    enabled = not constants.in_vi_edit and not constants.in_kittyscrollback,
     event = { "LazyFile", "VeryLazy" },
     opts = {
       -- Event to trigger linters

@@ -23,6 +23,9 @@ map({ "n", "i", "v" }, "<C-s>", function()
     return ""
   end
   vim.notify('"' .. filename .. '" written', vim.log.levels.INFO)
+  if constants.in_vi_edit then
+    return "<cmd>wq!<cr>"
+  end
   return "<cmd>w<cr><esc>"
 end, "Save Buffer", { expr = true })
 map({ "n", "i", "v" }, "<C-S-s>", function()

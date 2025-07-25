@@ -37,7 +37,7 @@ vim.opt.cmdheight = 0
 -- global statusline
 vim.opt.laststatus = 3
 vim.opt.statusline = "%#Normal#"
-if not constants.in_kittyscrollback then
+if not constants.in_kittyscrollback and not constants.in_vi_edit then
   require("custom.utils.statusline").init()
   vim.opt.statusline = "%!v:lua.require('custom.utils.statusline').statusline()"
 end
@@ -45,7 +45,7 @@ utils.autocmd("FileType", {
   group = utils.augroup "load_statusline_in_qf",
   pattern = "qf",
   callback = function()
-    if not constants.in_kittyscrollback then
+    if not constants.in_kittyscrollback and not constants.in_vi_edit then
       vim.opt_local.statusline = "%!v:lua.require('custom.utils.statusline').statusline()"
       vim.opt_local.signcolumn = "yes:1"
     end

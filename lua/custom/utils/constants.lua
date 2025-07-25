@@ -143,4 +143,7 @@ M.in_nix = nix_path ~= nil and nix_path ~= ""
 
 M.in_lite = os.getenv "LITE" == "true"
 
+-- called from zvm_vi_edit_command_line
+M.in_vi_edit = os.getenv "IN_VI_EDIT" == "true"
+
 return M

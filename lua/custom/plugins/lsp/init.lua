@@ -8,6 +8,7 @@ local constants = require "custom.utils.constants"
 return {
   {
     "neovim/nvim-lspconfig",
+    enabled = not constants.in_vi_edit and not constants.in_kittyscrollback,
     version = "v1.8.0",
     event = { "LazyFile", "VeryLazy" },
     dependencies = {
