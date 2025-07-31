@@ -53,7 +53,7 @@ utils.autocmd("FileType", {
 })
 
 -- global bufferline
-vim.opt.showtabline = constants.in_lite and 0 or 2
+vim.opt.showtabline = (constants.in_kittyscrollback or constants.in_lite) and 0 or 2
 vim.o.tabline = "%#Normal#"
 
 -- folds
