@@ -132,6 +132,7 @@ map("n", "<leader>mc", "<cmd>DiffClip<CR>", "DiffClip")
 map("v", "<leader>mc", ":'<,'>ToggleColorFormat<CR>", "Toggle Color Format")
 -- https://vim.fandom.com/wiki/Super_retab
 map("n", "<leader>mt", "<cmd>retab!<CR>", "Format Leading Spacing") -- in buffer
+map({ "n", "v" }, "<leader>mj", [[:s/ \+//g<CR>]], "Clear whitespaces", { noremap = true, silent = true })
 
 -- better insert register pasting
 -- disables autoindent before pasting
