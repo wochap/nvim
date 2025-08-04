@@ -80,6 +80,10 @@ M.show_signature = function()
     utils.set_timeout(250, function()
       local signature = require "blink.cmp.signature.window"
       local winnr = signature.win:get_win()
+      if winnr == nil then
+        vim.notify "No signature help available"
+        return
+      end
       vim.api.nvim_win_set_cursor(winnr, { 1, 0 })
     end)
   end)
