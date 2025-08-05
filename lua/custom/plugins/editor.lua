@@ -178,8 +178,12 @@ return {
       filesystem = {
         hijack_netrw_behavior = "disabled",
         bind_to_cwd = false,
+        -- scan_mode = "deep",
         window = {
           mappings = {
+            ["<CR>"] = neotreeUtils.open_with_window_picker,
+            ["<C-v>"] = neotreeUtils.vsplit_with_window_picker,
+            ["<C-x>"] = neotreeUtils.split_with_window_picker,
             ["."] = "toggle_hidden",
             ["f"] = "fuzzy_finder",
             ["<A-Up>"] = "navigate_up",
@@ -205,9 +209,25 @@ return {
       git_status = {
         window = {
           mappings = {
+            ["<CR>"] = "open",
+            ["<C-v>"] = "open_vsplit",
+            ["<C-x>"] = "open_split",
             ["<leader>gS"] = "git_add_file",
             ["<leader>gU"] = "git_unstage_file",
             ["<leader>gR"] = "git_revert_file",
+          },
+        },
+      },
+      document_symbols = {
+        window = {
+          mappings = {
+            ["<CR>"] = "jump_to_symbol",
+            ["f"] = "filter",
+            ["c"] = "noop",
+            ["p"] = "noop",
+            ["d"] = "noop",
+            ["x"] = "noop",
+            ["a"] = "noop",
           },
         },
       },
@@ -215,9 +235,6 @@ return {
         width = 50,
         position = "right",
         mappings = {
-          ["<CR>"] = neotreeUtils.open_with_window_picker,
-          ["<C-v>"] = neotreeUtils.vsplit_with_window_picker,
-          ["<C-x>"] = neotreeUtils.split_with_window_picker,
           ["<BS>"] = "close_node",
           ["zC"] = "close_all_nodes",
           ["zO"] = "expand_all_nodes",
