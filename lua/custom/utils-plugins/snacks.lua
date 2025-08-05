@@ -177,7 +177,7 @@ M.projects = function()
     items = projects_opts,
     format = function(item, picker)
       local ret = {
-        { iconsUtils.folder.default .. " ", "NvimTreeFolderIcon" },
+        { iconsUtils.folder.default .. " ", "DevIconfolder" },
         { item.text, item.text_hl },
       } ---@type snacks.picker.Highlight[]
       return ret

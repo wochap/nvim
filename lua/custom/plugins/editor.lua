@@ -104,7 +104,7 @@ return {
             }
           end)
         end,
-        desc = "Nvimtree (Root)", -- focus/toggle
+        desc = "NeoTree (Root)", -- focus/toggle
       },
       {
         "<leader>e",
@@ -118,7 +118,7 @@ return {
             }
           end)
         end,
-        desc = "Nvimtree (Cwd)", -- focus/toggle
+        desc = "NeoTree (Cwd)", -- focus/toggle
       },
       {
         "<leader>ge",

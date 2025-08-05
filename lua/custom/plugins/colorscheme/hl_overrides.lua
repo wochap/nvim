@@ -193,6 +193,7 @@ local get_extra_hl = function(C)
 
     -- nvim-web-devicons
     DevIconDefault = { fg = C.red },
+    DevIconfolder = { fg = C.blue },
     DevIconc = { fg = C.blue },
     DevIconcss = { fg = C.blue },
     DevIcondeb = { fg = C.teal },

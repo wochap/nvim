@@ -170,17 +170,7 @@ return {
         separator_style = { "", "" },
         always_show_bufferline = true,
         hover = { enabled = false },
-        offsets = constants.transparent_background and {
-          {
-            padding = 1,
-            filetype = "NvimTree",
-            text = function()
-              return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
-            end,
-            highlight = "BufferLineOffset",
-            separator = false,
-          },
-        } or {},
+        offsets = {},
       },
     },
     config = function(_, opts)
