@@ -44,6 +44,21 @@ return {
         --   winhighlight = "Normal:WhichKeyNormal,FloatBorder:WhichKeyBorder,FloatTitle:WhichKeyTitle,Search:None",
         -- },
       },
+      icons = {
+        rules = {
+          -- NOTE: available colors: `azure`, `blue`, `cyan`, `green`, `grey`, `orange`, `purple`, `red`, `yellow`
+          { pattern = "paste", icon = " ", color = "azure" },
+          { pattern = "avante", icon = iconsUtils.lsp_kind.Avante .. " ", color = "blue" },
+          { pattern = "comment", icon = " ", color = "grey" },
+          { pattern = "obsidian", icon = " ", color = "purple" },
+          { pattern = "zk", icon = " ", color = "green" },
+          { pattern = "lsp", icon = " ", color = "red" },
+          { pattern = "misc", icon = " ", color = "orange" },
+          { pattern = "trouble", icon = "󱖫 ", color = "yellow" },
+          { pattern = "snip", icon = iconsUtils.lsp_kind.Snippet .. " ", color = "orange" },
+          { pattern = "harpoon", icon = "󱡀 ", color = "cyan" },
+        },
+      },
       -- https://github.com/folke/which-key.nvim/issues/824
       -- triggers = {
       --   { "<auto>", mode = "nsot" },
