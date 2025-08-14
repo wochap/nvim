@@ -37,6 +37,11 @@ return {
       })
     end,
     opts = {
+      flavour = "auto",
+      background = {
+        light = "latte",
+        dark = "mocha",
+      },
       transparent_background = constants.transparent_background,
       show_end_of_buffer = false,
       term_colors = false,
