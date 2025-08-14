@@ -80,6 +80,9 @@ M.get_highlights = function()
         indicator_visible = {
           bg = bufferlineBg,
         },
+        indicator_selected = {
+          bg = bufferlineBg,
+        },
         trunc_marker = {
           bg = bufferlineBg,
           fg = bufferlineFg,
