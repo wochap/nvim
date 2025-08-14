@@ -439,12 +439,12 @@ return {
 
   {
     "j-hui/fidget.nvim",
-    tag = "v1.4.0",
+    tag = "v1.6.1",
     event = "LspAttach",
     opts = {
       notification = {
         window = {
-          winblend = 100,
+          winblend = constants.transparent_background and 0 or 100,
           zindex = constants.zindex_float,
         },
       },

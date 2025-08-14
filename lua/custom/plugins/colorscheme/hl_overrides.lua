@@ -1,3 +1,5 @@
+local constants = require "custom.utils.constants"
+
 local getColors = function(C)
   local U = require "catppuccin.utils.colors"
 
@@ -28,7 +30,7 @@ local getColors = function(C)
       borderFg = C.blue,
     },
     separator = {
-      bg = "NONE",
+      bg = constants.blur_background and "NONE" or C.base,
       fg = C.mantle,
     },
   }
@@ -44,7 +46,7 @@ local get_extra_hl = function(C)
   -- custom statusline
   local st_module_bg = C.surface0
   local st_module_fg = C.text
-  local st_bg = "NONE"
+  local st_bg = C.base
   local st_fg = C.surface1
   local function gen_modes_hl(mode, color)
     result["St" .. mode .. "Mode"] = { fg = C.base, bg = C[color], bold = true }
@@ -94,7 +96,7 @@ local get_extra_hl = function(C)
     StWarnings = { fg = stateColors.warning },
     StHints = { fg = stateColors.hint },
     StInfos = { fg = stateColors.info },
-    StEmptySpace = { bg = "NONE" },
+    StEmptySpace = { bg = st_bg },
     StMaximize = { fg = C.blue },
     StLsp = { fg = C.maroon },
     StFormatter = { fg = C.green },
@@ -140,7 +142,7 @@ local get_extra_hl = function(C)
     SnacksInputTitle = { link = "FloatTitle" },
     SnacksPickerMatch = { fg = C.blue, bg = U.darken(C.blue, 0.095, C.base) },
     SnacksTermFloatBorder = { bg = floatColors.borderBg, fg = floatColors.borderBg },
-    SnacksPickerFloatBorder = { fg = floatColors.borderBg },
+    SnacksPickerFloatBorder = { fg = floatColors.borderBg, bg = floatColors.borderBg },
 
     -- nvim-window-picker
     WindowPickerNormalFloat = { bg = floatColors.blockBg, fg = C.text },
@@ -275,14 +277,15 @@ local get_overrides_hl = function(C)
     Error = { fg = C.red, bg = "NONE" }, -- (preferred) any erroneous construct
 
     -- flash.nvim
-    FlashPrompt = { link = "Normal" },
-    FlashPromptMode = { bg = "NONE", fg = C.yellow },
+    FlashPrompt = { link = "NoiceCmdline" },
+    FlashPromptMode = { link = "NoiceCmdlineIconSearch" },
 
     -- trouble.nvim
     TroubleNormal = { bg = C.base },
     TroubleNormalNC = { bg = C.base },
 
     -- noice.nvim
+    NoiceCmdline = { bg = constants.blur_background and "NONE" or C.base, fg = C.text },
     NoiceCmdlinePopupNormal = { fg = C.text, bg = floatColors.blockBorderBg },
     NoiceCmdlinePopupBorder = { fg = floatColors.blockBorderFg, bg = floatColors.blockBorderBg },
     NoiceConfirm = { fg = C.text, bg = floatColors.blockBorderBg },
@@ -339,7 +342,7 @@ local get_overrides_hl = function(C)
     DiffviewDiffDeleteSign = { fg = C.surface1 }, -- both diff delete sign
     DiffviewFilePanelCounter = { fg = C.red, bg = "NONE" },
     DiffviewFilePanelTitle = { fg = C.lavender, bg = "NONE" },
-    DiffviewNormal = { link = "Normal" },
+    DiffviewNormal = { bg = constants.blur_background and "NONE" or C.base, fg = C.text },
     DiffviewFilePanelSelected = { fg = C.text },
     -- DiffviewVertSplit = { link = "VertSplit" },
 
@@ -367,7 +370,7 @@ local get_overrides_hl = function(C)
     LspLens = { link = "LspInlayHint" },
 
     -- nvim-treesitter-context
-    TreesitterContext = { fg = C.surface1, bg = "NONE" },
+    TreesitterContext = { fg = C.surface1, bg = constants.blur_background and "NONE" or C.base },
     TreesitterContextLineNumber = { link = "LineNr" },
     TreesitterContextBottom = { style = {} },
 
@@ -422,7 +425,7 @@ local get_overrides_hl = function(C)
     },
 
     -- nvim fold
-    FoldColumn = { bg = "NONE" }, -- sign column
+    FoldColumn = { bg = constants.blur_background and "NONE" or C.base }, -- sign column
     Folded = { bg = "NONE" }, -- folded line
 
     -- nvim snippets
@@ -432,6 +435,11 @@ local get_overrides_hl = function(C)
     LspReferenceText = { bg = U.darken(C.surface1, 0.7, C.base), underline = false },
     LspReferenceRead = { link = "LspReferenceText" },
     LspReferenceWrite = { link = "LspReferenceText" },
+
+    -- col
+    CursorLineNr = { bg = constants.blur_background and "NONE" or C.base },
+    LineNr = { bg = constants.blur_background and "NONE" or C.base },
+    SignColumn = { bg = constants.blur_background and "NONE" or C.base },
 
     -- nvim cursor
     -- Cursor = {
