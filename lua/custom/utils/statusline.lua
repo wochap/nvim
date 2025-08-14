@@ -562,13 +562,13 @@ M.statusline = function()
     -- NOTE: the following string takes all the available space
     "%=",
     -- search_count_module(),
-    harpoon_module(),
+    -- harpoon_module(),
     macro_module(),
     snacks_profiler_module(),
     maximize_status_module(),
     -- PERF: disable for improved speed start
-    formatter_module(),
-    linter_module(),
+    -- formatter_module(),
+    -- linter_module(),
     lsp_or_filetype_module(),
     -- PERF: disable for improved speed end
     -- copilot_module(),
