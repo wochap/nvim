@@ -1072,6 +1072,16 @@ return {
     },
     opts = {},
   },
+  {
+    "folke/which-key.nvim",
+    opts = {
+      icons = {
+        rules = {
+          { pattern = "multicursor", icon = " ", color = "green" },
+        },
+      },
+    },
+  },
 
   {
     "gbprod/yanky.nvim",
