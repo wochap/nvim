@@ -78,6 +78,12 @@ Any requirement from [Mason](https://github.com/mason-org/mason.nvim#requirement
 
 ## Environment variables
 
+- TRANSPARENT=true:
+  Enables transparent background hls
+
+- BLUR=true:
+  Enables more transparent background hls
+
 - LITE=true:
   Disable plugins and make other plugins async
 

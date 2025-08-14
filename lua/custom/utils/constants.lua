@@ -126,10 +126,10 @@ M.in_kittyscrollback = kitty_arg == vim.fn.argv()[1]
 M.has_file_arg = vim.fn.argc(-1) > 0 and not M.in_zk and not M.in_leetcode and not M.in_kittyscrollback
 
 -- M.transparent_background = not constants.in_neovide
-M.transparent_background = true
+M.transparent_background = os.getenv "TRANSPARENT" == "true" and true or false
 
 -- TODO: makes more elements transparent
-M.blur_background = false
+M.blur_background = os.getenv "BLUR" == "true" and true or false
 
 -- HACK: this variable is used to prevent importing
 -- specs from lazyvim on the first install
