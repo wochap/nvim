@@ -5,6 +5,8 @@ return {
     opts = {
       servers = {
         ltex = {
+          -- PERF: ltex consumes a lot of RAM
+          enabled = false,
           filetypes = {
             "bib",
             "gitcommit",
