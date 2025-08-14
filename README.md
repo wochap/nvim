@@ -76,6 +76,17 @@ Any requirement from [Mason](https://github.com/mason-org/mason.nvim#requirement
 - [typescript](https://www.npmjs.com/package/typescript) (required by [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig))
 - [marksman](https://github.com/artempyanykh/marksman) (required by [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig))
 
+## Environment variables
+
+- LITE=true:
+  Disable plugins and make other plugins async
+
+- IN_VI_EDIT=true:
+  Disable more plugins and make other plugins async
+
+- GLOBAL_PYTHON_FOLDER_PATH and GLOBAL_KITTY_FOLDER_PATH
+  This may be specific to NixOS, but I need it to ensure the linter can find the external modules.
+
 ## Tips to learn to use this nvim config
 
 - Learn [https://github.com/folke/lazy.nvim](https://github.com/folke/lazy.nvim), then remove all lazy.nvim plugin specs that you are not going to use in `lua/custom/plugins/*`. For example, if you don't code zig, remove `lang-zig.lua`. If you don't use Kitty, remove `lua/custom/plugins/kitty.lua`.
