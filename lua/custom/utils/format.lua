@@ -33,7 +33,8 @@ M.format = function(opts)
             format_timer:stop()
             format_timer:close()
             if err then
-              LazyVim.error(try_opts.msg, { title = "conform.nvim" })
+              local error_msg = (err and err.message) and "\n " .. err.message or "\n no error message"
+              LazyVim.error(try_opts.msg .. error_msg, { title = "conform.nvim" })
             end
             run_next(index + 1)
           end
