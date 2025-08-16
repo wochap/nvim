@@ -263,68 +263,70 @@ return {
       })
 
       -- enable inlay hints
-      lspUtils.on_attach(function(client, buffer)
-        if client.supports_method "textDocument/inlayHint" then
-          local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, buffer, "is_ih_enabled")
-          if is_ih_enabled_ok and not is_ih_enabled then
-            return
-          end
-          if vim.api.nvim_buf_is_valid(buffer) and vim.bo[buffer].buftype == "" then
-            vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
-          end
-        end
-      end)
-      -- PERF: disable inlay hints on insert mode because
-      -- it gets executed on every stroke
-      utils.autocmd("InsertEnter", {
-        group = utils.augroup "disable_inlay_hints",
-        pattern = "*",
-        callback = function(event)
-          vim.schedule(function()
-            vim.lsp.inlay_hint.enable(false, { bufnr = event.buf })
-          end)
-        end,
-      })
-      utils.autocmd("InsertLeave", {
-        group = utils.augroup "enable_inlay_hints",
-        pattern = "*",
-        callback = function(event)
-          vim.schedule(function()
-            local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, event.buf, "is_ih_enabled")
+      if not constants.transparent_background then
+        lspUtils.on_attach(function(client, buffer)
+          if client.supports_method "textDocument/inlayHint" then
+            local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, buffer, "is_ih_enabled")
             if is_ih_enabled_ok and not is_ih_enabled then
               return
             end
-            vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
-          end)
-        end,
-      })
-      utils.autocmd("ModeChanged", {
-        group = utils.augroup "disable_inlay_hints_on_visual_mode_enter",
-        pattern = "*:[vV]",
-        callback = function(event)
-          local cur_mode = vim.fn.mode()
-          if cur_mode ~= "v" and cur_mode ~= "V" then
-            return
+            if vim.api.nvim_buf_is_valid(buffer) and vim.bo[buffer].buftype == "" then
+              vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
+            end
           end
+        end)
+        -- PERF: disable inlay hints on insert mode because
+        -- it gets executed on every stroke
+        utils.autocmd("InsertEnter", {
+          group = utils.augroup "disable_inlay_hints",
+          pattern = "*",
+          callback = function(event)
+            vim.schedule(function()
+              vim.lsp.inlay_hint.enable(false, { bufnr = event.buf })
+            end)
+          end,
+        })
+        utils.autocmd("InsertLeave", {
+          group = utils.augroup "enable_inlay_hints",
+          pattern = "*",
+          callback = function(event)
+            vim.schedule(function()
+              local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, event.buf, "is_ih_enabled")
+              if is_ih_enabled_ok and not is_ih_enabled then
+                return
+              end
+              vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+            end)
+          end,
+        })
+        utils.autocmd("ModeChanged", {
+          group = utils.augroup "disable_inlay_hints_on_visual_mode_enter",
+          pattern = "*:[vV]",
+          callback = function(event)
+            local cur_mode = vim.fn.mode()
+            if cur_mode ~= "v" and cur_mode ~= "V" then
+              return
+            end
 
-          vim.schedule(function()
-            vim.lsp.inlay_hint.enable(false, { bufnr = event.buf })
-          end)
-        end,
-      })
-      utils.autocmd("ModeChanged", {
-        group = utils.augroup "enable_inlay_hints_on_visual_mode_leave",
-        pattern = "[vV]:*",
-        callback = function(event)
-          vim.schedule(function()
-            local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, event.buf, "is_ih_enabled")
-            if is_ih_enabled_ok and not is_ih_enabled then
-              return
-            end
-            vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
-          end)
-        end,
-      })
+            vim.schedule(function()
+              vim.lsp.inlay_hint.enable(false, { bufnr = event.buf })
+            end)
+          end,
+        })
+        utils.autocmd("ModeChanged", {
+          group = utils.augroup "enable_inlay_hints_on_visual_mode_leave",
+          pattern = "[vV]:*",
+          callback = function(event)
+            vim.schedule(function()
+              local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, event.buf, "is_ih_enabled")
+              if is_ih_enabled_ok and not is_ih_enabled then
+                return
+              end
+              vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+            end)
+          end,
+        })
+      end
 
       -- setup opts.servers and opts.setup
       local servers = opts.servers
@@ -479,6 +481,7 @@ return {
     -- fork places virtual text at the end of line
     -- instead of above the line
     "wochap/lsp-lens.nvim",
+    enabled = not constants.transparent_background,
     event = "LspAttach",
     opts = {
       enable = true,
