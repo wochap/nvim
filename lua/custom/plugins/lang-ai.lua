@@ -124,7 +124,8 @@ return {
     end,
     opts = {
       provider = "deepseek_chat",
-      auto_suggestions_provider = "copilot",
+      auto_suggestions_provider = nil,
+      memory_summary_provider = nil,
       providers = {
         deepseek_coder = {
           __inherited_from = "openai",
