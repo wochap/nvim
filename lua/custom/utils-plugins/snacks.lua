@@ -123,11 +123,16 @@ M.grep = function(pick_opts)
 end
 
 M.filetypes = function()
+  local custom_filetypes = {
+    "bigfile",
+  }
+  local system_filetypes = vim.fn.getcompletion("", "filetype")
+  vim.list_extend(custom_filetypes, system_filetypes)
   local filetypes = vim.tbl_map(function(filetype)
     return {
       text = filetype,
     }
-  end, vim.fn.getcompletion("", "filetype"))
+  end, custom_filetypes)
   Snacks.picker.pick {
     source = "filetypes",
     items = filetypes,
