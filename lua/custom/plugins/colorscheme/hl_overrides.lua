@@ -446,9 +446,9 @@ local get_overrides_hl = function(C)
     --   bg = "NONE",
     --   fg = mocha.green,
     -- },
-    CurSearch = {
-      link = "Search",
-    },
+    -- CurSearch = {
+    --   link = "Search",
+    -- },
   }
 end
 
