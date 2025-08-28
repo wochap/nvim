@@ -96,6 +96,9 @@ return {
         -- only AST-parsing the currently opened buffer
         enabled = false,
       },
+      floating = {
+        border = "rounded",
+      },
       icons = {
         child_indent = "  ",
         child_prefix = "  ",
