@@ -96,6 +96,7 @@ return {
       },
       code = {
         sign = false,
+        border = "thin",
         left_margin = 0,
         left_pad = 0,
         right_pad = 0,
