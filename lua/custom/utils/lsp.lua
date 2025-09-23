@@ -1,3 +1,5 @@
+local utils = require "custom.utils"
+
 local M = {}
 
 -- Pass down cb argument to conform format method
@@ -22,17 +24,21 @@ M.format = function(opts, cb)
   end
 end
 
-M.get_clients = function(...)
-  return require("lazyvim.util.lsp").get_clients(...)
+M.setup = function(...)
+  return require("lazyvim.util.lsp").setup(...)
+end
+
+M.on_dynamic_capability = function(...)
+  return require("lazyvim.util.lsp").on_dynamic_capability(...)
 end
 
 -- Pass down cb argument to conform format method
----@param opts? LazyFormatter| {filter?: (string|lsp.Client.filter)}
+---@param opts? LazyFormatter| {filter?: (string|vim.lsp.get_clients.Filter)}
 M.formatter = function(opts)
   opts = opts or {}
   local filter = opts.filter or {}
   filter = type(filter) == "string" and { name = filter } or filter
-  ---@cast filter lsp.Client.filter
+  ---@cast filter vim.lsp.get_clients.Filter
   ---@type LazyFormatter
   local ret = {
     name = "LSP",
@@ -43,10 +49,10 @@ M.formatter = function(opts)
       M.format(_opts, cb)
     end,
     sources = function(buf)
-      local clients = M.get_clients(LazyVim.merge({}, filter, { bufnr = buf }))
+      local clients = vim.lsp.get_clients(LazyVim.merge({}, filter, { bufnr = buf }))
       ---@param client vim.lsp.Client
       local ret = vim.tbl_filter(function(client)
-        return client.supports_method "textDocument/formatting" or client.supports_method "textDocument/rangeFormatting"
+        return client:supports_method "textDocument/formatting" or client:supports_method "textDocument/rangeFormatting"
       end, clients)
       ---@param client vim.lsp.Client
       return vim.tbl_map(function(client)
@@ -61,12 +67,8 @@ M.on_attach = function(...)
   return require("lazyvim.util.lsp").on_attach(...)
 end
 
-M.get_config = function(...)
-  return require("lazyvim.util.lsp").get_config(...)
-end
-
-M.disable = function(...)
-  require("lazyvim.util.lsp").disable(...)
+M.on_supports_method = function(...)
+  return require("lazyvim.util.lsp").on_supports_method(...)
 end
 
 M.toggle_inlay_hints = function(bufnr, state)
@@ -80,19 +82,50 @@ M.toggle_inlay_hints = function(bufnr, state)
   vim.api.nvim_buf_set_var(bufnr, "is_ih_enabled", state)
 end
 
-M.get_pkg_path = function(pkg, path, opts)
-  -- pcall(require, "mason") -- make sure Mason is loaded. Will fail when generating docs
-  local root = vim.env.MASON or (vim.fn.stdpath "data" .. "/mason")
-  opts = opts or {}
-  opts.warn = opts.warn == nil and true or opts.warn
-  path = path or ""
-  local ret = root .. "/packages/" .. pkg .. "/" .. path
-  if opts.warn and not vim.uv.fs_stat(ret) and not require("lazy.core.config").headless() then
-    require("lazyvim.util").warn(
-      ("Mason package path not found for **%s**:\n- `%s`\nYou may need to force update the package."):format(pkg, path)
-    )
+M.get_pkg_path = function(...)
+  return require("lazyvim.util").get_pkg_path(...)
+end
+
+---Sets up autocommands to enable/disable a feature based on mode.
+---The feature will be disabled on InsertEnter and entering Visual mode,
+---and enabled on InsertLeave and leaving Visual mode.
+M.setup_mode_toggle = function(name, disable_fn, enable_fn)
+  local function create_callback(fn)
+    return function(event)
+      vim.schedule(function()
+        fn(event)
+      end)
+    end
   end
-  return ret
+
+  utils.autocmd("InsertEnter", {
+    group = utils.augroup("disable_" .. name .. "_on_insert_enter"),
+    pattern = "*",
+    callback = create_callback(disable_fn),
+  })
+  utils.autocmd("InsertLeave", {
+    group = utils.augroup("enable_" .. name .. "_on_insert_leave"),
+    pattern = "*",
+    callback = create_callback(enable_fn),
+  })
+  utils.autocmd("ModeChanged", {
+    group = utils.augroup("disable_" .. name .. "_on_visual_enter"),
+    pattern = "*:[vV]",
+    callback = function(event)
+      local cur_mode = vim.fn.mode()
+      if cur_mode ~= "v" and cur_mode ~= "V" then
+        return
+      end
+      vim.schedule(function()
+        disable_fn(event)
+      end)
+    end,
+  })
+  utils.autocmd("ModeChanged", {
+    group = utils.augroup("enable_" .. name .. "_on_visual_leave"),
+    pattern = "[vV]:*",
+    callback = create_callback(enable_fn),
+  })
 end
 
 return M

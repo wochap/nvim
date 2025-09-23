@@ -379,7 +379,7 @@ local function lsp()
     local client_names = {}
     local client_names_ignore = { "copilot" }
 
-    for _, client in ipairs(lspUtils.get_clients()) do
+    for _, client in ipairs(vim.lsp.get_clients()) do
       if client.attached_buffers[vim.api.nvim_get_current_buf()] then
         if vim.tbl_contains(client_names_ignore, client.name) then
           goto continue
@@ -464,7 +464,7 @@ local function linter_module()
 end
 
 local function copilot_module()
-  local clients = lspUtils.get_clients(), "copilot"
+  local clients = vim.lsp.get_clients(), "copilot"
   local client_names = vim.tbl_map(function(client)
     return client.name
   end, clients)

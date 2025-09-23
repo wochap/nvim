@@ -7,7 +7,7 @@ local textCaseUtils = require "custom.utils-plugins.text-case"
 
 return {
   {
-    "echasnovski/mini.surround",
+    "nvim-mini/mini.surround",
     event = "VeryLazy",
     opts = {
       mappings = {
@@ -34,16 +34,16 @@ return {
     },
   },
 
-  -- https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-align.md
+  -- https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-align.md
   -- ga or gA
   {
-    "echasnovski/mini.align",
+    "nvim-mini/mini.align",
     event = "VeryLazy",
     opts = {},
   },
 
   {
-    "echasnovski/mini.operators",
+    "nvim-mini/mini.operators",
     event = "VeryLazy",
     opts = {
       evaluate = {
@@ -67,7 +67,7 @@ return {
   },
 
   {
-    "echasnovski/mini.move",
+    "nvim-mini/mini.move",
     event = { "LazyFile", "VeryLazy" },
     opts = {
       mappings = {
@@ -88,7 +88,7 @@ return {
 
   -- Better text-objects
   {
-    "echasnovski/mini.ai",
+    "nvim-mini/mini.ai",
     event = { "LazyFile", "VeryLazy" },
     opts = function()
       local ai = require "mini.ai"
@@ -184,7 +184,7 @@ return {
   {
     -- PERF: runs very slow on nvim 0.11
     "saghen/blink.cmp",
-    version = "v1.6.0",
+    version = "v1.7.0",
     event = { "InsertEnter", "VeryLazy" },
     dependencies = {
       {
@@ -769,7 +769,7 @@ return {
 
   -- auto pairs
   {
-    "echasnovski/mini.pairs",
+    "nvim-mini/mini.pairs",
     event = "VeryLazy",
     opts = {
       modes = {

@@ -21,7 +21,7 @@ return {
       {
         "<leader>ri",
         function()
-          require("refactoring").refactor "Inline Variable"
+          return require("refactoring").refactor "Inline Variable"
         end,
         mode = { "n", "x" },
         desc = "Inline Variable",
@@ -30,7 +30,7 @@ return {
       {
         "<leader>rb",
         function()
-          require("refactoring").refactor "Extract Block"
+          return require("refactoring").refactor "Extract Block"
         end,
         mode = { "n", "x" },
         desc = "Extract Block",
@@ -39,7 +39,7 @@ return {
       {
         "<leader>rf",
         function()
-          require("refactoring").refactor "Extract Block To File"
+          return require("refactoring").refactor "Extract Block To File"
         end,
         mode = { "n", "x" },
         desc = "Extract Block To File",
@@ -72,7 +72,7 @@ return {
       {
         "<leader>rf",
         function()
-          require("refactoring").refactor "Extract Function"
+          return require("refactoring").refactor "Extract Function"
         end,
         mode = { "n", "x" },
         desc = "Extract Function",
@@ -81,7 +81,7 @@ return {
       {
         "<leader>rF",
         function()
-          require("refactoring").refactor "Extract Function To File"
+          return require("refactoring").refactor "Extract Function To File"
         end,
         mode = { "n", "x" },
         desc = "Extract Function To File",
@@ -90,7 +90,7 @@ return {
       {
         "<leader>rv",
         function()
-          require("refactoring").refactor "Extract Variable"
+          return require("refactoring").refactor "Extract Variable"
         end,
         mode = { "n", "x" },
         desc = "Extract Variable",

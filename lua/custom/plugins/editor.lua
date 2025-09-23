@@ -1354,6 +1354,19 @@ return {
         desc = "Toggle Flash Search",
         mode = { "c" },
       },
+      {
+        "<c-space>",
+        mode = { "n", "o", "x" },
+        function()
+          require("flash").treesitter {
+            actions = {
+              ["<c-space>"] = "next",
+              ["<BS>"] = "prev",
+            },
+          }
+        end,
+        desc = "Treesitter Incremental Selection",
+      },
     },
     opts = {
       search = {

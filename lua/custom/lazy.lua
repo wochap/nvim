@@ -25,7 +25,7 @@ require("lazy").setup {
       "LazyVim/LazyVim",
       lazy = false,
       version = false,
-      commit = "25abbf546d564dc484cf903804661ba12de45507", -- v14.15.0
+      commit = "b4606f9df3395a261bb6a09acc837993da5d8bfc", -- v15.2.0
       priority = 10000,
       config = function()
         lazyvimUtils.setup()
@@ -48,10 +48,6 @@ require("lazy").setup {
     },
 
     { import = "custom.plugins" },
-    {
-      enabled = not constants.first_install,
-      import = "lazyvim.plugins.extras.lang.json",
-    },
     {
       enabled = not constants.first_install,
       import = "lazyvim.plugins.extras.lang.yaml",

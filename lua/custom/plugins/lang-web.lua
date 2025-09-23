@@ -1,4 +1,5 @@
 local constants = require "custom.utils.constants"
+local formatUtils = require "custom.utils.format"
 local lspUtils = require "custom.utils.lsp"
 local utils = require "custom.utils"
 
@@ -57,6 +58,7 @@ local function has_prettier_parser(ctx)
   return ok and parser and parser ~= vim.NIL
 end
 
+-- TODO: gives error not constants.first_install
 local has_prettier_config = LazyVim.memoize(has_prettier_config)
 local has_prettier_parser = LazyVim.memoize(has_prettier_parser)
 local has_biome_config = LazyVim.memoize(has_biome_config)
@@ -65,6 +67,10 @@ return {
   {
     enabled = not constants.first_install,
     import = "lazyvim.plugins.extras.lang.tailwind",
+  },
+  {
+    enabled = not constants.first_install,
+    import = "lazyvim.plugins.extras.lang.json",
   },
 
   {
@@ -246,7 +252,11 @@ return {
                 globalPlugins = {
                   {
                     name = "@vue/typescript-plugin",
-                    location = lspUtils.get_pkg_path("vue-language-server", "/node_modules/@vue/language-server"),
+                    location = lspUtils.get_pkg_path(
+                      "vue-language-server",
+                      "/node_modules/@vue/language-server",
+                      { warn = false }
+                    ),
                     languages = { "vue" },
                     configNamespace = "typescript",
                     enableForWorkspaceTypeScriptVersions = true,
@@ -282,22 +292,7 @@ return {
             debounce_text_changes = 250,
           },
         },
-        volar = {
-          filetypes = { "vue" },
-          init_options = {
-            vue = {
-              hybridMode = true,
-            },
-          },
-          capabilities = {
-            workspace = {
-              didChangeWatchedFiles = {
-                -- NOTE: `dynamicRegistration: true` reduces greatly the performance on nvim < 0.10.0
-                dynamicRegistration = true,
-              },
-            },
-          },
-        },
+        vue_ls = {},
         biome = {
           condition = function()
             return has_biome_config(vim.uv.cwd())
@@ -344,10 +339,6 @@ return {
             return
           end
 
-          local function get_client(buf)
-            return LazyVim.lsp.get_clients({ name = "eslint", bufnr = buf })[1]
-          end
-
           local formatter = LazyVim.lsp.formatter {
             name = "eslint: lsp",
             primary = false,
@@ -355,24 +346,8 @@ return {
             filter = "eslint",
           }
 
-          -- Use EslintFixAll on Neovim < 0.10.0
-          if not pcall(require, "vim.lsp._dynamic") then
-            formatter.name = "eslint: EslintFixAll"
-            formatter.sources = function(buf)
-              local client = get_client(buf)
-              return client and { "eslint" } or {}
-            end
-            formatter.format = function(buf, format_opts, cb)
-              local client = get_client(buf)
-              if client then
-                vim.cmd "EslintFixAll"
-              end
-              cb()
-            end
-          end
-
           -- register the formatter with LazyVim
-          LazyVim.format.register(formatter)
+          formatUtils.register(formatter)
         end,
       },
     },
@@ -557,7 +532,7 @@ return {
   },
 
   {
-    "echasnovski/mini.icons",
+    "nvim-mini/mini.icons",
     opts = {
       file = {
         [".eslintrc.js"] = { glyph = "󰱺", hl = "MiniIconsYellow" },

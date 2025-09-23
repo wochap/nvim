@@ -1,4 +1,3 @@
-local utils = require "custom.utils"
 local lspUtils = require "custom.utils.lsp"
 local iconsUtils = require "custom.utils.icons"
 local formatUtils = require "custom.utils.format"
@@ -9,7 +8,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     enabled = not constants.in_vi_edit and not constants.in_kittyscrollback,
-    version = "v1.8.0",
     event = { "LazyFile", "VeryLazy" },
     dependencies = {
       "mason-org/mason.nvim",
@@ -116,7 +114,7 @@ return {
         -- ["*"] = function(server, opts) end,
       },
     },
-    config = function(_, opts)
+    config = vim.schedule_wrap(function(_, opts)
       -- slow down log file growth
       vim.lsp.set_log_level(vim.log.levels.ERROR)
 
@@ -127,31 +125,14 @@ return {
       lspUtils.on_attach(function(client, buffer)
         lspKeymapsUtils.on_attach(client, buffer)
       end)
-      local register_capability = vim.lsp.handlers["client/registerCapability"]
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.lsp.handlers["client/registerCapability"] = function(err, res, ctx)
-        local ret = register_capability(err, res, ctx)
-        local client_id = ctx.client_id
-        local client = vim.lsp.get_client_by_id(client_id)
-        local buffer = vim.api.nvim_get_current_buf()
-        lspKeymapsUtils.on_attach(client, buffer)
-        return ret
-      end
+      lspUtils.setup()
+      lspUtils.on_dynamic_capability(lspKeymapsUtils.on_attach)
 
       -- setup diagnostics
-      local diagnostic_signs_opts
-      local diagnostic_virtual_text_opts
-      local diagnostic_virtual_lines_opts
-      if vim.fn.has "nvim-0.11" == 1 then
-        diagnostic_signs_opts = {
-          text = {
-            [vim.diagnostic.severity.ERROR] = iconsUtils.diagnostic.Error,
-            [vim.diagnostic.severity.WARN] = "",
-            [vim.diagnostic.severity.HINT] = "",
-            [vim.diagnostic.severity.INFO] = "",
-          },
-        }
-        diagnostic_virtual_text_opts = {
+      vim.diagnostic.config {
+        underline = true,
+        update_in_insert = false,
+        virtual_text = {
           current_line = true,
           format = function(diagnostic)
             return string.format("%s (%s)", diagnostic.message, diagnostic.source)
@@ -164,38 +145,15 @@ return {
             max = vim.diagnostic.severity.WARN,
           },
           virt_text_pos = "eol_right_align",
-        }
-        diagnostic_virtual_lines_opts = {
-          current_line = false,
-          format = function(diagnostic)
-            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
-          end,
-          severity = {
-            min = vim.diagnostic.severity.ERROR,
+        },
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = iconsUtils.diagnostic.Error,
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.HINT] = "",
+            [vim.diagnostic.severity.INFO] = "",
           },
-        }
-      else
-        diagnostic_signs_opts = false
-        diagnostic_virtual_text_opts = {
-          current_line = false,
-          format = function(diagnostic)
-            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
-          end,
-          prefix = "●",
-          suffix = "",
-          spacing = 0,
-          source = false,
-          severity = {
-            min = vim.diagnostic.severity.WARN,
-          },
-        }
-        diagnostic_virtual_lines_opts = false
-      end
-      vim.diagnostic.config {
-        underline = true,
-        update_in_insert = false,
-        virtual_text = diagnostic_virtual_text_opts,
-        signs = diagnostic_signs_opts,
+        },
         severity_sort = true,
         float = {
           border = "rounded",
@@ -203,191 +161,102 @@ return {
             return string.format("%s (%s)", diagnostic.message, diagnostic.source)
           end,
         },
-        virtual_lines = diagnostic_virtual_lines_opts,
+        virtual_lines = {
+          current_line = false,
+          format = function(diagnostic)
+            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
+          end,
+          severity = {
+            min = vim.diagnostic.severity.ERROR,
+          },
+        },
       }
       for name, icon in pairs(iconsUtils.diagnostic) do
         name = "DiagnosticSign" .. name
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
-      utils.autocmd("InsertEnter", {
-        group = utils.augroup "disable_diagnostic",
-        pattern = "*",
-        callback = function()
-          vim.schedule(function()
-            vim.diagnostic.config {
-              underline = false,
-            }
-          end)
+      lspUtils.setup_mode_toggle(
+        "diagnostics",
+        -- Disable function
+        function()
+          vim.diagnostic.config { underline = false }
         end,
-      })
-      utils.autocmd("InsertLeave", {
-        group = utils.augroup "enable_diagnostic",
-        pattern = "*",
-        callback = function()
-          -- NOTE: it doesn't work well on JS files without the vim.schedule
-          vim.schedule(function()
-            vim.diagnostic.config {
-              underline = true,
-            }
-          end)
-        end,
-      })
-      utils.autocmd("ModeChanged", {
-        group = utils.augroup "disable_disagnostic_on_visual_mode_enter",
-        pattern = "*:[vV]",
-        callback = function(event)
-          local cur_mode = vim.fn.mode()
-          if cur_mode ~= "v" and cur_mode ~= "V" then
-            return
-          end
-
-          vim.schedule(function()
-            vim.diagnostic.config {
-              underline = false,
-            }
-          end)
-        end,
-      })
-      utils.autocmd("ModeChanged", {
-        group = utils.augroup "enable_diagnostic_on_visual_mode_leave",
-        pattern = "[vV]:*",
-        callback = function(event)
-          vim.schedule(function()
-            vim.schedule(function()
-              vim.diagnostic.config {
-                underline = true,
-              }
-            end)
-          end)
-        end,
-      })
+        -- Enable function
+        function()
+          vim.diagnostic.config { underline = true }
+        end
+      )
 
       -- enable inlay hints
       if not constants.transparent_background then
-        lspUtils.on_attach(function(client, buffer)
-          if client.supports_method "textDocument/inlayHint" then
-            local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, buffer, "is_ih_enabled")
+        lspUtils.on_supports_method("textDocument/inlayHint", function(client, buffer)
+          local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, buffer, "is_ih_enabled")
+          if is_ih_enabled_ok and not is_ih_enabled then
+            return
+          end
+          if vim.api.nvim_buf_is_valid(buffer) and vim.bo[buffer].buftype == "" then
+            vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
+          end
+        end)
+        -- PERF: disable inlay hints on insert/visual mode because
+        -- it gets executed on every stroke
+        lspUtils.setup_mode_toggle(
+          "inlay_hints",
+          -- Disable function
+          function(event)
+            vim.lsp.inlay_hint.enable(false, { bufnr = event.buf })
+          end,
+          -- Enable function
+          function(event)
+            local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, event.buf, "is_ih_enabled")
             if is_ih_enabled_ok and not is_ih_enabled then
               return
             end
-            if vim.api.nvim_buf_is_valid(buffer) and vim.bo[buffer].buftype == "" then
-              vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
-            end
+            vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
           end
-        end)
-        -- PERF: disable inlay hints on insert mode because
-        -- it gets executed on every stroke
-        utils.autocmd("InsertEnter", {
-          group = utils.augroup "disable_inlay_hints",
-          pattern = "*",
-          callback = function(event)
-            vim.schedule(function()
-              vim.lsp.inlay_hint.enable(false, { bufnr = event.buf })
-            end)
-          end,
-        })
-        utils.autocmd("InsertLeave", {
-          group = utils.augroup "enable_inlay_hints",
-          pattern = "*",
-          callback = function(event)
-            vim.schedule(function()
-              local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, event.buf, "is_ih_enabled")
-              if is_ih_enabled_ok and not is_ih_enabled then
-                return
-              end
-              vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
-            end)
-          end,
-        })
-        utils.autocmd("ModeChanged", {
-          group = utils.augroup "disable_inlay_hints_on_visual_mode_enter",
-          pattern = "*:[vV]",
-          callback = function(event)
-            local cur_mode = vim.fn.mode()
-            if cur_mode ~= "v" and cur_mode ~= "V" then
-              return
-            end
+        )
+      end
 
-            vim.schedule(function()
-              vim.lsp.inlay_hint.enable(false, { bufnr = event.buf })
-            end)
-          end,
-        })
-        utils.autocmd("ModeChanged", {
-          group = utils.augroup "enable_inlay_hints_on_visual_mode_leave",
-          pattern = "[vV]:*",
-          callback = function(event)
-            vim.schedule(function()
-              local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, event.buf, "is_ih_enabled")
-              if is_ih_enabled_ok and not is_ih_enabled then
-                return
-              end
-              vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
-            end)
-          end,
-        })
+      -- setup opts.capabilities
+      if opts.capabilities then
+        vim.lsp.config("*", { capabilities = opts.capabilities })
       end
 
       -- setup opts.servers and opts.setup
-      local servers = opts.servers
-      local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-      local has_blink, blink = pcall(require, "blink.cmp")
-      local capabilities = vim.tbl_deep_extend(
-        "force",
-        {},
-        vim.lsp.protocol.make_client_capabilities(),
-        has_cmp and cmp_nvim_lsp.default_capabilities() or {},
-        has_blink and blink.get_lsp_capabilities() or {},
-        opts.capabilities or {}
-      )
-      local function setup(server)
-        local server_opts = vim.tbl_deep_extend("force", {
-          capabilities = vim.deepcopy(capabilities),
-        }, servers[server] or {})
-
-        if server_opts.enabled == false then
-          return
+      -- get all the servers that are available through mason-lspconfig
+      local have_mason = LazyVim.has "mason-lspconfig.nvim"
+      local mason_all = have_mason
+          and vim.tbl_keys(require("mason-lspconfig.mappings").get_mason_map().lspconfig_to_package)
+        or {} --[[ @as string[] ]]
+      ---@return boolean? exclude automatic setup
+      local function configure(server)
+        local sopts = opts.servers[server]
+        sopts = sopts == true and {} or (not sopts) and { enabled = false } or sopts --[[@as lazyvim.lsp.Config]]
+        if sopts.enabled == false then
+          return true
         end
-
-        if server_opts.condition and server_opts.condition() == false then
-          return
+        if sopts.condition and sopts.condition() == false then
+          return true
         end
-
-        if opts.setup[server] then
-          if opts.setup[server](server, server_opts) then
-            return
-          end
-        elseif opts.setup["*"] then
-          if opts.setup["*"](server, server_opts) then
-            return
-          end
+        local setup = opts.setup[server] or opts.setup["*"]
+        if setup and setup(server, sopts) then
+          return true -- lsp will be configured and enabled by the setup function
         end
-        require("lspconfig")[server].setup(server_opts)
-      end
-      local has_mason, mlsp = pcall(require, "mason-lspconfig")
-      local all_mslp_servers = {}
-      if has_mason then
-        all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
-        -- all_mslp_servers = vim.tbl_keys(require("mason-lspconfig").get_mappings().lspconfig_to_package)
-      end
-      local ensure_installed = {}
-      for server, server_opts in pairs(servers) do
-        if server_opts then
-          server_opts = server_opts == true and {} or server_opts
-          if server_opts.enabled ~= false then
-            -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
-            if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
-              setup(server)
-            else
-              ensure_installed[#ensure_installed + 1] = server
-            end
-          end
+        vim.lsp.config(server, sopts) -- configure the server
+        -- manually enable if mason=false or if this is a server that cannot be installed with mason-lspconfig
+        if sopts.mason == false or not vim.tbl_contains(mason_all, server) then
+          vim.lsp.enable(server)
+          return true
         end
       end
-      if has_mason then
-        mlsp.setup {
-          ensure_installed = ensure_installed,
-          handlers = { setup },
+      local servers = vim.tbl_keys(opts.servers)
+      local exclude = vim.tbl_filter(configure, servers)
+      if have_mason then
+        require("mason-lspconfig").setup {
+          ensure_installed = vim.tbl_filter(function(server)
+            return not vim.tbl_contains(exclude, server)
+          end, vim.list_extend(servers, LazyVim.opts("mason-lspconfig.nvim").ensure_installed or {})),
+          automatic_enable = { exclude = exclude },
         }
       end
 
@@ -406,12 +275,11 @@ return {
           lspUtils.toggle_inlay_hints(0, enabled)
         end,
       }):map "<leader>uh"
-    end,
+    end),
   },
 
   {
     "mason-org/mason.nvim",
-    version = "v1.11.0",
     keys = {
       {
         "<leader>lm",
@@ -455,26 +323,21 @@ return {
           }
         end, 100)
       end)
-      local function ensure_installed()
+
+      mr.refresh(function()
         for _, tool in ipairs(opts.ensure_installed) do
           local p = mr.get_package(tool)
-          -- if not p:is_installed() and not p:is_installing() then
           if not p:is_installed() then
             p:install()
           end
         end
-      end
-      if mr.refresh then
-        mr.refresh(ensure_installed)
-      else
-        ensure_installed()
-      end
+      end)
     end,
   },
 
   {
     "mason-org/mason-lspconfig.nvim",
-    version = "v1.32.0",
+    config = function() end,
   },
 
   {

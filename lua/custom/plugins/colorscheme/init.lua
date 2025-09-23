@@ -5,7 +5,6 @@ local constants = require "custom.utils.constants"
 return {
   {
     "catppuccin/nvim",
-    version = "v1.11.0",
     name = "catppuccin",
     event = "LazyFile",
     init = function()

@@ -24,7 +24,7 @@ return {
   },
 
   {
-    "echasnovski/mini.bracketed",
+    "nvim-mini/mini.bracketed",
     event = "VeryLazy",
     opts = {
       buffer = { suffix = "" },
