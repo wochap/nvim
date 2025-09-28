@@ -85,13 +85,6 @@ M.close_left_sidebars = function(ignore_sidebar)
   end
 end
 
-M.bufname_valid = function(bufname)
-  if bufname:match "^/" or bufname:match "^[a-zA-Z]:" or bufname:match "^zipfile://" or bufname:match "^tarfile:" then
-    return true
-  end
-  return false
-end
-
 M.replace_visual_selection = function(text)
   local start_line, start_col = vim.fn.getpos("'<")[2], vim.fn.getpos("'<")[3]
   local end_line, end_col = vim.fn.getpos("'>")[2], vim.fn.getpos("'>")[3]
