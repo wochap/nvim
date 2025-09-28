@@ -1,7 +1,7 @@
 local lsp_utils = require "custom.utils.lsp"
 local icons_constants = require "custom.constants.icons"
 local format_utils = require "custom.utils.format"
-local lspKeymapsUtils = require "custom.plugins.lsp.keymaps"
+local lsp_keymaps_utils = require "custom.plugins.lsp.keymaps"
 local constants = require "custom.constants"
 
 return {
@@ -40,6 +40,50 @@ return {
         async = true,
         -- timeout_ms = 1000, -- doesn't have effect if async is true
         formatting_options = nil,
+      },
+      -- NOTE: nvim-lspconfig doesn't have the option `diagnostics`
+      -- options for vim.diagnostic.config
+      diagnostics = {
+        underline = true,
+        update_in_insert = false,
+        virtual_text = {
+          current_line = true,
+          format = function(diagnostic)
+            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
+          end,
+          prefix = "●",
+          suffix = "",
+          spacing = 0,
+          source = false,
+          severity = {
+            max = vim.diagnostic.severity.WARN,
+          },
+          virt_text_pos = "eol_right_align",
+        },
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = icons_constants.diagnostic.Error,
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.HINT] = "",
+            [vim.diagnostic.severity.INFO] = "",
+          },
+        },
+        severity_sort = true,
+        float = {
+          border = "rounded",
+          format = function(diagnostic)
+            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
+          end,
+        },
+        virtual_lines = {
+          current_line = false,
+          format = function(diagnostic)
+            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
+          end,
+          severity = {
+            min = vim.diagnostic.severity.ERROR,
+          },
+        },
       },
       -- NOTE: nvim-lspconfig doesn't have the option `capabilities`
       -- add any global capabilities here
@@ -123,58 +167,13 @@ return {
 
       -- setup keymaps
       lsp_utils.on_attach(function(client, buffer)
-        lspKeymapsUtils.on_attach(client, buffer)
+        lsp_keymaps_utils.on_attach(client, buffer)
       end)
       lsp_utils.setup()
-      lsp_utils.on_dynamic_capability(lspKeymapsUtils.on_attach)
+      lsp_utils.on_dynamic_capability(lsp_keymaps_utils.on_attach)
 
       -- setup diagnostics
-      vim.diagnostic.config {
-        underline = true,
-        update_in_insert = false,
-        virtual_text = {
-          current_line = true,
-          format = function(diagnostic)
-            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
-          end,
-          prefix = "●",
-          suffix = "",
-          spacing = 0,
-          source = false,
-          severity = {
-            max = vim.diagnostic.severity.WARN,
-          },
-          virt_text_pos = "eol_right_align",
-        },
-        signs = {
-          text = {
-            [vim.diagnostic.severity.ERROR] = icons_constants.diagnostic.Error,
-            [vim.diagnostic.severity.WARN] = "",
-            [vim.diagnostic.severity.HINT] = "",
-            [vim.diagnostic.severity.INFO] = "",
-          },
-        },
-        severity_sort = true,
-        float = {
-          border = "rounded",
-          format = function(diagnostic)
-            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
-          end,
-        },
-        virtual_lines = {
-          current_line = false,
-          format = function(diagnostic)
-            return string.format("%s (%s)", diagnostic.message, diagnostic.source)
-          end,
-          severity = {
-            min = vim.diagnostic.severity.ERROR,
-          },
-        },
-      }
-      for name, icon in pairs(icons_constants.diagnostic) do
-        name = "DiagnosticSign" .. name
-        vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
-      end
+      vim.diagnostic.config(opts.diagnostics)
       lsp_utils.setup_mode_toggle(
         "diagnostics",
         -- Disable function
