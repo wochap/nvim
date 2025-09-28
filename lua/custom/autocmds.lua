@@ -21,9 +21,9 @@ utils.autocmd("VimResized", {
 utils.autocmd("BufReadPost", {
   group = utils.augroup "last_loc",
   callback = function()
-    local exclude = { "gitcommit", "gitrebase", "Trouble" }
+    local exclude_filetypes = { "gitcommit", "gitrebase", "Trouble" }
     local buf = vim.api.nvim_get_current_buf()
-    if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
+    if vim.tbl_contains(exclude_filetypes, vim.bo[buf].filetype) then
       return
     end
     local mark = vim.api.nvim_buf_get_mark(buf, '"')
