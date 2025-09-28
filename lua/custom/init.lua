@@ -28,7 +28,7 @@ require "custom.globals"
 -- lazy load ./plugins/*
 require "custom.lazy"
 
--- lazy load ./autocmds.lua, ./keymaps.lua, ./commands.lua
+-- lazy load ./autocmds.lua, ./keymaps.lua, ./macros.lua, ./commands.lua
 if constants.has_file_arg then
   require "custom.autocmds"
 end
