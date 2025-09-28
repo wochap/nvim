@@ -57,21 +57,6 @@ M.augroup = function(name)
   return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
 end
 
-local files_count_cache = {}
-M.in_big_project = function(cwd)
-  cwd = cwd or vim.uv.cwd()
-  local count = files_count_cache[cwd]
-  if count == nil then
-    local output = vim.fn.systemlist "(git ls-files --cached || fd --type f) | wc -l"
-    count = #output > 0 and tonumber(output[1]) or 0
-    files_count_cache[cwd] = count
-  end
-  if count >= 1000 then
-    return true
-  end
-  return false
-end
-
 M.close_right_sidebars = function(ignore_sidebar)
   local has_neo_tree = package.loaded["neo-tree"]
   if has_neo_tree and ignore_sidebar ~= "neo_tree_git" then
