@@ -1,5 +1,4 @@
 local lint_utils = require "custom.utils.lint"
-local lazyCoreUtils = require "lazy.core.util"
 local constants = require "custom.constants"
 
 return {
