@@ -187,35 +187,10 @@ return {
         end
       )
 
-      -- enable inlay hints
-      if not constants.transparent_background then
-        lspUtils.on_supports_method("textDocument/inlayHint", function(client, buffer)
-          local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, buffer, "is_ih_enabled")
-          if is_ih_enabled_ok and not is_ih_enabled then
-            return
-          end
-          if vim.api.nvim_buf_is_valid(buffer) and vim.bo[buffer].buftype == "" then
-            vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
-          end
-        end)
-        -- PERF: disable inlay hints on insert/visual mode because
-        -- it gets executed on every stroke
-        lspUtils.setup_mode_toggle(
-          "inlay_hints",
-          -- Disable function
-          function(event)
-            vim.lsp.inlay_hint.enable(false, { bufnr = event.buf })
-          end,
-          -- Enable function
-          function(event)
-            local is_ih_enabled_ok, is_ih_enabled = pcall(vim.api.nvim_buf_get_var, event.buf, "is_ih_enabled")
-            if is_ih_enabled_ok and not is_ih_enabled then
-              return
-            end
-            vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
-          end
-        )
-      end
+      -- setup folds
+      lspUtils.on_supports_method("textDocument/foldingRange", function(client, buffer)
+        vim.wo.foldexpr = "v:lua.vim.lsp.foldexpr()"
+      end)
 
       -- setup opts.capabilities
       if opts.capabilities then
@@ -338,71 +313,6 @@ return {
   {
     "mason-org/mason-lspconfig.nvim",
     config = function() end,
-  },
-
-  {
-    -- fork places virtual text at the end of line
-    -- instead of above the line
-    "wochap/lsp-lens.nvim",
-    enabled = not constants.transparent_background,
-    event = "LspAttach",
-    opts = {
-      enable = true,
-      include_declaration = false,
-      sections = {
-        definition = false,
-        references = function(count)
-          return "  " .. count .. " "
-        end,
-        implements = false,
-        git_authors = false,
-      },
-    },
-    config = function(_, opts)
-      require("lsp-lens").setup(opts)
-
-      -- override lsp_lens augroup, update its event list
-      local lens = require "lsp-lens.lens-util"
-      local augroup = vim.api.nvim_create_augroup("lsp_lens", { clear = true })
-      vim.api.nvim_create_autocmd({ "LspAttach", "InsertLeave", "CursorHold", "BufEnter" }, {
-        group = augroup,
-        callback = function(...)
-          local mode = vim.api.nvim_get_mode().mode
-          -- Only run if not in insert mode
-          if mode ~= "i" then
-            lens.procedure(...)
-          end
-        end,
-      })
-
-      -- TODO: check if the buffer's LSP supports `codeLens`
-      -- before adding a keymap to the buffer
-      Snacks.toggle({
-        name = "Codelens",
-        get = function()
-          return require("lsp-lens.config").config.enable
-        end,
-        set = function(enabled)
-          if enabled then
-            lens.lsp_lens_on()
-          else
-            lens.lsp_lens_off()
-          end
-        end,
-      }):map "<leader>uC"
-    end,
-  },
-
-  {
-    "chrisgrieser/nvim-lsp-endhints",
-    event = "LspAttach",
-    opts = {
-      icons = {
-        type = " ",
-        parameter = " ",
-      },
-      autoEnableHints = false,
-    },
   },
 
   {

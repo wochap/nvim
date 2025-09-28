@@ -56,7 +56,7 @@ vim.o.tabline = "%#Normal#"
 
 -- folds
 vim.opt.foldmethod = "expr"
--- NOTE: treesitter sets vim.opt.foldexpr
+-- NOTE: treesitter and lsp sets vim.opt.foldexpr
 vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 10 -- deepest fold is 10 levels
 vim.opt.foldenable = false -- don't fold by default
