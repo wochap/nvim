@@ -1,5 +1,6 @@
 local constants = require "custom.constants"
 local icons_constants = require "custom.constants.icons"
+local lazyvim_utils = require "custom.utils.lazyvim"
 local lsp_utils = require "custom.utils.lsp"
 local lazy_utils = require "custom.utils.lazy"
 local git_branch_utils = require "custom.utils.git-branch"
@@ -174,7 +175,7 @@ end
 
 local trouble_st
 local function symbols_module()
-  if not LazyVim.has "trouble.nvim" then
+  if not lazy_utils.has "trouble.nvim" then
     return ""
   end
   if not trouble_st then
@@ -240,7 +241,8 @@ local function git_diff_module()
     local gc = require "git-conflict"
     local ok, conflict_count = pcall(gc.conflict_count)
     if ok then
-      conflict = (conflict_count ~= 0) and (hl_str "StGitConflict" .. icons_constants.git.Conflict .. " " .. conflict_count)
+      conflict = (conflict_count ~= 0)
+          and (hl_str "StGitConflict" .. icons_constants.git.Conflict .. " " .. conflict_count)
         or ""
     end
   end

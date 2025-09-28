@@ -3,6 +3,7 @@ local editor_utils = require "custom.utils.editor"
 local constants = require "custom.constants"
 local lsp_utils = require "custom.utils.lsp"
 local lazy_utils = require "custom.utils.lazy"
+local lazyvim_utils = require "custom.utils.lazyvim"
 local keymaps_utils = require "custom.utils.keymaps"
 local icons_constants = require "custom.constants.icons"
 local snacks_utils = require "custom.utils-plugins.snacks"
@@ -22,7 +23,7 @@ return {
       {
         "<leader>O",
         function()
-          require("oil").open(LazyVim.root())
+          require("oil").open(lazyvim_utils.root())
         end,
         desc = "Oil (Root)",
       },
@@ -100,7 +101,7 @@ return {
           vim.schedule(function()
             -- focus or open
             require("neo-tree.command").execute {
-              dir = LazyVim.root(),
+              dir = lazyvim_utils.root(),
               reveal = true,
             }
           end)
@@ -908,7 +909,7 @@ return {
         "<leader>fF",
         function()
           snacks_utils.files {
-            cwd = LazyVim.root(),
+            cwd = lazyvim_utils.root(),
           }
         end,
         desc = "Files (Root)",
@@ -927,7 +928,7 @@ return {
         "<leader>fA",
         function()
           snacks_utils.files {
-            cwd = LazyVim.root(),
+            cwd = lazyvim_utils.root(),
             ignored = true,
           }
         end,
@@ -955,7 +956,7 @@ return {
         "<leader>fW",
         function()
           snacks_utils.grep {
-            cwd = LazyVim.root(),
+            cwd = lazyvim_utils.root(),
           }
         end,
         desc = "Grep (Root)",
@@ -1075,7 +1076,7 @@ return {
       {
         "<leader>gL",
         function()
-          Snacks.lazygit { cwd = LazyVim.root.git() }
+          Snacks.lazygit { cwd = lazyvim_utils.root_git() }
         end,
         desc = "Lazygit (Root)",
       },

@@ -1,5 +1,6 @@
 local constants = require "custom.constants"
 local lazy_utils = require "custom.utils.lazy"
+local treesitter_utils = require "custom.utils-plugins.treesitter"
 
 return {
   {
@@ -35,22 +36,22 @@ return {
 
       -- setup treesitter
       treesitter.setup(opts)
-      LazyVim.treesitter.get_installed(true) -- initialize the installed langs
+      treesitter_utils.get_installed(true) -- initialize the installed langs
 
       -- install missing parsers
       local install = vim.tbl_filter(function(lang)
-        return not LazyVim.treesitter.have(lang)
+        return not treesitter_utils.have(lang)
       end, opts.ensure_installed or {})
       if #install > 0 then
         treesitter.install(install, { summary = true }):await(function()
-          LazyVim.treesitter.get_installed(true) -- refresh the installed langs
+          treesitter_utils.get_installed(true) -- refresh the installed langs
         end)
       end
 
       vim.api.nvim_create_autocmd("FileType", {
         group = vim.api.nvim_create_augroup("lazyvim_treesitter", { clear = true }),
         callback = function(ev)
-          if not LazyVim.treesitter.have(ev.match) then
+          if not treesitter_utils.have(ev.match) then
             return
           end
 
@@ -58,16 +59,16 @@ return {
           pcall(vim.treesitter.start)
 
           -- indents
-          if LazyVim.treesitter.have(ev.match, "indents") then
+          if treesitter_utils.have(ev.match, "indents") then
             local exclude_filetypes = { "html", "yaml", "lua", "javascript" }
             if not vim.tbl_contains(exclude_filetypes, ev.match) then
-              vim.bo.indentexpr = "v:lua.LazyVim.treesitter.indentexpr()"
+              vim.bo.indentexpr = [[%!v:lua.require('custom.utils-plugins.treesitter').indentexpr()]]
             end
           end
 
           -- folds
-          if LazyVim.treesitter.have(ev.match, "folds") then
-            vim.wo.foldexpr = "v:lua.LazyVim.treesitter.foldexpr()"
+          if treesitter_utils.have(ev.match, "folds") then
+            vim.wo.foldexpr = [[%!v:lua.require('custom.utils-plugins.treesitter').foldexpr()]]
           end
         end,
       })

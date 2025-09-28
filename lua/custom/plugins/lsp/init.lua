@@ -1,8 +1,10 @@
-local lsp_utils = require "custom.utils.lsp"
+local constants = require "custom.constants"
 local icons_constants = require "custom.constants.icons"
+local lazyvim_utils = require "custom.utils.lazyvim"
+local lazy_utils = require "custom.utils.lazy"
+local lsp_utils = require "custom.utils.lsp"
 local format_utils = require "custom.utils.format"
 local lsp_keymaps_utils = require "custom.plugins.lsp.keymaps"
-local constants = require "custom.constants"
 
 return {
   {
@@ -198,7 +200,7 @@ return {
 
       -- setup opts.servers and opts.setup
       -- get all the servers that are available through mason-lspconfig
-      local have_mason = LazyVim.has "mason-lspconfig.nvim"
+      local have_mason = lazy_utils.has "mason-lspconfig.nvim"
       local mason_all = have_mason
           and vim.tbl_keys(require("mason-lspconfig.mappings").get_mason_map().lspconfig_to_package)
         or {} --[[ @as string[] ]]
@@ -229,7 +231,7 @@ return {
         require("mason-lspconfig").setup {
           ensure_installed = vim.tbl_filter(function(server)
             return not vim.tbl_contains(exclude, server)
-          end, vim.list_extend(servers, LazyVim.opts("mason-lspconfig.nvim").ensure_installed or {})),
+          end, vim.list_extend(servers, lazy_utils.opts("mason-lspconfig.nvim").ensure_installed or {})),
           automatic_enable = { exclude = exclude },
         }
       end

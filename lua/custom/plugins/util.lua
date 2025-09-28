@@ -1,7 +1,8 @@
+local constants = require "custom.constants"
+local lazyvim_utils = require "custom.utils.lazyvim"
 local nvim_utils = require "custom.utils.nvim"
 local window_picker_utils = require "custom.utils-plugins.window-picker"
 local lsp_utils = require "custom.utils.lsp"
-local constants = require "custom.constants"
 local smart_splits_utils = require "custom.utils-plugins.smart-splits"
 
 return {
@@ -547,7 +548,7 @@ return {
 
       return vim.tbl_deep_extend("force", opts, {
         toggle = {
-          map = LazyVim.safe_keymap_set,
+          map = lazyvim_utils.safe_keymap_set,
           notify = false,
         },
       })

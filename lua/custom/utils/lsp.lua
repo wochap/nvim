@@ -1,4 +1,6 @@
 local nvim_utils = require "custom.utils.nvim"
+local lang_utils = require "custom.utils.lang"
+local lazy_utils = require "custom.utils.lazy"
 
 local M = {}
 
@@ -10,8 +12,8 @@ M.format = function(opts, cb)
     "force",
     {},
     opts or {},
-    LazyVim.opts("nvim-lspconfig").format or {},
-    LazyVim.opts("conform.nvim").default_format_opts or {}
+    lazy_utils.opts("nvim-lspconfig").format or {},
+    lazy_utils.opts("conform.nvim").default_format_opts or {}
   )
   local has_conform, conform = pcall(require, "conform")
   -- use conform for formatting with LSP when available,
@@ -45,11 +47,11 @@ M.formatter = function(opts)
     primary = true,
     priority = 1,
     format = function(buf, format_opts, cb)
-      local _opts = LazyVim.merge({}, format_opts, filter, { bufnr = buf })
+      local _opts = lang_utils.tbl_merge({}, format_opts, filter, { bufnr = buf })
       M.format(_opts, cb)
     end,
     sources = function(buf)
-      local clients = vim.lsp.get_clients(LazyVim.merge({}, filter, { bufnr = buf }))
+      local clients = vim.lsp.get_clients(lang_utils.tbl_merge({}, filter, { bufnr = buf }))
       ---@param client vim.lsp.Client
       local ret = vim.tbl_filter(function(client)
         return client:supports_method "textDocument/formatting" or client:supports_method "textDocument/rangeFormatting"
@@ -60,7 +62,7 @@ M.formatter = function(opts)
       end, ret)
     end,
   }
-  return LazyVim.merge(ret, opts) --[[@as LazyFormatter]]
+  return lang_utils.tbl_merge(ret, opts) --[[@as LazyFormatter]]
 end
 
 M.on_attach = function(...)

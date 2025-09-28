@@ -1,5 +1,6 @@
 local nvim_utils = require "custom.utils.nvim"
 local lazy_utils = require "custom.utils.lazy"
+local lazyvim_utils = require "custom.utils.lazyvim"
 local icons_constants = require "custom.constants.icons"
 local bufferline_utils = require "custom.utils-plugins.bufferline"
 local constants = require "custom.constants"
@@ -521,7 +522,7 @@ return {
         },
         exclude_filetypes = constants.exclude_filetypes,
         filter = function(buf)
-          local exclude_filetypes = LazyVim.opts("snacks.nvim").indent.exclude_filetypes
+          local exclude_filetypes = lazy_utils.opts("snacks.nvim").indent.exclude_filetypes
           local filetype = vim.api.nvim_get_option_value("filetype", { buf = buf })
           return vim.g.snacks_indent ~= false
             and vim.b[buf].snacks_indent ~= false

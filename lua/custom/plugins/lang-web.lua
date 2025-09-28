@@ -1,4 +1,5 @@
 local constants = require "custom.constants"
+local lazyvim_utils = require "custom.utils.lazyvim"
 local nvim_utils = require "custom.utils.nvim"
 local format_utils = require "custom.utils.format"
 local lsp_utils = require "custom.utils.lsp"
@@ -59,9 +60,9 @@ local function has_prettier_parser(ctx)
 end
 
 -- TODO: gives error not constants.first_install
-local has_prettier_config = LazyVim.memoize(has_prettier_config)
-local has_prettier_parser = LazyVim.memoize(has_prettier_parser)
-local has_biome_config = LazyVim.memoize(has_biome_config)
+has_prettier_config = lazyvim_utils.memoize(has_prettier_config)
+has_prettier_parser = lazyvim_utils.memoize(has_prettier_parser)
+has_biome_config = lazyvim_utils.memoize(has_biome_config)
 
 return {
   {
@@ -341,7 +342,7 @@ return {
             return
           end
 
-          local formatter = LazyVim.lsp.formatter {
+          local formatter = lsp_utils.formatter {
             name = "eslint: lsp",
             primary = false,
             priority = 200,

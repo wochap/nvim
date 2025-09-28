@@ -1,6 +1,9 @@
 local constants = require "custom.constants"
 local icons_constants = require "custom.constants.icons"
+local lazy_utils = require "custom.utils.lazy"
+local lazyvim_utils = require "custom.utils.lazyvim"
 local blink_cmp_utils = require "custom.utils-plugins.blink-cmp"
+local mini_utils = require "custom.utils-plugins.mini"
 local keymaps_utils = require "custom.utils.keymaps"
 local lang_utils = require "custom.utils.lang"
 local text_case_utils = require "custom.utils-plugins.text-case"
@@ -107,7 +110,7 @@ return {
             { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
             "^().*()$",
           },
-          g = LazyVim.mini.ai_buffer, -- buffer
+          g = mini_utils.mini_ai_buffer, -- buffer
           u = ai.gen_spec.function_call(), -- u for "Usage"
           U = ai.gen_spec.function_call { name_pattern = "[%w_]" }, -- without dot in function name
         },
@@ -115,9 +118,9 @@ return {
     end,
     config = function(_, opts)
       require("mini.ai").setup(opts)
-      LazyVim.on_load("which-key.nvim", function()
+      lazy_utils.on_load("which-key.nvim", function()
         vim.schedule(function()
-          LazyVim.mini.ai_whichkey(opts)
+          mini_utils.mini_ai_whichkey(opts)
         end)
       end)
     end,
@@ -261,7 +264,7 @@ return {
           },
           -- Screen coordinates of the command line
           cmdline_position = function()
-            if LazyVim.has "noice.nvim" then
+            if lazy_utils.has "noice.nvim" then
               local Api = require "noice.api"
               local pos = Api.get_cmdline_position()
               local type = vim.fn.getcmdtype()
@@ -788,7 +791,7 @@ return {
       markdown = true,
     },
     config = function(_, opts)
-      LazyVim.mini.pairs(opts)
+      mini_utils.mini_pairs(opts)
     end,
   },
 
@@ -1009,7 +1012,7 @@ return {
           if mc.cursorsEnabled() then
             mc.alignCursors()
           else
-            LazyVim.error("Cursors are disabled", { title = "multicursor.nvim" })
+            lazy_utils.error("Cursors are disabled", { title = "multicursor.nvim" })
           end
         end,
         desc = "Align Columns",
