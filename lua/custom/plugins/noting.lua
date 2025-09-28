@@ -26,12 +26,12 @@ return {
       },
       {
         "<leader>if",
-        "<Cmd>ObsidianQuickSwitch<CR>",
+        "<Cmd>Obsidian quick_switch<CR>",
         desc = "Picker", -- notes picker
       },
       {
         "<leader>iw",
-        "<Cmd>ObsidianWorkspace<CR>",
+        "<Cmd>Obsidian workspace<CR>",
         desc = "Picker (workspace)", -- notes picker
       },
       {
@@ -41,41 +41,42 @@ return {
       },
       {
         "<leader>ib",
-        "<Cmd>ObsidianBacklinks<CR>",
+        "<Cmd>Obsidian backlinks<CR>",
         desc = "Pick Obsidian Backlinks",
       },
       {
         "<leader>iL",
-        "<Cmd>ObsidianLinks<CR>",
+        "<Cmd>Obsidian links<CR>",
         desc = "Pick Obsidian Links",
       },
       {
         "<leader>ip",
-        "<Cmd>ObsidianPasteImg<CR>",
+        "<Cmd>Obsidian paste_img<CR>",
         desc = "Paste Image",
       },
       {
         "<leader>id",
-        "<Cmd>ObsidianToday<CR>",
+        "<Cmd>Obsidian today<CR>",
         desc = "New (Daily)",
       },
       {
         "<leader>il",
-        "<Cmd>ObsidianToday -1<CR>",
+        "<Cmd>Obsidian today -1<CR>",
         desc = "Last (Daily)",
       },
       {
         "<leader>io",
-        "<Cmd>ObsidianOpen<CR>",
+        "<Cmd>Obsidian open<CR>",
         desc = "Open In Obsidian",
       },
       -- {
       --   "<leader>mx",
-      --   "<Cmd>ObsidianToggleCheckbox<CR>",
+      --   "<Cmd>Obsidian toggle_checkbox<CR>",
       --   desc = "Toggle checkbox",
       -- },
     },
     opts = {
+      legacy_commands = false,
       workspaces = {
         -- TODO: automagically populate workspaces
         {
@@ -96,27 +97,6 @@ return {
       daily_notes = {
         folder = "journal/dailies",
         -- template = nil,
-      },
-      mappings = {
-        ["gf"] = {
-          action = function()
-            return require("obsidian").util.gf_passthrough()
-          end,
-          opts = { noremap = false, expr = true, buffer = true },
-        },
-        ["<cr>"] = {
-          action = function()
-            return require("obsidian").util.smart_action()
-          end,
-          opts = { buffer = true, expr = true },
-        },
-        -- TODO: ObsidianExtractNote
-        -- ["<leader>ii"] = {
-        --   action = function()
-        --     -- TODO: <Cmd>ObsidianLink<CR>
-        --   end,
-        --   opts = { desc = "Insert Obsidian Link", buffer = true, expr = true },
-        -- },
       },
       picker = {
         name = "snacks.pick",
@@ -164,9 +144,18 @@ return {
         blink = true,
       },
       callbacks = {
-        post_set_workspace = function(_, workspace)
+        post_set_workspace = function(workspace)
           vim.api.nvim_set_current_dir(tostring(workspace.root))
           require("persistence").load()
+        end,
+        enter_note = function(_, note)
+          keymapsUtils.map("n", "gf", function()
+            return require("obsidian").util.gf_passthrough()
+          end, "", { noremap = false, expr = true, buffer = true })
+          keymapsUtils.map("n", "<cr>", function()
+            return require("obsidian").util.smart_action()
+          end, "", { buffer = true, expr = true })
+          -- TODO: ObsidianExtractNote
         end,
       },
     },
