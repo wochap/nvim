@@ -65,6 +65,9 @@ return {
     },
     opts = {
       lang = "cpp",
+      picker = {
+        provider = "snacks-picker",
+      },
       description = {
         width = "50%",
       },
