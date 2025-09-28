@@ -1,11 +1,13 @@
 local utils = require "custom.utils"
 local colorsUtils = require "custom.utils.colors"
 
+-- from LazyVim
 vim.api.nvim_create_user_command("LazyHealth", function()
   vim.cmd [[Lazy! load all]]
   vim.cmd [[checkhealth]]
 end, { desc = "Load all plugins and run :checkhealth" })
 
+-- used by lazygit
 vim.api.nvim_create_user_command("WindowPicker", function(e)
   local file = e.fargs[1]
   if file == nil then
@@ -92,6 +94,7 @@ vim.api.nvim_create_user_command("DiffClip", function()
   }, ",")
 end, { desc = "Compare Selection or Active File with Clipboard", range = false })
 
+-- toggles between rgb and hex
 vim.api.nvim_create_user_command("ToggleColorFormat", function()
   local selected_text = utils.get_visual_selection()
   if not selected_text then
