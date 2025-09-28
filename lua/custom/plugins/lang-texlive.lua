@@ -1,4 +1,4 @@
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
 local keymapsUtils = require "custom.utils.keymaps"
 local nvim_textlabconfig_bin_path = vim.fn.stdpath "data" .. "/lazy/nvim-texlabconfig/nvim-texlabconfig"
 
@@ -15,8 +15,8 @@ return {
     "neovim/nvim-lspconfig",
     optional = true,
     init = function()
-      utils.autocmd({ "BufEnter" }, {
-        group = utils.augroup "load_texlab_mappings",
+      nvimUtils.autocmd({ "BufEnter" }, {
+        group = nvimUtils.augroup "load_texlab_mappings",
         pattern = "*.tex",
         callback = function()
           local bufnr = vim.api.nvim_get_current_buf()

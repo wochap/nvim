@@ -1,4 +1,4 @@
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
 local keymapsUtils = require "custom.utils.keymaps"
 local constants = require "custom.utils.constants"
 
@@ -214,8 +214,8 @@ return {
       },
     },
     init = function()
-      utils.autocmd({ "BufEnter" }, {
-        group = utils.augroup "load_zk_mappings",
+      nvimUtils.autocmd({ "BufEnter" }, {
+        group = nvimUtils.augroup "load_zk_mappings",
         pattern = "*.md",
         callback = function(event)
           if require("zk.util").notebook_root(vim.fn.expand "%:p") ~= nil then

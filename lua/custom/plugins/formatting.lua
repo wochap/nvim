@@ -1,4 +1,4 @@
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
 local lazyUtils = require "custom.utils.lazy"
 local formatUtils = require "custom.utils.format"
 local langUtils = require "custom.utils.lang"
@@ -48,8 +48,8 @@ return {
     init = function()
       vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 
-      utils.autocmd("User", {
-        group = utils.augroup "install_formatter_cmds",
+      nvimUtils.autocmd("User", {
+        group = nvimUtils.augroup "install_formatter_cmds",
         pattern = "VeryLazy",
         callback = function()
           formatUtils.setup()

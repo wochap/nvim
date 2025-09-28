@@ -1,4 +1,4 @@
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
 local lazyUtils = require "custom.utils.lazy"
 local constants = require "custom.utils.constants"
 
@@ -79,9 +79,9 @@ return {
     ft = "kitty",
     opts = {},
     config = function()
-      utils.autocmd("FileType", {
+      nvimUtils.autocmd("FileType", {
         pattern = "kitty",
-        group = utils.augroup "enable_kitty_syntax",
+        group = nvimUtils.augroup "enable_kitty_syntax",
         command = "set syntax=kitty",
       })
     end,

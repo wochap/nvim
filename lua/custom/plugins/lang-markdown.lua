@@ -1,5 +1,5 @@
 local constants = require "custom.utils.constants"
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
 local keymapsUtils = require "custom.utils.keymaps"
 local langUtils = require "custom.utils.lang"
 
@@ -36,8 +36,8 @@ return {
     commit = "f23200c241b06866b561150fa0389d535a4b903d",
     build = "deno task --quiet build:fast",
     init = function()
-      utils.autocmd({ "BufEnter" }, {
-        group = utils.augroup "load_peek_mappings",
+      nvimUtils.autocmd({ "BufEnter" }, {
+        group = nvimUtils.augroup "load_peek_mappings",
         pattern = "*.md",
         callback = function()
           local bufnr = vim.api.nvim_get_current_buf()

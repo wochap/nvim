@@ -1,4 +1,3 @@
-local utils = require "custom.utils"
 local lazyUtils = require "custom.utils.lazy"
 local langUtils = require "custom.utils.lang"
 

@@ -1,4 +1,4 @@
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
 
 return {
   {
@@ -13,11 +13,11 @@ return {
     "neovim/nvim-lspconfig",
     optional = true,
     init = function()
-      utils.autocmd({
+      nvimUtils.autocmd({
         "BufNewFile",
         "BufRead",
       }, {
-        group = utils.augroup "set_typst_filetype",
+        group = nvimUtils.augroup "set_typst_filetype",
         pattern = "*.typ",
         callback = function(event)
           vim.bo[event.buf].filetype = "typst"

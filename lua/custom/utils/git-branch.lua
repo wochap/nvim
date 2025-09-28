@@ -1,4 +1,4 @@
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
 
 -- source: https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/components/branch/git_branch.lua
 local M = {}
@@ -139,8 +139,8 @@ function M.init()
   -- run watch head on load so branch is present when component is loaded
   M.find_git_dir()
   -- update branch state of BufEnter as different Buffer may be on different repos
-  utils.autocmd("BufEnter", {
-    group = utils.augroup "git_branch",
+  nvimUtils.autocmd("BufEnter", {
+    group = nvimUtils.augroup "git_branch",
     callback = function()
       M.find_git_dir()
     end,

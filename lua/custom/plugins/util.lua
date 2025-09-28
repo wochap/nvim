@@ -1,4 +1,4 @@
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
 local windowPickerUtils = require "custom.utils-plugins.window-picker"
 local lspUtils = require "custom.utils.lsp"
 local constants = require "custom.utils.constants"
@@ -260,8 +260,8 @@ return {
       if not mux or mux.type ~= "tmux" then
         return
       end
-      utils.autocmd("FocusGained", {
-        group = utils.augroup "fix_on_init_smart_splits_nvim",
+      nvimUtils.autocmd("FocusGained", {
+        group = nvimUtils.augroup "fix_on_init_smart_splits_nvim",
         callback = function()
           local pane_id = os.getenv "TMUX_PANE"
           if tonumber(smartSplitsUtils.tmux_exec { "show-options", "-pqvt", pane_id, "@pane-is-vim" }) == 1 then

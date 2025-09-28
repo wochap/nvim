@@ -1,4 +1,4 @@
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
 local lazyUtils = require "custom.utils.lazy"
 local iconsUtils = require "custom.utils.icons"
 local bufferlineUtils = require "custom.utils-plugins.bufferline"
@@ -143,7 +143,7 @@ return {
       -- vim.opt.termguicolors = true
 
       -- Fix bufferline when restoring a session
-      utils.autocmd("BufAdd", {
+      nvimUtils.autocmd("BufAdd", {
         callback = function()
           vim.schedule(function()
             pcall(nvim_bufferline)
@@ -622,8 +622,8 @@ return {
     event = "VeryLazy",
     init = function()
       -- Highlight on yank
-      utils.autocmd("TextYankPost", {
-        group = utils.augroup "highlight_yank",
+      nvimUtils.autocmd("TextYankPost", {
+        group = nvimUtils.augroup "highlight_yank",
         callback = function()
           vim.highlight.on_yank { higroup = "Highlight", timeout = 100 }
         end,

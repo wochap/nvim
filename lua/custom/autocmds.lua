@@ -1,15 +1,16 @@
-local utils = require "custom.utils"
+local editorUtils = require "custom.utils.editor"
+local nvimUtils = require "custom.utils.nvim"
 local constants = require "custom.utils.constants"
 
 -- Check if we need to reload the file when it changed
-utils.autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = utils.augroup "checktime",
+nvimUtils.autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = nvimUtils.augroup "checktime",
   command = "checktime",
 })
 
 -- Resize splits if window got resized
-utils.autocmd("VimResized", {
-  group = utils.augroup "resize_splits",
+nvimUtils.autocmd("VimResized", {
+  group = nvimUtils.augroup "resize_splits",
   callback = function()
     local current_tab = vim.fn.tabpagenr()
     vim.cmd "tabdo wincmd ="
@@ -18,8 +19,8 @@ utils.autocmd("VimResized", {
 })
 
 -- Go to last loc when opening a buffer
-utils.autocmd("BufReadPost", {
-  group = utils.augroup "last_loc",
+nvimUtils.autocmd("BufReadPost", {
+  group = nvimUtils.augroup "last_loc",
   callback = function()
     local exclude_filetypes = { "gitcommit", "gitrebase", "Trouble" }
     local buf = vim.api.nvim_get_current_buf()
@@ -35,8 +36,8 @@ utils.autocmd("BufReadPost", {
   end,
 })
 
-utils.autocmd("FileType", {
-  group = utils.augroup "nvr_as_git_editor",
+nvimUtils.autocmd("FileType", {
+  group = nvimUtils.augroup "nvr_as_git_editor",
   pattern = {
     "gitcommit",
     "gitrebase",
@@ -49,8 +50,8 @@ utils.autocmd("FileType", {
 
 -- Close some filetypes with <q>
 -- Don't list the following filetypes
-utils.autocmd("FileType", {
-  group = utils.augroup "close_with_q",
+nvimUtils.autocmd("FileType", {
+  group = nvimUtils.augroup "close_with_q",
   pattern = {
     "trouble",
     "gitcommit",
@@ -82,14 +83,14 @@ utils.autocmd("FileType", {
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
-utils.autocmd("CmdwinEnter", {
-  group = utils.augroup "close_with_q_cmd",
+nvimUtils.autocmd("CmdwinEnter", {
+  group = nvimUtils.augroup "close_with_q_cmd",
   command = "nnoremap <buffer> q :q<CR>",
 })
 
 -- Wrap text filetypes
-utils.autocmd("FileType", {
-  group = utils.augroup "wrap_text",
+nvimUtils.autocmd("FileType", {
+  group = nvimUtils.augroup "wrap_text",
   pattern = constants.text_filetypes,
   callback = function()
     vim.opt_local.wrap = true
@@ -98,8 +99,8 @@ utils.autocmd("FileType", {
 })
 
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
-utils.autocmd("BufWritePre", {
-  group = utils.augroup "auto_create_dir",
+nvimUtils.autocmd("BufWritePre", {
+  group = nvimUtils.augroup "auto_create_dir",
   callback = function(event)
     if event.match:match "^%w%w+://" then
       return
@@ -110,9 +111,9 @@ utils.autocmd("BufWritePre", {
 })
 
 -- Enable native syntax hl
-utils.autocmd("FileType", {
+nvimUtils.autocmd("FileType", {
   pattern = { "gitsendemail", "conf", "editorconfig", "qf", "checkhealth", "less", "taskedit", "gitignore" },
-  group = utils.augroup "enable_filetypes_syntax",
+  group = nvimUtils.augroup "enable_filetypes_syntax",
   callback = function(event)
     vim.bo[event.buf].syntax = vim.bo[event.buf].filetype
   end,
@@ -126,15 +127,15 @@ vim.filetype.add {
         return vim.bo[buf]
             and vim.bo[buf].filetype ~= "bigfile"
             and path
-            and (utils.is_bigfile(buf, constants.big_file_mb) or utils.is_minfile(buf))
+            and (editorUtils.is_bigfile(buf, constants.big_file_mb) or editorUtils.is_minfile(buf))
             and "bigfile"
           or nil
       end,
     },
   },
 }
-utils.autocmd({ "FileType" }, {
-  group = utils.augroup "bigfile",
+nvimUtils.autocmd({ "FileType" }, {
+  group = nvimUtils.augroup "bigfile",
   pattern = "bigfile",
   callback = function(ev)
     -- TODO: does "monkoose/matchparen.nvim" supports disabling it?
@@ -147,8 +148,8 @@ utils.autocmd({ "FileType" }, {
   end,
 })
 
-utils.autocmd({ "FileType" }, {
-  group = utils.augroup "continue_markdown_list",
+nvimUtils.autocmd({ "FileType" }, {
+  group = nvimUtils.augroup "continue_markdown_list",
   pattern = "markdown",
   callback = function()
     vim.opt_local.comments = "b:-"
@@ -157,8 +158,8 @@ utils.autocmd({ "FileType" }, {
 })
 
 if constants.in_vi_edit then
-  utils.autocmd("VimEnter", {
-    group = utils.augroup "start_in_insert_mode",
+  nvimUtils.autocmd("VimEnter", {
+    group = nvimUtils.augroup "start_in_insert_mode",
     pattern = "*",
     command = [[
       startinsert

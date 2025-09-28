@@ -1,7 +1,7 @@
 local constants = require "custom.utils.constants"
+local nvimUtils = require "custom.utils.nvim"
 local formatUtils = require "custom.utils.format"
 local lspUtils = require "custom.utils.lsp"
-local utils = require "custom.utils"
 
 if vim.g.lazyvim_biome_needs_config == nil then
   vim.g.lazyvim_biome_needs_config = true
@@ -559,8 +559,8 @@ return {
       vim.g.user_emmet_leader_key = "<C-z>"
       vim.g.user_emmet_mode = "i"
 
-      utils.autocmd("FileType", {
-        group = utils.augroup "install_emmet",
+      nvimUtils.autocmd("FileType", {
+        group = nvimUtils.augroup "install_emmet",
         pattern = {
           "astro",
           "css",

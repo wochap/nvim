@@ -1,5 +1,5 @@
 local constants = require "custom.utils.constants"
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
 local iconsUtils = require "custom.utils.icons"
 
 -- Set <space> as the leader key
@@ -40,8 +40,8 @@ vim.opt.statusline = "%#Normal#"
 if not constants.in_kittyscrollback and not constants.in_vi_edit then
   vim.opt.statusline = [[%!v:lua.require('custom.utils.statusline').statusline()]]
 
-  utils.autocmd("FileType", {
-    group = utils.augroup "load_statusline_in_qf",
+  nvimUtils.autocmd("FileType", {
+    group = nvimUtils.augroup "load_statusline_in_qf",
     pattern = "qf",
     callback = function()
       vim.opt_local.statusline = [[%!v:lua.require('custom.utils.statusline').statusline()]]
@@ -68,8 +68,8 @@ vim.opt.foldtext = "v:lua.require'custom.utils.folds'.foldtext()"
 vim.opt.showmode = false
 
 -- Defer clipboard because xsel and pbcopy can be slow
-utils.autocmd("User", {
-  group = utils.augroup "load_clipboard",
+nvimUtils.autocmd("User", {
+  group = nvimUtils.augroup "load_clipboard",
   pattern = "VeryLazy",
   callback = function()
     -- Sync clipboard between OS and Neovim.

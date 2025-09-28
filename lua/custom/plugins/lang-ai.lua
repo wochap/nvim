@@ -1,4 +1,5 @@
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
+local editorUtils = require "custom.utils.editor"
 
 return {
   {
@@ -39,7 +40,7 @@ return {
           opts.mappings.ask,
           function()
             if not require("avante").is_sidebar_open() then
-              utils.close_left_sidebars "avante"
+              editorUtils.close_left_sidebars "avante"
             end
             vim.schedule(function()
               if require("avante").is_sidebar_open() and require("avante.utils").is_sidebar_buffer(0) then
@@ -74,7 +75,7 @@ return {
           opts.mappings.toggle.default,
           function()
             if not require("avante").is_sidebar_open() then
-              utils.close_left_sidebars "avante"
+              editorUtils.close_left_sidebars "avante"
             end
             vim.schedule(function()
               if require("avante").is_sidebar_open() then
@@ -89,8 +90,8 @@ return {
       }
     end,
     init = function()
-      utils.autocmd("FileType", {
-        group = utils.augroup "close_avante_with_q",
+      nvimUtils.autocmd("FileType", {
+        group = nvimUtils.augroup "close_avante_with_q",
         pattern = {
           "AvanteSelectedFiles",
         },
@@ -101,16 +102,16 @@ return {
         end,
       })
 
-      utils.autocmd("FileType", {
-        group = utils.augroup "resize_other_windows",
+      nvimUtils.autocmd("FileType", {
+        group = nvimUtils.augroup "resize_other_windows",
         pattern = { "Avante" },
         callback = function()
           vim.cmd ":wincmd ="
         end,
       })
 
-      -- utils.autocmd("FileType", {
-      --   group = utils.augroup "unlock_avante_width",
+      -- nvimUtils.autocmd("FileType", {
+      --   group = nvimUtils.augroup "unlock_avante_width",
       --   pattern = {
       --     "Avante",
       --     "AvanteSelectedFiles",

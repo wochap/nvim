@@ -1,4 +1,5 @@
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
+local editorUtils = require "custom.utils.editor"
 local constants = require "custom.utils.constants"
 local lspUtils = require "custom.utils.lsp"
 local lazyUtils = require "custom.utils.lazy"
@@ -95,7 +96,7 @@ return {
       {
         "<leader>E",
         function()
-          utils.close_right_sidebars "neo_tree_filesystem"
+          editorUtils.close_right_sidebars "neo_tree_filesystem"
           vim.schedule(function()
             -- focus or open
             require("neo-tree.command").execute {
@@ -109,7 +110,7 @@ return {
       {
         "<leader>e",
         function()
-          utils.close_right_sidebars "neo_tree_filesystem"
+          editorUtils.close_right_sidebars "neo_tree_filesystem"
           vim.schedule(function()
             -- focus or open
             require("neo-tree.command").execute {
@@ -123,7 +124,7 @@ return {
       {
         "<leader>ge",
         function()
-          utils.close_right_sidebars "neo_tree_git"
+          editorUtils.close_right_sidebars "neo_tree_git"
           vim.schedule(function()
             -- focus or open
             require("neo-tree.command").execute {
@@ -532,8 +533,8 @@ return {
       },
     },
     init = function()
-      utils.autocmd("VimLeavePre", {
-        group = utils.augroup "remove_diffview_buffers",
+      nvimUtils.autocmd("VimLeavePre", {
+        group = nvimUtils.augroup "remove_diffview_buffers",
         callback = function()
           for _, view in ipairs(require("diffview.lib").views) do
             view:close()
@@ -1081,7 +1082,6 @@ return {
     },
     opts = {
       picker = {
-        -- TODO: filetype hook, disable preview hl, not utils.is_minfile
         layouts = {
           default = {
             layout = {
@@ -1293,8 +1293,8 @@ return {
   {
     "folke/flash.nvim",
     init = function()
-      utils.autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
-        group = utils.augroup "turn_off_flash_search",
+      nvimUtils.autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
+        group = nvimUtils.augroup "turn_off_flash_search",
         callback = function()
           local has_flash = package.loaded["flash"]
           if not has_flash then

@@ -15,7 +15,7 @@ end
 vim.loader.enable()
 
 local constants = require "custom.utils.constants"
-local utils = require "custom.utils"
+local nvimUtils = require "custom.utils.nvim"
 
 -- PERF: disable nvim syntax, which causes severe lag
 -- however you can still enable it per buffer with a
@@ -32,8 +32,8 @@ require "custom.lazy"
 if constants.has_file_arg then
   require "custom.autocmds"
 end
-utils.autocmd("User", {
-  group = utils.augroup "load_core",
+nvimUtils.autocmd("User", {
+  group = nvimUtils.augroup "load_core",
   pattern = "VeryLazy",
   callback = function()
     if not constants.has_file_arg then
