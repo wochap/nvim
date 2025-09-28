@@ -34,9 +34,6 @@ if constants.in_neovide then
   vim.g.neovide_floating_blur_amount_y = 0
 end
 
-vim.g.foot = constants.in_foot
-vim.g.kitty = constants.in_kitty
-
 _G.dd = function(...)
   Snacks.debug.inspect(...)
 end
