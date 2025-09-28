@@ -83,6 +83,8 @@ return {
         "graphql",
         "html",
         "javascript",
+        "jsdoc",
+        "json",
         "scss",
         "svelte",
         "tsx",
