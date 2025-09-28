@@ -1,7 +1,7 @@
-local constants = require "custom.utils.constants"
-local nvimUtils = require "custom.utils.nvim"
-local keymapsUtils = require "custom.utils.keymaps"
-local langUtils = require "custom.utils.lang"
+local constants = require "custom.constants"
+local nvim_utils = require "custom.utils.nvim"
+local keymaps_utils = require "custom.utils.keymaps"
+local lang_utils = require "custom.utils.lang"
 
 return {
   {
@@ -36,15 +36,15 @@ return {
     commit = "f23200c241b06866b561150fa0389d535a4b903d",
     build = "deno task --quiet build:fast",
     init = function()
-      nvimUtils.autocmd({ "BufEnter" }, {
-        group = nvimUtils.augroup "load_peek_mappings",
+      nvim_utils.autocmd({ "BufEnter" }, {
+        group = nvim_utils.augroup "load_peek_mappings",
         pattern = "*.md",
         callback = function()
           local bufnr = vim.api.nvim_get_current_buf()
-          keymapsUtils.map("n", "<leader>fm", "<cmd>lua require('peek').open()<CR>", "open markdown previewer", {
+          keymaps_utils.map("n", "<leader>fm", "<cmd>lua require('peek').open()<CR>", "open markdown previewer", {
             buffer = bufnr,
           })
-          keymapsUtils.map("n", "<leader>fM", "<cmd>lua require('peek').close()<CR>", "close markdown previewer", {
+          keymaps_utils.map("n", "<leader>fM", "<cmd>lua require('peek').close()<CR>", "close markdown previewer", {
             buffer = bufnr,
           })
         end,
@@ -142,7 +142,7 @@ return {
             local has_render_markdown = package.loaded["render-markdown"]
             if has_render_markdown then
               if filetype == "markdown" then
-                return langUtils.list_merge(default, { "markdown" })
+                return lang_utils.list_merge(default, { "markdown" })
               end
             end
             return nil

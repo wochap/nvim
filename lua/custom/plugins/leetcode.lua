@@ -1,4 +1,4 @@
-local in_leetcode = require("custom.utils.constants").in_leetcode
+local in_leetcode = require("custom.constants").in_leetcode
 
 return {
   {

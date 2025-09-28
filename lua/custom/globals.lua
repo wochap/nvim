@@ -1,4 +1,4 @@
-local constants = require "custom.utils.constants"
+local constants = require "custom.constants"
 
 if constants.in_nix then
   -- overwrite PATH to ensure LSP servers start correctly in older projects

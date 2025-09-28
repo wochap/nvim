@@ -1,5 +1,5 @@
-local keymapsUtils = require "custom.utils.keymaps"
-local constants = require "custom.utils.constants"
+local keymaps_utils = require "custom.utils.keymaps"
+local constants = require "custom.constants"
 
 local M = {}
 
@@ -32,7 +32,7 @@ M.on_very_lazy = function(...)
 end
 
 M.load_mappings = function()
-  local map = keymapsUtils.map
+  local map = keymaps_utils.map
   map("n", "<leader>L", "<cmd>Lazy<cr>", "Lazy")
 end
 

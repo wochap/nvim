@@ -1,7 +1,7 @@
-local constants = require "custom.utils.constants"
-local nvimUtils = require "custom.utils.nvim"
-local formatUtils = require "custom.utils.format"
-local lspUtils = require "custom.utils.lsp"
+local constants = require "custom.constants"
+local nvim_utils = require "custom.utils.nvim"
+local format_utils = require "custom.utils.format"
+local lsp_utils = require "custom.utils.lsp"
 
 if vim.g.lazyvim_biome_needs_config == nil then
   vim.g.lazyvim_biome_needs_config = true
@@ -254,7 +254,7 @@ return {
                 globalPlugins = {
                   {
                     name = "@vue/typescript-plugin",
-                    location = lspUtils.get_pkg_path(
+                    location = lsp_utils.get_pkg_path(
                       "vue-language-server",
                       "/node_modules/@vue/language-server",
                       { warn = false }
@@ -349,7 +349,7 @@ return {
           }
 
           -- register the formatter with LazyVim
-          formatUtils.register(formatter)
+          format_utils.register(formatter)
         end,
       },
     },
@@ -559,8 +559,8 @@ return {
       vim.g.user_emmet_leader_key = "<C-z>"
       vim.g.user_emmet_mode = "i"
 
-      nvimUtils.autocmd("FileType", {
-        group = nvimUtils.augroup "install_emmet",
+      nvim_utils.autocmd("FileType", {
+        group = nvim_utils.augroup "install_emmet",
         pattern = {
           "astro",
           "css",

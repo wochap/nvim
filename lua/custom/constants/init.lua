@@ -1,4 +1,4 @@
-local langUtils = require "custom.utils.lang"
+local lang_utils = require "custom.utils.lang"
 
 local M = {}
 
@@ -68,13 +68,13 @@ local common_exclude_filetypes = {
   "tutor",
 }
 
-M.window_picker_exclude_filetypes = langUtils.list_merge(common_exclude_filetypes, {
+M.window_picker_exclude_filetypes = lang_utils.list_merge(common_exclude_filetypes, {
   -- nvim-treesitter-context
   "treesitter_context",
 })
 
 -- NOTE: you can't exclude empty filetypes
-M.exclude_filetypes = langUtils.list_merge(common_exclude_filetypes, {
+M.exclude_filetypes = lang_utils.list_merge(common_exclude_filetypes, {
   -- nvim-lspconfig
   "lspinfo",
   -- leetcode.nvim
@@ -100,7 +100,7 @@ M.window_picker_exclude_buftypes = {
   "prompt",
 }
 
-M.exclude_buftypes = langUtils.list_merge(M.window_picker_exclude_buftypes, {
+M.exclude_buftypes = lang_utils.list_merge(M.window_picker_exclude_buftypes, {
   "help",
 })
 

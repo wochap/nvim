@@ -1,8 +1,8 @@
-local nvimUtils = require "custom.utils.nvim"
-local windowPickerUtils = require "custom.utils-plugins.window-picker"
-local lspUtils = require "custom.utils.lsp"
-local constants = require "custom.utils.constants"
-local smartSplitsUtils = require "custom.utils-plugins.smart-splits"
+local nvim_utils = require "custom.utils.nvim"
+local window_picker_utils = require "custom.utils-plugins.window-picker"
+local lsp_utils = require "custom.utils.lsp"
+local constants = require "custom.constants"
+local smart_splits_utils = require "custom.utils-plugins.smart-splits"
 
 return {
   {
@@ -260,14 +260,14 @@ return {
       if not mux or mux.type ~= "tmux" then
         return
       end
-      nvimUtils.autocmd("FocusGained", {
-        group = nvimUtils.augroup "fix_on_init_smart_splits_nvim",
+      nvim_utils.autocmd("FocusGained", {
+        group = nvim_utils.augroup "fix_on_init_smart_splits_nvim",
         callback = function()
           local pane_id = os.getenv "TMUX_PANE"
-          if tonumber(smartSplitsUtils.tmux_exec { "show-options", "-pqvt", pane_id, "@pane-is-vim" }) == 1 then
+          if tonumber(smart_splits_utils.tmux_exec { "show-options", "-pqvt", pane_id, "@pane-is-vim" }) == 1 then
             return
           end
-          smartSplitsUtils.tmux_exec { "set-option", "-pt", pane_id, "@pane-is-vim", 1 }
+          smart_splits_utils.tmux_exec { "set-option", "-pt", pane_id, "@pane-is-vim", 1 }
         end,
       })
     end,
@@ -281,26 +281,26 @@ return {
       -- focus windows
       {
         "<C-F4>",
-        windowPickerUtils.window_pick,
+        window_picker_utils.window_pick,
         "Focus Window",
       },
       {
         -- HACK: F28 maps C-F4 in terminal linux
         "<F28>",
-        windowPickerUtils.window_pick,
+        window_picker_utils.window_pick,
         "Focus Window",
       },
 
       -- swap windows
       {
         "<C-S-F4>",
-        windowPickerUtils.window_swap,
+        window_picker_utils.window_swap,
         "Swap With Window",
       },
       {
         -- HACK: F40 maps C-S-F4 in terminal linux
         "<F40>",
-        windowPickerUtils.window_swap,
+        window_picker_utils.window_swap,
         "Swap With Window",
       },
     },
@@ -509,11 +509,11 @@ return {
             -- TODO: edge case where if you are in zen mode
             -- and switch to a different buffer
             -- this fn doesn't get called
-            lspUtils.toggle_inlay_hints(bufnr, false)
+            lsp_utils.toggle_inlay_hints(bufnr, false)
           end,
           on_close = function(win)
             local bufnr = win.buf
-            lspUtils.toggle_inlay_hints(bufnr, true)
+            lsp_utils.toggle_inlay_hints(bufnr, true)
           end,
         },
         styles = {

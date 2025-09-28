@@ -1,6 +1,6 @@
-local nvimUtils = require "custom.utils.nvim"
-local lazyUtils = require "custom.utils.lazy"
-local constants = require "custom.utils.constants"
+local nvim_utils = require "custom.utils.nvim"
+local lazy_utils = require "custom.utils.lazy"
+local constants = require "custom.constants"
 
 return {
   {
@@ -48,7 +48,7 @@ return {
     },
     config = function(_, opts)
       local ks = require "kitty-scrollback"
-      lazyUtils.on_load("catppuccin", function()
+      lazy_utils.on_load("catppuccin", function()
         local mocha = require("catppuccin.palettes").get_palette "mocha"
         vim.api.nvim_set_hl(0, "MsgArea", { fg = mocha.peach })
         opts.highlight_overrides = {
@@ -79,9 +79,9 @@ return {
     ft = "kitty",
     opts = {},
     config = function()
-      nvimUtils.autocmd("FileType", {
+      nvim_utils.autocmd("FileType", {
         pattern = "kitty",
-        group = nvimUtils.augroup "enable_kitty_syntax",
+        group = nvim_utils.augroup "enable_kitty_syntax",
         command = "set syntax=kitty",
       })
     end,

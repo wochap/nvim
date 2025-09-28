@@ -1,9 +1,9 @@
-local constants = require "custom.utils.constants"
-local iconsUtils = require "custom.utils.icons"
-local blinkCmpUtils = require "custom.utils-plugins.blink-cmp"
-local keymapsUtils = require "custom.utils.keymaps"
-local langUtils = require "custom.utils.lang"
-local textCaseUtils = require "custom.utils-plugins.text-case"
+local constants = require "custom.constants"
+local icons_constants = require "custom.constants.icons"
+local blink_cmp_utils = require "custom.utils-plugins.blink-cmp"
+local keymaps_utils = require "custom.utils.keymaps"
+local lang_utils = require "custom.utils.lang"
+local text_case_utils = require "custom.utils-plugins.text-case"
 
 return {
   {
@@ -129,7 +129,7 @@ return {
     keys = {
       {
         "gt.",
-        textCaseUtils.openSelect,
+        text_case_utils.openSelect,
         mode = { "n", "v" },
         desc = "Pick",
       },
@@ -205,7 +205,7 @@ return {
         return vim.bo.buftype ~= "prompt" and vim.b.completion ~= false and not recording_macro
       end,
       appearance = {
-        kind_icons = iconsUtils.lsp_kind,
+        kind_icons = icons_constants.lsp_kind,
         use_nvim_cmp_as_default = false,
         -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- adjusts spacing to ensure icons are aligned
@@ -321,7 +321,7 @@ return {
         defaults = {
           -- Dynamically picking providers by treesitter node/filetype
           function()
-            if blinkCmpUtils.inside_comment_block() then
+            if blink_cmp_utils.inside_comment_block() then
               return { "buffer" }
             end
             return nil
@@ -335,7 +335,7 @@ return {
             score_offset = 0,
             fallbacks = {},
             opts = {
-              tailwind_color_icon = iconsUtils.other.color,
+              tailwind_color_icon = icons_constants.other.color,
             },
           },
           snippets = {
@@ -385,14 +385,14 @@ return {
         ["<C-u>"] = {
           "scroll_documentation_up",
           function()
-            return blinkCmpUtils.scroll_signature_up()
+            return blink_cmp_utils.scroll_signature_up()
           end,
           "fallback",
         },
         ["<C-d>"] = {
           "scroll_documentation_down",
           function()
-            return blinkCmpUtils.scroll_signature_down()
+            return blink_cmp_utils.scroll_signature_down()
           end,
           "fallback",
         },
@@ -402,7 +402,7 @@ return {
               return
             end
             vim.schedule(function()
-              blinkCmpUtils.select_next_idx(4, -1)
+              blink_cmp_utils.select_next_idx(4, -1)
             end)
             return true
           end,
@@ -414,7 +414,7 @@ return {
               return
             end
             vim.schedule(function()
-              blinkCmpUtils.select_next_idx(4)
+              blink_cmp_utils.select_next_idx(4)
             end)
             return true
           end,
@@ -440,7 +440,7 @@ return {
         },
         ["<C-e>"] = {
           function()
-            return blinkCmpUtils.hide_signature()
+            return blink_cmp_utils.hide_signature()
           end,
           "cancel",
           "fallback",
@@ -448,7 +448,7 @@ return {
         ["<C-y>"] = {
           function()
             -- insert undo breakpoint
-            keymapsUtils.run_expr "<C-g>u"
+            keymaps_utils.run_expr "<C-g>u"
           end,
           "select_and_accept",
         },
@@ -475,7 +475,7 @@ return {
                 return
               end
               vim.schedule(function()
-                blinkCmpUtils.select_next_idx(4, -1)
+                blink_cmp_utils.select_next_idx(4, -1)
               end)
               return true
             end,
@@ -487,7 +487,7 @@ return {
                 return
               end
               vim.schedule(function()
-                blinkCmpUtils.select_next_idx(4)
+                blink_cmp_utils.select_next_idx(4)
               end)
               return true
             end,
@@ -672,7 +672,7 @@ return {
           if luasnip.jumpable(1) then
             luasnip.jump(1)
           else
-            keymapsUtils.run_expr "<Tab>"
+            keymaps_utils.run_expr "<Tab>"
           end
         end,
         desc = "Snippet Forward",
@@ -703,7 +703,7 @@ return {
             return
           end
           -- insert undo breakpoint
-          keymapsUtils.run_expr "<C-g>u"
+          keymaps_utils.run_expr "<C-g>u"
 
           vim.schedule(function()
             require("luasnip").expand()
@@ -1148,7 +1148,7 @@ return {
     "NMAC427/guess-indent.nvim",
     event = { "LazyFile", "VeryLazy" },
     opts = {
-      filetype_exclude = langUtils.list_merge(constants.exclude_filetypes, {
+      filetype_exclude = lang_utils.list_merge(constants.exclude_filetypes, {
         "diff",
       }),
       buftype_exclude = constants.exclude_buftypes,

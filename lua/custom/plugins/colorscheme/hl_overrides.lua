@@ -1,4 +1,4 @@
-local constants = require "custom.utils.constants"
+local constants = require "custom.constants"
 
 local getColors = function(C)
   local U = require "catppuccin.utils.colors"

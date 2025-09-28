@@ -1,4 +1,4 @@
-local iconsUtils = require "custom.utils.icons"
+local icons_constants = require "custom.constants.icons"
 
 return {
   {
@@ -102,8 +102,8 @@ return {
       icons = {
         child_indent = "  ",
         child_prefix = "  ",
-        collapsed = " " .. iconsUtils.fold.closed,
-        expanded = " " .. iconsUtils.fold.open,
+        collapsed = " " .. icons_constants.fold.closed,
+        expanded = " " .. icons_constants.fold.open,
         failed = "",
         final_child_indent = "  ",
         final_child_prefix = "  ",

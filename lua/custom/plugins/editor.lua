@@ -1,13 +1,13 @@
-local nvimUtils = require "custom.utils.nvim"
-local editorUtils = require "custom.utils.editor"
-local constants = require "custom.utils.constants"
-local lspUtils = require "custom.utils.lsp"
-local lazyUtils = require "custom.utils.lazy"
-local keymapsUtils = require "custom.utils.keymaps"
-local iconsUtils = require "custom.utils.icons"
-local snacksUtils = require "custom.utils-plugins.snacks"
-local neotreeUtils = require "custom.utils-plugins.neo-tree"
-local in_leetcode = require("custom.utils.constants").in_leetcode
+local nvim_utils = require "custom.utils.nvim"
+local editor_utils = require "custom.utils.editor"
+local constants = require "custom.constants"
+local lsp_utils = require "custom.utils.lsp"
+local lazy_utils = require "custom.utils.lazy"
+local keymaps_utils = require "custom.utils.keymaps"
+local icons_constants = require "custom.constants.icons"
+local snacks_utils = require "custom.utils-plugins.snacks"
+local neo_tree_utils = require "custom.utils-plugins.neo-tree"
+local in_leetcode = require("custom.constants").in_leetcode
 
 return {
   {
@@ -50,8 +50,8 @@ return {
         { "mtime", highlight = "OilMtime" },
         {
           "icon",
-          default_file = iconsUtils.file.default,
-          directory = iconsUtils.folder.default,
+          default_file = icons_constants.file.default,
+          directory = icons_constants.folder.default,
           add_padding = false,
         },
       },
@@ -96,7 +96,7 @@ return {
       {
         "<leader>E",
         function()
-          editorUtils.close_right_sidebars "neo_tree_filesystem"
+          editor_utils.close_right_sidebars "neo_tree_filesystem"
           vim.schedule(function()
             -- focus or open
             require("neo-tree.command").execute {
@@ -110,7 +110,7 @@ return {
       {
         "<leader>e",
         function()
-          editorUtils.close_right_sidebars "neo_tree_filesystem"
+          editor_utils.close_right_sidebars "neo_tree_filesystem"
           vim.schedule(function()
             -- focus or open
             require("neo-tree.command").execute {
@@ -124,7 +124,7 @@ return {
       {
         "<leader>ge",
         function()
-          editorUtils.close_right_sidebars "neo_tree_git"
+          editor_utils.close_right_sidebars "neo_tree_git"
           vim.schedule(function()
             -- focus or open
             require("neo-tree.command").execute {
@@ -182,9 +182,9 @@ return {
         -- scan_mode = "deep",
         window = {
           mappings = {
-            ["<CR>"] = neotreeUtils.open_with_window_picker,
-            ["<C-v>"] = neotreeUtils.vsplit_with_window_picker,
-            ["<C-x>"] = neotreeUtils.split_with_window_picker,
+            ["<CR>"] = neo_tree_utils.open_with_window_picker,
+            ["<C-v>"] = neo_tree_utils.vsplit_with_window_picker,
+            ["<C-x>"] = neo_tree_utils.split_with_window_picker,
             ["."] = "toggle_hidden",
             ["f"] = "fuzzy_finder",
             ["<A-Up>"] = "navigate_up",
@@ -283,17 +283,17 @@ return {
           padding = 1,
         },
         icon = {
-          folder_empty = iconsUtils.folder.empty,
-          folder_empty_open = iconsUtils.folder.empty_open,
+          folder_empty = icons_constants.folder.empty,
+          folder_empty_open = icons_constants.folder.empty_open,
         },
         modified = {
           symbol = "",
         },
         git_status = {
           symbols = {
-            added = iconsUtils.git.Add,
-            deleted = iconsUtils.git.Delete,
-            modified = iconsUtils.git.Change,
+            added = icons_constants.git.Add,
+            deleted = icons_constants.git.Delete,
+            modified = icons_constants.git.Change,
             renamed = "󰁕",
             untracked = "",
             ignored = "",
@@ -423,14 +423,14 @@ return {
       icons = {
         indent = {
           ws = "",
-          fold_open = iconsUtils.fold.open .. " ",
-          fold_closed = iconsUtils.fold.closed .. " ",
+          fold_open = icons_constants.fold.open .. " ",
+          fold_closed = icons_constants.fold.closed .. " ",
         },
-        folder_closed = iconsUtils.folder.default .. " ",
-        folder_open = iconsUtils.folder.open .. " ",
+        folder_closed = icons_constants.folder.default .. " ",
+        folder_open = icons_constants.folder.open .. " ",
         kinds = vim.tbl_map(function(icon)
           return icon .. " "
-        end, iconsUtils.lsp_kind),
+        end, icons_constants.lsp_kind),
       },
     },
   },
@@ -533,8 +533,8 @@ return {
       },
     },
     init = function()
-      nvimUtils.autocmd("VimLeavePre", {
-        group = nvimUtils.augroup "remove_diffview_buffers",
+      nvim_utils.autocmd("VimLeavePre", {
+        group = nvim_utils.augroup "remove_diffview_buffers",
         callback = function()
           for _, view in ipairs(require("diffview.lib").views) do
             view:close()
@@ -575,7 +575,7 @@ return {
       hooks = {
         diff_buf_read = function(bufnr)
           vim.opt_local.wrap = false
-          lspUtils.toggle_inlay_hints(bufnr, false)
+          lsp_utils.toggle_inlay_hints(bufnr, false)
         end,
         diff_buf_win_enter = function(bufnr, winid, ctx)
           if ctx.layout_name == "diff2_horizontal" then
@@ -852,10 +852,10 @@ return {
       icons = {
         -- actionEntryBullet = " ",
         searchInput = " ",
-        pathsInput = iconsUtils.folder.default .. " ",
-        resultsStatusError = iconsUtils.diagnostic.Error .. " ",
+        pathsInput = icons_constants.folder.default .. " ",
+        resultsStatusError = icons_constants.diagnostic.Error .. " ",
         -- resultsStatusSuccess = "󰗡 ",
-        resultsActionMessage = " " .. iconsUtils.diagnostic.Info .. " ",
+        resultsActionMessage = " " .. icons_constants.diagnostic.Info .. " ",
         -- resultsChangeIndicator = "┃",
         -- resultsAddedIndicator = "▒",
         -- resultsRemovedIndicator = "▒",
@@ -898,7 +898,7 @@ return {
       {
         "<leader>ff",
         function()
-          snacksUtils.files {
+          snacks_utils.files {
             cwd = vim.uv.cwd(),
           }
         end,
@@ -907,7 +907,7 @@ return {
       {
         "<leader>fF",
         function()
-          snacksUtils.files {
+          snacks_utils.files {
             cwd = LazyVim.root(),
           }
         end,
@@ -916,7 +916,7 @@ return {
       {
         "<leader>fa",
         function()
-          snacksUtils.files {
+          snacks_utils.files {
             cwd = vim.uv.cwd(),
             ignored = true,
           }
@@ -926,7 +926,7 @@ return {
       {
         "<leader>fA",
         function()
-          snacksUtils.files {
+          snacks_utils.files {
             cwd = LazyVim.root(),
             ignored = true,
           }
@@ -936,7 +936,7 @@ return {
       {
         "<leader>fw",
         function()
-          snacksUtils.grep {
+          snacks_utils.grep {
             cwd = vim.uv.cwd(),
           }
         end,
@@ -945,7 +945,7 @@ return {
       {
         "<leader>fw",
         function()
-          snacksUtils.grep {
+          snacks_utils.grep {
             cwd = vim.uv.cwd(),
           }
         end,
@@ -954,7 +954,7 @@ return {
       {
         "<leader>fW",
         function()
-          snacksUtils.grep {
+          snacks_utils.grep {
             cwd = LazyVim.root(),
           }
         end,
@@ -965,7 +965,7 @@ return {
         function()
           Snacks.picker.lsp_symbols {
             filter = {
-              default = snacksUtils.default_lsp_symbols,
+              default = snacks_utils.default_lsp_symbols,
             },
           }
         end,
@@ -976,7 +976,7 @@ return {
         function()
           Snacks.picker.lsp_workspace_symbols {
             filter = {
-              default = snacksUtils.default_lsp_symbols,
+              default = snacks_utils.default_lsp_symbols,
             },
           }
         end,
@@ -1052,14 +1052,14 @@ return {
       {
         "<leader>mf",
         function()
-          snacksUtils.filetypes()
+          snacks_utils.filetypes()
         end,
         desc = "Pick Filetype",
       },
       {
         "<leader>fp",
         function()
-          snacksUtils.projects()
+          snacks_utils.projects()
         end,
         desc = "Pick Project",
       },
@@ -1206,7 +1206,7 @@ return {
         actions = {
           pick = function(picker, item)
             picker:close()
-            local winid = snacksUtils.window_pick()
+            local winid = snacks_utils.window_pick()
             if winid == nil then
               return
             end
@@ -1215,7 +1215,7 @@ return {
           end,
           pick_vsplit = function(picker, item)
             picker:close()
-            local winid = snacksUtils.window_pick()
+            local winid = snacks_utils.window_pick()
             if winid == nil then
               return
             end
@@ -1224,7 +1224,7 @@ return {
           end,
           pick_split = function(picker, item)
             picker:close()
-            local winid = snacksUtils.window_pick()
+            local winid = snacks_utils.window_pick()
             if winid == nil then
               return
             end
@@ -1273,8 +1273,8 @@ return {
             ignored = " i",
             follow = " f",
           },
-          diagnostics = iconsUtils.diagnostic,
-          kinds = iconsUtils.lsp_kind,
+          diagnostics = icons_constants.diagnostic,
+          kinds = icons_constants.lsp_kind,
         },
       },
 
@@ -1293,8 +1293,8 @@ return {
   {
     "folke/flash.nvim",
     init = function()
-      nvimUtils.autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
-        group = nvimUtils.augroup "turn_off_flash_search",
+      nvim_utils.autocmd({ "CmdlineLeave", "CmdlineEnter" }, {
+        group = nvim_utils.augroup "turn_off_flash_search",
         callback = function()
           local has_flash = package.loaded["flash"]
           if not has_flash then
@@ -1454,14 +1454,14 @@ return {
       vim.api.nvim_create_autocmd("User", {
         pattern = "GitConflictDetected",
         callback = function(event)
-          lspUtils.toggle_inlay_hints(event.buf, false)
+          lsp_utils.toggle_inlay_hints(event.buf, false)
         end,
       })
 
       vim.api.nvim_create_autocmd("User", {
         pattern = "GitConflictResolved",
         callback = function(event)
-          lspUtils.toggle_inlay_hints(event.buf, true)
+          lsp_utils.toggle_inlay_hints(event.buf, true)
         end,
       })
 
@@ -1529,7 +1529,7 @@ return {
       word_diff = false,
       attach_to_untracked = true,
       on_attach = function(bufnr)
-        local map = keymapsUtils.map
+        local map = keymaps_utils.map
         map("n", "]g", function()
           if vim.wo.diff then
             return "]c"
@@ -1645,7 +1645,7 @@ return {
     },
     config = function(_, opts)
       -- colors
-      lazyUtils.on_load("catppuccin", function()
+      lazy_utils.on_load("catppuccin", function()
         local mocha = require("catppuccin.palettes").get_palette "mocha"
         opts.colors = {
           mocha.rosewater,
@@ -1714,7 +1714,7 @@ return {
     },
     config = function(_, opts)
       local sniprun = require "sniprun"
-      lazyUtils.on_load("catppuccin", function()
+      lazy_utils.on_load("catppuccin", function()
         local C = require("catppuccin.palettes").get_palette()
         local U = require "catppuccin.utils.colors"
         opts.snipruncolors = {

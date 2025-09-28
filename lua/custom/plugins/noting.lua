@@ -1,6 +1,6 @@
-local nvimUtils = require "custom.utils.nvim"
-local keymapsUtils = require "custom.utils.keymaps"
-local constants = require "custom.utils.constants"
+local nvim_utils = require "custom.utils.nvim"
+local keymaps_utils = require "custom.utils.keymaps"
+local constants = require "custom.constants"
 
 return {
   {
@@ -149,10 +149,10 @@ return {
           require("persistence").load()
         end,
         enter_note = function(_, note)
-          keymapsUtils.map("n", "gf", function()
+          keymaps_utils.map("n", "gf", function()
             return require("obsidian").util.gf_passthrough()
           end, "", { noremap = false, expr = true, buffer = true })
-          keymapsUtils.map("n", "<cr>", function()
+          keymaps_utils.map("n", "<cr>", function()
             return require("obsidian").util.smart_action()
           end, "", { buffer = true, expr = true })
           -- TODO: ObsidianExtractNote
@@ -214,13 +214,13 @@ return {
       },
     },
     init = function()
-      nvimUtils.autocmd({ "BufEnter" }, {
-        group = nvimUtils.augroup "load_zk_mappings",
+      nvim_utils.autocmd({ "BufEnter" }, {
+        group = nvim_utils.augroup "load_zk_mappings",
         pattern = "*.md",
         callback = function(event)
           if require("zk.util").notebook_root(vim.fn.expand "%:p") ~= nil then
             local opts = { noremap = true, buffer = event.buf }
-            keymapsUtils.map(
+            keymaps_utils.map(
               "n",
               "<leader>zN",
               "<Cmd>lua require('custom.utils-plugins.zk').new(true)<CR>",
@@ -229,9 +229,9 @@ return {
             )
             -- TODO: ZkNewFromTitleSelection
             -- TODO: ZkNewFromContentSelection
-            keymapsUtils.map("n", "gf", "<Cmd>lua vim.lsp.buf.definition()<CR>", "Open Link Under Cursor", opts)
-            keymapsUtils.map("n", "<CR>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "Open Link Under Cursor", opts)
-            keymapsUtils.map("n", "<leader>zi", "<Cmd>ZkInsertLink<CR>", "Insert Link", opts)
+            keymaps_utils.map("n", "gf", "<Cmd>lua vim.lsp.buf.definition()<CR>", "Open Link Under Cursor", opts)
+            keymaps_utils.map("n", "<CR>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "Open Link Under Cursor", opts)
+            keymaps_utils.map("n", "<leader>zi", "<Cmd>ZkInsertLink<CR>", "Insert Link", opts)
           end
         end,
       })

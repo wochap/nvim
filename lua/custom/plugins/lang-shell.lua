@@ -1,4 +1,4 @@
-local nvimUtils = require "custom.utils.nvim"
+local nvim_utils = require "custom.utils.nvim"
 
 return {
   {
@@ -12,8 +12,8 @@ return {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
     opts = function()
-      nvimUtils.autocmd("BufEnter", {
-        group = nvimUtils.augroup "disable_diagnostics_in_env_files",
+      nvim_utils.autocmd("BufEnter", {
+        group = nvim_utils.augroup "disable_diagnostics_in_env_files",
         pattern = ".env*",
         callback = function(event)
           vim.diagnostic.enable(false, {

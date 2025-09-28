@@ -1,4 +1,4 @@
-local constants = require "custom.utils.constants"
+local constants = require "custom.constants"
 
 -- source: https://github.com/serranomorante/.dotfiles/blob/main/docs/python-dev-setup.md
 local global_python_folder_path = os.getenv "GLOBAL_PYTHON_FOLDER_PATH" or ""

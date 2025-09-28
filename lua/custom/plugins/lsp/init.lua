@@ -1,8 +1,8 @@
-local lspUtils = require "custom.utils.lsp"
-local iconsUtils = require "custom.utils.icons"
-local formatUtils = require "custom.utils.format"
+local lsp_utils = require "custom.utils.lsp"
+local icons_constants = require "custom.constants.icons"
+local format_utils = require "custom.utils.format"
 local lspKeymapsUtils = require "custom.plugins.lsp.keymaps"
-local constants = require "custom.utils.constants"
+local constants = require "custom.constants"
 
 return {
   {
@@ -119,14 +119,14 @@ return {
       vim.lsp.set_log_level(vim.log.levels.ERROR)
 
       -- setup lsp formatter
-      formatUtils.register(lspUtils.formatter())
+      format_utils.register(lsp_utils.formatter())
 
       -- setup keymaps
-      lspUtils.on_attach(function(client, buffer)
+      lsp_utils.on_attach(function(client, buffer)
         lspKeymapsUtils.on_attach(client, buffer)
       end)
-      lspUtils.setup()
-      lspUtils.on_dynamic_capability(lspKeymapsUtils.on_attach)
+      lsp_utils.setup()
+      lsp_utils.on_dynamic_capability(lspKeymapsUtils.on_attach)
 
       -- setup diagnostics
       vim.diagnostic.config {
@@ -148,7 +148,7 @@ return {
         },
         signs = {
           text = {
-            [vim.diagnostic.severity.ERROR] = iconsUtils.diagnostic.Error,
+            [vim.diagnostic.severity.ERROR] = icons_constants.diagnostic.Error,
             [vim.diagnostic.severity.WARN] = "",
             [vim.diagnostic.severity.HINT] = "",
             [vim.diagnostic.severity.INFO] = "",
@@ -171,11 +171,11 @@ return {
           },
         },
       }
-      for name, icon in pairs(iconsUtils.diagnostic) do
+      for name, icon in pairs(icons_constants.diagnostic) do
         name = "DiagnosticSign" .. name
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
-      lspUtils.setup_mode_toggle(
+      lsp_utils.setup_mode_toggle(
         "diagnostics",
         -- Disable function
         function()
@@ -188,7 +188,7 @@ return {
       )
 
       -- setup folds
-      lspUtils.on_supports_method("textDocument/foldingRange", function(client, buffer)
+      lsp_utils.on_supports_method("textDocument/foldingRange", function(client, buffer)
         vim.wo.foldexpr = "v:lua.vim.lsp.foldexpr()"
       end)
 
@@ -247,7 +247,7 @@ return {
           return vim.lsp.inlay_hint.is_enabled { bufnr = 0 }
         end,
         set = function(enabled)
-          lspUtils.toggle_inlay_hints(0, enabled)
+          lsp_utils.toggle_inlay_hints(0, enabled)
         end,
       }):map "<leader>uh"
     end),

@@ -1,5 +1,5 @@
-local constants = require "custom.utils.constants"
-local langUtils = require "custom.utils.lang"
+local constants = require "custom.constants"
+local lang_utils = require "custom.utils.lang"
 
 local M = {}
 
@@ -36,7 +36,7 @@ local function has_long_line(bufnr)
   local lines_start = vim.api.nvim_buf_get_lines(bufnr, 0, 10, false)
   local lines_end = vim.api.nvim_buf_get_lines(bufnr, lines_count > 10 and lines_count - 9 or 0, lines_count, false)
   local max_line_length = 0
-  local lines = langUtils.list_merge(lines_start, lines_end)
+  local lines = lang_utils.list_merge(lines_start, lines_end)
   for _, line in ipairs(lines) do
     if #line > max_line_length then
       max_line_length = #line
@@ -48,7 +48,7 @@ M.is_minfile = function(bufnr)
   local filename = vim.api.nvim_buf_get_name(bufnr)
   local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
   return filename:match(fn_pattern)
-    or (not langUtils.matches_any_regex(filetype, ft_ignore_patterns) and has_long_line(bufnr))
+    or (not lang_utils.matches_any_regex(filetype, ft_ignore_patterns) and has_long_line(bufnr))
 end
 
 M.close_right_sidebars = function(ignore_sidebar)

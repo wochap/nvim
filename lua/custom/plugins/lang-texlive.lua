@@ -1,5 +1,5 @@
-local nvimUtils = require "custom.utils.nvim"
-local keymapsUtils = require "custom.utils.keymaps"
+local nvim_utils = require "custom.utils.nvim"
+local keymaps_utils = require "custom.utils.keymaps"
 local nvim_textlabconfig_bin_path = vim.fn.stdpath "data" .. "/lazy/nvim-texlabconfig/nvim-texlabconfig"
 
 return {
@@ -15,12 +15,12 @@ return {
     "neovim/nvim-lspconfig",
     optional = true,
     init = function()
-      nvimUtils.autocmd({ "BufEnter" }, {
-        group = nvimUtils.augroup "load_texlab_mappings",
+      nvim_utils.autocmd({ "BufEnter" }, {
+        group = nvim_utils.augroup "load_texlab_mappings",
         pattern = "*.tex",
         callback = function()
           local bufnr = vim.api.nvim_get_current_buf()
-          keymapsUtils.map("n", "<leader>fl", "<cmd>TexlabForward<CR>", "texlab forward", {
+          keymaps_utils.map("n", "<leader>fl", "<cmd>TexlabForward<CR>", "texlab forward", {
             buffer = bufnr,
           })
         end,

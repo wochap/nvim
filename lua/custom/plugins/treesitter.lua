@@ -1,5 +1,5 @@
-local constants = require "custom.utils.constants"
-local lazyUtils = require "custom.utils.lazy"
+local constants = require "custom.constants"
+local lazy_utils = require "custom.utils.lazy"
 
 return {
   {
@@ -117,7 +117,7 @@ return {
       return ret
     end,
     config = function(_, opts)
-      if lazyUtils.is_loaded "nvim-treesitter" then
+      if lazy_utils.is_loaded "nvim-treesitter" then
         require("nvim-treesitter-textobjects").setup(opts)
       end
     end,
@@ -165,7 +165,7 @@ return {
     "windwp/nvim-ts-autotag",
     event = { "InsertEnter", "VeryLazy" },
     config = function()
-      lazyUtils.on_load("nvim-treesitter", function()
+      lazy_utils.on_load("nvim-treesitter", function()
         require("nvim-ts-autotag").setup()
       end)
     end,

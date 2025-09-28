@@ -1,10 +1,10 @@
-local constants = require "custom.utils.constants"
-local iconsUtils = require "custom.utils.icons"
-local lspUtils = require "custom.utils.lsp"
-local lazyUtils = require "custom.utils.lazy"
-local gitBranchUtils = require "custom.utils.git-branch"
-local formatUtils = require "custom.utils.format"
-local lintUtils = require "custom.utils.lint"
+local constants = require "custom.constants"
+local icons_constants = require "custom.constants.icons"
+local lsp_utils = require "custom.utils.lsp"
+local lazy_utils = require "custom.utils.lazy"
+local git_branch_utils = require "custom.utils.git-branch"
+local format_utils = require "custom.utils.format"
+local lint_utils = require "custom.utils.lint"
 
 local fn = vim.fn
 local api = vim.api
@@ -151,7 +151,7 @@ local function filename()
   local filename_str = (fn.expand "%" == "" and "[No Name]") or fn.expand "%:t"
 
   if #filename_str > 40 then
-    filename_str = iconsUtils.other.ellipsis .. string.sub(filename_str, -20)
+    filename_str = icons_constants.other.ellipsis .. string.sub(filename_str, -20)
   end
 
   return hl_str "StModule" .. filename_str
@@ -195,7 +195,7 @@ local function symbols_module()
 end
 
 local function git_branch_module()
-  local branch_name = gitBranchUtils.get_branch()
+  local branch_name = git_branch_utils.get_branch()
 
   if #branch_name > 0 then
     return hl_str "StModuleAlt" .. " " .. branch_name
@@ -226,13 +226,13 @@ local function git_diff_module()
 
   local git_status = vim.b.gitsigns_status_dict
   local added = (git_status.added and git_status.added ~= 0)
-      and (hl_str "StGitAdd" .. iconsUtils.git.Add .. " " .. git_status.added)
+      and (hl_str "StGitAdd" .. icons_constants.git.Add .. " " .. git_status.added)
     or ""
   local changed = (git_status.changed and git_status.changed ~= 0)
-      and (hl_str "StGitChange" .. iconsUtils.git.Change .. " " .. git_status.changed)
+      and (hl_str "StGitChange" .. icons_constants.git.Change .. " " .. git_status.changed)
     or ""
   local removed = (git_status.removed and git_status.removed ~= 0)
-      and (hl_str "StGitDelete" .. iconsUtils.git.Delete .. " " .. git_status.removed)
+      and (hl_str "StGitDelete" .. icons_constants.git.Delete .. " " .. git_status.removed)
     or ""
   local conflict = ""
   local has_gc = package.loaded["git-conflict"]
@@ -240,7 +240,7 @@ local function git_diff_module()
     local gc = require "git-conflict"
     local ok, conflict_count = pcall(gc.conflict_count)
     if ok then
-      conflict = (conflict_count ~= 0) and (hl_str "StGitConflict" .. iconsUtils.git.Conflict .. " " .. conflict_count)
+      conflict = (conflict_count ~= 0) and (hl_str "StGitConflict" .. icons_constants.git.Conflict .. " " .. conflict_count)
         or ""
     end
   end
@@ -272,16 +272,16 @@ local function diagnostics_module()
   local hints_count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
   local infos_count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   local errors = (errors_count and errors_count > 0)
-      and (hl_str "StErrors" .. iconsUtils.diagnostic.Error .. " " .. errors_count)
+      and (hl_str "StErrors" .. icons_constants.diagnostic.Error .. " " .. errors_count)
     or ""
   local warnings = (warnings_count and warnings_count > 0)
-      and (hl_str "StWarnings" .. iconsUtils.diagnostic.Warn .. " " .. warnings_count)
+      and (hl_str "StWarnings" .. icons_constants.diagnostic.Warn .. " " .. warnings_count)
     or ""
   local hints = (hints_count and hints_count > 0)
-      and (hl_str "StHints" .. iconsUtils.diagnostic.Hint .. " " .. hints_count)
+      and (hl_str "StHints" .. icons_constants.diagnostic.Hint .. " " .. hints_count)
     or ""
   local infos = (infos_count and infos_count > 0)
-      and (hl_str "StInfos" .. iconsUtils.diagnostic.Info .. " " .. infos_count)
+      and (hl_str "StInfos" .. icons_constants.diagnostic.Info .. " " .. infos_count)
     or ""
 
   return table.concat(remove_empty_str { errors, warnings, hints, infos }, " ")
@@ -422,7 +422,7 @@ local function formatter_module()
   local bufnr = vim.api.nvim_get_current_buf()
   local formatter_names = {}
 
-  for _, formatter in ipairs(formatUtils.resolve(bufnr)) do
+  for _, formatter in ipairs(format_utils.resolve(bufnr)) do
     if #formatter.resolved > 0 and formatter.active then
       vim.list_extend(formatter_names, formatter.resolved)
     end
@@ -448,7 +448,7 @@ local function linter_module()
   local buf = vim.api.nvim_get_current_buf()
   local linter_names = {}
 
-  for _, linter in ipairs(lintUtils.resolve(buf)) do
+  for _, linter in ipairs(lint_utils.resolve(buf)) do
     table.insert(linter_names, linter)
   end
 
@@ -521,7 +521,7 @@ local function dirname_module()
     .. hl_str "StModule"
     .. " "
     .. hl_merge("StFolder", "StModule")
-    .. iconsUtils.folder.default
+    .. icons_constants.folder.default
     .. " "
     .. hl_str "StModule"
     .. dirname_str
@@ -583,7 +583,7 @@ M.statusline = function()
 end
 
 M.init = function()
-  -- gitBranchUtils.init()
+  -- git_branch_utils.init()
 end
 
 return M

@@ -1,6 +1,6 @@
-local blinkCmpUtils = require "custom.utils-plugins.blink-cmp"
-local lspUtils = require "custom.utils.lsp"
-local lazyUtils = require "custom.utils.lazy"
+local blink_cmp_utils = require "custom.utils-plugins.blink-cmp"
+local lsp_utils = require "custom.utils.lsp"
+local lazy_utils = require "custom.utils.lazy"
 
 local diagnostic_goto = function(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
@@ -77,7 +77,7 @@ M.get = function()
     {
       "gh",
       function()
-        blinkCmpUtils.show_signature()
+        blink_cmp_utils.show_signature()
       end,
       desc = "Signature Help",
       has = "signatureHelp",
@@ -85,7 +85,7 @@ M.get = function()
     {
       "<c-h>",
       function()
-        blinkCmpUtils.show_signature()
+        blink_cmp_utils.show_signature()
       end,
       mode = "i",
       desc = "Signature Help",
@@ -146,7 +146,7 @@ function M.resolve(buffer)
     return {}
   end
   local spec = vim.tbl_extend("force", {}, M.get())
-  local lspconfigOpts = lazyUtils.opts "nvim-lspconfig"
+  local lspconfigOpts = lazy_utils.opts "nvim-lspconfig"
   local clients = vim.lsp.get_clients { bufnr = buffer }
   for _, client in ipairs(clients) do
     local maps = lspconfigOpts.servers[client.name] and lspconfigOpts.servers[client.name].keys or {}

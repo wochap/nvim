@@ -1,4 +1,4 @@
-local nvimUtils = require "custom.utils.nvim"
+local nvim_utils = require "custom.utils.nvim"
 
 local M = {}
 
@@ -98,18 +98,18 @@ M.setup_mode_toggle = function(name, disable_fn, enable_fn)
     end
   end
 
-  nvimUtils.autocmd("InsertEnter", {
-    group = nvimUtils.augroup("disable_" .. name .. "_on_insert_enter"),
+  nvim_utils.autocmd("InsertEnter", {
+    group = nvim_utils.augroup("disable_" .. name .. "_on_insert_enter"),
     pattern = "*",
     callback = create_callback(disable_fn),
   })
-  nvimUtils.autocmd("InsertLeave", {
-    group = nvimUtils.augroup("enable_" .. name .. "_on_insert_leave"),
+  nvim_utils.autocmd("InsertLeave", {
+    group = nvim_utils.augroup("enable_" .. name .. "_on_insert_leave"),
     pattern = "*",
     callback = create_callback(enable_fn),
   })
-  nvimUtils.autocmd("ModeChanged", {
-    group = nvimUtils.augroup("disable_" .. name .. "_on_visual_enter"),
+  nvim_utils.autocmd("ModeChanged", {
+    group = nvim_utils.augroup("disable_" .. name .. "_on_visual_enter"),
     pattern = "*:[vV]",
     callback = function(event)
       local cur_mode = vim.fn.mode()
@@ -121,8 +121,8 @@ M.setup_mode_toggle = function(name, disable_fn, enable_fn)
       end)
     end,
   })
-  nvimUtils.autocmd("ModeChanged", {
-    group = nvimUtils.augroup("enable_" .. name .. "_on_visual_leave"),
+  nvim_utils.autocmd("ModeChanged", {
+    group = nvim_utils.augroup("enable_" .. name .. "_on_visual_leave"),
     pattern = "[vV]:*",
     callback = create_callback(enable_fn),
   })
