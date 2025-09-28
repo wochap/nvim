@@ -1,11 +1,13 @@
-local utils = require "custom.utils"
-local colorsUtils = require "custom.utils.colors"
+local nvim_utils = require "custom.utils.nvim"
+local colors_utils = require "custom.utils.colors"
 
+-- from LazyVim
 vim.api.nvim_create_user_command("LazyHealth", function()
   vim.cmd [[Lazy! load all]]
   vim.cmd [[checkhealth]]
 end, { desc = "Load all plugins and run :checkhealth" })
 
+-- used by lazygit
 vim.api.nvim_create_user_command("WindowPicker", function(e)
   local file = e.fargs[1]
   if file == nil then
@@ -92,19 +94,20 @@ vim.api.nvim_create_user_command("DiffClip", function()
   }, ",")
 end, { desc = "Compare Selection or Active File with Clipboard", range = false })
 
+-- toggles between rgb and hex
 vim.api.nvim_create_user_command("ToggleColorFormat", function()
-  local selected_text = utils.get_visual_selection()
+  local selected_text = nvim_utils.get_visual_selection()
   if not selected_text then
     return
   end
 
   if selected_text:match "^#?%x%x%x%x%x%x$" then
-    local rgb = colorsUtils.hex_to_rgb(selected_text)
-    utils.replace_visual_selection(rgb)
+    local rgb = colors_utils.hex_to_rgb(selected_text)
+    nvim_utils.replace_visual_selection(rgb)
   end
 
   if selected_text:match "^rgb%(%d+,%s*%d+,%s*%d+%)$" then
-    local hex = colorsUtils.rgb_to_hex(selected_text)
-    utils.replace_visual_selection(hex)
+    local hex = colors_utils.rgb_to_hex(selected_text)
+    nvim_utils.replace_visual_selection(hex)
   end
 end, { desc = "Toggle Color Format", range = true })

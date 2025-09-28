@@ -1,5 +1,5 @@
-local constants = require "custom.utils.constants"
-local langUtils = require "custom.utils.lang"
+local constants = require "custom.constants"
+local lang_utils = require "custom.utils.lang"
 
 return {
   {
@@ -40,8 +40,8 @@ return {
     optional = true,
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      langUtils.remove_str_from_list(opts.ensure_installed, "gomodifytags")
-      langUtils.remove_str_from_list(opts.ensure_installed, "impl")
+      lang_utils.remove_str_from_list(opts.ensure_installed, "gomodifytags")
+      lang_utils.remove_str_from_list(opts.ensure_installed, "impl")
     end,
   },
 }

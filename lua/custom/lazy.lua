@@ -1,16 +1,16 @@
-local constants = require "custom.utils.constants"
-local lazyUtils = require "custom.utils.lazy"
-local lazyvimUtils = require "custom.utils.lazyvim"
-local langUtils = require "custom.utils.lang"
+local constants = require "custom.constants"
+local lazy_utils = require "custom.utils.lazy"
+local lazyvim_utils = require "custom.utils.lazyvim"
+local lang_utils = require "custom.utils.lang"
 
 -- Install `lazy.nvim` plugin manager
-lazyUtils.install()
+lazy_utils.install()
 
 -- Load `lazy.nvim` keymaps
-lazyUtils.load_mappings()
+lazy_utils.load_mappings()
 
 -- Load `LazyVim` if possible
-lazyvimUtils.load()
+lazyvim_utils.load()
 
 -- Configure and install plugins
 require("lazy").setup {
@@ -19,16 +19,16 @@ require("lazy").setup {
       "folke/lazy.nvim",
       version = "*",
     },
-    lazyUtils.find_local_nolazy_spec() or {},
+    lazy_utils.find_local_nolazy_spec() or {},
     -- Necessary to import extras from LazyVim
     {
       "LazyVim/LazyVim",
       lazy = false,
       version = false,
-      commit = "25abbf546d564dc484cf903804661ba12de45507", -- v14.15.0
+      commit = "b4606f9df3395a261bb6a09acc837993da5d8bfc", -- v15.2.0
       priority = 10000,
       config = function()
-        lazyvimUtils.setup()
+        lazyvim_utils.setup()
       end,
     },
     {
@@ -41,21 +41,13 @@ require("lazy").setup {
         require("snacks").setup(opts)
         -- HACK: restore vim.notify after snacks setup and let noice.nvim take over
         -- this is needed to have early notifications show up in noice history
-        if LazyVim.has "noice.nvim" then
+        if lazy_utils.has "noice.nvim" then
           vim.notify = notify
         end
       end,
     },
 
     { import = "custom.plugins" },
-    {
-      enabled = not constants.first_install,
-      import = "lazyvim.plugins.extras.lang.json",
-    },
-    {
-      enabled = not constants.first_install,
-      import = "lazyvim.plugins.extras.lang.yaml",
-    },
   },
   defaults = {
     lazy = true,
@@ -75,7 +67,7 @@ require("lazy").setup {
   change_detection = { enabled = false },
   performance = {
     rtp = {
-      disabled_plugins = langUtils.list_merge({
+      disabled_plugins = lang_utils.list_merge({
         "2html_plugin",
         "bugreport",
         "compiler",

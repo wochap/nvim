@@ -1,4 +1,5 @@
-local iconsUtils = require "custom.utils.icons"
+local icons_constants = require "custom.constants.icons"
+local lazy_utils = require "custom.utils.lazy"
 
 return {
   {
@@ -102,8 +103,8 @@ return {
       icons = {
         child_indent = "  ",
         child_prefix = "  ",
-        collapsed = " " .. iconsUtils.fold.closed,
-        expanded = " " .. iconsUtils.fold.open,
+        collapsed = " " .. icons_constants.fold.closed,
+        expanded = " " .. icons_constants.fold.open,
         failed = "",
         final_child_indent = "  ",
         final_child_prefix = "  ",
@@ -124,7 +125,7 @@ return {
       },
       quickfix = {
         open = function()
-          if LazyVim.has "trouble.nvim" then
+          if lazy_utils.has "trouble.nvim" then
             require("trouble").open { mode = "quickfix", focus = false, multiline = true }
           else
             vim.cmd "copen"
@@ -153,7 +154,7 @@ return {
         },
       }, neotest_ns)
 
-      if LazyVim.has "trouble.nvim" then
+      if lazy_utils.has "trouble.nvim" then
         opts.consumers = opts.consumers or {}
         -- Refresh and auto close trouble after running tests
         ---@type neotest.Consumer

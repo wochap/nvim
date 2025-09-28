@@ -1,15 +1,16 @@
-local utils = require "custom.utils"
-local constants = require "custom.utils.constants"
+local editor_utils = require "custom.utils.editor"
+local nvim_utils = require "custom.utils.nvim"
+local constants = require "custom.constants"
 
 -- Check if we need to reload the file when it changed
-utils.autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = utils.augroup "checktime",
+nvim_utils.autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = nvim_utils.augroup "checktime",
   command = "checktime",
 })
 
 -- Resize splits if window got resized
-utils.autocmd("VimResized", {
-  group = utils.augroup "resize_splits",
+nvim_utils.autocmd("VimResized", {
+  group = nvim_utils.augroup "resize_splits",
   callback = function()
     local current_tab = vim.fn.tabpagenr()
     vim.cmd "tabdo wincmd ="
@@ -18,12 +19,12 @@ utils.autocmd("VimResized", {
 })
 
 -- Go to last loc when opening a buffer
-utils.autocmd("BufReadPost", {
-  group = utils.augroup "last_loc",
+nvim_utils.autocmd("BufReadPost", {
+  group = nvim_utils.augroup "last_loc",
   callback = function()
-    local exclude = { "gitcommit", "gitrebase", "Trouble" }
+    local exclude_filetypes = { "gitcommit", "gitrebase", "Trouble" }
     local buf = vim.api.nvim_get_current_buf()
-    if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
+    if vim.tbl_contains(exclude_filetypes, vim.bo[buf].filetype) then
       return
     end
     local mark = vim.api.nvim_buf_get_mark(buf, '"')
@@ -35,8 +36,8 @@ utils.autocmd("BufReadPost", {
   end,
 })
 
-utils.autocmd("FileType", {
-  group = utils.augroup "nvr_as_git_editor",
+nvim_utils.autocmd("FileType", {
+  group = nvim_utils.augroup "nvr_as_git_editor",
   pattern = {
     "gitcommit",
     "gitrebase",
@@ -49,8 +50,8 @@ utils.autocmd("FileType", {
 
 -- Close some filetypes with <q>
 -- Don't list the following filetypes
-utils.autocmd("FileType", {
-  group = utils.augroup "close_with_q",
+nvim_utils.autocmd("FileType", {
+  group = nvim_utils.augroup "close_with_q",
   pattern = {
     "trouble",
     "gitcommit",
@@ -82,14 +83,14 @@ utils.autocmd("FileType", {
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
-utils.autocmd("CmdwinEnter", {
-  group = utils.augroup "close_with_q_cmd",
+nvim_utils.autocmd("CmdwinEnter", {
+  group = nvim_utils.augroup "close_with_q_cmd",
   command = "nnoremap <buffer> q :q<CR>",
 })
 
 -- Wrap text filetypes
-utils.autocmd("FileType", {
-  group = utils.augroup "wrap_text",
+nvim_utils.autocmd("FileType", {
+  group = nvim_utils.augroup "wrap_text",
   pattern = constants.text_filetypes,
   callback = function()
     vim.opt_local.wrap = true
@@ -98,8 +99,8 @@ utils.autocmd("FileType", {
 })
 
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
-utils.autocmd("BufWritePre", {
-  group = utils.augroup "auto_create_dir",
+nvim_utils.autocmd("BufWritePre", {
+  group = nvim_utils.augroup "auto_create_dir",
   callback = function(event)
     if event.match:match "^%w%w+://" then
       return
@@ -110,9 +111,9 @@ utils.autocmd("BufWritePre", {
 })
 
 -- Enable native syntax hl
-utils.autocmd("FileType", {
+nvim_utils.autocmd("FileType", {
   pattern = { "gitsendemail", "conf", "editorconfig", "qf", "checkhealth", "less", "taskedit", "gitignore" },
-  group = utils.augroup "enable_filetypes_syntax",
+  group = nvim_utils.augroup "enable_filetypes_syntax",
   callback = function(event)
     vim.bo[event.buf].syntax = vim.bo[event.buf].filetype
   end,
@@ -126,15 +127,15 @@ vim.filetype.add {
         return vim.bo[buf]
             and vim.bo[buf].filetype ~= "bigfile"
             and path
-            and (utils.is_bigfile(buf, constants.big_file_mb) or utils.is_minfile(buf))
+            and (editor_utils.is_bigfile(buf, constants.big_file_mb) or editor_utils.is_minfile(buf))
             and "bigfile"
           or nil
       end,
     },
   },
 }
-utils.autocmd({ "FileType" }, {
-  group = utils.augroup "bigfile",
+nvim_utils.autocmd({ "FileType" }, {
+  group = nvim_utils.augroup "bigfile",
   pattern = "bigfile",
   callback = function(ev)
     -- TODO: does "monkoose/matchparen.nvim" supports disabling it?
@@ -147,25 +148,8 @@ utils.autocmd({ "FileType" }, {
   end,
 })
 
--- folds
-utils.autocmd("LspAttach", {
-  group = utils.augroup "use_lsp_foldexpr",
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and client.supports_method "textDocument/foldingRange" then
-      local win = vim.api.nvim_get_current_win()
-      vim.wo[win][0].foldmethod = "expr"
-      vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
-    end
-  end,
-})
-utils.autocmd("LspDetach", {
-  group = utils.augroup "revert_lsp_foldexpr",
-  command = "setl foldexpr<",
-})
-
-utils.autocmd({ "FileType" }, {
-  group = utils.augroup "continue_markdown_list",
+nvim_utils.autocmd({ "FileType" }, {
+  group = nvim_utils.augroup "continue_markdown_list",
   pattern = "markdown",
   callback = function()
     vim.opt_local.comments = "b:-"
@@ -174,8 +158,8 @@ utils.autocmd({ "FileType" }, {
 })
 
 if constants.in_vi_edit then
-  utils.autocmd("VimEnter", {
-    group = utils.augroup "start_in_insert_mode",
+  nvim_utils.autocmd("VimEnter", {
+    group = nvim_utils.augroup "start_in_insert_mode",
     pattern = "*",
     command = [[
       startinsert

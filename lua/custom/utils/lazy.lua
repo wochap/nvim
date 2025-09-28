@@ -1,5 +1,5 @@
-local keymapsUtils = require "custom.utils.keymaps"
-local constants = require "custom.utils.constants"
+local keymaps_utils = require "custom.utils.keymaps"
+local constants = require "custom.constants"
 
 local M = {}
 
@@ -27,12 +27,16 @@ M.opts = function(...)
   return require("lazyvim.util").opts(...)
 end
 
+M.has = function(...)
+  return require("lazyvim.util").has(...)
+end
+
 M.on_very_lazy = function(...)
   require("lazyvim.util").on_very_lazy(...)
 end
 
 M.load_mappings = function()
-  local map = keymapsUtils.map
+  local map = keymaps_utils.map
   map("n", "<leader>L", "<cmd>Lazy<cr>", "Lazy")
 end
 
@@ -59,6 +63,18 @@ M.find_local_nolazy_spec = function()
     end
     path = p
   end
+end
+
+M.try = function(...)
+  return require("lazy.util").try(...)
+end
+
+M.warn = function(...)
+  return require("lazy.util").warn(...)
+end
+
+M.error = function(...)
+  return require("lazy.util").error(...)
 end
 
 return M

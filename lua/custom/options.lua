@@ -1,6 +1,6 @@
-local constants = require "custom.utils.constants"
-local utils = require "custom.utils"
-local iconsUtils = require "custom.utils.icons"
+local constants = require "custom.constants"
+local nvim_utils = require "custom.utils.nvim"
+local icons_constants = require "custom.constants.icons"
 
 -- Set <space> as the leader key
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -29,7 +29,7 @@ vim.opt.confirm = true
 vim.opt.mouse = "a"
 
 -- use snacks statuscolumn
-vim.opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
+vim.opt.statuscolumn = [[%!v:lua.require('custom.utils.statuscolumn').statuscolumn()]]
 
 -- hide nvim bottom status
 vim.opt.cmdheight = 0
@@ -38,19 +38,17 @@ vim.opt.cmdheight = 0
 vim.opt.laststatus = 3
 vim.opt.statusline = "%#Normal#"
 if not constants.in_kittyscrollback and not constants.in_vi_edit then
-  require("custom.utils.statusline").init()
-  vim.opt.statusline = "%!v:lua.require('custom.utils.statusline').statusline()"
-end
-utils.autocmd("FileType", {
-  group = utils.augroup "load_statusline_in_qf",
-  pattern = "qf",
-  callback = function()
-    if not constants.in_kittyscrollback and not constants.in_vi_edit then
-      vim.opt_local.statusline = "%!v:lua.require('custom.utils.statusline').statusline()"
+  vim.opt.statusline = [[%!v:lua.require('custom.utils.statusline').statusline()]]
+
+  nvim_utils.autocmd("FileType", {
+    group = nvim_utils.augroup "load_statusline_in_qf",
+    pattern = "qf",
+    callback = function()
+      vim.opt_local.statusline = [[%!v:lua.require('custom.utils.statusline').statusline()]]
       vim.opt_local.signcolumn = "yes:1"
-    end
-  end,
-})
+    end,
+  })
+end
 
 -- global bufferline
 vim.opt.showtabline = (constants.in_kittyscrollback or constants.in_lite) and 0 or 2
@@ -58,7 +56,7 @@ vim.o.tabline = "%#Normal#"
 
 -- folds
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.require'custom.utils.folds'.ts_foldexpr()"
+-- NOTE: treesitter and lsp sets vim.opt.foldexpr
 vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 10 -- deepest fold is 10 levels
 vim.opt.foldenable = false -- don't fold by default
@@ -70,12 +68,14 @@ vim.opt.foldtext = "v:lua.require'custom.utils.folds'.foldtext()"
 vim.opt.showmode = false
 
 -- Defer clipboard because xsel and pbcopy can be slow
-utils.autocmd("User", {
-  group = utils.augroup "load_clipboard",
+nvim_utils.autocmd("User", {
+  group = nvim_utils.augroup "load_clipboard",
   pattern = "VeryLazy",
   callback = function()
     -- Sync clipboard between OS and Neovim.
-    vim.opt.clipboard = "unnamedplus"
+    -- only set clipboard if not in ssh, to make sure the OSC 52
+    -- integration works automatically
+    vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
   end,
 })
 
@@ -119,8 +119,8 @@ vim.opt.listchars = {
 vim.opt.fillchars = {
   eob = " ",
   diff = "╱",
-  foldopen = iconsUtils.fold.open,
-  foldclose = iconsUtils.fold.closed,
+  foldopen = icons_constants.fold.open,
+  foldclose = icons_constants.fold.closed,
   foldsep = " ",
   fold = " ",
 }
@@ -184,12 +184,7 @@ vim.opt.swapfile = false
 -- sync buffers between neovim windows
 vim.opt.autoread = true
 
-if vim.fn.has "nvim-0.10" == 1 then
-  vim.opt.smoothscroll = true
-end
-
--- set cursor style to underline
--- opt.guicursor = "n-v-c-sm:hor20-Cursor,i-ci-ve:ver25,r-cr-o:hor20"
+vim.opt.smoothscroll = true
 
 -- neovide ignore its font config
 -- if we set guifont
@@ -215,6 +210,4 @@ vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "skiprtp"
 -- when cursor reaches end/beginning of line
 vim.opt.whichwrap:append "<>[]hl"
 
-if vim.fn.has "nvim-0.11" == 1 then
-  vim.opt.winborder = "none"
-end
+vim.opt.winborder = "none"

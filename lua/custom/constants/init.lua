@@ -1,4 +1,4 @@
-local langUtils = require "custom.utils.lang"
+local lang_utils = require "custom.utils.lang"
 
 local M = {}
 
@@ -68,13 +68,13 @@ local common_exclude_filetypes = {
   "tutor",
 }
 
-M.window_picker_exclude_filetypes = langUtils.list_merge(common_exclude_filetypes, {
+M.window_picker_exclude_filetypes = lang_utils.list_merge(common_exclude_filetypes, {
   -- nvim-treesitter-context
   "treesitter_context",
 })
 
 -- NOTE: you can't exclude empty filetypes
-M.exclude_filetypes = langUtils.list_merge(common_exclude_filetypes, {
+M.exclude_filetypes = lang_utils.list_merge(common_exclude_filetypes, {
   -- nvim-lspconfig
   "lspinfo",
   -- leetcode.nvim
@@ -100,7 +100,7 @@ M.window_picker_exclude_buftypes = {
   "prompt",
 }
 
-M.exclude_buftypes = langUtils.list_merge(M.window_picker_exclude_buftypes, {
+M.exclude_buftypes = lang_utils.list_merge(M.window_picker_exclude_buftypes, {
   "help",
 })
 
@@ -110,22 +110,18 @@ M.in_kitty = os.getenv "TERM" == "xterm-kitty"
 
 M.in_neovide = vim.g.neovide
 
-local zk_arg = "zk"
-M.in_zk = zk_arg == vim.fn.argv()[1]
+M.in_zk = os.getenv "IN_ZK" == "true"
 
-local obsidian_arg = "obsidian"
-M.in_obsidian = obsidian_arg == vim.fn.argv()[1]
+M.in_obsidian = os.getenv "IN_OBSIDIAN" == "true"
 
 local leet_arg = "leetcode.nvim"
 M.in_leetcode = leet_arg == vim.fn.argv()[1]
 
-local kitty_arg = "kitty-scrollback"
-M.in_kittyscrollback = kitty_arg == vim.fn.argv()[1]
+M.in_kittyscrollback = os.getenv "IN_KITTYSCROLLBACK" == "true"
 
 -- nvim is opening a file from the cmdline
-M.has_file_arg = vim.fn.argc(-1) > 0 and not M.in_kittyscrollback
+M.has_file_arg = vim.fn.argc(-1) > 0
 
--- M.transparent_background = not constants.in_neovide
 M.transparent_background = os.getenv "TRANSPARENT" == "true" and true or false
 
 -- TODO: makes more elements transparent
@@ -144,8 +140,10 @@ M.big_file_mb = 0.5
 local nix_path = os.getenv "NIX_PATH"
 M.in_nix = nix_path ~= nil and nix_path ~= ""
 
+-- disables some plugins for faster editing
 M.in_lite = os.getenv "LITE" == "true"
 
+-- disables more plugins for faster editing
 -- called from zvm_vi_edit_command_line
 M.in_vi_edit = os.getenv "IN_VI_EDIT" == "true"
 

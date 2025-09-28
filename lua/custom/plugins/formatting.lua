@@ -1,7 +1,7 @@
-local utils = require "custom.utils"
-local lazyUtils = require "custom.utils.lazy"
-local formatUtils = require "custom.utils.format"
-local langUtils = require "custom.utils.lang"
+local nvim_utils = require "custom.utils.nvim"
+local lazy_utils = require "custom.utils.lazy"
+local format_utils = require "custom.utils.format"
+local lang_utils = require "custom.utils.lang"
 
 return {
   {
@@ -48,22 +48,22 @@ return {
     init = function()
       vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 
-      utils.autocmd("User", {
-        group = utils.augroup "install_formatter_cmds",
+      nvim_utils.autocmd("User", {
+        group = nvim_utils.augroup "install_formatter_cmds",
         pattern = "VeryLazy",
         callback = function()
-          formatUtils.setup()
+          format_utils.setup()
         end,
       })
 
       -- Install the conform formatter on VeryLazy
-      lazyUtils.on_very_lazy(function()
-        formatUtils.register {
+      lazy_utils.on_very_lazy(function()
+        format_utils.register {
           name = "conform.nvim",
           priority = 100,
           primary = true,
           format = function(buf, format_opts, cb)
-            local opts = langUtils.tbl_merge({}, format_opts, { bufnr = buf })
+            local opts = lang_utils.tbl_merge({}, format_opts, { bufnr = buf })
             require("conform").format(opts, cb)
           end,
           sources = function(buf)

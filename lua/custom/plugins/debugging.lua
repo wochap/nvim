@@ -1,6 +1,5 @@
-local utils = require "custom.utils"
-local lazyUtils = require "custom.utils.lazy"
-local langUtils = require "custom.utils.lang"
+local lazy_utils = require "custom.utils.lazy"
+local lang_utils = require "custom.utils.lang"
 
 -- Debugger
 return {
@@ -133,9 +132,9 @@ return {
       {
         "LiadOz/nvim-dap-repl-highlights",
         config = function()
-          lazyUtils.on_load("nvim-treesitter", function()
-            local treesitterOpts = lazyUtils.opts "nvim-treesitter"
-            local ensureInstalled = langUtils.list_merge(treesitterOpts.ensure_installed, {
+          lazy_utils.on_load("nvim-treesitter", function()
+            local treesitterOpts = lazy_utils.opts "nvim-treesitter"
+            local ensureInstalled = lang_utils.list_merge(treesitterOpts.ensure_installed, {
               "dap_repl",
             })
             require("nvim-dap-repl-highlights").setup()
@@ -230,7 +229,7 @@ return {
     },
     config = function()
       -- load mason-nvim-dap here, after all adapters have been setup
-      require("mason-nvim-dap").setup(lazyUtils.opts "mason-nvim-dap.nvim")
+      require("mason-nvim-dap").setup(lazy_utils.opts "mason-nvim-dap.nvim")
 
       -- setup dap config by VsCode launch.json file
       local vscode = require "dap.ext.vscode"

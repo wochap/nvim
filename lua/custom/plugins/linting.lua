@@ -1,6 +1,5 @@
-local lintUtils = require "custom.utils.lint"
-local lazyCoreUtils = require "lazy.core.util"
-local constants = require "custom.utils.constants"
+local lint_utils = require "custom.utils.lint"
+local constants = require "custom.constants"
 
 return {
   {
@@ -60,7 +59,7 @@ return {
 
       function M.lint()
         local bufnr = vim.api.nvim_get_current_buf()
-        local names = lintUtils.resolve(bufnr, true)
+        local names = lint_utils.resolve(bufnr, true)
 
         -- Run linters.
         if #names > 0 then

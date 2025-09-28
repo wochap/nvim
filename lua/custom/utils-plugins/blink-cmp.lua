@@ -1,4 +1,4 @@
-local utils = require "custom.utils"
+local nvim_utils = require "custom.utils.nvim"
 
 local M = {}
 
@@ -77,7 +77,7 @@ M.show_signature = function()
     require("blink.cmp.signature.trigger").show()
     -- HACK: scroll the signature window to the top
     -- sometimes it opens already scrolled down
-    utils.set_timeout(250, function()
+    nvim_utils.set_timeout(250, function()
       local signature = require "blink.cmp.signature.window"
       local winnr = signature.win:get_win()
       if winnr == nil then

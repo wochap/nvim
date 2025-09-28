@@ -26,7 +26,7 @@ M.list_merge = function(...)
 end
 
 M.tbl_merge = function(...)
-  return LazyVim.merge(...)
+  return require("lazy.util").merge(...)
 end
 
 return M

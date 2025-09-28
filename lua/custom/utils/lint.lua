@@ -1,7 +1,7 @@
 local M = {}
 
 M.resolve = function(bufnr, do_warn)
-  local lazyCoreUtils = require "lazy.core.util"
+  local lazy_core_utils = require "lazy.core.util"
   local lint = require "lint"
   local buf = bufnr or vim.api.nvim_get_current_buf()
 
@@ -28,7 +28,7 @@ M.resolve = function(bufnr, do_warn)
   names = vim.tbl_filter(function(name)
     local linter = lint.linters[name]
     if do_warn and not linter then
-      lazyCoreUtils.warn("Linter not found: " .. name, { title = "nvim-lint" })
+      lazy_core_utils.warn("Linter not found: " .. name, { title = "nvim-lint" })
     end
     return linter and not (type(linter) == "table" and linter.condition and not linter.condition(ctx))
   end, names)

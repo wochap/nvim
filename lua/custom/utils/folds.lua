@@ -1,25 +1,4 @@
-local iconsUtils = require "custom.utils.icons"
-local constants = require "custom.utils.constants"
-
 local M = {}
-
--- optimized treesitter foldexpr for Neovim >= 0.10.0
-M.ts_foldexpr = function()
-  local buf = vim.api.nvim_get_current_buf()
-  if vim.b[buf].ts_folds == nil then
-    -- as long as we don't have a filetype, don't bother
-    -- checking if treesitter is available (it won't)
-    if vim.bo[buf].filetype == "" then
-      return "0"
-    end
-    if vim.tbl_contains(constants.exclude_filetypes, vim.bo[buf].filetype) then
-      vim.b[buf].ts_folds = false
-    else
-      vim.b[buf].ts_folds = pcall(vim.treesitter.get_parser, buf)
-    end
-  end
-  return vim.b[buf].ts_folds and vim.treesitter.foldexpr() or "0"
-end
 
 local function fold_virt_text(result, s, lnum, coloff)
   if not coloff then
@@ -49,14 +28,11 @@ end
 
 M.foldtext = function()
   local start = vim.fn.getline(vim.v.foldstart):gsub("\t", string.rep(" ", vim.o.tabstop))
-  -- local end_str = vim.fn.getline(vim.v.foldend)
-  -- local end_ = vim.trim(end_str)
   local result = {}
   local line_count = vim.v.foldend - vim.v.foldstart
   fold_virt_text(result, start, vim.v.foldstart - 1)
   table.insert(result, { " " })
   table.insert(result, { " 󰁂 " .. line_count .. " ", "LspInlayHint" })
-  -- fold_virt_text(result, end_, vim.v.foldend - 1, #(end_str:match "^(%s+)" or ""))
   return result
 end
 

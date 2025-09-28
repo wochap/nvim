@@ -14,8 +14,8 @@ end
 -- enable experimental Lua module loader
 vim.loader.enable()
 
-local constants = require "custom.utils.constants"
-local utils = require "custom.utils"
+local constants = require "custom.constants"
+local nvim_utils = require "custom.utils.nvim"
 
 -- PERF: disable nvim syntax, which causes severe lag
 -- however you can still enable it per buffer with a
@@ -28,12 +28,12 @@ require "custom.globals"
 -- lazy load ./plugins/*
 require "custom.lazy"
 
--- lazy load ./autocmds.lua, ./keymaps.lua, ./commands.lua
+-- lazy load ./autocmds.lua, ./keymaps.lua, ./macros.lua, ./commands.lua
 if constants.has_file_arg then
   require "custom.autocmds"
 end
-utils.autocmd("User", {
-  group = utils.augroup "load_core",
+nvim_utils.autocmd("User", {
+  group = nvim_utils.augroup "load_core",
   pattern = "VeryLazy",
   callback = function()
     if not constants.has_file_arg then

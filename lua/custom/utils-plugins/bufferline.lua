@@ -6,7 +6,7 @@ M.get_highlights = function()
   local bufferlineBg = C.base
   local bufferlineFg = C.surface1
 
-  return require("catppuccin.groups.integrations.bufferline").get {
+  return require("catppuccin.special.bufferline").get_theme {
     styles = {},
     custom = {
       all = {

@@ -1,4 +1,5 @@
-local utils = require "custom.utils"
+local nvim_utils = require "custom.utils.nvim"
+local editor_utils = require "custom.utils.editor"
 
 return {
   {
@@ -17,7 +18,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-      "echasnovski/mini.icons",
+      "nvim-mini/mini.icons",
     },
     keys = function(_, keys)
       local opts =
@@ -39,7 +40,7 @@ return {
           opts.mappings.ask,
           function()
             if not require("avante").is_sidebar_open() then
-              utils.close_left_sidebars "avante"
+              editor_utils.close_left_sidebars "avante"
             end
             vim.schedule(function()
               if require("avante").is_sidebar_open() and require("avante.utils").is_sidebar_buffer(0) then
@@ -74,7 +75,7 @@ return {
           opts.mappings.toggle.default,
           function()
             if not require("avante").is_sidebar_open() then
-              utils.close_left_sidebars "avante"
+              editor_utils.close_left_sidebars "avante"
             end
             vim.schedule(function()
               if require("avante").is_sidebar_open() then
@@ -89,8 +90,8 @@ return {
       }
     end,
     init = function()
-      utils.autocmd("FileType", {
-        group = utils.augroup "close_avante_with_q",
+      nvim_utils.autocmd("FileType", {
+        group = nvim_utils.augroup "close_avante_with_q",
         pattern = {
           "AvanteSelectedFiles",
         },
@@ -101,16 +102,16 @@ return {
         end,
       })
 
-      utils.autocmd("FileType", {
-        group = utils.augroup "resize_other_windows",
+      nvim_utils.autocmd("FileType", {
+        group = nvim_utils.augroup "resize_other_windows",
         pattern = { "Avante" },
         callback = function()
           vim.cmd ":wincmd ="
         end,
       })
 
-      -- utils.autocmd("FileType", {
-      --   group = utils.augroup "unlock_avante_width",
+      -- nvim_utils.autocmd("FileType", {
+      --   group = nvim_utils.augroup "unlock_avante_width",
       --   pattern = {
       --     "Avante",
       --     "AvanteSelectedFiles",

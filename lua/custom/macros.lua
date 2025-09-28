@@ -1,5 +1,5 @@
-local keymapsUtils = require "custom.utils.keymaps"
-local map = keymapsUtils.map
+local keymaps_utils = require "custom.utils.keymaps"
+local map = keymaps_utils.map
 
 map("n", ",l", function()
   local prev_l = vim.fn.getreg "l"

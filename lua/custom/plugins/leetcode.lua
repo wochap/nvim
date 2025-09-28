@@ -1,4 +1,4 @@
-local in_leetcode = require("custom.utils.constants").in_leetcode
+local in_leetcode = require("custom.constants").in_leetcode
 
 return {
   {
@@ -65,6 +65,9 @@ return {
     },
     opts = {
       lang = "cpp",
+      picker = {
+        provider = "snacks-picker",
+      },
       description = {
         width = "50%",
       },

@@ -1,5 +1,5 @@
-local constants = require "custom.utils.constants"
-local langUtils = require "custom.utils.lang"
+local constants = require "custom.constants"
+local lang_utils = require "custom.utils.lang"
 
 local M = {}
 
@@ -36,7 +36,7 @@ local function has_long_line(bufnr)
   local lines_start = vim.api.nvim_buf_get_lines(bufnr, 0, 10, false)
   local lines_end = vim.api.nvim_buf_get_lines(bufnr, lines_count > 10 and lines_count - 9 or 0, lines_count, false)
   local max_line_length = 0
-  local lines = langUtils.list_merge(lines_start, lines_end)
+  local lines = lang_utils.list_merge(lines_start, lines_end)
   for _, line in ipairs(lines) do
     if #line > max_line_length then
       max_line_length = #line
@@ -48,28 +48,7 @@ M.is_minfile = function(bufnr)
   local filename = vim.api.nvim_buf_get_name(bufnr)
   local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
   return filename:match(fn_pattern)
-    or (not langUtils.matches_any_regex(filetype, ft_ignore_patterns) and has_long_line(bufnr))
-end
-
-M.autocmd = vim.api.nvim_create_autocmd
-
-M.augroup = function(name)
-  return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
-end
-
-local files_count_cache = {}
-M.in_big_project = function(cwd)
-  cwd = cwd or vim.uv.cwd()
-  local count = files_count_cache[cwd]
-  if count == nil then
-    local output = vim.fn.systemlist "(git ls-files --cached || fd --type f) | wc -l"
-    count = #output > 0 and tonumber(output[1]) or 0
-    files_count_cache[cwd] = count
-  end
-  if count >= 1000 then
-    return true
-  end
-  return false
+    or (not lang_utils.matches_any_regex(filetype, ft_ignore_patterns) and has_long_line(bufnr))
 end
 
 M.close_right_sidebars = function(ignore_sidebar)
@@ -98,51 +77,6 @@ M.close_left_sidebars = function(ignore_sidebar)
   if has_neotest and ignore_sidebar ~= "neotest" then
     require("neotest").summary.close()
   end
-end
-
-M.bufname_valid = function(bufname)
-  if bufname:match "^/" or bufname:match "^[a-zA-Z]:" or bufname:match "^zipfile://" or bufname:match "^tarfile:" then
-    return true
-  end
-  return false
-end
-
-M.replace_visual_selection = function(text)
-  local start_line, start_col = vim.fn.getpos("'<")[2], vim.fn.getpos("'<")[3]
-  local end_line, end_col = vim.fn.getpos("'>")[2], vim.fn.getpos("'>")[3]
-
-  if start_line == end_line then
-    local line = vim.fn.getline(start_line)
-    local new_line = line:sub(1, start_col - 1) .. text .. line:sub(end_col + 1)
-    vim.fn.setline(start_line, new_line)
-    return
-  end
-end
-
-M.get_visual_selection = function()
-  local start_pos = vim.fn.getpos "'<"
-  local end_pos = vim.fn.getpos "'>"
-  local start_line, start_col = start_pos[2], start_pos[3]
-  local end_line, end_col = end_pos[2], end_pos[3]
-  local line = vim.fn.getline(start_line)
-
-  if start_line == end_line then
-    return string.sub(line, start_col, end_col)
-  end
-
-  return nil
-end
-
-M.set_timeout = function(ms, callback)
-  local timer = vim.loop.new_timer()
-  timer:start(ms, 0, function()
-    -- Stop and close the timer
-    timer:stop()
-    timer:close()
-
-    -- Schedule the callback to run on the main thread
-    vim.schedule(callback)
-  end)
 end
 
 return M

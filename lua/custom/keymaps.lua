@@ -1,6 +1,6 @@
-local keymapsUtils = require "custom.utils.keymaps"
-local constants = require "custom.utils.constants"
-local map = keymapsUtils.map
+local keymaps_utils = require "custom.utils.keymaps"
+local constants = require "custom.constants"
+local map = keymaps_utils.map
 
 -- clear search
 map({ "n", "i", "s" }, "<Esc>", function()
@@ -51,8 +51,8 @@ map("n", "<C-w>v", "<C-w>v", "Split Window Right")
 map("n", "<C-`>", "<C-w>p", "Previous Window")
 
 -- terminal
-map("t", "<C-x>", keymapsUtils.exit_terminal_mode, "Esc Terminal") -- exit terminal mode
-map("t", "<C-S-x>", keymapsUtils.exit_terminal_mode .. "<C-w>q", "Hide Terminal")
+map("t", "<C-x>", keymaps_utils.exit_terminal_mode, "Esc Terminal") -- exit terminal mode
+map("t", "<C-S-x>", keymaps_utils.exit_terminal_mode .. "<C-w>q", "Hide Terminal")
 
 -- scrolling
 map({ "n", "v" }, "<C-S-d>", "zL", "Scroll Right") -- half screen
@@ -61,8 +61,8 @@ map("n", "<C-k>", "4<C-y>", "Scroll Up") -- keeping cursor position
 map("n", "<C-j>", "4<C-e>", "Scroll Down") -- keeping cursor position
 
 -- debug nvim config
-map("n", "<f2>", keymapsUtils.print_syntax_info, "Inspect Cursor Syntax")
-map("n", "<f3>", keymapsUtils.print_buf_info, "Inspect Buffer Info")
+map("n", "<f2>", keymaps_utils.print_syntax_info, "Inspect Cursor Syntax")
+map("n", "<f3>", keymaps_utils.print_buf_info, "Inspect Buffer Info")
 map("n", "<leader>md", "<cmd>lua require('osv').launch({ port = 8086 })<cr>", "Start Nvim Server")
 map("n", "<leader>mD", "<cmd>lua require('osv').stop()<cr>", "Stop Nvim Server")
 
@@ -79,19 +79,19 @@ map("v", "g<A-a>", ":s/\\([^ ]\\) \\{2,\\}/\\1 /g<CR>:nohlsearch<CR>", "Unalign"
 map(
   { "n", "i", "x" },
   "<S-A-Down>",
-  keymapsUtils.get_clone_line_fn "down",
+  keymaps_utils.get_clone_line_fn "down",
   "Clone Line Down",
   { silent = true, noremap = true }
 )
 map(
   { "n", "i", "x" },
   "<S-A-Up>",
-  keymapsUtils.get_clone_line_fn "up",
+  keymaps_utils.get_clone_line_fn "up",
   "Clone Line Up",
   { silent = true, noremap = true }
 )
 map("s", "<BS>", function()
-  keymapsUtils.run_expr '<C-o>"_c'
+  keymaps_utils.run_expr '<C-o>"_c'
 end, "Delete")
 map("n", "K", "kJ", "Join With Prev Line")
 map("i", "<S-CR>", "'<C-o>o'", "Add New Line", { expr = true, noremap = true })
@@ -125,7 +125,7 @@ map("o", "N", "'nN'[v:searchforward]", "Prev Search Result", { expr = true })
 map("n", "<leader>qq", "<cmd>qa <CR>", "Exit")
 map("n", "<leader>q!", "<cmd>qa! <CR>", "Exit!")
 map("n", "gV", "`[v`]", "Last Yanked/Changed")
-map({ "n", "i", "v", "s" }, "<C-e>", keymapsUtils.close_all_floating, "Close Floating Windows")
+map({ "n", "i", "v", "s" }, "<C-e>", keymaps_utils.close_all_floating, "Close Floating Windows")
 map("n", "<leader>ps", "<cmd>syntime on<CR>", "Profile Syntax Start")
 map("n", "<leader>pS", "<cmd>syntime report<CR>", "Profile Syntax End")
 map("n", "<leader>mc", "<cmd>DiffClip<CR>", "DiffClip")
@@ -163,6 +163,6 @@ end
 
 -- enable terminal like copy and paste in neovide
 if constants.in_neovide then
-  map({ "n", "v", "i", "c", "t" }, "<C-S-v>", keymapsUtils.paste, "Paste", { noremap = true })
-  map({ "n", "v", "i", "c", "t" }, "<Insert>", keymapsUtils.paste, "Paste", { noremap = true })
+  map({ "n", "v", "i", "c", "t" }, "<C-S-v>", keymaps_utils.paste, "Paste", { noremap = true })
+  map({ "n", "v", "i", "c", "t" }, "<Insert>", keymaps_utils.paste, "Paste", { noremap = true })
 end

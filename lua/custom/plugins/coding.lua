@@ -1,13 +1,16 @@
-local constants = require "custom.utils.constants"
-local iconsUtils = require "custom.utils.icons"
-local blinkCmpUtils = require "custom.utils-plugins.blink-cmp"
-local keymapsUtils = require "custom.utils.keymaps"
-local langUtils = require "custom.utils.lang"
-local textCaseUtils = require "custom.utils-plugins.text-case"
+local constants = require "custom.constants"
+local icons_constants = require "custom.constants.icons"
+local lazy_utils = require "custom.utils.lazy"
+local lazyvim_utils = require "custom.utils.lazyvim"
+local blink_cmp_utils = require "custom.utils-plugins.blink-cmp"
+local mini_utils = require "custom.utils-plugins.mini"
+local keymaps_utils = require "custom.utils.keymaps"
+local lang_utils = require "custom.utils.lang"
+local text_case_utils = require "custom.utils-plugins.text-case"
 
 return {
   {
-    "echasnovski/mini.surround",
+    "nvim-mini/mini.surround",
     event = "VeryLazy",
     opts = {
       mappings = {
@@ -34,16 +37,16 @@ return {
     },
   },
 
-  -- https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-align.md
+  -- https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-align.md
   -- ga or gA
   {
-    "echasnovski/mini.align",
+    "nvim-mini/mini.align",
     event = "VeryLazy",
     opts = {},
   },
 
   {
-    "echasnovski/mini.operators",
+    "nvim-mini/mini.operators",
     event = "VeryLazy",
     opts = {
       evaluate = {
@@ -67,7 +70,7 @@ return {
   },
 
   {
-    "echasnovski/mini.move",
+    "nvim-mini/mini.move",
     event = { "LazyFile", "VeryLazy" },
     opts = {
       mappings = {
@@ -88,7 +91,7 @@ return {
 
   -- Better text-objects
   {
-    "echasnovski/mini.ai",
+    "nvim-mini/mini.ai",
     event = { "LazyFile", "VeryLazy" },
     opts = function()
       local ai = require "mini.ai"
@@ -107,7 +110,7 @@ return {
             { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
             "^().*()$",
           },
-          g = LazyVim.mini.ai_buffer, -- buffer
+          g = mini_utils.mini_ai_buffer, -- buffer
           u = ai.gen_spec.function_call(), -- u for "Usage"
           U = ai.gen_spec.function_call { name_pattern = "[%w_]" }, -- without dot in function name
         },
@@ -115,9 +118,9 @@ return {
     end,
     config = function(_, opts)
       require("mini.ai").setup(opts)
-      LazyVim.on_load("which-key.nvim", function()
+      lazy_utils.on_load("which-key.nvim", function()
         vim.schedule(function()
-          LazyVim.mini.ai_whichkey(opts)
+          mini_utils.mini_ai_whichkey(opts)
         end)
       end)
     end,
@@ -129,7 +132,7 @@ return {
     keys = {
       {
         "gt.",
-        textCaseUtils.openSelect,
+        text_case_utils.openSelect,
         mode = { "n", "v" },
         desc = "Pick",
       },
@@ -184,7 +187,7 @@ return {
   {
     -- PERF: runs very slow on nvim 0.11
     "saghen/blink.cmp",
-    version = "v1.6.0",
+    version = "v1.7.0",
     event = { "InsertEnter", "VeryLazy" },
     dependencies = {
       {
@@ -205,7 +208,7 @@ return {
         return vim.bo.buftype ~= "prompt" and vim.b.completion ~= false and not recording_macro
       end,
       appearance = {
-        kind_icons = iconsUtils.lsp_kind,
+        kind_icons = icons_constants.lsp_kind,
         use_nvim_cmp_as_default = false,
         -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- adjusts spacing to ensure icons are aligned
@@ -261,7 +264,7 @@ return {
           },
           -- Screen coordinates of the command line
           cmdline_position = function()
-            if LazyVim.has "noice.nvim" then
+            if lazy_utils.has "noice.nvim" then
               local Api = require "noice.api"
               local pos = Api.get_cmdline_position()
               local type = vim.fn.getcmdtype()
@@ -321,7 +324,7 @@ return {
         defaults = {
           -- Dynamically picking providers by treesitter node/filetype
           function()
-            if blinkCmpUtils.inside_comment_block() then
+            if blink_cmp_utils.inside_comment_block() then
               return { "buffer" }
             end
             return nil
@@ -335,7 +338,7 @@ return {
             score_offset = 0,
             fallbacks = {},
             opts = {
-              tailwind_color_icon = iconsUtils.other.color,
+              tailwind_color_icon = icons_constants.other.color,
             },
           },
           snippets = {
@@ -385,14 +388,14 @@ return {
         ["<C-u>"] = {
           "scroll_documentation_up",
           function()
-            return blinkCmpUtils.scroll_signature_up()
+            return blink_cmp_utils.scroll_signature_up()
           end,
           "fallback",
         },
         ["<C-d>"] = {
           "scroll_documentation_down",
           function()
-            return blinkCmpUtils.scroll_signature_down()
+            return blink_cmp_utils.scroll_signature_down()
           end,
           "fallback",
         },
@@ -402,7 +405,7 @@ return {
               return
             end
             vim.schedule(function()
-              blinkCmpUtils.select_next_idx(4, -1)
+              blink_cmp_utils.select_next_idx(4, -1)
             end)
             return true
           end,
@@ -414,7 +417,7 @@ return {
               return
             end
             vim.schedule(function()
-              blinkCmpUtils.select_next_idx(4)
+              blink_cmp_utils.select_next_idx(4)
             end)
             return true
           end,
@@ -440,7 +443,7 @@ return {
         },
         ["<C-e>"] = {
           function()
-            return blinkCmpUtils.hide_signature()
+            return blink_cmp_utils.hide_signature()
           end,
           "cancel",
           "fallback",
@@ -448,7 +451,7 @@ return {
         ["<C-y>"] = {
           function()
             -- insert undo breakpoint
-            keymapsUtils.run_expr "<C-g>u"
+            keymaps_utils.run_expr "<C-g>u"
           end,
           "select_and_accept",
         },
@@ -475,7 +478,7 @@ return {
                 return
               end
               vim.schedule(function()
-                blinkCmpUtils.select_next_idx(4, -1)
+                blink_cmp_utils.select_next_idx(4, -1)
               end)
               return true
             end,
@@ -487,7 +490,7 @@ return {
                 return
               end
               vim.schedule(function()
-                blinkCmpUtils.select_next_idx(4)
+                blink_cmp_utils.select_next_idx(4)
               end)
               return true
             end,
@@ -672,7 +675,7 @@ return {
           if luasnip.jumpable(1) then
             luasnip.jump(1)
           else
-            keymapsUtils.run_expr "<Tab>"
+            keymaps_utils.run_expr "<Tab>"
           end
         end,
         desc = "Snippet Forward",
@@ -703,7 +706,7 @@ return {
             return
           end
           -- insert undo breakpoint
-          keymapsUtils.run_expr "<C-g>u"
+          keymaps_utils.run_expr "<C-g>u"
 
           vim.schedule(function()
             require("luasnip").expand()
@@ -769,7 +772,7 @@ return {
 
   -- auto pairs
   {
-    "echasnovski/mini.pairs",
+    "nvim-mini/mini.pairs",
     event = "VeryLazy",
     opts = {
       modes = {
@@ -788,7 +791,7 @@ return {
       markdown = true,
     },
     config = function(_, opts)
-      LazyVim.mini.pairs(opts)
+      mini_utils.mini_pairs(opts)
     end,
   },
 
@@ -1009,7 +1012,7 @@ return {
           if mc.cursorsEnabled() then
             mc.alignCursors()
           else
-            LazyVim.error("Cursors are disabled", { title = "multicursor.nvim" })
+            lazy_utils.error("Cursors are disabled", { title = "multicursor.nvim" })
           end
         end,
         desc = "Align Columns",
@@ -1148,7 +1151,7 @@ return {
     "NMAC427/guess-indent.nvim",
     event = { "LazyFile", "VeryLazy" },
     opts = {
-      filetype_exclude = langUtils.list_merge(constants.exclude_filetypes, {
+      filetype_exclude = lang_utils.list_merge(constants.exclude_filetypes, {
         "diff",
       }),
       buftype_exclude = constants.exclude_buftypes,

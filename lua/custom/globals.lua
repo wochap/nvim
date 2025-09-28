@@ -1,4 +1,4 @@
-local constants = require "custom.utils.constants"
+local constants = require "custom.constants"
 
 if constants.in_nix then
   -- overwrite PATH to ensure LSP servers start correctly in older projects
@@ -33,9 +33,6 @@ if constants.in_neovide then
   vim.g.neovide_floating_blur_amount_x = 0
   vim.g.neovide_floating_blur_amount_y = 0
 end
-
-vim.g.foot = constants.in_foot
-vim.g.kitty = constants.in_kitty
 
 _G.dd = function(...)
   Snacks.debug.inspect(...)

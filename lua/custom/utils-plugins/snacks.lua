@@ -1,4 +1,4 @@
-local iconsUtils = require "custom.utils.icons"
+local icons_constants = require "custom.constants.icons"
 
 local M = {}
 
@@ -182,7 +182,7 @@ M.projects = function()
     items = projects_opts,
     format = function(item, picker)
       local ret = {
-        { iconsUtils.folder.default .. " ", "DevIconfolder" },
+        { icons_constants.folder.default .. " ", "DevIconfolder" },
         { item.text, item.text_hl },
       } ---@type snacks.picker.Highlight[]
       return ret

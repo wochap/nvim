@@ -1,3 +1,5 @@
+local lazy_utils = require "custom.utils.lazy"
+
 local M = {}
 
 M.register = function(...)
@@ -34,7 +36,7 @@ M.format = function(opts)
             format_timer:close()
             if err then
               local error_msg = (err and err.message) and "\n " .. err.message or "\n no error message"
-              LazyVim.error(try_opts.msg .. error_msg, { title = "conform.nvim" })
+              lazy_utils.error(try_opts.msg .. error_msg, { title = "conform.nvim" })
             end
             run_next(index + 1)
           end
@@ -47,7 +49,7 @@ M.format = function(opts)
           )
           return formatter.format(buf, opts.format_opts, cb)
         end
-        LazyVim.try(try_fn, try_opts)
+        lazy_utils.try(try_fn, try_opts)
       else
         run_next(index + 1)
       end
@@ -61,7 +63,7 @@ M.format = function(opts)
   -- for _, formatter in ipairs(M.resolve(buf)) do
   --   if formatter.active then
   --     done = true
-  --     LazyVim.try(function()
+  --     lazy_utils.try(function()
   --       return formatter.format(buf)
   --     end, { msg = "Formatter `" .. formatter.name .. "` failed" })
   --   end
@@ -69,7 +71,7 @@ M.format = function(opts)
   -- SYNC FORMAT END
 
   if not done and opts and opts.force then
-    LazyVim.warn("No formatter available", { title = "LazyVim" })
+    lazy_utils.warn("No formatter available", { title = "LazyVim" })
   end
 end
 

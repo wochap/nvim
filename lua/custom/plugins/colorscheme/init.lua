@@ -1,18 +1,17 @@
-local lazyUtils = require "custom.utils.lazy"
+local lazy_utils = require "custom.utils.lazy"
 local highlight_overrides = require "custom.plugins.colorscheme.hl_overrides"
-local constants = require "custom.utils.constants"
+local constants = require "custom.constants"
 
 return {
   {
     "catppuccin/nvim",
-    version = "v1.11.0",
     name = "catppuccin",
     event = "LazyFile",
     init = function()
       vim.api.nvim_create_autocmd("ColorScheme", {
         pattern = "catppuccin*",
         callback = function()
-          lazyUtils.on_load("catppuccin", function()
+          lazy_utils.on_load("catppuccin", function()
             local C = require("catppuccin.palettes").get_palette()
 
             -- TODO: add custom colors for latte

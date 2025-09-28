@@ -1,4 +1,4 @@
-local constants = require "custom.utils.constants"
+local constants = require "custom.constants"
 
 vim.g.lazyvim_php_lsp = "intelephense"
 

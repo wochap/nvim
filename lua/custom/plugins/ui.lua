@@ -1,8 +1,9 @@
-local utils = require "custom.utils"
-local lazyUtils = require "custom.utils.lazy"
-local iconsUtils = require "custom.utils.icons"
-local bufferlineUtils = require "custom.utils-plugins.bufferline"
-local constants = require "custom.utils.constants"
+local nvim_utils = require "custom.utils.nvim"
+local lazy_utils = require "custom.utils.lazy"
+local lazyvim_utils = require "custom.utils.lazyvim"
+local icons_constants = require "custom.constants.icons"
+local bufferline_utils = require "custom.utils-plugins.bufferline"
+local constants = require "custom.constants"
 
 return {
   {
@@ -48,14 +49,14 @@ return {
         rules = {
           -- NOTE: available colors: `azure`, `blue`, `cyan`, `green`, `grey`, `orange`, `purple`, `red`, `yellow`
           { pattern = "paste", icon = " ", color = "azure" },
-          { pattern = "avante", icon = iconsUtils.lsp_kind.Avante .. " ", color = "blue" },
+          { pattern = "avante", icon = icons_constants.lsp_kind.Avante .. " ", color = "blue" },
           { pattern = "comment", icon = " ", color = "grey" },
           { pattern = "obsidian", icon = " ", color = "purple" },
           { pattern = "zk", icon = " ", color = "green" },
           { pattern = "lsp", icon = " ", color = "red" },
           { pattern = "misc", icon = " ", color = "orange" },
           { pattern = "trouble", icon = "󱖫 ", color = "yellow" },
-          { pattern = "snip", icon = iconsUtils.lsp_kind.Snippet .. " ", color = "orange" },
+          { pattern = "snip", icon = icons_constants.lsp_kind.Snippet .. " ", color = "orange" },
           { pattern = "harpoon", icon = "󱡀 ", color = "cyan" },
         },
       },
@@ -143,7 +144,7 @@ return {
       -- vim.opt.termguicolors = true
 
       -- Fix bufferline when restoring a session
-      utils.autocmd("BufAdd", {
+      nvim_utils.autocmd("BufAdd", {
         callback = function()
           vim.schedule(function()
             pcall(nvim_bufferline)
@@ -190,14 +191,14 @@ return {
     },
     config = function(_, opts)
       local bufferline = require "bufferline"
-      lazyUtils.on_load("catppuccin", function()
-        opts.highlights = bufferlineUtils.get_highlights()
+      lazy_utils.on_load("catppuccin", function()
+        opts.highlights = bufferline_utils.get_highlights()
         bufferline.setup(opts)
 
         vim.api.nvim_create_autocmd("ColorScheme", {
           pattern = "catppuccin*",
           callback = function()
-            opts.highlights = bufferlineUtils.get_highlights()
+            opts.highlights = bufferline_utils.get_highlights()
             bufferline.setup(opts)
             require("bufferline.highlights").reset_icon_hl_cache()
           end,
@@ -354,9 +355,9 @@ return {
       format = {
         level = {
           icons = {
-            error = iconsUtils.diagnostic.Error,
-            warn = iconsUtils.diagnostic.Warn,
-            info = iconsUtils.diagnostic.Info,
+            error = icons_constants.diagnostic.Error,
+            warn = icons_constants.diagnostic.Warn,
+            info = icons_constants.diagnostic.Info,
           },
         },
       },
@@ -521,7 +522,7 @@ return {
         },
         exclude_filetypes = constants.exclude_filetypes,
         filter = function(buf)
-          local exclude_filetypes = LazyVim.opts("snacks.nvim").indent.exclude_filetypes
+          local exclude_filetypes = lazy_utils.opts("snacks.nvim").indent.exclude_filetypes
           local filetype = vim.api.nvim_get_option_value("filetype", { buf = buf })
           return vim.g.snacks_indent ~= false
             and vim.b[buf].snacks_indent ~= false
@@ -608,7 +609,7 @@ return {
     event = "VeryLazy",
     opts = {
       render = "virtual",
-      virtual_symbol = iconsUtils.other.color,
+      virtual_symbol = icons_constants.other.color,
       virtual_symbol_position = "eol",
       enable_named_colors = false,
       enable_tailwind = false,
@@ -622,8 +623,8 @@ return {
     event = "VeryLazy",
     init = function()
       -- Highlight on yank
-      utils.autocmd("TextYankPost", {
-        group = utils.augroup "highlight_yank",
+      nvim_utils.autocmd("TextYankPost", {
+        group = nvim_utils.augroup "highlight_yank",
         callback = function()
           vim.highlight.on_yank { higroup = "Highlight", timeout = 100 }
         end,
@@ -637,7 +638,7 @@ return {
   },
 
   {
-    "echasnovski/mini.icons",
+    "nvim-mini/mini.icons",
     opts = {
       default = {
         file = { glyph = "󰈤", hl = "MiniIconsRed" },
@@ -679,7 +680,7 @@ return {
     },
     config = function(_, opts)
       local smear_cursor = require "smear_cursor"
-      lazyUtils.on_load("catppuccin", function()
+      lazy_utils.on_load("catppuccin", function()
         local mocha = require("catppuccin.palettes").get_palette "mocha"
         opts.cursor_color = mocha.green
         smear_cursor.setup(opts)
@@ -693,7 +694,7 @@ return {
     lazy = false,
     config = function(_, opts)
       local modes = require "modes"
-      lazyUtils.on_load("catppuccin", function()
+      lazy_utils.on_load("catppuccin", function()
         local C = require("catppuccin.palettes").get_palette()
         opts.colors = {
           copy = C.yellow,
@@ -716,7 +717,7 @@ return {
     opts = {},
     config = function(_, opts)
       local reactive = require "reactive"
-      lazyUtils.on_load("catppuccin", function()
+      lazy_utils.on_load("catppuccin", function()
         local flavour = require("catppuccin").flavour
         opts.load = { "catppuccin-" .. flavour .. "-cursor", "catppuccin-" .. flavour .. "-cursorline" }
         reactive.setup(opts)
