@@ -48,10 +48,6 @@ require("lazy").setup {
     },
 
     { import = "custom.plugins" },
-    {
-      enabled = not constants.first_install,
-      import = "lazyvim.plugins.extras.lang.yaml",
-    },
   },
   defaults = {
     lazy = true,
