@@ -1,5 +1,3 @@
-local nvim_utils = require "custom.utils.nvim"
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -12,26 +10,10 @@ return {
   {
     "neovim/nvim-lspconfig",
     optional = true,
-    init = function()
-      nvim_utils.autocmd({
-        "BufNewFile",
-        "BufRead",
-      }, {
-        group = nvim_utils.augroup "set_typst_filetype",
-        pattern = "*.typ",
-        callback = function(event)
-          vim.bo[event.buf].filetype = "typst"
-        end,
-      })
-    end,
     opts = {
       servers = {
         tinymist = {
           mason = false,
-          single_file_support = true,
-          root_dir = function()
-            return vim.fn.getcwd()
-          end,
           settings = {
             exportPdf = "onSave",
             outputPath = "$root/$dir/$name",
