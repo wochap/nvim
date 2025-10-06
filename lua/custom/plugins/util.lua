@@ -489,6 +489,37 @@ return {
   },
 
   {
+    "CRAG666/betterTerm.nvim",
+    keys = {
+      {
+        mode = { "n", "t" },
+        "<C-;>",
+        function()
+          require("betterTerm").open()
+        end,
+        desc = "Open BetterTerm 0",
+      },
+      {
+        "<leader>ft",
+        function()
+          require("betterTerm").select()
+        end,
+        desc = "Find terminal",
+      },
+    },
+    opts = {
+      size = math.floor(vim.o.lines * 0.5),
+      new_tab_mapping = "<C-n>",
+      jump_tab_mapping = "<C-$tab>",
+      active_tab_hl = "TabLineSel",
+      inactive_tab_hl = "TabLine",
+      new_tab_hl = "BetterTermSymbol",
+      new_tab_icon = "+",
+      index_base = 1,
+    },
+  },
+
+  {
     "folke/snacks.nvim",
     optional = true,
     opts = function(_, opts)

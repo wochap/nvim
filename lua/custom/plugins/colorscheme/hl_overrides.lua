@@ -110,6 +110,11 @@ local get_extra_hl = function(C)
     StSnacksProfiler = { fg = C.red },
     StHarpoon = { fg = C.teal },
 
+    -- betterTerm.nvim
+    TabLineSel = { bg = C.base, fg = C.lavender },
+    TabLine = { bg = C.base, fg = C.surface1 },
+    BetterTermSymbol = { bg = C.base, fg = C.base },
+
     -- oil.nvim
     OilMtime = { fg = "#8383A9" },
     OilSize = { fg = "#87FF87" },
