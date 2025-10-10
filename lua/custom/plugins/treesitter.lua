@@ -29,6 +29,7 @@ return {
         "diff",
         "dockerfile",
         "just",
+        "toml",
       },
     },
     config = function(_, opts)
