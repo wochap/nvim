@@ -614,7 +614,7 @@ return {
       enable_named_colors = false,
       enable_tailwind = false,
       custom_colors = {},
-      exclude_filetypes = { "bigfile" },
+      exclude_filetypes = { "", "bigfile" },
     },
   },
 
