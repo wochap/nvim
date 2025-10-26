@@ -16,6 +16,12 @@ return {
   },
 
   {
+    "neovim/nvim-lspconfig",
+    optional = true,
+    opts_extend = { "servers.*.keys" },
+  },
+
+  {
     "nvim-neo-tree/neo-tree.nvim",
     optional = true,
     opts_extend = { "event_handlers" },

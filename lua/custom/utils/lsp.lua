@@ -12,7 +12,7 @@ M.format = function(opts, cb)
     "force",
     {},
     opts or {},
-    lazy_utils.opts("nvim-lspconfig").format or {},
+    lazy_utils.opts("nvim-lspconfig").default_format_opts or {},
     lazy_utils.opts("conform.nvim").default_format_opts or {}
   )
   local has_conform, conform = pcall(require, "conform")
@@ -26,12 +26,8 @@ M.format = function(opts, cb)
   end
 end
 
-M.setup = function(...)
-  return require("lazyvim.util.lsp").setup(...)
-end
-
-M.on_dynamic_capability = function(...)
-  return require("lazyvim.util.lsp").on_dynamic_capability(...)
+M.keymap_set = function(...)
+  return require("lazyvim.plugins.lsp.keymaps").set(...)
 end
 
 -- Pass down cb argument to conform format method
@@ -63,14 +59,6 @@ M.formatter = function(opts)
     end,
   }
   return lang_utils.tbl_merge(ret, opts) --[[@as LazyFormatter]]
-end
-
-M.on_attach = function(...)
-  return require("lazyvim.util.lsp").on_attach(...)
-end
-
-M.on_supports_method = function(...)
-  return require("lazyvim.util.lsp").on_supports_method(...)
 end
 
 M.toggle_inlay_hints = function(bufnr, state)
@@ -128,6 +116,16 @@ M.setup_mode_toggle = function(name, disable_fn, enable_fn)
     pattern = "[vV]:*",
     callback = create_callback(enable_fn),
   })
+end
+
+M.diagnostic_goto = function(next, severity)
+  return function()
+    vim.diagnostic.jump {
+      count = (next and 1 or -1) * vim.v.count1,
+      severity = severity and vim.diagnostic.severity[severity] or nil,
+      float = true,
+    }
+  end
 end
 
 return M
