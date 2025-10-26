@@ -26,10 +26,6 @@ M.format = function(opts, cb)
   end
 end
 
-M.keymap_set = function(...)
-  return require("lazyvim.plugins.lsp.keymaps").set(...)
-end
-
 -- Pass down cb argument to conform format method
 ---@param opts? LazyFormatter| {filter?: (string|vim.lsp.get_clients.Filter)}
 M.formatter = function(opts)
@@ -61,6 +57,14 @@ M.formatter = function(opts)
   return lang_utils.tbl_merge(ret, opts) --[[@as LazyFormatter]]
 end
 
+M.keymap_set = function(...)
+  return require("lazyvim.plugins.lsp.keymaps").set(...)
+end
+
+M.get_pkg_path = function(...)
+  return require("lazyvim.util").get_pkg_path(...)
+end
+
 M.toggle_inlay_hints = function(bufnr, state)
   if bufnr == nil then
     bufnr = 0
@@ -70,10 +74,6 @@ M.toggle_inlay_hints = function(bufnr, state)
   end
   vim.lsp.inlay_hint.enable(state, { bufnr = bufnr })
   vim.api.nvim_buf_set_var(bufnr, "is_ih_enabled", state)
-end
-
-M.get_pkg_path = function(...)
-  return require("lazyvim.util").get_pkg_path(...)
 end
 
 ---Sets up autocommands to enable/disable a feature based on mode.
