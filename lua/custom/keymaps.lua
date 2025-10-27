@@ -122,6 +122,25 @@ map("x", "N", "'nN'[v:searchforward]", "Prev Search Result", { expr = true })
 map("o", "N", "'nN'[v:searchforward]", "Prev Search Result", { expr = true })
 
 -- misc
+map("n", "gg", function()
+  local is_wrap_enabled = vim.opt_local.wrap:get()
+  local current_line = vim.fn.line "."
+  if is_wrap_enabled and current_line == 1 then
+    return "0"
+  else
+    return "gg"
+  end
+end, "First line", { expr = true })
+map("n", "G", function()
+  local is_wrap_enabled = vim.opt_local.wrap:get()
+  local current_line = vim.fn.line "."
+  local last_line = vim.fn.line "$"
+  if is_wrap_enabled and current_line == last_line then
+    return "$"
+  else
+    return "G"
+  end
+end, "Last line", { expr = true })
 map("n", "<leader>qq", "<cmd>qa <CR>", "Exit")
 map("n", "<leader>q!", "<cmd>qa! <CR>", "Exit!")
 map("n", "gV", "`[v`]", "Last Yanked/Changed")
