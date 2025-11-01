@@ -14,6 +14,7 @@ return {
       servers = {
         tinymist = {
           mason = false,
+          root_dir = vim.fn.getcwd(),
           settings = {
             exportPdf = "onSave",
             outputPath = "$root/$dir/$name",
