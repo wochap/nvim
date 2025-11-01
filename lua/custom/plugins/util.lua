@@ -493,7 +493,7 @@ return {
     keys = {
       {
         mode = { "n", "t" },
-        "<C-;>",
+        "<A-t>",
         function()
           require("betterTerm").open()
         end,
