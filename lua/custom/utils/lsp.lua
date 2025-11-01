@@ -65,6 +65,19 @@ M.get_pkg_path = function(...)
   return require("lazyvim.util").get_pkg_path(...)
 end
 
+
+M.code_action = function(action)
+  return function()
+    vim.lsp.buf.code_action {
+      apply = true,
+      context = {
+        only = { action },
+        diagnostics = {},
+      },
+    }
+  end
+end
+
 M.toggle_inlay_hints = function(bufnr, state)
   if bufnr == nil then
     bufnr = 0

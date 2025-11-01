@@ -1,4 +1,5 @@
 local constants = require "custom.constants"
+local lsp_utils = require "custom.utils.lsp"
 
 -- source: https://github.com/serranomorante/.dotfiles/blob/main/docs/python-dev-setup.md
 local global_python_folder_path = os.getenv "GLOBAL_PYTHON_FOLDER_PATH" or ""
@@ -30,15 +31,7 @@ return {
             },
             {
               "<leader>lo",
-              function()
-                vim.lsp.buf.code_action {
-                  apply = true,
-                  context = {
-                    only = { "source.organizeImports" },
-                    diagnostics = {},
-                  },
-                }
-              end,
+              lsp_utils.code_action "source.organizeImports",
               desc = "Organize Imports",
             },
           },
