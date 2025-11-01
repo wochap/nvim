@@ -1,6 +1,5 @@
 local nvim_utils = require "custom.utils.nvim"
 local lazy_utils = require "custom.utils.lazy"
-local lazyvim_utils = require "custom.utils.lazyvim"
 local icons_constants = require "custom.constants.icons"
 local bufferline_utils = require "custom.utils-plugins.bufferline"
 local constants = require "custom.constants"

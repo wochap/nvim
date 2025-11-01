@@ -1,7 +1,6 @@
 local constants = require "custom.constants"
 local icons_constants = require "custom.constants.icons"
 local lazy_utils = require "custom.utils.lazy"
-local lazyvim_utils = require "custom.utils.lazyvim"
 local blink_cmp_utils = require "custom.utils-plugins.blink-cmp"
 local mini_utils = require "custom.utils-plugins.mini"
 local keymaps_utils = require "custom.utils.keymaps"
