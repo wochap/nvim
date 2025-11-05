@@ -561,7 +561,7 @@ return {
         desc = "Buffer Git History",
       },
       {
-        "<leader>gd",
+        "<leader>gm",
         "<cmd>DiffviewOpen<CR>",
         desc = "Merge Tool",
       },
@@ -1563,7 +1563,9 @@ return {
       word_diff = false,
       attach_to_untracked = true,
       on_attach = function(bufnr)
+        local gitsigns = require "gitsigns"
         local map = keymaps_utils.map
+
         map("n", "]g", function()
           if vim.wo.diff then
             return "]c"
@@ -1582,26 +1584,32 @@ return {
           end)
           return "<Ignore>"
         end, "Prev Hunk", { expr = true, buffer = bufnr })
-        map("n", "<leader>gS", "<cmd>lua require('gitsigns').stage_buffer()<cr>", "Stage Buffer", { buffer = bufnr })
-        map("n", "<leader>gs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", "Stage Hunk", { buffer = bufnr })
-        map("n", "<leader>gR", "<cmd>lua require('gitsigns').reset_buffer()<cr>", "Reset Buffer", { buffer = bufnr })
-        map("n", "<leader>gr", "<cmd>lua require('gitsigns').reset_hunk()<cr>", "Reset Hunk", { buffer = bufnr })
-        map("n", "<leader>gp", "<cmd>lua require('gitsigns').preview_hunk()<cr>", "Preview Hunk", { buffer = bufnr })
-        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Select Hunk (GitSigns)", { silent = true })
-        map(
-          "n",
-          "<leader>gb",
-          "<cmd>lua require('gitsigns').blame_line({ full = true })<cr>",
-          "Blame Line",
-          { buffer = bufnr }
-        )
-        map(
-          "n",
-          "<leader>gD",
-          "<cmd>lua require('gitsigns').toggle_deleted()<cr>",
-          "Toggle Deleted",
-          { buffer = bufnr }
-        )
+
+        map("n", "<leader>gS", gitsigns.stage_buffer, "Stage Buffer", { buffer = bufnr })
+        map("n", "<leader>gs", gitsigns.stage_hunk, "Stage Hunk", { buffer = bufnr })
+        map("v", "<leader>gs", function()
+          gitsigns.stage_hunk { vim.fn.line ".", vim.fn.line "v" }
+        end, "Stage Selection", { buffer = bufnr })
+
+        map("n", "<leader>gR", gitsigns.reset_buffer, "Reset Buffer", { buffer = bufnr })
+        map("n", "<leader>gr", gitsigns.reset_hunk, "Reset Hunk", { buffer = bufnr })
+        map("v", "<leader>gr", function()
+          gitsigns.reset_hunk { vim.fn.line ".", vim.fn.line "v" }
+        end, "Reset Selection", { buffer = bufnr })
+
+        map("n", "<leader>gp", gitsigns.preview_hunk, "Preview Hunk", { buffer = bufnr })
+        map("n", "<leader>gP", gitsigns.preview_hunk_inline, "Preview Hunk Inline", { buffer = bufnr })
+
+        map("n", "<leader>gb", function()
+          gitsigns.blame_line { full = true }
+        end, "Blame Line", { buffer = bufnr })
+
+        -- map("n", "<leader>gd", gitsigns.diffthis, "Diff This", { buffer = bufnr })
+        -- map("n", "<leader>gD", function()
+        --   gitsigns.diffthis "~"
+        -- end, "Diff This ~", { buffer = bufnr })
+
+        map({ "o", "x" }, "ih", gitsigns.select_hunk, "Select Hunk (GitSigns)", { silent = true })
       end,
     },
   },
