@@ -65,6 +65,9 @@ M.get_pkg_path = function(...)
   return require("lazyvim.util").get_pkg_path(...)
 end
 
+M.execute = function(...)
+  return require("lazyvim.util.lsp").execute(...)
+end
 
 M.code_action = function(action)
   return function()
