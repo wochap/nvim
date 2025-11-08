@@ -1120,7 +1120,6 @@ return {
         "<Plug>(YankyCycleBackward)",
         desc = "Cycle Backward Through Yank History",
       },
-      -- TODO: disable when in multicursor
       {
         "y",
         "<Plug>(YankyYank)",
@@ -1134,6 +1133,10 @@ return {
       },
       highlight = {
         timer = 100,
+      },
+      preserve_cursor_position = {
+        -- NOTE: doesn't work with multicursor.nvim
+        enabled = false,
       },
     },
   },
