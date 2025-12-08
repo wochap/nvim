@@ -19,6 +19,14 @@ return {
   },
 
   {
+    "nvim-treesitter/nvim-treesitter",
+    optional = true,
+    opts = {
+      ensure_installed = { "python" },
+    },
+  },
+
+  {
     "neovim/nvim-lspconfig",
     optional = true,
     opts = {
