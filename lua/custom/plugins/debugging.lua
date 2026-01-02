@@ -30,6 +30,7 @@ return {
 
       {
         "igorlfs/nvim-dap-view",
+        lazy = false,
         keys = {
           {
             "<leader>duo",
