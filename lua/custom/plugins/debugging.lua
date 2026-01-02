@@ -139,7 +139,7 @@ return {
               "dap_repl",
             })
             require("nvim-dap-repl-highlights").setup()
-            require("nvim-treesitter.configs").setup { ensure_installed = ensureInstalled }
+            require("nvim-treesitter").install { "dap_repl" }
           end)
         end,
       },
