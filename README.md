@@ -19,10 +19,11 @@ $ nvim
 # wait for lazy.nvim to finish, then restart nvim
 # enter nvim and repeat the installation step once more
 ```
+> [!IMPORTANT]
+> I disabled nvim builtin syntax which caused severe lag on my system, re enable it commenting out the line `lua/custom/init.lua:6`. Alternatively, you can install the Treesitter parser for the specified language or enable syntax for that specified filetype in the current buffer with `:set syntax=<filetype>`.
 
-**IMPORTANT:** I disabled nvim builtin syntax which caused severe lag on my system, re enable it commenting out the line `lua/custom/init.lua:6`. Alternatively, you can install the Treesitter parser for the specified language or enable syntax for that specified filetype in the current buffer with `:set syntax=<filetype>`.
-
-**IMPORTANT:** I have disabled Treesitter highlighting for minified files and files with long lines. Refer to the `is_minfile` function in `lua/custom/utils/init.lua` for details.
+> [!IMPORTANT]
+> I have disabled Treesitter highlighting for minified files and files with long lines. Refer to the `is_minfile` function in `lua/custom/utils/init.lua` for details.
 
 ## Tips and Tricks
 
