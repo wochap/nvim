@@ -38,24 +38,23 @@ $ nvim
 
 ## Troubleshooting
 
-- Lag
+- If experiencing Lag:
 
-  Try using a faster and better terminal, such as [foot](https://codeberg.org/dnkl/foot)
+  - Try using a faster and better terminal, such as [foot](https://codeberg.org/dnkl/foot)
 
-- Anything Eslint related
+- Anything ESLint related:
 
-  Run in nvim
+  - Run in Neovim:
+    ```
+    :w %
+    :e %
+    ```
 
-  ```
-  :w %
-  :e %
-  ```
+  If that didn't work, kill all ESLint processes.
 
-  If that didn't work, kill all eslint processes
+- Python LSP/Linters installed by Mason stopped working)
 
-- Python LSP/Linters installed by Mason stopped working
-
-  Uninstall them and install them again
+  - Uninstall them and install them again
 
 ## Requirements
 
