@@ -52,7 +52,7 @@ $ nvim
 
   If that didn't work, kill all ESLint processes.
 
-- Python LSP/Linters installed by Mason stopped working)
+- Python LSP/Linters installed by Mason stopped working:
 
   - Uninstall them and install them again
 
