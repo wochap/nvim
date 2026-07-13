@@ -545,6 +545,7 @@ return {
 
   {
     "mattn/emmet-vim",
+    enabled = false,
     event = "VeryLazy",
     cmd = "EmmetInstall",
     init = function()
