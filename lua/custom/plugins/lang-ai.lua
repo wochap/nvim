@@ -12,6 +12,7 @@ return {
 
   {
     "yetone/avante.nvim",
+    enabled = false,
     event = "VeryLazy",
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
