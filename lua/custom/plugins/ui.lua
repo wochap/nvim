@@ -143,7 +143,7 @@ return {
       -- vim.opt.termguicolors = true
 
       -- Fix bufferline when restoring a session
-      nvim_utils.autocmd("BufAdd", {
+      nvim_utils.autocmd({ "BufAdd", "BufDelete" }, {
         callback = function()
           vim.schedule(function()
             pcall(nvim_bufferline)
