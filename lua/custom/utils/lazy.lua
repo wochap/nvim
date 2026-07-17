@@ -4,14 +4,14 @@ local constants = require "custom.constants"
 local M = {}
 
 M.install = function()
-  local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-  if not vim.uv.fs_stat(lazypath) then
+  local lazy_path = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+  if not vim.uv.fs_stat(lazy_path) then
     constants.first_install = true
 
-    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-    vim.fn.system { "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath }
+    local lazy_repo = "https://github.com/folke/lazy.nvim.git"
+    vim.fn.system { "git", "clone", "--filter=blob:none", "--branch=stable", lazy_repo, lazy_path }
   end
-  vim.opt.rtp:prepend(lazypath)
+  vim.opt.rtp:prepend(lazy_path)
 end
 
 M.on_load = function(...)

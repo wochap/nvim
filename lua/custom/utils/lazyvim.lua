@@ -1,11 +1,16 @@
 local M = {}
 
-M.load = function()
+M.lazyvim_commit = "d72127eb936f7f05d88d4fc316bc7e89080d69d8" -- v15.12.2
+
+M.install = function()
   local lazyvim_path = vim.fn.stdpath "data" .. "/lazy/LazyVim"
-  if vim.uv.fs_stat(lazyvim_path) then
-    vim.opt.rtp:prepend(lazyvim_path)
-    M.setup()
+  if not vim.uv.fs_stat(lazyvim_path) then
+    local lazyvim_repo = "https://github.com/LazyVim/LazyVim.git"
+    vim.fn.system { "git", "clone", "--filter=blob:none", lazyvim_repo, lazyvim_path }
+    vim.fn.system { "git", "-C", lazyvim_path, "checkout", M.lazyvim_commit }
   end
+  vim.opt.rtp:prepend(lazyvim_path)
+  M.setup()
 end
 
 M.setup = function()

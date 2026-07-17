@@ -319,6 +319,10 @@ local function command_module()
 end
 
 local function lazy_module()
+  local has_lazy = package.loaded["lazy"]
+  if not has_lazy then
+    return ""
+  end
   if not require("lazy.status").has_updates() then
     return ""
   end
