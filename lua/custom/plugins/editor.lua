@@ -89,7 +89,7 @@ return {
 
   {
     "nvim-neo-tree/neo-tree.nvim",
-    version = "3.33",
+    version = "3.41.0",
     event = "VeryLazy",
     cmd = "Neotree",
     opts_extend = { "event_handlers" },
@@ -150,6 +150,9 @@ return {
         "filesystem",
         "git_status",
         "document_symbols",
+      },
+      clipboard = {
+        sync = "universal"
       },
       auto_clean_after_session_restore = true,
       close_if_last_window = true,

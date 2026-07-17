@@ -184,9 +184,8 @@ return {
     enabled = false,
   },
   {
-    -- PERF: runs very slow on nvim 0.11
     "saghen/blink.cmp",
-    version = "v1.7.0",
+    version = "v1.*",
     event = { "InsertEnter", "VeryLazy" },
     dependencies = {
       {
@@ -752,7 +751,6 @@ return {
 
       -- load snippets in nvim config folder
       -- NOTE: when using sync `load`, entries are duplicated in blink.cmp
-      -- lazy_load doesn't work on nvim 0.11
       -- require("luasnip.loaders.from_vscode").load {
       require("luasnip.loaders.from_vscode").lazy_load {
         paths = vim.fn.stdpath "config" .. "/snippets",
