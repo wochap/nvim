@@ -194,8 +194,8 @@ return {
         opts.highlights = bufferline_utils.get_highlights()
         bufferline.setup(opts)
 
-        vim.api.nvim_create_autocmd("ColorScheme", {
-          pattern = "catppuccin*",
+        vim.api.nvim_create_autocmd("OptionSet", {
+          pattern = "background",
           callback = function()
             opts.highlights = bufferline_utils.get_highlights()
             bufferline.setup(opts)
