@@ -1144,9 +1144,7 @@ return {
   {
     "monkoose/matchparen.nvim",
     event = { "LazyFile", "VeryLazy" },
-    opts = {
-      debounce_time = 50,
-    },
+    opts = {},
   },
 
   {

@@ -661,4 +661,5 @@ return {
   { "nvim-lua/popup.nvim" },
   { "MunifTanjim/nui.nvim" },
   { "nvim-neotest/nvim-nio" },
+  { "lewis6991/async.nvim" },
 }

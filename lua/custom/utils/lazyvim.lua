@@ -1,6 +1,6 @@
 local M = {}
 
-M.lazyvim_commit = "d72127eb936f7f05d88d4fc316bc7e89080d69d8" -- v15.12.2
+M.lazyvim_commit = "c10948c50b18fae7f256433afdef09e432410480" -- v16.0.0
 
 M.install = function()
   local lazyvim_path = vim.fn.stdpath "data" .. "/lazy/LazyVim"

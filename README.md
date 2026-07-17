@@ -63,7 +63,7 @@ Any requirement from [Mason](https://github.com/mason-org/mason.nvim#requirement
 
 > Mason will install [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) lsp servers
 
-- [neovim v0.11](https://github.com/neovim/neovim)
+- [neovim v0.12](https://github.com/neovim/neovim)
 - [neovim-remote](https://github.com/mhinz/neovim-remote)
 - [foot](https://codeberg.org/dnkl/foot) (recommended)
 - [tree-sitter](https://github.com/tree-sitter/tree-sitter)

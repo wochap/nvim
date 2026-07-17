@@ -1,6 +1,9 @@
 return {
   {
     "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "lewis6991/async.nvim",
+    },
     keys = {
       {
         "<leader>r",
@@ -12,67 +15,49 @@ return {
       {
         "<leader>rs",
         function()
-          -- TODO: add snacks picker preview
-          require("refactoring").select_refactor()
+          return require("refactoring").select_refactor()
         end,
-        mode = "v",
-        desc = "Refactor",
+        mode = { "n", "x" },
+        desc = "Select Refactor",
       },
       {
         "<leader>ri",
         function()
-          return require("refactoring").refactor "Inline Variable"
+          return require("refactoring").inline_var()
         end,
         mode = { "n", "x" },
         desc = "Inline Variable",
         expr = true,
       },
       {
-        "<leader>rb",
-        function()
-          return require("refactoring").refactor "Extract Block"
-        end,
-        mode = { "n", "x" },
-        desc = "Extract Block",
-        expr = true,
-      },
-      {
-        "<leader>rf",
-        function()
-          return require("refactoring").refactor "Extract Block To File"
-        end,
-        mode = { "n", "x" },
-        desc = "Extract Block To File",
-        expr = true,
-      },
-      {
         "<leader>rP",
         function()
-          require("refactoring").debug.printf { below = false }
+          return require("refactoring.debug").print_loc { output_location = "below" }
         end,
-        mode = { "n", "x" },
-        desc = "Debug Print",
+        desc = "Debug Print Location",
+        expr = true,
       },
       {
         "<leader>rp",
         function()
-          require("refactoring").debug.print_var { normal = true }
+          return require("refactoring.debug").print_var { output_location = "below" } .. "iw"
         end,
         mode = { "n", "x" },
         desc = "Debug Print Variable",
+        expr = true,
       },
       {
         "<leader>rc",
         function()
-          require("refactoring").debug.cleanup {}
+          return require("refactoring.debug").cleanup { restore_view = true } .. "ag"
         end,
-        mode = { "n", "x" },
         desc = "Debug Cleanup",
+        expr = true,
       },
       {
         "<leader>rf",
         function()
-          return require("refactoring").refactor "Extract Function"
+          return require("refactoring").extract_func()
         end,
         mode = { "n", "x" },
         desc = "Extract Function",
@@ -81,53 +66,22 @@ return {
       {
         "<leader>rF",
         function()
-          return require("refactoring").refactor "Extract Function To File"
+          return require("refactoring").extract_func_to_file()
         end,
         mode = { "n", "x" },
         desc = "Extract Function To File",
         expr = true,
       },
       {
-        "<leader>rv",
+        "<leader>rx",
         function()
-          return require("refactoring").refactor "Extract Variable"
+          return require("refactoring").extract_var()
         end,
         mode = { "n", "x" },
         desc = "Extract Variable",
         expr = true,
       },
-      {
-        "<leader>rp",
-        function()
-          require("refactoring").debug.print_var {}
-        end,
-        mode = { "n", "x" },
-        desc = "Debug Print Variable",
-      },
     },
-    opts = {
-      prompt_func_return_type = {
-        go = false,
-        java = false,
-        cpp = false,
-        c = false,
-        h = false,
-        hpp = false,
-        cxx = false,
-      },
-      prompt_func_param_type = {
-        go = false,
-        java = false,
-        cpp = false,
-        c = false,
-        h = false,
-        hpp = false,
-        cxx = false,
-      },
-      printf_statements = {},
-      print_var_statements = {},
-      show_success_message = true, -- shows a message with information about the refactor on success
-      -- i.e. [Refactor] Inlined 3 variable occurrences
-    },
+    opts = {},
   },
 }

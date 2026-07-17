@@ -26,7 +26,9 @@ return {
       -- NOTE: more keys in ./keymaps.lua
       {
         "<leader>li",
-        "<cmd>LspInfo<cr>",
+        function()
+          Snacks.picker.lsp_config()
+        end,
         desc = "Lsp Info",
       },
       {
@@ -281,7 +283,7 @@ return {
     },
     config = vim.schedule_wrap(function(_, opts)
       -- slow down log file growth
-      vim.lsp.set_log_level(vim.log.levels.ERROR)
+      vim.lsp.log.set_level(vim.log.levels.ERROR)
 
       -- setup lsp formatter
       format_utils.register(lsp_utils.formatter())
