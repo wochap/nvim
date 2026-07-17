@@ -4,7 +4,6 @@ vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
 
 return {
   {
-    enabled = not constants.first_install,
     import = "lazyvim.plugins.extras.lang.rust",
   },
 

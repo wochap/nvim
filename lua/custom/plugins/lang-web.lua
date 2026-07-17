@@ -1,4 +1,3 @@
-local constants = require "custom.constants"
 local lazyvim_utils = require "custom.utils.lazyvim"
 local nvim_utils = require "custom.utils.nvim"
 local format_utils = require "custom.utils.format"
@@ -59,18 +58,15 @@ local function has_prettier_parser(ctx)
   return ok and parser and parser ~= vim.NIL
 end
 
--- TODO: gives error not constants.first_install
 has_prettier_config = lazyvim_utils.memoize(has_prettier_config)
 has_prettier_parser = lazyvim_utils.memoize(has_prettier_parser)
 has_biome_config = lazyvim_utils.memoize(has_biome_config)
 
 return {
   {
-    enabled = not constants.first_install,
     import = "lazyvim.plugins.extras.lang.tailwind",
   },
   {
-    enabled = not constants.first_install,
     import = "lazyvim.plugins.extras.lang.json",
   },
 

@@ -12,7 +12,7 @@ return {
       local treesitter = require "nvim-treesitter"
       treesitter.update(nil, { summary = true })
     end,
-    event = constants.first_install and { "VeryLazy" } or { "LazyFile", "VeryLazy" },
+    event = { "LazyFile", "VeryLazy" },
     cmd = { "TSUpdate", "TSInstall", "TSInstallFromGrammar", "TSLog", "TSUninstall" },
     opts_extend = { "ensure_installed" },
     opts = {

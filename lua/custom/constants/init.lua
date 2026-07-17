@@ -127,11 +127,6 @@ M.transparent_background = os.getenv "TRANSPARENT" == "true" and true or false
 -- TODO: makes more elements transparent
 M.blur_background = os.getenv "BLUR" == "true" and true or false
 
--- HACK: this variable is used to prevent importing
--- specs from lazyvim on the first install
--- otherwise, we end up with a bunch of errors
-M.first_install = false
-
 local es_spell_path = vim.fn.stdpath "data" .. "/site/spell/es.utf-8.spl"
 M.disable_netrw = vim.uv.fs_stat(es_spell_path) and true or false
 

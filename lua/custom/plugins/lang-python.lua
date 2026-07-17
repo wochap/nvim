@@ -1,4 +1,3 @@
-local constants = require "custom.constants"
 local lsp_utils = require "custom.utils.lsp"
 
 -- source: https://github.com/serranomorante/.dotfiles/blob/main/docs/python-dev-setup.md
@@ -14,7 +13,6 @@ local venv_path = table.concat({
 
 return {
   {
-    enabled = not constants.first_install,
     import = "lazyvim.plugins.extras.lang.python",
   },
 

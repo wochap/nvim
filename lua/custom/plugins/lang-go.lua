@@ -1,9 +1,7 @@
-local constants = require "custom.constants"
 local lang_utils = require "custom.utils.lang"
 
 return {
   {
-    enabled = not constants.first_install,
     import = "lazyvim.plugins.extras.lang.go",
   },
 
