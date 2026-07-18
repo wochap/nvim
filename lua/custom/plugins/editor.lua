@@ -152,7 +152,7 @@ return {
         "document_symbols",
       },
       clipboard = {
-        sync = "universal"
+        sync = "universal",
       },
       auto_clean_after_session_restore = true,
       close_if_last_window = true,
@@ -1482,7 +1482,8 @@ return {
         next = "]c",
         prev = "[c",
       },
-      disable_diagnostics = true,
+      -- disable because it gives errors on nvim 0.12
+      disable_diagnostics = false,
       list_opener = function()
         require("trouble").open { mode = "quickfix" }
       end,
@@ -1492,6 +1493,7 @@ return {
         pattern = "GitConflictDetected",
         callback = function(event)
           lsp_utils.toggle_inlay_hints(event.buf, false)
+          pcall(vim.diagnostic.enable, false, { bufnr = event.buf })
         end,
       })
 
@@ -1499,6 +1501,7 @@ return {
         pattern = "GitConflictResolved",
         callback = function(event)
           lsp_utils.toggle_inlay_hints(event.buf, true)
+          pcall(vim.diagnostic.enable, true, { bufnr = event.buf })
         end,
       })
 
