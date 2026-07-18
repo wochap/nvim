@@ -31,9 +31,8 @@ return {
   -- NOTE: lang-web.lua adds Prettier formatting for Markdown
 
   {
-    "Saimo/peek.nvim",
+    "toppair/peek.nvim",
     main = "peek",
-    commit = "f23200c241b06866b561150fa0389d535a4b903d",
     build = "deno task --quiet build:fast",
     init = function()
       nvim_utils.autocmd({ "BufEnter" }, {
