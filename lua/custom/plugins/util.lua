@@ -179,7 +179,7 @@ return {
     -- PERF: It can double the startup time in some environments,
     -- e.g., when your laptop is in power-saving mode
     lazy = constants.in_kittyscrollback or constants.in_lite,
-    commit = "2b5dda43b3de5d13b56c4606f7d19db78637e527", -- v2.0.3
+    commit = "ba2850ff3d3b09785a7105c69d06a12117d4b97d", -- v2.1.0
     keys = {
       -- focus windows
       {

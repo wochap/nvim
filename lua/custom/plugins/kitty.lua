@@ -6,7 +6,7 @@ return {
   {
     "mikesmithgh/kitty-scrollback.nvim",
     enabled = constants.in_kittyscrollback,
-    commit = "fd9f83f3f1141ef65de73fbe962f6c606ef02da8", -- v6.2.2
+    commit = "db7ab6676774e3d33ef0d7833c96251456eecaa2", -- v9.2.0
     event = { "User KittyScrollbackLaunch" },
     cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
     init = function()
