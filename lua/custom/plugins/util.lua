@@ -350,7 +350,7 @@ return {
   },
 
   {
-    "wochap/img-clip.nvim",
+    "hakonharnes/img-clip.nvim",
     event = "VeryLazy",
     keys = {
       {
@@ -370,6 +370,7 @@ return {
         drag_and_drop = {
           enabled = false,
         },
+        formats = { "jpeg", "jpg", "png", "webp" },
       },
       filetypes = {
         typst = {
