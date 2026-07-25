@@ -4,6 +4,13 @@ local nvim_utils = require "custom.utils.nvim"
 local window_picker_utils = require "custom.utils-plugins.window-picker"
 local lsp_utils = require "custom.utils.lsp"
 local smart_splits_utils = require "custom.utils-plugins.smart-splits"
+local swap_buf = function(direction)
+  return function()
+    local view = vim.fn.winsaveview()
+    require("smart-splits")["swap_buf_" .. direction] { move_cursor = true }
+    vim.fn.winrestview(view)
+  end
+end
 
 return {
   {
@@ -228,22 +235,23 @@ return {
       -- swap windows
       {
         "<C-S-Left>",
-        "<cmd>lua require('smart-splits').swap_buf_left()<cr>",
+        swap_buf "left",
         desc = "Swap Buffer Left",
       },
       {
         "<C-S-Right>",
-        "<cmd>lua require('smart-splits').swap_buf_right()<cr>",
+        swap_buf "right",
         desc = "Swap Buffer Right",
       },
       {
         "<C-S-Down>",
+        swap_buf "down",
         "<cmd>lua require('smart-splits').swap_buf_down()<cr>",
         desc = "Swap Buffer Down",
       },
       {
         "<C-S-Up>",
-        "<cmd>lua require('smart-splits').swap_buf_up()<cr>",
+        swap_buf "up",
         desc = "Swap Buffer Up",
       },
     },
