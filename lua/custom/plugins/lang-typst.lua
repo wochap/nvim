@@ -1,3 +1,5 @@
+local constants = require "custom.constants"
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -49,6 +51,7 @@ return {
 
   {
     "OXY2DEV/markview.nvim",
+    enabled = not constants.in_zk and not constants.in_obsidian,
     event = "VeryLazy",
     opts = {
       preview = {
