@@ -32,6 +32,9 @@ require "custom.lazy"
 if constants.has_file_arg then
   require "custom.autocmds"
 end
+
+require("custom.utils.title").setup()
+
 nvim_utils.autocmd("User", {
   group = nvim_utils.augroup "load_core",
   pattern = "VeryLazy",
