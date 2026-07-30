@@ -13,7 +13,7 @@ local function title_string()
     return "[No Name] -  "
   end
 
-  return fn.expand "%:t" .. " -  "
+  return "  - " .. (fn.expand "%:t")
 end
 
 M.update = function()
