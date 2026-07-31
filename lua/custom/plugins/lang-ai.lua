@@ -1,3 +1,9 @@
+local constants = require "custom.constants"
+
+if constants.in_fast then
+  return {}
+end
+
 local nvim_utils = require "custom.utils.nvim"
 local editor_utils = require "custom.utils.editor"
 

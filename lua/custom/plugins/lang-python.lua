@@ -1,3 +1,9 @@
+local constants = require "custom.constants"
+
+if constants.in_fast then
+  return {}
+end
+
 local lsp_utils = require "custom.utils.lsp"
 
 -- source: https://github.com/serranomorante/.dotfiles/blob/main/docs/python-dev-setup.md

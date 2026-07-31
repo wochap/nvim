@@ -138,6 +138,9 @@ M.in_nix = nix_path ~= nil and nix_path ~= ""
 -- disables some plugins for faster editing
 M.in_lite = os.getenv "LITE" == "true"
 
+-- minimal mode: either explicit LITE or running inside kitty scrollback
+M.in_fast = M.in_lite or M.in_kittyscrollback
+
 -- disables UI plugins for faster editing
 -- called from zvm_vi_edit_command_line
 M.in_vi_edit = os.getenv "IN_VI_EDIT" == "true"

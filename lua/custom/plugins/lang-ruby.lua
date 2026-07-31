@@ -1,3 +1,9 @@
+local constants = require "custom.constants"
+
+if constants.in_fast then
+  return {}
+end
+
 if vim.fn.executable "ruby" == 0 then
   return {}
 end

@@ -1,3 +1,9 @@
+local constants = require "custom.constants"
+
+if constants.in_fast then
+  return {}
+end
+
 vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
 
 return {

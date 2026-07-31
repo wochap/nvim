@@ -1438,6 +1438,7 @@ return {
     -- fork fixes a bug where the plugin doesn't work
     -- when the current working directory isn't the git root
     "wochap/git-conflict.nvim",
+    enabled = not constants.in_fast,
     version = "*",
     event = { "LazyFile", "VeryLazy" },
     cmd = "GitConflictListQf",

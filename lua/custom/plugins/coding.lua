@@ -194,6 +194,7 @@ return {
       },
       {
         "carbonid1/EmmetJSS",
+        enabled = not constants.in_fast,
         opts = {},
         config = function() end,
       },
@@ -662,6 +663,7 @@ return {
 
   {
     "L3MON4D3/LuaSnip",
+    enabled = not constants.in_fast,
     event = { "InsertEnter", "VeryLazy" },
     version = "v2.*",
     build = "make install_jsregexp",
@@ -762,7 +764,8 @@ return {
     optional = true,
     opts = {
       snippets = {
-        preset = "luasnip",
+        -- LuaSnip is disabled in lite mode, fall back to blink.cmp's built-in engine
+        preset = constants.in_fast and "default" or "luasnip",
       },
     },
   },

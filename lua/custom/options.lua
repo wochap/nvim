@@ -51,7 +51,7 @@ if not constants.in_kittyscrollback and not constants.in_vi_edit then
 end
 
 -- global bufferline
-vim.opt.showtabline = (constants.in_kittyscrollback or constants.in_lite) and 0 or 2
+vim.opt.showtabline = constants.in_fast and 0 or 2
 vim.o.tabline = "%#Normal#"
 
 -- folds

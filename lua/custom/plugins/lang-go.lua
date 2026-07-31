@@ -1,3 +1,9 @@
+local constants = require "custom.constants"
+
+if constants.in_fast then
+  return {}
+end
+
 local lang_utils = require "custom.utils.lang"
 
 return {

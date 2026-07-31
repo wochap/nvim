@@ -107,7 +107,7 @@ return {
   {
     -- fork adds element.id in options.get_element_icon fn
     "wochap/bufferline.nvim",
-    enabled = not constants.in_kittyscrollback and not constants.in_lite,
+    enabled = not constants.in_fast,
     branch = "main",
     event = "VeryLazy",
     keys = {
