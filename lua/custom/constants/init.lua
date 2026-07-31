@@ -138,7 +138,7 @@ M.in_nix = nix_path ~= nil and nix_path ~= ""
 -- disables some plugins for faster editing
 M.in_lite = os.getenv "LITE" == "true"
 
--- disables more plugins for faster editing
+-- disables UI plugins for faster editing
 -- called from zvm_vi_edit_command_line
 M.in_vi_edit = os.getenv "IN_VI_EDIT" == "true"
 
