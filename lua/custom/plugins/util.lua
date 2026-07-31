@@ -182,11 +182,43 @@ return {
   },
 
   {
-    "mrjones2014/smart-splits.nvim",
     -- PERF: It can double the startup time in some environments,
     -- e.g., when your laptop is in power-saving mode
-    lazy = constants.in_kittyscrollback or constants.in_lite,
+    "mrjones2014/smart-splits.nvim",
     commit = "ba2850ff3d3b09785a7105c69d06a12117d4b97d", -- v2.1.0
+    -- Eager in kitty: kitty caches `--when-focus-on var:IS_NVIM` conditional
+    -- eval per focus event. Lazy load sets IS_NVIM after nvim's initial
+    -- focus, so the conditional stays stale until a manual focus cycle —
+    -- ctrl+arrows can't cross nvim→kitty pane boundary from fresh nvim.
+    -- Eager load runs the plugin's on_init during startup, matching the
+    -- plugin README's recommendation. Lazy elsewhere; tmux deadlock worked
+    -- around in init below.
+    lazy = not constants.in_kitty,
+    event = "VeryLazy",
+    -- tmux's @pane-is-vim and kitty's IS_NVIM user-var gate whether the
+    -- multiplexer forwards C-Left/C-Right/etc. to nvim. The plugin sets them
+    -- in setup(), but lazy loading means setup() only runs on first mapped
+    -- keypress — which the mux never forwards because the marker is unset.
+    -- Deadlock. Set the marker here (init runs at spec parse, before
+    -- VimEnter) so the mux forwards from the start.
+    init = function()
+      -- tmux: shell out to set pane-local option. Plugin's on_init sees var=1
+      -- and flags is_nested_vim, skipping its own on_exit cleanup, so we own
+      -- the unset. jobstart + detach because VimLeavePre can race process
+      -- teardown.
+      if vim.env.TMUX then
+        local pane_id = os.getenv "TMUX_PANE"
+        if pane_id then
+          smart_splits_utils.tmux_exec { "set-option", "-pt", pane_id, "@pane-is-vim", 1 }
+          nvim_utils.autocmd("VimLeavePre", {
+            group = nvim_utils.augroup "smart_splits_unset_pane_is_vim",
+            callback = function()
+              vim.fn.jobstart({ "tmux", "set-option", "-pt", pane_id, "@pane-is-vim", 0 }, { detach = true })
+            end,
+          })
+        end
+      end
+    end,
     keys = {
       -- focus windows
       {
@@ -265,20 +297,20 @@ return {
 
       -- in tmux, smart-splits sometimes set pane-is-vim to 0
       -- even if we didn't left nvim
-      local mux = require("smart-splits.mux").get()
-      if not mux or mux.type ~= "tmux" then
-        return
-      end
-      nvim_utils.autocmd("FocusGained", {
-        group = nvim_utils.augroup "fix_on_init_smart_splits_nvim",
-        callback = function()
-          local pane_id = os.getenv "TMUX_PANE"
-          if tonumber(smart_splits_utils.tmux_exec { "show-options", "-pqvt", pane_id, "@pane-is-vim" }) == 1 then
-            return
-          end
-          smart_splits_utils.tmux_exec { "set-option", "-pt", pane_id, "@pane-is-vim", 1 }
-        end,
-      })
+      -- local mux = require("smart-splits.mux").get()
+      -- if not mux or mux.type ~= "tmux" then
+      --   return
+      -- end
+      -- nvim_utils.autocmd("FocusGained", {
+      --   group = nvim_utils.augroup "fix_on_init_smart_splits_nvim",
+      --   callback = function()
+      --     local pane_id = os.getenv "TMUX_PANE"
+      --     if tonumber(smart_splits_utils.tmux_exec { "show-options", "-pqvt", pane_id, "@pane-is-vim" }) == 1 then
+      --       return
+      --     end
+      --     smart_splits_utils.tmux_exec { "set-option", "-pt", pane_id, "@pane-is-vim", 1 }
+      --   end,
+      -- })
     end,
   },
 

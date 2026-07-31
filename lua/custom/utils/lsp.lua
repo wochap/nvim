@@ -61,8 +61,17 @@ M.keymap_set = function(...)
   return require("lazyvim.plugins.lsp.keymaps").set(...)
 end
 
-M.get_pkg_path = function(...)
-  return require("lazyvim.util").get_pkg_path(...)
+-- Like `LazyVim.util.get_pkg_path` but without `pcall(require, "mason")`.
+-- The require trips lazy.nvim's auto-load and force-loads mason.nvim at
+-- startup when called during spec parse (e.g. from a plugin `opts` fn).
+-- `vim.env.MASON` is only set after mason's setup() runs, so at spec-parse
+-- time it's nil anyway and the stdpath fallback is what gets used.
+---@param pkg string
+---@param path? string
+---@return string
+M.get_pkg_path = function(pkg, path)
+  local root = vim.env.MASON or (vim.fn.stdpath "data" .. "/mason")
+  return vim.fs.normalize(root .. "/packages/" .. pkg .. "/" .. (path or ""))
 end
 
 M.execute = function(...)

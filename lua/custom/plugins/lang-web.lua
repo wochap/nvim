@@ -248,8 +248,7 @@ return {
                     name = "@vue/typescript-plugin",
                     location = lsp_utils.get_pkg_path(
                       "vue-language-server",
-                      "/node_modules/@vue/language-server",
-                      { warn = false }
+                      "/node_modules/@vue-language-server"
                     ),
                     languages = { "vue" },
                     configNamespace = "typescript",
