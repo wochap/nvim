@@ -10,7 +10,7 @@ local M = {}
 local function title_string()
   -- mirror statusline filename(): empty buffer -> "[No Name]"
   if fn.expand "%" == "" then
-    return "[No Name] -  "
+    return "  - [No Name]"
   end
 
   return "  - " .. (fn.expand "%:t")
