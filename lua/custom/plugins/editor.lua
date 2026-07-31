@@ -975,13 +975,9 @@ return {
       {
         "<leader>fy",
         function()
-          Snacks.picker.lsp_symbols {
-            filter = {
-              default = snacks_utils.default_lsp_symbols,
-            },
-          }
+          snacks_utils.top_level_symbols()
         end,
-        desc = "LSP Symbols (Buffer)",
+        desc = "Top-level Symbols (Buffer)",
       },
       {
         "<leader>fY",

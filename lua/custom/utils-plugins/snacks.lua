@@ -167,6 +167,20 @@ local function get_os_command_output(cmd, cwd)
   return stdout, ret, stderr
 end
 
+M.top_level_symbols = function(pick_opts)
+  Snacks.picker.lsp_symbols(vim.tbl_extend("force", {
+    title = "Top-level Symbols",
+    filter = {
+      default = true,
+    },
+    transform = function(item)
+      if not (item.parent and item.parent.root) then
+        return false
+      end
+    end,
+  }, pick_opts or {}))
+end
+
 M.projects = function()
   local projects = get_os_command_output { vim.o.shell, "-i", "-c", "projects" }
   local projects_opts = vim.tbl_map(function(project)
