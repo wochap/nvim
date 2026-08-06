@@ -185,6 +185,7 @@ return {
   },
   {
     "saghen/blink.cmp",
+    enabled = not constants.in_vi_edit,
     version = "v1.*",
     event = { "InsertEnter", "VeryLazy" },
     dependencies = {

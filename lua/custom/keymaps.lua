@@ -141,8 +141,13 @@ map("n", "G", function()
     return "G"
   end
 end, "Last line", { expr = true })
-map("n", "<leader>qq", "<cmd>qa <CR>", "Exit")
-map("n", "<leader>q!", "<cmd>qa! <CR>", "Exit!")
+if constants.in_vi_edit then
+  map("n", "<leader>qq", "<cmd>qa! <CR>", "Exit")
+  map("n", "<leader>q!", "<cmd>qa! <CR>", "Exit!")
+else
+  map("n", "<leader>qq", "<cmd>qa <CR>", "Exit")
+  map("n", "<leader>q!", "<cmd>qa! <CR>", "Exit!")
+end
 map("n", "gV", "`[v`]", "Last Yanked/Changed")
 map({ "n", "i", "v", "s" }, "<C-e>", keymaps_utils.close_all_floating, "Close Floating Windows")
 map("n", "<leader>ps", "<cmd>syntime on<CR>", "Profile Syntax Start")
@@ -156,17 +161,18 @@ map({ "n", "v" }, "<leader>mj", [[:s/ \+//g<CR>]], "Clear whitespaces", { norema
 -- better insert register pasting
 -- disables autoindent before pasting
 -- NOTE: missing register ":.="
-local registers = '*+"-%/#abcdefghijklmnopqrstuvwxyz0123456789'
-for i = 1, #registers do
-  local register = registers:sub(i, i)
-
-  map("i", "<C-r>" .. register, function()
-    if vim.fn.reg_recording() then
-      return "<C-r>" .. register
-    end
-    return "<cmd>lua require('custom.utils.keymaps').insert_paste(" .. register .. ")<CR>"
-  end, nil, { expr = true, noremap = true })
-end
+-- NOTE: looks like it is no longer needed on nvim 0.12
+-- local registers = '*+"-%/#abcdefghijklmnopqrstuvwxyz0123456789'
+-- for i = 1, #registers do
+--   local register = registers:sub(i, i)
+--
+--   map("i", "<C-r>" .. register, function()
+--     if vim.fn.reg_recording() then
+--       return "<C-r>" .. register
+--     end
+--     return "<cmd>lua require('custom.utils.keymaps').insert_paste(" .. register .. ")<CR>"
+--   end, nil, { expr = true, noremap = true })
+-- end
 
 -- fast macros execution
 -- registers = "abcdefghijklmnopqrstuvwxyz"

@@ -1,4 +1,9 @@
 local constants = require "custom.constants"
+
+if constants.in_fast then
+  return {}
+end
+
 local icons_constants = require "custom.constants.icons"
 local lazy_utils = require "custom.utils.lazy"
 local lsp_utils = require "custom.utils.lsp"
@@ -8,7 +13,6 @@ local blink_cmp_utils = require "custom.utils-plugins.blink-cmp"
 return {
   {
     "neovim/nvim-lspconfig",
-    enabled = not constants.in_vi_edit and not constants.in_kittyscrollback,
     event = { "LazyFile", "VeryLazy" },
     dependencies = {
       "mason-org/mason.nvim",
