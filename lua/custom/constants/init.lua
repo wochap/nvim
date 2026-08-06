@@ -104,6 +104,19 @@ M.exclude_buftypes = lang_utils.list_merge(M.window_picker_exclude_buftypes, {
   "help",
 })
 
+-- nvim is opening a file from the cmdline
+M.has_file_arg = vim.fn.argc(-1) > 0
+
+M.transparent_background = os.getenv "TRANSPARENT" == "true" and true or false
+
+-- TODO: makes more elements transparent
+M.blur_background = os.getenv "BLUR" == "true" and true or false
+
+local es_spell_path = vim.fn.stdpath "data" .. "/site/spell/es.utf-8.spl"
+M.disable_netrw = vim.uv.fs_stat(es_spell_path) and true or false
+
+M.big_file_mb = 0.5
+
 M.in_foot = os.getenv "TERM" == "foot"
 
 M.in_kitty = os.getenv "TERM" == "xterm-kitty"
@@ -118,19 +131,6 @@ local leet_arg = "leetcode.nvim"
 M.in_leetcode = leet_arg == vim.fn.argv()[1]
 
 M.in_kittyscrollback = os.getenv "IN_KITTYSCROLLBACK" == "true"
-
--- nvim is opening a file from the cmdline
-M.has_file_arg = vim.fn.argc(-1) > 0
-
-M.transparent_background = os.getenv "TRANSPARENT" == "true" and true or false
-
--- TODO: makes more elements transparent
-M.blur_background = os.getenv "BLUR" == "true" and true or false
-
-local es_spell_path = vim.fn.stdpath "data" .. "/site/spell/es.utf-8.spl"
-M.disable_netrw = vim.uv.fs_stat(es_spell_path) and true or false
-
-M.big_file_mb = 0.5
 
 local nix_path = os.getenv "NIX_PATH"
 M.in_nix = nix_path ~= nil and nix_path ~= ""
