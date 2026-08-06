@@ -692,6 +692,11 @@ return {
     -- enabled = constants.in_vi_edit or constants.in_kittyscrollback,
     -- lazy = false,
     event = "VeryLazy",
+    opts = {
+      ignore = constants.exclude_filetypes,
+      set_cursorline = false,
+      set_cursor = false,
+    },
     config = function(_, opts)
       local modes = require "modes"
       lazy_utils.on_load("catppuccin", function()
