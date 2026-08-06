@@ -30,6 +30,7 @@ return {
         "dockerfile",
         "just",
         "toml",
+        "kdl", -- zellij
       },
     },
     config = function(_, opts)
