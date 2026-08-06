@@ -689,8 +689,9 @@ return {
 
   {
     "mvllow/modes.nvim",
-    enabled = constants.in_vi_edit or constants.in_kittyscrollback,
-    lazy = false,
+    -- enabled = constants.in_vi_edit or constants.in_kittyscrollback,
+    -- lazy = false,
+    event = "VeryLazy",
     config = function(_, opts)
       local modes = require "modes"
       lazy_utils.on_load("catppuccin", function()
@@ -709,6 +710,7 @@ return {
   },
 
   -- very cool plugin but adds flashing :c
+  -- same as mvllow/modes.nvim
   {
     "rasulomaroff/reactive.nvim",
     enabled = false,
