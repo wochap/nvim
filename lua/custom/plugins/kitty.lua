@@ -1,3 +1,4 @@
+local keymaps_utils = require "custom.utils.keymaps"
 local nvim_utils = require "custom.utils.nvim"
 local lazy_utils = require "custom.utils.lazy"
 local constants = require "custom.constants"
@@ -21,6 +22,15 @@ return {
           vim.opt.signcolumn = "no"
           vim.opt.cmdheight = 1
         end,
+        after_ready = function()
+          local bufnr = vim.api.nvim_get_current_buf()
+          keymaps_utils.map("x", "c", function()
+            return "y"
+          end, "", { noremap = true, expr = true, buffer = bufnr })
+          keymaps_utils.map("x", "y", function()
+            return '"+y'
+          end, "", { noremap = true, expr = true, buffer = bufnr })
+        end,
       },
       keymaps_enabled = true,
       status_window = {
@@ -29,6 +39,7 @@ return {
       },
       paste_window = {
         hide_footer = true,
+        yank_register_enabled = false,
         winopts_overrides = function(winopts)
           return {
             anchor = "NW",
