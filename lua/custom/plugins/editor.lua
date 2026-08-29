@@ -192,8 +192,8 @@ return {
             ["f"] = "fuzzy_finder",
             ["<A-Up>"] = "navigate_up",
             ["-"] = "set_root",
-            ["[g"] = "prev_git_modified",
-            ["]g"] = "next_git_modified",
+            ["[g"] = "prev_git_changed",
+            ["]g"] = "next_git_changed",
             ["i"] = "show_file_details",
           },
         },
@@ -240,6 +240,12 @@ return {
               end
               require("neo-tree.sources.manager").refresh(state.name)
             end)
+          end,
+          next_git_changed = function(state)
+            neo_tree_utils.focus_next_git_changed(state, false)
+          end,
+          prev_git_changed = function(state)
+            neo_tree_utils.focus_next_git_changed(state, true)
           end,
         },
       },

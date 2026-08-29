@@ -133,4 +133,59 @@ M.vsplit_with_window_picker = function(state)
   open_with_cmd(state, "vsplit", toggle_directory, use_window_picker)
 end
 
+M.focus_next_git_changed = function(state, reverse)
+  local git = require "neo-tree.git"
+  local renderer = require "neo-tree.ui.renderer"
+
+  if not (state.tree and vim.api.nvim_win_is_valid(state.winid)) then
+    return
+  end
+
+  local targets = {}
+  local line_count = vim.api.nvim_buf_line_count(state.bufnr)
+
+  -- Read the tree by rendered line so the candidates exactly match what the
+  -- user can currently see. An expanded directory delegates its change to its
+  -- visible descendants; a collapsed directory represents those descendants.
+  for line = 1, line_count do
+    local node = state.tree:get_node(line)
+    if node then
+      local path = node.path or node:get_id()
+      local status = git.find_existing_status_code(path)
+      local expanded_directory = node.type == "directory" and node:is_expanded()
+
+      if status and status ~= "!" and not expanded_directory then
+        targets[#targets + 1] = { node = node, line = line }
+      end
+    end
+  end
+
+  if #targets == 0 then
+    return
+  end
+
+  local cursor_row = vim.api.nvim_win_get_cursor(state.winid)[1]
+  local target
+
+  if reverse then
+    for i = #targets, 1, -1 do
+      if targets[i].line < cursor_row then
+        target = targets[i]
+        break
+      end
+    end
+    target = target or targets[#targets]
+  else
+    for i = 1, #targets do
+      if targets[i].line > cursor_row then
+        target = targets[i]
+        break
+      end
+    end
+    target = target or targets[1]
+  end
+
+  renderer.focus_node(state, target.node:get_id())
+end
+
 return M
