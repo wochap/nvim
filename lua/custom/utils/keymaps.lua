@@ -207,6 +207,16 @@ M.paste = function()
   end
 end
 
+M.copy_path = function(modifier)
+  local path = vim.fn.expand("%" .. modifier)
+  if path == "" then
+    vim.notify("No file name for current buffer", vim.log.levels.WARN)
+    return
+  end
+  vim.fn.setreg("+", path)
+  vim.notify('Copied "' .. path .. '" to clipboard', vim.log.levels.INFO)
+end
+
 M.exit_terminal_mode = vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true)
 
 return M

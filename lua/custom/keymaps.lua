@@ -16,6 +16,12 @@ end, "Esc and Clear hlsearch", { expr = true })
 -- buffers
 map("n", "<Leader>bn", "<cmd>enew<CR>", "New")
 map("n", "<C-y>", "<cmd> %y+ <CR>", "Copy Buffer")
+map("n", "<leader>my", function()
+  keymaps_utils.copy_path ":." -- relative to cwd
+end, "Copy relative file path")
+map("n", "<leader>mY", function()
+  keymaps_utils.copy_path ":p" -- full (absolute) path
+end, "Copy full file path")
 map({ "n", "i", "v" }, "<C-s>", function()
   local filename = (vim.fn.expand "%" == "" and "") or vim.fn.expand "%:t"
   local buftype = vim.api.nvim_get_option_value("buftype", { buf = 0 })
