@@ -20,6 +20,9 @@ return {
       servers = {
         qmlls = {
           mason = false,
+          on_init = function(client)
+            client.server_capabilities.semanticTokensProvider = nil
+          end,
         },
       },
     },
