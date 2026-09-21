@@ -325,11 +325,68 @@ return {
       },
     },
   },
+
+  {
+    "wochap/aiwo",
+    dev = true,
+    keys = {
+      {
+        "<leader>an",
+        function()
+          require("aiwo").new { copy = true, focus = false }
+        end,
+        mode = { "n", "x" },
+        desc = "New prompt",
+      },
+      {
+        "<leader>aN",
+        function()
+          require("aiwo").new { copy = true, focus = false, input = true }
+        end,
+        mode = { "n", "x" },
+        desc = "New prompt + text",
+      },
+      {
+        "<leader>aa",
+        function()
+          require("aiwo").append { copy = true, focus = false }
+        end,
+        mode = { "n", "x" },
+        desc = "Append to prompt",
+      },
+      {
+        "<leader>aA",
+        function()
+          require("aiwo").append { copy = true, focus = false, input = true }
+        end,
+        mode = { "n", "x" },
+        desc = "Append + text",
+      },
+      {
+        "<leader>ap",
+        function()
+          require("aiwo").pick()
+        end,
+        desc = "Pick prompt",
+      },
+      {
+        "<leader>ao",
+        function()
+          require("aiwo").open()
+        end,
+        desc = "Open current prompt",
+      },
+    },
+    opts = {},
+  },
   {
     "folke/which-key.nvim",
     optional = true,
     opts = {
-      spec = { { "<leader>ac", group = "conflict" } },
+      spec = {
+        { "<leader>a", group = "aiwo", mode = { "n", "x" } },
+        { "<leader>ac", group = "conflict" },
+      },
     },
   },
 
