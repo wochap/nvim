@@ -145,6 +145,15 @@ function M.input(prompt, cb)
   vim.ui.input({ prompt = prompt }, cb)
 end
 
+---@param cmd string[]
+function M.terminal(cmd)
+  Snacks.terminal.open(cmd, {
+    cwd = vim.fn.getcwd(),
+    auto_close = false,
+    win = { position = "bottom" },
+  })
+end
+
 ---@param files string[]
 ---@param on_confirm fun(path: string)
 function M.pick(files, on_confirm)

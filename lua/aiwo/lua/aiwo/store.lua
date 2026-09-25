@@ -79,6 +79,12 @@ function M.current()
 end
 
 ---@param path string
+---@return boolean true when `path` is a prompt file of the current project
+function M.is_prompt(path)
+  return vim.startswith(path, M.project_dir() .. "/") and vim.endswith(path, ".md")
+end
+
+---@param path string
 function M.set_current(path)
   vim.g.aiwo_current = path
   pcall(vim.fn.writefile, { path }, marker())

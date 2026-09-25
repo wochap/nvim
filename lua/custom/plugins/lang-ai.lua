@@ -376,6 +376,13 @@ return {
         end,
         desc = "Open current prompt",
       },
+      {
+        "<leader>ar",
+        function()
+          require("aiwo").run()
+        end,
+        desc = "Run prompt (agents)",
+      },
     },
     opts = {},
   },

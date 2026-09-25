@@ -85,6 +85,52 @@ function M.pick()
   end)
 end
 
+---@param opts? table
+function M.run(opts)
+  local o = require("aiwo.config").get(opts)
+  local store = require "aiwo.store"
+  local ui = require "aiwo.ui"
+
+  local name = vim.api.nvim_buf_get_name(0)
+  local path = store.is_prompt(name) and name or store.current()
+  if not path then
+    Snacks.notify("No prompt for this project", { title = "aiwo", level = "warn" })
+    return
+  end
+
+  local buf = vim.fn.bufnr(path)
+  if buf ~= -1 then
+    ui.write(buf)
+  end
+
+  local lines = vim.fn.filereadable(path) == 1 and vim.fn.readfile(path) or {}
+  local text = vim.trim(table.concat(lines, "\n"))
+  if text == "" then
+    Snacks.notify("Prompt is empty", { title = "aiwo", level = "warn" })
+    return
+  end
+
+  local cmd = o.cmd
+  local argv
+  if type(cmd) == "function" then
+    argv = cmd(path)
+  else
+    argv = {}
+    for _, item in ipairs(cmd) do
+      if item == "{prompt}" then
+        argv[#argv + 1] = text
+      elseif item == "{file}" then
+        argv[#argv + 1] = path
+      else
+        argv[#argv + 1] = item
+      end
+    end
+  end
+
+  store.set_current(path)
+  ui.terminal(argv)
+end
+
 function M.open()
   local store = require "aiwo.store"
   local path = store.current()

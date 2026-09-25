@@ -7,6 +7,7 @@ local M = {}
 ---@field input boolean ask for free text before writing
 ---@field width number split width (fraction of the current window)
 ---@field dir? string base directory for prompt files (default: $XDG_RUNTIME_DIR/aiwo)
+---@field cmd string[]|fun(path: string): string[] agent command; "{prompt}" item replaced by prompt text, "{file}" by prompt path
 M.defaults = {
   copy = false,
   show = true,
@@ -14,6 +15,7 @@ M.defaults = {
   input = false,
   width = 0.5,
   dir = nil,
+  cmd = { "agents", "run", "-a", "pi", "{prompt}" },
 }
 
 ---@type aiwo.Config
