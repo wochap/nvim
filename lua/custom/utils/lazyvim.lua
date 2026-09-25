@@ -43,6 +43,20 @@ M.root_git = function(...)
   return require("lazyvim.util.root").git(...)
 end
 
+-- like M.root(), but falls back to buffer's file dir instead of cwd
+-- when no lsp/pattern root found
+M.root_or_bufdir = function(opts)
+  opts = opts or {}
+  local root_util = require "lazyvim.util.root"
+  local buf = opts.buf or vim.api.nvim_get_current_buf()
+  local roots = root_util.detect { all = false, buf = buf, spec = { "lsp", { ".git", "lua" } } }
+  if roots[1] then
+    return roots[1].paths[1]
+  end
+  local bufpath = root_util.bufpath(buf)
+  return bufpath and vim.fs.dirname(bufpath) or vim.uv.cwd()
+end
+
 M.safe_keymap_set = function(...)
   return require("lazyvim.util").safe_keymap_set(...)
 end
