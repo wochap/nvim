@@ -45,8 +45,9 @@ function M.open(path)
     width = config.options.width,
     enter = true,
     minimal = false,
+    fixbuf = false,
     bo = { filetype = "markdown", bufhidden = "hide" },
-    wo = { wrap = true, linebreak = true },
+    wo = { wrap = true, linebreak = true, winfixwidth = false, winfixheight = false },
     keys = {
       q = "close",
       ["<localleader>y"] = {
@@ -66,6 +67,8 @@ function M.open(path)
       },
     },
   }
+  vim.wo[win.win].winfixwidth = false
+  vim.wo[win.win].winfixheight = false
   M.wins[path] = win
   return win
 end
@@ -147,11 +150,13 @@ end
 
 ---@param cmd string[]
 function M.terminal(cmd)
-  Snacks.terminal.open(cmd, {
+  local win = Snacks.terminal.open(cmd, {
     cwd = vim.fn.getcwd(),
     auto_close = false,
-    win = { position = "bottom" },
+    win = { position = "bottom", fixbuf = false, wo = { winfixwidth = false, winfixheight = false } },
   })
+  vim.wo[win.win].winfixwidth = false
+  vim.wo[win.win].winfixheight = false
 end
 
 ---@param files string[]
