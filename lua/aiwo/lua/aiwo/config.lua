@@ -2,6 +2,7 @@ local M = {}
 
 ---@class aiwo.Config
 ---@field copy boolean copy whole prompt to clipboard after writing
+---@field store boolean write to a prompt file; when false only copy to clipboard (no file, no split)
 ---@field show boolean open the prompt split after writing
 ---@field focus boolean move cursor to the prompt split (needs show = true)
 ---@field input boolean ask for free text before writing
@@ -10,6 +11,7 @@ local M = {}
 ---@field cmd string[]|fun(path: string): string[] agent command; "{prompt}" item replaced by prompt text, "{file}" by prompt path
 M.defaults = {
   copy = false,
+  store = true,
   show = true,
   focus = true,
   input = false,

@@ -363,6 +363,14 @@ return {
         desc = "Append + text",
       },
       {
+        "<leader>ay",
+        function()
+          require("aiwo").new { copy = true, store = false }
+        end,
+        mode = "x",
+        desc = "Copy prompt (no buffer)",
+      },
+      {
         "<leader>ap",
         function()
           require("aiwo").pick()

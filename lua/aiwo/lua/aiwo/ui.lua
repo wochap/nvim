@@ -142,6 +142,12 @@ function M.copy(buf)
   yank_all(buf)
 end
 
+---@param lines string[]
+function M.copy_lines(lines)
+  vim.fn.setreg("+", lines, "l")
+  Snacks.notify("Prompt copied to clipboard", { title = "aiwo" })
+end
+
 ---@param prompt string
 ---@param cb fun(text: string?)
 function M.input(prompt, cb)

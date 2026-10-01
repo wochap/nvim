@@ -7,9 +7,14 @@ end
 
 ---@param opts table merged opts
 ---@param lines string[]
----@param path string
-local function commit(opts, lines, path)
+---@param get_path fun(): string
+local function commit(opts, lines, get_path)
   local ui = require "aiwo.ui"
+  if not opts.store then
+    ui.copy_lines(lines)
+    return
+  end
+  local path = get_path()
   local buf = ui.append(path, lines)
   if opts.copy then
     ui.copy(buf)
@@ -39,7 +44,7 @@ local function run(opts, get_path)
       out[#out + 1] = ""
     end
     vim.list_extend(out, lines)
-    commit(opts, out, get_path())
+    commit(opts, out, get_path)
   end
 
   if opts.input then
