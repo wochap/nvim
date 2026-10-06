@@ -72,10 +72,23 @@ nvim_utils.autocmd("User", {
   group = nvim_utils.augroup "load_clipboard",
   pattern = "VeryLazy",
   callback = function()
+    -- In ssh, copy to the local machine clipboard with OSC 52.
+    -- Paste reads the unnamed register, because OSC 52 paste
+    -- is blocked or prompts in most terminals
+    if vim.env.SSH_TTY then
+      local osc52 = require "vim.ui.clipboard.osc52"
+      local function paste()
+        return { vim.fn.split(vim.fn.getreg "", "\n"), vim.fn.getregtype "" }
+      end
+      vim.g.clipboard = {
+        name = "OSC 52",
+        copy = { ["+"] = osc52.copy "+", ["*"] = osc52.copy "*" },
+        paste = { ["+"] = paste, ["*"] = paste },
+      }
+    end
+
     -- Sync clipboard between OS and Neovim.
-    -- only set clipboard if not in ssh, to make sure the OSC 52
-    -- integration works automatically
-    vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
+    vim.opt.clipboard = "unnamedplus"
   end,
 })
 
