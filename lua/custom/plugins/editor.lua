@@ -23,7 +23,7 @@ return {
       {
         "<leader>O",
         function()
-          require("oil").open(lazyvim_utils.root())
+          require("oil").open(lazyvim_utils.root_or_bufdir())
         end,
         desc = "Oil (Root)",
       },
@@ -100,7 +100,7 @@ return {
           vim.schedule(function()
             -- focus or open
             require("neo-tree.command").execute {
-              dir = lazyvim_utils.root(),
+              dir = lazyvim_utils.root_or_bufdir(),
               reveal = true,
             }
           end)
@@ -937,7 +937,7 @@ return {
         "<leader>fF",
         function()
           snacks_utils.files {
-            cwd = lazyvim_utils.root(),
+            cwd = lazyvim_utils.root_or_bufdir(),
           }
         end,
         desc = "Files (Root)",
@@ -956,7 +956,7 @@ return {
         "<leader>fA",
         function()
           snacks_utils.files {
-            cwd = lazyvim_utils.root(),
+            cwd = lazyvim_utils.root_or_bufdir(),
             ignored = true,
           }
         end,
@@ -984,7 +984,7 @@ return {
         "<leader>fW",
         function()
           snacks_utils.grep {
-            cwd = lazyvim_utils.root(),
+            cwd = lazyvim_utils.root_or_bufdir(),
           }
         end,
         desc = "Grep (Root)",

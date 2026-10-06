@@ -59,6 +59,7 @@
   "multicursor.nvim": { "branch": "1.0", "commit": "704b99f10a72cc05d370cfeb294ff83412a8ab55" },
   "neo-tree.nvim": { "branch": "main", "commit": "6679b9395526b52ddb2b137fcd5255dab71c5a58" },
   "neotest": { "branch": "master", "commit": "4e2cd42c4252ee9d2435571d9adcdbc1d47931fe" },
+  "neotest-dart": { "branch": "main", "commit": "f10fc22a17559b3a7abb400e266db0a1201979e7" },
   "neotest-golang": { "branch": "main", "commit": "61726ad54b6b94c73d130b65c33575d13a61fc11" },
   "neotest-pest": { "branch": "main", "commit": "3388a5f00001303020ce885e18007ccd1835212c" },
   "neotest-phpunit": { "branch": "main", "commit": "40e53c4294726a16f34f1a383a94c570553c6d46" },
