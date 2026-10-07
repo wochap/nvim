@@ -572,7 +572,8 @@ return {
   },
 
   {
-    "sindrets/diffview.nvim",
+    "dlyongemallo/diffview-plus.nvim",
+    version = "*",
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
     keys = {
       {

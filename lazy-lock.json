@@ -20,7 +20,7 @@
   "conform.nvim": { "branch": "master", "commit": "619363c30309d29ffa631e67c8183f2a72caa373" },
   "copilot.lua": { "branch": "master", "commit": "d661d65b4cab20a5c164f6d9081d91ed324fe4d8" },
   "crates.nvim": { "branch": "main", "commit": "694357861ec9ebf12475ddcdd04ea45a0923c32d" },
-  "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
+  "diffview-plus.nvim": { "branch": "main", "commit": "875d16dd8c8aa86f1a5c3b5cef49e1133980ae94" },
   "emmet-vim": { "branch": "master", "commit": "e98397144982d1e75b20d94d55a82de3ec8f648d" },
   "fidget.nvim": { "branch": "main", "commit": "b61e8af9b8b68ee0ec7da5fb7a8c203aae854f2e" },
   "flash.nvim": { "branch": "main", "commit": "b6346946d10d07998efee029fb0f7a593806d0cd" },
