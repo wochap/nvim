@@ -1567,7 +1567,7 @@ return {
             return "]c"
           end
           vim.schedule(function()
-            require("gitsigns").nav_hunk "next"
+            require("gitsigns").nav_hunk("next", { target = "all" })
           end)
           return "<Ignore>"
         end, "Next Hunk", { expr = true, buffer = bufnr })
@@ -1576,7 +1576,7 @@ return {
             return "[c"
           end
           vim.schedule(function()
-            require("gitsigns").nav_hunk "prev"
+            require("gitsigns").nav_hunk("prev", { target = "all" })
           end)
           return "<Ignore>"
         end, "Prev Hunk", { expr = true, buffer = bufnr })
