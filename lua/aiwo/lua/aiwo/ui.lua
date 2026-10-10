@@ -23,6 +23,16 @@ function M.close_all(except)
   end
 end
 
+--- Let `<C-w>=` resize the split. Snacks.win forces winfix* on splits and
+--- re-applies `opts.wo` on show/buffer swap, so fix the stored opts too.
+---@param win snacks.win
+local function unfix(win)
+  win.opts.wo.winfixwidth = false
+  win.opts.wo.winfixheight = false
+  vim.wo[win.win].winfixwidth = false
+  vim.wo[win.win].winfixheight = false
+end
+
 ---@param path string
 ---@return snacks.win
 function M.open(path)
@@ -47,7 +57,7 @@ function M.open(path)
     minimal = false,
     fixbuf = false,
     bo = { filetype = "markdown", bufhidden = "hide" },
-    wo = { wrap = true, linebreak = true, winfixwidth = false, winfixheight = false },
+    wo = { wrap = true, linebreak = true },
     keys = {
       q = "close",
       ["<localleader>y"] = {
@@ -67,8 +77,7 @@ function M.open(path)
       },
     },
   }
-  vim.wo[win.win].winfixwidth = false
-  vim.wo[win.win].winfixheight = false
+  unfix(win)
   M.wins[path] = win
   return win
 end
@@ -155,14 +164,29 @@ function M.input(prompt, cb)
 end
 
 ---@param cmd string[]
-function M.terminal(cmd)
+---@param opts { height: number, keep: boolean }
+function M.terminal(cmd, opts)
   local win = Snacks.terminal.open(cmd, {
     cwd = vim.fn.getcwd(),
-    auto_close = false,
-    win = { position = "bottom", fixbuf = false, wo = { winfixwidth = false, winfixheight = false } },
+    auto_close = not opts.keep,
+    auto_insert = not opts.keep,
+    win = {
+      position = "bottom",
+      height = opts.height,
+      fixbuf = false,
+    },
   })
-  vim.wo[win.win].winfixwidth = false
-  vim.wo[win.win].winfixheight = false
+  unfix(win)
+  if opts.keep then
+    -- leave terminal mode on exit, otherwise the next keypress wipes the buffer
+    win:on("TermClose", function(self)
+      vim.schedule(function()
+        if vim.api.nvim_get_current_buf() == self.buf then
+          vim.cmd.stopinsert()
+        end
+      end)
+    end, { buf = true })
+  end
 end
 
 ---@param files string[]

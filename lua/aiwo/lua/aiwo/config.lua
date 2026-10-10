@@ -7,6 +7,8 @@ local M = {}
 ---@field focus boolean move cursor to the prompt split (needs show = true)
 ---@field input boolean ask for free text before writing
 ---@field width number split width (fraction of the current window)
+---@field height number agent terminal split height (fraction of the editor)
+---@field keep boolean keep the agent terminal open after the process exits
 ---@field dir? string base directory for prompt files (default: $XDG_RUNTIME_DIR/aiwo)
 ---@field cmd string[]|fun(path: string): string[] agent command; "{prompt}" item replaced by prompt text, "{file}" by prompt path
 M.defaults = {
@@ -16,6 +18,8 @@ M.defaults = {
   focus = true,
   input = false,
   width = 0.5,
+  height = 0.5,
+  keep = false,
   dir = nil,
   cmd = { "agents", "run", "-a", "pi", "{prompt}" },
 }

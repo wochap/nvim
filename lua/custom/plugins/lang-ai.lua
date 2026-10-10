@@ -391,6 +391,13 @@ return {
         end,
         desc = "Run prompt (agents)",
       },
+      {
+        "<leader>aR",
+        function()
+          require("aiwo").run { keep = true }
+        end,
+        desc = "Run prompt (agents, keep open)",
+      },
     },
     opts = {},
   },

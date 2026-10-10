@@ -133,7 +133,7 @@ function M.run(opts)
   end
 
   store.set_current(path)
-  ui.terminal(argv)
+  ui.terminal(argv, { height = o.height, keep = o.keep })
 end
 
 function M.open()
