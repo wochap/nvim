@@ -163,10 +163,29 @@ function M.input(prompt, cb)
   vim.ui.input({ prompt = prompt }, cb)
 end
 
+--- One-line shell rendering of `cmd`, quoting only the args that need it.
+--- Long args (the prompt) keep their start and end: "write a com...... nixpkgs".
+---@param cmd string[]
+---@return string
+local function cmd_line(cmd)
+  local parts = {}
+  for _, arg in ipairs(cmd) do
+    arg = vim.trim((arg:gsub("%s+", " ")))
+    if vim.fn.strchars(arg) > 60 then
+      arg = vim.fn.strcharpart(arg, 0, 30) .. "......" .. vim.fn.strcharpart(arg, vim.fn.strchars(arg) - 15)
+    end
+    parts[#parts + 1] = arg:match "^[%w%-_./=:@%%+,]+$" and arg or vim.fn.shellescape(arg)
+  end
+  return table.concat(parts, " ")
+end
+
 ---@param cmd string[]
 ---@param opts { height: number, keep: boolean }
 function M.terminal(cmd, opts)
-  local win = Snacks.terminal.open(cmd, {
+  -- print the command before running it, like a shell would
+  local argv = { "sh", "-c", 'printf "\\033[2m$ %s\\033[0m\\n\\n" "$1"; shift; exec "$@"', "sh", cmd_line(cmd) }
+  vim.list_extend(argv, cmd)
+  local win = Snacks.terminal.open(argv, {
     cwd = vim.fn.getcwd(),
     auto_close = not opts.keep,
     auto_insert = not opts.keep,
