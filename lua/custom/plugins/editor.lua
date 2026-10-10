@@ -578,7 +578,7 @@ return {
     keys = {
       {
         "<leader>gf",
-        "<cmd>DiffviewFileHistory --diff-merges=combined %<CR>",
+        "<cmd>DiffviewFileHistory %<CR>",
         desc = "Buffer Git History",
       },
       {
