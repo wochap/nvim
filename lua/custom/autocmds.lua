@@ -2,11 +2,8 @@ local editor_utils = require "custom.utils.editor"
 local nvim_utils = require "custom.utils.nvim"
 local constants = require "custom.constants"
 
--- Check if we need to reload the file when it changed
-nvim_utils.autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = nvim_utils.augroup "checktime",
-  command = "checktime",
-})
+-- Reload buffers changed outside nvim (polling + fs_event, prompt on conflict)
+require("custom.utils.autoreload").setup()
 
 -- Resize splits if window got resized
 nvim_utils.autocmd("VimResized", {
