@@ -196,4 +196,6 @@ map({ "n", "v" }, "<leader>mj", [[:s/ \+//g<CR>]], "Clear whitespaces", { norema
 if constants.in_neovide then
   map({ "n", "v", "i", "c", "t" }, "<C-S-v>", keymaps_utils.paste, "Paste", { noremap = true })
   map({ "n", "v", "i", "c", "t" }, "<Insert>", keymaps_utils.paste, "Paste", { noremap = true })
+  map({ "n", "v", "i", "c", "t" }, "<S-Insert>", keymaps_utils.paste, "Paste", { noremap = true })
+  map("v", "<C-Insert>", '"+y', "Copy", { noremap = true })
 end
