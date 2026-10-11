@@ -44,6 +44,7 @@ function M.open(path)
   end
   if win then
     win:show()
+    vim.cmd "wincmd ="
     win:focus()
     return win
   end
@@ -78,6 +79,7 @@ function M.open(path)
     },
   }
   unfix(win)
+  vim.cmd "wincmd ="
   M.wins[path] = win
   return win
 end
