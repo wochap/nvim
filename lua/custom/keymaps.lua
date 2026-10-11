@@ -197,5 +197,8 @@ if constants.in_neovide then
   map({ "n", "v", "i", "c", "t" }, "<C-S-v>", keymaps_utils.paste, "Paste", { noremap = true })
   map({ "n", "v", "i", "c", "t" }, "<Insert>", keymaps_utils.paste, "Paste", { noremap = true })
   map({ "n", "v", "i", "c", "t" }, "<S-Insert>", keymaps_utils.paste, "Paste", { noremap = true })
-  map("v", "<C-Insert>", '"+y', "Copy", { noremap = true })
 end
+
+-- terminal like copy, kitty/foot send <C-Insert> for both keys when they have no selection
+map("v", "<C-Insert>", '"+y', "Copy", { noremap = true })
+map("v", "<C-S-c>", '"+y', "Copy", { noremap = true })
