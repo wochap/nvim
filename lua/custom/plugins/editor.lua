@@ -1605,7 +1605,25 @@ return {
         --   gitsigns.diffthis "~"
         -- end, "Diff This ~", { buffer = bufnr })
 
-        map({ "o", "x" }, "ih", gitsigns.select_hunk, "Select Hunk (GitSigns)", { silent = true })
+        -- select unstaged hunk, fallback to staged hunk
+        map({ "o", "x" }, "ih", function()
+          local bcache = require("gitsigns.cache").cache[bufnr]
+          if not bcache then
+            return
+          end
+          local hunk
+          require("gitsigns.async")
+            .run(function()
+              hunk = bcache:get_hunk(nil, true, false) or bcache:get_hunk(nil, true, true)
+            end)
+            :wait()
+          if not hunk then
+            return
+          end
+          -- leave any visual mode (v, V, CTRL-V) before reselecting linewise
+          local esc = vim.fn.mode():find "^[vV\22]" and "\27" or ""
+          vim.cmd("normal! " .. esc .. hunk.added.start .. "GV" .. hunk.vend .. "G")
+        end, "Select Hunk (GitSigns)", { silent = true })
       end,
     },
   },
