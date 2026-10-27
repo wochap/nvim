@@ -877,6 +877,9 @@ return {
       engines = {
         ripgrep = {
           showReplaceDiff = true,
+          defaults = {
+            flags = "--fixed-strings", -- or "-F"
+          },
         },
       },
       icons = {
