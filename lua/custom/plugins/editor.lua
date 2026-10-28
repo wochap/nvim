@@ -223,7 +223,7 @@ return {
                   return
                 end
 
-                vim.fn.system { "trash-put", vim.fn.fnameescape(path) }
+                vim.fn.system { "trash-put", path }
                 require("neo-tree.sources.manager").refresh(state.name)
               end)
             end)
@@ -243,7 +243,7 @@ return {
                 end
 
                 for _, node in ipairs(selected_nodes) do
-                  vim.fn.system { "trash-put", vim.fn.fnameescape(node.path) }
+                  vim.fn.system { "trash-put", node.path }
                 end
                 require("neo-tree.sources.manager").refresh(state.name)
               end)
