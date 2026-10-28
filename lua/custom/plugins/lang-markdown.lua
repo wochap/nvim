@@ -87,7 +87,7 @@ return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     enabled = not constants.in_kittyscrollback,
-    event = (constants.in_zk and { "LazyFile", "VeryLazy" }) or "VeryLazy",
+    event = ((constants.in_zk or constants.in_obsidian) and { "LazyFile", "VeryLazy" }) or "VeryLazy",
     opts = {
       file_types = { "markdown" },
       change_events = { "DiagnosticChanged" },
@@ -118,7 +118,7 @@ return {
               severity = vim.diagnostic.severity.HINT,
             })
             for _, diagnostic in ipairs(diagnostics) do
-              if diagnostic.source == "zk" then
+              if diagnostic.source == "zk" or diagnostic.source == "obsidian-ls" then
                 return diagnostic.message
               end
             end

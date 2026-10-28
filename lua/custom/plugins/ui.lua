@@ -68,7 +68,7 @@ return {
 
   {
     "b0o/incline.nvim",
-    enabled = not constants.in_kittyscrollback and not constants.in_leetcode and not constants.in_zk,
+    enabled = not constants.in_kittyscrollback and not constants.in_leetcode and not constants.in_zk and not constants.in_obsidian,
     event = "VeryLazy",
     opts = {
       ignore = {
@@ -532,6 +532,12 @@ return {
 
       image = {
         enabled = constants.in_kitty and not constants.in_neovide,
+        resolve = function(path, src)
+          local ok, api = pcall(require, "obsidian.api")
+          if ok and api.path_is_note(path) then
+            return api.resolve_attachment_path(src)
+          end
+        end,
         doc = {
           max_width = 80,
           max_height = 40,

@@ -7,9 +7,10 @@ return {
     "obsidian-nvim/obsidian.nvim",
     version = "*",
     lazy = not constants.in_obsidian,
+    cmd = { "Obsidian" },
     event = {
-      "BufReadPre " .. vim.fn.expand "~" .. "/Sync/obsidian/*.md",
-      "BufNewFile " .. vim.fn.expand "~" .. "/Sync/obsidian/*.md",
+      "BufReadPost " .. vim.fn.expand "~" .. "/Sync/obsidian/**/*.md",
+      "BufNewFile " .. vim.fn.expand "~" .. "/Sync/obsidian/**/*.md",
     },
     keys = {
       {
@@ -25,14 +26,35 @@ return {
         desc = "New",
       },
       {
+        "<leader>iN",
+        "<Cmd>lua require('custom.utils-plugins.obsidian').new(true)<CR>",
+        desc = "New (Same Directory)",
+      },
+      {
+        "<leader>ii",
+        "<Cmd>lua require('custom.utils-plugins.obsidian').insert_link()<CR>",
+        desc = "Insert Link",
+      },
+      {
+        "<leader>iI",
+        "<Cmd>lua require('custom.utils-plugins.obsidian').create_and_link()<CR>",
+        desc = "Create & Link (and follow)",
+        mode = { "n", "v" },
+      },
+      {
         "<leader>if",
         "<Cmd>Obsidian quick_switch<CR>",
-        desc = "Picker", -- notes picker
+        desc = "Picker (find notes)",
+      },
+      {
+        "<leader>is",
+        "<Cmd>Obsidian search<CR>",
+        desc = "Search (grep notes)",
       },
       {
         "<leader>iw",
         "<Cmd>Obsidian workspace<CR>",
-        desc = "Picker (workspace)", -- notes picker
+        desc = "Picker (workspace)",
       },
       {
         "<leader>im",
@@ -45,9 +67,29 @@ return {
         desc = "Pick Obsidian Backlinks",
       },
       {
+        "<leader>iB",
+        "<Cmd>Obsidian bookmarks<CR>",
+        desc = "Bookmarks",
+      },
+      {
         "<leader>iL",
         "<Cmd>Obsidian links<CR>",
         desc = "Pick Obsidian Links",
+      },
+      {
+        "<leader>it",
+        "<Cmd>Obsidian template<CR>",
+        desc = "Insert Template",
+      },
+      {
+        "<leader>iO",
+        "<Cmd>Obsidian toc<CR>",
+        desc = "Table of Contents",
+      },
+      {
+        "<leader>iT",
+        "<Cmd>Obsidian tags<CR>",
+        desc = "Tags",
       },
       {
         "<leader>ip",
@@ -55,51 +97,78 @@ return {
         desc = "Paste Image",
       },
       {
+        "<leader>ir",
+        "<Cmd>lua require('custom.utils-plugins.obsidian').rename()<CR>",
+        desc = "Rename Note & References",
+      },
+      {
         "<leader>id",
         "<Cmd>Obsidian today<CR>",
         desc = "New (Daily)",
       },
       {
+        "<leader>iy",
+        "<Cmd>Obsidian yesterday<CR>",
+        desc = "Yesterday (Daily)",
+      },
+      {
         "<leader>il",
-        "<Cmd>Obsidian today -1<CR>",
+        "<Cmd>lua require('custom.utils-plugins.obsidian').open_last_daily()<CR>",
         desc = "Last (Daily)",
+      },
+      {
+        "<leader>iD",
+        "<Cmd>Obsidian dailies<CR>",
+        desc = "Dailies (Picker)",
       },
       {
         "<leader>io",
         "<Cmd>Obsidian open<CR>",
         desc = "Open In Obsidian",
       },
-      -- {
-      --   "<leader>mx",
-      --   "<Cmd>Obsidian toggle_checkbox<CR>",
-      --   desc = "Toggle checkbox",
-      -- },
+      {
+        "<leader>ie",
+        "<Cmd>Obsidian extract_note<CR>",
+        desc = "Extract Note",
+        mode = "v",
+      },
+      {
+        "<leader>il",
+        "<Cmd>Obsidian link<CR>",
+        desc = "Link Selection",
+        mode = "v",
+      },
+      {
+        "<leader>iL",
+        "<Cmd>Obsidian link_new<CR>",
+        desc = "Link to New Note",
+        mode = "v",
+      },
     },
     opts = {
       legacy_commands = false,
-      workspaces = {
-        -- TODO: automagically populate workspaces
-        {
-          name = "UTP",
-          path = "~/Sync/obsidian/utp",
-        },
-        {
-          name = "Recipes",
-          path = "~/Sync/obsidian/recipes",
-        },
-        {
-          name = "VisualFaktory",
-          path = "~/Sync/obsidian/VisualFaktory",
-        },
-      },
+      workspaces = require("custom.utils-plugins.obsidian").get_workspaces(),
       log_level = vim.log.levels.ERROR,
       notes_subdir = "",
+      new_notes_location = "current_dir",
       daily_notes = {
         folder = "journal/dailies",
-        -- template = nil,
+        date_format = "YYYY-MM-DD",
+        default_tags = { "daily-notes" },
+      },
+      templates = {
+        folder = "templates",
+        date_format = "YYYY-MM-DD",
+        time_format = "HH:mm",
+      },
+      cache = {
+        enabled = true,
+      },
+      quick_switch = {
+        show_existing_only = false,
       },
       picker = {
-        name = "snacks.pick",
+        name = "snacks.picker",
         note_mappings = {
           new = "<C-n>",
           insert_link = "<C-l>",
@@ -109,53 +178,83 @@ return {
           insert_tag = "<C-l>",
         },
       },
-      wiki_link_func = "use_alias_only",
-      markdown_link_func = "use_alias_only",
-      follow_url_func = function(url)
-        vim.fn.jobstart { "open", url }
-      end,
-      follow_img_func = function(img)
-        vim.fn.jobstart { "open", img }
-      end,
-      note_id_func = function(title)
-        -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
-        -- In this case a note with the title 'My new note' will be given an ID that looks
-        -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
-        local suffix = ""
-        if title ~= nil then
-          -- If title is given, transform it into valid file name.
-          suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-        else
-          -- If title is nil, just add 4 random uppercase letters to the suffix.
-          for _ = 1, 4 do
-            suffix = suffix .. string.char(math.random(65, 90))
+      link = {
+        style = "wiki",
+        format = "shortest",
+      },
+      open = {
+        func = vim.ui.open,
+      },
+      frontmatter = {
+        enabled = true,
+        func = function(note)
+          -- Match Obsidian app: filename is note ID, do not output 'id' in frontmatter
+          local out = {}
+          if note.aliases and #note.aliases > 0 then
+            out.aliases = note.aliases
           end
+          if note.tags and #note.tags > 0 then
+            out.tags = note.tags
+          end
+          if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+            for k, v in pairs(note.metadata) do
+              if k ~= "id" then
+                out[k] = v
+              end
+            end
+          end
+          return out
+        end,
+        sort = { "aliases", "tags" },
+      },
+      note_id_func = function(title, dir)
+        if title and title ~= "" then
+          return title
         end
-        return tostring(os.time()) .. "_" .. suffix
+        local base = "Untitled"
+        if not dir then
+          return base
+        end
+        local path = require("obsidian.path").new(dir)
+        local candidate = base
+        local idx = 1
+        while (path / candidate):with_suffix(".md", true):exists() do
+          candidate = string.format("%s %d", base, idx)
+          idx = idx + 1
+        end
+        return candidate
       end,
       ui = {
         enable = false,
       },
       attachments = {
-        img_folder = "attachments",
-      },
-      completion = {
-        nvim_cmp = false,
-        blink = true,
+        folder = "attachments",
       },
       callbacks = {
         post_set_workspace = function(workspace)
-          vim.api.nvim_set_current_dir(tostring(workspace.root))
-          require("persistence").load()
+          require("custom.utils-plugins.obsidian").post_set_workspace(workspace)
         end,
-        enter_note = function(_, note)
-          keymaps_utils.map("n", "gf", function()
-            return require("obsidian").util.gf_passthrough()
-          end, "", { noremap = false, expr = true, buffer = true })
-          keymaps_utils.map("n", "<cr>", function()
-            return require("obsidian").util.smart_action()
-          end, "", { buffer = true, expr = true })
-          -- TODO: ObsidianExtractNote
+        enter_note = function()
+          local actions = require "obsidian.actions"
+          keymaps_utils.map("n", "gf", actions.follow_link, "Open Link Under Cursor", { buffer = true })
+          keymaps_utils.map("n", "<cr>", actions.smart_action, "Smart Action", { buffer = true, expr = true })
+          keymaps_utils.map("n", "<leader>ii", function()
+            require("custom.utils-plugins.obsidian").insert_link()
+          end, "Insert Link", { buffer = true })
+          keymaps_utils.map({ "n", "v" }, "<leader>iI", function()
+            require("custom.utils-plugins.obsidian").create_and_link()
+          end, "Create & Link (and follow)", { buffer = true })
+          keymaps_utils.map("n", "<leader>iN", function()
+            require("custom.utils-plugins.obsidian").new(true)
+          end, "New (Same Directory)", { buffer = true })
+          keymaps_utils.map("n", "<leader>ir", function()
+            require("custom.utils-plugins.obsidian").rename()
+          end, "Rename Note & References", { buffer = true })
+          keymaps_utils.map("v", "<leader>ie", "<Cmd>Obsidian extract_note<CR>", "Extract Note", { buffer = true })
+          keymaps_utils.map("v", "<leader>il", "<Cmd>Obsidian link<CR>", "Link Selection", { buffer = true })
+          keymaps_utils.map("v", "<leader>iL", function()
+            require("custom.utils-plugins.obsidian").create_and_link()
+          end, "Link Selection to New Note (and follow)", { buffer = true })
         end,
       },
     },
