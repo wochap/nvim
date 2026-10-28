@@ -228,7 +228,7 @@ return {
         enable = false,
       },
       attachments = {
-        folder = "attachments",
+        folder = "Attachments",
       },
       callbacks = {
         post_set_workspace = function(workspace)
@@ -255,6 +255,77 @@ return {
           keymaps_utils.map("v", "<leader>iL", function()
             require("custom.utils-plugins.obsidian").create_and_link()
           end, "Link Selection to New Note (and follow)", { buffer = true })
+        end,
+      },
+    },
+  },
+  {
+    "folke/snacks.nvim",
+    optional = true,
+    opts = {
+      image = {
+        resolve = function(path, src)
+          local ok, api = pcall(require, "obsidian.api")
+          if not (ok and path and api.path_is_note(path)) then
+            return nil
+          end
+
+          src = src:gsub("^%!%[%[", ""):gsub("%]%]$", "")
+          src = src:gsub("|.*$", "")
+          src = vim.uri_decode(src) or src
+
+          if vim.startswith(src, "file://") then
+            src = vim.uri_to_fname(src)
+          end
+
+          -- 1. Try vanilla obsidian.nvim
+          local ok_res, resolved = pcall(api.resolve_attachment_path, src, path)
+          if ok_res and resolved then
+            local resolved_str = tostring(resolved)
+            if vim.uv.fs_stat(resolved_str) then
+              return resolved_str
+            end
+          end
+
+          -- 2. If vanilla obsidian.nvim didn't find the attachment, check obsidian app (.obsidian/app.json)
+          local ok_ws, ws_dir = pcall(api.resolve_workspace_dir, path)
+          local ws_root = ok_ws and ws_dir and tostring(ws_dir) or nil
+          if not ws_root then
+            return nil
+          end
+
+          local folder_setting = nil
+          local app_json = vim.fs.joinpath(ws_root, ".obsidian", "app.json")
+          local f = io.open(app_json, "r")
+          if f then
+            local content = f:read "*a"
+            f:close()
+            if content and content ~= "" then
+              local ok_json, data = pcall(vim.json.decode, content)
+              if ok_json and type(data) == "table" and data.attachmentFolderPath then
+                folder_setting = data.attachmentFolderPath
+              end
+            end
+          end
+
+          if folder_setting and folder_setting ~= "" and folder_setting ~= "/" then
+            local candidate
+            if folder_setting:sub(1, 2) == "./" then
+              local rel_folder = folder_setting:sub(3)
+              candidate = vim.fs.normalize(vim.fs.joinpath(vim.fs.dirname(path), rel_folder, src))
+            else
+              candidate = vim.fs.normalize(vim.fs.joinpath(ws_root, folder_setting:gsub("^/", ""), src))
+            end
+            if vim.uv.fs_stat(candidate) then
+              return candidate
+            end
+          end
+
+          -- 3. If that setting doesn't exist (or not found in configured folder), assume attachments are in root path of vault
+          local root_candidate = vim.fs.normalize(vim.fs.joinpath(ws_root, src))
+          if vim.uv.fs_stat(root_candidate) then
+            return root_candidate
+          end
         end,
       },
     },
